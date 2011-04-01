@@ -9,11 +9,42 @@
 </head>
 
 <body suite='Accordions'>
-<h1> Test for accordions:</h1>
 
+<h1> Accordions </h1>
+
+<hr>
+
+<h2> How To: </h2>
+<div class='description'>
+  <p>
+    Demo of the accordion widgets. The only thing required to setup
+  accordions is to setup you're html properly. Then, onload, the
+  accordion.js file combs the html for the elements you've declared as
+  accordions and sets them up. To see how these accordions were
+  setup, you should look at the page source, since the js added
+  classes onload.
+  </p>
+
+  <p>
+    To setup an accordion:
+    <ol>
+      <li> Add the mw_accordion attribute to the button element and
+  all of the top level content elements. Set its value to be the name
+  of the accordion (which should be unique to the page).</li>
+      <li> Add the mw_button attribute to the button element (no value
+  required).</li>
+      <li> Add the mw_content attribute to the content element(s) (no
+  value required).</li>
+    </ul>
+  </p>
+  
+  
+</div>
+
+<h2> Test for accordions:</h2>
 <div class='test' name='Simple'>
 
-  <h1> Test 1 : Simple -- Single button / single content element </h1>
+  <h3> Test 1 : Simple -- Single button / single content element </h3>
   
   <div mw_accordion='SimpleClothing' mw_button>
     Clothings
@@ -31,7 +62,7 @@
 
 <div class='test' name='Common'>
 
-  <h1> Test 2 : Common - Single button / multiple content elements </h1>
+  <h3> Test 2 : Common - Single button / multiple content elements </h3>
   
   <div mw_accordion='CommonClothing' mw_button>
     Clothings
@@ -51,8 +82,8 @@
 
 <div class='test' name='Multiple'>
 
-  <h1> Test 3 : Multiple -- Several buttons / several content
-  elements, but equal numbers of each </h1>
+  <h3> Test 3 : Multiple -- Several buttons / several content
+  elements, but equal numbers of each </h3>
   
   <div mw_accordion='MultipleClothing' mw_button>
     Clothings
@@ -94,8 +125,8 @@
 
 <div class='test' name='UnevenMultiple'>
 
-  <h1> Test 3 : Multiple -- Several buttons / several content
-  elements, but unequal numbers of each (more content - per button) </h1>
+  <h3> Test 3 : Multiple -- Several buttons / several content
+  elements, but unequal numbers of each (more content - per button) </h3>
   
   <div mw_accordion='UnevenMultipleClothing' mw_button>
     Clothings
@@ -142,5 +173,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Fri Apr  1 15:03:18 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Fri Apr  1 15:58:26 PDT 2011 <!-- hhmts end -->
 </body> </html>
