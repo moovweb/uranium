@@ -1,12 +1,3 @@
-// This is not used yet ... but I'm going to put everything under the global scope so that we do it right from the beginning
-
-if (typeof(Moovweb) == "undefined")
-   Moovweb = {}
-Moovweb.widgets = {}
-
-//////////
-
-
 function AccordionLoader(){
   this.classes = {
     "button" : "mw_accordion_button",
@@ -15,7 +6,6 @@ function AccordionLoader(){
   }
 }
 
-// This will be added to a queue of initialization methods that the global Moovweb object will call onload
 AccordionLoader.prototype.find_accordions = function(){
   var accordion_elements = x$('*[mw_accordion]');
   var accordions = {};
@@ -70,6 +60,7 @@ AccordionLoader.prototype.construct_button_callback = function(contents) {
   }
 }
 
+// This will be added to a queue of initialization methods that the global Moovweb object will call onload
 AccordionLoader.prototype.initialize = function() {
   var accordions = this.find_accordions();
   var self = this;
