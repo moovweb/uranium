@@ -4,4 +4,4 @@
   In the old paradigm, we had the blocks template out javascript and pass values to the javascript. This library is adopting a different approach -- 'declarative javascript'. The way this works is to make a widget, just make sure it has the right widget structure (a few attributes), and the javascript will take care of the rest.
 
 = Play With It =
-  I'd suggest checking out the repo into either your public dropbox folder, or wherever you can host files locally. This way, you can view the examples in the /tests directory. These tests' html provide examples of how these widgets can be used.
+  Check out the examples in the /tests directory. These tests' html provide examples of how these widgets can be used. Its important to understand how the js works. The js combs the html at onload, and then initializes the widgets as needed. As a result, if you view the html in the inspector, you're actually seeing the html after the js has had a crack at it. To see how the html was structured to begin with, view the page source. This is the structure that you need to mimick to utilize the widgets.
