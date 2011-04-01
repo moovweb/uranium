@@ -1,0 +1,15 @@
+.mw_accordion_button { 
+  background-color: #33CC00;	
+}
+
+.mw_accordion_content {
+  background-color: #BBCCFF;
+}
+
+.mw_accordion_button.closed {
+  opacity: 0.5;
+}
+
+.mw_accordion_content.closed {
+  display: none;
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title> Accordion Unit Tests</title>
+<script src="../external-lib/xui-2.0.0.js"></script>
+<script src="../accordion.js"></script>
+<link rel="stylesheet" type='text/css' href='test.css' />
+<link rel="stylesheet" type='text/css' href='accordion.css' />
+</head>
+
+<body suite='Accordions'>
+<h1> Test for accordions:</h1>
+
+<div class='test' name='Simple'>
+
+  <h1> Test 1 : Simple -- Single button / single content element </h1>
+  
+  <div mw_accordion='SimpleClothing' mw_button>
+    Clothings
+  </div>
+
+  <ul mw_accordion='SimpleClothing' mw_content>
+    <li> Hat </li>
+    <li> Socks </li>
+    <li> Shoes </li>
+    <li> Gloves </li>
+    <li> Shirts </li>
+  </ul>
+  
+</div>
+
+<div class='test' name='Common'>
+
+  <h1> Test 2 : Common - Single button / multiple content elements </h1>
+  
+  <div mw_accordion='CommonClothing' mw_button>
+    Clothings
+  </div>
+
+  <ul mw_accordion='CommonClothing' mw_content>
+    <li> Hat </li>
+    <li> Socks </li>
+    <li> Shoes </li>
+    <li> Gloves </li>
+    <li> Shirts </li>
+  </ul>
+
+  <a href='#' mw_accordion='CommonClothing' mw_content> More ... </a>
+  
+</div>
+
+<div class='test' name='Multiple'>
+
+  <h1> Test 3 : Multiple -- Several buttons / several content
+  elements, but equal numbers of each </h1>
+  
+  <div mw_accordion='MultipleClothing' mw_button>
+    Clothings
+  </div>
+
+  <ul mw_accordion='MultipleClothing' mw_content>
+    <li> Hat </li>
+    <li> Socks </li>
+    <li> Shoes </li>
+    <li> Gloves </li>
+    <li> Shirts </li>
+  </ul>
+
+  <div mw_accordion='MultipleGear' mw_button>
+    Gear
+  </div>
+
+  <ul mw_accordion='MultipleGear' mw_content>
+    <li> Sports </li>
+    <li> Hiking </li>
+    <li> Camping </li>
+    <li> Biking </li>
+    <li> Surfing </li>
+  </ul>
+
+  <div mw_accordion='MultipleMusic' mw_button>
+    Music
+  </div>
+
+  <ul mw_accordion='MultipleMusic' mw_content>
+    <li> CDs </li>
+    <li> By Artist </li>
+    <li> By Genre </li>
+    <li> By Decade </li>
+    <li> Random </li>
+  </ul>  
+  
+</div>
+
+<div class='test' name='UnevenMultiple'>
+
+  <h1> Test 3 : Multiple -- Several buttons / several content
+  elements, but unequal numbers of each (more content - per button) </h1>
+  
+  <div mw_accordion='UnevenMultipleClothing' mw_button>
+    Clothings
+  </div>
+
+  <ul mw_accordion='UnevenMultipleClothing' mw_content>
+    <li> Hat </li>
+    <li> Socks </li>
+    <li> Shoes </li>
+    <li> Gloves </li>
+    <li> Shirts </li>
+  </ul>
+  <a href='#' mw_accordion='UnevenMultipleClothing' mw_content> More ... </a>
+  
+  <div mw_accordion='UnevenMultipleGear' mw_button>
+    Gear
+  </div>
+
+  <ul mw_accordion='UnevenMultipleGear' mw_content>
+    <li> Sports </li>
+    <li> Hiking </li>
+    <li> Camping </li>
+    <li> Biking </li>
+    <li> Surfing </li>
+  </ul>
+  <a href='#' mw_accordion='UnevenMultipleGear' mw_content> More ... </a>
+
+  <div mw_accordion='UnevenMultipleMusic' mw_button>
+    Music
+  </div>
+
+  <ul mw_accordion='UnevenMultipleMusic' mw_content>
+    <li> CDs </li>
+    <li> By Artist </li>
+    <li> By Genre </li>
+    <li> By Decade </li>
+    <li> Random </li>
+  </ul>  
+  <a href='#' mw_accordion='UnevenMultipleMusic' mw_content> More ... </a>
+  
+</div>
+
+
+
+<hr>
+<address></address>
+<!-- hhmts start --> Last modified: Fri Apr  1 15:03:18 PDT 2011 <!-- hhmts end -->
+</body> </html>
