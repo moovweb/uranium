@@ -9,10 +9,10 @@ function AccordionLoader(){
 AccordionLoader.prototype.find_accordions = function(){
   var accordion_elements = x$('*[mw_accordion]');
   var accordions = {};
-
+  var self=this;
   var buttons = accordion_elements.filter( 
     function() {
-      if (x$(this).attr("mw_button").length == 1) {
+      if (x$(this).hasClass(self.classes["button"])) {
 	var name = x$(this).attr("mw_accordion");
 	accordions[name] = {};
 	accordions[name]["button"] = this;
@@ -23,7 +23,7 @@ AccordionLoader.prototype.find_accordions = function(){
   );
   var contents = accordion_elements.filter( 
     function() {
-      if (x$(this).attr("mw_content").length == 1){
+      if (x$(this).hasClass(self.classes["content"])){
 	var name = x$(this).attr("mw_accordion");
 	try{
 	  if (typeof(accordions[name]["content"]) == "undefined") {
@@ -66,16 +66,7 @@ AccordionLoader.prototype.initialize = function() {
   var self = this;
   for(name in accordions){
     var accordion = accordions[name];
-    x$(accordion["button"]).addClass(this.classes["closed"]);
-    x$(accordion["button"]).addClass(this.classes["button"]);
     x$(accordion["button"]).click(this.construct_button_callback(accordion["content"]));
-
-    x$(accordion["content"]).each(
-      function() {
-	x$(this).addClass(self.classes["content"]);
-	x$(this).addClass(self.classes["closed"]);
-      }
-    );
 
   }
 }
