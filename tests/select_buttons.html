@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title> Select Buttons Unit Tests</title>
+<script src="../external-lib/xui-2.0.0.js"></script>
+<script src="../select_buttons.js"></script>
+<script src="../global.js"></script>
+<link rel="stylesheet" type='text/css' href='test.css' />
+<link rel="stylesheet" type='text/css' href='select_buttons.css' />
+</head>
+
+<body suite='SelectLists'>
+
+<h1> Select Buttons </h1>
+
+<hr>
+
+<p>
+    This widget allows you to bind increment/decrement buttons to trigger
+  the appropriate changes on a &lt;select&gt; element.
+</p>
+
+<h2> How To: </h2>
+
+<div class='description'>
+  <ol>
+    <li> Set the 'select-buttons' attribute to a unique name. This
+    should be set on the target &lt;select&gt; tag as well as the buttons.</li>
+    <li> Add the 'mw_button' and either 'mw_increment' or
+  'mw_decrement' classes to the buttons as appropriate.</li>
+  </ol>
+
+  <p>
+    Note : When there are no more options to increment/decrement the
+    button will have the 'disabled' class added to it.
+  </p>
+</div>
+
+<h2> Test: </h2>
+
+<div class='test' name='One'>
+
+  <p>
+    <h3>Simple example.</h3>
+  </p>
+  
+  <select select-buttons='Simple'>
+    <option selected='true' value='-1'> -None- </option>
+    <option value='SKU-XS'> XS </option>
+    <option value='SKU-S'> S </option>
+    <option value='SKU-M'> M </option>
+    <option value='SKU-L'> L </option>
+  </select>
+
+  <span select-buttons='Simple' class='mw_button mw_increment'> [+] </span>
+  <span select-buttons='Simple' class='mw_button mw_decrement disabled'> [-] </span>
+ 
+</div>
+
+</body>
+</html>
