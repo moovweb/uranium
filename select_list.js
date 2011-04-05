@@ -26,6 +26,7 @@ SelectList.prototype.trigger_option = function(event) {
   );
 
   //  x$(this.select).attr("value",value); //Odd - this doesn't work, but the following line does
+  // -- I think 'value' is a special attribute ... its not in the attributes[] property of a node
   this.select.value = value;
 
   return true;
@@ -34,6 +35,9 @@ SelectList.prototype.trigger_option = function(event) {
 
 function SelectListLoader(){
   this.SelectLists = {};
+  // Keep instances here because we may need them in the future
+  // - In v1 we had to listen for changes on the <select>'s and update appropriately
+  // - Sometimes we had to listen for different events
 }
 
 SelectListLoader.prototype.find_select_lists = function() {
