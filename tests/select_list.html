@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title> Select Lists Unit Tests</title>
+<script src="../external-lib/xui-2.0.0.js"></script>
+<script src="../select_list.js"></script>
+<script src="../global.js"></script>
+<link rel="stylesheet" type='text/css' href='test.css' />
+<link rel="stylesheet" type='text/css' href='select_lists.css' />
+</head>
+
+<body suite='SelectLists'>
+
+<h1> Select List </h1>
+
+<hr>
+
+<p>
+    This widget allows you to bind a non-select list to trigger
+  changes on a &lt;select&gt; element.
+</p>
+
+<h2> How To: </h2>
+
+<div class='description'>
+  <ol>
+    <li> Set the 'select-list' attribute to a unique name. This
+    should be set on the target &lt;select&gt; tag as well as the trigger list
+    element.</li>
+    <li> Make sure that the elements in your target list have the
+    same value attributes as the original &lt;option&gt; elements from
+    the target &lt;select&gt;</li>
+  </ol>
+
+  <p>
+    Tip: In v2, the easiest way to construct a trigger list from a
+    &lt;select&gt; element would be to copy the &lt;select&gt;
+    element, then change its tag name, and its children's tag names.
+  </P
+</div>
+
+<h2> Tests: </h2>
+
+<div class='test' name='One'>
+
+  <p>
+    <h3>Simple example.</h3>
+    A &lt;ul&gt; is the trigger list in this case.
+  </p>
+  
+  <select select-list='Simple'>
+    <option selected='true' value='-1'> -None- </option>
+    <option value='SKU-XS'> XS </option>
+    <option value='SKU-S'> S </option>
+    <option value='SKU-M'> M </option>
+    <option value='SKU-L'> L </option>
+  </select>
+
+
+  <ul select-list='Simple'>
+    <li value='-1'> -None- </li>
+    <li value='SKU-XS'> XS </li>
+    <li value='SKU-S'> S </li>
+    <li value='SKU-M'> M </li>
+    <li value='SKU-L'> L </li>
+  </ul>
+
+ 
+</div>
+
+<div class='test' name=Two'>
+
+  <p>
+    <h3> Subset example </h3>
+     A &lt;div&gt; is the trigger list in this case. Notice how some
+    options were omitted from the trigger list. This is a valid way to
+    construct the trigger list.
+  </p>
+  
+  <select select-list='Subset'>
+    <option selected='true' value='-1'> -None- </option>
+    <option value='SKU-XS'> XS </option>
+    <option value='SKU-S'> S </option>
+    <option value='SKU-M'> M </option>
+    <option value='SKU-L'> L </option>
+  </select>
+
+
+  <div select-list='Subset'>
+    <span value='SKU-XS'> XS </span>
+    <span value='SKU-S'> S </span>
+    <span value='SKU-M'> M </span>
+    <span value='SKU-L'> L </span>
+  </div>
+
+ 
+</div>
+
+
+</body>
+</html>

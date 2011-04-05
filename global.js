@@ -6,3 +6,19 @@ Moovweb.widgets = {}
 
 //////////
 
+var mixins = {
+  // Grabbed this from xui's forEach defn
+  iterate: function(stuff, fn) {
+    var len = stuff.length || 0,
+    i = 0,
+    that = arguments[1];
+
+    if (typeof fn == 'function') {
+      for (; i < len; i++) {
+        fn.call(that, stuff[i], i, stuff);
+      }
+    }
+  }
+}
+
+xui.extend(mixins);
