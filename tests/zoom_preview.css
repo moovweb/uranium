@@ -1,0 +1,34 @@
+.mw_zoom_preview.mw_container {
+    width: 204px;
+    height: 204px;
+    padding: 2px;
+    overflow: hidden;
+    border: 1px solid black;
+    position: relative;
+}
+
+.mw_zoom_image.mw_container {
+   position: absolute;
+   z-index: 20;
+}
+
+.mw_zoom_preview.mw_button {
+   z-index: 30;
+   border: 1px solid black;
+   width: 62px;
+   height: 62px;
+   position: absolute;
+   right: 2px;
+   bottom: 2px;
+   background-color: #BBBBBB;
+}
+
+.mw_container.mw_normal_image{
+  width: 200px;
+  height: 200px;
+}
+
+.mw_container.mw_normal_image img{
+  width: 200px;
+  height: 200px;
+}

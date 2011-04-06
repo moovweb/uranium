@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title> Zoom Preview Unit Test</title>
+<script src="../external-lib/xui-2.0.0.js"></script>
+<script src="../global.js"></script>
+<script src="../zoom_preview.js"></script>
+<link rel="stylesheet" type='text/css' href='test.css' />
+<link rel="stylesheet" type='text/css' href='zoom_preview.css' />
+</head>
+
+<body suite='ZoomPreview'>
+
+<h1> Zoom Preview </h1>
+
+<hr>
+
+<h2> How To: </h2>
+<div class='description'>
+  <p>
+......
+  Note: For Belk, the listeners on the thumbnails to update the main
+  image are already in place. A more advanced ZoomPreview widget would
+  also bind those callbacks (although there would probably have to be
+  an assumption about how to update the image -- scene7 or
+  otherwise). -- This will probably be a separate widget.
+  </p>
+
+  It seems even for belk -- I'm going to need a regex rewriter
+  option. (they're changing scene7 stuff to make the image giant)
+  
+  <p>
+    To setup zoom preview:
+  </p>
+    <ol>
+      <li> Add the 'mw_accordion' attribute to the button element and
+  all of the top level content elements. Set its value to be the name
+  of the accordion (which should be unique to the page).</li>
+      <li> Add the 'mw_accordion_button' (and optionally 'closed') classes to the button element.</li>
+      <li> Add the 'mw_accordion_content' (and optionally 'closed') classes to the content element(s).</li>
+    </ol>
+
+  
+  
+</div>
+
+<h2> Test:</h2>
+<div class='test' name='Simple'>
+
+  <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
+  
+  <div mw-zoom-preview='ZoomPreview' class="mw_zoom_preview mw_container">
+    <img class="mw_zoom_image mw_container" style="visibility: hidden" />
+      
+    <div class="mw_container mw_normal_image">
+      <img id="big_image" src="" />
+    </div>
+
+    <img mw-zoom-preview='ZoomPreview' class="mw_button mw_zoom_preview"/>
+        
+  </div>
+  
+  <ul mw-zoom-preview='ZoomPreview' class="mw_zoom_preview mw_container mw_thumbnails">
+    <li> <img width='30px' height='30px' src='images/pic1.jpeg'/> </li>
+    <li> <img width='30px' height='30px' src='images/pic2.jpeg'/> </li>
+    <li> <img width='30px' height='30px' src='images/pic3.jpeg'/> </li>
+    <li> <img width='30px' height='30px' src='images/pic4.jpeg'/> </li>
+  </ul>
+  
+</div>
+
+<script type='text/javascript'>
+  var big_image = document.getElementById("big_image");
+  x$().iterate(
+    document.querySelectorAll(".mw_zoom_preview.mw_container.mw_thumbnails img"),
+    function(elem) {
+      elem.addEventListener('click', function(evt){big_image.src=evt.target.src;}, false);
+    }
+  );
+</script>
+
+<hr>
+<address></address>
+<!-- hhmts start --> Last modified: Mon Apr  4 20:18:23 PDT 2011 <!-- hhmts end -->
+</body> </html>
