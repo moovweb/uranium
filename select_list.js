@@ -17,10 +17,10 @@ SelectList.prototype.trigger_option = function(event) {
     this.list.children,
     function(element, index){
       if(element == selected_list_option) {
-	x$(element).addClass(self.classes["selected"]);
-	value = x$(element).attr("value");
+        x$(element).addClass(self.classes["selected"]);
+        value = x$(element).attr("value");
       } else {
-	x$(element).removeClass(self.classes["selected"]);
+        x$(element).removeClass(self.classes["selected"]);
       }
     }
   );
@@ -48,21 +48,21 @@ SelectListLoader.prototype.find_select_lists = function() {
     function() {
       var name = x$(this).attr("select-list");
       if (x$(this)[0].tagName == "SELECT") {
-	if (typeof(select_lists[name]) == "undefined") {
-	  select_lists[name] = {};
-	  select_lists[name]["select"] = this;
-	}
+        if (typeof(select_lists[name]) == "undefined") {
+          select_lists[name] = {};
+          select_lists[name]["select"] = this;
+        }
       } else {
-	if (typeof(select_lists[name]) == "undefined") {
-	  select_lists[name] = {};
-	  select_lists[name]["content"] = this;
-	} else {
-	  if (typeof(select_lists[name]["content"]) != "undefined") {
-	    console.log("Declaration error. Duplicate select content found for select: " + name);
-	  } else {
-	    select_lists[name]["content"] = this;
-	  }
-	}
+        if (typeof(select_lists[name]) == "undefined") {
+          select_lists[name] = {};
+          select_lists[name]["content"] = this;
+        } else {
+          if (typeof(select_lists[name]["content"]) != "undefined") {
+            console.log("Declaration error. Duplicate select content found for select: " + name);
+          } else {
+            select_lists[name]["content"] = this;
+          }
+        }
       }
     }
   );

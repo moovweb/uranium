@@ -24,15 +24,15 @@ SelectButtons.prototype.trigger_option = function(event, direction) {
     this.select.children,
     function(option, index) {
       if(x$(option).attr("value")[0] == value) {
-	current_option = {"element": option, "index": index};
+        current_option = {"element": option, "index": index};
       }
 
       if(typeof(current_option["index"]) == "undefined") {
-	newValue["prev"] = x$(option).attr("value")[0];
+        newValue["prev"] = x$(option).attr("value")[0];
       }
 
       if(index == current_option["index"] + 1) {
-	newValue["next"] = x$(option).attr("value")[0];
+        newValue["next"] = x$(option).attr("value")[0];
       }
     }
   );
@@ -80,25 +80,25 @@ SelectButtonsLoader.prototype.find_select_buttons = function() {
     function() {
       var name = x$(this).attr("select-buttons");
       if (x$(this)[0].tagName == "SELECT") {
-	if (typeof(select_buttons[name]) == "undefined") {
-	  select_buttons[name] = {};
-	  select_buttons[name]["select"] = this;
-	}
+        if (typeof(select_buttons[name]) == "undefined") {
+          select_buttons[name] = {};
+          select_buttons[name]["select"] = this;
+        }
       } else {
-	if (typeof(select_buttons[name]) == "undefined") {
-	  select_buttons[name] = {};
-	}
-	if(x$(this).hasClass("mw_button")) {
-	  var button = this;
-	  x$().iterate(
-	    ["mw_increment","mw_decrement"],
-	    function(type) {
-	      if(x$(button).hasClass(type)) {
-		select_buttons[name][type] = button;
-	      }
-	    }
-	  );
-	}
+        if (typeof(select_buttons[name]) == "undefined") {
+          select_buttons[name] = {};
+        }
+        if(x$(this).hasClass("mw_button")) {
+          var button = this;
+          x$().iterate(
+            ["mw_increment","mw_decrement"],
+            function(type) {
+              if(x$(button).hasClass(type)) {
+                select_buttons[name][type] = button;
+              }
+            }
+          );
+        }
       }
     }
   );
