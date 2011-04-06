@@ -9,12 +9,13 @@ function ZoomPreview(elements){
   this.update();
   
   this.initialize();
+  console.log("Zoom Preview Loaded");
 }
 
 ZoomPreview.prototype.update = function() {
   var self = this;
   x$().iterate(
-    ["zoom_button","zoom_image"],
+    ["zoom_button","zoom_image","zoom_container"],
     function(elem) {
       self.dimensions[elem] = [self.elements[elem].offsetWidth, self.elements[elem].offsetHeight];
       var offset = x$(self.elements[elem]).offset();
@@ -40,17 +41,11 @@ ZoomPreview.prototype.get_event_coordinates = function(event) {
 ZoomPreview.prototype.initialize = function() {
   console.log(this.elements);
 
-  
-  // This will be touchmove
   x$(this.elements["zoom_button"]).on('mousemove',function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
   x$(this.elements["zoom_button"]).on('mouseout',function(obj){return function(evt){obj.scroll_end(evt)};}(this));
 
   x$(this.elements["zoom_button"]).on('touchmove',function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
   x$(this.elements["zoom_button"]).on('touchend',function(obj){return function(evt){obj.scroll_end(evt)};}(this));
-
-  x$(this.elements["zoom_button"]).on('scroll', function() {console.log("scrolllllll")});
-  x$(this.elements["zoom_button"]).on('mouseover', function(e) {console.log("mouseover"); e.preventDefault(); e.stopPropagation();}, true);
-
 
   var self = this;
   x$().iterate(
@@ -89,22 +84,36 @@ ZoomPreview.prototype.scroll_zoom = function(event) {
     var position = this.get_event_coordinates(event);
     if (position === null) {return false};
 
+    this.dimensions["zoom_container"] = [204, 204]; //hack for now
+    //I believe part of the reason the bounds are acting up is because the aspect ratios are off
+
     var percents = [(position[0] - this.centers["zoom_button"][0])/this.dimensions["zoom_button"][0],
                     (position[1] - this.centers["zoom_button"][1])/this.dimensions["zoom_button"][1]];
 
-    var translate = [this.origins["zoom_image"][0] + this.dimensions["zoom_image"][0] * percents[0],
-                     this.origins["zoom_image"][1] + this.dimensions["zoom_image"][1] * percents[1]];
+    var delta = [this.dimensions["zoom_image"][0] * percents[0],
+                this.dimensions["zoom_image"][1] * percents[1]];
+    var delta_bounds = [(this.dimensions["zoom_image"][0] - this.dimensions["zoom_container"][0])/4.0,
+                        (this.dimensions["zoom_image"][1] - this.dimensions["zoom_container"][1])/4.0];
+
+    console.log("deltas:" + JSON.stringify(delta));
+    console.log("delta_bounds:" + JSON.stringify(delta_bounds));
+
+
+    var translate = [this.origins["zoom_image"][0] + delta[0],
+                     this.origins["zoom_image"][1] + delta[1]];
 
     console.log("origins:" + JSON.stringify(this.origins));
     console.log("dimensions:" + JSON.stringify(this.dimensions));
     console.log("percents:" + JSON.stringify(percents));
     console.log(translate);
 
+
+
+
     this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
   }
-  event.preventDefault();
-  event.stopPropagation();
-  return false;
+
+  return true;
 }
 
 
