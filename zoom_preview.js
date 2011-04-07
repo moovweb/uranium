@@ -73,21 +73,20 @@ ZoomPreview.prototype.scroll_end = function(event) {
 ZoomPreview.prototype.scroll_zoom = function(event) {
   this.elements["zoom_image"].style.visibility = "visible";
 
-    var position = this.get_event_coordinates(event);
+  var position = this.get_event_coordinates(event);
+  if (position === null) {return false};
 
-    if (position === null) {return false};
+  var percents = [(position[0] - this.centers["zoom_button"][0])/this.dimensions["zoom_button"][0],
+                  (position[1] - this.centers["zoom_button"][1])/this.dimensions["zoom_button"][1]];
 
-    var percents = [(position[0] - this.centers["zoom_button"][0])/this.dimensions["zoom_button"][0],
-                    (position[1] - this.centers["zoom_button"][1])/this.dimensions["zoom_button"][1]];
+  var delta = [this.dimensions["zoom_image"][0] * percents[0],
+               this.dimensions["zoom_image"][1] * percents[1]];
 
-    var delta = [this.dimensions["zoom_image"][0] * percents[0],
-                this.dimensions["zoom_image"][1] * percents[1]];
-
-    var translate = [this.origins["zoom_image"][0] - delta[0],
-                     this.origins["zoom_image"][1] - delta[1]];
-    
-    translate = this.check_bounds(translate);
-    this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
+  var translate = [this.origins["zoom_image"][0] - delta[0],
+                   this.origins["zoom_image"][1] - delta[1]];
+  
+  translate = this.check_bounds(translate);
+  this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
 
   event.preventDefault();
 }
