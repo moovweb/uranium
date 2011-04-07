@@ -1,15 +1,13 @@
 function ZoomPreview(elements){
   this.elements = elements;
   this.dimensions = {};
-  this.centers = {};
-  this.offsets = {};
-  this.origins = {};
   this.zoom = false;
 
   this.update();
   this.events = {"move" : "touchmove", "end" : "touchend"}
 
   this.touch = x$().touch_events();
+
   // Would be cool to compile this out
   if (!x$().touch_events())
     this.events = {"move" : "mousemove", "end" : "mouseout"}
@@ -24,13 +22,16 @@ ZoomPreview.prototype.update = function() {
     ["zoom_button","zoom_image","zoom_container"],
     function(elem) {
       self.dimensions[elem] = [self.elements[elem].offsetWidth, self.elements[elem].offsetHeight];
-      var offset = x$(self.elements[elem]).offset();
-      self.offsets[elem] = [offset["left"], offset["top"]];
-      self.centers[elem] = [self.dimensions[elem][0]/2.0 + self.offsets[elem][0],
-                            self.dimensions[elem][1]/2.0 + self.offsets[elem][1]];
-      self.origins[elem] = [-1.0/2.0*self.dimensions[elem][0], -1.0/2.0*self.dimensions[elem][1]];
     }
   );  
+
+  var offset = x$(this.elements["zoom_button"]).offset();
+  this.button_offset = [offset["left"], offset["top"]];
+
+  this.button_center = [this.dimensions["zoom_button"][0]/2.0 + this.button_offset[0],
+                        this.dimensions["zoom_button"][1]/2.0 + this.button_offset[1]];
+
+  this.image_origin = [-1.0/2.0*this.dimensions["zoom_image"][0], -1.0/2.0*this.dimensions["zoom_image"][1]];
 }
 
 ZoomPreview.prototype.get_event_coordinates = function(event) {
@@ -76,14 +77,14 @@ ZoomPreview.prototype.scroll_zoom = function(event) {
   var position = this.get_event_coordinates(event);
   if (position === null) {return false};
 
-  var percents = [(position[0] - this.centers["zoom_button"][0])/this.dimensions["zoom_button"][0],
-                  (position[1] - this.centers["zoom_button"][1])/this.dimensions["zoom_button"][1]];
+  var percents = [(position[0] - this.button_center[0])/this.dimensions["zoom_button"][0],
+                  (position[1] - this.button_center[1])/this.dimensions["zoom_button"][1]];
 
   var delta = [this.dimensions["zoom_image"][0] * percents[0],
                this.dimensions["zoom_image"][1] * percents[1]];
 
-  var translate = [this.origins["zoom_image"][0] - delta[0],
-                   this.origins["zoom_image"][1] - delta[1]];
+  var translate = [this.image_origin[0] - delta[0],
+                   this.image_origin[1] - delta[1]];
   
   translate = this.check_bounds(translate);
   this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
