@@ -1,7 +1,6 @@
 .mw_zoom_preview.mw_container {
     width: 204px;
     height: 204px;
-    padding: 2px;
     overflow: hidden;
     border: 1px solid black;
     position: relative;
@@ -26,6 +25,7 @@
 .mw_container.mw_normal_image{
   width: 200px;
   height: 200px;
+  margin: 2px;
 }
 
 .mw_container.mw_normal_image img{
@@ -33,10 +33,10 @@
   height: 200px;
 }
 
-.mw_zoom_preview.mw_container.mw_thumbnails{
+.mw_zoom_preview.mw_thumbnails{
  height: auto;
 }
 
-.mw_zoom_preview.mw_container.mw_thumbnails > li{
+.mw_zoom_preview.mw_thumbnails > li{
   display: inline-block;
 }

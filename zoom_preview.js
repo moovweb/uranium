@@ -25,6 +25,8 @@ ZoomPreview.prototype.update = function() {
       self.origins[elem] = [-1.0/2.0*self.dimensions[elem][0], -1.0/2.0*self.dimensions[elem][1]];
     }
   );  
+  console.log(JSON.stringify(this.dimensions));
+  console.log(this.elements);
 }
 
 ZoomPreview.prototype.get_event_coordinates = function(event) {
@@ -75,45 +77,46 @@ ZoomPreview.prototype.scroll_zoom = function(event) {
   
   if (!this.zoom) {
     //Center the image
-    this.elements["zoom_image"].style.webkitTransform = "translate3d(" + this.origins["zoom_image"][0] + "px," + this.origins["zoom_image"][1] + "px,0px)";
+
+    this.elements["zoom_image"].style.webkitTransform = "translate3d(" + 
+      this.origins["zoom_image"][0] + "px," + this.origins["zoom_image"][1] + "px,0px)";
     this.elements["zoom_image"].style.visibility = "visible";
-    console.log("zoom image styles:");
-    console.log(getComputedStyle(this.elements["zoom_image"]));
     this.zoom = true;
   } else {
+
     var position = this.get_event_coordinates(event);
     if (position === null) {return false};
-
-    this.dimensions["zoom_container"] = [204, 204]; //hack for now
-    //I believe part of the reason the bounds are acting up is because the aspect ratios are off
 
     var percents = [(position[0] - this.centers["zoom_button"][0])/this.dimensions["zoom_button"][0],
                     (position[1] - this.centers["zoom_button"][1])/this.dimensions["zoom_button"][1]];
 
     var delta = [this.dimensions["zoom_image"][0] * percents[0],
                 this.dimensions["zoom_image"][1] * percents[1]];
-    var delta_bounds = [(this.dimensions["zoom_image"][0] - this.dimensions["zoom_container"][0])/4.0,
-                        (this.dimensions["zoom_image"][1] - this.dimensions["zoom_container"][1])/4.0];
 
-    console.log("deltas:" + JSON.stringify(delta));
-    console.log("delta_bounds:" + JSON.stringify(delta_bounds));
-
-
-    var translate = [this.origins["zoom_image"][0] + delta[0],
-                     this.origins["zoom_image"][1] + delta[1]];
-
-    console.log("origins:" + JSON.stringify(this.origins));
-    console.log("dimensions:" + JSON.stringify(this.dimensions));
-    console.log("percents:" + JSON.stringify(percents));
-    console.log(translate);
-
-
-
-
+    var translate = [this.origins["zoom_image"][0] - delta[0],
+                     this.origins["zoom_image"][1] - delta[1]];
+    
+    translate = this.check_bounds(translate);
     this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
   }
 
   return true;
+}
+
+ZoomPreview.prototype.check_bounds = function(translate){
+  var min = [this.dimensions["zoom_container"][0]-this.dimensions["zoom_image"][0], this.dimensions["zoom_container"][1]-this.dimensions["zoom_image"][1]];
+
+  x$().iterate(
+    [0,1],
+    function(index){
+      if (translate[index] >= 0)
+        translate[index] = 0;
+      if (translate[index] <= min[index])
+        translate[index] = min[index];
+    }
+  );
+
+  return translate;
 }
 
 
@@ -129,7 +132,7 @@ ZoomPreviewLoader.prototype.collect_elements = function() {
     function() {
       var name = x$(this).attr("mw-zoom-preview");
 
-      if (x$(this).hasClass("mw_zoom_preview")) {
+      if (x$(this).hasClass("mw_zoom_preview") && x$(this).hasClass("mw_container")) {
         self.add_element(name,"zoom_container",this);
         x$().iterate(
           this.children,
