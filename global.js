@@ -32,6 +32,14 @@ var mixins = {
       elm = elm.offsetParent;
     }
     return {left: cumulative_left, top:cumulative_top};
+  },
+  touch_events: function() {
+    try {
+      document.createEvent("TouchEvent");
+      return true;
+    } catch(e) {
+      return false;
+    }
   }
 }
 

@@ -7,7 +7,12 @@ function ZoomPreview(elements){
   this.zoom = false;
 
   this.update();
-  
+  this.events = {"move" : "touchmove", "end" : "touchend"}
+
+  // Would be cool to compile this out
+  if (!x$().touch_events())
+    this.events = {"move" : "mousemove", "end" : "mouseout"}
+
   this.initialize();
   console.log("Zoom Preview Loaded");
 }
@@ -30,6 +35,7 @@ ZoomPreview.prototype.update = function() {
 }
 
 ZoomPreview.prototype.get_event_coordinates = function(event) {
+  console.log("type:" + event.type);
   if (/mouse/.exec(event.type)){
     return [event.pageX, event.pageY];
   } else {
@@ -41,13 +47,8 @@ ZoomPreview.prototype.get_event_coordinates = function(event) {
 }
 
 ZoomPreview.prototype.initialize = function() {
-  console.log(this.elements);
-
-  x$(this.elements["zoom_button"]).on('mousemove',function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
-  x$(this.elements["zoom_button"]).on('mouseout',function(obj){return function(evt){obj.scroll_end(evt)};}(this));
-
-  x$(this.elements["zoom_button"]).on('touchmove',function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
-  x$(this.elements["zoom_button"]).on('touchend',function(obj){return function(evt){obj.scroll_end(evt)};}(this));
+  x$(this.elements["zoom_button"]).on(this.events["move"],function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
+  x$(this.elements["zoom_button"]).on(this.events["end"],function(obj){return function(evt){obj.scroll_end(evt)};}(this));
 
   var self = this;
   x$().iterate(
@@ -71,10 +72,11 @@ ZoomPreview.prototype.scroll_end = function(event) {
   this.elements["zoom_image"].style.visibility = "hidden";
 }
 
-
 ZoomPreview.prototype.scroll_zoom = function(event) {
   this.elements["zoom_image"].style.visibility = "visible";
+
     var position = this.get_event_coordinates(event);
+
     if (position === null) {return false};
 
     var percents = [(position[0] - this.centers["zoom_button"][0])/this.dimensions["zoom_button"][0],
@@ -89,7 +91,7 @@ ZoomPreview.prototype.scroll_zoom = function(event) {
     translate = this.check_bounds(translate);
     this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
 
-  return true;
+  event.preventDefault();
 }
 
 ZoomPreview.prototype.check_bounds = function(translate){
