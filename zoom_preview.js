@@ -68,22 +68,12 @@ ZoomPreview.prototype.initialize = function() {
 }
 
 ZoomPreview.prototype.scroll_end = function(event) {
-  this.zoom = false;
   this.elements["zoom_image"].style.visibility = "hidden";
 }
 
 
 ZoomPreview.prototype.scroll_zoom = function(event) {
-  
-  if (!this.zoom) {
-    //Center the image
-
-    this.elements["zoom_image"].style.webkitTransform = "translate3d(" + 
-      this.origins["zoom_image"][0] + "px," + this.origins["zoom_image"][1] + "px,0px)";
-    this.elements["zoom_image"].style.visibility = "visible";
-    this.zoom = true;
-  } else {
-
+  this.elements["zoom_image"].style.visibility = "visible";
     var position = this.get_event_coordinates(event);
     if (position === null) {return false};
 
@@ -98,7 +88,6 @@ ZoomPreview.prototype.scroll_zoom = function(event) {
     
     translate = this.check_bounds(translate);
     this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
-  }
 
   return true;
 }
