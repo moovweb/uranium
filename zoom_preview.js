@@ -1,16 +1,21 @@
-function ZoomPreview(elements){
+function ZoomPreview(elements, modifier){
   this.elements = elements;
+  this.modifier = {};
+              
+  if (modifier !== null) {
+    this.modifier = modifier;
+  }
   this.dimensions = {};
   this.zoom = false;
 
   this.update();
-  this.events = {"move" : "touchmove", "end" : "touchend"}
+  this.events = {"move" : "touchmove", "end" : "touchend"};
 
   this.touch = x$().touch_events();
 
   // Would be cool to compile this out
   if (!x$().touch_events())
-    this.events = {"move" : "mousemove", "end" : "mouseout"}
+    this.events = {"move" : "mousemove", "end" : "mouseout"};
 
   this.initialize();
   console.log("Zoom Preview Loaded");
@@ -26,10 +31,10 @@ ZoomPreview.prototype.update = function() {
   );  
 
   var offset = x$(this.elements["zoom_button"]).offset();
-  this.button_offset = [offset["left"], offset["top"]];
+  var button_offset = [offset["left"], offset["top"]];
 
-  this.button_center = [this.dimensions["zoom_button"][0]/2.0 + this.button_offset[0],
-                        this.dimensions["zoom_button"][1]/2.0 + this.button_offset[1]];
+  this.button_center = [this.dimensions["zoom_button"][0]/2.0 + button_offset[0],
+                        this.dimensions["zoom_button"][1]/2.0 + button_offset[1]];
 
   this.image_origin = [-1.0/2.0*this.dimensions["zoom_image"][0], -1.0/2.0*this.dimensions["zoom_image"][1]];
 }
@@ -57,7 +62,13 @@ ZoomPreview.prototype.initialize = function() {
         function(obj){
           return function(evt){
             obj.elements["zoom_button"].src = evt.currentTarget.src;
-            obj.elements["zoom_image"].src = evt.currentTarget.src;
+            var new_src = evt.currentTarget.src;
+            var match = obj.modifier["match"];
+            var replace = obj.modifier["replace"];
+            if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
+              new_src = new_src.replace(match, replace);
+            }
+            obj.elements["zoom_image"].src = new_src;
             obj.update();
           };
         }(self)
@@ -115,6 +126,7 @@ function ZoomPreviewLoader(){
 ZoomPreviewLoader.prototype.collect_elements = function() {
   var raw_elements = x$("*[mw-zoom-preview]");
   this.zoom_previews = {};
+  this.modifiers = {};
   var self = this;
 
   raw_elements.filter(
@@ -128,6 +140,12 @@ ZoomPreviewLoader.prototype.collect_elements = function() {
           function(elem) {
             if(x$(elem).hasClass("mw_zoom_image")) {
               self.add_element(name, "zoom_image", elem);
+              var match = x$(elem).attr("src-modifier-match")[0];
+              var replace = x$(elem).attr("src-modifier-replace")[0];
+
+              if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
+                self.modifiers[name] = {"match":new RegExp(match),"replace":replace};
+              }
             } else if (x$(elem).hasClass("mw_button")) {
               self.add_element(name, "zoom_button", elem);
             } else if (x$(elem).hasClass("mw_normal_image")) {
@@ -161,7 +179,7 @@ ZoomPreviewLoader.prototype.add_element = function(name, element_name, value) {
 ZoomPreviewLoader.prototype.initialize = function() {
   this.collect_elements();
   for (name in this.zoom_previews) {
-    new ZoomPreview(this.zoom_previews[name]);
+    new ZoomPreview(this.zoom_previews[name], this.modifiers[name]);
   }
 }
 
