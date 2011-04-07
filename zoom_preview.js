@@ -55,27 +55,24 @@ ZoomPreview.prototype.initialize = function() {
   x$(this.elements["zoom_button"]).on(this.events["end"],function(obj){return function(evt){obj.scroll_end(evt)};}(this));
 
   var self = this;
-  x$().iterate(
-    this.elements["thumbnails"],
-    function(thumbnail) {
-      x$(thumbnail).click(
-        function(obj){
+  x$(this.elements["thumbnails"]).click(
+    function(obj) {
           return function(evt){
-            obj.elements["zoom_button"].src = evt.currentTarget.src;
-            var new_src = evt.currentTarget.src;
+            if (evt.target.tagName != "IMG")
+              return false;
+            
+            var new_src = evt.target.src;
             var match = obj.modifier["match"];
             var replace = obj.modifier["replace"];
             if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
               new_src = new_src.replace(match, replace);
             }
+            obj.elements["zoom_button"].src = new_src;
             obj.elements["zoom_image"].src = new_src;
             x$(obj.elements["zoom_image"]).on("load", function(){obj.update()});
           };
-        }(self)
-      );
-    }
+    }(self)
   );
-
 }
 
 ZoomPreview.prototype.scroll_end = function(event) {
@@ -154,13 +151,7 @@ ZoomPreviewLoader.prototype.collect_elements = function() {
       }
 
       if(x$(this).hasClass("mw_zoom_thumbnails")) {
-        var thumbnails = [];
-        x$(this).find("img").each(
-          function(elem) {
-            thumbnails.push(elem);
-          }
-        );
-        self.add_element(name, "thumbnails", thumbnails);
+        self.add_element(name, "thumbnails", this);
       }
     }
   );
