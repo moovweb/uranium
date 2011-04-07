@@ -69,7 +69,7 @@ ZoomPreview.prototype.initialize = function() {
               new_src = new_src.replace(match, replace);
             }
             obj.elements["zoom_image"].src = new_src;
-            obj.update();
+            x$(obj.elements["zoom_image"]).on("load", function(){obj.update()});
           };
         }(self)
       );
