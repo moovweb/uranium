@@ -9,6 +9,7 @@ function ZoomPreview(elements){
   this.update();
   this.events = {"move" : "touchmove", "end" : "touchend"}
 
+  this.touch = x$().touch_events();
   // Would be cool to compile this out
   if (!x$().touch_events())
     this.events = {"move" : "mousemove", "end" : "mouseout"}
@@ -30,13 +31,10 @@ ZoomPreview.prototype.update = function() {
       self.origins[elem] = [-1.0/2.0*self.dimensions[elem][0], -1.0/2.0*self.dimensions[elem][1]];
     }
   );  
-  console.log(JSON.stringify(this.dimensions));
-  console.log(this.elements);
 }
 
 ZoomPreview.prototype.get_event_coordinates = function(event) {
-  console.log("type:" + event.type);
-  if (/mouse/.exec(event.type)){
+  if (!this.touch){
     return [event.pageX, event.pageY];
   } else {
    if(event.touches.length == 1)
