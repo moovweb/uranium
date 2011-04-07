@@ -1,0 +1,11 @@
+.button { 
+  background-color: #eee;	
+}
+
+.button.pushed {
+  background-color: #bbb;
+}
+
+.closed {
+  display: none;
+}

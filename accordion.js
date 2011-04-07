@@ -13,10 +13,10 @@ AccordionLoader.prototype.find_accordions = function(){
   var buttons = accordion_elements.filter( 
     function() {
       if (x$(this).hasClass(self.classes["button"])) {
-	var name = x$(this).attr("mw_accordion");
-	accordions[name] = {};
-	accordions[name]["button"] = this;
-	return true;
+        var name = x$(this).attr("mw_accordion");
+        accordions[name] = {};
+        accordions[name]["button"] = this;
+        return true;
       }
       return false;
     }
@@ -24,16 +24,16 @@ AccordionLoader.prototype.find_accordions = function(){
   var contents = accordion_elements.filter( 
     function() {
       if (x$(this).hasClass(self.classes["content"])){
-	var name = x$(this).attr("mw_accordion");
-	try{
-	  if (typeof(accordions[name]["content"]) == "undefined") {
-	    accordions[name]["content"] = [];
-	  }
-	  accordions[name]["content"].push(this);
-	} catch(e) {
-	  console.log("Declaration error. Accordion content found for accordion:" + name + ", but no button could be found.");
-	}
-	return true;
+        var name = x$(this).attr("mw_accordion");
+        try{
+          if (typeof(accordions[name]["content"]) == "undefined") {
+            accordions[name]["content"] = [];
+          }
+          accordions[name]["content"].push(this);
+        } catch(e) {
+          console.log("Declaration error. Accordion content found for accordion:" + name + ", but no button could be found.");
+        }
+        return true;
       }
       return false;
     }
@@ -48,13 +48,13 @@ AccordionLoader.prototype.construct_button_callback = function(contents) {
     var button = evt.currentTarget;
     x$(contents).each(
       function(){
-	if(x$(this).hasClass(self.classes["closed"])) {
-	  x$(this).removeClass(self.classes["closed"]);
-	  x$(button).removeClass(self.classes["closed"])
-	} else {
-	  x$(this).addClass(self.classes["closed"]);
-	  x$(button).addClass(self.classes["closed"])
-	}
+        if(x$(this).hasClass(self.classes["closed"])) {
+          x$(this).removeClass(self.classes["closed"]);
+          x$(button).removeClass(self.classes["closed"])
+        } else {
+          x$(this).addClass(self.classes["closed"]);
+          x$(button).addClass(self.classes["closed"])
+        }
       }
     );
   }
