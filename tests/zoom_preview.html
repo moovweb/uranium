@@ -19,26 +19,59 @@
 <h2> How To: </h2>
 <div class='description'>
   <p>
-......
-  Note: For Belk, the listeners on the thumbnails to update the main
-  image are already in place. A more advanced ZoomPreview widget would
-  also bind those callbacks (although there would probably have to be
-  an assumption about how to update the image -- scene7 or
-  otherwise). -- This will probably be a separate widget.
+  This is a widget to look at a large zoomed image with touch events
+  (although I've simulated it with mouseevents). The idea is that
+  given some thumbnails / image preview, you can insert a button that
+  the user can touch/drag around to view the zoomed image. It seems in
+  the wild we also need a modifier rule, which tells us how to
+  generate the src of the big image so that its really giant.
+  </p>
+  <p>
+  Note: We assume listeners on the thumbnails to update the main
+  image are already in place. If this is not the case, we can make a
+  skeleton image gallery widget.
   </p>
 
-  It seems even for belk -- I'm going to need a regex rewriter
-  option. (they're changing scene7 stuff to make the image giant)
-  
   <p>
     To setup zoom preview:
   </p>
     <ol>
-      <li> Add the 'mw_accordion' attribute to the button element and
-  all of the top level content elements. Set its value to be the name
-  of the accordion (which should be unique to the page).</li>
-      <li> Add the 'mw_accordion_button' (and optionally 'closed') classes to the button element.</li>
-      <li> Add the 'mw_accordion_content' (and optionally 'closed') classes to the content element(s).</li>
+      <li> Identify the zoom-container. This should contain the normal
+      'hero' image that the thumbnails update. It should also contain
+      the zoom-button and zoom-image elements.
+        <ul>
+          <li>Add the 'mw-zoom-preview' attribute to the zoom-container.
+          Set its value to be the name of the zoom-preview widget (which
+          should be unique to the page).</li>
+          
+          <li> Add the 'mw_zoom_container' class to the zoom-container </li>
+        </ul>
+      </li>
+      <li> Add the 'mw_zoom_button' class to the button element (which
+      should be a descendant of the zoom-container).</li>
+      <li> Add the 'mw_zoom_image' class to the zoom image element (which
+      should be a descendant of the zoom-container).
+        <ul>
+          You can also specify a modifier rule for the zoom-image:
+          <li> Normally, when a thumbnail is clicked, its src
+        attribute is copied to the zoom image -- but this usually
+        results in an image thats much too small to zoom. </li>
+          <li> Set the src-modifier-match attribute's value to be the
+        match regex for the zoom-image src </li>
+          <li> Set the src-modifier-replace attribute's value to be
+        the replace string for the zoom-image src </li>
+          <li> Look at this page's html for an example of this </li>
+        </ul>
+      </li>
+      <li> Identify the zoom-thumbnails-container. This should contain
+        the all of the thumbnail images. 
+        <ul>
+          <li>Add the 'mw-zoom-preview' attribute to the zoom-container.
+          Set its value to match the name you specified for the zoom-container.</li>
+          
+          <li> Add the 'mw_zoom_thumbnails' class to the zoom-thumbnails-container </li>
+        </ul>
+      </li>
     </ol>
 
   
@@ -50,18 +83,18 @@
 
   <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
   
-  <div mw-zoom-preview='ZoomPreview' class="mw_zoom_preview mw_container">
-    <img class="mw_zoom_image mw_container" src-modifier-match='(some_attr=)(.*)' src-modifier-replace='$1yesway' style="visibility: hidden" />
+  <div mw-zoom-preview='ZoomPreview' class="mw_zoom_container">
+    <img class="mw_zoom_image" src-modifier-match='(some_attr=)(.*)' src-modifier-replace='$1yesway' style="visibility: hidden" />
       
-    <div class="mw_container mw_normal_image">
+    <div class="normal_image">
       <img id="big_image" src="" />
     </div>
 
-    <img mw-zoom-preview='ZoomPreview' class="mw_button mw_zoom_preview"/>
+    <img mw-zoom-preview='ZoomPreview' class="mw_zoom_button"/>
         
   </div>
   
-  <ul mw-zoom-preview='ZoomPreview' class="mw_zoom_preview mw_thumbnails">
+  <ul mw-zoom-preview='ZoomPreview' class="mw_zoom_thumbnails">
     <li> <img width='30px' height='30px' src='images/pic1.jpeg?some_attr=noway'/> </li>
     <li> <img width='30px' height='30px' src='images/pic2.jpeg?some_attr=noway'/> </li>
     <li> <img width='30px' height='30px' src='images/pic3.jpeg?some_attr=noway'/> </li>
@@ -73,7 +106,7 @@
 <script type='text/javascript'>
   var big_image = document.getElementById("big_image");
   x$().iterate(
-    document.querySelectorAll(".mw_zoom_preview.mw_thumbnails img"),
+    document.querySelectorAll(".mw_zoom_thumbnails img"),
     function(elem) {
       elem.addEventListener('click', function(evt){big_image.src=evt.target.src;}, false);
     }
@@ -82,5 +115,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Thu Apr  7 00:09:35 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Thu Apr  7 00:56:47 PDT 2011 <!-- hhmts end -->
 </body> </html>
