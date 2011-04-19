@@ -21,6 +21,21 @@ function ZoomPreview(elements, modifier){
   console.log("Zoom Preview Loaded");
 }
 
+ZoomPreview.prototype.rewrite_images = function(src, match, replace) {
+  if(typeof(src) == "undefined")
+    return false;
+
+  if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
+    src = src.replace(match, replace);
+  }
+
+  this.elements["zoom_image"].src = src;
+  this.elements["zoom_button"].src = src;
+
+  var self = this;
+  x$(this.elements["zoom_image"]).on("load", function(){self.update()});  
+}
+
 ZoomPreview.prototype.update = function() {
   var self = this;
   x$().iterate(
@@ -60,19 +75,15 @@ ZoomPreview.prototype.initialize = function() {
           return function(evt){
             if (evt.target.tagName != "IMG")
               return false;
-            
-            var new_src = evt.target.src;
-            var match = obj.modifier["match"];
-            var replace = obj.modifier["replace"];
-            if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
-              new_src = new_src.replace(match, replace);
-            }
-            obj.elements["zoom_button"].src = new_src;
-            obj.elements["zoom_image"].src = new_src;
-            x$(obj.elements["zoom_image"]).on("load", function(){obj.update()});
+            obj.rewrite_images(evt.target.src, obj.modifier["match"], obj.modifier["replace"]);
           };
     }(self)
   );
+
+  // Setup the initial button/zoom image:
+
+  img = x$(this.elements["zoom_container"]).find(".mw_normal_image");
+  this.rewrite_images(img.attr("src")[0], img.attr("zoom-modifier-match")[0], img.attr("zoom-modifier-replace")[0]);
 }
 
 ZoomPreview.prototype.scroll_end = function(event) {

@@ -87,14 +87,34 @@
     <img class="mw_zoom_image" src-modifier-match='(some_attr=)(.*)' src-modifier-replace='$1yesway' style="visibility: hidden" />
       
     <div class="normal_image">
-      <img id="big_image" src="" />
+      <img class='mw_normal_image'
+      zoom-modifier-match='$' zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
     </div>
 
     <img class="mw_zoom_button"/>
         
   </div>
   
-  <ul mw-zoom-preview='ZoomPreview' class="mw_zoom_thumbnails">
+</div>
+
+
+<div class='test' name='Thumbnails'>
+
+  <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
+  
+  <div mw-zoom-preview='ZoomPreviewThumbnails' class="mw_zoom_container">
+    <img class="mw_zoom_image" src-modifier-match='(some_attr=)(.*)' src-modifier-replace='$1yesway' style="visibility: hidden" />
+      
+    <div class="normal_image">
+      <img id="big_image" class='mw_normal_image'
+      zoom-modifier-match='$' zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
+    </div>
+
+    <img class="mw_zoom_button"/>
+        
+  </div>
+  
+  <ul mw-zoom-preview='ZoomPreviewThumbnails' class="mw_zoom_thumbnails">
     <li> <img width='30px' height='30px' src='images/pic1.jpeg?some_attr=noway'/> </li>
     <li> <img width='30px' height='30px' src='images/pic2.jpeg?some_attr=noway'/> </li>
     <li> <img width='30px' height='30px' src='images/pic3.jpeg?some_attr=noway'/> </li>
@@ -115,5 +135,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Thu Apr  7 02:04:21 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Mon Apr 18 16:57:00 PDT 2011 <!-- hhmts end -->
 </body> </html>
