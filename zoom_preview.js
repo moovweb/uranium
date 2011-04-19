@@ -33,6 +33,7 @@ ZoomPreview.prototype.rewrite_images = function(src, match, replace) {
   this.elements["zoom_button"].src = src;
 
   var self = this;
+  this.elements["zoom_image"].style.visibility = "hidden";
   x$(this.elements["zoom_image"]).on("load", function(){self.update()});  
 }
 
@@ -83,7 +84,7 @@ ZoomPreview.prototype.initialize = function() {
   // Setup the initial button/zoom image:
 
   img = x$(this.elements["zoom_container"]).find(".mw_normal_image");
-  this.rewrite_images(img.attr("src")[0], img.attr("zoom-modifier-match")[0], img.attr("zoom-modifier-replace")[0]);
+  this.rewrite_images(img.attr("src")[0], new RegExp(img.attr("zoom-modifier-match")[0]), img.attr("zoom-modifier-replace")[0]);
 }
 
 ZoomPreview.prototype.scroll_end = function(event) {
