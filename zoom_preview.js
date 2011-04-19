@@ -9,7 +9,7 @@ function ZoomPreview(elements, modifier){
   this.zoom = false;
 
   this.update();
-  this.events = {"move" : "touchmove", "end" : "touchend"};
+  this.events = {"start": "touchstart", "move" : "touchmove", "end" : "touchend"};
 
   this.touch = x$().touch_events();
 
@@ -61,7 +61,7 @@ ZoomPreview.prototype.get_event_coordinates = function(event) {
   } else {
    if(event.touches.length == 1)
     {
-      return [event.touches[0].clientX, event.touches[0].clientY];
+      return [event.touches[0].pageX, event.touches[0].pageY];
     }
   }
 }
@@ -69,6 +69,11 @@ ZoomPreview.prototype.get_event_coordinates = function(event) {
 ZoomPreview.prototype.initialize = function() {
   x$(this.elements["zoom_button"]).on(this.events["move"],function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
   x$(this.elements["zoom_button"]).on(this.events["end"],function(obj){return function(evt){obj.scroll_end(evt)};}(this));
+
+  // To prevent scrolling:
+  if(this.events["start"]) {
+    x$(this.elements["zoom_button"]).on("touchstart",function(obj){return function(evt){/*print("touchstart");*/evt.preventDefault()};}(this));
+  }
 
   var self = this;
   x$(this.elements["thumbnails"]).click(
@@ -108,8 +113,6 @@ ZoomPreview.prototype.scroll_zoom = function(event) {
   
   translate = this.check_bounds(translate);
   this.elements["zoom_image"].style.webkitTransform = "translate3d(" + translate[0] + "px," + translate[1] + "px,0px)";
-
-  event.preventDefault();
 }
 
 ZoomPreview.prototype.check_bounds = function(translate){
