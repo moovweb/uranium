@@ -25,16 +25,30 @@ ZoomPreview.prototype.rewrite_images = function(src, match, replace) {
   if(typeof(src) == "undefined")
     return false;
 
-  if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
-    src = src.replace(match, replace);
+  if(match === undefined && replace === undefined) {
+    match = this.modifier["zoom_image"]["match"];
+    replace = this.modifier["zoom_image"]["replace"];
   }
 
-  this.elements["zoom_image"].src = src;
-  this.elements["zoom_button"].src = src;
+  this.elements["zoom_image"].src = src.replace(match, replace);
+
+  match = replace = null;
+
+  if(this.modifier["zoom_button"]) {
+    match = this.modifier["zoom_button"]["match"];
+    replace = this.modifier["zoom_button"]["replace"];
+  }
+
+  if(match && replace) {
+    this.elements["zoom_button"].src = this.elements["zoom_image"].src.replace(match, replace);
+  } else {
+    this.elements["zoom_button"].src = this.elements["zoom_image"].src;
+  }
 
   var self = this;
   this.elements["zoom_image"].style.visibility = "hidden";
   x$(this.elements["zoom_image"]).on("load", function(){self.update()});  
+  x$(this.elements["zoom_button"]).on("load", function(){x$(self.elements["zoom_button"]).addClass("loaded");});  
 }
 
 ZoomPreview.prototype.update = function() {
@@ -72,7 +86,7 @@ ZoomPreview.prototype.initialize = function() {
 
   // To prevent scrolling:
   if(this.events["start"]) {
-    x$(this.elements["zoom_button"]).on("touchstart",function(obj){return function(evt){/*print("touchstart");*/evt.preventDefault()};}(this));
+    x$(this.elements["zoom_button"]).on("touchstart",function(obj){return function(evt){evt.preventDefault()};}(this));
   }
 
   var self = this;
@@ -81,7 +95,7 @@ ZoomPreview.prototype.initialize = function() {
           return function(evt){
             if (evt.target.tagName != "IMG")
               return false;
-            obj.rewrite_images(evt.target.src, obj.modifier["match"], obj.modifier["replace"]);
+            obj.rewrite_images(evt.target.src); //, obj.modifier["match"], obj.modifier["replace"]);
           };
     }(self)
   );
@@ -147,19 +161,16 @@ ZoomPreviewLoader.prototype.collect_elements = function() {
 
       if (x$(this).hasClass("mw_zoom_container")) {
         self.add_element(name,"zoom_container",this);
+        self.modifiers[name] = {};
         x$().iterate(
           this.children,
           function(elem) {
             if(x$(elem).hasClass("mw_zoom_image")) {
               self.add_element(name, "zoom_image", elem);
-              var match = x$(elem).attr("src-modifier-match")[0];
-              var replace = x$(elem).attr("src-modifier-replace")[0];
-
-              if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
-                self.modifiers[name] = {"match":new RegExp(match),"replace":replace};
-              }
+              self.add_modifiers(elem, name, "zoom_image");
             } else if (x$(elem).hasClass("mw_zoom_button")) {
               self.add_element(name, "zoom_button", elem);
+              self.add_modifiers(elem, name, "zoom_button");
             } 
           }
         );
@@ -178,6 +189,15 @@ ZoomPreviewLoader.prototype.add_element = function(name, element_name, value) {
     this.zoom_previews[name] = {};
   }
   this.zoom_previews[name][element_name] = value;
+}
+
+ZoomPreviewLoader.prototype.add_modifiers = function(element, name, element_name) {
+  var match = x$(element).attr("src-modifier-match")[0];
+  var replace = x$(element).attr("src-modifier-replace")[0];
+  
+  if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
+    this.modifiers[name][element_name] = {"match":new RegExp(match),"replace":replace};
+  }
 }
 
 ZoomPreviewLoader.prototype.initialize = function() {

@@ -47,8 +47,6 @@
           <li> Add the 'mw_zoom_container' class to the zoom-container </li>
         </ul>
       </li>
-      <li> Add the 'mw_zoom_button' class to the button element (which
-      should be a descendant of the zoom-container).</li>
       <li> Add the 'mw_zoom_image' class to the zoom image element (which
       should be a descendant of the zoom-container).
         <ul>
@@ -57,12 +55,28 @@
         attribute is copied to the zoom image -- but this usually
         results in an image thats much too small to zoom. </li>
           <li> Set the src-modifier-match attribute's value to be the
-        match regex for the zoom-image src </li>
+        match regex to be applied to the thumbnail image's src </li>
           <li> Set the src-modifier-replace attribute's value to be
-        the replace string for the zoom-image src </li>
+        the replace string to be applied to the thumbnail image's src</li>
           <li> Look at this page's html for an example of this </li>
         </ul>
       </li>
+     <li> Add the 'mw_zoom_button' class to the button element (which
+      should be a descendant of the zoom-container). The 'loaded'
+        class is added to this element once the image has loaded.
+        <ul>
+          (Optional - but highly recommended) : Add a modifier rule
+        for the image displayed on the button. (Its good to modify the
+        url so that a giant image isn't displayed in a tiny
+        space. That results in slow re-paints which makes the UX
+        janky). This modifier gets applied to the zoom-image url
+        (after the zoom-image modifier gets applied):
+          <li> Set the src-modifier-match attribute's value to be the
+        match regex for the zoom-image src </li>
+          <li> Set the src-modifier-replace attribute's value to be
+        the replace string for the zoom-image src </li>
+        </ul>
+      </li>      
       <li> Add the 'mw_normal_image' class to the normal image. (The
         normal image should be a descendant of the zoom-container).
         <ul>
@@ -100,7 +114,7 @@
       zoom-modifier-match='$' zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
     </div>
 
-    <img class="mw_zoom_button"/>
+    <img src-modifier-match='$' src-modifier-replace='&button_image=true' class="mw_zoom_button"/>
         
   </div>
   
@@ -144,5 +158,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Tue Apr 19 13:29:15 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Tue Apr 19 14:34:33 PDT 2011 <!-- hhmts end -->
 </body> </html>
