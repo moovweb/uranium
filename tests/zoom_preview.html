@@ -63,7 +63,16 @@
           <li> Look at this page's html for an example of this </li>
         </ul>
       </li>
-      <li> Identify the zoom-thumbnails-container. This should contain
+      <li> Add the 'mw_normal_image' class to the normal image. (The
+        normal image should be a descendant of the zoom-container).
+        <ul>
+          Add a match/replace pair. These get applied to the normal
+          image src to generate the initial zoom-image url:
+          <li> Set the 'zoom-modifier-match' attribute. </li>
+          <li> Set the 'zoom-modifier-replace' attribute </li>
+        </ul>
+      </li>
+      <li> (Optional) Identify the zoom-thumbnails-container. This should contain
         the all of the thumbnail images. 
         <ul>
           <li>Add the 'mw-zoom-preview' attribute to the zoom-container.
@@ -135,5 +144,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Tue Apr 19 13:10:24 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Tue Apr 19 13:29:15 PDT 2011 <!-- hhmts end -->
 </body> </html>
