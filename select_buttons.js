@@ -1,3 +1,5 @@
+(function(){
+
 function SelectButtons(options) {
   this.select = options["select"];
   this.increment = options["mw_increment"];
@@ -119,3 +121,4 @@ SelectButtonsLoader.prototype.initialize = function() {
 SBL = new SelectButtonsLoader();
 window.addEventListener('load', function(){ SBL.initialize();}, false);
 
+})()
