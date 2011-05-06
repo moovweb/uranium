@@ -1,3 +1,5 @@
+(function(){
+
 function ZoomPreview(elements, modifier){
   this.elements = elements;
   this.modifier = {};
@@ -210,3 +212,4 @@ ZoomPreviewLoader.prototype.initialize = function() {
 ZPL = new ZoomPreviewLoader();
 window.addEventListener('load', function(){ ZPL.initialize();}, false);
 
+})()

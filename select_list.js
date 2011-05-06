@@ -1,3 +1,5 @@
+(function(){
+
 function SelectList(select_element, list_element){
   this.classes = {"selected" : "mw_list_item_selected"};
   this.select = select_element;
@@ -82,3 +84,4 @@ SelectListLoader.prototype.initialize = function() {
 SLL = new SelectListLoader();
 window.addEventListener('load', function(){ SLL.initialize();}, false);
 
+})()
