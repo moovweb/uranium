@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title> Toggle Unit Tests</title>
+    <script src="../external-lib/xui-2.0.0.js"></script>
+    <script src="../toggler.js"></script>
+    <link rel="stylesheet" type='text/css' href='test.css' />
+    <link rel="stylesheet" type='text/css' href='toggler.css' />
+  </head>
+
+  <body suite='Togglers'>
+
+    <h1> Togglers </h1>
+
+    <hr>
+
+    <h2> How To: </h2>
+    <div class='description'>
+      <p>
+        Demo of the toggler widgets. The only thing required to setup
+        togglers is to setup you're html properly. Then, onload, the
+        toggler.js file adds the listeners appropriately.
+      </p>
+
+      <p>
+        To setup an toggler:
+      </p>
+      <ol>
+        <li> Add the 'mw_toggler' attribute to the button element and
+          all of the top level content elements. Set its value to be the name
+          of the toggler (which should be unique to the page).</li>
+        <li> Add the 'mw_toggler_button' (and optionally 'closed') classes to the button element.</li>
+        <li> Add the 'mw_toggler_content' (and optionally 'closed') classes to the content element(s).</li>
+      </ol>
+
+      
+      
+    </div>
+
+    <h2> Test for togglers:</h2>
+    <div class='test' name='Simple'>
+
+      <h3> Test 1 : Simple (Nested) -- Single button / single content element</h3>
+      
+      <div class='description'>
+        Simplest scenario -- one button and one content element, both
+        wrapped in a uranium-set element. Note that the data-ur-state
+        attribute is optional.
+
+          (Maybe components
+        isnt great -- the names must be unique -- like
+        AccordionButton, SelectButton instead of just button)
+      </div>
+
+      <div data-ur-set >
+        <div data-ur-component='button'>
+          Clothings
+        </div>
+        
+        <ul data-ur-component='content'>
+          <li> Hat </li>
+          <li> Socks </li>
+          <li> Shoes </li>
+          <li> Gloves </li>
+          <li> Shirts </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class='test' name='UniqueIDs'>
+
+      <h3> Test 2 : Flat -- Single button / single content element</h3>
+      
+      <div class='description'>
+
+        Another common use case -- one button and one content
+        element. This version doesn't require them to be in a wrapper,
+        but they both must have matching data-ur-id values. The
+        accordions are constructed based on these unique id groups.
+
+     </div>
+
+
+      <div data-ur-component='button' data-ur-id='MyFlatAccordionSocks'>
+        Socks
+      </div>
+      
+      <ul data-ur-component='content' data-ur-id='MyFlatAccordionSocks'>
+        <li> Argile </li>
+        <li> Striped </li>
+        <li> Solid </li>
+        <li> Dr. Seuss </li>
+      </ul>
+
+
+      <div data-ur-component='button' data-ur-id='MyFlatAccordionMovies'>
+        Movies
+      </div>
+      
+      <ul data-ur-component='content' data-ur-id='MyFlatAccordionMovies'>
+        <li> Planet Terror </li>
+        <li> Repo Man </li>
+        <li> Equilibrium </li>
+      </ul>
+
+    </div>
+
+
+    <div class='test' name='Nested'>
+
+      <h3> Test 3 : Nested -- Nesting Togglers</h3>
+      
+      <div class='description'>
+
+        It's easy to nest togglers as well. Note that I'm switching
+        off between the 'nest' and 'flat' syntaxes.
+
+     </div>
+
+
+      <div data-ur-component='button' data-ur-id='FoodAccordion'>
+        Foods
+      </div>
+      
+      <ul data-ur-component='content' data-ur-id='FoodAccordion'>
+        <li data-ur-set >
+          <span data-ur-component='button'> Veggies </span>
+          <ul data-ur-component='content'>
+            <li> Beets </li>
+            <li> Carrots </li>
+          </ul>
+        </li>
+        <li>
+          <span data-ur-component='button' data-ur-id='steve'> Meats </span>
+          <ul data-ur-component='content' data-ur-id='steve'>
+            <li> Beef </li>
+            <li> Fish </li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+
+    <div class='test' name='Dialog'>
+
+      <h3> Test 3 : Dialog popup -- something besides an accordion</h3>
+      
+      <div class='description'>
+
+        Make a popup.
+
+     </div>
+
+      <div data-ur-component='button' data-ur-id='MyPopup'>
+        Popup !
+      </div>
+      
+      <div data-ur-component='content' data-ur-id='MyPopup'>
+         <img src='images/popup.jpeg'>
+      </div>
+
+    </div>
+
+<hr>
+<address></address>
+<!-- hhmts start --> Last modified: Mon Apr  4 20:18:23 PDT 2011 <!-- hhmts end -->
+</body> </html>

@@ -1,0 +1,45 @@
+*[data-ur-component='button'] { 
+  opacity: 0.5;
+  background-color: #33CC00;	
+}
+
+*[data-ur-component='content'] {
+  display:none;
+  background-color: #BBCCFF;
+}
+
+*[data-ur-component='button'][data-ur-state='enabled'] {
+  opacity: 1.0;
+}
+
+*[data-ur-component='content'][data-ur-state='enabled'] {
+  display: block;
+}
+
+
+/* Popup example */
+
+div[name='Dialog'] *[data-ur-component='button'] {
+  border-radius: 5px;
+  background-color: #77F;
+  opacity: 1.0;
+  padding: 5px;
+}
+
+div[name='Dialog'] *[data-ur-component='content'] {
+  display: none;
+  position: absolute;
+  border-radius: 5px;
+  background-color: #AAAAAA;
+  width: 500px;
+  height: 500px;
+  left: 200px;
+  bottom: 50px;
+  text-align: center;
+  padding-top: 30px;
+}
+
+div[name='Dialog'] *[data-ur-component='content'][data-ur-state='enabled'] {
+  display: block;
+  
+}
