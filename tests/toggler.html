@@ -3,6 +3,7 @@
   <head>
     <title> Toggle Unit Tests</title>
     <script src="../external-lib/xui-2.0.0.js"></script>
+    <script src="../uranium.js"></script>
     <script src="../toggler.js"></script>
     <link rel="stylesheet" type='text/css' href='test.css' />
     <link rel="stylesheet" type='text/css' href='toggler.css' />
@@ -148,16 +149,74 @@
       
       <div class='description'>
 
-        Make a popup.
+        Make a popup. This (and all the examples above) -- use lazy
+        styling. The styling associated with the different actions is
+        also associated with the default styles for that content. In
+        these cases, we aren't really using the 'disabled'
+        data-ur-state  --- we just style on the 'enabled' state.
 
      </div>
 
-      <div data-ur-component='button' data-ur-id='MyPopup'>
+      <div data-ur-component='button' data-ur-id='MyPopup' >
         Popup !
       </div>
       
       <div data-ur-component='content' data-ur-id='MyPopup'>
          <img src='images/popup.jpeg'>
+      </div>
+
+    </div>
+
+    <div class='test' name='DialogProper'>
+
+      <h3> Test 4 : Dialog popup -- Proper Styling</h3>
+      
+      <div class='description'>
+
+        Make a popup. Use proper styling. Note here how I add the
+        data-ur-state attributes so that I can compartmentalize the
+        styles that affect the UI behavior (the normal styles for
+        these elements will be separated).
+
+     </div>
+
+      <div data-ur-component='button' data-ur-id='MyProperPopup'
+        data-ur-state='disabled' class='popup_button'>
+        Popup !
+      </div>
+      
+      <div data-ur-component='content' data-ur-id='MyProperPopup'
+        data-ur-state='disabled' class='popup_content'>
+         <img src='images/popup.jpeg'>
+      </div>
+
+    </div>
+
+    <div class='test' name='MultipleContents'>
+
+      <h3> Test 5 : Make multiple content elements toggle</h3>
+      
+      <div class='description'>
+
+        The toggler is designed to toggle any 'content' components
+        that are bound to its group. You can use this to toggle
+        multiple things at once. You can also use the data-ur-state to
+        set the initial state of each of the contents.
+
+     </div>
+
+      <div data-ur-component='button' data-ur-id='MyToggler'>
+        Toggle !
+      </div>
+      
+      <div data-ur-component='content' data-ur-id='MyToggler'
+        class='popup_content' data-ur-state='enabled'>
+         <img src='images/popup.jpeg'>
+      </div>
+
+      <div data-ur-component='content' data-ur-id='MyToggler'
+           class='popup_content' data-ur-state='disabled'>
+         <img src='images/popup2.jpg'>
       </div>
 
     </div>

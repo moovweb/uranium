@@ -81,7 +81,15 @@ function find_elements() {
       }
 
       if (valid_component) {
-        togglers[my_set_id][component_type] = this;
+        if(component_type == "content") {
+          if(togglers[my_set_id][component_type] === undefined) {
+            togglers[my_set_id][component_type] = [];
+          }
+          togglers[my_set_id][component_type].push(this);
+
+        } else {
+          togglers[my_set_id][component_type] = this;
+        }
       }
 
     }
@@ -108,7 +116,9 @@ function find_elements() {
       //TODO: Account for multiple content elements
 
       // Make the content state match the button state
-      x$(toggler["content"]).attr("data-ur-state", toggler_state)
+      if (      x$(toggler["content"]).attr("data-ur-state")[0] === undefined ) {
+        x$(toggler["content"]).attr("data-ur-state", toggler_state)
+      }
 
     }
 
@@ -124,9 +134,12 @@ function find_elements() {
 
       x$(button).attr("data-ur-state", new_state);
 
-      x$(contents).each(
-        function(){
-          x$(this).attr("data-ur-state", new_state);
+      x$().iterate(
+        contents,
+        function(content){
+          var current_state = x$(content).attr("data-ur-state")[0];
+          var new_state = current_state === "enabled" ? "disabled" : "enabled";
+          x$(content).attr("data-ur-state", new_state);
         }
       );
     }
@@ -140,7 +153,6 @@ function find_elements() {
     for(name in togglers){
       var toggler = togglers[name];
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]));
-
     }
   }
 
