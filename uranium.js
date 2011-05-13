@@ -25,14 +25,6 @@ var mixins = {
     }
     return {left: cumulative_left, top:cumulative_top};
   },
-  touch_events: function() {
-    try {
-      document.createEvent("TouchEvent");
-      return true;
-    } catch(e) {
-      return false;
-    }
-  },
   
   // TODO: Make private:
   find_next_ancestor: function(elem, type) {
@@ -129,7 +121,7 @@ var mixins = {
 	  // -- For toggler, it makes sense for content to be multiple things
 	  // -- For select-lists, it doesn't
 	  if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-	    component_constructors[component_type](groups[my_set_id], this);
+	    component_constructors[component_type](groups[my_set_id], this, component_type);
 	  } else {
             groups[my_set_id][component_type] = this;
           }

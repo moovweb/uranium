@@ -1,11 +1,14 @@
+// TODO : This module should force the 'nesting' syntax since its function requires that the components be nested
+// -- this is a bit fuzzier of a requirement when thumbnails are in the mix
+
 (function(){
 
-  function ZoomPreview(elements, modifier){
-    this.elements = elements;
+  function ZoomPreview(data){
+    this.elements = data["elements"];
     this.modifier = {};
     
-    if (modifier !== null) {
-      this.modifier = modifier;
+    if (data["modifier"] !== null) {
+      this.modifier = data["modifier"];
     }
     this.dimensions = {};
     this.zoom = false;
@@ -13,10 +16,10 @@
     this.update();
     this.events = {"start": "touchstart", "move" : "touchmove", "end" : "touchend"};
 
-    this.touch = x$().touch_events();
+    this.touch = xui.touch;
 
     // Would be cool to compile this out
-    if (!x$().touch_events())
+    if (!this.touch)
       this.events = {"move" : "mousemove", "end" : "mouseout"};
 
     this.initialize();
@@ -36,37 +39,38 @@
 
     match = replace = null;
 
-    if(this.modifier["zoom_button"]) {
-      match = this.modifier["zoom_button"]["match"];
-      replace = this.modifier["zoom_button"]["replace"];
+    if(this.modifier["button"]) {
+      match = this.modifier["button"]["match"];
+      replace = this.modifier["button"]["replace"];
     }
 
     if(match && replace) {
-      this.elements["zoom_button"].src = this.elements["zoom_image"].src.replace(match, replace);
+      this.elements["button"].src = this.elements["zoom_image"].src.replace(match, replace);
     } else {
-      this.elements["zoom_button"].src = this.elements["zoom_image"].src;
+      this.elements["button"].src = this.elements["zoom_image"].src;
     }
 
     var self = this;
     this.elements["zoom_image"].style.visibility = "hidden";
     x$(this.elements["zoom_image"]).on("load", function(){self.update()});  
-    x$(this.elements["zoom_button"]).on("load", function(){x$(self.elements["zoom_button"]).addClass("loaded");});  
+    x$(this.elements["button"]).on("load", function(){x$(self.elements["button"]).addClass("loaded");});  
+    // TODO: Make this callback add the 'loaded' state
   }
 
   ZoomPreview.prototype.update = function() {
     var self = this;
     x$().iterate(
-      ["zoom_button","zoom_image","zoom_container"],
+      ["button","zoom_image","container"],
       function(elem) {
         self.dimensions[elem] = [self.elements[elem].offsetWidth, self.elements[elem].offsetHeight];
       }
     );  
 
-    var offset = x$(this.elements["zoom_button"]).offset();
+    var offset = x$(this.elements["button"]).offset();
     var button_offset = [offset["left"], offset["top"]];
 
-    this.button_center = [this.dimensions["zoom_button"][0]/2.0 + button_offset[0],
-                          this.dimensions["zoom_button"][1]/2.0 + button_offset[1]];
+    this.button_center = [this.dimensions["button"][0]/2.0 + button_offset[0],
+                          this.dimensions["button"][1]/2.0 + button_offset[1]];
 
     this.image_origin = [-1.0/2.0*this.dimensions["zoom_image"][0], -1.0/2.0*this.dimensions["zoom_image"][1]];
   }
@@ -83,12 +87,12 @@
   }
 
   ZoomPreview.prototype.initialize = function() {
-    x$(this.elements["zoom_button"]).on(this.events["move"],function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
-    x$(this.elements["zoom_button"]).on(this.events["end"],function(obj){return function(evt){obj.scroll_end(evt)};}(this));
+    x$(this.elements["button"]).on(this.events["move"],function(obj){return function(evt){obj.scroll_zoom(evt)};}(this));
+    x$(this.elements["button"]).on(this.events["end"],function(obj){return function(evt){obj.scroll_end(evt)};}(this));
 
     // To prevent scrolling:
     if(this.events["start"]) {
-      x$(this.elements["zoom_button"]).on("touchstart",function(obj){return function(evt){evt.preventDefault()};}(this));
+      x$(this.elements["button"]).on("touchstart",function(obj){return function(evt){evt.preventDefault()};}(this));
     }
 
     var self = this;
@@ -104,8 +108,12 @@
 
     // Setup the initial button/zoom image:
 
-    img = x$(this.elements["zoom_container"]).find(".mw_normal_image");
-    this.rewrite_images(img.attr("src")[0], new RegExp(img.attr("zoom-modifier-match")[0]), img.attr("zoom-modifier-replace")[0]);
+    // I think I may need this for the cases where the image is updated 'out from under' the zoom preview
+    //    img = x$(this.elements["container"]).find("[data-ur-zoom-preview-component='normal_image']");
+    //    this.rewrite_images(img.attr("src")[0], new RegExp(img.attr("data-ur-zoom-modifier-match")[0]), img.attr("data-ur-zoom-modifier-replace")[0]);
+    // But with the new loader, I can just do this:
+    img = x$(this.elements["normal_image"]);
+    this.rewrite_images(img.attr("src")[0], this.modifier["normal_image"]["match"], this.modifier["normal_image"]["replace"]);
   }
 
   ZoomPreview.prototype.scroll_end = function(event) {
@@ -118,8 +126,8 @@
     var position = this.get_event_coordinates(event);
     if (position === null) {return false};
 
-    var percents = [(position[0] - this.button_center[0])/this.dimensions["zoom_button"][0],
-                    (position[1] - this.button_center[1])/this.dimensions["zoom_button"][1]];
+    var percents = [(position[0] - this.button_center[0])/this.dimensions["button"][0],
+                    (position[1] - this.button_center[1])/this.dimensions["button"][1]];
 
     var delta = [this.dimensions["zoom_image"][0] * percents[0],
                  this.dimensions["zoom_image"][1] * percents[1]];
@@ -132,7 +140,7 @@
   }
 
   ZoomPreview.prototype.check_bounds = function(translate){
-    var min = [this.dimensions["zoom_container"][0]-this.dimensions["zoom_image"][0], this.dimensions["zoom_container"][1]-this.dimensions["zoom_image"][1]];
+    var min = [this.dimensions["container"][0]-this.dimensions["zoom_image"][0], this.dimensions["container"][1]-this.dimensions["zoom_image"][1]];
 
     x$().iterate(
       [0,1],
@@ -147,65 +155,52 @@
     return translate;
   }
 
+  ComponentConstructors = {
+    "_modifiers" : function(group, component, type, modifier_prefix) {
+      if (group["modifier"] === undefined) {
+        group["modifier"] = {};
+      }
+      
+      var prefix = (modifier_prefix === undefined) ? "src" : "zoom";
+      console.log("searching for modifier:", prefix, component);
+      var match = x$(component).attr("data-ur-" + prefix + "-modifier-match")[0];
+      var replace = x$(component).attr("data-ur-" + prefix + "-modifier-replace")[0];
+      
+      if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
+        console.log("found modifiers:",match,replace);
+        group["modifier"][type] = {"match":new RegExp(match),"replace":replace};
+      }
+    },
+    "_construct" : function(group, component, type, modifier_prefix) {
+      if (group["elements"] === undefined) {
+        group["elements"] = {};
+      }
+      group["elements"][type] = component;
+      this._modifiers(group, component, type, modifier_prefix);
+    },
+    "normal_image" : function(group, component, type) {
+      this._construct(group, component, type, "zoom");
+    },
+    "zoom_image" : function(group, component, type) {
+      this._construct(group, component, type);    },
+    "button" : function(group, component, type) {
+      this._construct(group, component, type);
+    },  
+    "container" : function(group, component, type) {
+      this._construct(group, component, type);
+    },  
+    "thumbnails" : function(group, component, type) {
+      this._construct(group, component, type);
+    }  
+  }
 
   function ZoomPreviewLoader(){
   }
 
-  ZoomPreviewLoader.prototype.collect_elements = function() {
-    var raw_elements = x$("*[mw-zoom-preview]");
-    this.zoom_previews = {};
-    this.modifiers = {};
-    var self = this;
-
-    raw_elements.filter(
-      function() {
-        var name = x$(this).attr("mw-zoom-preview");
-
-        if (x$(this).hasClass("mw_zoom_container")) {
-          self.add_element(name,"zoom_container",this);
-          self.modifiers[name] = {};
-          x$().iterate(
-            this.children,
-            function(elem) {
-              if(x$(elem).hasClass("mw_zoom_image")) {
-                self.add_element(name, "zoom_image", elem);
-                self.add_modifiers(elem, name, "zoom_image");
-              } else if (x$(elem).hasClass("mw_zoom_button")) {
-                self.add_element(name, "zoom_button", elem);
-                self.add_modifiers(elem, name, "zoom_button");
-              } 
-            }
-          );
-        }
-
-        if(x$(this).hasClass("mw_zoom_thumbnails")) {
-          self.add_element(name, "thumbnails", this);
-        }
-      }
-    );
-
-  }
-
-  ZoomPreviewLoader.prototype.add_element = function(name, element_name, value) {
-    if(typeof(this.zoom_previews[name]) == "undefined") {
-      this.zoom_previews[name] = {};
-    }
-    this.zoom_previews[name][element_name] = value;
-  }
-
-  ZoomPreviewLoader.prototype.add_modifiers = function(element, name, element_name) {
-    var match = x$(element).attr("src-modifier-match")[0];
-    var replace = x$(element).attr("src-modifier-replace")[0];
-    
-    if(typeof(match) != "undefined" && typeof(replace) != "undefined") {
-      this.modifiers[name][element_name] = {"match":new RegExp(match),"replace":replace};
-    }
-  }
-
   ZoomPreviewLoader.prototype.initialize = function() {
-    this.collect_elements();
+    this.zoom_previews = x$().find_elements('zoom-preview', ComponentConstructors);
     for (name in this.zoom_previews) {
-      new ZoomPreview(this.zoom_previews[name], this.modifiers[name]);
+      new ZoomPreview(this.zoom_previews[name]);
     }
   }
 

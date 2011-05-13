@@ -106,15 +106,15 @@
 
   <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
   
-  <div mw-zoom-preview='ZoomPreview' class="mw_zoom_container">
-    <img class="mw_zoom_image" src-modifier-match='(some_attr=)(.*)' src-modifier-replace='$1yesway' style="visibility: hidden" />
+  <div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'>
+    <img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
       
     <div class="normal_image">
-      <img class='mw_normal_image'
-      zoom-modifier-match='$' zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
+      <img data-ur-zoom-preview-component='normal_image'
+      data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
     </div>
 
-    <img src-modifier-match='$' src-modifier-replace='&button_image=true' class="mw_zoom_button"/>
+    <img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true' data-ur-zoom-preview-component='button'/>
         
   </div>
   
@@ -124,32 +124,35 @@
 <div class='test' name='Thumbnails'>
 
   <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
-  
-  <div mw-zoom-preview='ZoomPreviewThumbnails' class="mw_zoom_container">
-    <img class="mw_zoom_image" src-modifier-match='(some_attr=)(.*)' src-modifier-replace='$1yesway' style="visibility: hidden" />
-      
-    <div class="normal_image">
-      <img id="big_image" class='mw_normal_image'
-      zoom-modifier-match='$' zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
-    </div>
 
-    <img class="mw_zoom_button"/>
-        
+  <div data-ur-set='zoom-preview'>
+  
+    <div data-ur-zoom-preview-component="container">
+      <img data-ur-zoom-preview-component="zoom_image" data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
+    
+    <div class="normal_image">
+      <img id="big_image" data-ur-zoom-preview-component='normal_image'
+      data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
+    </div>
+    
+    <img data-ur-zoom-preview-component="button"/>
+    
+    </div>
+    
+    <ul data-ur-zoom-preview-component="thumbnails">
+      <li> <img width='30px' height='30px' src='images/pic1.jpeg?some_attr=noway'/> </li>
+      <li> <img width='30px' height='30px' src='images/pic2.jpeg?some_attr=noway'/> </li>
+      <li> <img width='30px' height='30px' src='images/pic3.jpeg?some_attr=noway'/> </li>
+      <li> <img width='30px' height='30px' src='images/pic4.jpeg?some_attr=noway'/> </li>
+    </ul>
+    
   </div>
-  
-  <ul mw-zoom-preview='ZoomPreviewThumbnails' class="mw_zoom_thumbnails">
-    <li> <img width='30px' height='30px' src='images/pic1.jpeg?some_attr=noway'/> </li>
-    <li> <img width='30px' height='30px' src='images/pic2.jpeg?some_attr=noway'/> </li>
-    <li> <img width='30px' height='30px' src='images/pic3.jpeg?some_attr=noway'/> </li>
-    <li> <img width='30px' height='30px' src='images/pic4.jpeg?some_attr=noway'/> </li>
-  </ul>
-  
 </div>
 
 <script type='text/javascript'>
   var big_image = document.getElementById("big_image");
   x$().iterate(
-    document.querySelectorAll(".mw_zoom_thumbnails img"),
+    document.querySelectorAll("[data-ur-zoom-preview-component='thumbnails'] img"),
     function(elem) {
       elem.addEventListener('click', function(evt){big_image.src=evt.target.src;}, false);
     }
@@ -158,5 +161,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Fri May  6 15:06:13 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Fri May 13 16:25:39 PDT 2011 <!-- hhmts end -->
 </body> </html>

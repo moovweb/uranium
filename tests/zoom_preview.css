@@ -1,4 +1,4 @@
-.mw_zoom_container {
+[data-ur-zoom-preview-component='container'] {
     width: 204px;
     height: 204px;
     overflow: hidden;
@@ -6,12 +6,12 @@
     position: relative;
 }
 
-.mw_zoom_image {
+[data-ur-zoom-preview-component='zoom_image'] {
    position: absolute;
    z-index: 20;
 }
 
-.mw_zoom_button {
+[data-ur-zoom-preview-component='button'] {
    z-index: 30;
    border: 1px solid black;
    width: 62px;
@@ -22,11 +22,11 @@
    background-color: #BBBBBB;
 }
 
-.mw_zoom_thumbnails{
+[data-ur-zoom-preview-component='thumbnails'] {
  height: auto;
 }
 
-.mw_zoom_thumbnails > li{
+[data-ur-zoom-preview-component='thumbnails'] > li{
   display: inline-block;
 }
 
