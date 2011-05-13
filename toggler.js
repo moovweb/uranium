@@ -22,9 +22,9 @@ get_unique_uranium_id = (function() {
   }
 })();
 
-function find_elements() {
-  var all_elements = x$('*[data-ur-component]');
-  var togglers = {};
+function find_elements(type) {
+  var all_elements = x$('*[data-ur-' + type + '-component]');
+  var groups = {};
 
   all_elements.each(
     function() {
@@ -40,10 +40,10 @@ function find_elements() {
       console.log("my id=",my_set_id.length);
       if (my_set_id.length != 0) {
         console.log("I HAVE AN ID");
-        if ( togglers[my_set_id] === undefined) {
-          togglers[my_set_id] = {};
+        if ( groups[my_set_id] === undefined) {
+          groups[my_set_id] = {};
         }
-        console.log(togglers[my_set_id]);
+        console.log(groups[my_set_id]);
         
 
       } else {
@@ -57,7 +57,7 @@ function find_elements() {
             // Must be first time I've encountered this set
             my_set_id = get_unique_uranium_id();
             x$(my_ancestor).attr("data-ur-id", my_set_id);
-            togglers[my_set_id] = {};
+            groups[my_set_id] = {};
           } else {
             my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
           }
@@ -71,7 +71,7 @@ function find_elements() {
 
       //////////// Add this component to its set /////////////
 
-      var component_type = x$(this).attr("data-ur-component");
+      var component_type = x$(this).attr("data-ur-" + type + "-component");
 
       if (component_type === undefined) {
         valid_component = false;
@@ -79,20 +79,20 @@ function find_elements() {
 
       if (valid_component) {
         if(component_type == "content") {
-          if(togglers[my_set_id][component_type] === undefined) {
-            togglers[my_set_id][component_type] = [];
+          if(groups[my_set_id][component_type] === undefined) {
+            groups[my_set_id][component_type] = [];
           }
-          togglers[my_set_id][component_type].push(this);
+          groups[my_set_id][component_type].push(this);
 
         } else {
-          togglers[my_set_id][component_type] = this;
+          groups[my_set_id][component_type] = this;
         }
       }
 
     }
   );
 
-  return togglers;
+  return groups;
 }
 
 
@@ -100,7 +100,7 @@ function find_elements() {
   function ToggleLoader(){}
 
   ToggleLoader.prototype.find = function(){
-    var togglers = find_elements();
+    var togglers = find_elements('toggler');
     var self=this;
     
     for(toggler_id in togglers) {
@@ -113,7 +113,7 @@ function find_elements() {
       //TODO: Account for multiple content elements
 
       // Make the content state match the button state
-      if (      x$(toggler["content"]).attr("data-ur-state")[0] === undefined ) {
+      if (x$(toggler["content"]).attr("data-ur-state")[0] === undefined ) {
         x$(toggler["content"]).attr("data-ur-state", toggler_state)
       }
 
