@@ -1,16 +1,28 @@
-function find_set_ancestor(elem) {
-  console.log(elem);
-  console.log("data-ur-set:" + x$(elem).attr("data-ur-set"));
-  if (x$(elem).attr("data-ur-set").length != 0) {
-    return elem;
+function find_next_ancestor(elem, type) {
+  //check to make sure there's still a parent:
+  console.log("parent?",elem.parentNode);
+  if (elem.parentNode != window.document) {
+    return find_set_ancestor(elem.parentNode, type);
   } else {
-    //check to make sure there's still a parent:
-    console.log("parent?",elem.parentNode);
-    if (elem.parentNode != window.document) {
-      return find_set_ancestor(elem.parentNode);
+    return null;
+  }
+}
+
+function find_set_ancestor(elem, type) {
+  console.log("data-ur-set:");
+  console.log(elem);
+  console.log(x$(elem).attr("data-ur-set"));
+  var set_name = x$(elem).attr("data-ur-set")[0];
+  if (set_name !== undefined) {
+    if(type == undefined) {
+      return elem;
+    } else if (set_name == type) {
+      return elem;
     } else {
-      return null;
+      return find_next_ancestor(elem, type);
     }
+  } else {
+    return find_next_ancestor(elem, type);
   }
 }
 
