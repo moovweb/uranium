@@ -8,7 +8,6 @@
 (function(){
 
   function SelectList(select_element, list_element){
-    this.classes = {"selected" : "mw_list_item_selected"};
     this.select = select_element;
     this.list = list_element;
     this.initialize();
@@ -26,10 +25,10 @@
       this.list.children,
       function(element, index){
         if(element == selected_list_option) {
-          x$(element).addClass(self.classes["selected"]);
+	  x$(element).attr("data-ur-state","enabled");
           value = x$(element).attr("value");
         } else {
-          x$(element).removeClass(self.classes["selected"]);
+	  x$(element).attr("data-ur-state","disabled");
         }
       }
     );
