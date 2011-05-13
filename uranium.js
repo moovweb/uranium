@@ -79,8 +79,6 @@ var mixins = {
       function() {
 
         var valid_component = true;
-        console.log("Constructing component:");
-        console.log(this);
 
         ///////// Resolve this component to its set ///////////
 
@@ -130,9 +128,7 @@ var mixins = {
 	  // This is widget specific behavior
 	  // -- For toggler, it makes sense for content to be multiple things
 	  // -- For select-lists, it doesn't
-	  console.log("valid component (" + component_type + ":", this);
 	  if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-	    console.log("calling constructor:", component_constructors[component_type]);
 	    component_constructors[component_type](groups[my_set_id], this);
 	  } else {
             groups[my_set_id][component_type] = this;
