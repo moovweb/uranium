@@ -1,4 +1,4 @@
-.mw_button {
+[data-ur-select-buttons-component] {
   border-radius: 5px;
   display: block;
   width: 30px;
@@ -7,12 +7,16 @@
   margin: 5px;
 }
 
-.mw_increment {
+[data-ur-select-buttons-component='select'] {
+  width: 100px;
+}
+
+[data-ur-select-buttons-component='increment'] {
   background-color: #33CC00;	
 }
 
-.mw_decrement {
+[data-ur-select-buttons-component='decrement'] {
   background-color: #CC3300;	
 }
 
-.disabled { opacity: .5 }
+[data-ur-select-buttons-component][data-ur-state='disabled'] { opacity: .5 }

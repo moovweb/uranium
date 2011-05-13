@@ -43,18 +43,18 @@
   
   <h3>Simple example.</h3>
   
-  
-  <select select-buttons='Simple'>
-    <option selected='true' value='-1'> -None- </option>
-    <option value='SKU-XS'> XS </option>
-    <option value='SKU-S'> S </option>
-    <option value='SKU-M'> M </option>
-    <option value='SKU-L'> L </option>
-  </select>
-
-  <span select-buttons='Simple' class='mw_button mw_increment'> [+] </span>
-  <span select-buttons='Simple' class='mw_button mw_decrement disabled'> [-] </span>
- 
+  <div data-ur-set='select-buttons'>
+    <select data-ur-select-buttons-component='select'>
+      <option selected='true' value='-1'> -None- </option>
+      <option value='SKU-XS'> XS </option>
+      <option value='SKU-S'> S </option>
+      <option value='SKU-M'> M </option>
+      <option value='SKU-L'> L </option>
+    </select>
+    
+    <span data-ur-select-buttons-component='increment'> [+] </span>
+    <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+  </div>
 </div>
 
 </body>
