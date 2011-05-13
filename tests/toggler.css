@@ -48,34 +48,70 @@ div[name='Dialog'] *[data-ur-component='content'][data-ur-state='enabled'] {
 
 /* Proper Styling */
 
-.popup_button {
-  
+.popup_button, .popup_button > span{
+  border-radius: 5px;
+  background-color: #77F;
+  opacity: 1.0;
+  padding: 5px;
+  display: inline;
+  margin: 0px 5px;
 }
 
 .popup_content {
   position: absolute;
   border-radius: 5px;
   background-color: #AAAAAA;
-  width: 500px;
-  height: 500px;
+/*  width: 500px;
+  height: 500px;*/
   left: 200px;
 /*  bottom: 50px;*/
   text-align: center;
-  padding-top: 30px;
+  padding: 30px;
 }
 
-.popup_content[data-ur-state='enabled'] {
+.popup_content[data-ur-state='disabled'] {
   display: none;
+  opacity: 0.5;
 }
 
 .popup_content[data-ur-state='enabled'] {
   display: inline-block;
+  opacity: 1.0;
 }
 
+.popup_content[data-ur-state='enabled'] img{
+  width: 200px;
+  height: 200px;
+}
+
+
 /* multiple example */
+[name='MultipleContents'] .buttons {
+  background-color: white;
+  opacity: 1.0; /* override lazy styling from above */
+}
+
+.buttons[data-ur-state="enabled"] span:last-child{
+  opacity: 0.5;
+}
+
+.buttons[data-ur-state="disabled"] span:first-child{
+  opacity: 0.5;
+}
+
 [name='MultipleContents'] .popup_content {
   position: relative;
-  width: 400px;
-
+  z-index: -1;
+  width: 250px; 
+  height: 250px;
   padding: 20px;
+}
+
+[name='MultipleContents'] .popup_content img {
+  width: 200px;
+  height: 200px;
+}
+
+[name='MultipleContents'] [data-ur-component="content"] {
+  display: inline-block;
 }

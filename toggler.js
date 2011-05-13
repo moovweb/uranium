@@ -24,9 +24,6 @@ get_unique_uranium_id = (function() {
 
 function find_elements() {
   var all_elements = x$('*[data-ur-component]');
-
-  // Also search for ur-set's? If I can do hasChild ... nah ... theres no way thats faster
-
   var togglers = {};
 
   all_elements.each(

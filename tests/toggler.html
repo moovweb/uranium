@@ -53,7 +53,7 @@
         AccordionButton, SelectButton instead of just button)
       </div>
 
-      <div data-ur-set >
+      <div data-ur-set='Toggler' >
         <div data-ur-component='button'>
           Clothings
         </div>
@@ -125,7 +125,7 @@
       </div>
       
       <ul data-ur-component='content' data-ur-id='FoodAccordion'>
-        <li data-ur-set >
+        <li data-ur-set='Toggler' >
           <span data-ur-component='button'> Veggies </span>
           <ul data-ur-component='content'>
             <li> Beets </li>
@@ -205,8 +205,10 @@
 
      </div>
 
-      <div data-ur-component='button' data-ur-id='MyToggler'>
-        Toggle !
+      <div data-ur-component='button' data-ur-id='MyToggler'
+        class='buttons' data-ur-state='disabled'>
+        <span class='popup_button'> Thing 1 </span>
+        <span class='popup_button'> Thing 2 </span>
       </div>
       
       <div data-ur-component='content' data-ur-id='MyToggler'
@@ -223,5 +225,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Mon Apr  4 20:18:23 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Thu May 12 18:19:19 PDT 2011 <!-- hhmts end -->
 </body> </html>
