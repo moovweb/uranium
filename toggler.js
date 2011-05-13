@@ -1,8 +1,21 @@
 (function(){
-  function ToggleLoader(){}
+  function ToggleContentComponent (group, content_component) {
+    // This is a 'collection' of components
+    // -- if I see it again, I'll make this abstract
+    if(group["content"] === undefined) {
+      group["content"] = [];
+    }
+    group["content"].push(content_component);
+  }
+
+  function ToggleLoader(){
+    this.component_constructors = {
+      "content" : ToggleContentComponent
+    };
+  }
 
   ToggleLoader.prototype.find = function(){
-    var togglers = x$().find_elements('toggler');
+    var togglers = x$().find_elements('toggler', this.component_constructors);
     var self=this;
     
     for(toggler_id in togglers) {
@@ -11,13 +24,16 @@
       if(toggler_state === undefined) {
         x$(toggler["button"]).attr("data-ur-state", 'disabled');
       } 
-      
-      //TODO: Account for multiple content elements
 
       // Make the content state match the button state
-      if (x$(toggler["content"]).attr("data-ur-state")[0] === undefined ) {
-        x$(toggler["content"]).attr("data-ur-state", toggler_state)
-      }
+      x$().iterate(
+	toggler["content"],
+	function(content) {
+	  if (x$(content).attr("data-ur-state")[0] === undefined ) {
+            x$(content).attr("data-ur-state", toggler_state)
+	  }
+	}
+      );
 
     }
 

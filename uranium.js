@@ -71,7 +71,7 @@ var mixins = {
     }
   })(),
 
-  find_elements: function(type) {
+  find_elements: function(type, component_constructors) {
     var all_elements = x$('*[data-ur-' + type + '-component]');
     var groups = {};
 
@@ -127,13 +127,14 @@ var mixins = {
         }
 
         if (valid_component) {
-          if(component_type == "content") {
-            if(groups[my_set_id][component_type] === undefined) {
-              groups[my_set_id][component_type] = [];
-            }
-            groups[my_set_id][component_type].push(this);
-
-          } else {
+	  // This is widget specific behavior
+	  // -- For toggler, it makes sense for content to be multiple things
+	  // -- For select-lists, it doesn't
+	  console.log("valid component (" + component_type + ":", this);
+	  if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
+	    console.log("calling constructor:", component_constructors[component_type]);
+	    component_constructors[component_type](groups[my_set_id], this);
+	  } else {
             groups[my_set_id][component_type] = this;
           }
         }
