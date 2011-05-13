@@ -182,7 +182,8 @@
       this._construct(group, component, type, "zoom");
     },
     "zoom_image" : function(group, component, type) {
-      this._construct(group, component, type);    },
+      this._construct(group, component, type);
+    },
     "button" : function(group, component, type) {
       this._construct(group, component, type);
     },  
