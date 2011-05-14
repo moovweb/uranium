@@ -36,32 +36,41 @@
     To setup zoom preview:
   </p>
     <ol>
+      <li>
+        Group the zoom-preview. You can do this with either the
+    structural method or the unique ID method (add link).
+      </li>
+      
       <li> Identify the zoom-container. This should contain the normal
       'hero' image that the thumbnails update. It should also contain
       the zoom-button and zoom-image elements.
         <ul>
-          <li>Add the 'mw-zoom-preview' attribute to the zoom-container.
-          Set its value to be the name of the zoom-preview widget (which
-          should be unique to the page).</li>
-          
-          <li> Add the 'mw_zoom_container' class to the zoom-container </li>
+          <li>
+          Set the 'data-ur-zoom-preview-component' to 'container'
+          on the zoom-container.
+          </li>
+          <li>
+          Note : Its ok for the data-ur-set and zoom-container to be
+          the same element. This will probably be the case when you
+          don't have to deal with thumbnails.
+          </li>
         </ul>
       </li>
-      <li> Add the 'mw_zoom_image' class to the zoom image element (which
+      <li> Set the 'data-ur-zoom-preview-component' attribute to 'zoom_image' on the zoom image element (which
       should be a descendant of the zoom-container).
         <ul>
           You can also specify a modifier rule for the zoom-image:
           <li> Normally, when a thumbnail is clicked, its src
         attribute is copied to the zoom image -- but this usually
         results in an image thats much too small to zoom. </li>
-          <li> Set the src-modifier-match attribute's value to be the
+          <li> Set the 'data-ur-src-modifier-match' attribute's value to be the
         match regex to be applied to the thumbnail image's src </li>
-          <li> Set the src-modifier-replace attribute's value to be
+          <li> Set the 'data-ur-src-modifier-replace' attribute's value to be
         the replace string to be applied to the thumbnail image's src</li>
           <li> Look at this page's html for an example of this </li>
         </ul>
       </li>
-     <li> Add the 'mw_zoom_button' class to the button element (which
+     <li> Set the 'data-ur-zoom-preview-component' attribute to 'button' the button element (which
       should be a descendant of the zoom-container). The 'loaded'
         class is added to this element once the image has loaded.
         <ul>
@@ -71,34 +80,26 @@
         space. That results in slow re-paints which makes the UX
         janky). This modifier gets applied to the zoom-image url
         (after the zoom-image modifier gets applied):
-          <li> Set the src-modifier-match attribute's value to be the
+          <li> Set the 'data-ur-src-modifier-match' attribute's value to be the
         match regex for the zoom-image src </li>
-          <li> Set the src-modifier-replace attribute's value to be
+          <li> Set the 'data-ur-src-modifier-replace' attribute's value to be
         the replace string for the zoom-image src </li>
         </ul>
       </li>      
-      <li> Add the 'mw_normal_image' class to the normal image. (The
-        normal image should be a descendant of the zoom-container).
+      <li> Set the 'data-ur-zoom-preview-component' attribute to 'normal_image'
+      on the normal image. (The normal image must be a descendant of the zoom-container).
         <ul>
           Add a match/replace pair. These get applied to the normal
           image src to generate the initial zoom-image url:
-          <li> Set the 'zoom-modifier-match' attribute. </li>
-          <li> Set the 'zoom-modifier-replace' attribute </li>
+          <li> Set the 'data-ur-zoom-modifier-match' attribute. </li>
+          <li> Set the 'data-ur-zoom-modifier-replace' attribute </li>
         </ul>
       </li>
       <li> (Optional) Identify the zoom-thumbnails-container. This should contain
-        the all of the thumbnail images. 
-        <ul>
-          <li>Add the 'mw-zoom-preview' attribute to the zoom-container.
-          Set its value to match the name you specified for the zoom-container.</li>
-          
-          <li> Add the 'mw_zoom_thumbnails' class to the zoom-thumbnails-container </li>
-        </ul>
-      </li>
+      the all of the thumbnail images. Set the 'data-ur-zoom-preview-component' to 'thumbnails' the zoom-thumbnails-container
+     </li>
     </ol>
 
-  
-  
 </div>
 
 <h2> Test:</h2>
@@ -161,5 +162,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Fri May 13 16:25:39 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Fri May 13 17:34:51 PDT 2011 <!-- hhmts end -->
 </body> </html>

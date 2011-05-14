@@ -15,6 +15,15 @@
 
     <hr>
 
+    <h2> Description: </h2>
+    <div class='description'>
+      <p>
+        Toggler is a widget that has two components -- a button, and a
+      set of contents. When you click the button, the button and content
+      states are toggled.
+      </p>
+    </div>
+
     <h2> How To: </h2>
     <div class='description'>
       <p>
@@ -27,15 +36,49 @@
         To setup an toggler:
       </p>
       <ol>
-        <li> Add the 'mw_toggler' attribute to the button element and
-          all of the top level content elements. Set its value to be the name
-          of the toggler (which should be unique to the page).</li>
-        <li> Add the 'mw_toggler_button' (and optionally 'closed') classes to the button element.</li>
-        <li> Add the 'mw_toggler_content' (and optionally 'closed') classes to the content element(s).</li>
+        <li>
+          Group the togglers:
+          <ul>
+            <li>
+            Group by Structure:
+            <p>
+              To group by structure, set the 'data-ur-set' attribute
+            to 'toggler' on an element that contains the button and all
+            the content elements.
+            </p>
+            </li>
+            <li>
+            Group by Unique ID:
+            <p>
+              To group by unique ID, set the 'data-ur-id' to a value
+            unique to the components you'd like to group. It can have any
+            value, the only condition is that its unique to the group.
+            </p>
+            </li>
+          </ul>
+        </li>
+        
+        <li>
+          Set the 'data-ur-toggler-component' attribute to 'button'
+          on the button element.
+
+          Optionally -- add the 'data-ur-state' attribute (to
+          'disabled' or 'enabled' ). By default it will be set to
+          'enabled' onload.
+        </li>
+        
+        <li>
+          Set the 'data-ur-toggler-component' attribute to 'content'
+          on the content element(s).
+
+          Optionally -- add the 'data-ur-state' attribute (to
+          'disabled' or 'enabled' ). By default it will be set to
+          'enabled' onload. If you so desire, you can add different
+          states to different content elements. Toggler always toggles
+          the states, no matter what they are.
+        </li>
       </ol>
 
-      
-      
     </div>
 
     <h2> Test for togglers:</h2>
@@ -47,10 +90,6 @@
         Simplest scenario -- one button and one content element, both
         wrapped in a uranium-set element. Note that the data-ur-state
         attribute is optional.
-
-          (Maybe components
-        isnt great -- the names must be unique -- like
-        AccordionButton, SelectButton instead of just button)
       </div>
 
       <div data-ur-set='toggler' >
@@ -225,5 +264,5 @@
 
 <hr>
 <address></address>
-<!-- hhmts start --> Last modified: Thu May 12 18:41:12 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start --> Last modified: Fri May 13 16:54:02 PDT 2011 <!-- hhmts end -->
 </body> </html>

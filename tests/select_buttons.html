@@ -24,15 +24,21 @@
 
 <div class='description'>
   <ol>
-    <li> Set the 'select-buttons' attribute to a unique name. This
-    should be set on the target &lt;select&gt; tag as well as the buttons.</li>
-    <li> Add the 'mw_button' and either 'mw_increment' or
-  'mw_decrement' classes to the buttons as appropriate.</li>
+    <li> Group the select-buttons components. (Add link here)
+    <li> Set the 'data-ur-select-buttons-component' attribute to
+  'select' on the target &lt;select&gt; tag.</li>
+  <li> Set the 'data-ur-select-buttons-component' attribute to
+  'increment' on the increment button. </li>
+  <li> Set the 'data-ur-select-buttons-component' attribute to
+  'decrement' on the decrement button. </li>
   </ol>
 
   <p>
     Note : When there are no more options to increment/decrement the
-    button will have the 'disabled' class added to it.
+    button will have the 'data-ur-state' attribute set to
+    'disabled'. Otherwise, it will have the 'enabled' value. It is
+    recommended that the decrement button have this attribute set to
+    'disabled' in the page source.
   </p>
 </div>
 
