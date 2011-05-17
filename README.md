@@ -19,7 +19,7 @@ It should be noted that since Uranium extends xui -- this library is geared for 
 
 -  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
 -  Uranium is modular - only include what you use (or just use our static bundled files)
--  Uranium includes a [minifier](doc/minify.md) script
+-  Uranium includes a [minifier](blob/master/doc/minify.md) script
 
 <span id='Easy-to-use'></span>
 
@@ -41,7 +41,7 @@ That's it.
 ## Get Started ##
 
 -  Take a look at our examples in '/tests' to see exactly how the widgets work
--  Take a look at our [model](doc/model.md) to see how to implement a widget
+-  Take a look at our [model](blob/master/doc/model.md) to see how to implement a widget
 
 # What Uranium is not #
   
