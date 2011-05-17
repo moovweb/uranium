@@ -1,0 +1,10 @@
+task :default => [:compile]
+
+task :install_compiler do
+  sh "curl -s http://closure-compiler.googlecode.com/files/compiler-latest.zip > ./compiler/compiler-latest.zip"
+  sh "unzip ./compiler/compiler-latest.zip -d compiler"
+end
+
+task :compile do
+  sh "ruby enrich.rb webkit.yaml"
+end
