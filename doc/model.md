@@ -72,8 +72,7 @@ The widgets are assigned different states according to their function. A toggler
    
 You can set the 'data-ur-state' of given components explicitly, or allow the uranium javascript to assign the default state. If a component has a state, its usually either 'enabled' or 'disabled'. There are certain situations (outlined in the /tests documentation) where you must assign a state to a widget component.
 
--  
-   Lazy
+##### Lazy #####
 
    Don't set the 'data-ur-state' on your components. Uranium will assign the default state attributes to these elements when the widgets are initialized. 
       
@@ -86,8 +85,7 @@ You can set the 'data-ur-state' of given components explicitly, or allow the ura
       
    Usually, you can get away with this when you're only really styling on one of two possible states AND you know that all widgets of this type will have the 'lazy' default state behavior. 
 
--  
-   Strict
+##### Strict #####
       
    Strict styling is more well organized. You separate out the 'default' styles that you need for a component completely from the 'state' styles that can change based on the widget's state. 
 
@@ -132,8 +130,7 @@ You can set the 'data-ur-state' of given components explicitly, or allow the ura
           opacity: 0.5;
         }        
 
--  
-   UX cues
+##### UX cues #####
 
    The data-ur-state can provide some valuable UX cues ripe for the picking. 
 
