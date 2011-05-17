@@ -2,8 +2,8 @@
 
 Uranium is meant to be :
 
--  [Lightweight](#Lightweight)
--  [Easy to use](#Easy-to-use)
+-  Lightweight
+-  Easy to use
 
 That's it!
 
@@ -11,17 +11,13 @@ We've also found it to be quite powerful -- we think you'll find it useful in ma
 
 It should be noted that since Uranium extends xui -- this library is geared for widgets that are useful on mobile devices. It also is designed to support mobile browsers (for now just webkit ... will include a build option for blackberry).
 
-<span id='Lightweight'></span>
-
 # Lightweight #
 
 ## The whole library is 6.5 KB gzipped (including all widgets and xui) ! ##
 
 -  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
--  Uranium is bundled with xui to make just one javascript file. [Here](uranium/blob/master/build/uranium.js) it is.
--  If you want it even ligher, you can make a custom [build](uranium/blob/master/doc/build.md) it yourself
-
-<span id='Easy-to-use'></span>
+-  Uranium is bundled with xui to make just one javascript file. [Here](uranium/raw/master/build/uranium.js) it is.
+-  If you want it even ligher, you can make a custom [build](uranium/blob/master/doc/build.md) yourself
 
 # Easy to Use #
 
@@ -34,7 +30,7 @@ Uranium adopts the 'declarative' javascript style. Because of this, you can use 
 Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. There are two primary steps to make a widget:
 
 -  Add special attributes to the html element you wish to make a widget
--  Include [uranium.js](uranium/blob/master/build/uranium.js)
+-  Include [uranium.js](uranium/raw/master/build/uranium.js)
 
 That's it.
 
