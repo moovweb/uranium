@@ -1,4 +1,4 @@
-.mw_list_item_selected {
+[data-ur-state='enabled'] {
   background-color: #33CC00;	
 }
 
