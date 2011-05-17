@@ -22,7 +22,7 @@ files = [build_options[:external],
          build_options[:global],
          build_options[:widgets]].flatten 
 
-puts "Compiling:"
+puts "Sources:"
 puts "-"*10   
 puts files
 puts "-"*10   

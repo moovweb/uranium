@@ -1,10 +1,37 @@
 task :default => [:compile]
 
 task :install_compiler do
-  sh "curl -s http://closure-compiler.googlecode.com/files/compiler-latest.zip > ./compiler/compiler-latest.zip"
-  sh "unzip ./compiler/compiler-latest.zip -d compiler"
+  installed = true
+
+  puts "-"*40
+  puts "Checking for Google Closure Compiler"
+  puts "-"*40
+
+  begin
+    File.open("./compiler/compiler.jar")
+  rescue Errno::ENOENT => e
+    puts "Google Closure Compiler not installed locally ... installing now..."
+    installed = false
+  end
+
+  if installed
+    puts "... found"
+  else
+    sh "curl -s http://closure-compiler.googlecode.com/files/compiler-latest.zip > ./compiler/compiler-latest.zip"
+    sh "unzip ./compiler/compiler-latest.zip -d compiler"
+    puts "... done"
+  end
 end
 
+task :compile => [:install_compiler]
+# TODO: Add a test_compiler task
+
 task :compile do
+  puts "-"*40
+  puts "Compiling widgets"
+  puts "-"*40
+
   sh "ruby enrich.rb webkit.yaml"
+
+  puts "... done"
 end
