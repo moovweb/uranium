@@ -1,6 +1,6 @@
 # Widget List #
 
-Brief outline of widget types/components.
+Brief outline of widget types/components/states.
 
 ## Widget Types ##
 
@@ -12,18 +12,18 @@ Brief outline of widget types/components.
 ## Widget Components ##
 
 - Toggler
-  +  button
-  +  content (multiple ok)
+  +  button -- (state: enabled/disabled)
+  +  content (multiple ok) -- (state: enabled/disabled)
 - Select List
   +  select
-  +  content
+  +  content -- (state: enabled/disabled)
 - Select Buttons
   +  select
-  +  increment (button)
-  +  decrement (button)
+  +  increment (button) -- (state: enabled/disabled)
+  +  decrement (button) -- (state: enabled/disabled)
 - Zoom Preview
   +  container
   +  normal-image
-  +  zoom-image
+  +  zoom-image -- (TODO: state: enabled/disabled)
   +  button
   +  thumbnails (optional)

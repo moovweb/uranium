@@ -12,7 +12,7 @@ The naming convention here is worth discussing. In HTML4 adding attributes other
 
 ## How? ##
 
-In making widgets, you'll really be performing three functions:
+In making [widgets](uranium/blob/master/doc/widgets.md), you'll really be performing three functions:
 
 ### I. Making Components ###
 
@@ -36,7 +36,7 @@ In making widgets, you'll really be performing three functions:
 -  
    #### Custom properties ####
    
-   A few widgets require more information than just their type. An example is the Zoom-Preview widget. The zoom image needs to be a large version of the normal image. The easiest way to accomplish this is to set the zoom-image's src to a modified version of the normal image's src (this integrates nicely with scene7, but will work just as well for your own urls). Do accomplish this, we need to tell the components how to modify the incoming src url to the desired url. We can do this with a custom attribute! Like so:
+   A few widgets require more information than just their type. An example is the Zoom-Preview widget. The zoom image needs to be a large version of the normal image. The easiest way to accomplish this is to set the zoom-image's src to a modified version of the normal image's src (this integrates nicely with scene7, but will work just as well for your own urls). To accomplish this, we need to tell the components how to modify the incoming src url to the desired url. We can do this with a custom attribute! Like so:
 
    <code> &lt;img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' /&gt; </code>
 
@@ -61,7 +61,7 @@ We know how to bind html elements to components, but not widget components to a 
 -  
    #### Group by UID ####
 
-   Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table). The requirement is that the data-ur-id be set to a value unique to the widget component set. Here is what it would look like for our example:
+   Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table). The only requirement is that the data-ur-id be set to a value unique to the widget component set. Here is what it would look like for our example:
 
           <div data-ur-toggler-component='button' data-ur-id='Charlie'> Click Me </div>
           <div data-ur-toggler-component='content' data-ur-id='Charlie'> Show Me </div>
@@ -69,13 +69,76 @@ We know how to bind html elements to components, but not widget components to a 
 
 ### III. Observing States ###
 -  
+   The widgets are assigned different states according to their function. A toggler button component will have either 'enabled' or 'disabled' states assigned to its 'data-ur-state' attribute. These attributes allow you to style the widget's UI appropriately. Since 'data-ur-state' is a bit of a mouthful in css, we highly recommend using [Sass](http://sass-lang.com/).
+
    #### Styling practices ####
-   -  lazy
-   -  strict
+   
+   You can set the 'data-ur-state' of given components explicitly, or allow the uranium javascript to assign the default state. If a component has a state, its usually either 'enabled' or 'disabled'. There are certain situations (outlined in the /tests documentation) where you must assign a state to a widget component.
+
+   -  
+      ##### Lazy #####
+
+      Don't set the 'data-ur-state' on your components. Uranium will assign the default state attributes to these elements when the widgets are initialized. 
+      
+      As an example, for our toggler example, I can not specify the state -- apply 'enabled' type styles to the elements by default (by using the [data-ur-toggler-component] selector) and only add 'state styles' for the disabled state, like so:
+     
+          [data-ur-toggler-component][data-ur-state='disabled'] {
+              /* disabled styles, like: */
+              display: none;
+          }
+      
+      Usually, you can get away with this when you're only really styling on one of two possible states AND you know that all widgets of this type will have the 'lazy' default state behavior. 
+
+   -  
+      ##### Strict #####
+      
+      Strict styling is more well organized. You separate out the 'default' styles that you need for a component completely from the 'state' styles that can change based on the widget's state. 
+
+      Additional advantages are: 
+      -  you can mix and match initial states
+      -  you will be able to match on the 'loaded' state (UPCOMING FEATURE)
+
+      Here's an example that exploits the use of setting state explicitly. It highlights one content element at a time:
+
+          <div data-ur-set='toggler'>
+            <div data-ur-toggler-component='button' data-ur-state='enabled'> Click Me </div>
+            <div data-ur-toggler-component='content' data-ur-state='enabled'> Show Me </div>
+            <div data-ur-toggler-component='content' data-ur-state='disabled'> Show Different Me </div>
+          </div>
+          
+       The style rules would look something like this:
+        
+           [data-ur-toggler-component='button'] {
+             /* button styles */
+             padding: 5px;
+             border-radius: 5px;
+           }
+           
+           [data-ur-toggler-component='button'][data-ur-state='enabled'] {
+             background-color: green;
+           }        
+           
+           [data-ur-toggler-component='button'][data-ur-state='disabled'] {
+             background-color: red;
+           }        
+           
+           [data-ur-toggler-component='content'] {
+             /* content styles */
+             display:inline-block;
+           }
+           
+           [data-ur-toggler-component='content'][data-ur-state='enabled'] {
+             opacity: 1.0;
+           }        
+           
+           [data-ur-toggler-component='content'][data-ur-state='disabled'] {
+             opacity: 0.5;
+           }        
+
 -  
    #### UX cues ####
 
-   The data-ur-state can provide some valuable UX cues ripe for picking. 
+   The data-ur-state can provide some valuable UX cues ripe for the picking. 
 
    (UPCOMING FEATURE):
 
@@ -89,3 +152,4 @@ We know how to bind html elements to components, but not widget components to a 
          opacity: 1.0;              
        }
         
+   Note: The 'attribute_name=~word' attribute syntax just means that an attribute's value consists of space delimited words, one of which is the word we're looking for.

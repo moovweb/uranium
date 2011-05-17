@@ -19,7 +19,7 @@ It should be noted that since Uranium extends xui -- this library is geared for 
 
 -  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
 -  Uranium is modular - only include what you use (or just use our static bundled files)
--  Uranium includes a [minifier](blob/master/doc/minify.md) script
+-  Uranium includes a [minifier](uranium/blob/master/doc/minify.md) script
 
 <span id='Easy-to-use'></span>
 
@@ -34,17 +34,17 @@ Uranium adopts the 'declarative' javascript style. Because of this, you can use 
 Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. There are two primary steps to make a widget:
 
 -  Add special attributes to the html element you wish to make a widget
--  Include the uranium js
+-  Include uranium.js (TODO: Add link)
 
 That's it.
 
 ## Get Started ##
 
--  Take a look at our examples in '/tests' to see exactly how the widgets work
--  Take a look at our [model](blob/master/doc/model.md) to see how to implement a widget
+-  Take a look at our [examples](uranium/blob/master/tests) in '/tests' to see exactly how the widgets work
+-  Take a look at our [model](uranium/blob/master/doc/model.md) to see how to implement a widget
 
 # What Uranium is not #
   
   (TODO : reword this to make it more concise)
 
-  Uranium is not designed for doing site functions. Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarative aspect is not designed for performing functions. You wouldn't want to add attributes to an element to perform some js logic (wait a second .... onclicks anyone ... haha) -- thats what events / listeners / callbacks are for. But -- uranium bundles with xui -- which (we think) provides a great minimal set of convenient javascript functions (query, add-listeners, ajax, iterate, etc). With this in mind, we see uranium as a double-solution -- its primary purpose is to make great widgets UI/UX -- but if you need to do something fancy, it gives you the tools you need to do it concisely.
+  Uranium is not designed for executing logic or site functions. Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarative aspect is not designed for performing functions. You wouldn't want to add attributes to an element to perform some js logic (wait a second .... onclicks anyone ... haha) -- thats what events / listeners / callbacks are for. But -- uranium bundles with xui -- which (we think) provides a great minimal set of convenient javascript functions (query, add-listeners, ajax, iterate, etc). With this in mind, we see uranium as a double-solution -- its primary purpose is to make great widgets UI/UX -- but if you need to do something fancy, it gives you the tools you need to do it concisely.
