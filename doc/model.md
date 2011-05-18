@@ -16,50 +16,50 @@ In making [widgets](uranium/blob/master/doc/widgets.md), you'll really be perfor
 
 ### I. Making Components ###
 
--  Convention
+#### Convention ####
 
-   The thing you'll find yourself doing the most often is just defining the html in question's component type. Like so:
+The thing you'll find yourself doing the most often is just defining the html in question's component type. Like so:
 
-        <div data-ur-toggler-component='button'> Click Me </div>
+    <div data-ur-toggler-component='button'> Click Me </div>
 
-   This tells the javascript two things:
-      +  'This' div is part of a toggler
-      +  'This' div is the button part of the toggler
+This tells the javascript two things:
++  'This' div is part of a toggler
++  'This' div is the button part of the toggler
 
-   The general syntax here is:
+The general syntax here is:
 
-        data-ur-{widget-type}='{widget-component-type}'
+    data-ur-{widget-type}='{widget-component-type}'
 
-   Each widget will have slightly different component types, you can refer [here](widgets.md) for a brief spec, or look at the [tests](uranium/blob/master/tests) for some built examples.
+Each widget will have slightly different component types, you can refer [here](widgets.md) for a brief spec, or look at the [tests](uranium/blob/master/tests) for some built examples.
 
--  Custom properties
+#### Custom properties ####
    
-   A few widgets require more information than just their type. An example is the Zoom-Preview widget. The zoom image needs to be a large version of the normal image. The easiest way to accomplish this is to set the zoom-image's src to a modified version of the normal image's src (this integrates nicely with scene7, but will work just as well for your own urls). To accomplish this, we need to tell the components how to modify the incoming src url to the desired url. We can do this with a custom attribute! Like so:
+A few widgets require more information than just their type. An example is the Zoom-Preview widget. The zoom image needs to be a large version of the normal image. The easiest way to accomplish this is to set the zoom-image's src to a modified version of the normal image's src (this integrates nicely with scene7, but will work just as well for your own urls). To accomplish this, we need to tell the components how to modify the incoming src url to the desired url. We can do this with a custom attribute! Like so:
 
-   <code> &lt;img data-ur-zoom-preview-component='zoom_image' 
-   data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' /&gt; </code>
+   <pre><code> &lt;img data-ur-zoom-preview-component='zoom_image' 
+   data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' /&gt; </code></pre>
 
 ### II. Grouping Components ###
 
 Uranium needs to know which components belong to which widget (you could have many togglers). To do this, it associates widget components to a widget set. 
 
--  Group by structure (recommended)
+#### Group by structure (recommended) ####
 
-   Grouping by html structure is easier in most situations, and a lot more readable. To defined a widget set, just set the 'data-ur-set' attribute to the widget type (e.g. 'toggler') on any element that is a common ancestor of all the widget components:
+Grouping by html structure is easier in most situations, and a lot more readable. To defined a widget set, just set the 'data-ur-set' attribute to the widget type (e.g. 'toggler') on any element that is a common ancestor of all the widget components:
 
-        <div data-ur-set='toggler'>
-          <div data-ur-toggler-component='button'> Click Me </div>
-          <div data-ur-toggler-component='content'> Show Me </div>
-        </div>
+    <div data-ur-set='toggler'>
+      <div data-ur-toggler-component='button'> Click Me </div>
+      <div data-ur-toggler-component='content'> Show Me </div>
+    </div>
 
-   Its recommended that you add the set attribute to the first common ancestor. This method encourages well-organized (hierarchical) html.
+Its recommended that you add the set attribute to the first common ancestor. This method encourages well-organized (hierarchical) html.
 
--  Group by UID
+#### Group by UID ####
 
-   Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table, or if the container already has a data-ur-set attribute ). The only requirement is that the 'data-ur-id' attribute be set to a value unique to the widget component set:
+Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table, or if the container already has a data-ur-set attribute ). The only requirement is that the 'data-ur-id' attribute be set to a value unique to the widget component set:
 
-          <div data-ur-toggler-component='button' data-ur-id='Charlie'> Click Me </div>
-          <div data-ur-toggler-component='content' data-ur-id='Charlie'> Show Me </div>
+    <div data-ur-toggler-component='button' data-ur-id='Charlie'> Click Me </div>
+    <div data-ur-toggler-component='content' data-ur-id='Charlie'> Show Me </div>
 
 
 ### III. Observing States ###
