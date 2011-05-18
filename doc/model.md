@@ -30,7 +30,7 @@ In making [widgets](uranium/blob/master/doc/widgets.md), you'll really be perfor
 
         data-ur-{widget-type}='{widget-component-type}'
 
-   Each widget will have slightly different component types, you can refer [here](widgets.md) for a brief spec, or look at the /tests directory for some built examples.
+   Each widget will have slightly different component types, you can refer [here](widgets.md) for a brief spec, or look at the [tests](uranium/blob/master/tests) for some built examples.
 
 -  Custom properties
    
@@ -41,13 +41,11 @@ In making [widgets](uranium/blob/master/doc/widgets.md), you'll really be perfor
 
 ### II. Grouping Components ###
 
-Uranium needs to know which components belong to which widget. To do this, it associates widget components to a widget set. 
-
-We know how to bind html elements to components, but not widget components to a widget set. Its likely that we'll have many widgets on a given page -- we need to make sure that the right components get grouped together to make the right widget(s). We'll continue our toggler example from above.
+Uranium needs to know which components belong to which widget (you could have many togglers). To do this, it associates widget components to a widget set. 
 
 -  Group by structure (recommended)
 
-   Grouping by html structure is easier in most situations, and a lot more readable. To defined a widget set, just set the 'data-ur-set' attribute to the widget type (e.g. 'toggler') on any element that is a common ancestor of all the widget components.
+   Grouping by html structure is easier in most situations, and a lot more readable. To defined a widget set, just set the 'data-ur-set' attribute to the widget type (e.g. 'toggler') on any element that is a common ancestor of all the widget components:
 
         <div data-ur-set='toggler'>
           <div data-ur-toggler-component='button'> Click Me </div>
@@ -58,7 +56,7 @@ We know how to bind html elements to components, but not widget components to a 
 
 -  Group by UID
 
-   Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table). The only requirement is that the data-ur-id be set to a value unique to the widget component set. Here is what it would look like for our example:
+   Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table, or if the container already has a data-ur-set attribute ). The only requirement is that the 'data-ur-id' attribute be set to a value unique to the widget component set:
 
           <div data-ur-toggler-component='button' data-ur-id='Charlie'> Click Me </div>
           <div data-ur-toggler-component='content' data-ur-id='Charlie'> Show Me </div>
@@ -75,7 +73,9 @@ You can set the 'data-ur-state' of given components explicitly, or allow the ura
 ##### Lazy #####
 ***
 
-   Don't set the 'data-ur-state' on your components. Uranium will assign the default state attributes to these elements when the widgets are initialized. 
+    Don't set the 'data-ur-state' on your components. 
+
+   Uranium will assign the default state attributes to these elements when the widgets are initialized. 
       
    As an example, for our toggler example, I can not specify the state -- apply 'enabled' type styles to the elements by default (by using the [data-ur-toggler-component] selector) and only add 'state styles' for the disabled state, like so:
      
@@ -89,7 +89,9 @@ You can set the 'data-ur-state' of given components explicitly, or allow the ura
 ##### Strict #####
 ***      
 
-   Strict styling is more well organized. You separate out the 'default' styles that you need for a component completely from the 'state' styles that can change based on the widget's state. 
+    Set the 'data-ur-state' on all your components. 
+
+   Strict styling is more well organized. This way, you can separate out the 'default' styles that you need for a component completely from the 'state' styles that can change based on the widget's state. 
 
    Additional advantages are: 
    -  you can mix and match initial states

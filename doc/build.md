@@ -4,14 +4,18 @@ If you're contributing to the code base, you need to test your changes and updat
 
 ## Bundling ##
 
-Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install if for you! Do perform the default build, just do:
+Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install if for you! To perform the default build, just do:
 
     cd build
     rake
 
 That's it!
 
-This will compile all the widgets and the webkit version of xui. This command really reads the webkit.yaml file to know how to bundle the javascript. If you want to use a different version of xui (for blackberry/ie), you're encouraged to make a new config yaml file (as well as update the Rakefile). If you want to omit certain widgets or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task).
+This will compile all the widgets and the webkit version of xui.
+
+### Custom Bundling ###
+
+The rake task really just reads the webkit.yaml file to know how to bundle the javascript. If you want to use a different version of xui (for blackberry/ie), you're encouraged to make a new config yaml file (as well as update the Rakefile) and push it back! If you want to omit certain widgets or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task).
 
 ## Testing ##
 
