@@ -27,14 +27,18 @@ Uranium adopts the 'declarative' javascript style. Because of this, you can use 
 
 ## What is declarative javascript? ##
    
-Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. There are two primary steps to make a widget:
+Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
+
+## Get Started ##
+
+There are two primary steps to make a widget:
 
 -  Add special attributes to the html element you wish to make a widget
 -  Include [uranium.js](uranium/raw/master/build/uranium.js)
 
 That's it.
 
-## Get Started ##
+***
 
 -  Take a look at our [model](uranium/blob/master/doc/model.md) to see how to implement a widget
 -  Take a look at our [examples](uranium/blob/master/tests) to see some implementation examples (to use the examples, just download the repo and open one of the test html files)
