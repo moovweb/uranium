@@ -52,7 +52,7 @@ You're in luck! Uranium bundles with xui -- which (we think) provides a great mi
 
 # MIT License #
 
-Copyright (C) 2011 by moovweb
+Copyright (C) 2011 by Moov Corporation (aka Moovweb)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
