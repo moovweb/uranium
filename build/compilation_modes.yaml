@@ -1,0 +1,10 @@
+--- 
+- :output_suffix: -pretty
+  :options: 
+  - - compilation_level
+    - WHITESPACE_ONLY
+  - - formatting
+    - PRETTY_PRINT
+- :options: 
+  - - compilation_level
+    - SIMPLE_OPTIMIZATIONS
