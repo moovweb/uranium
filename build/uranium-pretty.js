@@ -856,6 +856,7 @@ xui.extend(mixins);
     var self = this;
     this.SelectButtons = {};
     for(name in select_buttons) {
+      var select_button = select_buttons[name];
       new SelectButtons(select_buttons[name])
     }
   };
@@ -956,6 +957,9 @@ xui.extend(mixins);
         obj.rewrite_images(evt.target.src)
       }
     }(self));
+    this.normal_image_changed()
+  };
+  ZoomPreview.prototype.normal_image_changed = function() {
     img = x$(this.elements["normal_image"]);
     this.rewrite_images(img.attr("src")[0], this.modifier["normal_image"]["match"], this.modifier["normal_image"]["replace"])
   };
@@ -1017,10 +1021,15 @@ xui.extend(mixins);
   }};
   function ZoomPreviewLoader() {
   }
+  if(typeof Uranium === "undefined") {
+    Uranium = {};
+    Uranium.widgets = {}
+  }
   ZoomPreviewLoader.prototype.initialize = function() {
     this.zoom_previews = x$().find_elements("zoom-preview", ComponentConstructors);
     for(name in this.zoom_previews) {
-      new ZoomPreview(this.zoom_previews[name])
+      Uranium.widgets["zoom-preview"] = {};
+      Uranium.widgets["zoom-preview"][name] = new ZoomPreview(this.zoom_previews[name])
     }
   };
   ZPL = new ZoomPreviewLoader;
@@ -1030,146 +1039,24 @@ xui.extend(mixins);
 })();
 (function() {
   function Carousel(components) {
-    this.container = components["container"];
+    this.container = componenets["container"];
     this.items = components["items"];
     this.buttons = components["buttons"];
-    this.counter = components["counter"];
-    console.log("container:", this.container);
-    this.initialize()
+    this.counter = components["counter"]
   }
   function getRealWidth(elem) {
     elem = x$(elem);
-    var total = 0;
-    var styles = ["width", "padding-left", "padding-right", "margin-left", "margin-right", "border-left-width", "border-right-width"];
-    x$().iterate(styles, function(style) {
-      total += parseInt(elem.getStyle(style))
-    });
-    return total
-  }
-  function stifle(e) {
-    e.preventDefault();
-    e.stopPropagation()
+    return elem.getComputedStyle("width") + elem.getComputedStyle("padding-left")
   }
   Carousel.prototype = {initialize:function() {
-    console.log("initializing carousel");
     this.touch = false;
     if(xui.touch) {
       this.touch = true
     }
-    x$(this.container).attr("data-ur-touch", this.touch);
-    console.log(this.container);
-    x$(this.container).on("touchstart", this.start_swipe);
-    x$(this.container).on("touchmove", this.continue_swipe);
-    x$(this.container).on("touchend", this.finish_swipe);
-    x$(this.container).on("webkitAnimationEnd", function() {
-      this.animation_in_progress = false
-    })
-  }, start_swipe:function(e) {
-    console.log("started touch");
-    var current_image = e.target;
-    this.valid_touch = false;
-    if(true) {
-      stifle(e)
-    }
-    this.touch_in_progress = true;
-    if(e.touches.length == 1) {
-      this.start_pos = {x:e.touches[0].clientX, y:e.touches[0].clientY}
-    }
-    if(this.valid_touch == false) {
-      e.touches = [];
-      this.finish_swipe(e)
-    }
-    this.click = true
-  }, continue_swipe:function(e) {
-    console.log("move touch");
-    stifle(e);
-    if(this.valid_touch == false) {
-      return
-    }
-    if(e.touches.length == 1) {
-      this.end_pos = {x:e.touches[0].clientX, y:e.touches[0].clientY};
-      var transform = window.getComputedStyle(this.container).webkitTransform;
-      transform = new WebKitCSSMatrix(transform);
-      var x_transform = transform.m41;
-      var dist = this.swipe_dist() + this.container.style.left;
-      this.container.style.webkitTransform = "translate3d(" + dist + "px, 0px, 0px)"
-    }
-    this.click = false
-  }, finish_swipe:function(e) {
-    console.log("finished touch");
-    if(true) {
-      stifle(e)
-    }
-    this.touch_in_progress = false;
-    if(e.touches.length == 0) {
-      var distance_travelled = this.swipe_dist();
-      if(this.click) {
-        this.click = false;
-        return
-      }
-      swipe_magnitude = Math.abs(sw_dist);
-      var sign = this.sign(distance_travelled);
-      this.destination_offset = window.innerWidth * sign + this.image_anchor_position;
-      this.momentum()
-    }
-    if(this.parent_gallery) {
-      stifle(e)
-    }
-  }, sign:function(v) {
-    return v >= 0 ? 1 : -1
-  }, zero_floor:function(num) {
-    return num >= 0 ? Math.floor(num) : Math.ceil(num)
-  }, momentum:function() {
-    if(this.touch_in_progress) {
-      this.momentum_in_progress = false;
-      return
-    }
-    this.momentum_in_progress = true;
-    var increment_flag = false;
-    var transform = window.getComputedStyle(this.container).webkitTransform;
-    transform = new WebKitCSSMatrix(transform);
-    var x_transform = transform.m41;
-    var distance = this.destination_offset - x_transform;
-    var increment = distance - this.zero_floor(distance / 1.1);
-    for(var i = 0;i < this.images.length;i++) {
-      if(increment != 0) {
-        this.set_image_offsets(i, increment + x_transform - this.get_image_positions(i));
-        increment_flag = true
-      }else {
-        if(i == 0) {
-          this.image_anchor_position = x_transform
-        }
-        this.set_image_positions(i, x_transform);
-        this.momentum_in_progress = false
-      }
-    }
-    if(increment_flag) {
-      setTimeout(function(obj) {
-        return function() {
-          obj.momentum()
-        }
-      }(this), 16)
-    }
-  }, swipe_dist:function() {
-    if(this.end_pos == null) {
-      return 0
-    }
-    sw_dist = this.end_pos["x"] - this.start_pos["x"];
-    return sw_dist
-  }};
-  function CarouselLoader() {
-  }
-  CarouselLoader.prototype.initialize = function() {
-    var carousels = x$().find_elements("carousel");
-    for(name in carousels) {
-      var carousel = carousels[name];
-      var c = new Carousel(carousel)
-    }
-  };
-  CL = new CarouselLoader;
-  window.addEventListener("load", function() {
-    console.log("woah");
-    CL.initialize()
-  }, false)
+    x$(this.container).attr("data-ur-touch", this.touch)
+  }, drag:function(event) {
+  }, release:function(event) {
+    var container_width = x$(this.container).getStyle("width")
+  }}
 })();
 
