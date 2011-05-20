@@ -990,7 +990,7 @@ xui.extend(mixins);
     });
     return translate
   };
-  ComponentConstructors = {"_modifiers":function(group, component, type, modifier_prefix) {
+  var ComponentConstructors = {"_modifiers":function(group, component, type, modifier_prefix) {
     if(group["modifier"] === undefined) {
       group["modifier"] = {}
     }
