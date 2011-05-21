@@ -17,6 +17,7 @@ task :install_compiler do
   if installed
     puts "... found"
   else
+    sh "mkdir compiler"
     sh "curl -s http://closure-compiler.googlecode.com/files/compiler-latest.zip > ./compiler/compiler-latest.zip"
     sh "unzip ./compiler/compiler-latest.zip -d compiler"
     puts "... done"
