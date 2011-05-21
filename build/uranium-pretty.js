@@ -615,16 +615,12 @@ var mixins = {iterate:function(stuff, fn) {
   }
   return{left:cumulative_left, top:cumulative_top}
 }, find_next_ancestor:function(elem, type) {
-  console.log("parent?", elem.parentNode);
   if(elem.parentNode != window.document) {
     return x$().find_set_ancestor(elem.parentNode, type)
   }else {
     return null
   }
 }, find_set_ancestor:function(elem, type) {
-  console.log("data-ur-set:");
-  console.log(elem);
-  console.log(x$(elem).attr("data-ur-set"));
   var set_name = x$(elem).attr("data-ur-set")[0];
   if(set_name !== undefined) {
     if(type == undefined) {
@@ -658,12 +654,13 @@ var mixins = {iterate:function(stuff, fn) {
     }else {
       var my_ancestor = x$().find_set_ancestor(this);
       if(my_ancestor !== null) {
-        if(x$(my_ancestor).attr("data-ur-id").length == 0) {
+        my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
+        if(my_set_id === undefined) {
           my_set_id = x$().get_unique_uranium_id();
-          x$(my_ancestor).attr("data-ur-id", my_set_id);
+          x$(my_ancestor).attr("data-ur-id", my_set_id)
+        }
+        if(groups[my_set_id] === undefined) {
           groups[my_set_id] = {}
-        }else {
-          my_set_id = x$(my_ancestor).attr("data-ur-id")[0]
         }
       }else {
         console.log("Uranium Error: Couldn't find associated ur-set for component:", this);
