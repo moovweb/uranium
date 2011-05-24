@@ -2,7 +2,7 @@
 <html>
   <head>
     <title> Select Buttons Unit Tests</title>
-    <script src="../build/uranium.js"></script>
+    <script src="uranium-unminified.js"></script>
     <link rel="stylesheet" type='text/css' href='css/test.css' />
   </head>
   
@@ -12,41 +12,15 @@
 
     <hr>
 
-    <p>
-      This widget allows you to bind increment/decrement buttons to trigger
-      the appropriate changes on a &lt;select&gt; element.
-    </p>
-
-    <h2> How To: </h2>
-
-    <div class='description'>
-      <ol>
-	<li> Group the select-buttons components. (Add link here)
-	<li> Set the 'data-ur-select-buttons-component' attribute to
-	  'select' on the target &lt;select&gt; tag.</li>
-	<li> Set the 'data-ur-select-buttons-component' attribute to
-	  'increment' on the increment button. </li>
-	<li> Set the 'data-ur-select-buttons-component' attribute to
-	  'decrement' on the decrement button. </li>
-      </ol>
-
-      <p>
-	Note : When there are no more options to increment/decrement the
-	button will have the 'data-ur-state' attribute set to
-	'disabled'. Otherwise, it will have the 'enabled' value. It is
-	recommended that the decrement button have this attribute set to
-	'disabled' in the page source.
-      </p>
-    </div>
-
     <h2> Test: </h2>
 
     <div class='test' name='One'>
 
       
-      <h3>Simple example.</h3>
+      <h3> Simple example. </h3>
       
-      <div data-ur-set='carousel'>
+      <div data-ur-set='carousel' data-ur-carousel-component='container'>
+        <div data-ur-carousel-component='button prev' > </div>
 	<img data-ur-carousel-component='image' src='images/ci-1.png' />
 	<img data-ur-carousel-component='image' src='images/ci-2.png' />
 	<img data-ur-carousel-component='image' src='images/ci-1.png' />
@@ -55,6 +29,7 @@
 	<img data-ur-carousel-component='image' src='images/ci-2.png' />
 	<img data-ur-carousel-component='image' src='images/ci-1.png' />
 	<img data-ur-carousel-component='image' src='images/ci-2.png' />
+        <div data-ur-carousel-component='button next' > </div>
       </div>
     </div>
   </body>
