@@ -1,3 +1,16 @@
-[data-ur-carousel-component='container'] {
-  height: 80px;
+[data-ur-carousel-component='view_container'] {
+  height: 200px;
+  width: 200px;
+  overflow-x: visible;
+  border: 1px solid black;
+}
+
+[data-ur-carousel-component="scroll_container"] {
+  height: 200px;
+  display: table-row;
+}
+
+[data-ur-carousel-component="scroll_container"] > * {
+  display:inline-block;
+  vertical-align: middle;
 }
