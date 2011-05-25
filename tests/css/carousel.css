@@ -1,8 +1,9 @@
 [data-ur-carousel-component='view_container'] {
   height: 200px;
   width: 200px;
-  overflow-x: visible;
+  overflow-x: hidden;
   border: 1px solid black;
+  background-color: #9C0;
 }
 
 [data-ur-carousel-component="scroll_container"] {
@@ -13,4 +14,5 @@
 [data-ur-carousel-component="scroll_container"] > * {
   display:inline-block;
   vertical-align: middle;
+  background-color: #3CC;
 }
