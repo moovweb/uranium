@@ -17,6 +17,14 @@ div[data-ur-carousel-component="scroll_container"] > * {
   background-color: #3CC;
 }
 
+div[data-ur-carousel-component="button"] {
+    display: inline-block;
+}
+
+div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+  opacity: 0.3;
+}
+
 /* Non essential styling */
 
 #giant {
