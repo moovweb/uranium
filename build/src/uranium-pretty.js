@@ -1058,42 +1058,47 @@ xui.extend(mixins);
     obj.style.webkitTransform = "translate3d(" + x + "px, 0px, 0px)"
   }
   Carousel.prototype = {initialize:function() {
-    this.touch = false;
-    if(xui.touch) {
-      this.touch = true;
-      x$(this.items).on("touchstart", function(obj) {
-        return function(e) {
-          obj.start_swipe(e)
-        }
-      }(this));
-      x$(this.items).on("touchmove", function(obj) {
-        return function(e) {
-          obj.continue_swipe(e)
-        }
-      }(this));
-      x$(this.items).on("touchend", function(obj) {
-        return function(e) {
-          obj.finish_swipe(e)
-        }
-      }(this))
-    }else {
-      x$(this.items).on("mousedown", function(obj) {
-        return function(e) {
-          obj.start_swipe(e)
-        }
-      }(this));
-      x$(this.items).on("mousemove", function(obj) {
-        return function(e) {
-          obj.continue_swipe(e)
-        }
-      }(this));
-      x$(this.items).on("mouseup", function(obj) {
-        return function(e) {
-          obj.finish_swipe(e)
-        }
-      }(this))
+    var touch_enabled = x$(this.container).attr("data-ur-touch")[0];
+    console.log("this touch:" + touch_enabled);
+    touch_enabled = touch_enabled === undefined ? true : touch_enabled == "enabled" ? true : false;
+    x$(this.container).attr("data-ur-touch", touch_enabled ? "enabled" : "disabled");
+    if(touch_enabled) {
+      if(xui.touch) {
+        this.touch = true;
+        x$(this.items).on("touchstart", function(obj) {
+          return function(e) {
+            obj.start_swipe(e)
+          }
+        }(this));
+        x$(this.items).on("touchmove", function(obj) {
+          return function(e) {
+            obj.continue_swipe(e)
+          }
+        }(this));
+        x$(this.items).on("touchend", function(obj) {
+          return function(e) {
+            obj.finish_swipe(e)
+          }
+        }(this))
+      }else {
+        this.touch = false;
+        x$(this.items).on("mousedown", function(obj) {
+          return function(e) {
+            obj.start_swipe(e)
+          }
+        }(this));
+        x$(this.items).on("mousemove", function(obj) {
+          return function(e) {
+            obj.continue_swipe(e)
+          }
+        }(this));
+        x$(this.items).on("mouseup", function(obj) {
+          return function(e) {
+            obj.finish_swipe(e)
+          }
+        }(this))
+      }
     }
-    x$(this.container).attr("data-ur-touch", this.touch ? "enabled" : "disabled");
     x$(this.button["prev"]).on("click", function(obj) {
       return function() {
         obj.move_to(1)
