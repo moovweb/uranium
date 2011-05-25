@@ -1035,67 +1035,112 @@ xui.extend(mixins);
 })();
 (function() {
   function Carousel(components) {
-    this.container = components["container"];
-    this.items = components["items"];
-    this.buttons = components["buttons"];
-    this.counter = components["counter"];
-    console.log("container:", this.container);
+    this.container = components["view_container"];
+    this.items = components["scroll_container"];
+    this.button = components["button"] === undefined ? {} : components["button"];
+    this.count = components["count"];
     this.initialize()
   }
-  function getRealWidth(elem) {
-    elem = x$(elem);
-    var total = 0;
-    var styles = ["width", "padding-left", "padding-right", "margin-left", "margin-right", "border-left-width", "border-right-width"];
-    x$().iterate(styles, function(style) {
-      total += parseInt(elem.getStyle(style))
-    });
-    return total
+  function sign(v) {
+    return v >= 0 ? 1 : -1
+  }
+  function zero_ceil(num) {
+    return num <= 0 ? Math.floor(num) : Math.ceil(num)
+  }
+  function zero_floor(num) {
+    return num >= 0 ? Math.floor(num) : Math.ceil(num)
   }
   function stifle(e) {
     e.preventDefault();
     e.stopPropagation()
   }
+  function translate(obj, x) {
+    obj.style.webkitTransform = "translate3d(" + x + "px, 0px, 0px)"
+  }
   Carousel.prototype = {initialize:function() {
-    console.log("initializing carousel");
     this.touch = false;
     if(xui.touch) {
       this.touch = true;
-      x$(this.container).on("touchstart", function(obj) {
+      x$(this.items).on("touchstart", function(obj) {
         return function(e) {
           obj.start_swipe(e)
         }
       }(this));
-      x$(this.container).on("touchmove", function(obj) {
+      x$(this.items).on("touchmove", function(obj) {
         return function(e) {
           obj.continue_swipe(e)
         }
       }(this));
-      x$(this.container).on("touchend", function(obj) {
+      x$(this.items).on("touchend", function(obj) {
         return function(e) {
           obj.finish_swipe(e)
         }
       }(this))
     }else {
-      x$(this.container).on("mousedown", function(obj) {
+      x$(this.items).on("mousedown", function(obj) {
         return function(e) {
           obj.start_swipe(e)
         }
       }(this));
-      x$(this.container).on("mousemove", function(obj) {
+      x$(this.items).on("mousemove", function(obj) {
         return function(e) {
           obj.continue_swipe(e)
         }
       }(this));
-      x$(this.container).on("mouseup", function(obj) {
+      x$(this.items).on("mouseup", function(obj) {
         return function(e) {
           obj.finish_swipe(e)
         }
       }(this))
     }
-    x$(this.container).attr("data-ur-touch", this.touch);
-    console.log(this.container);
-    x$(this.container).on("webkitAnimationEnd", function() {
-      this.animation_in_progress = false
+    x$(this.container).attr("data-ur-touch", this.touch ? "enabled" : "disabled");
+    x$(this.button["prev"]).on("click", function(obj) {
+      return function() {
+        obj.move_to(1)
+      }
+    }(this));
+    x$(this.button["next"]).on("click", function(obj) {
+      return function() {
+        obj.move_to(-1)
+      }
+    }(this));
+    this.item_index = 0;
+    this.adjust_spacing();
+    this.item_index = -1;
+    this.update_index();
+    window.setInterval(function(obj) {
+      return function() {
+        obj.resize()
+      }
+    }(this), 1E3)
+  }, get_transform:function(obj) {
+    var transform = window.getComputedStyle(obj).webkitTransform;
+    if(transform != "none") {
+      transform = new WebKitCSSMatrix(transform);
+      return transform.m41
+    }else {
+      console.log("no webkit transform");
+      return 0
+    }
+  }, resize:function() {
+    if(this.snap_width != this.container.offsetWidth) {
+      this.adjust_spacing()
+    }
+  }, adjust_spacing:function() {
+    var visible_width = this.container.offsetWidth;
+    var cumulative_offset = 0;
+    var items = x$(this.items).find("[data-ur-carousel-component='item']");
+    this.item_count = items.length;
+    this.snap_width = visible_width;
+    cumulative_offset -= this.snap_width * this.item_index;
+    translate(this.items, cumulative_offset);
+    x$().iterate(items, function(item, i) {
+      var offset = cumulative_offset;
+      if(i != 0) {
+        offset += visible_width - items[i - 1].offsetWidth
+      }
+      translate(item, offset);
+      cumulative_offset = offset
     })
   }, get_event_coordinates:function(e) {
     if(this.touch) {
@@ -1106,79 +1151,89 @@ xui.extend(mixins);
       return{x:e.clientX, y:e.clientY}
     }
     return null
+  }, update_buttons:function() {
+    if(this.item_index == 0) {
+      x$(this.button["prev"]).attr("data-ur-state", "disabled");
+      x$(this.button["next"]).attr("data-ur-state", "enabled")
+    }else {
+      if(this.item_index == this.item_count - 1) {
+        x$(this.button["next"]).attr("data-ur-state", "disabled");
+        x$(this.button["prev"]).attr("data-ur-state", "enabled")
+      }else {
+        x$(this.button["next"]).attr("data-ur-state", "enabled");
+        x$(this.button["prev"]).attr("data-ur-state", "enabled")
+      }
+    }
+  }, update_index:function(displacement) {
+    this.item_index -= sign(displacement);
+    if(this.item_index < 0) {
+      this.item_index = 0
+    }else {
+      if(this.item_index >= this.item_count) {
+        this.item_index = this.item_count - 1
+      }
+    }
+    if(this.count !== undefined) {
+      this.count.innerHTML = this.item_index + 1 + " of " + this.item_count
+    }
+    this.update_buttons()
   }, start_swipe:function(e) {
-    console.log("started touch");
-    var current_image = e.target;
-    this.valid_touch = false;
-    if(true) {
-      stifle(e)
+    if(this.increment_flag) {
+      return false
     }
     this.touch_in_progress = true;
     var coords = this.get_event_coordinates(e);
     if(coords !== null) {
-      this.start_pos = coords
+      this.start_pos = coords;
+      var x_transform = this.get_transform(this.items);
+      this.starting_offset = x_transform
     }
     this.click = true
   }, continue_swipe:function(e) {
-    console.log("move touch");
     stifle(e);
+    if(!this.touch_in_progress) {
+      return
+    }
     var coords = this.get_event_coordinates(e);
     if(coords !== null) {
       this.end_pos = coords;
-      var dist = this.swipe_dist() + this.container.offsetLeft;
-      console.log("translating to: " + dist);
-      this.container.style.webkitTransform = "translate3d(" + dist + "px, 0px, 0px)"
+      var dist = this.swipe_dist() + this.starting_offset;
+      translate(this.items, dist)
     }
     this.click = false
   }, finish_swipe:function(e) {
-    console.log("finished touch");
-    if(true) {
+    if(!this.click) {
       stifle(e)
     }
     this.touch_in_progress = false;
     if(!this.touch || e.touches.length == 0) {
-      var distance_travelled = this.swipe_dist();
-      if(this.click) {
-        this.click = false;
-        return
-      }
-      swipe_magnitude = Math.abs(sw_dist);
-      var sign = this.sign(distance_travelled);
-      this.destination_offset = window.innerWidth * sign + this.image_anchor_position;
-      this.momentum()
+      var swipe_distance = this.swipe_dist();
+      var displacement = zero_ceil(swipe_distance / this.snap_width) * this.snap_width;
+      this.snap_to(displacement)
     }
-    if(this.parent_gallery) {
-      stifle(e)
+  }, snap_to:function(displacement) {
+    this.update_index(displacement);
+    this.destination_offset = displacement + this.starting_offset;
+    if(this.destination_offset < -1 * (this.item_count - 1) * this.snap_width || this.destination_offset > 0) {
+      this.destination_offset = this.starting_offset
     }
-  }, sign:function(v) {
-    return v >= 0 ? 1 : -1
-  }, zero_floor:function(num) {
-    return num >= 0 ? Math.floor(num) : Math.ceil(num)
+    this.momentum()
+  }, move_to:function(direction) {
+    this.starting_offset = this.get_transform(this.items);
+    this.snap_to(zero_ceil(direction / this.snap_width) * this.snap_width)
   }, momentum:function() {
     if(this.touch_in_progress) {
-      this.momentum_in_progress = false;
       return
     }
-    this.momentum_in_progress = true;
-    var increment_flag = false;
-    var transform = window.getComputedStyle(this.container).webkitTransform;
-    transform = new WebKitCSSMatrix(transform);
-    var x_transform = transform.m41;
+    this.increment_flag = false;
+    var x_transform = this.get_transform(this.items);
     var distance = this.destination_offset - x_transform;
-    var increment = distance - this.zero_floor(distance / 1.1);
-    for(var i = 0;i < this.images.length;i++) {
-      if(increment != 0) {
-        this.set_image_offsets(i, increment + x_transform - this.get_image_positions(i));
-        increment_flag = true
-      }else {
-        if(i == 0) {
-          this.image_anchor_position = x_transform
-        }
-        this.set_image_positions(i, x_transform);
-        this.momentum_in_progress = false
-      }
+    var increment = distance - zero_floor(distance / 1.1);
+    translate(this.items, increment + x_transform);
+    if(increment != 0) {
+      this.increment_flag = true
     }
-    if(increment_flag) {
+    if(this.increment_flag) {
       setTimeout(function(obj) {
         return function() {
           obj.momentum()
@@ -1186,16 +1241,31 @@ xui.extend(mixins);
       }(this), 16)
     }
   }, swipe_dist:function() {
-    if(this.end_pos == null) {
+    if(this.end_pos === undefined) {
       return 0
     }
-    sw_dist = this.end_pos["x"] - this.start_pos["x"];
+    var sw_dist = this.end_pos["x"] - this.start_pos["x"];
     return sw_dist
+  }};
+  var ComponentConstructors = {"button":function(group, component, type) {
+    if(group["button"] === undefined) {
+      group["button"] = {}
+    }
+    var type = x$(component).attr("data-ur-carousel-button-type")[0];
+    if(type === undefined) {
+      console.log("Uranium declaration error: Malformed carousel button type on:" + component.outerHTML)
+    }
+    group["button"][type] = component;
+    if(type == "prev") {
+      x$(component).attr("data-ur-state", "disabled")
+    }else {
+      x$(component).attr("data-ur-state", "enabled")
+    }
   }};
   function CarouselLoader() {
   }
   CarouselLoader.prototype.initialize = function() {
-    var carousels = x$().find_elements("carousel");
+    var carousels = x$().find_elements("carousel", ComponentConstructors);
     this.carousels = {};
     for(name in carousels) {
       var carousel = carousels[name];
@@ -1204,7 +1274,6 @@ xui.extend(mixins);
   };
   CL = new CarouselLoader;
   window.addEventListener("load", function() {
-    console.log("woah");
     CL.initialize()
   }, false)
 })();
