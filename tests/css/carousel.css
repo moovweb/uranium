@@ -16,3 +16,13 @@
   vertical-align: middle;
   background-color: #3CC;
 }
+
+/* Non essential styling */
+
+#giant {
+  height: 1000px;
+  background-color: #F60;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+}

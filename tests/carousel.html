@@ -2,6 +2,7 @@
 <html>
   <head>
     <title> Select Buttons Unit Tests</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     <script src="../lib/external/xui-2.0.0.js"></script>
     <script src="../lib/uranium_mixins.js"></script>
     <script src="../lib/carousel.js"></script>
@@ -42,6 +43,11 @@
       x$("[data-ur-carousel-component='item']").on("click",
       function(e) {console.log("You clicked:", e.target.src)});
     </script>
+
+    <div id="giant">
+     This is a giant div. Its purpose is to make the page bigger than
+     the screen size so that I can test vertical scroll stifling.
+    </div>
 
     
   </body>
