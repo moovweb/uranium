@@ -34,7 +34,10 @@ task :compile do
   puts "Compiling widgets"
   puts "-"*40
 
-  sh "ruby enrich.rb webkit.yaml"
+  ["webkit", "bb", "ie"].each do |flavor|
+    puts "Compiling #{flavor} flavor ..."
+    sh "ruby enrich.rb #{flavor}"
+  end
 
   puts "... done"
 end
