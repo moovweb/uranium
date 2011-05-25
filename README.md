@@ -16,7 +16,7 @@ It should be noted that since Uranium extends xui -- this library is geared for 
 ## The whole library is 6.5 KB gzipped (including all widgets and xui) ! ##
 
 -  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
--  Uranium is bundled with xui to make just one javascript file. [Here](uranium/raw/master/build/uranium.js) it is.
+-  Uranium is bundled with xui to make just one javascript file. [Here](uranium/raw/master/build/src/uranium.js) it is.
 -  If you want it even lighter, you can make a custom [build](uranium/blob/master/doc/build.md) yourself
 
 # Easy to Use #
@@ -34,7 +34,7 @@ Declarative javascript is a model that looks for how html elements are formatted
 There are two primary steps to make a widget:
 
 -  Add special attributes to the html element you wish to make a widget
--  Include [uranium.js](uranium/raw/master/build/uranium.js)
+-  Include [uranium.js](uranium/raw/master/build/src/uranium.js)
 
 That's it.
 
