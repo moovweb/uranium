@@ -1041,6 +1041,15 @@ xui.extend(mixins);
     this.count = components["count"];
     this.initialize()
   }
+  function get_real_width(elem) {
+    elem = x$(elem);
+    var total = 0;
+    var styles = ["width", "padding-left", "padding-right", "margin-left", "margin-right", "border-left-width", "border-right-width"];
+    x$().iterate(styles, function(style) {
+      total += parseInt(elem.getStyle(style))
+    });
+    return total
+  }
   function sign(v) {
     return v >= 0 ? 1 : -1
   }
@@ -1059,7 +1068,6 @@ xui.extend(mixins);
   }
   Carousel.prototype = {initialize:function() {
     var touch_enabled = x$(this.container).attr("data-ur-touch")[0];
-    console.log("this touch:" + touch_enabled);
     touch_enabled = touch_enabled === undefined ? true : touch_enabled == "enabled" ? true : false;
     x$(this.container).attr("data-ur-touch", touch_enabled ? "enabled" : "disabled");
     if(touch_enabled) {
@@ -1136,6 +1144,11 @@ xui.extend(mixins);
     var cumulative_offset = 0;
     var items = x$(this.items).find("[data-ur-carousel-component='item']");
     this.item_count = items.length;
+    var total_width = 0;
+    x$().iterate(items, function(item) {
+      total_width += get_real_width(item)
+    });
+    this.items.style.width = total_width + "px";
     this.snap_width = visible_width;
     cumulative_offset -= this.snap_width * this.item_index;
     translate(this.items, cumulative_offset);
@@ -1277,9 +1290,9 @@ xui.extend(mixins);
       this.carousels[name] = new Carousel(carousel)
     }
   };
-  CL = new CarouselLoader;
+  UR_CL = new CarouselLoader;
   window.addEventListener("load", function() {
-    CL.initialize()
+    UR_CL.initialize()
   }, false)
 })();
 
