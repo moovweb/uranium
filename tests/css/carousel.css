@@ -12,7 +12,7 @@ div[data-ur-carousel-component="scroll_container"] {
 
 div[data-ur-carousel-component="scroll_container"] > * {
   display:inline-block;
-  vertical-align: middle;
+  float: left; /* This is important -- otherwise, the carousel can't calculate the accurate total width */
   background-color: #3CC;
 }
 
