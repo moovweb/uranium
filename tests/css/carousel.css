@@ -7,7 +7,7 @@ div[data-ur-carousel-component='view_container'] {
 }
 
 div[data-ur-carousel-component="scroll_container"] {
-  display: table-row;
+  display: block;
 }
 
 div[data-ur-carousel-component="scroll_container"] > * {
