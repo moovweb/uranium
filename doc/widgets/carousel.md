@@ -17,10 +17,12 @@ Add the 'data-ur-carousel-component' attribute to all components:
 ##### View Container #####
 *  The 'view-container' component should contain the 'scroll-container'
 *  This is the container that will have no overflow -- so that you only see one item at a time
+
 ##### Scroll Container #####
 *  The 'scroll-container' component should contain the 'item' components
 *  This container will be translated to show different items in the carousel
 *  This container's width will be set appropriately at runtime, but it assumes two things about its childrens' styles (see items)
+
 ##### Items #####
 *  The 'item' components should be children of the scroll component
 *  They can be any tag (img/div)

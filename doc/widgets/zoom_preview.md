@@ -14,22 +14,27 @@ Below are the instructions for constructing the zoom-preview widget. You will al
 
 #### Components ####
 
-<img src='Uranium-ZoomPreview.png' />
+<img src='uranium/blob/master/doc/assets/Uranium-ZoomPreview.png' />
 
 Add the 'data-ur-zoom-preview-component' attribute to all components:
 
 Components:
+
 ##### Container #####
 *  The 'container' component should contain the 'normal_image', 'zoom_image' and 'button' elements 
 *  (it doesn't have to contain the thumbnails)
+
 ##### Normal_image #####
 * This is the normal / hero image 
 * This will be displayed when the zoom preview is not in use
+
 #####  Zoom_image #####
 * This is the giant image that the user scrolls when touching the button
 * It should be set to a large version of the normal image (otherwise, its utility is lost)
+
 ##### Button #####
 This is what the user touches/drags to show and move the zoom-image
+
 ##### Thumbnails #####
 These are smaller versions of the hero image that when clicked update the normal image (by an external mechanism)
 
@@ -43,7 +48,7 @@ Right now the button gets a 'loaded' class when the image has finished loading/b
 
 #### Custom Attributes ####
 
-<img src='../assets/ZoomPreview-ModifierLogic.png'/>
+<img src='uranium/blob/master/doc/assets/ZoomPreview-ModifierLogic.png'/>
 
 <!--
 

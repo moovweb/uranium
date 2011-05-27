@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+<head>
+<title> Select Buttons Unit Tests</title>
+    <script src="../build/src/uranium.js"></script>
+<link rel="stylesheet" type='text/css' href='css/test.css' />
+<link rel="stylesheet" type='text/css' href='css/select_buttons.css' />
+</head>
+
+<body suite='SelectLists'>
+
+<h1> Select Buttons </h1>
+
+<hr>
+
+<h2> Description: </h2>
+
+<div class='description'>
+  <p>
+  This widget allows you to bind increment/decrement buttons to trigger
+  the appropriate changes on a &lt;select&gt; element.
+  </p>
+</div>
+
+<h2> Example: </h2>
+
+<div class='test' name='One'>
+  
+  <div data-ur-set='select-buttons'>
+    <select data-ur-select-buttons-component='select'>
+      <option selected='true' value='-1'> -None- </option>
+      <option value='SKU-XS'> XS </option>
+      <option value='SKU-S'> S </option>
+      <option value='SKU-M'> M </option>
+      <option value='SKU-L'> L </option>
+    </select>
+    
+    <span data-ur-select-buttons-component='increment'> [+] </span>
+    <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+  </div>
+</div>
+
+</body>
+</html>

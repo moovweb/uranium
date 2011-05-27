@@ -19,4 +19,4 @@ The rake task really just reads the webkit.yaml file to know how to bundle the j
 
 ## Testing ##
 
-You need to go through all of the test cases under /tests and make sure that all the widgets still work. Of course, if you've added functionality or a new widget, you need to make a test for your new cases as well and make sure those pass.
+You need to go through all of the test cases under /examples and make sure that all the widgets still work. Of course, if you've added functionality or a new widget, you need to make a test example for your new cases as well and make sure those pass.

@@ -4,7 +4,7 @@ TODO: Update the list value attribute syntax.
 
 ## Function ##
 
-The select-list binds a set of uranium-elements to corresponding <option> elements of a <select>. Clicking the uranium-element sets the <select>'s value to match the corresponding <option> element.
+The select-list binds a set of uranium-elements to corresponding &lt;option&gt; elements of a &lt;select&gt;. Clicking the uranium-element sets the &lt;select&gt;'s value to match the corresponding &lt;option&gt; element.
 
 Click [here](uranium/blob/master/examples/select_list.html) for an example implementation (you'll need to download the repo to view the html).
 
@@ -17,9 +17,9 @@ Below are the instructions for constructing the select-list widget. You will als
 #### Components ####
 
 *  Add the 'data-ur-list-component' attribute to all components. 
-  *  Set this attribute to 'select' on the <select> element
-  *  Set this attribute to 'content' on the element containing your list of fake option elements
-* Make sure your list of fake option elements have 'value' attributes that match the corresponding <option>'s in the <select>
+   *  Set this attribute to 'select' on the &lt;select&gt; element
+   *  Set this attribute to 'content' on the element containing your list of fake option elements
+*  Make sure your list of fake option elements have 'value' attributes that match the corresponding &lt;option&gt;'s in the &lt;select&gt;
 
 #### States ####
 

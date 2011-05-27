@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title> Uranium - Carousel </title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <script src="../build/src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/carousel.css' />
+  </head>
+  
+  <body suite='Carousel'>
+
+    <h1> Carousels </h1>
+
+    <hr>
+
+    <h2> Description: </h2>
+
+    <div class='description'>
+      <p>
+      The carousel is a widget to allow for horizontally scrolling (with touch or buttons) between a set of items. 
+      </p>
+    </div>
+
+    <h2> Examples: </h2>
+
+    <div class='test' name='One'>
+      <h3> Touch enabled example. </h3>
+      
+      <div data-ur-set='carousel' data-ur-carousel-component='view_container'>
+        <span data-ur-carousel-component='count'> -- count -- </span>
+        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
+          Prev
+        </div>
+        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
+          Next
+        </div>
+        <div data-ur-carousel-component='scroll_container'>
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+        </div>       
+      </div>
+    </div>
+
+
+    <div class='test' name='Two'>
+      <h3> No-touch (just buttons) example. </h3>
+      
+      <div data-ur-set='carousel'
+        data-ur-carousel-component='view_container' data-ur-touch='disabled'>
+        <span data-ur-carousel-component='count'> -- count -- </span>
+        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
+          Prev
+        </div>
+        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
+          Next
+        </div>
+        <div data-ur-carousel-component='scroll_container'>
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+        </div>       
+      </div>
+    </div>
+
+    
+    <script type='text/javascript'>
+      x$("[data-ur-carousel-component='item']").on("click",
+      function(e) {console.log("You clicked:", e.target.src)});
+    </script>
+
+    <div id="giant">
+     This is a giant div. Its purpose is to make the page bigger than
+     the screen size so that I can test vertical scroll stifling.
+    </div>
+
+    
+  </body>
+</html>
