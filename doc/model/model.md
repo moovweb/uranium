@@ -12,9 +12,9 @@ The naming convention here is worth discussing. In HTML4 adding attributes other
 
 ## How? ##
 
-In making [widgets](uranium/blob/master/doc/widgets/widgets.md), you'll really be performing three functions:
+In making [widgets](../widgets/widgets.md), you'll really be performing three functions:
 
--  I. [Constructing Components](uranium/blob/master/doc/model/construction.md)
--  II. [Grouping Components](uranium/blob/master/doc/model/grouping.md)
--  III. [Observing States](uranium/blob/master/doc/model/states.md)
+-  I. [Constructing Components](construction.md)
+-  II. [Grouping Components](grouping.md)
+-  III. [Observing States](states.md)
 

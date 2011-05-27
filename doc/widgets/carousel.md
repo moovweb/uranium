@@ -2,11 +2,11 @@
 
 ## Function ##
 
-The carousel is a widget to allow for horizontally scrolling (with touch or buttons) between a set of items. Click [here](uranium/blob/master/examples/carousel.html) for an example implementation (you'll need to download the repo to view the html).
+The carousel is a widget to allow for horizontally scrolling (with touch or buttons) between a set of items. Click [here](../../examples/carousel.html) for an example implementation (you'll need to download the repo to view the html).
 
 ## Setup ##
 
-Below are the instructions for constructing the carousel widget. You will also need to [group](uranium/blob/master/doc/model/grouping.md) these components.
+Below are the instructions for constructing the carousel widget. You will also need to [group](../model/grouping.md) these components.
 
 ### Required ###
 

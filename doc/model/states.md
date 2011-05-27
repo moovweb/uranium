@@ -21,4 +21,4 @@ Here's how some basic styling would look:
       background-color: red;
     }  
 
-Look [here](uranium/blob/master/doc/model/styling.md) for more details about styling.
+Look [here](styling.md) for more details about styling.

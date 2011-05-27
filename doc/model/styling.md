@@ -1,6 +1,6 @@
 # Styling #
    
-You can set the 'data-ur-state' of given components explicitly, or allow the uranium javascript to assign the default state. If a component has a state, its usually either 'enabled' or 'disabled'. There are certain situations (outlined in the [examples](uranium/tree/master/examples) ) where you must assign a state to a widget component. In general, its good practice to only use the states to assign CSS that changes with the state -- use the component attribute or another style rule to give the component its general styles.
+You can set the 'data-ur-state' of given components explicitly, or allow the uranium javascript to assign the default state. If a component has a state, its usually either 'enabled' or 'disabled'. There are certain situations (outlined in the [examples](../../examples) ) where you must assign a state to a widget component. In general, its good practice to only use the states to assign CSS that changes with the state -- use the component attribute or another style rule to give the component its general styles.
 
 ## Lazy ##
 
