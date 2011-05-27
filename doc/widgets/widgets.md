@@ -1,13 +1,14 @@
 # Widget List #
 
-Brief outline of widget types/components/states.
+Brief outline of widget types/components/states. Click a widget for a detailed description.
 
 ## Widget Types ##
 
--  Toggler
--  Select List
--  Select Buttons
--  Zoom Preview
+-  [Toggler](toggler.md)
+-  [Select List](select_list.md)
+-  [Select Buttons](select_buttons.md)
+-  [Zoom Preview](zoom_preview.md)
+-  [Carousel](carousel.md)
 
 ## Widget Components ##
 
@@ -27,3 +28,7 @@ Brief outline of widget types/components/states.
   +  zoom-image -- (TODO: state: enabled/disabled)
   +  button
   +  thumbnails (optional)
+- Carousel
+  +  view_container
+  +  scroll_container
+  +  items
