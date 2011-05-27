@@ -13,6 +13,8 @@ Grouping by html structure is easier in most situations, and a lot more readable
 
 Its recommended that you add the set attribute to the first common ancestor. This method encourages well-organized (hierarchical) html.
 
+Note: Its perfectly fine (and good practice in many cases) for the 'data-ur-set' attribute to be on the same element as a 'data-ur-*-component' attribute.
+
 ## Group by UID ##
 
 Grouping by unique ID should be reserved for instances in which you can't easily make the html hierarchical (e.g. adjacent rows in a table, or if the container already has a data-ur-set attribute ). The only requirement is that the 'data-ur-id' attribute be set to a value unique to the widget component set:

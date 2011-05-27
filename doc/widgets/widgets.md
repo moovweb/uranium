@@ -4,11 +4,11 @@ Brief outline of widget types/components/states. Click a widget for a detailed d
 
 ## Widget Types ##
 
--  [Toggler](toggler.md)
--  [Select List](select_list.md)
--  [Select Buttons](select_buttons.md)
--  [Zoom Preview](zoom_preview.md)
--  [Carousel](carousel.md)
+-  [Toggler](uranium/blob/master/doc/widgets/toggler.md)
+-  [Select List](uranium/blob/master/doc/widgets/select_list.md)
+-  [Select Buttons](uranium/blob/master/doc/widgets/select_buttons.md)
+-  [Zoom Preview](uranium/blob/master/doc/widgets/zoom_preview.md)
+-  [Carousel](uranium/blob/master/doc/widgets/carousel.md)
 
 ## Widget Components ##
 
@@ -32,3 +32,7 @@ Brief outline of widget types/components/states. Click a widget for a detailed d
   +  view_container
   +  scroll_container
   +  items
+
+## Coming Soon ##
+
+Here is the [wishlist](uranium/blob/master/doc/widgets/widget_wishlist.md) / queue of widgets on their way.

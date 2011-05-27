@@ -6,9 +6,11 @@ TODO: Update the list value attribute syntax.
 
 The select-list binds a set of uranium-elements to corresponding <option> elements of a <select>. Clicking the uranium-element sets the <select>'s value to match the corresponding <option> element.
 
+Click [here](uranium/blob/master/examples/select_list.html) for an example implementation (you'll need to download the repo to view the html).
+
 ## Setup ##
 
-Below are the instructions for constructing the select-list widget. You will also need to [group](../model/grouping.md) these components.
+Below are the instructions for constructing the select-list widget. You will also need to [group](uranium/blob/master/doc/model/grouping.md) these components.
 
 ### Required ###
 

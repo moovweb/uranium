@@ -2,11 +2,11 @@
 
 ## Function ##
 
-The select-button widget binds two buttons to a <select> to increment/decrement the select's chosen value.
+The select-button widget binds two buttons to a <select> to increment/decrement the select's chosen value. Click [here](uranium/blob/master/examples/select_buttons.html) for an example implementation (you'll need to download the repo to view the html).
 
 ## Setup ##
 
-Below are the instructions for constructing the select-buttons widget. You will also need to [group](../model/grouping.md) these components.
+Below are the instructions for constructing the select-buttons widget. You will also need to [group](uranium/blob/master/doc/model/grouping.md) these components.
 
 ### Required ###
 

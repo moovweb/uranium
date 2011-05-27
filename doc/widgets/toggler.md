@@ -4,9 +4,11 @@
 
 The toggler alternates the states (enabled/disabled) of all of its 'content' components when the 'button' component is clicked. The states are toggled no matter what their value (so the button and content elements can all have different states).
 
+Click [here](uranium/blob/master/examples/toggler.html) for an example implementation (you'll need to download the repo to view the html).
+
 ## Setup ##
 
-Below are the instructions for constructing the toggler widget. You will also need to [group](../model/grouping.md) these components.
+Below are the instructions for constructing the toggler widget. You will also need to [group](uranium/blob/master/doc/model/grouping.md) these components.
 
 ### Required ###
 

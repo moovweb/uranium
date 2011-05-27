@@ -9,7 +9,7 @@ That's it!
 
 We've also found it to be quite powerful -- we think you'll find it useful in many settings. But, if given the choice between easy to use and powerful, ease of use is the greater goal. If you find yourself wanting something that a given widget will not do, you're encouraged to extend the widget yourself.
 
-It should be noted that since Uranium extends xui -- this library is geared for widgets that are useful on mobile devices. It also is designed to support mobile browsers (for now just webkit, but you can [build](uranium/blob/master/doc/build.md) it for blackberry/mobile IE as well).
+It should be noted that since Uranium extends xui -- this library is geared for widgets that are useful on mobile devices. It also is designed to support mobile browsers (for now just webkit, but you can [build](uranium/blob/master/doc/dev/build.md) it for blackberry/mobile IE as well).
 
 # Lightweight #
 
@@ -17,7 +17,7 @@ It should be noted that since Uranium extends xui -- this library is geared for 
 
 -  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
 -  Uranium is bundled with xui to make just one javascript file. [Here](uranium/raw/master/build/src/uranium.js) it is.
--  If you want it even lighter, you can make a custom [build](uranium/blob/master/doc/build.md) yourself
+-  If you want it even lighter, you can make a custom [build](uranium/blob/master/doc/dev/build.md) yourself
 
 # Easy to Use #
 
@@ -40,8 +40,9 @@ That's it.
 
 ***
 
--  Take a look at our [model](uranium/blob/master/doc/model.md) to see how to implement a widget
--  Take a look at our [examples](uranium/blob/master/tests) to see some implementation examples (to use the examples, just download the repo and open one of the test html files)
+-  Take a look at our [model](uranium/blob/master/doc/model/model.md) to see how to implement a widget
+-  Take a look at the [widgets](uranium/blob/master/doc/widgets/widgets.md) available.
+-  Take a look at our [examples](uranium/blob/master/examples) to see some implementation examples (to use the examples, just download the repo and open one of the test html files)
 
 
 # Uranium is not ... #

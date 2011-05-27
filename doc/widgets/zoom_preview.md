@@ -4,9 +4,11 @@
 
 The zoom-preview widget provides a thumbnail button that when touched displays and translates the zoom-image.
 
+Click [here](uranium/blob/master/examples/zoom_preview.html) for an example implementation (you'll need to download the repo to view the html).
+
 ## Setup ##
 
-Below are the instructions for constructing the zoom-preview widget. You will also need to [group](../model/grouping.md) these components.
+Below are the instructions for constructing the zoom-preview widget. You will also need to [group](uranium/blob/master/doc/model/grouping.md) these components.
 
 ### Required ###
 
