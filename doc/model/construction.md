@@ -18,7 +18,7 @@ Each widget will have slightly different component types, you can refer [here](u
 
 ## Custom properties ##
    
-A few widgets require more information than just their type. An example is the Zoom-Preview widget. The zoom image needs to be a large version of the normal image. The easiest way to accomplish this is to set the zoom-image's src to a modified version of the normal image's src (this integrates nicely with scene7, but will work just as well for your own urls). To accomplish this, we need to tell the components how to modify the incoming src url to the desired url. We can do this with a custom attribute! Like so:
+A few widgets require more information than just their type. An example is the [Zoom-Preview](uranium/blob/master/examples/zoom_preview.html) widget. The zoom image needs to be a large version of the normal image. The easiest way to accomplish this is to set the zoom-image's src to a modified version of the normal image's src (this integrates nicely with scene7, but will work just as well for your own urls). To accomplish this, we need to tell the components how to modify the incoming src url to the desired url. We can do this with a custom attribute! Like so:
 
    <pre><code> &lt;img data-ur-zoom-preview-component='zoom_image' 
    data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' /&gt; </code></pre>
