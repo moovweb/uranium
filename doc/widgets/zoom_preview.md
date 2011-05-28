@@ -14,7 +14,7 @@ Below are the instructions for constructing the zoom-preview widget. You will al
 
 #### Components ####
 
-<img src='../assets/Uranium-ZoomPreview.png' />
+<img src='https://github.com/moovweb/uranium/raw/master/doc/assets/Uranium-ZoomPreview.png' />
 
 Add the 'data-ur-zoom-preview-component' attribute to all components:
 
@@ -48,7 +48,7 @@ Right now the button gets a 'loaded' class when the image has finished loading/b
 
 #### Custom Attributes ####
 
-<img src='../doc/assets/ZoomPreview-ModifierLogic.png'/>
+<img src='https://github.com/moovweb/uranium/raw/master/doc/assets/ZoomPreview-ModifierLogic.png'/>
 
 <!--
 
