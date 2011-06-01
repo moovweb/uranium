@@ -592,6 +592,22 @@
     }
   })("emile", this)
 })();
+if(typeof Ur == "undefined") {
+  Ur = {QuickLoaders:{}, WindowLoaders:{}, initialize:function(event, fragment) {
+    console.log("initializing UR");
+    var Loaders = event.type == "DOMContentLoaded" ? Ur.QuickLoaders : Ur.WindowLoaders;
+    if(fragment === undefined) {
+      fragment = document.body
+    }
+    for(name in Loaders) {
+      console.log("loading : " + name);
+      var widget = new Loaders[name];
+      widget.initialize(fragment)
+    }
+  }}
+}
+window.addEventListener("DOMContentLoaded", Ur.initialize, false);
+window.addEventListener("load", Ur.initialize, false);
 var mixins = {iterate:function(stuff, fn) {
   if(stuff === undefined) {
     return
@@ -682,7 +698,7 @@ var mixins = {iterate:function(stuff, fn) {
   return groups
 }};
 xui.extend(mixins);
-(function() {
+Ur.QuickLoaders["toggler"] = function() {
   function ToggleContentComponent(group, content_component) {
     if(group["content"] === undefined) {
       group["content"] = []
@@ -740,12 +756,9 @@ xui.extend(mixins);
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]))
     }
   };
-  window.TL = new ToggleLoader;
-  window.addEventListener("load", function() {
-    TL.initialize()
-  }, false)
-})();
-(function() {
+  return ToggleLoader
+}();
+Ur.QuickLoaders["select-list"] = function() {
   function SelectList(select_element, list_element) {
     this.select = select_element;
     this.list = list_element;
@@ -784,12 +797,9 @@ xui.extend(mixins);
       self.SelectLists[name] = new SelectList(select_lists[name]["select"], select_lists[name]["content"])
     }
   };
-  SLL = new SelectListLoader;
-  window.addEventListener("load", function() {
-    SLL.initialize()
-  }, false)
-})();
-(function() {
+  return SelectListLoader
+}();
+Ur.QuickLoaders["select-buttons"] = function() {
   function SelectButtons(components) {
     this.select = components["select"];
     this.increment = components["increment"];
@@ -850,18 +860,13 @@ xui.extend(mixins);
   }
   SelectButtonsLoader.prototype.initialize = function() {
     var select_buttons = x$().find_elements("select-buttons");
-    var self = this;
-    this.SelectButtons = {};
     for(name in select_buttons) {
       new SelectButtons(select_buttons[name])
     }
   };
-  SBL = new SelectButtonsLoader;
-  window.addEventListener("load", function() {
-    SBL.initialize()
-  }, false)
-})();
-(function() {
+  return SelectButtonsLoader
+}();
+Ur.QuickLoaders["zoom-preview"] = function() {
   function ZoomPreview(data) {
     this.elements = data["elements"];
     this.modifier = {};
@@ -1028,12 +1033,9 @@ xui.extend(mixins);
       Uranium.widgets["zoom-preview"][name] = new ZoomPreview(this.zoom_previews[name])
     }
   };
-  ZPL = new ZoomPreviewLoader;
-  window.addEventListener("load", function() {
-    ZPL.initialize()
-  }, false)
-})();
-(function() {
+  return ZoomPreviewLoader
+}();
+Ur.WindowLoaders["carousel"] = function() {
   function Carousel(components) {
     this.container = components["view_container"];
     this.items = components["scroll_container"];
@@ -1283,6 +1285,7 @@ xui.extend(mixins);
   function CarouselLoader() {
   }
   CarouselLoader.prototype.initialize = function() {
+    console.log("initializing carousel");
     var carousels = x$().find_elements("carousel", ComponentConstructors);
     this.carousels = {};
     for(name in carousels) {
@@ -1290,9 +1293,6 @@ xui.extend(mixins);
       this.carousels[name] = new Carousel(carousel)
     }
   };
-  UR_CL = new CarouselLoader;
-  window.addEventListener("load", function() {
-    UR_CL.initialize()
-  }, false)
-})();
+  return CarouselLoader
+}();
 

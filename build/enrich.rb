@@ -26,6 +26,7 @@ compilation_modes.each do |compilation_mode|
   compilation_mode[:options].each do |option|
     options << option
   end
+  puts "comp mode (#{compilation_mode}) -> #{options}"
 
 
   build_options = YAML::load(File.open(File.join("config","#{ARGV[0]}.yaml"),"r") {|f| f.read} )

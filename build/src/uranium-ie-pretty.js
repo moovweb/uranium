@@ -1341,6 +1341,22 @@
     }
   }
 })();
+if(typeof Ur == "undefined") {
+  Ur = {QuickLoaders:{}, WindowLoaders:{}, initialize:function(event, fragment) {
+    console.log("initializing UR");
+    var Loaders = event.type == "DOMContentLoaded" ? Ur.QuickLoaders : Ur.WindowLoaders;
+    if(fragment === undefined) {
+      fragment = document.body
+    }
+    for(name in Loaders) {
+      console.log("loading : " + name);
+      var widget = new Loaders[name];
+      widget.initialize(fragment)
+    }
+  }}
+}
+window.addEventListener("DOMContentLoaded", Ur.initialize, false);
+window.addEventListener("load", Ur.initialize, false);
 var mixins = {iterate:function(stuff, fn) {
   if(stuff === undefined) {
     return
@@ -1431,7 +1447,7 @@ var mixins = {iterate:function(stuff, fn) {
   return groups
 }};
 xui.extend(mixins);
-(function() {
+Ur.QuickLoaders["toggler"] = function() {
   function ToggleContentComponent(group, content_component) {
     if(group["content"] === undefined) {
       group["content"] = []
@@ -1489,12 +1505,9 @@ xui.extend(mixins);
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]))
     }
   };
-  window.TL = new ToggleLoader;
-  window.addEventListener("load", function() {
-    TL.initialize()
-  }, false)
-})();
-(function() {
+  return ToggleLoader
+}();
+Ur.QuickLoaders["select-list"] = function() {
   function SelectList(select_element, list_element) {
     this.select = select_element;
     this.list = list_element;
@@ -1533,12 +1546,9 @@ xui.extend(mixins);
       self.SelectLists[name] = new SelectList(select_lists[name]["select"], select_lists[name]["content"])
     }
   };
-  SLL = new SelectListLoader;
-  window.addEventListener("load", function() {
-    SLL.initialize()
-  }, false)
-})();
-(function() {
+  return SelectListLoader
+}();
+Ur.QuickLoaders["select-buttons"] = function() {
   function SelectButtons(components) {
     this.select = components["select"];
     this.increment = components["increment"];
@@ -1599,15 +1609,10 @@ xui.extend(mixins);
   }
   SelectButtonsLoader.prototype.initialize = function() {
     var select_buttons = x$().find_elements("select-buttons");
-    var self = this;
-    this.SelectButtons = {};
     for(name in select_buttons) {
       new SelectButtons(select_buttons[name])
     }
   };
-  SBL = new SelectButtonsLoader;
-  window.addEventListener("load", function() {
-    SBL.initialize()
-  }, false)
-})();
+  return SelectButtonsLoader
+}();
 
