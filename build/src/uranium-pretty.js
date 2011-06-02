@@ -594,13 +594,11 @@
 })();
 if(typeof Ur == "undefined") {
   Ur = {QuickLoaders:{}, WindowLoaders:{}, initialize:function(event, fragment) {
-    console.log("initializing UR");
     var Loaders = event.type == "DOMContentLoaded" ? Ur.QuickLoaders : Ur.WindowLoaders;
     if(fragment === undefined) {
       fragment = document.body
     }
     for(name in Loaders) {
-      console.log("loading : " + name);
       var widget = new Loaders[name];
       widget.initialize(fragment)
     }
@@ -659,7 +657,6 @@ var mixins = {iterate:function(stuff, fn) {
   }
 }(), find_elements:function(type, component_constructors) {
   var groups = {};
-  console.log("type:", type);
   this.each(function(type, constructors, groups) {
     return function() {
       x$().helper_find(this, type, constructors, groups)
@@ -667,7 +664,6 @@ var mixins = {iterate:function(stuff, fn) {
   }(type, component_constructors, groups));
   return groups
 }, helper_find:function(fragment, type, component_constructors, groups) {
-  console.log("Looking for " + type + " in fragment:", fragment);
   var all_elements = x$(fragment).find("*[data-ur-" + type + "-component]");
   all_elements.each(function() {
     var valid_component = true;
