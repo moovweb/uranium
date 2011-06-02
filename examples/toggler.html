@@ -33,7 +33,7 @@
         attribute is optional.
       </div>
 
-      <div data-ur-set='toggler' >
+      <div data-ur-set='toggler'>
         <div data-ur-toggler-component='button'>
           Clothings
         </div>
@@ -203,6 +203,34 @@
 
     </div>
 
+    <div class='test' name='Disabled'>
+
+      <h3> Click the button to enable the toggler:</h3>
+      
+      <div class='activate_button'>
+        Activate!
+      </div>
+
+      <script type='text/javascript'>
+        x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
+      </script>
+      
+      <div data-ur-set='toggler' data-ur-state='disabled'>
+        <div data-ur-toggler-component='button'>
+          Clothings
+        </div>
+        
+        <ul data-ur-toggler-component='content'>
+          <li> Hat </li>
+          <li> Socks </li>
+          <li> Shoes </li>
+          <li> Gloves </li>
+          <li> Shirts </li>
+        </ul>
+      </div>
+    </div>
+
+    
 <hr>
 <address></address>
 <!-- hhmts start -->Last modified: Fri May 13 19:34:03 PDT 2011 <!-- hhmts end -->
