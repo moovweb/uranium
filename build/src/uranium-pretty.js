@@ -606,8 +606,8 @@ if(typeof Ur == "undefined") {
     }
   }}
 }
-window.addEventListener("DOMContentLoaded", Ur.initialize, false);
 window.addEventListener("load", Ur.initialize, false);
+window.addEventListener("DOMContentLoaded", Ur.initialize, false);
 var mixins = {iterate:function(stuff, fn) {
   if(stuff === undefined) {
     return
@@ -658,8 +658,17 @@ var mixins = {iterate:function(stuff, fn) {
     return count
   }
 }(), find_elements:function(type, component_constructors) {
-  var all_elements = x$("*[data-ur-" + type + "-component]");
   var groups = {};
+  console.log("type:", type);
+  this.each(function(type, constructors, groups) {
+    return function() {
+      x$().helper_find(this, type, constructors, groups)
+    }
+  }(type, component_constructors, groups));
+  return groups
+}, helper_find:function(fragment, type, component_constructors, groups) {
+  console.log("Looking for " + type + " in fragment:", fragment);
+  var all_elements = x$(fragment).find("*[data-ur-" + type + "-component]");
   all_elements.each(function() {
     var valid_component = true;
     var my_set_id = x$(this).attr("data-ur-id");
@@ -708,8 +717,8 @@ Ur.QuickLoaders["toggler"] = function() {
   function ToggleLoader() {
     this.component_constructors = {"content":ToggleContentComponent}
   }
-  ToggleLoader.prototype.find = function() {
-    var togglers = x$().find_elements("toggler", this.component_constructors);
+  ToggleLoader.prototype.find = function(fragment) {
+    var togglers = x$(fragment).find_elements("toggler", this.component_constructors);
     var self = this;
     for(toggler_id in togglers) {
       var toggler = togglers[toggler_id];
@@ -747,8 +756,8 @@ Ur.QuickLoaders["toggler"] = function() {
       })
     }
   };
-  ToggleLoader.prototype.initialize = function() {
-    var togglers = this.find();
+  ToggleLoader.prototype.initialize = function(fragment) {
+    var togglers = this.find(fragment);
     this.togglers = togglers;
     var self = this;
     for(name in togglers) {
@@ -789,8 +798,8 @@ Ur.QuickLoaders["select-list"] = function() {
   function SelectListLoader() {
     this.SelectLists = {}
   }
-  SelectListLoader.prototype.initialize = function() {
-    var select_lists = x$().find_elements("select-list");
+  SelectListLoader.prototype.initialize = function(fragment) {
+    var select_lists = x$(fragment).find_elements("select-list");
     var self = this;
     for(name in select_lists) {
       var select_list = select_lists[name];
@@ -858,8 +867,8 @@ Ur.QuickLoaders["select-buttons"] = function() {
   };
   function SelectButtonsLoader() {
   }
-  SelectButtonsLoader.prototype.initialize = function() {
-    var select_buttons = x$().find_elements("select-buttons");
+  SelectButtonsLoader.prototype.initialize = function(fragment) {
+    var select_buttons = x$(fragment).find_elements("select-buttons");
     for(name in select_buttons) {
       new SelectButtons(select_buttons[name])
     }
@@ -1026,8 +1035,8 @@ Ur.QuickLoaders["zoom-preview"] = function() {
     Uranium = {};
     Uranium.widgets = {}
   }
-  ZoomPreviewLoader.prototype.initialize = function() {
-    this.zoom_previews = x$().find_elements("zoom-preview", ComponentConstructors);
+  ZoomPreviewLoader.prototype.initialize = function(fragment) {
+    this.zoom_previews = x$(fragment).find_elements("zoom-preview", ComponentConstructors);
     for(name in this.zoom_previews) {
       Uranium.widgets["zoom-preview"] = {};
       Uranium.widgets["zoom-preview"][name] = new ZoomPreview(this.zoom_previews[name])
@@ -1284,9 +1293,8 @@ Ur.WindowLoaders["carousel"] = function() {
   }};
   function CarouselLoader() {
   }
-  CarouselLoader.prototype.initialize = function() {
-    console.log("initializing carousel");
-    var carousels = x$().find_elements("carousel", ComponentConstructors);
+  CarouselLoader.prototype.initialize = function(fragment) {
+    var carousels = x$(fragment).find_elements("carousel", ComponentConstructors);
     this.carousels = {};
     for(name in carousels) {
       var carousel = carousels[name];
