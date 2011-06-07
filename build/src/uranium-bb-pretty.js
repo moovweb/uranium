@@ -1348,7 +1348,7 @@
   })()
 })();
 if(typeof Ur == "undefined") {
-  Ur = {QuickLoaders:{}, WindowLoaders:{}, setup:function(fragment) {
+  Ur = {QuickLoaders:{}, WindowLoaders:{}, Widgets:{}, onLoadCallbacks:[], setup:function(fragment) {
     Ur.initialize({type:"DOMContentLoaded"}, fragment);
     if(Ur.loaded) {
       Ur.initialize({type:"load"}, fragment)
@@ -1367,8 +1367,13 @@ if(typeof Ur == "undefined") {
       widget.initialize(fragment)
     }
     if(event.type == "load") {
-      Ur.loaded = true
+      Ur.loaded = true;
+      Ur._onLoad()
     }
+  }, _onLoad:function() {
+    x$().iterate(Ur.onLoadCallbacks, function(callback) {
+      callback()
+    })
   }, loaded:false}
 }
 window.addEventListener("load", Ur.initialize, false);
@@ -1442,11 +1447,9 @@ var mixins = {iterate:function(stuff, fn) {
     }else {
       var my_ancestor = x$().find_set_ancestor(this);
       var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
-      console.log("checking disabled:", widget_disabled);
       if(widget_disabled === "disabled" && Ur.loaded == false) {
         return
       }
-      console.log("checked disabled");
       if(my_ancestor !== null) {
         my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
         if(my_set_id === undefined) {
