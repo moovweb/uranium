@@ -1453,6 +1453,7 @@ var mixins = {iterate:function(stuff, fn) {
         if(groups[my_set_id] === undefined) {
           groups[my_set_id] = {}
         }
+        groups[my_set_id]["set"] = my_ancestor
       }else {
         console.log("Uranium Error: Couldn't find associated ur-set for component:", this);
         valid_component = false
@@ -1524,11 +1525,10 @@ Ur.QuickLoaders["toggler"] = function() {
   };
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
-    this.togglers = togglers;
-    var self = this;
     for(name in togglers) {
       var toggler = togglers[name];
-      x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]))
+      x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]));
+      x$(toggler["set"]).attr("data-ur-state", "enabled")
     }
   };
   return ToggleLoader
@@ -1569,7 +1569,8 @@ Ur.QuickLoaders["select-list"] = function() {
     var self = this;
     for(name in select_lists) {
       var select_list = select_lists[name];
-      self.SelectLists[name] = new SelectList(select_lists[name]["select"], select_lists[name]["content"])
+      self.SelectLists[name] = new SelectList(select_lists[name]["select"], select_lists[name]["content"]);
+      x$(select_list["set"]).attr("data-ur-state", "enabled")
     }
   };
   return SelectListLoader
@@ -1636,7 +1637,8 @@ Ur.QuickLoaders["select-buttons"] = function() {
   SelectButtonsLoader.prototype.initialize = function(fragment) {
     var select_buttons = x$(fragment).find_elements("select-buttons");
     for(name in select_buttons) {
-      new SelectButtons(select_buttons[name])
+      new SelectButtons(select_buttons[name]);
+      x$(select_buttons[name]["set"]).attr("data-ur-state", "enabled")
     }
   };
   return SelectButtonsLoader
