@@ -988,7 +988,10 @@ Ur.QuickLoaders["zoom-preview"] = function() {
     }(self));
     this.normal_image_changed()
   };
-  ZoomPreview.prototype.normal_image_changed = function() {
+  ZoomPreview.prototype.normal_image_changed = function(new_normal_image) {
+    if(new_normal_image !== undefined) {
+      this.elements["normal_image"] = new_normal_image
+    }
     img = x$(this.elements["normal_image"]);
     this.rewrite_images(img.attr("src")[0], this.modifier["normal_image"]["match"], this.modifier["normal_image"]["replace"])
   };
@@ -1228,6 +1231,10 @@ Ur.WindowLoaders["carousel"] = function() {
     if(this.count !== undefined) {
       this.count.innerHTML = this.item_index + 1 + " of " + this.item_count
     }
+    var active_item = x$(this.items).find("*[data-ur-carousel-component='item'][data-ur-state='active']");
+    active_item.attr("data-ur-state", "inactive");
+    var new_active_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
+    x$(new_active_item).attr("data-ur-state", "active");
     this.update_buttons()
   }, start_swipe:function(e) {
     if(this.increment_flag) {
