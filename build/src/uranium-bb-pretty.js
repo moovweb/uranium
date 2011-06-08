@@ -1445,7 +1445,7 @@ var mixins = {iterate:function(stuff, fn) {
         groups[my_set_id] = {}
       }
     }else {
-      var my_ancestor = x$().find_set_ancestor(this);
+      var my_ancestor = x$().find_set_ancestor(this, type);
       var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
       if(widget_disabled === "disabled" && Ur.loaded == false) {
         return
