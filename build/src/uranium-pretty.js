@@ -1069,7 +1069,8 @@ Ur.WindowLoaders["carousel"] = function() {
     this.items = components["scroll_container"];
     this.button = components["button"] === undefined ? {} : components["button"];
     this.count = components["count"];
-    this.initialize()
+    this.initialize();
+    this.onSlideCallbacks = []
   }
   function get_real_width(elem) {
     elem = x$(elem);
@@ -1304,6 +1305,10 @@ Ur.WindowLoaders["carousel"] = function() {
           obj.momentum()
         }
       }(this), 16)
+    }else {
+      x$().iterate(this.onSlideCallbacks, function(callback) {
+        callback()
+      })
     }
   }, swipe_dist:function() {
     if(this.end_pos === undefined) {
