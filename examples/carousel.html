@@ -26,8 +26,11 @@
 
     <div class='test' name='One'>
       <h3> Touch enabled example. </h3>
+
+      <div id='jump'> Jump to 5th item </div>
       
-      <div data-ur-set='carousel' data-ur-carousel-component='view_container'>
+      <div data-ur-set='carousel'
+        data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'>
         <span data-ur-carousel-component='count'> -- count -- </span>
         <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
           Prev
@@ -76,8 +79,19 @@
 
     
     <script type='text/javascript'>
+    // Make sure clicks get through
       x$("[data-ur-carousel-component='item']").on("click",
       function(e) {console.log("You clicked:", e.target.src)});
+    // Utilize the move_to_index() method
+      x$("#jump").on(
+        "click",
+        function() {
+    console.log("jumping...");
+//Ur.Widgets["carousel"]["MyFirstCarousel"].__proto__.move_to_index(4);
+    Ur.Widgets["carousel"]["MyFirstCarousel"].jump_to_index(4);
+        }
+      );
+    
     </script>
 
     <div id="giant">

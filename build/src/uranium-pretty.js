@@ -1052,8 +1052,8 @@ Ur.QuickLoaders["zoom-preview"] = function() {
   }
   ZoomPreviewLoader.prototype.initialize = function(fragment) {
     this.zoom_previews = x$(fragment).find_elements("zoom-preview", ComponentConstructors);
+    Ur.Widgets["zoom-preview"] = {};
     for(name in this.zoom_previews) {
-      Ur.Widgets["zoom-preview"] = {};
       Ur.Widgets["zoom-preview"][name] = new ZoomPreview(this.zoom_previews[name]);
       x$(this.zoom_previews[name]["set"]).attr("data-ur-state", "enabled")
     }
@@ -1146,8 +1146,12 @@ Ur.WindowLoaders["carousel"] = function() {
     }(this));
     this.item_index = 0;
     this.adjust_spacing();
-    this.item_index = -1;
-    this.update_index();
+    this.update_index(0);
+    this.jump_to_index = function(obj) {
+      return function(idx) {
+        obj.__proto__.move_to_index.call(obj, idx)
+      }
+    }(this);
     window.setInterval(function(obj) {
       return function() {
         obj.resize()
@@ -1209,8 +1213,11 @@ Ur.WindowLoaders["carousel"] = function() {
         x$(this.button["prev"]).attr("data-ur-state", "enabled")
       }
     }
-  }, update_index:function(displacement) {
-    this.item_index -= sign(displacement);
+  }, update_index:function(new_index) {
+    if(new_index === undefined) {
+      return
+    }
+    this.item_index = new_index;
     if(this.item_index < 0) {
       this.item_index = 0
     }else {
@@ -1257,7 +1264,6 @@ Ur.WindowLoaders["carousel"] = function() {
       this.snap_to(displacement)
     }
   }, snap_to:function(displacement) {
-    this.update_index(displacement);
     this.destination_offset = displacement + this.starting_offset;
     if(this.destination_offset < -1 * (this.item_count - 1) * this.snap_width || this.destination_offset > 0) {
       this.destination_offset = this.starting_offset
@@ -1265,7 +1271,14 @@ Ur.WindowLoaders["carousel"] = function() {
     this.momentum()
   }, move_to:function(direction) {
     this.starting_offset = this.get_transform(this.items);
-    this.snap_to(zero_ceil(direction / this.snap_width) * this.snap_width)
+    var displacement = zero_ceil(direction / this.snap_width) * this.snap_width;
+    this.snap_to(displacement);
+    this.update_index(this.item_index - sign(displacement))
+  }, move_to_index:function(index) {
+    var direction = this.item_index - index;
+    this.starting_offset = this.get_transform(this.items);
+    this.snap_to(direction * this.snap_width);
+    this.update_index(index)
   }, momentum:function() {
     if(this.touch_in_progress) {
       return
@@ -1311,10 +1324,10 @@ Ur.WindowLoaders["carousel"] = function() {
   }
   CarouselLoader.prototype.initialize = function(fragment) {
     var carousels = x$(fragment).find_elements("carousel", ComponentConstructors);
-    this.carousels = {};
+    Ur.Widgets["carousel"] = {};
     for(name in carousels) {
       var carousel = carousels[name];
-      this.carousels[name] = new Carousel(carousel);
+      Ur.Widgets["carousel"][name] = new Carousel(carousel);
       x$(carousel["set"]).attr("data-ur-state", "enabled")
     }
   };
