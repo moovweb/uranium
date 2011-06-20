@@ -3,7 +3,11 @@
   <head>
     <title> Uranium - Carousel </title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <script src="../build/src/uranium-pretty.js"></script>
+<!--    <script src="../build/src/uranium-pretty.js"></script> -->
+    <script src="../lib/external/xui-2.0.0.js"></script>
+    <script src="../lib/uranium_mixins.js"></script>
+    <script src="../lib/carousel.js"></script>
+
     <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/carousel.css' />
   </head>
@@ -57,6 +61,33 @@
       
       <div data-ur-set='carousel'
         data-ur-carousel-component='view_container' data-ur-touch='disabled'>
+        <span data-ur-carousel-component='count'> -- count -- </span>
+        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
+          Prev
+        </div>
+        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
+          Next
+        </div>
+        <div data-ur-carousel-component='scroll_container'>
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+          <img data-ur-carousel-component='item' src='images/ci-1.png' />
+          <img data-ur-carousel-component='item' src='images/ci-2.png' />
+        </div>       
+      </div>
+    </div>
+
+
+
+    <div class='test' name='Three'>
+      <h3> Multi pane example. </h3>
+      
+      <div data-ur-set='carousel'
+        data-ur-carousel-component='view_container' data-ur-type='multi'>
         <span data-ur-carousel-component='count'> -- count -- </span>
         <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
           Prev

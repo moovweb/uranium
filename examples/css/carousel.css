@@ -33,3 +33,8 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
   margin: 5px;
   padding: 5px;
 }
+
+div[name='Three'] img{
+    width: 62px;
+    height: 62px;
+}
