@@ -1067,8 +1067,13 @@ Ur.WindowLoaders["carousel"] = function() {
   function Carousel(components) {
     this.container = components["view_container"];
     this.items = components["scroll_container"];
+    if(this.items.length == 0) {
+      console.log("Error -- carousel missing item components");
+      return false
+    }
     this.button = components["button"] === undefined ? {} : components["button"];
     this.count = components["count"];
+    this.multi = x$(components["view_container"]).attr("data-ur-type")[0] == "multi";
     this.initialize();
     this.onSlideCallbacks = []
   }
@@ -1149,6 +1154,7 @@ Ur.WindowLoaders["carousel"] = function() {
       }
     }(this));
     this.item_index = 0;
+    this.magazine_count = 1;
     this.adjust_spacing();
     this.update_index(0);
     this.jump_to_index = function(obj) {
@@ -1176,6 +1182,10 @@ Ur.WindowLoaders["carousel"] = function() {
     }
   }, adjust_spacing:function() {
     var visible_width = this.container.offsetWidth;
+    if(this.old_width !== undefined && this.old_width == visible_width) {
+      return
+    }
+    this.old_width = visible_width;
     var cumulative_offset = 0;
     var items = x$(this.items).find("[data-ur-carousel-component='item']");
     this.item_count = items.length;
@@ -1185,16 +1195,38 @@ Ur.WindowLoaders["carousel"] = function() {
     });
     this.items.style.width = total_width + "px";
     this.snap_width = visible_width;
+    if(this.multi) {
+      var item_width = get_real_width(items[0]);
+      var magazine_count = Math.floor(visible_width / item_width);
+      this.magazine_count = magazine_count;
+      var space = visible_width - magazine_count * item_width;
+      this.snap_width = space / (magazine_count - 1) + item_width;
+      this.last_index = this.item_count - this.magazine_count
+    }else {
+      this.last_index = this.item_count - 1
+    }
     cumulative_offset -= this.snap_width * this.item_index;
     translate(this.items, cumulative_offset);
-    x$().iterate(items, function(item, i) {
-      var offset = cumulative_offset;
-      if(i != 0) {
-        offset += visible_width - items[i - 1].offsetWidth
-      }
-      translate(item, offset);
-      cumulative_offset = offset
-    })
+    if(this.multi) {
+      x$().iterate(items, function(item, i) {
+        var offset = cumulative_offset;
+        if(i != 0) {
+          offset += space / (magazine_count - 1)
+        }
+        translate(item, offset);
+        cumulative_offset = offset
+      });
+      this.update_index(this.item_index)
+    }else {
+      x$().iterate(items, function(item, i) {
+        var offset = cumulative_offset;
+        if(i != 0) {
+          offset += visible_width - items[i - 1].offsetWidth
+        }
+        translate(item, offset);
+        cumulative_offset = offset
+      })
+    }
   }, get_event_coordinates:function(e) {
     if(this.touch) {
       if(e.touches.length == 1) {
@@ -1209,7 +1241,7 @@ Ur.WindowLoaders["carousel"] = function() {
       x$(this.button["prev"]).attr("data-ur-state", "disabled");
       x$(this.button["next"]).attr("data-ur-state", "enabled")
     }else {
-      if(this.item_index == this.item_count - 1) {
+      if(this.item_index == this.last_index) {
         x$(this.button["next"]).attr("data-ur-state", "disabled");
         x$(this.button["prev"]).attr("data-ur-state", "enabled")
       }else {
@@ -1225,12 +1257,16 @@ Ur.WindowLoaders["carousel"] = function() {
     if(this.item_index < 0) {
       this.item_index = 0
     }else {
-      if(this.item_index >= this.item_count) {
-        this.item_index = this.item_count - 1
+      if(this.item_index > this.last_index) {
+        this.item_index = this.last_index - 1
       }
     }
     if(this.count !== undefined) {
-      this.count.innerHTML = this.item_index + 1 + " of " + this.item_count
+      if(this.multi) {
+        this.count.innerHTML = this.item_index + 1 + " to " + (this.item_index + this.magazine_count) + " of " + this.item_count
+      }else {
+        this.count.innerHTML = this.item_index + 1 + " of " + this.item_count
+      }
     }
     var active_item = x$(this.items).find("*[data-ur-carousel-component='item'][data-ur-state='active']");
     active_item.attr("data-ur-state", "inactive");
@@ -1268,25 +1304,48 @@ Ur.WindowLoaders["carousel"] = function() {
     this.touch_in_progress = false;
     if(!this.touch || e.touches.length == 0) {
       var swipe_distance = this.swipe_dist();
-      var displacement = zero_ceil(swipe_distance / this.snap_width) * this.snap_width;
-      this.snap_to(displacement)
+      var displacement = 0;
+      var displacement_index = 0;
+      if(this.multi) {
+        var range = this.magazine_count;
+        var range_offset = range / 2;
+        displacement_index = zero_ceil(1 / (1 + Math.pow(Math.E, -1 * swipe_distance)) * range - range_offset)
+      }else {
+        displacement_index = zero_ceil(swipe_distance / this.snap_width)
+      }
+      this.move_helper(displacement_index)
     }
   }, snap_to:function(displacement) {
     this.destination_offset = displacement + this.starting_offset;
-    if(this.destination_offset < -1 * (this.item_count - 1) * this.snap_width || this.destination_offset > 0) {
+    if(this.destination_offset < -1 * this.last_index * this.snap_width || this.destination_offset > 0) {
       this.destination_offset = this.starting_offset
     }
     this.momentum()
   }, move_to:function(direction) {
     this.starting_offset = this.get_transform(this.items);
-    var displacement = zero_ceil(direction / this.snap_width) * this.snap_width;
+    var new_idx = this.item_index - direction;
+    if(new_idx > this.last_index || new_idx < 0) {
+      return false
+    }
+    this.move_helper(direction)
+  }, move_helper:function(direction) {
+    var new_idx = this.item_index - direction;
+    if(new_idx > this.last_index) {
+      new_idx = this.last_index
+    }else {
+      if(new_idx < 0) {
+        new_idx = 0
+      }
+    }
+    var new_item = x$(this.items).find("*[data-ur-carousel-component='item']")[new_idx];
+    var current_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
+    var offset = this.get_transform(current_item) - this.get_transform(new_item);
+    var displacement = current_item.offsetLeft - new_item.offsetLeft + offset;
     this.snap_to(displacement);
-    this.update_index(this.item_index - sign(displacement))
+    this.update_index(new_idx)
   }, move_to_index:function(index) {
     var direction = this.item_index - index;
-    this.starting_offset = this.get_transform(this.items);
-    this.snap_to(direction * this.snap_width);
-    this.update_index(index)
+    this.move_to(direction)
   }, momentum:function() {
     if(this.touch_in_progress) {
       return
