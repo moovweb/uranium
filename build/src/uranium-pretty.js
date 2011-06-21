@@ -1145,12 +1145,12 @@ Ur.WindowLoaders["carousel"] = function() {
     }
     x$(this.button["prev"]).on("click", function(obj) {
       return function() {
-        obj.move_to(1)
+        obj.move_to(obj.magazine_count)
       }
     }(this));
     x$(this.button["next"]).on("click", function(obj) {
       return function() {
-        obj.move_to(-1)
+        obj.move_to(-obj.magazine_count)
       }
     }(this));
     this.item_index = 0;
@@ -1317,16 +1317,18 @@ Ur.WindowLoaders["carousel"] = function() {
     }
   }, snap_to:function(displacement) {
     this.destination_offset = displacement + this.starting_offset;
-    if(this.destination_offset < -1 * this.last_index * this.snap_width || this.destination_offset > 0) {
-      this.destination_offset = this.starting_offset
+    var max_offset = -1 * this.last_index * this.snap_width;
+    if(this.destination_offset < max_offset || this.destination_offset > 0) {
+      if(Math.abs(this.destination_offset - max_offset) < 1) {
+        this.destination_offset = max_offset
+      }else {
+        this.destination_offset = this.starting_offset
+      }
     }
     this.momentum()
   }, move_to:function(direction) {
     this.starting_offset = this.get_transform(this.items);
     var new_idx = this.item_index - direction;
-    if(new_idx > this.last_index || new_idx < 0) {
-      return false
-    }
     this.move_helper(direction)
   }, move_helper:function(direction) {
     var new_idx = this.item_index - direction;
