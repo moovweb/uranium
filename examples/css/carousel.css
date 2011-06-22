@@ -1,7 +1,6 @@
 div[data-ur-carousel-component='view_container'] {
   height: 200px;
-/*  width: 100%;*/
-  width: 307px;
+  width: 100%;
   overflow-x: hidden;
   border: 1px solid black;
   background-color: #9C0;
