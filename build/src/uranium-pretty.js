@@ -1356,6 +1356,9 @@ Ur.WindowLoaders["carousel"] = function() {
     var x_transform = this.get_transform(this.items);
     var distance = this.destination_offset - x_transform;
     var increment = distance - zero_floor(distance / 1.1);
+    if(Math.abs(increment) < 0.01) {
+      increment = 0
+    }
     translate(this.items, increment + x_transform);
     if(increment != 0) {
       this.increment_flag = true
