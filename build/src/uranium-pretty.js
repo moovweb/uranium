@@ -760,13 +760,14 @@ Ur.QuickLoaders["toggler"] = function() {
     }
     return togglers
   };
-  ToggleLoader.prototype.construct_button_callback = function(contents) {
+  ToggleLoader.prototype.construct_button_callback = function(contents, set) {
     var self = this;
     return function(evt) {
       var button = evt.currentTarget;
       var current_state = x$(button).attr("data-ur-state")[0];
       var new_state = current_state === "enabled" ? "disabled" : "enabled";
       x$(button).attr("data-ur-state", new_state);
+      x$(set).attr("data-ur-state", new_state);
       x$().iterate(contents, function(content) {
         var current_state = x$(content).attr("data-ur-state")[0];
         var new_state = current_state === "enabled" ? "disabled" : "enabled";
@@ -778,7 +779,7 @@ Ur.QuickLoaders["toggler"] = function() {
     var togglers = this.find(fragment);
     for(name in togglers) {
       var toggler = togglers[name];
-      x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]));
+      x$(toggler["button"]).click(this.construct_button_callback(toggler["content"], toggler["set"]));
       x$(toggler["set"]).attr("data-ur-state", "enabled")
     }
   };
@@ -1198,6 +1199,9 @@ Ur.WindowLoaders["carousel"] = function() {
     if(this.multi) {
       var item_width = get_real_width(items[0]);
       var magazine_count = Math.floor(visible_width / item_width);
+      console.log("m count:", magazine_count, "icount:", this.item_count);
+      magazine_count = magazine_count > this.item_count ? this.item_count : magazine_count;
+      console.log("new mcount:", this.magazine_count);
       this.magazine_count = magazine_count;
       var space = visible_width - magazine_count * item_width;
       this.snap_width = space / (magazine_count - 1) + item_width;
@@ -1205,6 +1209,9 @@ Ur.WindowLoaders["carousel"] = function() {
     }else {
       this.last_index = this.item_count - 1
     }
+    console.log("old item index:", this.item_index);
+    this.item_index = this.last_index < this.item_index ? this.last_index : this.item_index;
+    console.log("new item index:", this.item_index);
     cumulative_offset -= this.snap_width * this.item_index;
     translate(this.items, cumulative_offset);
     if(this.multi) {

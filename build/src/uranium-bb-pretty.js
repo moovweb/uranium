@@ -1515,13 +1515,14 @@ Ur.QuickLoaders["toggler"] = function() {
     }
     return togglers
   };
-  ToggleLoader.prototype.construct_button_callback = function(contents) {
+  ToggleLoader.prototype.construct_button_callback = function(contents, set) {
     var self = this;
     return function(evt) {
       var button = evt.currentTarget;
       var current_state = x$(button).attr("data-ur-state")[0];
       var new_state = current_state === "enabled" ? "disabled" : "enabled";
       x$(button).attr("data-ur-state", new_state);
+      x$(set).attr("data-ur-state", new_state);
       x$().iterate(contents, function(content) {
         var current_state = x$(content).attr("data-ur-state")[0];
         var new_state = current_state === "enabled" ? "disabled" : "enabled";
@@ -1533,7 +1534,7 @@ Ur.QuickLoaders["toggler"] = function() {
     var togglers = this.find(fragment);
     for(name in togglers) {
       var toggler = togglers[name];
-      x$(toggler["button"]).click(this.construct_button_callback(toggler["content"]));
+      x$(toggler["button"]).click(this.construct_button_callback(toggler["content"], toggler["set"]));
       x$(toggler["set"]).attr("data-ur-state", "enabled")
     }
   };
