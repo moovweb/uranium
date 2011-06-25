@@ -1199,9 +1199,7 @@ Ur.WindowLoaders["carousel"] = function() {
     if(this.multi) {
       var item_width = get_real_width(items[0]);
       var magazine_count = Math.floor(visible_width / item_width);
-      console.log("m count:", magazine_count, "icount:", this.item_count);
       magazine_count = magazine_count > this.item_count ? this.item_count : magazine_count;
-      console.log("new mcount:", this.magazine_count);
       this.magazine_count = magazine_count;
       var space = visible_width - magazine_count * item_width;
       this.snap_width = space / (magazine_count - 1) + item_width;
@@ -1209,29 +1207,28 @@ Ur.WindowLoaders["carousel"] = function() {
     }else {
       this.last_index = this.item_count - 1
     }
-    console.log("old item index:", this.item_index);
     this.item_index = this.last_index < this.item_index ? this.last_index : this.item_index;
-    console.log("new item index:", this.item_index);
     cumulative_offset -= this.snap_width * this.item_index;
     translate(this.items, cumulative_offset);
+    var cumulative_item_offset = 0;
     if(this.multi) {
       x$().iterate(items, function(item, i) {
-        var offset = cumulative_offset;
+        var offset = cumulative_item_offset;
         if(i != 0) {
           offset += space / (magazine_count - 1)
         }
         translate(item, offset);
-        cumulative_offset = offset
+        cumulative_item_offset = offset
       });
       this.update_index(this.item_index)
     }else {
       x$().iterate(items, function(item, i) {
-        var offset = cumulative_offset;
+        var offset = cumulative_item_offset;
         if(i != 0) {
           offset += visible_width - items[i - 1].offsetWidth
         }
         translate(item, offset);
-        cumulative_offset = offset
+        cumulative_item_offset = offset
       })
     }
   }, get_event_coordinates:function(e) {
