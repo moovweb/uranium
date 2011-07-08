@@ -1,0 +1,20 @@
+--- 
+- :output_file: src/uranium-pretty.js
+  :input_directory: ../lib
+  :input_files:
+  - ../lib/external/xui-2.0.0.js
+  - ../lib/uranium_mixins.js
+- :output_file: src/uranium-bb-pretty.js
+  :input_files:
+  - ../lib/external/xui-bb-2.0.0.js
+  - ../lib/uranium_mixins.js
+  - ../lib/toggler.js
+  - ../lib/select_list.js
+  - ../lib/select_buttons.js
+- :output_file: src/uranium-ie-pretty.js
+  :input_files:
+  - ../lib/external/xui-ie-2.0.0.js
+  - ../lib/uranium_mixins.js
+  - ../lib/toggler.js
+  - ../lib/select_list.js
+  - ../lib/select_buttons.js

@@ -1,9 +1,0 @@
---- 
-:external: lib/external/xui-2.0.0.js
-:global: lib/uranium_mixins.js
-:widgets: 
-- lib/toggler.js
-- lib/select_list.js
-- lib/select_buttons.js
-- lib/zoom_preview.js
-- lib/carousel.js
