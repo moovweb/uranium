@@ -1,3 +1,3 @@
 .DS_Store
-build/compiler/*
+BUILD_VERSION
 doc/*.html
