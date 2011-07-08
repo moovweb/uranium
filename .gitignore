@@ -1,3 +1,4 @@
 .DS_Store
 BUILD_VERSION
+JENKINS
 doc/*.html
