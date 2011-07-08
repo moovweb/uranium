@@ -29,7 +29,7 @@ task :upload => [:enrich] do
   buildf.puts version
   buildf.close
 
-  ManhattanUploader.run(File.expand_path("."), "lib", false)
+  ManhattanUploader.run(File.expand_path("."), "build/src", false)
 end
 
 task :default => [:enrich]
