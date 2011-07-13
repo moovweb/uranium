@@ -1422,9 +1422,9 @@ var mixins = {
         ///////// Resolve this component to its set ///////////
 
         // Check if this has the data-ur-id attribute
-        var my_set_id = x$(this).attr("data-ur-id");
+        var my_set_id = x$(this).attr("data-ur-id")[0];
 
-        if (my_set_id.length != 0) {
+        if (my_set_id !== undefined) {
           if ( groups[my_set_id] === undefined) {
             groups[my_set_id] = {};
           }          
@@ -2143,6 +2143,7 @@ Ur.QuickLoaders['toggler'] = (function(){
       var toggler_state = x$(toggler["button"]).attr("data-ur-state")[0];
       if(toggler_state === undefined) {
         x$(toggler["button"]).attr("data-ur-state", 'disabled');
+        toggler_state = "disabled";
       } 
 
       if (toggler["content"] === undefined) {
