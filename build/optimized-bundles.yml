@@ -9,6 +9,7 @@
   - ../lib/external/xui-bb-2.0.0.js
   - ../lib/uranium_mixins.js
   - ../lib/toggler.js
+  - ../lib/tabs.js
   - ../lib/select_list.js
   - ../lib/select_buttons.js
 - :output_file: src/uranium-ie.js
@@ -16,5 +17,6 @@
   - ../lib/external/xui-ie-2.0.0.js
   - ../lib/uranium_mixins.js
   - ../lib/toggler.js
+  - ../lib/tabs.js
   - ../lib/select_list.js
   - ../lib/select_buttons.js
