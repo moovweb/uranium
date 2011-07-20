@@ -29,4 +29,15 @@ position: relative;
   text-align: center;
 }
 
+/* Accordions w state */
 
+div[name='accordions'] *[data-ur-tabs-component='button'] { 
+    display: block;
+    border: 1px solid blue;
+    background-color: white;
+}
+
+div[name='accordions'] *[data-ur-tabs-component='content'] { 
+    background-color: white;
+    margin: 0px 20px;
+}

@@ -2723,15 +2723,6 @@ Ur.QuickLoaders['tabs'] = (function(){
 
     }
 
-    // Enable the first one
-    if(default_tab !== null && default_tab !== -1) {
-      var button = this.elements["buttons"][default_tab];
-      var content = this.elements["contents"][default_tab];
-      
-      x$(button).attr("data-ur-state","enabled");
-      x$(content).attr("data-ur-state","enabled");      
-    }
-
   }
   
   var ComponentConstructors = {
