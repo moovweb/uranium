@@ -13,7 +13,7 @@ It should be noted that since Uranium extends xui -- this library is geared for 
 
 # Lightweight #
 
-## The whole library is 6.5 KB gzipped (including all widgets and xui) ! ##
+## The whole library is 8.4 KB gzipped (including all widgets and xui) ! ##
 
 -  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
 -  Uranium is bundled with xui to make just one javascript file. [Here](uranium/raw/master/build/src/uranium.js) it is.
