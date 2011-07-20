@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title> Tabs Unit Tests</title>
+<!--   <script src="../build/src/uranium-pretty.js"></script> -->
+
+<script src="../lib/external/xui-2.0.0.js"></script>
+<script src="../lib/uranium_mixins.js"></script>
+<script src="../lib/tabs.js"></script>
+
+   <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
+  </head>
+
+  <body suite='Togglers'>
+
+    <h1> Togglers </h1>
+
+    <hr>
+
+    <h2> Description: </h2>
+    <div class='description'>
+      <p>
+        Toggler is a widget that has two components -- a button, and a
+      set of contents. When you click the button, the button and
+    content 
+      states are toggled.
+      </p>
+    </div>
+
+    <h2> Examples:</h2>
+    <div class='test' name='Simple'>
+
+      <h3> Simple</h3>
+
+      <div data-ur-set='tabs'>
+        <span data-ur-tabs-component='button' data-ur-tab-id='first'>
+        First </span>        
+        <span data-ur-tabs-component='button' data-ur-tab-id='second'>
+        Second </span>        
+        <span data-ur-tabs-component='button' data-ur-tab-id='third'>
+        Third </span>        
+        
+        <div data-ur-tabs-component='content' data-ur-tab-id='first'>
+          <img width='300px' height='300px' src='images/pic1.jpeg?some_attr=noway'/> 
+       </div>
+
+        <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+          <img width='300px' height='300px' src='images/pic2.jpeg?some_attr=noway'/> 
+        </div>
+
+        <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+          <img width='300px' height='300px' src='images/pic3.jpeg?some_attr=noway'/> 
+       </div>       
+       
+      </div>
+    </div>
+
+
+    <div class='test' name='Simple'>
+
+      <h3> Sanity Check </h3>
+
+      <div data-ur-set='tabs'>
+        <span data-ur-tabs-component='button'
+        data-ur-tab-id='first_sanity'> First </span>        
+        <span data-ur-tabs-component='button'
+        data-ur-tab-id='second_sanity' data-ur-state='enabled'> Second </span>        
+        <span data-ur-tabs-component='button'
+        data-ur-tab-id='third_sanity'> Third </span>        
+        
+        <div data-ur-tabs-component='content' data-ur-tab-id='first_sanity'>
+          <img width='30px' height='30px' src='images/pic1.jpeg?some_attr=noway'/> 
+       </div>
+
+        <div data-ur-tabs-component='content' data-ur-state='enabled'
+         data-ur-tab-id='second_sanity'>
+          <img width='30px' height='30px' src='images/pic2.jpeg?some_attr=noway'/> 
+        </div>
+
+        <div data-ur-tabs-component='content' data-ur-tab-id='third_sanity'>
+          <img width='30px' height='30px' src='images/pic3.jpeg?some_attr=noway'/> 
+       </div>       
+       
+      </div>
+    </div>    
+
+
+
+    
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Fri May 13 19:34:03 PDT 2011 <!-- hhmts end -->
+</body> </html>
