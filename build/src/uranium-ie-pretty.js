@@ -2373,7 +2373,7 @@ if(typeof(Ur) == 'undefined') {
         fragment = document.body;
       }
       
-      for(name in Loaders) {
+      for(var name in Loaders) {
         var widget = new Loaders[name];
         widget.initialize(fragment);
       }
@@ -2597,7 +2597,7 @@ Ur.QuickLoaders['toggler'] = (function(){
     var togglers = x$(fragment).find_elements('toggler', this.component_constructors);
     var self=this;
     
-    for(toggler_id in togglers) {
+    for(var toggler_id in togglers) {
       var toggler = togglers[toggler_id];
 
       if (toggler["button"] === undefined) {
@@ -2655,7 +2655,7 @@ Ur.QuickLoaders['toggler'] = (function(){
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
 
-    for(name in togglers){
+    for(var name in togglers){
       var toggler = togglers[name];
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"], toggler["set"]));
       x$(toggler["set"]).attr("data-ur-state","enabled");
@@ -2681,7 +2681,7 @@ Ur.QuickLoaders['tabs'] = (function(){
   Tabs.prototype.setup_callbacks = function() {
     var default_tab = null;
 
-    for(tab_id in this.elements["buttons"]) {
+    for(var tab_id in this.elements["buttons"]) {
 
       var button = this.elements["buttons"][tab_id];
       var content = this.elements["contents"][tab_id];
@@ -2706,7 +2706,7 @@ Ur.QuickLoaders['tabs'] = (function(){
         function(evt) {
           var this_tab_id = x$(evt.target).attr("data-ur-tab-id")[0];
           
-          for(tab_id in self.elements["buttons"]) {
+          for(var tab_id in self.elements["buttons"]) {
             var button = self.elements["buttons"][tab_id];
             var content = self.elements["contents"][tab_id];
 
@@ -2762,7 +2762,7 @@ Ur.QuickLoaders['tabs'] = (function(){
     console.log("raw tabs:", tabs);
     Ur.Widgets["tabs"] = {};
 
-    for(name in tabs){
+    for(var name in tabs){
       var tab = tabs[name];
       Ur.Widgets["tabs"][name] = new Tabs(tabs[name]);
     }
@@ -2832,7 +2832,7 @@ Ur.QuickLoaders['select-list'] = (function(){
   SelectListLoader.prototype.initialize = function(fragment) {
     var select_lists = x$(fragment).find_elements('select-list');
     var self = this;
-    for (name in select_lists) {
+    for (var name in select_lists) {
       var select_list = select_lists[name];
       self.SelectLists[name] = new SelectList(select_lists[name]["select"],select_lists[name]["content"]);
       x$(select_list["set"]).attr("data-ur-state","enabled");
@@ -2925,7 +2925,7 @@ Ur.QuickLoaders['select-buttons'] = (function(){
 
   SelectButtonsLoader.prototype.initialize = function(fragment) {
     var select_buttons = x$(fragment).find_elements('select-buttons');
-    for (name in select_buttons) {
+    for (var name in select_buttons) {
       new SelectButtons(select_buttons[name]);
       x$(select_buttons[name]["set"]).attr("data-ur-state","enabled");
     }
