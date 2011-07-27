@@ -2036,7 +2036,7 @@ Ur.QuickLoaders['select-buttons'] = (function(){
   }
 
   return SelectButtonsLoader;
-})()
+})();
 /* Select List *
  * * * * * * * *
  * The select-list binds a set of uranium-elements to corresponding <option> 
@@ -2106,7 +2106,7 @@ Ur.QuickLoaders['select-list'] = (function(){
   }
 
   return SelectListLoader;
-})()
+})();
 /* Tabs *
  * * * * * *
  * The tabs are like togglers with state. If one is opened, the others are closed
@@ -2201,7 +2201,6 @@ Ur.QuickLoaders['tabs'] = (function(){
 
   TabsLoader.prototype.initialize = function(fragment) {
     var tabs = x$(fragment).find_elements('tabs', ComponentConstructors);
-    console.log("raw tabs:", tabs);
     Ur.Widgets["tabs"] = {};
 
     for(var name in tabs){
@@ -2211,7 +2210,7 @@ Ur.QuickLoaders['tabs'] = (function(){
   }
 
   return TabsLoader;
-})()
+})();
 
 /* Toggler *
  * * * * * *
@@ -2308,7 +2307,7 @@ Ur.QuickLoaders['toggler'] = (function(){
   }
 
   return ToggleLoader;
-})()
+})();
 
 /* Zoom Preview  *
  * * * * * * * * *
@@ -2528,4 +2527,4 @@ Ur.QuickLoaders['zoom-preview'] = (function(){
   }
 
   return ZoomPreviewLoader;
-})()
+})();

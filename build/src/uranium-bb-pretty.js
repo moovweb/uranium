@@ -2653,7 +2653,7 @@ Ur.QuickLoaders['toggler'] = (function(){
   }
 
   return ToggleLoader;
-})()
+})();
 
 /* Tabs *
  * * * * * *
@@ -2749,7 +2749,6 @@ Ur.QuickLoaders['tabs'] = (function(){
 
   TabsLoader.prototype.initialize = function(fragment) {
     var tabs = x$(fragment).find_elements('tabs', ComponentConstructors);
-    console.log("raw tabs:", tabs);
     Ur.Widgets["tabs"] = {};
 
     for(var name in tabs){
@@ -2759,7 +2758,7 @@ Ur.QuickLoaders['tabs'] = (function(){
   }
 
   return TabsLoader;
-})()
+})();
 
 /* Select List *
  * * * * * * * *
@@ -2830,7 +2829,7 @@ Ur.QuickLoaders['select-list'] = (function(){
   }
 
   return SelectListLoader;
-})()
+})();
 /* Select Buttons  *
  * * * * * * * * * *
  * The select-button widget binds two buttons to a <select> to increment/decrement
@@ -2922,4 +2921,4 @@ Ur.QuickLoaders['select-buttons'] = (function(){
   }
 
   return SelectButtonsLoader;
-})()
+})();
