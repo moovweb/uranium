@@ -21,7 +21,6 @@ task :upload do #=> [:enrich] do
   require 'rdiscount'
   require 'erb'
 
-
   version = File.read("VERSION").strip
   if File.exists? "JENKINS"
     version += "."
@@ -33,9 +32,6 @@ task :upload do #=> [:enrich] do
   buildf.close
 
   urls = ManhattanUploader.run(File.expand_path("."), "build/src", false)
-
-  puts "Uploaded urls:"
-  puts urls
   
   urls.first =~ /(\d+\.\d+\.\d+)/
 
@@ -45,12 +41,10 @@ task :upload do #=> [:enrich] do
 
   latest_page = File.open("build/latest.md.erb").read
   md = ERB.new(latest_page).result(binding)
-  File.open("template.md","w") {|f| f << md}  
-
   latest_page = RDiscount.new(md).to_html
 
-  File.open("latest.html","w") {|f| f << latest_page}
-
+  url = ManhattanUploader.upload_file("uranium/latest.html", latest_page)
+  puts "Uploaded latest page: #{url[:s3]}"
 
 end
 
