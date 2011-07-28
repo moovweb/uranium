@@ -16,7 +16,7 @@ task :enrich do
 
 end
 
-task :upload do #=> [:enrich] do
+task :upload => [:enrich] do
   require 'manhattan_uploader'
   require 'rdiscount'
   require 'erb'
