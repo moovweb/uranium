@@ -16,8 +16,11 @@ task :enrich do
 
 end
 
-task :upload => [:enrich] do
+task :upload do #=> [:enrich] do
   require 'manhattan_uploader'
+  require 'rdiscount'
+  require 'erb'
+
 
   version = File.read("VERSION").strip
   if File.exists? "JENKINS"
@@ -29,7 +32,26 @@ task :upload => [:enrich] do
   buildf.puts version
   buildf.close
 
-  ManhattanUploader.run(File.expand_path("."), "build/src", false)
+  urls = ManhattanUploader.run(File.expand_path("."), "build/src", false)
+
+  puts "Uploaded urls:"
+  puts urls
+  
+  urls.first =~ /(\d+\.\d+\.\d+)/
+
+  raise Exception.new("Could not extract version from url : (#{urls.first})") if $1.nil?
+
+  version = $1
+
+  latest_page = File.open("build/latest.md.erb").read
+  md = ERB.new(latest_page).result(binding)
+  File.open("template.md","w") {|f| f << md}  
+
+  latest_page = RDiscount.new(md).to_html
+
+  File.open("latest.html","w") {|f| f << latest_page}
+
+
 end
 
 task :default => [:enrich]
