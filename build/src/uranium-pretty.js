@@ -2141,6 +2141,10 @@ Ur.QuickLoaders['tabs'] = (function(){
       if(state !== undefined && state == "enabled") {
         default_tab = -1;
       }
+      
+      var closeable = x$(this.elements["set"]).attr("data-ur-closeable")[0];
+      closeable = (closeable !== undefined && closeable == "true") ? true : false;
+      console.log("closeable? " + closeable);
 
       var self = this;
       x$(button).on(
@@ -2156,8 +2160,14 @@ Ur.QuickLoaders['tabs'] = (function(){
               x$(button).attr("data-ur-state","disabled");
               x$(content).attr("data-ur-state","disabled");
             } else {
-              x$(button).attr("data-ur-state","enabled");
-              x$(content).attr("data-ur-state","enabled");
+	      var new_state = "enabled";
+	      if (closeable) {
+		var old_state = x$(button).attr("data-ur-state")[0];
+		old_state = (old_state === undefined) ? "disabled" : old_state;
+		new_state = (old_state == "enabled") ? "disabled" : "enabled";
+	      }
+              x$(button).attr("data-ur-state", new_state);
+              x$(content).attr("data-ur-state", new_state);
             }
           }
         }
