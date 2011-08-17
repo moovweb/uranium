@@ -2,7 +2,10 @@
 <html>
   <head>
     <title> Tabs Unit Tests</title>
-  <script src="../build/src/uranium-pretty.js"></script>
+<!--  <script src="../build/src/uranium-pretty.js"></script> -->
+  <script src="../lib/external/xui-2.0.0.js"></script>
+  <script src="../lib/uranium_mixins.js"></script>
+  <script src="../lib/tabs.js"></script>
 
    <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/tabs.css' />
@@ -93,7 +96,7 @@
         it breaks accordions w state!
       </div>
       
-      <div data-ur-set='tabs'>
+      <div data-ur-set='tabs' data-ur-closeable='true'>
         <div data-ur-tabs-component='button' data-ur-tab-id='first_accordions'> First </div>
 
         <div data-ur-tabs-component='content' data-ur-tab-id='first_accordions'>
@@ -119,5 +122,5 @@
     
 <hr>
 <address></address>
-<!-- hhmts start -->Last modified: Fri May 13 19:34:03 PDT 2011 <!-- hhmts end -->
+<!-- hhmts start -->Last modified: Tue Aug 16 19:31:39 PDT 2011 <!-- hhmts end -->
 </body> </html>
