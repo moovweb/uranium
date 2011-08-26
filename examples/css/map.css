@@ -2,3 +2,16 @@
   width: 400px;
   height: 400px;
 }
+
+*[data-ur-map-component='description'] {
+  display: none;
+}
+
+*[data-ur-map-component='description'][data-ur-state='enabled'] {
+  display: block;
+}
+
+
+*[data-ur-map-component='address'] {
+  display: none;
+}
