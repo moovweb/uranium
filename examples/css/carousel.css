@@ -1,5 +1,5 @@
 div[data-ur-carousel-component='view_container'] {
-  height: 200px;
+  height: 270px;
   width: 100%;
   overflow-x: hidden;
   border: 1px solid black;
@@ -13,7 +13,7 @@ div[data-ur-carousel-component="scroll_container"] {
 div[data-ur-carousel-component="scroll_container"] > * {
   display:inline-block;
   float: left; /* This is important -- otherwise, the carousel can't calculate the accurate total width */
-  background-color: #3CC;
+/*  background-color: #3CC;*/
 }
 
 div[data-ur-carousel-component="button"] {
