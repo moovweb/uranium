@@ -15,3 +15,8 @@
 *[data-ur-map-component='address'] {
   display: none;
 }
+
+*[data-ur-map-component='icon'] {
+  position: absolute;
+  visibility: hidden;
+}
