@@ -1,6 +1,6 @@
 *[data-ur-map-component='canvas'] {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
 }
 
 *[data-ur-map-component='description'] {
@@ -19,4 +19,17 @@
 *[data-ur-map-component='icon'] {
   position: absolute;
   visibility: hidden;
+}
+
+
+/* Hidden example */
+
+body.hidden [data-ur-set='map']{
+    position: absolute;
+    visibility: hidden;
+}
+
+body.hidden [data-ur-toggler-component='content'][data-ur-state='enabled'] > [data-ur-set='map']{
+    position: relative;
+    visibility: visible;
 }
