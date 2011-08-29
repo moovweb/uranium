@@ -2220,21 +2220,19 @@ Ur.QuickLoaders['map'] = (function(){
                 var ne = results[0].geometry.viewport.getNorthEast();
                 var sw = results[0].geometry.viewport.getSouthWest();
 
-                console.log("ne:", ne, "sw:", sw);
-
                 if ( (obj.lat_range["min"] && obj.lat_range["min"] > sw.lat()) || obj.lat_range["min"] === undefined) {
                   obj.lat_range["min"] = sw.lat();
-                } 
+                }
 
-                if ( (obj.lat_range["max"] && obj.lat_range["max"] > sw.lat()) || obj.lat_range["max"] === undefined) {
+                if ( (obj.lat_range["max"] && obj.lat_range["max"] < sw.lat()) || obj.lat_range["max"] === undefined) {
                   obj.lat_range["max"] = ne.lat();
-                } 
+                }
 
                 if ( (obj.lng_range["min"] && obj.lng_range["min"] > sw.lng()) || obj.lng_range["min"] === undefined) {
                   obj.lng_range["min"] = sw.lng();
-                } 
+                }
 
-                if ( (obj.lng_range["max"] && obj.lng_range["max"] > sw.lng()) || obj.lng_range["max"] === undefined) {
+                if ( (obj.lng_range["max"] && obj.lng_range["max"] < sw.lng()) || obj.lng_range["max"] === undefined) {
                   obj.lng_range["max"] = ne.lng();
                 }
 
@@ -2388,14 +2386,13 @@ Ur.QuickLoaders['map'] = (function(){
       };
 
       this.map = new google.maps.Map(this.elements["canvas"], options);
-/*
+
       var cumulative_sw = new google.maps.LatLng(this.lat_range["min"], this.lng_range["min"]);
       var cumulative_ne = new google.maps.LatLng(this.lat_range["max"], this.lng_range["max"]);
 
       var cumulative_bounds = new google.maps.LatLngBounds(cumulative_sw, cumulative_ne);
 
       this.map.fitBounds(cumulative_bounds);
-  */    
 
       this.add_coordinates();
       this.setup_user_location();
