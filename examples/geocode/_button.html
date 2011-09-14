@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <title>Geocode</title>
-  <script src="../../build/src/uranium.js"></script>
+  <script src="../../build/src/uranium-pretty.js"></script> 
   <link rel="stylesheet" type='text/css' href='../css/test.css' />
   <link rel="stylesheet" type='text/css' href='../css/geocode.css' />
 </head>
@@ -14,8 +14,13 @@
   <h1> Reverse Geocode -- Use a button </h1>
   
   <hr>
+<script>
+function foo(){
+  alert("Populated zip value:" + x$("input[name='zip']")[0].value);
+}
+</script>
   
-  <div class='test' data-ur-set="reverse-geocode">
+  <div class='test' data-ur-set="reverse-geocode" data-ur-callback="foo()">
     <button  value="clickMe" typepe='button' data-ur-reverse-geocode-component="rg-button">Reverse Geocode</button>
     <form action="geocode_submit" method="get" accept-charset="utf-8" >
       <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
