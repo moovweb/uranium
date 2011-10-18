@@ -2,10 +2,38 @@ body {
   font-family: sans-serif;
 }
 
+h1 {
+  background: #FFE600;
+  padding: 5px;
+}
+
+.demonstration {
+  margin: 5px;
+  float: left;
+  width: 300px;
+}
+
+.explanation {
+  margin: 5px;
+  margin-left: 330px;
+  padding: 5px;
+  width: 500px;
+}
+
+.explanation .code {
+  border: 1px solid gray;
+  border-width: 1px 1px 4px 6px;
+  padding: 10px;
+  background: #CDCDCD;
+  margin-left: 10px;
+}
+
+/* Toggler Styling */
 [data-ur-set="toggler"] {
   background: #FFE600;
   color: black;
-  padding: 5px; }
+  padding: 5px; 
+  border: 1px solid black; }
   [data-ur-set="toggler"] p {
     margin: 0em; }
   [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
@@ -21,26 +49,46 @@ body {
     padding: 5px;
     background: #CDCDB4;
     color: black; }
+
+
+/* Select-List Styling */
+[data-ur-set="select-list"] {
+    border: 1px solid black;
+    background: #FFE600;
+    color: black;
+    padding: 5px; }
     
-h1 {
-  background: #FFE600;
-  padding: 5px;
+[data-ur-set="select-list"] [data-ur-state='enabled'] {
+  background: #FFFFAA;
 }
 
-.demonstration {
-  margin: 5px;
-  float: left;
-  width: 300px;
+/* Carousel Styling */
+div[data-ur-carousel-component='view_container'] {
+  height: 250px;
+  width: 100%;
+  overflow-x: hidden;
+  border: 1px solid black;
+  background-color: #FFE600;
 }
 
-.explanation {
-  border: 1px solid gray;
-  border-width: 1px 1px 4px 6px;
-  padding: 10px;
-  background: #CDCDCD;
-  margin-left: 10px;
-  margin: 5px;
-  margin-left: 330px;
-  padding: 5px;
-  width: 300px;
+div[data-ur-carousel-component="scroll_container"] {
+  display: block;
 }
+
+div[data-ur-carousel-component="scroll_container"] img {
+}
+
+div[data-ur-carousel-component="scroll_container"] > * {
+  display:inline-block;
+  float: left; /* This is important -- otherwise, the carousel can't calculate the accurate total width */
+/*  background-color: #3CC;*/
+}
+
+div[data-ur-carousel-component="button"] {
+    display: inline-block;
+}
+
+div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+  opacity: 0.3;
+}
+

@@ -6,9 +6,10 @@
   <body>
     <h1>Uranium</h1>
     
-    <div class="example">
+    <div class="example" id="toggler">
       <h2>Toggler</h2>
       <div class="demonstration">
+        <p>What the widget does</p>
         <div data-ur-set="toggler">
           <p>TOGGLER</p>
           <div data-ur-toggler-component="button">
@@ -20,19 +21,115 @@
         </div>
       </div>
       <div class="explanation">
-        <p>&lt;div data-ur-set="toggler"><br/>
-          &emsp;&lt;p>TOGGLER&lt;/p><br/>
-          &emsp;&lt;div data-ur-toggler-component="button"><br/>
-          &emsp;&emsp;&lt;p>Click on the button&lt;/p><br/>
-          &emsp;&lt;/div><br/>
-          &emsp;&lt;div data-ur-toggler-component="content"><br/>
-          &emsp;&emsp;&lt;p>and the content appears&lt;/p><br/>
-          &emsp;&lt;/div><br/>
+        <p>What to put in your HTML</p>
+        <p class="code">&lt;div data-ur-set="toggler"><br/>
+          &emsp;&emsp;&lt;p>TOGGLER&lt;/p><br/>
+          &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;p>Click on the button&lt;/p><br/>
+          &emsp;&emsp;&lt;/div><br/>
+          &emsp;&emsp;&lt;div data-ur-toggler-component="content"><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;p>and the content appears&lt;/p><br/>
+          &emsp;&emsp;&lt;/div><br/>
           &lt;/div>
           </p>
         </div>
       </div>
     </div>
+    
+    <div class="example" id="carousel">
+      <h2>Carousel</h2>
+      <div class="demonstration">
+        <p>What the widget does</p>
+        <div data-ur-set='carousel'
+          data-ur-carousel-component='view_container' data-ur-touch='disabled'>
+          <span data-ur-carousel-component='count'> -- count -- </span>
+          <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
+            Prev
+          </div>
+          <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
+            Next
+          </div>
+          <div data-ur-carousel-component='scroll_container'>
+            <img data-ur-carousel-component='item' src='images/moov1.jpg' />
+            <img data-ur-carousel-component='item' src='images/moov2.jpg' />
+            <img data-ur-carousel-component='item' src='images/moov3.jpg' />
+            <img data-ur-carousel-component='item' src='images/moov4.jpg' />
+            <img data-ur-carousel-component='item' src='images/moov5.jpg' />
+          </div>       
+        </div>
+      </div>
+      <div class="explanation">
+        <p>What to put in your HTML</p>
+        <p class="code">&lt;div data-ur-set='carousel'
+          data-ur-carousel-component='view_container' data-ur-touch='disabled'><br/>
+          &emsp;&emsp;&lt;span data-ur-carousel-component='count'> -- count -- &lt;/span><br/>
+          &emsp;&emsp;&lt;div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' ><br/>
+          &emsp;&emsp;&emsp;&emsp;Prev<br/>
+          &emsp;&emsp;&lt;/div><br/>
+          &emsp;&emsp;&lt;div data-ur-carousel-component='button' data-ur-carousel-button-type='next' ><br/>
+          &emsp;&emsp;&emsp;&emsp;Next<br/>
+          &emsp;&emsp;&lt;/div><br/>
+          &emsp;&emsp;&lt;div data-ur-carousel-component='scroll_container'><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/moov1.jpg' /><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/moov2.jpg' /><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/moov3.jpg' /><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/moov4.jpg' /><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/moov5.jpg' /><br/>
+          &emsp;&emsp;&lt;/div><br/>
+          &lt;/div><br/>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+    <div class="example" id="select-list">
+      <h2>Select from a List</h2>
+      <div class="demonstration">
+        <p>What the widget does</p>
+        <div data-ur-set='select-list'>
+          <p>CLICK ON AN ITEM TO SELECT</p>
+          <select data-ur-select-list-component='select'>
+            <option selected='true' value='A'> A </option>
+            <option value='SKU-B'> B </option>
+            <option value='SKU-C'> C </option>
+            <option value='SKU-D'> D </option>
+          </select>
+
+
+          <ul data-ur-select-list-component='content'>
+            <li value='SKU-A'> A </li>
+            <li value='SKU-B'> B </li>
+            <li value='SKU-C'> C </li>
+            <li value='SKU-D'> D </li>
+          </ul>
+        </div>
+      </div>
+      <div class="explanation">
+        <p>What to put in your HTML</p>
+        <p class="code">&lt;div data-ur-set='select-list'><br/>
+          &emsp;&emsp;&lt;select data-ur-select-list-component='select'><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option selected='true' value='SKU-A'> A &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-B'> B &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-C'> C &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-D'> D &lt;/option><br/>
+            &emsp;&emsp;&lt;/select><br/>
+
+
+          &emsp;&emsp;&lt;ul data-ur-select-list-component='content'><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-A'> A &lt;/li><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-B'> B &lt;/li><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-C'> C &lt;/li><br/>
+          &emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-D'> D &lt;/li><br/>
+          &emsp;&emsp;&lt;ul><br/>
+         &lt;/div>
+          </p>
+        </div>
+      </div>
+    </div>
+    
     <div id="detail">
       <p>More detail on the widgets:</p>
       <ul>
