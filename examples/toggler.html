@@ -136,8 +136,16 @@
       </p>
       <img src="images/enabled.png">
       <p>
-        The CSS needs to be set so
+        So, what we need to do is change the CSS of the page. It needs to be set so that
         the content does not display when data-ur-state="disabled", but to display when data-ur-state="enabled".
+      </p>
+      <p class="code">
+        data-ur-toggler-component='content'] {<br/>
+        &emsp;&emsp;display: none;<br/>
+        }<br/>
+        [data-ur-toggler-component='content'][data-ur-state='enabled'] {<br/>
+        &emsp;&emsp;display: block;<br/>
+        }
       </p>
     </div>
     
