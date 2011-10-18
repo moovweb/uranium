@@ -1,0 +1,37 @@
+[data-ur-set="toggler"] {
+  background: #336699;
+  color: white;
+  padding: 5px; }
+  [data-ur-set="toggler"] p {
+    margin: 0em; }
+  [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
+    background: #d9e6f2;
+    color: black;
+    margin: 5px;
+    padding: 5px; }
+  [data-ur-set="toggler"] [data-ur-toggler-component='content'] {
+    display: none; }
+  [data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state='enabled'] {
+    display: block;
+    margin: 5px;
+    padding: 5px;
+    background: #79a6d2;
+    color: black; }
+    
+.demonstration {
+  margin: 5px;
+  float: left;
+  width: 300px;
+}
+
+.explanation {
+  border: 1px solid gray;
+  border-width: 1px 1px 4px 6px;
+  padding: 10px;
+  background: #CDCDCD;
+  margin-left: 10px;
+  margin: 5px;
+  margin-left: 330px;
+  padding: 5px;
+  width: 300px;
+}
