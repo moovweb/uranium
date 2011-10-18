@@ -16,22 +16,25 @@
     <h2> Description: </h2>
     <div class='description'>
       <p>
-        Toggler is a widget that has two components -- a button, and a
-      set of contents. When you click the button, the button and content
-      states are toggled.
+        A toggler is a widget that has two components - a button, and a
+      set of contents. When you click the button, the states (of both
+      the button and the contents) are toggled.
+      </p>
+      <p>
+        We could have an accordion-style toggler. For example, when you click on a 
+        category name, the list of contents is displayed.
       </p>
     </div>
-
-    <h2> Examples:</h2>
+    
+    <h2>How to Use: </h2>
     <div class='test' name='Simple'>
 
-      <h3> Simple (Nested) -- Single button / single content element</h3>
+      <h3>Walk-Through of a Simple Example</h3>
       
-      <div class='description'>
-        Simplest scenario -- one button and one content element, both
-        wrapped in a uranium-set element. Note that the data-ur-state
-        attribute is optional.
-      </div>
+      <p>
+        We're going to go through the simplest scenario for a toggle. We have one button ("Clothings").
+        When we click on it, we want the content (containing the clothing options) to appear.
+      </p>
 
       <div data-ur-set='toggler'>
         <div data-ur-toggler-component='button'>
@@ -46,8 +49,99 @@
           <li> Shirts </li>
         </ul>
       </div>
+    
+      <p>
+        Let's start with the basics: we need a div for "Clothings" and then an unordered list with
+        the items in it.
+      </p>
+      <p class="code">
+        &lt;div><br/>
+        &emsp;&emsp;Clothings<br/>
+        &lt;div><br/>
+        &lt;ul><br/>
+        &emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+        &emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+        &emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+        &emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+        &emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+        &lt;/ul>
+      </p>
+      <p>
+        We wrap the whole toggler in a div with the data-ur-set attribute set
+        as "toggler".
+      </p>
+      <p class="code">
+        &lt;div data-ur-set="toggler"><br/>
+        &emsp;&emsp;&lt;div><br/>
+        &emsp;&emsp;&emsp;&emsp;Clothings<br/>
+        &emsp;&emsp;&lt;div><br/>
+        &emsp;&emsp;&lt;ul><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+        &emsp;&emsp;&lt;/ul><br/>
+        &lt;/div>
+      </p>
+      <p>
+        Next, we specify the button. We give the button the attribute "data-ur-toggler-component" and the
+        value "button".
+      </p>
+      <p class="code">
+        &lt;div data-ur-set="toggler"><br/>
+        &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
+        &emsp;&emsp;&emsp;&emsp;Clothings<br/>
+        &emsp;&emsp;&lt;div><br/>
+        &emsp;&emsp;&lt;ul><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+        &emsp;&emsp;&lt;/ul><br/>
+        &lt;/div>
+      </p>
+      <p>
+        The final thing we need to do to the HTML is specify the content aspect of the toggler. The content
+        in this case is the unordered list that we want to appear when the button is clicked. We give it the
+        attribute data-ur-toggler-component (the same as for the button, if you remember) - but this time we
+        use the value "content".
+      </p>
+      <p class="code">
+        &lt;div data-ur-set="toggler"><br/>
+        &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
+        &emsp;&emsp;&emsp;&emsp;Clothings<br/>
+        &emsp;&emsp;&lt;div><br/>
+        &emsp;&emsp;&lt;ul data-ur-toggler-component="content"><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+        &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+        &emsp;&emsp;&lt;/ul><br/>
+        &lt;/div>
+      </p>
+      <p>That's all we need to do with regards to HTML. However, if you play around with your widget 
+        as it is, you'll notice not much is happening. This is because we haven't changed the CSS yet. The
+        javascript is doing its job, though! Let's see how.
+      </p>
+      <p>
+        Right-click on your widget and "inspect element". You'll see the button and the content divs have
+        an extra attribute - data-ur-state. This is, by default, set to "disabled".
+      </p>
+      <img src="images/disabled.png">
+      <p>
+        When the button is clicked, it changes to "enabled". 
+      </p>
+      <img src="images/enabled.png">
+      <p>
+        The CSS needs to be set so
+        the content does not display when data-ur-state="disabled", but to display when data-ur-state="enabled".
+      </p>
     </div>
-
+    
+    <h2> More Complex Examples:</h2>
 
     <div class='test' name='UniqueIDs'>
 
