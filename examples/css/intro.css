@@ -1,11 +1,15 @@
+body {
+  font-family: sans-serif;
+}
+
 [data-ur-set="toggler"] {
-  background: #336699;
-  color: white;
+  background: #FFE600;
+  color: black;
   padding: 5px; }
   [data-ur-set="toggler"] p {
     margin: 0em; }
   [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
-    background: #d9e6f2;
+    background: #FFFFAA;
     color: black;
     margin: 5px;
     padding: 5px; }
@@ -15,9 +19,14 @@
     display: block;
     margin: 5px;
     padding: 5px;
-    background: #79a6d2;
+    background: #CDCDB4;
     color: black; }
     
+h1 {
+  background: #FFE600;
+  padding: 5px;
+}
+
 .demonstration {
   margin: 5px;
   float: left;
