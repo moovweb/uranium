@@ -2,6 +2,8 @@
 <head>
   <title>Font Resizer Unit Test</title>
   <script src="../build/src/uranium.js"></script>
+  <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/resizer.css' />
 </head>
 
 <body suite="FontResizer">
@@ -11,10 +13,20 @@
   
   <h2>Description:</h2>
   <div class="description">
-    <p>This widget allows you to change the font size of a specified page element.</p>
+    <p>This widget allows us to change the font size of a specified page element.</p>
+    <p>To use this widget, we need to use a couple of attributes. We can use the set method (i.e.
+      grouping the whole widget in a div with the attribute data-ur-set) or the id method (i.e. giving
+      every component of the widget a data-ur-id with an identical value).</p>
+    <p>Along with the set/id, we need to use the following:</p>
+    <ul>
+      <li>data-ur-font-resizer-component="increase" - this is used to mark the increase button (e.g. [+]).</li>
+      <li>data-ur-font-resizer-component="label" - this indicates the text size.</li>
+      <li>data-ur-font-resizer-component="decrease" - this is used to mark the decrease button (e.g. [-]). </li>
+      <li>data-ur-font-resizer-component="content" - this marks the content.</li>
+    </ul>
   </div>
   
-  <h2>Example 1 (uses data-ur-set):</h2>
+  <h2>A Simple Example (using data-ur-set):</h2>
   <div class="test" name="One">
     <div data-ur-set="font-resizer">
       <span data-ur-font-resizer-component="increase">[+]</span>
@@ -24,7 +36,7 @@
     </div>
   </div>
   
-  <h2>Example 2 (assigns data-ur-ids manually):</h2>
+  <h2>A Simple Example (using data-ur-id):</h2>
   <div class="test" name="Two">
     <span data-ur-id="foo" data-ur-font-resizer-component="increase">[+]</span>
     <span data-ur-id="foo" data-ur-font-resizer-component="label"></span>

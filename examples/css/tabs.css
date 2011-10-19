@@ -1,7 +1,7 @@
 *[data-ur-tabs-component='button'] { 
   opacity: 0.5;
-  background-color: #33CC00;
-border: 1px solid #05A;
+  background-color: #FFE600;
+border: 1px solid black;
 border-top-left-radius: 5px 5px;
 border-top-right-radius: 5px 5px;
 bottom: -1px;
@@ -13,18 +13,18 @@ position: relative;
 
 *[data-ur-tabs-component='content'] {
   display:none;
-  background-color: #BBCCFF;
+  background-color: #FFE600;
 }
 
 *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1.0;
-  border-bottom: 1px solid #33CC00;
+  border-bottom: 1px solid #FFE600;
 }
 
 *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
   display: block;
-  background-color: #33CC00;
-  border: 1px solid #05A;
+  background-color: #FFE600;
+  border: 1px solid black;
   padding: 20px;
   text-align: center;
 }
