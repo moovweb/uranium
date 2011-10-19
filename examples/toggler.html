@@ -140,13 +140,17 @@
         the content does not display when data-ur-state="disabled", but to display when data-ur-state="enabled".
       </p>
       <p class="code">
-        data-ur-toggler-component='content'] {<br/>
+        *[data-ur-toggler-component='content'] {<br/>
         &emsp;&emsp;display: none;<br/>
         }<br/>
-        [data-ur-toggler-component='content'][data-ur-state='enabled'] {<br/>
+        *[data-ur-toggler-component='content'][data-ur-state='enabled'] {<br/>
         &emsp;&emsp;display: block;<br/>
         }
       </p>
+      <p>
+        (This is actually what we call "lazy" CSS styling. What we're doing is only defining what
+        happens when the data-ur-state is enabled - we don't say anything about its "disabled" state -
+        but more on that <a href="#non_lazy_styling">later</a>.)
     </div>
     
     <h2> More Complex Examples:</h2>
@@ -157,20 +161,34 @@
       
       <div class='description'>
 
-        Another common use case -- one button and one content
-        element. This version doesn't require them to be in a wrapper,
-        but they both must have matching data-ur-id values. The
-        accordions are constructed based on these unique id groups.
+        What if we have two items that can't be wrapped in an overall
+        div? In this case, we can't use the data-ur-set="toggler" attribute.
+        
+        This can be worked around by the data-ur-id trick. If the button
+        and the content have a matching data-ur-id value, they will match
+        up in their toggling. Simple!
 
      </div>
+     
+     <p class="code">
+       &lt;div data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'><br/>
+       &emsp;&emsp;Socks<br/>
+       &lt;/div><br/>
 
+       &lt;ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'><br/>
+       &emsp;&emsp;&lt;li> Argyle &lt;/li><br/>
+         &emsp;&emsp;&lt;li> Striped &lt;/li><br/>
+         &emsp;&emsp;&lt;li> Solid &lt;/li><br/>
+         &emsp;&emsp;&lt;li> Dr. Seuss &lt;/li><br/>
+       &lt;/ul>
+     </p>
 
       <div data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'>
         Socks
       </div>
       
       <ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'>
-        <li> Argile </li>
+        <li> Argyle </li>
         <li> Striped </li>
         <li> Solid </li>
         <li> Dr. Seuss </li>
@@ -196,8 +214,7 @@
       
       <div class='description'>
 
-        It's easy to nest togglers as well. Note that I'm switching
-        off between the 'nest' and 'flat' syntaxes.
+        It's super-easy to nest togglers as well. Just make sure they have different data-ur-ids.
 
      </div>
 
@@ -222,22 +239,40 @@
           </ul>
         </li>
       </ul>
-
+    
     </div>
 
     <div class='test' name='Dialog'>
 
-      <h3> Dialog popup -- something besides an accordion</h3>
+      <h3> Popup -- with Lazy Styling</h3>
       
       <div class='description'>
 
-        Make a popup. This (and all the examples above) -- use lazy
-        styling. The styling associated with the different actions is
-        also associated with the default styles for that content. In
-        these cases, we aren't really using the 'disabled'
-        data-ur-state  --- we just style on the 'enabled' state.
-
+        Now we're going to show two examples of popups. This one
+        uses lazy styling, and the next will use "proper" styling.
+        We aren't really using the 'disabled'
+        data-ur-state  --- we just style on the 'enabled' state. Check
+        out the lazy CSS below.
+     
      </div>
+     <p class="code">
+       div[name='Dialog'] *[data-ur-toggler-component='content'] {<br/>
+       &emsp;&emsp;display: none;<br/>
+         &emsp;&emsp;position: absolute;<br/>
+         &emsp;&emsp;border-radius: 5px;<br/>
+         &emsp;&emsp;background-color: #AAAAAA;<br/>
+         &emsp;&emsp;width: 500px;<br/>
+         &emsp;&emsp;height: 500px;<br/>
+         &emsp;&emsp;left: 200px;<br/>
+         &emsp;&emsp;bottom: 50px;<br/>
+         &emsp;&emsp;text-align: center;<br/>
+         &emsp;&emsp;padding-top: 30px;<br/>
+       }<br/>
+
+       div[name='Dialog'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {<br/>
+         &emsp;&emsp;display: block;<br/>
+       }
+     </p>
 
       <div data-ur-toggler-component='button' data-ur-id='MyPopup' >
         Popup !
@@ -246,22 +281,36 @@
       <div data-ur-toggler-component='content' data-ur-id='MyPopup'>
          <img src='images/popup.jpeg'>
       </div>
-
+      
+      <p>
+        The pop-up appears way up the page. Not good. Let's try again.
+      </p>
     </div>
 
     <div class='test' name='DialogProper'>
-
-      <h3> Dialog popup -- Proper Styling</h3>
+      <a name="non_lazy_styling"></a>
+      <h3> Popup -- with Proper Styling</h3>
       
       <div class='description'>
 
-        Make a popup. Use proper styling. Note here how I add the
-        data-ur-state attributes so that I can compartmentalize the
-        styles that affect the UI behavior (the normal styles for
-        these elements will be separated).
+        This time, we'll use proper styling for the popup. 
+        We add the data-ur-state attributes so that we can compartmentalize
+        styles. Check out a <i>proper</i> CSS stying below.
 
      </div>
+     
+     <p class="code">
+       .popup_content[data-ur-state='disabled'] {<br/>
+        &emsp;&emsp;display: none;<br/>
+         &emsp;&emsp;opacity: 0.5;<br/>
+       }<br/>
 
+       .popup_content[data-ur-state='enabled'] {<br/>
+         &emsp;&emsp;display: inline-block;<br/>
+         &emsp;&emsp;opacity: 1.0;<br/>
+       }
+     </p>
+     
       <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
         data-ur-state='disabled' class='popup_button'>
         Popup !
@@ -276,16 +325,39 @@
 
     <div class='test' name='MultipleContents'>
 
-      <h3> Make multiple content elements toggle</h3>
+      <h3> Multiple Toggling Elements </h3>
       
       <div class='description'>
 
-        The toggler is designed to toggle any 'content' components
-        that are bound to its group. You can use this to toggle
-        multiple things at once. You can also use the data-ur-state to
-        set the initial state of each of the contents.
+        <p>Now we're getting to quite a complex example. The buttons are used to
+        toggle between the two images. We start off by defining the button, giving it
+        a data-ur-id and making its state disabled.</p>
+        
+        <p>Then, we apply the same data-ur-id to the content and define the two content 
+          panes. However, we specify that one of the contents has a disabled state, and
+          the other one has an enabled state. As they have opposing states, when the button
+          is clicked they will remain the opposite of each other (i.e. the enabled image
+          will become disabled, and vice versa).</p>
 
      </div>
+     
+     <p class="code">
+       &lt;div data-ur-toggler-component='button' data-ur-id='MyToggler'<br/>
+         &emsp;&emsp;&emsp;&emsp;class='buttons' data-ur-state='disabled'><br/>
+         &emsp;&emsp;&lt;span class='popup_button'> Thing 1 &lt;/span><br/>
+         &emsp;&emsp;&lt;span class='popup_button'> Thing 2 &lt;/span><br/>
+       &lt;/div><br/>
+
+       &lt;div data-ur-toggler-component='content' data-ur-id='MyToggler'<br/>
+         &emsp;&emsp;&emsp;&emsp;class='popup_content' data-ur-state='enabled'><br/>
+          &emsp;&emsp;&lt;img src='images/popup.jpeg'><br/>
+       &lt;/div><br/>
+
+       &lt;div data-ur-toggler-component='content' data-ur-id='MyToggler'<br/>
+            &emsp;&emsp;&emsp;&emsp;class='popup_content' data-ur-state='disabled'><br/>
+          &emsp;&emsp;&lt;img src='images/popup2.jpg'><br/>
+       &lt;/div>
+      </p>
 
       <div data-ur-toggler-component='button' data-ur-id='MyToggler'
         class='buttons' data-ur-state='disabled'>
