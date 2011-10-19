@@ -28,6 +28,48 @@
     <div class='test' name='Simple'>
 
       <h3> Simple</h3>
+      
+      <div class="description">
+        <p>
+          Firstly, we need to define the buttons for the widget. They have the attribute data-ur-tabs-component
+          with the value "button". So far so good. Accordingly, the content should have the same attribute
+          but with the value of "content".
+        </p>
+        <p>
+          Now we need to make sure the buttons match the content. We give each button a data-ur-tab-id, and the
+          content we wish to activate is given the same id.
+        </p>
+        <p>
+          Finally, we need to set the states of the tabs. One tab we will want to show. The others we want to remain
+          hidden. Putting that in terms from the toggler, we want one tab to be enabled and the others to be disabled.
+          All we need to do is specify the button and content we want enabled with the attribute data-ur-state="enabled".
+        </p>
+        <p>
+          Here's an example of some HTML for a set of tabs:
+        </p>
+        <p class="code">
+          &lt;div data-ur-set='tabs'><br/>
+            &emsp;&emsp;&lt;span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'><br/>
+            &emsp;&emsp;First &lt;/span>        <br/>
+            &emsp;&emsp;&lt;span data-ur-tabs-component='button' data-ur-tab-id='second'><br/>
+            &emsp;&emsp;Second &lt;/span>        <br/>
+            &emsp;&emsp;&lt;span data-ur-tabs-component='button' data-ur-tab-id='third'><br/>
+            &emsp;&emsp;Third &lt;/span>        <br/>
+
+            &emsp;&emsp;&lt;div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'><br/>
+              &emsp;&emsp;&emsp;&emsp;&lt;img/><br/>
+           &emsp;&emsp;&lt;/div><br/>
+
+            &emsp;&emsp;&lt;div data-ur-tabs-component='content' data-ur-tab-id='second'><br/>
+              &emsp;&emsp;&emsp;&emsp;&lt;img/><br/>
+            &emsp;&emsp;&lt;/div><br/>
+
+            &emsp;&emsp;&lt;div data-ur-tabs-component='content' data-ur-tab-id='third'><br/>
+              &emsp;&emsp;&emsp;&emsp;&lt;img/><br/>
+           &emsp;&emsp;&lt;/div><br/>
+           &lt;/div
+        </p>
+      </div>
 
       <div data-ur-set='tabs'>
         <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'>
@@ -47,7 +89,7 @@
 
         <div data-ur-tabs-component='content' data-ur-tab-id='third'>
           <img width='300px' height='300px' src='images/pic3.jpeg?some_attr=noway'/> 
-       </div>       
+        </div>       
        
       </div>
     </div>
@@ -55,8 +97,11 @@
 
     <div class='test' name='Simple'>
 
-      <h3> Sanity Check </h3>
-
+      <h3>Selecting the Second Tab</h3>
+      <div class="description">
+        Here, as proof of principle, we're putting the data-ur-state="enabled" attribute on the
+        second tab to illustrate that a different tab can be selected at the outset.
+      </div>
       <div data-ur-set='tabs'>
         <span data-ur-tabs-component='button'
         data-ur-tab-id='first_sanity'> First </span>        
@@ -87,10 +132,9 @@
       <h3> Accordions w State </h3>
 
       <div class='description'>
-        This is different from normal tabs, because if I havent
-        enabled any tabs, I usually want the first enabled. But
-        ... I'm rethinking this since there is a visible delay ... and
-        it breaks accordions w state!
+        So far, we've set one of the tabs to be enabled at the start. However, this isn't
+        strictly necessary. In the following example, we start out with no statuses defined.
+        The first one we click on will be the first one to be "enabled".
       </div>
       
       <div data-ur-set='tabs' data-ur-closeable='true'>
