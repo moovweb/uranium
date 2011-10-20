@@ -1,7 +1,9 @@
 <html>
 <head>
   <title>Font Resizer Unit Test</title>
-  <script src="../build/src/uranium.js"></script>
+  <script src="../lib/external/xui-2.0.0.js"></script>
+  <script src="../lib/uranium_mixins.js"></script>
+  <script src="../lib/font_resizer.js"></script>
   <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/resizer.css' />
 </head>
@@ -25,10 +27,19 @@
       <li>data-ur-font-resizer-component="decrease" - this is used to mark the decrease button (e.g. [-]). </li>
       <li>data-ur-font-resizer-component="content" - this marks the content.</li>
     </ul>
+    <p>It's also possible to override the default maximum, minimum, and initial sizes,
+      as well as how much the size will change on each increment, by adding the following extra attributes
+      to the content element:</p>
+    <ul>
+      <li>data-ur-font-resizer-min - defaults to "100"</li>
+      <li>data-ur-font-resizer-max - defaults to "200"</li>
+      <li>data-ur-font-resizer-size - defaults to min</li>
+      <li>data-ur-font-resizer-delta - detaults to "20"</li>
+    </ul>
   </div>
   
   <h2>A Simple Example (using data-ur-set):</h2>
-  <div class="test" name="One">
+  <div class="test">
     <div data-ur-set="font-resizer">
       <span data-ur-font-resizer-component="increase">[+]</span>
       <span data-ur-font-resizer-component="label"></span>
@@ -38,15 +49,29 @@
   </div>
   
   <h2>A Simple Example (using data-ur-id):</h2>
-  <div class="test" name="Two">
+  <div class="test">
     <span data-ur-id="foo" data-ur-font-resizer-component="increase">[+]</span>
     <span data-ur-id="foo" data-ur-font-resizer-component="label"></span>
     <span data-ur-id="foo" data-ur-font-resizer-component="decrease">[-]</span>
     <p data-ur-id="foo" data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
   </div>
   
+  <h2>A Simple Example (overriding the default settings):</h2>
+  <div class="test">
+    <div data-ur-set="font-resizer">
+      <span data-ur-font-resizer-component="increase">[+]</span>
+      <span data-ur-font-resizer-component="label"></span>
+      <span data-ur-font-resizer-component="decrease">[-]</span>
+      <p data-ur-font-resizer-component="content"
+         data-ur-font-resizer-min="20"
+         data-ur-font-resizer-max="220"
+         data-ur-font-resizer-size="120"
+         data-ur-font-resizer-delta="10">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+    </div>
+  </div>
+  
   <h2>An Advanced Example (a self-resizing resizer):</h2>
-  <div class="test" name="Three">
+  <div class="test">
     <div data-ur-set="font-resizer" data-ur-font-resizer-component="content">
       <span data-ur-font-resizer-component="increase">[+]</span>
       <span data-ur-font-resizer-component="label"></span>
