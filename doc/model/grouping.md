@@ -4,7 +4,7 @@ Uranium needs to know which components belong to which widget (you could have ma
 
 ## Group by structure (recommended) ##
 
-Grouping by html structure is easier in most situations, and a lot more readable. To defined a widget set, just set the 'data-ur-set' attribute to the widget type (e.g. 'toggler') on any element that is a common ancestor of all the widget components:
+Grouping by html structure is easier in most situations, and a lot more readable. To define a widget set, just set the 'data-ur-set' attribute to the widget type (e.g. 'toggler') on any element that is a common ancestor of all the widget components:
 
     <div data-ur-set='toggler'>
       <div data-ur-toggler-component='button'> Click Me </div>
