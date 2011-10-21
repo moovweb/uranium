@@ -3,7 +3,7 @@ body {
 }
 
 h1 {
-  background: #FFE600;
+  background: #93CCEA;
   padding: 5px;
   font-size: 40px;
 }
@@ -51,14 +51,14 @@ h1 {
 
 /* Toggler Styling */
 [data-ur-set="toggler"] {
-  background: #FFE600;
+  background: #6495ED;
   color: black;
   padding: 5px; 
   border: 1px solid black; }
   [data-ur-set="toggler"] p {
     margin: 0em; }
   [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
-    background: #FFFFAA;
+    background: #93CCEA;
     color: black;
     margin: 5px;
     padding: 5px; }
@@ -68,19 +68,19 @@ h1 {
     display: block;
     margin: 5px;
     padding: 5px;
-    background: #CDCDB4;
+    background: #93CCEA;
     color: black; }
 
 
 /* Select-List Styling */
 [data-ur-set="select-list"] {
     border: 1px solid black;
-    background: #FFE600;
+    background: #6495ED;
     color: black;
     padding: 5px; }
     
 [data-ur-set="select-list"] [data-ur-state='enabled'] {
-  background: #FFFFAA;
+  background: #93CCEA;
 }
 
 /* Carousel Styling */
@@ -89,7 +89,7 @@ div[data-ur-carousel-component='view_container'] {
   width: 100%;
   overflow-x: hidden;
   border: 1px solid black;
-  background-color: #FFE600;
+  background-color: #6495ED;
 }
 
 div[data-ur-carousel-component="scroll_container"] {
