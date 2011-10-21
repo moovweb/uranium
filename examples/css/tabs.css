@@ -1,6 +1,6 @@
 *[data-ur-tabs-component='button'] { 
   opacity: 0.5;
-  background-color: #FFE600;
+  background-color: #6495ED;
 border: 1px solid black;
 border-top-left-radius: 5px 5px;
 border-top-right-radius: 5px 5px;
@@ -13,17 +13,17 @@ position: relative;
 
 *[data-ur-tabs-component='content'] {
   display:none;
-  background-color: #FFE600;
+  background-color: #6495ED;
 }
 
 *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1.0;
-  border-bottom: 1px solid #FFE600;
+  border-bottom: 1px solid #6495ED;
 }
 
 *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
   display: block;
-  background-color: #FFE600;
+  background-color: #6495ED;
   border: 1px solid black;
   padding: 20px;
   text-align: center;
