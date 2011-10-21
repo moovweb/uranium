@@ -1,11 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html>
   <head>
-    <title> Uranium - Carousel </title>
+    <title>Carousel </title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<!--
-<script src="../build/src/uranium-pretty.js"></script>
--->
+
+  <script src="../build/src/uranium-pretty.js"></script>
 
   <script src="../lib/external/xui-2.0.0.js"></script>
   <script src="../lib/uranium_mixins.js"></script>
@@ -14,6 +13,7 @@
 
     <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/carousel.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
   </head>
   
   <body suite='Carousel'>
@@ -34,130 +34,65 @@
 
     <div class='test' name='One'>
 
-      <h3> Touch enabled example. </h3>
+      <h3> Touch-enabled Widget </h3>
+      <div id="carousel_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'> Widget</h3>
 
-      <div id='jump'> Jump to 5th item </div>
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+        
+        <div id="carousel_widget" class="widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+          <div id='jump'> Jump to 5th item </div>
       
-      <div data-ur-set='carousel'
-        data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'>
-        <span data-ur-carousel-component='count'> -- count -- </span>
-        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
-          Prev
+          <div data-ur-set='carousel'
+            data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'>
+            <span data-ur-carousel-component='count'> -- count -- </span>
+            <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
+              Prev
+            </div>
+            <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
+              Next
+            </div>
+            <div data-ur-carousel-component='scroll_container'>
+              <img data-ur-carousel-component='item' src='images/sample1.png' />
+              <img data-ur-carousel-component='item' src='images/sample2.png' />
+              <img data-ur-carousel-component='item' src='images/sample3.png' />
+              <img data-ur-carousel-component='item' src='images/sample4.png' />
+              <img data-ur-carousel-component='item' src='images/sample5.png' />
+              <img data-ur-carousel-component='item' src='images/sample6.png' />
+              <img data-ur-carousel-component='item' src='images/sample7.png' />
+              <img data-ur-carousel-component='item' src='images/sample8.png' />
+            </div>       
+          </div>
+        </div>   
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+          <p class="code">
+            &lt;div data-ur-set='carousel'
+              data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'></br>
+              &emsp;&emsp;&lt;span data-ur-carousel-component='count'> -- count -- &lt;/span></br>
+              &emsp;&emsp;&lt;div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' ></br>
+                &emsp;&emsp;&emsp;&emsp;Prev</br>
+              &emsp;&emsp;&lt;/div></b>
+              &emsp;&emsp;&lt;div data-ur-carousel-component='button' data-ur-carousel-button-type='next' ></br>
+                &emsp;&emsp;&emsp;&emsp;Next</br>
+              &emsp;&emsp;&lt;/div></br>
+              &emsp;&emsp;&lt;div data-ur-carousel-component='scroll_container'></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample1.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample2.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample3.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample4.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample5.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample6.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample7.png' /></br>
+                &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-carousel-component='item' src='images/sample8.png' /></br>
+              &emsp;&emsp;&lt;/div>       </br>
+            &lt;/div>
+          </p>
         </div>
-        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
-          Next
-        </div>
-        <div data-ur-carousel-component='scroll_container'>
-          <img data-ur-carousel-component='item' src='images/sample1.png' />
-          <a href='http://www.google.com/search?sourceid=chrome&ie=UTF-8&q=2'> <img data-ur-carousel-component='item' src='images/sample2.png' /> </a>
-          <img data-ur-carousel-component='item' src='images/sample3.png' />
-          <img data-ur-carousel-component='item' src='images/sample4.png' />
-          <img data-ur-carousel-component='item' src='images/sample5.png' />
-          <img data-ur-carousel-component='item' src='images/sample6.png' />
-          <img data-ur-carousel-component='item' src='images/sample7.png' />
-          <img data-ur-carousel-component='item' src='images/sample8.png' />
-        </div>       
       </div>
     </div>
-
-    <div class='test' name='OnePointFive'>
-
-      <h3> Touch enabled example. </h3>
-
-      <p> This carousel allows for vertical scrolling.  </p>
-      
-      <div data-ur-set='carousel'
-        data-ur-carousel-component='view_container'
-        data-ur-id='MyFirstKindaCarousel' data-ur-vertical-scroll='enabled'>
-        <span data-ur-carousel-component='count'> -- count -- </span>
-        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
-          Prev
-        </div>
-        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
-          Next
-        </div>
-        <div data-ur-carousel-component='scroll_container'>
-          <img data-ur-carousel-component='item' src='images/sample1.png' />
-          <a href='http://www.google.com/search?sourceid=chrome&ie=UTF-8&q=2'> <img data-ur-carousel-component='item' src='images/sample2.png' /> </a>
-          <img data-ur-carousel-component='item' src='images/sample3.png' />
-          <img data-ur-carousel-component='item' src='images/sample4.png' />
-          <img data-ur-carousel-component='item' src='images/sample5.png' />
-          <img data-ur-carousel-component='item' src='images/sample6.png' />
-          <img data-ur-carousel-component='item' src='images/sample7.png' />
-          <img data-ur-carousel-component='item' src='images/sample8.png' />
-        </div>       
-      </div>
+    <div>
+      <p>More examples of the carousel can be found <a href="carousel_examples.html">here</a>.</p>
     </div>
-    
-
-    <div class='test' name='Two'>
-      <h3> No-touch (just buttons) example. </h3>
-      
-      <div data-ur-set='carousel'
-        data-ur-carousel-component='view_container' data-ur-touch='disabled'>
-        <span data-ur-carousel-component='count'> -- count -- </span>
-        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
-          Prev
-        </div>
-        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
-          Next
-        </div>
-        <div data-ur-carousel-component='scroll_container'>
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-        </div>       
-      </div>
-    </div>
-
-
-
-    <div class='test' name='Three'>
-      <h3> Multi pane example. </h3>
-      
-      <div data-ur-set='carousel'
-        data-ur-carousel-component='view_container' data-ur-type='multi'>
-        <span data-ur-carousel-component='count'> -- count -- </span>
-        <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
-          Prev
-        </div>
-        <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
-          Next
-        </div>
-        <div data-ur-carousel-component='scroll_container'>
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-          <img data-ur-carousel-component='item' src='images/ci-1.png' />
-          <img data-ur-carousel-component='item' src='images/ci-2.png' />
-        </div>       
-      </div>
-    </div>
-
-    
-    <script type='text/javascript'>
-    // Make sure clicks get through
-      x$("[data-ur-carousel-component='item']").on("click",
-      function(e) {console.log("You clicked:", e.target.src)});
-    // Utilize the move_to_index() method
-      x$("#jump").on(
-        "click",
-        function() {
-    console.log("jumping...");
-//Ur.Widgets["carousel"]["MyFirstCarousel"].__proto__.move_to_index(4);
-    Ur.Widgets["carousel"]["MyFirstCarousel"].jump_to_index(4);
-        }
-      );
-    
-    </script>
 
     <div id="giant">
      This is a giant div. Its purpose is to make the page bigger than
