@@ -1,413 +1,111 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html>
   <head>
-    <title> Toggle Unit Tests</title>
+    <title>Toggler</title>
    <script src="../build/src/uranium-pretty.js"></script>
    <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/toggler.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
   </head>
 
   <body suite='Togglers'>
 
-    <h1> Togglers </h1>
+    <h1>Togglers</h1>
 
     <hr>
 
-    <h2> Description: </h2>
+    <h2>Description</h2>
     <div class='description'>
       <p>
         A toggler is a widget that has two components - a button, and a
-      set of contents. When you click the button, the states (of both
-      the button and the contents) are toggled.
-      </p>
-      <p>
-        We could have an accordion-style toggler. For example, when you click on a 
-        category name, the list of contents is displayed.
+        set of contents. When you click the button, the states (of both
+        the button and the contents) are toggled.
       </p>
     </div>
     
-    <h2>How to Use: </h2>
+    <h2>Options</h2>
+    <div class="option_list">
+      <p>Here's a list of attributes to add to HTML to make the widget work</p>
+      <ul>
+        <li>data-ur-set="toggler" - add this attribute to a div that wraps the whole widget</li>
+        <li>data-ur-toggler-component="button" - add this attribute to the button (i.e. the thing to be clicked)</li>
+        <li>data-ur-toggler-component="content" - add this attribute to all the contents</li>
+      </ul>
+    </div>
+    
+    <h2>Demonstration</h2>
     <div class='test' name='Simple'>
 
-      <h3>Walk-Through of a Simple Example</h3>
-      
-      <p>
-        We're going to go through the simplest scenario for a toggle. We have one button ("Clothings").
-        When we click on it, we want the content (containing the clothing options) to appear.
-      </p>
+      <h3>Accordion</h3>  
+      <div class="description">
+        <p>
+        We have one button ("Click Here!"). When we click on it, we want the content 
+        (containing the clothing options) to appear. We call this an "accordion".
+        </p>
+      </div>
+      <div id="accordion_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
 
-      <div data-ur-set='toggler'>
-        <div data-ur-toggler-component='button'>
-          Clothings
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+        
+        <div id="tab_widget" class="widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+          <div data-ur-set='toggler'>
+            <div data-ur-toggler-component='button'>
+              Click Here!
+            </div>
+        
+            <ul data-ur-toggler-component='content'>
+              <li> Hat </li>
+              <li> Socks </li>
+              <li> Shoes </li>
+              <li> Gloves </li>
+              <li> Shirts </li>
+            </ul>
+          </div>
         </div>
-        
-        <ul data-ur-toggler-component='content'>
-          <li> Hat </li>
-          <li> Socks </li>
-          <li> Shoes </li>
-          <li> Gloves </li>
-          <li> Shirts </li>
-        </ul>
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+          <p class="code">
+            &lt;div data-ur-set="toggler"><br/>
+            &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
+            &emsp;&emsp;&emsp;&emsp;Click Here!<br/>
+            &emsp;&emsp;&lt;div><br/>
+            &emsp;&emsp;&lt;ul data-ur-toggler-component="content"><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+            &emsp;&emsp;&lt;/ul><br/>
+            &lt;/div>
+          </p>
+        </div>
       </div>
-    
-      <p>
-        Let's start with the basics: we need a div for "Clothings" and then an unordered list with
-        the items in it.
-      </p>
-      <p class="code">
-        &lt;div><br/>
-        &emsp;&emsp;Clothings<br/>
-        &lt;div><br/>
-        &lt;ul><br/>
-        &emsp;&emsp;&lt;li> Hat &lt;/li><br/>
-        &emsp;&emsp;&lt;li> Socks &lt;/li><br/>
-        &emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
-        &emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
-        &emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
-        &lt;/ul>
-      </p>
-      <p>
-        We wrap the whole toggler in a div with the data-ur-set attribute set
-        as "toggler". (There is an alternative to using a "set" div - using IDs. Check
-        it out <a href="#id_tag">here</a>.)
-      </p>
-      <p class="code">
-        &lt;div data-ur-set="toggler"><br/>
-        &emsp;&emsp;&lt;div><br/>
-        &emsp;&emsp;&emsp;&emsp;Clothings<br/>
-        &emsp;&emsp;&lt;div><br/>
-        &emsp;&emsp;&lt;ul><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
-        &emsp;&emsp;&lt;/ul><br/>
-        &lt;/div>
-      </p>
-      <p>
-        Next, we specify the button. We give the button the attribute "data-ur-toggler-component" and the
-        value "button". (Want to know why the attributes are quite long? Click <a href="./attributes_explanation.html">here</a>.)
-      </p>
-      <p class="code">
-        &lt;div data-ur-set="toggler"><br/>
-        &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
-        &emsp;&emsp;&emsp;&emsp;Clothings<br/>
-        &emsp;&emsp;&lt;div><br/>
-        &emsp;&emsp;&lt;ul><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
-        &emsp;&emsp;&lt;/ul><br/>
-        &lt;/div>
-      </p>
-      <p>
-        The final thing we need to do to the HTML is specify the content aspect of the toggler. The content
-        in this case is the unordered list that we want to appear when the button is clicked. We give it the
-        attribute data-ur-toggler-component (the same as for the button, if you remember) - but this time we
-        use the value "content".
-      </p>
-      <p class="code">
-        &lt;div data-ur-set="toggler"><br/>
-        &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
-        &emsp;&emsp;&emsp;&emsp;Clothings<br/>
-        &emsp;&emsp;&lt;div><br/>
-        &emsp;&emsp;&lt;ul data-ur-toggler-component="content"><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
-        &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
-        &emsp;&emsp;&lt;/ul><br/>
-        &lt;/div>
-      </p>
-      <p>That's all we need to do with regards to HTML. However, if you play around with your widget 
-        as it is, you'll notice not much is happening. This is because we haven't changed the CSS yet. The
-        javascript is doing its job, though! Let's see how.
-      </p>
-      <p>
-        Right-click on your widget and "inspect element". You'll see the button and the content divs have
-        an extra attribute - data-ur-state. This is, by default, set to "disabled".
-      </p>
-      <img src="images/disabled.png">
-      <p>
-        When the button is clicked, it changes to "enabled". 
-      </p>
-      <img src="images/enabled.png">
-      <p>
-        So, what we need to do is change the CSS of the page. It needs to be set so that
-        the content does not display when data-ur-state="disabled", but to display when data-ur-state="enabled".
-      </p>
-      <p class="code">
-        *[data-ur-toggler-component='content'] {<br/>
-        &emsp;&emsp;display: none;<br/>
-        }<br/>
-        *[data-ur-toggler-component='content'][data-ur-state='enabled'] {<br/>
-        &emsp;&emsp;display: block;<br/>
-        }
-      </p>
-      <p>
-        (This is actually what we call "lazy" CSS styling. What we're doing is only defining what
-        happens when the data-ur-state is enabled - we don't say anything about its "disabled" state -
-        but more on that <a href="#non_lazy_styling">later</a>.)
     </div>
-    
-    <h2> More Complex Examples:</h2>
-
-    <div class='test' name='UniqueIDs'>
-
-      <h3><a name="id_tag"></a>Simple Example - with ID</h3>
-      
-      <div class='description'>
-
-        What if we have two items that can't be wrapped in an overall
-        div? In this case, we can't use the set (data-ur-set="toggler") attribute.
-        
-        This can be worked around by the data-ur-id trick. If the button
-        and the content have a matching data-ur-id value, they will match
-        up in their toggling. Simple!
-        
-        (It's still preferable to use the set attribute where you can, though.)
-        
-
-     </div>
-     
-     <p class="code">
-       &lt;div data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'><br/>
-       &emsp;&emsp;Socks<br/>
-       &lt;/div><br/>
-
-       &lt;ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'><br/>
-       &emsp;&emsp;&lt;li> Argyle &lt;/li><br/>
-         &emsp;&emsp;&lt;li> Striped &lt;/li><br/>
-         &emsp;&emsp;&lt;li> Solid &lt;/li><br/>
-         &emsp;&emsp;&lt;li> Dr. Seuss &lt;/li><br/>
-       &lt;/ul>
-     </p>
-
-      <div data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'>
-        Socks
-      </div>
-      
-      <ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'>
-        <li> Argyle </li>
-        <li> Striped </li>
-        <li> Solid </li>
-        <li> Dr. Seuss </li>
-      </ul>
-
-
-      <div data-ur-toggler-component='button' data-ur-id='MyFlatAccordionMovies'>
-        Movies
-      </div>
-      
-      <ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionMovies'>
-        <li> Planet Terror </li>
-        <li> Repo Man </li>
-        <li> Equilibrium </li>
-      </ul>
-
-    </div>
-
-
-    <div class='test' name='Nested'>
-
-      <h3> Nested -- Nesting Togglers</h3>
-      
-      <div class='description'>
-
-        It's super-easy to nest togglers as well. Just make sure they have different data-ur-ids.
-
-     </div>
-
-
-      <div data-ur-toggler-component='button' data-ur-id='FoodAccordion'>
-        Foods
-      </div>
-      
-      <ul data-ur-toggler-component='content' data-ur-id='FoodAccordion'>
-        <li data-ur-set='toggler' >
-          <span data-ur-toggler-component='button'> Veggies </span>
-          <ul data-ur-toggler-component='content'>
-            <li> Beets </li>
-            <li> Carrots </li>
-          </ul>
-        </li>
-        <li>
-          <span data-ur-toggler-component='button' data-ur-id='steve'> Meats </span>
-          <ul data-ur-toggler-component='content' data-ur-id='steve'>
-            <li> Beef </li>
-            <li> Fish </li>
-          </ul>
-        </li>
-      </ul>
-    
-    </div>
-
-    <div class='test' name='Dialog'>
-
-      <h3> Popup -- with Lazy Styling</h3>
-      
-      <div class='description'>
-
-        Now we're going to show two examples of popups. This one
-        uses lazy styling, and the next will use "proper" styling.
-        We aren't really using the 'disabled'
-        data-ur-state  --- we just style on the 'enabled' state. Check
-        out the lazy CSS below.
-     
-     </div>
-     <p class="code">
-       div[name='Dialog'] *[data-ur-toggler-component='content'] {<br/>
-       &emsp;&emsp;display: none;<br/>
-         &emsp;&emsp;position: absolute;<br/>
-         &emsp;&emsp;border-radius: 5px;<br/>
-         &emsp;&emsp;background-color: #AAAAAA;<br/>
-         &emsp;&emsp;width: 500px;<br/>
-         &emsp;&emsp;height: 500px;<br/>
-         &emsp;&emsp;left: 200px;<br/>
-         &emsp;&emsp;bottom: 50px;<br/>
-         &emsp;&emsp;text-align: center;<br/>
-         &emsp;&emsp;padding-top: 30px;<br/>
-       }<br/>
-
-       div[name='Dialog'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {<br/>
-         &emsp;&emsp;display: block;<br/>
-       }
-     </p>
-
-      <div data-ur-toggler-component='button' data-ur-id='MyPopup' >
-        Popup !
-      </div>
-      
-      <div data-ur-toggler-component='content' data-ur-id='MyPopup'>
-         <img src='images/popup.jpeg'>
-      </div>
-      
-      <p>
-        The pop-up appears way up the page. Not good. Let's try again.
-      </p>
-    </div>
-
     <div class='test' name='DialogProper'>
       <a name="non_lazy_styling"></a>
-      <h3> Popup -- with Proper Styling</h3>
+      <h3>Popup</h3>
       
-      <div class='description'>
-
-        This time, we'll use proper styling for the popup. 
-        We add the data-ur-state attributes so that we can compartmentalize
-        styles. Check out a <i>proper</i> CSS stying below.
-
-     </div>
-     
-     <p class="code">
-       .popup_content[data-ur-state='disabled'] {<br/>
-        &emsp;&emsp;display: none;<br/>
-         &emsp;&emsp;opacity: 0.5;<br/>
-       }<br/>
-
-       .popup_content[data-ur-state='enabled'] {<br/>
-         &emsp;&emsp;display: inline-block;<br/>
-         &emsp;&emsp;opacity: 1.0;<br/>
-       }
-     </p>
-     
       <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
         data-ur-state='disabled' class='popup_button'>
-        Popup !
+        Click Here !
       </div>
       
       <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
         data-ur-state='disabled' class='popup_content'>
          <img src='images/popup.jpeg'>
       </div>
-
-    </div>
-
-    <div class='test' name='MultipleContents'>
-
-      <h3> Multiple Toggling Elements </h3>
-      
       <div class='description'>
+        <p>
+          In this style, we want an image to appear when we click on the button.
+        </p>
 
-        <p>Now we're getting to quite a complex example. The buttons are used to
-        toggle between the two images. We start off by defining the button, giving it
-        a data-ur-id and making its state disabled.</p>
-        
-        <p>Then, we apply the same data-ur-id to the content and define the two content 
-          panes. However, we specify that one of the contents has a disabled state, and
-          the other one has an enabled state. As they have opposing states, when the button
-          is clicked they will remain the opposite of each other (i.e. the enabled image
-          will become disabled, and vice versa).</p>
-
-     </div>
-     
-     <p class="code">
-       &lt;div data-ur-toggler-component='button' data-ur-id='MyToggler'<br/>
-         &emsp;&emsp;&emsp;&emsp;class='buttons' data-ur-state='disabled'><br/>
-         &emsp;&emsp;&lt;span class='popup_button'> Thing 1 &lt;/span><br/>
-         &emsp;&emsp;&lt;span class='popup_button'> Thing 2 &lt;/span><br/>
-       &lt;/div><br/>
-
-       &lt;div data-ur-toggler-component='content' data-ur-id='MyToggler'<br/>
-         &emsp;&emsp;&emsp;&emsp;class='popup_content' data-ur-state='enabled'><br/>
-          &emsp;&emsp;&lt;img src='images/popup.jpeg'><br/>
-       &lt;/div><br/>
-
-       &lt;div data-ur-toggler-component='content' data-ur-id='MyToggler'<br/>
-            &emsp;&emsp;&emsp;&emsp;class='popup_content' data-ur-state='disabled'><br/>
-          &emsp;&emsp;&lt;img src='images/popup2.jpg'><br/>
-       &lt;/div>
-      </p>
-
-      <div data-ur-toggler-component='button' data-ur-id='MyToggler'
-        class='buttons' data-ur-state='disabled'>
-        <span class='popup_button'> Thing 1 </span>
-        <span class='popup_button'> Thing 2 </span>
       </div>
       
-      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-        class='popup_content' data-ur-state='enabled'>
-         <img src='images/popup.jpeg'>
-      </div>
-
-      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-           class='popup_content' data-ur-state='disabled'>
-         <img src='images/popup2.jpg'>
-      </div>
-
     </div>
 
-    <div class='test' name='Disabled'>
-
-      <h3> Click the button to enable the toggler:</h3>
-      
-      <div class='activate_button'>
-        Activate!
-      </div>
-
-      <script type='text/javascript'>
-        x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
-      </script>
-      
-      <div data-ur-set='toggler' data-ur-state='disabled'>
-        <div data-ur-toggler-component='button'>
-          Clothings
-        </div>
-        
-        <ul data-ur-toggler-component='content'>
-          <li> Hat </li>
-          <li> Socks </li>
-          <li> Shoes </li>
-          <li> Gloves </li>
-          <li> Shirts </li>
-        </ul>
-      </div>
+    <div>
+      <p>More examples of the toggler can be found <a href="toggler_examples.html">here</a>.</p>
     </div>
-
     
 <hr>
 <address></address>
