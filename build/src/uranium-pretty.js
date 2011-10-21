@@ -1980,7 +1980,6 @@ Ur.QuickLoaders["font-resizer"] = (function() {
   
   var labelText = "Text Size: ";
   var up = 1, down = -1;
-  console.log("IN MAIN SCOPE");
 
   function FontResizer(components) {
     this.increase = components["increase"];
