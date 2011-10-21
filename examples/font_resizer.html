@@ -4,6 +4,7 @@
   <script src="../build/src/uranium.js"></script>
   <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/resizer.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
 </head>
 
 <body suite="FontResizer">
@@ -18,6 +19,9 @@
       grouping all of the widget components in a single div with the attribute data-ur-set) or the id method (i.e. giving
       each component of the widget a data-ur-id with an identical value, which doesn't require them to
       be grouped inside a single wrapper).</p>
+  </div>
+  <h2>Options</h2>
+  <div class="options">
     <p>Along with the set/id, we need to use the following:</p>
     <ul>
       <li>data-ur-font-resizer-component="increase" - this is used to mark the increase button (e.g. [+]).</li>
@@ -36,58 +40,34 @@
     </ul>
   </div>
   
-  <h2>A Simple Example (using data-ur-set):</h2>
-  <div class="test">
-    <div data-ur-set="font-resizer">
-      <span data-ur-font-resizer-component="increase">[+]</span>
-      <span data-ur-font-resizer-component="label"></span>
-      <span data-ur-font-resizer-component="decrease">[-]</span>
-      <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-    </div>
-  </div>
   
-  <h2>A Simple Example (using data-ur-id):</h2>
-  <div class="test">
-    <span data-ur-id="foo" data-ur-font-resizer-component="increase">[+]</span>
-    <span data-ur-id="foo" data-ur-font-resizer-component="label"></span>
-    <span data-ur-id="foo" data-ur-font-resizer-component="decrease">[-]</span>
-    <p data-ur-id="foo" data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-  </div>
-  
-  <h2>A Simple Example (overriding the default settings):</h2>
-  <div class="test">
-    <div data-ur-set="font-resizer">
-      <span data-ur-font-resizer-component="increase">[+]</span>
-      <span data-ur-font-resizer-component="label"></span>
-      <span data-ur-font-resizer-component="decrease">[-]</span>
-      <p data-ur-font-resizer-component="content"
-         data-ur-font-resizer-min="50"
-         data-ur-font-resizer-max="220"
-         data-ur-font-resizer-size="120"
-         data-ur-font-resizer-delta="10">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-    </div>
-  </div>
-  
-  <h2>An Advanced Example (a self-resizing resizer):</h2>
-  <div class="test">
-    <div data-ur-set="font-resizer" data-ur-font-resizer-component="content">
-      <span data-ur-font-resizer-component="increase">[+]</span>
-      <span data-ur-font-resizer-component="label"></span>
-      <span data-ur-font-resizer-component="decrease">[-]</span>
-      <p>To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-    </div>
-  </div>
-  
-  <div style="display:none">
-    <h2>A Super-Advanced Example (using the secret "invert" attribute!):</h2>
-    <div class="test">
+  <div class="test" data-ur-set="tabs">
+    <h2>A Simple Example</h2>
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'> Widget</h3>
+
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+    
+    <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
       <div data-ur-set="font-resizer">
         <span data-ur-font-resizer-component="increase">[+]</span>
         <span data-ur-font-resizer-component="label"></span>
         <span data-ur-font-resizer-component="decrease">[-]</span>
-        <p data-ur-font-resizer-component="content" data-ur-font-resizer-delta="10" data-ur-font-resizer-invert="Bam!">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+        <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
       </div>
     </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      &li;div data-ur-set="font-resizer"></br>
+        &emsp;&emsp;&li;span data-ur-font-resizer-component="increase">[+]&li;/span></br>
+        &emsp;&emsp;&li;span data-ur-font-resizer-component="label">&li;/span></br>
+        &emsp;&emsp;&li;span data-ur-font-resizer-component="decrease">[-]&li;/span></br>
+        &emsp;&emsp;&li;p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.&li;/p></br>
+      &li;/div>
+    </div>
   </div>
+  
+  <div>
+    <p>More examples of font resizer can be found <a href="font_resizer_examples.html">here</a>.</p>
+  </div>
+  
 </body>
 </html>
