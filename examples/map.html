@@ -27,9 +27,7 @@
       <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled">Widget</h3>
       <h3 data-ur-tabs-component="button" data-ur-tab-id="html">HTML</h3>
       <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-        <div data-ur-set='map'>
-          <!-- I don't need to make this element visible -->
-          <div data-ur-map-component='user_location' data-ur-state='disabled'></div>        
+        <div data-ur-set='map'>       
       
           <div data-ur-map-component='canvas'></div>
 
@@ -75,7 +73,19 @@
         </div>
       </div>
       <div data-ur-tabs-component="content" data-ur-tab-id="html">
-        HTML goes here
+        <p class="code">
+          &lt;div data-ur-set='map'><br/>
+            &emsp;&emsp;&lt;div data-ur-map-component='canvas'>&lt;/div><br/>
+
+            &emsp;&emsp;&lt;div data-ur-map-component='address'><br/>
+              &emsp;&emsp;&emsp;&emsp;123, Fake St, San Francisco, CA<br/>
+            &emsp;&emsp;&lt;/div><br/>
+            &emsp;&emsp;&lt;div data-ur-map-component='description'><br/>
+              &emsp;&emsp;&emsp;&emsp;&lt;a href='http://website.com'> Name of Place &lt;/a><br/>
+              &emsp;&emsp;&emsp;&emsp;&lt;span> (555) 255-0333 &lt;/span><br/>
+            &emsp;&emsp;&lt;/div><br/>
+          &lt;/div>
+        </p> 
       </div>
     </div>
 
