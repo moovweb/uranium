@@ -5,6 +5,7 @@
     <script src="../build/src/uranium.js"></script>
 <link rel="stylesheet" type='text/css' href='css/test.css' />
 <link rel="stylesheet" type='text/css' href='css/select_buttons.css' />
+<link rel="stylesheet" type='text/css' href='css/tabs.css' />
 </head>
 
 <body suite='SelectLists'>
@@ -25,18 +26,28 @@
 <h2> Example: </h2>
 
 <div class='test' name='One'>
-  
-  <div data-ur-set='select-buttons'>
-    <select data-ur-select-buttons-component='select'>
-      <option selected='true' value='-1'> -None- </option>
-      <option value='SKU-XS'> XS </option>
-      <option value='SKU-S'> S </option>
-      <option value='SKU-M'> M </option>
-      <option value='SKU-L'> L </option>
-    </select>
+  <div data-ur-set="tabs">
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
+
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
     
-    <span data-ur-select-buttons-component='increment'> [+] </span>
-    <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+    <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set='select-buttons'>
+        <select data-ur-select-buttons-component='select'>
+          <option selected='true' value='-1'> -None- </option>
+          <option value='SKU-XS'> XS </option>
+          <option value='SKU-S'> S </option>
+          <option value='SKU-M'> M </option>
+          <option value='SKU-L'> L </option>
+        </select>
+    
+        <span data-ur-select-buttons-component='increment'> [+] </span>
+        <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+      </div>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      HTML GOES HERE
+    </div>
   </div>
 </div>
 
