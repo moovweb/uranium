@@ -1,10 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html>
   <head>
-    <title> Zoom Preview Unit Test</title>
+    <title>Zoom Preview</title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     <script src="../build/src/uranium.js"></script>
     <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
     <link rel="stylesheet" type='text/css' href='css/zoom_preview.css' />
   </head>
 
@@ -38,47 +39,32 @@
 
   <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
   
-  <div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'>
-    <img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
-      
-    <div class="normal_image">
-      <img data-ur-zoom-preview-component='normal_image'
-      data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
-    </div>
+  <div data-ur-set="tabs">
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
 
-    <img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true' data-ur-zoom-preview-component='button'/>
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+    
+    <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'>
+        <img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
+      
+        <div class="normal_image">
+          <img data-ur-zoom-preview-component='normal_image'
+          data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
+        </div>
+
+        <img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true' data-ur-zoom-preview-component='button'/>
         
+      </div>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      HTML goes here
+    </div>
   </div>
-  
 </div>
 
-
-<div class='test' name='Thumbnails'>
-
-  <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
-
-  <div data-ur-set='zoom-preview'>
-  
-    <div data-ur-zoom-preview-component="container">
-      <img data-ur-zoom-preview-component="zoom_image" data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
-    
-    <div class="normal_image">
-      <img id="big_image" data-ur-zoom-preview-component='normal_image'
-      data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
-    </div>
-    
-    <img data-ur-zoom-preview-component="button"/>
-    
-    </div>
-    
-    <ul data-ur-zoom-preview-component="thumbnails">
-      <li> <img width='30px' height='30px' src='images/pic1.jpeg?some_attr=noway'/> </li>
-      <li> <img width='30px' height='30px' src='images/pic2.jpeg?some_attr=noway'/> </li>
-      <li> <img width='30px' height='30px' src='images/pic3.jpeg?some_attr=noway'/> </li>
-      <li> <img width='30px' height='30px' src='images/pic4.jpeg?some_attr=noway'/> </li>
-    </ul>
-    
-  </div>
+<div>
+  <p>More examples of zoom previews can be found <a href="zoom_preview_examples.html">here</a>.</p>
 </div>
 
 <script type='text/javascript'>
