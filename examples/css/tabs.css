@@ -29,6 +29,10 @@ position: relative;
   text-align: center;
 }
 
+*[data-ur-tabs-id="html"] {
+  text-align: left;
+}
+
 /* Accordions w state */
 
 div[name='accordions'] *[data-ur-tabs-component='button'] { 
