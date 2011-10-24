@@ -33,6 +33,24 @@
     <h2> Options </h2>
     <div class="option">
       <p>
+        Firstly, we wrap the whole widget in a tag with the attribute data-ur-set="carousel".
+        </p>
+      <p>
+        The main attribute we need to use for the carousel is:</br>
+        data-ur-carousel-component</br>
+        To this attribute, we can add various values:
+      </p>
+      <ul>
+        <li>"view_container" - for the div that wraps the whole carousel</li>
+        <li>"count" - this gives us an indicator of the position of the carousel, in the form '1 of 8', etc.</li>
+        <li>"button" - for the previous and next buttons</li>
+        <li>"scroll_container" - for the div that wraps the scrolling bit of the carousel</li>
+        <li>"item" - for each item to be displayed in the carousel</li>
+      </ul>
+      <p>
+        We need to add a special attribute to the previous and next buttons. The previous button needs
+        the attribute data-ur-carousel-button-type="prev", and the next button needs (correspondingly)
+        data-ur-carousel-button-type="next".
       </p>
     </div>
 
@@ -44,11 +62,10 @@
       <div id="carousel_demonstration" data-ur-set="tabs">
         <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'> Widget</h3>
 
-        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html">HTML</h3>
         
         <div id="carousel_widget" class="widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
-          <div id='jump'> Jump to 5th item </div>
-      
+          
           <div data-ur-set='carousel'
             data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'>
             <span data-ur-carousel-component='count'> -- count -- </span>
@@ -70,6 +87,7 @@
             </div>       
           </div>
         </div>   
+        
         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
           <p class="code">
             &lt;div data-ur-set='carousel'
@@ -99,12 +117,6 @@
     <div>
       <p>More examples of the carousel can be found <a href="carousel_examples.html">here</a>.</p>
     </div>
-
-    <div id="giant">
-     This is a giant div. Its purpose is to make the page bigger than
-     the screen size so that I can test vertical scroll stifling.
-    </div>
-
     
   </body>
 </html>
