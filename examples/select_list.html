@@ -26,7 +26,20 @@
 <h2>Options</h2>
 <div class="option">
   <p>
-    </p>
+    As with all the Uranium widgets, we first need to wrap the widget in a div with the attribute 
+    data-ur-set="select-list".
+  </p>
+  <p>
+    Then we have two components to consider. One is the &lt;select&gt; tag, which produces the
+    drop-down list of options. The select tag has an attribute of data-ur-select-list-component="select".</br>
+    Each &lt;option&gt; tag within the select tag should have a unique value.
+  </p>
+  <p>
+    The second component is the list of items (it could be a &lt;ul&gt;, for example). The list has an attribute
+    of data-ur-select-list-component="content". The items in the list should have a value corresponding to the
+    value they will select in the drop-down menu. E.g. if we want the "medium" option in the drop-down selected when
+    we click on the "medium" list option, give them both the attribute value="medium".
+  </p>
 </div>
 
 <h2>Demonstration</h2>
@@ -83,6 +96,7 @@
         &lt;/div>
       </p>
     </div>
+  </div>
 </div>
 
 <div>
