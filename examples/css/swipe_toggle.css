@@ -1,18 +1,18 @@
 .swipe_Bar{
   margin-bottom: 30px
 }
-[data-ur-component]{
+[data-ur-swipe-toggle-component]{
   padding: 10px;
   border: 1px solid #ddd;
   color: #555;
   display: inline-block;
 }
-[data-ur-component='next']{
+[data-ur-swipe-toggle-component='next']{
   float: right;
 }
-[data-ur-component='prev']{
+[data-ur-swipe-toggle-component='prev']{
 }
-[data-ur-component] > *{
+[data-ur-swipe-toggle-component] > *{
   display: inline-block
 }
 .mw_clear_both{
