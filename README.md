@@ -55,6 +55,23 @@ Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarati
 
 You're in luck! Uranium bundles with xui -- which (we think) provides a great minimal set of convenient javascript functions (query, add-listeners, ajax, iterate, etc). With this in mind, Uranium is the best of both worlds -- its primary purpose is to make it easy to create great widgets UI/UX -- but if you need to do something fancy, it gives you the tools you need to do so concisely.
 
+
+---
+
+# Getting a Widget Approved #
+
+## Technical ##
+
+
+
+## Documentation ##
+
+Ideally, you'll write your own documentation. Two pieces are necessary. One is an .md file with a brief description of the widget, plus all the attributes you need for the widget to work. Also, any CSS you need to make it work (e.g. "disabled" should be display:none)
+Secondly, we need a list of any cool/interesting ways in which your widget can be used - in HTML format. This will be for our "examples" page.
+
+
+---
+
 # MIT License #
 
 Copyright (C) 2011 by Moov Corporation (aka Moovweb)
