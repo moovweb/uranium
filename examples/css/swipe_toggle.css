@@ -36,14 +36,17 @@
   border: 0;
   position: relative;
 }
+
 .imageSwitcher > *{
   position: absolute;
-  z-index: -1;
-  opacity: 0;
+  visibility: hidden;
 }
-.imageSwitcher > [data-ur-state="active"]{
-  opacity: 1;
+
+.imageSwitcher > [data-ur-state='active']{
+  visibility: visible;
 }
+
+
 img{
   width: 150px;
   height: 150px;
