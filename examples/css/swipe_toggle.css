@@ -1,6 +1,7 @@
 .swipe_Bar{
   margin-bottom: 30px
 }
+
 [data-ur-swipe-toggle-component]{
   padding: 10px;
   border: 1px solid #ddd;
@@ -31,23 +32,21 @@
   background: green;
 }
 
-// image switch
-.imageSwitcher {
+.imageSwitcher{
+  border: 0;
   position: relative;
-  width: 200px;
-  height: 200px;
 }
 .imageSwitcher > *{
   position: absolute;
   z-index: -1;
   opacity: 0;
-  width: inherit;
-  height: inherit;
 }
 .imageSwitcher > [data-ur-state="active"]{
-  z-index: 1;
   opacity: 1;
 }
-
+img{
+  width: 150px;
+  height: 150px;
+}
 
 
