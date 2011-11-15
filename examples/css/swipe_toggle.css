@@ -20,7 +20,13 @@
 }
 [data-ur-state]{
   color: blue;
+  height: inherit;
+  line-height: 40px;
+  padding: 0 5px;
 }
 [data-ur-state='active']{
   color: purple;
+}
+[data-ur-touched="true"]{
+  background: green;
 }
