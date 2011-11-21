@@ -105,7 +105,7 @@
 
 
     <div class="mw_clear_both"></div>
-    <div id="zombie_auto_left">autoscroll left</div><div id="zombie_auto_right">autoscroll right</div>
+    <div id="shape_auto_left">autoscroll left</div><div id="shape_auto_right">autoscroll right</div>
     <div data-ur-swipe-toggle-component='next' data-ur-id='ima_shape'>next</div>
     <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_shape'>prev</div>
     <div class="shape" id="ima_shape" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_shape' class="swipe_Bar">
@@ -150,6 +150,13 @@
       x$("#zombie_auto_right")[0].addEventListener("touchend", function () {
         Ur.Widgets.SwipeToggle.ima_zombie.autoScroll('prev');
       });
+      x$("#shape_auto_right")[0].addEventListener("touchend", function () {
+        Ur.Widgets.SwipeToggle.ima_shape.autoScroll('prev');
+      });
+      x$("#shape_auto_right")[0].addEventListener("click", function () {
+        Ur.Widgets.SwipeToggle.ima_shape.autoScroll('next');
+      });
+
     </script>
   </body>
 </html>
