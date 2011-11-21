@@ -21,7 +21,6 @@
 }
 [data-ur-state]{
   color: blue;
-  height: inherit;
   line-height: 40px;
   padding: 0 5px;
 }
@@ -33,23 +32,73 @@
 }
 
 .imageSwitcher{
+  height: 150px;
   border: 0;
   position: relative;
+  width: 90%;
 }
 
 .imageSwitcher > *{
   position: absolute;
   visibility: hidden;
+  left: 50%;
+  margin-left: -85px;
 }
 
 .imageSwitcher > [data-ur-state='active']{
   visibility: visible;
 }
 
-
 img{
   width: 150px;
   height: 150px;
 }
+
+/*  amorphos shape swipe toggle */
+
+.shape[data-ur-id="ima_shape"]{
+  position: relative;
+  width: 90%;
+  height: 250px;
+}
+[data-ur-id="ima_shape"] > * {
+  -webkit-transition: all 0.5s ease-in-out;
+}
+[data-ur-id="ima_shape"] > [data-ur-state="active"]{
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  margin-left: -85px;
+}
+[data-ur-id="ima_shape"] > [data-ur-state="next1"]{
+  position: absolute;
+  top: 50px;
+  left: 0;
+  opacity: .5!important;
+
+}
+[data-ur-id="ima_shape"] > [data-ur-state="prev1"]{
+  position: absolute;
+  top: 100px;
+  left: 100%;
+  margin-left: -170px;
+  opacity: .5!important;
+}
+[data-ur-id="ima_shape"] > [data-ur-state*="next"]{
+  opacity: .1;
+  position: absolute;
+  top: 100px;
+  left: 0;
+}
+ 
+[data-ur-id="ima_shape"] > [data-ur-state*="prev"]{
+  opacity: .1;
+  position: absolute;
+  top: 100px;
+  left: 100%;
+  margin-left: -170px;
+}
+
+
 
 
