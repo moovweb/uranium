@@ -65,7 +65,7 @@
     <script>
       x$("#ima_shape")[0].addEventListener("preferences", function (e) {// x$("[data-ur-id='ima_shape']")
         console.log("preferences event was fired")
-        //e.swipe_object.preferences.loop = false;
+        Ur.Widgets.SwipeToggle.ima_shape.preferences.loop = false;
       });
       x$("#empty_populate_left")[0].addEventListener("click", function () {
         Ur.Widgets.SwipeToggle.ima_empty.autoPopulate(['<div><img src="images/sample4.png"/></div>', '<div><img src="images/sample5.png"/></div>', '<div><img src="images/sample6.png"/></div>'], "bottom");
@@ -78,10 +78,10 @@
         Ur.Widgets.SwipeToggle.ima_live.autoScroll('next');
       });
 
-      x$("#zombie_auto_left")[0].addEventListener("click", function () {
+      x$("#zombie_auto_left")[0].addEventListener("touchend", function () {
         Ur.Widgets.SwipeToggle.ima_zombie.autoScroll('prev');
       });
-      x$("#zombie_auto_right")[0].addEventListener("click", function () {
+      x$("#zombie_auto_right")[0].addEventListener("touchend", function () {
         Ur.Widgets.SwipeToggle.ima_zombie.autoScroll('prev');
       });
     </script>
