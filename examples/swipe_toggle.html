@@ -8,7 +8,65 @@
     <link rel="stylesheet" type='text/css' href='css/swipe_toggle.css' />
   </head>
   <body>
-    <h3>testing swipe toggle.</h3>
+
+    <h1>Swipe Toggle</h1>
+    <div class="description"></div>
+
+    <p>
+    <b>core functionality</b><br>
+    swipe toggle is a uranium attribute management system, by hitting the next button or swiping it will automatically toggle the data-ur-state to active, prev or next where appropriate. using the css square bracket selector you can key off of these changes and style it to your needs. there is absolutely no assumed style or required tags other than the setting your slider object with the data-ur-swipe-toggle-component="slider", data-ur-set="swipe_toggle" and a data-ur-id="some_id"
+    </p>
+
+    <p>
+    <b>auto population</b><br>
+    if you wish to auto populate the carousel at some time after initialization, you can do so using the autoPopulate(obj, location) function. you must feed it an array or object with valid formed html or text and a "top" or "bottom" argument to prepend or append your html.
+    </p>
+
+    <p>
+    <b>preferences</b><br>
+    every swipe toggle element has pre set preferences that can be changed at any point.
+    <ul>
+      <li>axis: ("x", "y") based on expected swipe direction for attribute change</li>
+      <li>swipeUpdate: (bool) allows single swipe mode</li>
+      <li>sensitivity: (num) contains a pixel distance before triggering multi swipe attribute change</li>
+      <li>touchbuffer: (num) the distance swiped before triggering an update</li>
+      <li>tapActive: (bool) allow tapping to activate swipe element.</li>
+      <li>touch: (bool) allow touch movement</li>
+      <li>jump: (num) default movement number usually 1</li>
+      <li>loop: (bool) allow looping</li>
+      <li>autoSpeed: (num) auto scrolling timer in milli-seconds</ul>
+    </p>
+
+    <p>
+    <b>flags</b><br>
+      some flags are set when auto scrolling takes place.
+    <ul>
+      <li>touched: (bool) must be reset to allow autscrolling after first touch event on carousel</li>
+      <li>autoID: (num) the numeric value/name of the setInterval() for auto scrolling</li>
+    </ul>
+    </p>
+
+    <p>
+    <b>events</b><br>
+      to assist you with adding modefications to this widget there are 3 events that are fired on the slider element only.
+    <ul>
+      <li>loaded: this is fired after the object is created but just prior to being placed in the Ur.Widgets object</li>
+      <li>preferences: this is called directly after placing the swipe toggle object into the Ur.Widgets object and is the best time to change your preferences.</li>
+      <li>update: fired every time the attributes have changed through this widget.</li>
+    </ul>
+    </p>
+
+
+    <b>examples</b><br>
+
+    <ol>
+      <li><h4>simple example</h4></li>
+      <li><h4>an attempt to break it</h4></li>
+      <li><h4>360 carousel</h4></li>
+      <li><h4>amorphous carousel</h4></li>
+    </ol>
+
+    <h3>1: swipe toggle.</h3>
     <div id="live_auto_left">autoscroll left</div><div id="live_auto_right">autoscroll right</div>
     <div data-ur-swipe-toggle-component='next' data-ur-id='ima_live'>next</div>
     <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_live'>prev</div>
@@ -16,13 +74,18 @@
       <div >item 1</div><div>item 2</div><div>item 3</div><div>item 4</div><div>item 5</div> 
     </div>
 
-        <div class="mw_clear_both"></div>
+    <div class="mw_clear_both"></div>
+
+    <h3>2: missing buttons and no children</h3>
+    
     <div id="empty_auto_left">autoscroll left</div><div id="empty_auto_right">autoscroll right</div><div id="empty_populate_left">auto populate</div>
     <div data-ur-swipe-toggle-component='next' data-ur-id='ima_empty'>next</div>
     <div class="imageSwitcher" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_empty' class="swipe_Bar">
     </div>
 
     <div class="mw_clear_both"></div>
+    <h3>3: 360 carousel</h3>
+
     <div id="zombie_auto_left">autoscroll left</div><div id="zombie_auto_right">autoscroll right</div>
     <div data-ur-swipe-toggle-component='next' data-ur-id='ima_zombie'>next</div>
     <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_zombie'>prev</div>
@@ -36,7 +99,10 @@
     </div>
 
 
-        <div class="mw_clear_both"></div>
+    <div class="mw_clear_both"></div>
+
+    <h3>3: amorphous carousel</h3>
+
 
     <div class="mw_clear_both"></div>
     <div id="zombie_auto_left">autoscroll left</div><div id="zombie_auto_right">autoscroll right</div>
