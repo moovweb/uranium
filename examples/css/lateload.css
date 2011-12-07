@@ -1,47 +1,46 @@
-*[data-ur-tabs-component='button'] { 
-  opacity: 0.5;
-  background-color: #6495ED;
-border: 1px solid black;
-border-top-left-radius: 5px 5px;
-border-top-right-radius: 5px 5px;
-bottom: -1px;
-display: inline-block;
-margin: 0px 5px;
-padding: 5px;
-position: relative;	
+.demo{
+  padding: 10px;
+  border: 1px solid #ddd;
 }
-
-*[data-ur-tabs-component='content'] {
-  display:none;
-  background-color: #6495ED;
+.note{
+  color: green;
 }
-
-*[data-ur-tabs-component='button'][data-ur-state='enabled'] {
-  opacity: 1.0;
-  border-bottom: 1px solid #6495ED;
+.demo > div{
+  float: left;
+  display: inline
+  margin-right: 10px;
 }
-
-*[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+.demo h2{
+  font-size: 13px;
+}
+.demo img{
+  width: 50px;
+  height: 50px;
+  background: green;
+}
+.group1 img,.group2 img,.group3 img{
+  width: 30px;
+  height: 30px;
+}
+.scroll{
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 122px;
+}
+.scroll img{
   display: block;
-  background-color: #6495ED;
-  border: 1px solid black;
-  padding: 20px;
-  text-align: center;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 300px;
+  background: light-green;
+}
+.clear{
+  clear: both;
+  float: none!important;
+}
+.selectdemo{
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  padding: 10px;
 }
 
-*[data-ur-set="tabs"][data-ur-tab-id="html"] {
-  text-align: left;
-}
-
-/* Accordions w state */
-
-div[name='accordions'] *[data-ur-tabs-component='button'] { 
-    display: block;
-    border: 1px solid blue;
-    background-color: white;
-}
-
-div[name='accordions'] *[data-ur-tabs-component='content'] { 
-    background-color: white;
-    margin: 0px 20px;
-}

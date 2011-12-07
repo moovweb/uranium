@@ -4,35 +4,123 @@
     <title>Carousel </title>
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
-  <script src="../build/src/uranium-pretty.js"></script>
+    <script src="../build/src/uranium-pretty.js"></script>
 
-  <script src="../lib/external/xui-2.0.0.js"></script>
-  <script src="../lib/uranium_mixins.js"></script>
-  <script src="../lib/lateload.js"></script>
+    <script src="../lib/external/xui-2.0.0.js"></script>
+    <script src="../lib/uranium_mixins.js"></script>
+    <script src="../lib/lateload.js"></script>
 
 
     <link rel="stylesheet" type='text/css' href='css/test.css' />
     <link rel="stylesheet" type='text/css' href='css/lateload.css' />
     <link rel="stylesheet" type='text/css' href='css/tabs.css' />
-    <style>img{background: green;width: 100px;height: 100px;display: block;margin-bottom: 300px;}</style>
   </head>
-  
+
   <body suite='Carousel'>
 
     <h1> Late Load </h1>
 
+    <div>
+      the late load widget will prevent objects from loading until requested by the user. there is only one mandatory attribute<br><br><b>data-ur-ll-src=</b> or <b>data-ur-ll-href=</b><br><br>
+      however <b>data-ur-ll-event=</b> attriburte will select the group that the late loaded element is attached to.<br><br>there are 4 standard groups that handle your events for you.
+      the <b>click or touch, DOMContentLoaded, load and scroll</b> if any group bares these names its event handeling and functionality are taken care of. any other group name is saved
+      in the Ur.Widgets.late_load.components["your_group"]<br><br>
 
+      <span class="note">NOTE: some images will not display untill the page is scrolled, if this is an issue, please add the plutonium widget "auto_scroll.js"</span>
+      <br><br>
+    </div>
+
+    <div class="demo">
+      <div>
+        <h2>click/touch</h2>
+        <img data-ur-ll-event="click" data-ur-ll-src='images/sample1.png' />
+      </div>
+      <div>
+        <h2>DOMContentLoaded</h2>
+        <img data-ur-ll-event="DOMContentLoaded" data-ur-ll-src='images/sample1.png' />
+      </div>
+      <div>
+        <h2>load</h2>
+        <img data-ur-ll-event="load" data-ur-ll-src='images/sample1.png' />
+      </div>
+      <div>
+        <h2>scroll</h2>
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample1.png' />
+      </div>
+      <div class="clear"></div>
+    </div>
+
+
+
+    <div class="selectdemo">
+      <h2>load by group</h2>
+      <select class="selectgroup">
+        <option>select load group</option>
+        <option>one</option>
+        <option>two</option>
+        <option>three</option>
+      </select>
+      <script>
+        x$(".selectgroup").on("change", function (e) {
+          var name = e.currentTarget.children[e.currentTarget.selectedIndex].value;
+          var group = Ur.Widgets.late_load.components[name]
+          Ur.Widgets.late_load.release_group(group);
+          console.log(e,this)
+        });
+      </script>
+      <div class="group1">
+        <h2>group 1</h2>
         <div>
-          <img data-ur-ll-event="click" data-ur-ll-src='images/sample1.png' />
-          <img data-ur-ll-event="load" data-ur-ll-src='images/sample2.png' />
-          <img data-ur-ll-src='images/sample3.png' />
-          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample4.png' />
-          <img data-ur-ll-event="click" data-ur-ll-src='images/sample5.png' />
-          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample6.png' />
-          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample7.png' />
-          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample8.png' />
-        </div>   
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample1.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample2.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample3.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample4.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample5.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample6.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample7.png' />
+          <img data-ur-ll-event="one" data-ur-ll-src='images/sample8.png' />
+        </div>
+      </div>
+      <div class="group2">
+        <h2>group 2</h2>
+        <div>
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample1.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample2.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample3.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample4.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample5.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample6.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample7.png' />
+          <img data-ur-ll-event="two" data-ur-ll-src='images/sample8.png' />
+        </div> 
+      </div>
+      <div class="group3">
+        <h2>group 3</h2>
+        <div>
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample1.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample2.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample3.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample4.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample5.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample6.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample7.png' />
+          <img data-ur-ll-event="three" data-ur-ll-src='images/sample8.png' />
+        </div> 
+      </div>
+    </div>
+    <div class="scroll">
+      <h2>scroll</h2>
+      <div>
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample1.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample2.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample3.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample4.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample5.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample6.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample7.png' />
+        <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample8.png' />
+      </div> 
+    </div>  
 
-    
   </body>
 </html>
