@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Carousel </title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+  <script src="../build/src/uranium-pretty.js"></script>
+
+  <script src="../lib/external/xui-2.0.0.js"></script>
+  <script src="../lib/uranium_mixins.js"></script>
+  <script src="../lib/lateload.js"></script>
+
+
+    <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/lateload.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
+    <style>img{background: green;width: 100px;height: 100px;display: block;margin-bottom: 300px;}</style>
+  </head>
+  
+  <body suite='Carousel'>
+
+    <h1> Late Load </h1>
+
+
+        <div>
+          <img data-ur-ll-event="click" data-ur-ll-src='images/sample1.png' />
+          <img data-ur-ll-event="load" data-ur-ll-src='images/sample2.png' />
+          <img data-ur-ll-src='images/sample3.png' />
+          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample4.png' />
+          <img data-ur-ll-event="click" data-ur-ll-src='images/sample5.png' />
+          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample6.png' />
+          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample7.png' />
+          <img data-ur-ll-event="scroll" data-ur-ll-src='images/sample8.png' />
+        </div>   
+
+    
+  </body>
+</html>
