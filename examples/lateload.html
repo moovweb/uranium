@@ -31,6 +31,7 @@
     </div>
 
     <div class="demo">
+      <i>examples of each auto managed group</i>
       <div>
         <h2>click/touch</h2>
         <img data-ur-ll-event="click" data-ur-ll-src='images/sample1.png' />
@@ -50,10 +51,23 @@
       <div class="clear"></div>
     </div>
 
+    <div class="selectdemo">
+      <h2>load one item</h2>
+      <i>loads on mouseover</i><br>
+      <img data-ur-ll-event="custom_name" class="custom" data-ur-ll-src='images/sample2.png' />
+      <script>
+        x$(".custom").on("mouseover", function () {
+          Ur.Widgets.late_load.release_element(this);
+          console.log(this)
+        });
+      </script>
+    </div>
 
 
     <div class="selectdemo">
       <h2>load by group</h2>
+
+      to demonstrate loading groups rather than an indevidual item, select a number from the list to see it load.<br>
       <select class="selectgroup">
         <option>select load group</option>
         <option>one</option>

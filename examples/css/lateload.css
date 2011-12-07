@@ -6,14 +6,12 @@
   color: green;
 }
 .demo > div{
-  float: left;
-  display: inline
   margin-right: 10px;
 }
 .demo h2{
   font-size: 13px;
 }
-.demo img{
+.demo img, .custom{
   width: 50px;
   height: 50px;
   background: green;
