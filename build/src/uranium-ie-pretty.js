@@ -2991,18 +2991,7 @@ Ur.QuickLoaders['select-list'] = (function(){
     var selected_list_option = event.target;
     var value = "";
     var self = this;
-    x$().iterate(
-      this.list.children,
-      function(element, index){
-        if(element == selected_list_option) {
-	  x$(element).attr("data-ur-state","enabled");
-          value = x$(element).attr("value");
-        } else {
-	  x$(element).attr("data-ur-state","disabled");
-        }
-      }
-    );
-
+    iterate(this, selected_list_option);
     //  x$(this.select).attr("value",value); //Odd - this doesn't work, but the following line does
     // -- I think 'value' is a special attribute ... its not in the attributes[] property of a node
     this.select.value = value;
@@ -3010,6 +2999,33 @@ Ur.QuickLoaders['select-list'] = (function(){
     return true;
   }
 
+  function iterate (obj, selected_obj) {
+    x$().iterate(
+      obj.list.children,
+      function(element, index){
+        var val1 = element.getAttribute("value");
+        var val2 = selected_obj.getAttribute("value");
+        if(val1 == val2) {
+          x$(element).attr("data-ur-state","enabled");
+          value = x$(element).attr("value");
+        } else {
+          x$(element).attr("data-ur-state","disabled");
+        }
+      }
+    );
+  }
+
+  function matchSelected (obj) {
+    var active;
+    var option = x$(obj).find("option").each(function () {
+      var selected = x$(this).attr("selected")[0];
+      if (selected === undefined ){
+      }else{
+        active = this;
+      } 
+    });
+    iterate(obj, active);
+  }
 
   function SelectListLoader(){
     this.SelectLists = {};
@@ -3018,6 +3034,7 @@ Ur.QuickLoaders['select-list'] = (function(){
     // - Sometimes we had to listen for different events
   }
 
+
   SelectListLoader.prototype.initialize = function(fragment) {
     var select_lists = x$(fragment).find_elements('select-list');
     var self = this;
@@ -3025,11 +3042,13 @@ Ur.QuickLoaders['select-list'] = (function(){
       var select_list = select_lists[name];
       self.SelectLists[name] = new SelectList(select_lists[name]["select"],select_lists[name]["content"]);
       x$(select_list["set"]).attr("data-ur-state","enabled");
+      matchSelected(self.SelectLists[name])
     }
   }
 
   return SelectListLoader;
 })();
+
 /* Select Buttons  *
  * * * * * * * * * *
  * The select-button widget binds two buttons to a <select> to increment/decrement
