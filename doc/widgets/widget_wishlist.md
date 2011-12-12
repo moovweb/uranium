@@ -12,3 +12,11 @@ Widgets that may be coming soon / that we might tryout:
 -  Lateloader ?? Does this make sense to do? Maybe for us (since the ajax url is likely static), what about other people?
 -  Mask ? (Appears on touch, goes away on event)
 -  Validators? 
+-  Simple Carousel :: maybe its an auto-degraded version based on user agent
+-  360 degree view widget
+
+
+# Widget Features Wishlist
+
+-  Auto scroll timing on existing carousel
+-  Wrap around once at the end of the carousel
