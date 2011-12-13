@@ -2989,9 +2989,8 @@ Ur.QuickLoaders['select-list'] = (function(){
 
   SelectList.prototype.trigger_option = function(event) {
     var selected_list_option = event.target;
-    var value = "";
     var self = this;
-    iterate(this, selected_list_option);
+    var value = iterate(this, selected_list_option);
     //  x$(this.select).attr("value",value); //Odd - this doesn't work, but the following line does
     // -- I think 'value' is a special attribute ... its not in the attributes[] property of a node
     this.select.value = value;
@@ -3000,6 +2999,7 @@ Ur.QuickLoaders['select-list'] = (function(){
   }
 
   function iterate (obj, selected_obj) {
+    var value = "";
     x$().iterate(
       obj.list.children,
       function(element, index){
@@ -3013,17 +3013,11 @@ Ur.QuickLoaders['select-list'] = (function(){
         }
       }
     );
+    return value;
   }
 
   function matchSelected (obj) {
-    var active;
-    var option = x$(obj).find("option").each(function () {
-      var selected = x$(this).attr("selected")[0];
-      if (selected === undefined ){
-      }else{
-        active = this;
-      } 
-    });
+    var active = obj.select.children[obj.select.options.selectedIndex];
     iterate(obj, active);
   }
 
