@@ -2628,7 +2628,6 @@ Ur.QuickLoaders['geocode'] = (function(){
   return Ur.QuickLoaders['late_load'] = late_load;
 })();
 
-
 /* Map *
  * * * *
  * The map creates a fully functional google map (API version 3) from addresses.
@@ -2944,7 +2943,6 @@ Ur.QuickLoaders['map'] = (function(){
 
   MapLoader.prototype.initialize = function(fragment) {
     var maps = x$(fragment).find_elements('map', ComponentConstructors);
-    console.log(maps);
     Ur.Widgets["map"] = {};
 
     for(var name in maps) {
@@ -3552,7 +3550,6 @@ Ur.QuickLoaders['flex-table'] = (function(){
   
   // Add an enhanced class to the tables the we'll be modifying
   function addEnhancedClass (tbl) {
-    obj = tbl;
     x$(tbl).addClass("enhanced");
   }
   
@@ -3613,8 +3610,6 @@ Ur.QuickLoaders['flex-table'] = (function(){
           var input = x$(this),
               val = input.attr('value');
               cols = x$("#" + val[0] + ", [headers=" + val[0] + "]");
-          
-          obj = cols;
           
           if (!this.checked) { 
             cols.addClass('ur_ft_hide'); }
