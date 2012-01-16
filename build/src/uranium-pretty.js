@@ -3612,9 +3612,11 @@ Ur.QuickLoaders['flex-table'] = (function(){
               cols = x$("#" + val[0] + ", [headers=" + val[0] + "]");
           
           if (!this.checked) { 
-            cols.addClass('ur_ft_hide'); }
+            cols.addClass('ur_ft_hide'); 
+            cols.removeClass("ur_ft_show"); }
           else { 
-            cols.removeClass("ur_ft_hide"); }
+            cols.removeClass("ur_ft_hide"); 
+            cols.addClass('ur_ft_show'); }
         });
         tgl.on("updateCheck", function(){
           if ( th.getStyle("display") == "table-cell" || th.getStyle("display") == "inline" ) {
@@ -3674,7 +3676,7 @@ Ur.QuickLoaders['flex-table'] = (function(){
     for(var name in tables){
       Ur.Widgets["flex-table"][name] = new flexTable(tables[name]);
       // Only supports one table for the moment
-      break;
+      // break;
     }
   }
   

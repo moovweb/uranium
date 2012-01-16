@@ -114,7 +114,9 @@ table {
 .enhanced .ur_ft_hide {
   display:none !important;
 }
-
+.enhanced .ur_ft_show {
+  display:table-cell !important;
+}
 
 @media screen and (min-width: 500px) {
 	.enhanced th.optional, 
