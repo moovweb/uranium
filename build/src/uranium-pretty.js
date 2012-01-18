@@ -1803,8 +1803,8 @@ Ur.WindowLoaders['carousel'] = (function(){
         }
       }
 
-      x$(this.button["prev"]).on("click", (function(obj){return function(){obj.move_to(obj.magazine_count)};})(this));
-      x$(this.button["next"]).on("click", (function(obj){return function(){obj.move_to(-obj.magazine_count)};})(this));
+      x$(this.button["prev"]).on("click", (function(obj){return function(){(obj.item_index == 0) ? obj.jump_to_index(obj.last_index) : obj.move_to(obj.magazine_count)};})(this));
+      x$(this.button["next"]).on("click", (function(obj){return function(){(obj.item_index == obj.last_index) ? obj.jump_to_index(0) : obj.move_to(-obj.magazine_count)};})(this));
 
       this.item_index = 0;
       this.magazine_count = 1;
@@ -1818,6 +1818,21 @@ Ur.WindowLoaders['carousel'] = (function(){
 
       this.flag = {touched: false, intervalId: null};
 
+      var rotate_enabled = x$(this.container).attr("data-ur-rotate")[0];
+      rotate_enabled = (rotate_enabled === undefined) ? true : (rotate_enabled == 'auto' ? true : false);
+      x$(this.container).attr('data-ur-rotate', rotate_enabled ? "auto" : "manual");
+
+      var rotate_timing = x$(this.container).attr('data-ur-rotate-timing')[0];
+      rotate_timing = (rotate_timing === undefined) ? 5000 : rotate_timing;
+      x$(this.container).attr('data-ur-rotate-timing', rotate_timing);
+
+      var rotate_dir = x$(this.container).attr('data-ur-rotate-direction')[0];
+      rotate_dir = (rotate_dir === undefined) ? 'next' : (rotate_dir == 'next' ? true : false);
+      x$(this.container).attr('data-ur-rotate-direction', rotate_dir ? 'next' : 'prev');
+
+      if (rotate_enabled) {
+        this.autoScroll(rotate_dir, rotate_timing); 
+      }
     },
 
     get_transform: function(obj) {
@@ -1915,30 +1930,27 @@ Ur.WindowLoaders['carousel'] = (function(){
     },
 
     autoScroll: function (direction, miliSec) {
-      var imageArray = this.item_index;
       var self = this;
-      var autoID = "";
 
-      window.clearInterval(this.flag.intervalId);
-
-      if (direction == "next" || direction == "prev"){}else{
-        console.log("swipe_toggle: impropper autoScroll direction setting");
-        direction = "next";
-      }
-
-      this.flag.intervalId = autoID = window.setInterval(function (){
+      window.clearInterval(self.flag.intervalId);
+      
+      self.flag.intervalId = window.setInterval(function (){
 
         var position = self.item_index;
 
-        if(self.flag.touched == true || (position == self.last_index && direction == "next") || (position == 0 && direction == "prev")){
-          window.clearInterval(self.flag.intervalId);
-        }else if (direction == "next") {
+        if (direction == "next") {
           self.move_to(-self.magazine_count);
-        }else if (direction == "prev") {
+        }
+        else if (direction == "prev") {
           self.move_to(self.magazine_count);
         }
 
-
+        // Looping
+        if (position == self.last_index && direction == "next") {
+          self.jump_to_index(0);
+        } else if ((position == 0 && direction == "prev")) {
+          self.jump_to_index(self.last_index);
+        }
       }, miliSec);
     },
 
