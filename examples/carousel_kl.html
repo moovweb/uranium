@@ -9,6 +9,7 @@
         margin: 0px;
       }
       [data-ur-carousel-component="view_container"] {
+        clear: both;
         overflow: hidden;
         height: 120px;
         position: relative; /* only for :before pseudo-selector */
@@ -36,9 +37,9 @@
       }
       [data-ur-carousel-button-type] {
         -webkit-user-select: none;
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
         background: -moz-linear-gradient(#fafafa, #e6e6e6);
         background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #fafafa), color-stop(100%, #e6e6e6));
         background: -webkit-linear-gradient(#fafafa, #e6e6e6);
@@ -49,6 +50,7 @@
         border-bottom-color: #ccc;
         color: #555;
         display: inline-block;
+        float: left;
         font: 10px Helvetica, "Segoe WP", "Segoe UI", sans-serif;
         margin: 10px 0 10px 5px;
         padding: 5px;
@@ -61,13 +63,20 @@
         float: right;
         margin-right: 5px;
       }
+      [data-ur-carousel-component="count"] {
+        color: #555;
+        font: 14px Helvetica, "Segoe WP", "Segoe UI", sans-serif;
+        padding-top: 15px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
     <div id="mw_carousel" data-ur-set="carousel" data-ur-id="home" data-ur-state="enabled">
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-state="enabled">previous</div>
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">next</div>
-      <div data-ur-carousel-component="view_container" data-ur-autoscroll="enabled" data-ur-autoscroll-delay="5000">
+      <div data-ur-carousel-component="count">next</div>
+      <div data-ur-carousel-component="view_container" data-ur-autoscroll="enabled" data-ur-autoscroll-delay="1000">
       <div data-ur-carousel-component="scroll_container">
         <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-birthday.png" data-ur-state="inactive">
         <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-dogable.png" data-ur-state="active">
