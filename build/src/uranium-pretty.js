@@ -3642,7 +3642,7 @@ Ur.QuickLoaders['flex-table'] = (function(){
     // Create a "Display" menu      
     if (!o.checkContainer) {
       var menuWrapper = x$('<div class="table-menu-wrapper" />'),
-      menuBtn = x$('<a href="#" class="table-menu-btn">Display</a>');
+      menuBtn = x$('<a href="#" class="table-menu-btn"><span class="table-menu-btn-icon"></span>Display</a>');
 
       menuBtn.click(function(){
         container.toggleClass("table-menu-hidden");            
@@ -3668,8 +3668,8 @@ Ur.QuickLoaders['flex-table'] = (function(){
     var tables = x$(fragment).find_elements('flex-table');
     Ur.Widgets["flex-table"] = {};
     
-    console.log("tables:  ");
-    console.log(tables);
+    // console.log("tables:  ");
+    // console.log(tables);
     
     // var tables = this.find(fragment);
   
@@ -3799,13 +3799,13 @@ Ur.QuickLoaders['tabs'] = (function(){
 })();
 
 /* Toggler *
- * * * * * *
- * The toggler alternates the state of all the content elements bound to the
- * toggler button. 
- * 
- * If no initial state is provided, the default value 'disabled'
- * is set upon initialization.
- */
+* * * * * *
+* The toggler alternates the state of all the content elements bound to the
+* toggler button. 
+* 
+* If no initial state is provided, the default value 'disabled'
+* is set upon initialization.
+*/
 
 Ur.QuickLoaders['toggler'] = (function(){
   function ToggleContentComponent (group, content_component) {
@@ -3826,7 +3826,7 @@ Ur.QuickLoaders['toggler'] = (function(){
   ToggleLoader.prototype.find = function(fragment){
     var togglers = x$(fragment).find_elements('toggler', this.component_constructors);
     var self=this;
-    
+
     for(var toggler_id in togglers) {
       var toggler = togglers[toggler_id];
 
@@ -3848,12 +3848,12 @@ Ur.QuickLoaders['toggler'] = (function(){
 
       // Make the content state match the button state
       x$().iterate(
-	toggler["content"],
-	function(content) {
-	  if (x$(content).attr("data-ur-state")[0] === undefined ) {
+        toggler["content"],
+        function(content) {
+          if (x$(content).attr("data-ur-state")[0] === undefined ) {
             x$(content).attr("data-ur-state", toggler_state)
-	  }
-	}
+          }
+        }
       );
 
     }
@@ -3884,16 +3884,17 @@ Ur.QuickLoaders['toggler'] = (function(){
 
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
-
+    console.log(togglers);
     for(var name in togglers){
       var toggler = togglers[name];
+      // if (togglers)
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"], toggler["set"]));
       x$(toggler["set"]).attr("data-ur-state","enabled");
     }
   }
 
   return ToggleLoader;
-})();
+  })();
 
 /* Zoom Preview  *
  * * * * * * * * *

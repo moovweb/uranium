@@ -2776,13 +2776,13 @@ var mixins = {
 xui.extend(mixins);
 
 /* Toggler *
- * * * * * *
- * The toggler alternates the state of all the content elements bound to the
- * toggler button. 
- * 
- * If no initial state is provided, the default value 'disabled'
- * is set upon initialization.
- */
+* * * * * *
+* The toggler alternates the state of all the content elements bound to the
+* toggler button. 
+* 
+* If no initial state is provided, the default value 'disabled'
+* is set upon initialization.
+*/
 
 Ur.QuickLoaders['toggler'] = (function(){
   function ToggleContentComponent (group, content_component) {
@@ -2803,7 +2803,7 @@ Ur.QuickLoaders['toggler'] = (function(){
   ToggleLoader.prototype.find = function(fragment){
     var togglers = x$(fragment).find_elements('toggler', this.component_constructors);
     var self=this;
-    
+
     for(var toggler_id in togglers) {
       var toggler = togglers[toggler_id];
 
@@ -2825,12 +2825,12 @@ Ur.QuickLoaders['toggler'] = (function(){
 
       // Make the content state match the button state
       x$().iterate(
-	toggler["content"],
-	function(content) {
-	  if (x$(content).attr("data-ur-state")[0] === undefined ) {
+        toggler["content"],
+        function(content) {
+          if (x$(content).attr("data-ur-state")[0] === undefined ) {
             x$(content).attr("data-ur-state", toggler_state)
-	  }
-	}
+          }
+        }
       );
 
     }
@@ -2861,16 +2861,17 @@ Ur.QuickLoaders['toggler'] = (function(){
 
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
-
+    console.log(togglers);
     for(var name in togglers){
       var toggler = togglers[name];
+      // if (togglers)
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"], toggler["set"]));
       x$(toggler["set"]).attr("data-ur-state","enabled");
     }
   }
 
   return ToggleLoader;
-})();
+  })();
 
 /* Tabs *
  * * * * * *
