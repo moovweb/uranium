@@ -31,6 +31,9 @@ table {
 	width: 100%;
 	font-size: 1.2em;
 }
+.table-wrapper {
+   margin: 5em 5%;
+}
 thead th {
 	white-space: nowrap;
 	border-bottom: 1px solid #ccc;
@@ -65,12 +68,24 @@ tbody th, td {
 
 .table-wrapper {
    position: relative;
-   margin: 5em 5%;
 }
 .table-menu-wrapper {
    position: absolute;
    top: -3em;
    right: 0;
+}
+.table-menu-btn-icon {
+  width: 0px;
+  height: 0px;
+  font-size: 0px;
+  line-height: 0px;
+  border: 6px solid;
+  margin-right: 5px;
+  margin-top:4px;
+  vertical-align: middle;
+  border-image: initial;
+  display:inline-block;
+  border-color: gray transparent transparent transparent;
 }
 .table-menu {
    position: absolute;
@@ -90,8 +105,8 @@ tbody th, td {
    text-decoration: none;
    color: #333;
    font-size: 1.2em;
-   background: #eee url(../_img/icon-menu.png) no-repeat 5px center;
-   padding: .3em 10px .3em 20px;
+   background: #eee;
+   padding: .3em 10px .3em 5px;
    border: 1px solid #ccc;
 }
 .table-menu li {
