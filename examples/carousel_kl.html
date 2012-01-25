@@ -11,7 +11,7 @@
       [data-ur-carousel-component="view_container"] {
         clear: both;
         overflow: hidden;
-        height: 120px;
+        height: 125px;
         position: relative; /* only for :before pseudo-selector */
       }
       [data-ur-carousel-component="view_container"]::before {
@@ -27,13 +27,13 @@
       }
       [data-ur-carousel-component="scroll_container"] {
         margin: 0 auto; /* These 2 lines are needed so that the carousel */
-        width: 209px;   /* doesn't look offset when it hasn't loaded yet */
+        width: 220px;   /* doesn't look offset when it hasn't loaded yet */
       }
       [data-ur-carousel-component="item"] {
         -webkit-user-drag: none; /* only for non-mobile browser */
         float: left;
-        width: 209px;
-        height: 120px;
+        width: 220px;
+        height: 125px;
       }
       [data-ur-carousel-button-type] {
         -webkit-user-select: none;
@@ -75,8 +75,8 @@
     <div id="mw_carousel" data-ur-set="carousel" data-ur-id="home" data-ur-state="enabled">
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-state="enabled">previous</div>
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">next</div>
-      <div data-ur-carousel-component="count">next</div>
-      <div data-ur-carousel-component="view_container" data-ur-autoscroll="enabled" data-ur-autoscroll-delay="1000">
+      <div data-ur-carousel-component="count">Initializing...</div>
+      <div data-ur-carousel-component="view_container" data-ur-autoscroll="enabled" data-ur-autoscroll-delay="1500" data-ur-android3d="enabled">
       <div data-ur-carousel-component="scroll_container">
         <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-birthday.png" data-ur-state="inactive">
         <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-dogable.png" data-ur-state="active">

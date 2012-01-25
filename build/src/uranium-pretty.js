@@ -1717,8 +1717,9 @@ xui.extend(mixins);
  * 
  */
 
-Ur.WindowLoaders['carousel'] = (function(){
+Ur.WindowLoaders["carousel"] = (function(){
   function Carousel(components) {
+
     this.container = components["view_container"];
     this.items = components["scroll_container"];
     if (this.items.length == 0) {
@@ -1762,19 +1763,31 @@ Ur.WindowLoaders['carousel'] = (function(){
     return (num <= 0) ? Math.floor(num) : Math.ceil(num);
   }
 
-  function zero_floor(num)
-  {
+  function zero_floor(num) {
     return (num >= 0) ? Math.floor(num) : Math.ceil(num);
   }
 
-  function stifle(e)
-  {
+  function stifle(e) {
     e.preventDefault();
     e.stopPropagation();
   }
 
+  var vendor_prefix = "webkit";
+  if (navigator.userAgent.match(/Firefox/))
+    vendor_prefix = "Moz";
+
+  // translate3d is disabled on Android by default because it often causes problems
+  // however, on some pages translate3d will work fine so the data-ur-android3d
+  // attribute can be set to "enabled" to use translate3d since it seems a bit
+  // faster on some Android devices
+
+  var android = navigator.userAgent.match(/Android/);
+  var no_3d = android || navigator.userAgent.match(/Firefox/);
+  var transform_prefix = no_3d ? "translate(" : "translate3d(";
+  var transform_suffix = no_3d ? ")" : ", 0px)";
+
   function translate(obj, x) {
-    obj.style.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
+    obj.style.webkitTransform = obj.style.MozTransform = transform_prefix + x + "px, 0px" + transform_suffix;
   }
 
   //// Public Methods ////
@@ -1785,83 +1798,123 @@ Ur.WindowLoaders['carousel'] = (function(){
       // add an internal event handler to handle all events on the container:
       // x$(this.container).on("event",this.handleEvent);
 
+      if (this.container.getAttribute("data-ur-android3d") == "enabled" && android) {
+        transform_prefix = "translate3d(";
+        transform_suffix = ", 0px)";
+      }
+
+
       var touch_enabled = x$(this.container).attr("data-ur-touch")[0];
       touch_enabled = (touch_enabled === undefined) ? true : (touch_enabled == "enabled" ? true : false);
-      x$(this.container).attr("data-ur-touch", touch_enabled ? "enabled" : "disabled");      
+      x$(this.container).attr("data-ur-touch", touch_enabled ? "enabled" : "disabled");
 
       if (touch_enabled) {
-        if(xui.touch) {
+        if (x$.touch) {
           this.touch = true;
-          x$(this.items).on("touchstart",(function(obj){return function(e){obj.start_swipe(e)};})(this));
-          x$(this.items).on("touchmove",(function(obj){return function(e){obj.continue_swipe(e)};})(this));
-          x$(this.items).on("touchend",(function(obj){return function(e){obj.finish_swipe(e)};})(this));
+          x$(this.items).touchstart(function(obj){return function(e){obj.start_swipe(e)};}(this));
+          x$(this.items).touchmove(function(obj){return function(e){obj.continue_swipe(e)};}(this));
+          x$(this.items).touchend(function(obj){return function(e){obj.finish_swipe(e)};}(this));
         } else {
           this.touch = false;
-          x$(this.items).on("mousedown",(function(obj){return function(e){obj.start_swipe(e)};})(this));
-          x$(this.items).on("mousemove",(function(obj){return function(e){obj.continue_swipe(e)};})(this));
-          x$(this.items).on("mouseup",(function(obj){return function(e){obj.finish_swipe(e)};})(this));
+          x$(this.items).on("mousedown", function(obj){return function(e){obj.start_swipe(e)};}(this));
+          x$(this.items).on("mousemove", function(obj){return function(e){obj.continue_swipe(e)};}(this));
+          x$(this.items).on("mouseup", function(obj){return function(e){obj.finish_swipe(e)};}(this));
         }
       }
 
-      x$(this.button["prev"]).on("click", (function(obj){return function(){(obj.item_index == 0) ? obj.jump_to_index(obj.last_index) : obj.move_to(obj.magazine_count)};})(this));
-      x$(this.button["next"]).on("click", (function(obj){return function(){(obj.item_index == obj.last_index) ? obj.jump_to_index(0) : obj.move_to(-obj.magazine_count)};})(this));
+      x$(this.button["prev"]).click(function(obj){return function(){obj.move_to(obj.magazine_count);}}(this));
+      x$(this.button["next"]).click(function(obj){return function(){obj.move_to(-obj.magazine_count);}}(this));
 
       this.item_index = 0;
       this.magazine_count = 1;
+
+      this.infinite = !(this.container.getAttribute("data-ur-infinite") == "disabled");
+      x$(this.container).attr("data-ur-infinite", this.infinite ? "enabled" : "disabled");
+
+      if (this.infinite) {
+        var items = x$(this.items).find("[data-ur-carousel-component='item']");
+        this.real_item_count = items.length;
+        this.item_index = this.clone_count = 2;
+        this.clones = []; // probaby useless
+        for (var i = 0; i < this.clone_count; i++) {
+          var clone = items[i].cloneNode(false);
+          this.clones.push(clone);
+          x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
+          this.items.appendChild(clone);
+        }
+        
+        for (var i = items.length - this.clone_count; i < items.length; i++) {
+          var clone = items[i].cloneNode(false);
+          this.clones.push(clone);
+          x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
+          this.items.insertBefore(clone, items[0]);
+        }
+      }
+
       this.adjust_spacing();
-      this.update_index(0);
-      
+
+      this.update_index(this.infinite ? this.clone_count : 0);
+
       // Expose this function globally: (this will work on webkit / FF)
       this.jump_to_index = (function(obj) { return function(idx) { obj.__proto__.move_to_index.call(obj, idx); };})(this);
 
-      window.setInterval(function(obj){return function(){obj.resize();}}(this),1000);
+      x$(window).orientationchange(function(obj){return function(){obj.resize();}}(this));
+      // orientationchange isn't supported on some androids
+      x$(window).on("resize", function(obj) { return function() {
+        obj.resize();
+        setTimeout(function(){obj.resize()}, 100);
+      }}(this));
+      //window.setInterval(function(obj){return function(){obj.resize();}}(this),1000);
 
-      this.flag = {touched: false, intervalId: null};
+      this.flag = {touched: false, timeoutId: null};
 
-      var rotate_enabled = x$(this.container).attr("data-ur-rotate")[0];
-      rotate_enabled = (rotate_enabled === undefined) ? true : (rotate_enabled == 'auto' ? true : false);
-      x$(this.container).attr('data-ur-rotate', rotate_enabled ? "auto" : "manual");
+      this.autoscroll = !(this.container.getAttribute("data-ur-autoscroll") == "disabled");
+      x$(this.container).attr("data-ur-autoscroll", this.autoscroll ? "enabled" : "disabled");
 
-      var rotate_timing = x$(this.container).attr('data-ur-rotate-timing')[0];
-      rotate_timing = (rotate_timing === undefined) ? 5000 : rotate_timing;
-      x$(this.container).attr('data-ur-rotate-timing', rotate_timing);
-
-      var rotate_dir = x$(this.container).attr('data-ur-rotate-direction')[0];
-      rotate_dir = (rotate_dir === undefined) ? 'next' : (rotate_dir == 'next' ? true : false);
-      x$(this.container).attr('data-ur-rotate-direction', rotate_dir ? 'next' : 'prev');
-
-      if (rotate_enabled) {
-        this.autoScroll(rotate_dir, rotate_timing); 
+      this.autoscroll_delay = this.container.getAttribute("data-ur-autoscroll-delay");
+      if (this.autoscroll_delay == null) {
+        this.autoscroll_delay = 5000;
+        x$(this.container).attr("data-ur-autoscroll-timing", this.autoscroll_delay);
       }
+
+      this.autoscroll_dir = this.container.getAttribute("data-ur-autoscroll-direction");
+      if (this.autoscroll_dir != "prev")
+        this.autoscroll_dir = "next";
+
+      x$(this.container).attr("data-ur-autoscroll-direction", this.autoscroll_dir);
+
+      this.autoscroll_start();
     },
 
     get_transform: function(obj) {
-      var transform = window.getComputedStyle(obj).webkitTransform;
+      var transform = getComputedStyle(obj)[vendor_prefix + "Transform"];
       if (transform != "none") {
-        transform = new WebKitCSSMatrix(transform);
-        return transform.m41;
+        if (vendor_prefix == "webkit") {
+          transform = new WebKitCSSMatrix(transform);
+          return transform.m41;
+        } else
+          return parseInt(transform.split(',')[4]);
       } else {
         console.log("no webkit transform");
         return 0;
       }
     },
 
-    resize: function(){
+    resize: function() {
       // When I have multi-item carousels, I'll just need to need to make a calculate_snap_width method
-      if (this.snap_width != this.container.offsetWidth) {
+      if (this.snap_width != this.container.offsetWidth)
         this.adjust_spacing();
-      }
     },
-      
+    
     adjust_spacing: function() {
       // Will need to be called if the container's size changes --> orientation change
       var visible_width = this.container.offsetWidth;
-
-      if (this.old_width !== undefined && this.old_width == visible_width) {
-        return
-      }
+      
+      if (this.old_width !== undefined && this.old_width == visible_width)
+        return;
+      var old_snap_width = this.snap_width;
       this.old_width = visible_width;
-
+      
       var cumulative_offset = 0;
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
       this.item_count = items.length;
@@ -1869,19 +1922,15 @@ Ur.WindowLoaders['carousel'] = (function(){
       // Adjust the container to be the necessary width.
       // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
       var total_width = 0;
-      x$().iterate(
-        items,
-        function(item) {
-          total_width += get_real_width(item);
-        }
-      );
+      for (var i = 0; i < items.length; i++)
+        total_width += get_real_width(items[i]);
 
       this.items.style.width = total_width + "px";
 
       // For the multi-pane case --> I'll set the snap_width to the width of a single element
       this.snap_width = visible_width;
 
-      if(this.multi) {
+      if (this.multi) {
         var item_width = get_real_width(items[0]); // I'm making an assumption here that all items have the same width
         var magazine_count = Math.floor(visible_width / item_width);
 
@@ -1891,15 +1940,23 @@ Ur.WindowLoaders['carousel'] = (function(){
         var space = (visible_width - magazine_count*item_width);
         this.snap_width = space / (magazine_count - 1) + item_width;
         this.last_index = this.item_count - this.magazine_count;
-      } else { 
+      } else
         this.last_index = this.item_count - 1;
-      }
 
       this.item_index = (this.last_index < this.item_index) ? this.last_index : this.item_index;
-      cumulative_offset -= this.snap_width*this.item_index; // initial offset
-      translate(this.items, cumulative_offset);
+      
+      cumulative_offset -= items[this.item_index].offsetLeft; // initial offset
+      var center_offset = parseInt((this.snap_width - get_real_width(items[0]))/2);
+      cumulative_offset += center_offset; // CHECK
+      
+      if (old_snap_width) {
+        this.destination_offset = cumulative_offset;
+        translate(this.items, this.get_transform(this.items) + parseInt((this.snap_width - old_snap_width)/2));
+      } else
+        translate(this.items, cumulative_offset);
+      
       var cumulative_item_offset = 0;
-
+      
       if (this.multi) {
         x$().iterate(
           items,
@@ -1913,45 +1970,21 @@ Ur.WindowLoaders['carousel'] = (function(){
           }
         );
         this.update_index(this.item_index);
-      } else {
-        // Single Pane
-        x$().iterate(
-          items,
-          function(item, i) {
-            var offset = cumulative_item_offset;
-            if ( i != 0 ) {
-              offset += visible_width - items[i-1].offsetWidth;
-            }
-            translate(item, offset);
-            cumulative_item_offset = offset;
-          }
-        );
       }
     },
 
-    autoScroll: function (direction, miliSec) {
-      var self = this;
-
-      window.clearInterval(self.flag.intervalId);
+    autoscroll_start: function() {
+      if (!this.autoscroll)
+        return;
       
-      self.flag.intervalId = window.setInterval(function (){
+      var self = this;
+      self.flag.timeoutId = setTimeout(function() {
+        self.move_to(self.autoscroll_dir == "next" ? -self.magazine_count : self.magazine_count);
+      }, self.autoscroll_delay);
+    },
 
-        var position = self.item_index;
-
-        if (direction == "next") {
-          self.move_to(-self.magazine_count);
-        }
-        else if (direction == "prev") {
-          self.move_to(self.magazine_count);
-        }
-
-        // Looping
-        if (position == self.last_index && direction == "next") {
-          self.jump_to_index(0);
-        } else if ((position == 0 && direction == "prev")) {
-          self.jump_to_index(self.last_index);
-        }
-      }, miliSec);
+    autoscroll_stop: function() {
+      clearTimeout(this.flag.timeoutId);
     },
 
     get_event_coordinates: function(e) {
@@ -1992,27 +2025,28 @@ Ur.WindowLoaders['carousel'] = (function(){
     },
 
     update_index: function(new_index) {
-      if (new_index === undefined) { 
-        return
-      }
+      if (new_index === undefined)
+        return;
 
       this.item_index = new_index;
-      if (this.item_index < 0) {
+      if (this.item_index < 0)
         this.item_index = 0;
-      } else if(this.item_index > this.last_index) {
+      else if (this.item_index > this.last_index)
         this.item_index = this.last_index - 1;
-      }
       
-      if(this.count !== undefined) {
-        if(this.multi) {
+      if (this.count !== undefined) {
+        if (this.multi)
           this.count.innerHTML = this.item_index + 1 + " to " + (this.item_index + this.magazine_count) +" of " + this.item_count;
-        } else {
-          this.count.innerHTML = this.item_index + 1 + " of " + this.item_count;
+        else if (this.infinite) {
+          var real_index = (this.real_item_count + this.item_index - this.clone_count) % this.real_item_count;
+          this.count.innerHTML = real_index + 1 + " of " + this.real_item_count;
         }
+        else
+          this.count.innerHTML = this.item_index + 1 + " of " + this.item_count;
       }
       
       // TODO: Update to work w multipane
-      var active_item = x$(this.items).find("*[data-ur-carousel-component='item'][data-ur-state='active']");
+      var active_item = x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']");
       active_item.attr("data-ur-state","inactive");
       var new_active_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
       x$(new_active_item).attr("data-ur-state","active");
@@ -2020,18 +2054,18 @@ Ur.WindowLoaders['carousel'] = (function(){
       this.update_buttons();
     },
 
-    start_swipe: function(e)
-    {
+    start_swipe: function(e) {
       this.flag.touched = true;
+      stifle(e);
+      this.autoscroll_stop();
 
       this.touch_in_progress = true; // For non-touch environments
       var coords = this.get_event_coordinates(e);
 
-      if(coords !== null)
-      {
+      if (coords !== null) {
         var x_transform = this.get_transform(this.items);
 
-        if(this.starting_offset === undefined || this.starting_offset === null) {
+        if (this.starting_offset === undefined || this.starting_offset === null) {
           this.starting_offset = x_transform;
           this.start_pos = coords;
         } else {
@@ -2043,39 +2077,34 @@ Ur.WindowLoaders['carousel'] = (function(){
       this.click = true;
     },
     
-    continue_swipe: function(e)
-    {
-      if (!this.vertical_scroll) {
+    continue_swipe: function(e) {
+      if (!this.vertical_scroll)
         stifle(e);
-      }
 
-      if(!this.touch_in_progress) // For non-touch environments
-        return
+      if (!this.touch_in_progress) // For non-touch environments
+        return;
 
       var coords = this.get_event_coordinates(e);
-      if(coords !== null)
-      {
+      if (coords !== null) {
         this.end_pos = coords;
         var dist = this.swipe_dist() + this.starting_offset;
         translate(this.items, dist);
       }
-      this.click = false;    
+      this.click = false;
     },
     
-    finish_swipe: function(e)
-    {      
-      if(!this.click) {
+    finish_swipe: function(e) {
+      if (!this.click)
         stifle(e);
-      } else {
+      else {
+        this.touch_in_progress = false; // need this or carousel won't scroll after clicking item without dragging
+        this.autoscroll_start();
         return;
       }
-
       this.touch_in_progress = false; // For non-touch environments
-      
-      if(!this.touch || e.touches.length == 0)
-      {    
+
+      if (!this.touch || e.touches.length == 0)
         this.move_helper(this.get_displacement_index());
-      }
     },
     get_displacement_index: function() {
       var swipe_distance = this.swipe_dist();
@@ -2085,18 +2114,19 @@ Ur.WindowLoaders['carousel'] = (function(){
         // Sigmoid FTW:
         var range = this.magazine_count;
         var range_offset = range/2.0;
-        displacement_index = zero_ceil( 1/(1 + Math.pow(Math.E,-1.0*swipe_distance)) * range - range_offset);
-      } else {
+        displacement_index = zero_ceil(1/(1 + Math.pow(Math.E,-1.0*swipe_distance)) * range - range_offset);
+      } else
         displacement_index = zero_ceil(swipe_distance/this.snap_width);
-      }
 
       return displacement_index;
     },
     snap_to: function(displacement) {
-      this.destination_offset = displacement + this.starting_offset;        
-      var max_offset = -1*(this.last_index)*this.snap_width;
+      this.destination_offset = displacement + this.starting_offset;
 
-      if ( this.destination_offset < max_offset || this.destination_offset > 0 ) {
+      var max_offset = -1*(this.last_index)*this.snap_width;
+      if (this.infinite)
+        max_offset = -this.items.offsetWidth;
+      if (this.destination_offset < max_offset || this.destination_offset > 0) {
         if (Math.abs(this.destination_offset - max_offset) < 1) {
           // Hacky -- but there are rounding errors
           // I see this when I'm in multi-mode and using the buttons
@@ -2107,28 +2137,55 @@ Ur.WindowLoaders['carousel'] = (function(){
         }
       }
       
-      this.momentum();  
+      this.momentum();
     },
 
     move_to: function(direction) {
-      if (this.increment_flag) {
-        // The animation isnt done yet
-        return
-      }
+      // The animation isnt done yet
+      if (this.increment_flag)
+        return;
+      
       this.starting_offset = this.get_transform(this.items);
       var new_idx = this.item_index - direction;
       this.move_helper(direction);
     },
 
-    move_helper: function(direction){
+    move_helper: function(direction) {
+      this.autoscroll_stop();
+
       var new_idx = this.get_new_index(direction);
 
-      var new_item = x$(this.items).find("*[data-ur-carousel-component='item']")[new_idx];
-      var current_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
+      var items = x$(this.items).find("[data-ur-carousel-component='item']");
 
-      var offset = this.get_transform(current_item) - this.get_transform(new_item);
-      var displacement = current_item.offsetLeft - new_item.offsetLeft + offset;
+      if (this.infinite) {
+        var old_transform = this.get_transform(this.items);
 
+        if (new_idx == this.last_index) { // at the end of carousel
+          this.item_index = this.clone_count;
+          new_idx = this.item_index + 1;
+
+          var alt_transform = old_transform;
+          alt_transform += this.clones[0].offsetLeft - items[this.clone_count].offsetLeft; // CHECK
+          translate(this.items, alt_transform);
+          this.starting_offset = -items[this.clone_count].offsetLeft;
+          this.starting_offset += parseInt((this.snap_width - this.clones[0].offsetWidth)/2); // CHECK
+        }
+        else if (new_idx == 0) { // at the beginning of carousel
+          this.item_index = this.last_index - this.clone_count;
+          new_idx = this.item_index - 1;
+
+          var alt_transform = old_transform;
+          alt_transform += items[this.clone_count].offsetLeft - this.clones[0].offsetLeft; // CHECK
+          translate(this.items, alt_transform);
+          this.starting_offset = -items[this.last_index - this.clone_count].offsetLeft;
+          this.starting_offset += parseInt((this.snap_width - this.clones[0].offsetWidth)/2); // CHECK
+        }
+      }
+
+      var new_item = items[new_idx];
+      var current_item = items[this.item_index];
+
+      var displacement = current_item.offsetLeft - new_item.offsetLeft; // CHECK
       this.snap_to(displacement);
       this.update_index(new_idx);
     },
@@ -2138,14 +2195,11 @@ Ur.WindowLoaders['carousel'] = (function(){
       this.move_to(direction);
     },
 
-    momentum: function()
-    {
+    momentum: function() {
       if (this.touch_in_progress)
-      {
         return;
-      }     
 
-      this.increment_flag = false;	
+      this.increment_flag = false;
 
       var x_transform = this.get_transform(this.items);
       var distance = this.destination_offset - x_transform;
@@ -2153,22 +2207,32 @@ Ur.WindowLoaders['carousel'] = (function(){
 
       // Hacky -- this is for the desktop browser only -- to fix rounding errors
       // Ideally, this is removed at compile time
-      if(Math.abs(increment) < 0.01) {
+      if(Math.abs(increment) < 0.01)
         increment = 0;
-      } 
 
       translate(this.items, increment + x_transform);
 
-      if(increment != 0)
-      {
-	this.increment_flag = true;
-      }
+      if (increment != 0)
+        this.increment_flag = true;
 
-      if(this.increment_flag)
-      {
-        setTimeout(function(obj){return function(){obj.momentum()}}(this),16);		    
-      } else {
+      if (this.increment_flag)
+        setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
+      else {
         this.starting_offset = null;
+        
+        if (this.infinite) {
+          if (this.item_index == this.item_count - this.clone_count) // almost at the end of carousel
+            this.item_index = this.clone_count;
+          else if (this.item_index == this.clone_count - 1) // almost at the beginning of carousel
+            this.item_index = this.last_index - this.clone_count;
+          
+          var alt_transform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.item_index].offsetLeft;
+          alt_transform += parseInt((this.snap_width - this.clones[0].offsetWidth)/2); // CHECK
+          translate(this.items, alt_transform);
+        }
+        
+        this.autoscroll_start();
+        
         x$().iterate(
           this.onSlideCallbacks,
           function(callback) {
@@ -2178,8 +2242,7 @@ Ur.WindowLoaders['carousel'] = (function(){
       }
     },    
 
-    swipe_dist: function()
-    {
+    swipe_dist: function() {
       if (this.end_pos === undefined)
         return 0;
       var sw_dist = this.end_pos['x'] - this.start_pos['x'];
@@ -2190,28 +2253,21 @@ Ur.WindowLoaders['carousel'] = (function(){
   // Private constructors
   var ComponentConstructors = {
     "button": function(group, component, type) {
-      if (group["button"] === undefined) {
+      if (group["button"] === undefined)
         group["button"] = {};
-      }
       
       var type = x$(component).attr("data-ur-carousel-button-type")[0];
-      if(type === undefined) {
-        // Declaration error
+
+      // Declaration error
+      if (type === undefined)
         console.log("Uranium declaration error: Malformed carousel button type on:" + component.outerHTML);
-      }
 
       group["button"][type] = component;
 
       // Maybe in the future I'll make it so any of the items can be the starting item
-      if (type == "prev") {
-        x$(component).attr("data-ur-state","disabled");
-      } else {
-        x$(component).attr("data-ur-state","enabled");
-      }
-
+      x$(component).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
     }
   }
-
   function CarouselLoader(){}
   
   CarouselLoader.prototype.initialize = function(fragment) {
@@ -2622,7 +2678,9 @@ Ur.QuickLoaders['geocode'] = (function(){
     });
 
     for (var element in temp){
-      obj[temp[element][1]].push(temp[element]);
+      if (temp[element[1]] === undefined) {}else{
+        obj[temp[element][1]].push(temp[element]);
+      }
     }
 
     return obj;
