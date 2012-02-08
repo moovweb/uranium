@@ -2916,6 +2916,7 @@ Ur.QuickLoaders['tabs'] = (function(){
       x$(button).on(
         "click",
         function(evt) {
+          var firstScrollTop = evt.target.offsetTop - document.body.scrollTop;
           var this_tab_id = x$(evt.currentTarget).attr("data-ur-tab-id")[0];
           
           for(var tab_id in self.elements["buttons"]) {
@@ -2936,11 +2937,13 @@ Ur.QuickLoaders['tabs'] = (function(){
               x$(content).attr("data-ur-state", new_state);
             }
           }
+          var secondScrollTop =  evt.target.offsetTop - document.body.scrollTop;
+          if ( secondScrollTop <= 0 ) {
+            window.scrollBy(0, secondScrollTop - firstScrollTop);
+          }
         }
       ); 
-
     }
-
   }
   
   var ComponentConstructors = {
