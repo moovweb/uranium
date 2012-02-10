@@ -65,54 +65,68 @@ tbody th, td {
  * 
  */
 
-
-.table-wrapper {
-   position: relative;
-}
-.table-menu-wrapper {
-   position: absolute;
-   top: -3em;
-   right: 0;
-}
-.table-menu-btn-icon {
-  width: 0px;
-  height: 0px;
-  font-size: 0px;
-  line-height: 0px;
-  border: 6px solid;
-  margin-right: 5px;
-  margin-top:4px;
-  vertical-align: middle;
-  border-image: initial;
-  display:inline-block;
-  border-color: gray transparent transparent transparent;
-}
-.table-menu {
-   position: absolute;
-   background-color: #fff;
-   padding: 10px;
-   border: 1px solid #ccc;
-   font-size: 1.2em;
-   width: 12em;
-   right: 0;
-   left: auto;
-}
-.table-menu-hidden {
-   left: -999em;
-   right: auto;
-}
-.table-menu-btn {
-   text-decoration: none;
-   color: #333;
-   font-size: 1.2em;
-   background: #eee;
-   padding: .3em 10px .3em 5px;
-   border: 1px solid #ccc;
-}
-.table-menu li {
-   padding: .3em 0;
-}
-
+ .table-wrapper {
+    position: relative;
+ }
+ .table-menu-wrapper {
+    /*position: relative;*/
+ }
+ .table-menu-btn-icon {
+   width: 0px;
+   height: 0px;
+   font-size: 0px;
+   line-height: 0px;
+   border: 6px solid;
+   margin-right: 5px;
+   margin-top:4px;
+   vertical-align: middle;
+   border-image: initial;
+   display:inline-block;
+   border-color: gray transparent transparent transparent;
+ }
+ .table-menu > ul{
+    position: absolute;
+    z-index: 100;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    width: 12em;
+    right: 0;
+    left: auto;
+    top: -7px;
+ }
+ .table-background-element {
+   position: fixed; 
+   left: 0px; 
+   top: 0px; 
+   z-index: 99; 
+   width: 400px; 
+   height: 1008px; 
+   background: black; 
+   opacity: 0.3; 
+   width: 100% !important;
+ }
+ .table-menu-hidden {
+    display: none;
+    left: -999em;
+    right: auto;
+ }
+ .table-menu-btn {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2em;
+    background: #eee;
+    padding: .3em 10px .3em 5px;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 100;
+    top: -30px;
+    right: 0;
+ }
+ .table-menu li {
+    padding: .3em 0;
+ }
  
 table {
 	width: 100%;
@@ -133,7 +147,7 @@ table {
   display:table-cell !important;
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 480px) {
 	.enhanced th.optional, 
 	.enhanced td.optional {
 		display: table-cell;
