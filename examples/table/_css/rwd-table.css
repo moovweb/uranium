@@ -101,8 +101,7 @@ tbody th, td {
    left: 0px; 
    top: 0px; 
    z-index: 99; 
-   width: 400px; 
-   height: 1008px; 
+   height: 100%; 
    background: black; 
    opacity: 0.3; 
    width: 100% !important;
