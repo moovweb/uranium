@@ -3626,7 +3626,6 @@ Ur.QuickLoaders['flex-table'] = (function(){
   
   
   function flexTable(aTable) {
-    
     // TODO :: Add the ability to pass in options
     this.options = {
       idprefix: 'col-',   // specify a prefix for the id/headers values
@@ -3641,8 +3640,8 @@ Ur.QuickLoaders['flex-table'] = (function(){
         tbody = aTable.body,
         hdrCols = x$(thead).find('th'),
         bodyRows = x$(tbody).find('tr'), 
-        container = o.checkContainer ? x$(o.checkContainer) : x$('<div class="table-menu table-menu-hidden"><ul /></div>');
-    
+        container = o.checkContainer ? x$(o.checkContainer) : x$('<div class="table-menu table-menu-hidden" ><ul /></div>');
+        
     addEnhancedClass(table);
     
     hdrCols.each(function(elm, i){
@@ -3712,17 +3711,20 @@ Ur.QuickLoaders['flex-table'] = (function(){
     
     // Create a "Display" menu      
     if (!o.checkContainer) {
-      var menuWrapper = x$('<div class="table-menu-wrapper" />'),
-      menuBtn = x$('<a href="#" class="table-menu-btn"><span class="table-menu-btn-icon"></span>Display</a>');
-
+      var menuWrapper = x$('<div class="table-menu-wrapper"  />'),
+      menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
+      var popupBG = x$('<div class = "table-background-element"></div>');
       menuBtn.click(function(){
-        container.toggleClass("table-menu-hidden");            
+        container.toggleClass("table-menu-hidden");
         return false;
       });
-
+      popupBG.click(function(){
+        container.toggleClass("table-menu-hidden");
+        return false;
+      });
+      container.bottom(popupBG);
       menuWrapper.bottom(menuBtn).bottom(container);
       x$(table).before(menuWrapper);
-      
       // TODO: Implement with XUI functions
       // assign click-to-close event
       // x$(document).click(function(e){ 
