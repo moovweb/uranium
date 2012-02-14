@@ -3620,12 +3620,11 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
 Ur.QuickLoaders['flex-table'] = (function(){
   
   // Add an enhanced class to the tables the we'll be modifying
-  function addEnhancedClass (tbl) {
+  function addEnhancedClass(tbl) {
     x$(tbl).addClass("enhanced");
   }
   
-  
-  function flexTable(aTable) {
+  function flexTable(aTable, table_index) {
     // TODO :: Add the ability to pass in options
     this.options = {
       idprefix: 'col-',   // specify a prefix for the id/headers values
@@ -3669,18 +3668,17 @@ Ur.QuickLoaders['flex-table'] = (function(){
       
       // create the show/hide toggles
       if ( !th.hasClass(o.persist) ) {
-        var toggle = x$('<li><input type="checkbox" name="toggle-cols" id="toggle-col-'+i+'" value="'+id+'" /> <label for="toggle-col-'+i+'">'+th.html()+'</label></li>');
-
+        var toggle = x$('<li><input type="checkbox" name="toggle-cols" id="toggle-col-' +
+                          i +  '-' + table_index +  '" value="' + id + '" /> <label for="toggle-col-' + i + '-' + table_index +  '">'
+                          + th.html() +'</label></li>');
         container.find('ul').bottom(toggle);
-        
-        var tgl = toggle.find("input")
+        var tgl = toggle.find("input");
         
         tgl.on("change", function() {
-          
           var input = x$(this),
-              val = input.attr('value');
-              cols = x$("#" + val[0] + ", [headers=" + val[0] + "]");
-          
+              val = input.attr('value'),
+              cols = x$("div[data-ur-id='" + table_index + "'] " + "#" + val[0] + ", " +
+                        "div[data-ur-id='" + table_index + "'] " + "[headers=" + val[0] + "]");
           if (!this.checked) { 
             cols.addClass('ur_ft_hide'); 
             cols.removeClass("ur_ft_show"); }
@@ -3711,27 +3709,22 @@ Ur.QuickLoaders['flex-table'] = (function(){
     
     // Create a "Display" menu      
     if (!o.checkContainer) {
-      var menuWrapper = x$('<div class="table-menu-wrapper"  />'),
-      menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
-      var popupBG = x$('<div class = "table-background-element"></div>');
+      var menuWrapper = x$('<div class="table-menu-wrapper"></div>'),
+          popupBG = x$('<div class = "table-background-element"></div>'),
+          menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
       menuBtn.click(function(){
         container.toggleClass("table-menu-hidden");
+        x$(this).toggleClass("menu-btn-show");
         return false;
       });
       popupBG.click(function(){
         container.toggleClass("table-menu-hidden");
+        menuBtn.toggleClass("menu-btn-show");
         return false;
       });
       container.bottom(popupBG);
       menuWrapper.bottom(menuBtn).bottom(container);
       x$(table).before(menuWrapper);
-      // TODO: Implement with XUI functions
-      // assign click-to-close event
-      // x$(document).click(function(e){ 
-        // if ( !x$(e.target).is( container ) && !$(e.target).is( container.find("*") ) ) {     
-        //   container.addClass("table-menu-hidden");
-        // }        
-      // });
     };
   }
   
@@ -3740,16 +3733,9 @@ Ur.QuickLoaders['flex-table'] = (function(){
   TableLoader.prototype.initialize = function(fragment) {
     var tables = x$(fragment).find_elements('flex-table');
     Ur.Widgets["flex-table"] = {};
-    
-    // console.log("tables:  ");
-    // console.log(tables);
-    
-    // var tables = this.find(fragment);
-  
-    for(var name in tables){
-      Ur.Widgets["flex-table"][name] = new flexTable(tables[name]);
-      // Only supports one table for the moment
-      // break;
+
+    for(var table in tables){
+      Ur.Widgets["flex-table"][name] = new flexTable(tables[table], table);
     }
   }
   

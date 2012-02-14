@@ -87,7 +87,7 @@ tbody th, td {
    position: fixed; 
    left: 0px; 
    top: 0px; 
-   z-index: 99; 
+   z-index: 99;
    height: 100%; 
    width: 100% !important;
  }
