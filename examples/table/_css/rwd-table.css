@@ -1,0 +1,163 @@
+/* Styles for the tables test page */
+
+
+
+/* Test page styles */
+.docs {
+   margin: 3% 5%;
+   font-size: 1.2em;
+}
+.docs h3 {
+   font-size: 1.2em;
+   font-weight: bold;
+   margin: .5em 0;
+}
+.docs p {
+   margin: 0 0 1em;
+}
+
+
+body {
+   font: 62.5%/1.3 Helvetica, sans-serif;
+}
+.a11y-only {
+   position: absolute;
+   left: -999em;
+}
+
+
+/* Table styles */
+table {
+	width: 100%;
+	font-size: 1.2em;
+}
+.table-wrapper {
+   margin: 5em 5%;
+}
+thead th {
+	white-space: nowrap;
+	border-bottom: 1px solid #ccc;
+	color: #888;
+}
+th, td {
+   padding: .5em 1em;
+	background-color: #fff;
+	text-align: right;
+}
+th:first-child, 
+td:first-child {
+   text-align: left;
+}
+tbody th, td {
+	border-bottom: 1px solid #e6e6e6;
+}
+.co-name {
+   display: block;
+   font-size: .9em;
+   opacity: .4;
+}
+
+
+
+/* Essential Styles 
+ * 
+ *  Include these in your style sheets. 
+ * 
+ */
+
+ .table-wrapper {
+    position: relative;
+ }
+ .table-menu-wrapper {
+    /*position: relative;*/
+ }
+ .table-menu > ul{
+    position: absolute;
+    z-index: 100;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    width: 12em;
+    right: 0;
+    left: auto;
+    top: -7px;
+ }
+ .table-background-element {
+   position: fixed; 
+   left: 0px; 
+   top: 0px; 
+   z-index: 99;
+   height: 100%; 
+   width: 100% !important;
+ }
+ .table-menu-hidden {
+    display: none;
+    left: -999em;
+    right: auto;
+ }
+ .table-menu-btn {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2em;
+    background: #eee;
+    padding: .4em 10px .4em 5px;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 100;
+    top: -30px;
+    right: 0;
+ }
+ .table-menu-btn-icon {
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+    line-height: 0px;
+    border: 6px solid;
+    margin-right: 5px;
+    margin-top:4px;
+    vertical-align: middle;
+    border-image: initial;
+    display:inline-block;
+    border-color: gray transparent transparent transparent;
+  }
+  .menu-btn-show > .table-menu-btn-icon {
+     border-color:transparent transparent gray transparent;
+     margin-top:-8px;
+   }
+ .table-menu li {
+    padding: .3em 0;
+ }
+ 
+table {
+	width: 100%;
+}
+.enhanced th,
+.enhanced td {
+   display: none;
+}
+.enhanced th.essential, 
+.enhanced td.essential {
+   display: table-cell;
+}
+
+.enhanced .ur_ft_hide {
+  display:none !important;
+}
+.enhanced .ur_ft_show {
+  display:table-cell !important;
+}
+
+@media screen and (min-width: 480px) {
+	.enhanced th.optional, 
+	.enhanced td.optional {
+		display: table-cell;
+	}
+}
+
+@media screen and (min-width: 800px) {
+   .enhanced th, 
+   .enhanced td {
+      display: table-cell;
+   }
+}
