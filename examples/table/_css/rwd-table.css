@@ -71,19 +71,6 @@ tbody th, td {
  .table-menu-wrapper {
     /*position: relative;*/
  }
- .table-menu-btn-icon {
-   width: 0px;
-   height: 0px;
-   font-size: 0px;
-   line-height: 0px;
-   border: 6px solid;
-   margin-right: 5px;
-   margin-top:4px;
-   vertical-align: middle;
-   border-image: initial;
-   display:inline-block;
-   border-color: gray transparent transparent transparent;
- }
  .table-menu > ul{
     position: absolute;
     z-index: 100;
@@ -114,13 +101,30 @@ tbody th, td {
     color: #333;
     font-size: 1.2em;
     background: #eee;
-    padding: .3em 10px .3em 5px;
+    padding: .4em 10px .4em 5px;
     border: 1px solid #ccc;
     position: absolute;
     z-index: 100;
     top: -30px;
     right: 0;
  }
+ .table-menu-btn-icon {
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+    line-height: 0px;
+    border: 6px solid;
+    margin-right: 5px;
+    margin-top:4px;
+    vertical-align: middle;
+    border-image: initial;
+    display:inline-block;
+    border-color: gray transparent transparent transparent;
+  }
+  .menu-btn-show > .table-menu-btn-icon {
+     border-color:transparent transparent gray transparent;
+     margin-top:-8px;
+   }
  .table-menu li {
     padding: .3em 0;
  }
