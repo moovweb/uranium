@@ -2,6 +2,18 @@
   margin-bottom: 30px
 }
 
+.mw_swipe_dots > div {
+  display: inline-block;
+  background: green;
+  width: 4px;
+  height: 4px;
+  margin: 10px;
+}
+
+.mw_swipe_dots > [mw_swipe_toggle_dot="active"] {
+  background: black;
+}
+
 [data-ur-swipe-toggle-component]{
   padding: 10px;
   border: 1px solid #ddd;
