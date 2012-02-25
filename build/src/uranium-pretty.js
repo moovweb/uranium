@@ -2371,6 +2371,7 @@ Ur.QuickLoaders['geocode'] = (function(){
   function Geocode(data) {
     this.elements = data;
     this.callback = x$(this.elements.set).attr("data-ur-callback")[0];
+    this.errorCallback = x$(this.elements.set).attr("data-ur-error-callback")[0];
 
     UrGeocode = function(obj){return function(){obj.setup_callbacks();};}(this);
     var s = document.createElement('script');
@@ -2489,18 +2490,21 @@ Ur.QuickLoaders['geocode'] = (function(){
       console.error("Ur geolocation error -- Error Getting Your Coordinates!");
       switch(error.code) 
       {
-      case error.TIMEOUT:
-        console.error ('Ur geolocation error -- Timeout');
-        break;
-      case error.POSITION_UNAVAILABLE:
-        console.error ('Ur geolocation error -- Position unavailable');
-        break;
-      case error.PERMISSION_DENIED:
-        console.error ('Ur geolocation error -- Permission denied');
-        break;
-      case error.UNKNOWN_ERROR:
-        console.error ('Ur geolocation error -- Unknown error');
-        break;
+        case error.TIMEOUT:
+          console.error ('Ur geolocation error -- Timeout');
+          break;
+        case error.POSITION_UNAVAILABLE:
+          console.error ('Ur geolocation error -- Position unavailable');
+          break;
+        case error.PERMISSION_DENIED:
+          console.error ('Ur geolocation error -- Permission denied');
+          break;
+        case error.UNKNOWN_ERROR:
+          console.error ('Ur geolocation error -- Unknown error');
+          break;
+      }
+      if(this.errorCallback !== undefined) {
+        eval(this.errorCallback);
       }
     },
 
@@ -2539,7 +2543,11 @@ Ur.QuickLoaders['geocode'] = (function(){
               obj.geoSuccess(position);
             };
           }(this), 
-          this.geoError, 
+          function(obj) {
+            return function(errors){
+              obj.geoError(errors);
+            };
+          }(this),
           this.geoDenied
         );  
       }
@@ -2678,7 +2686,7 @@ Ur.QuickLoaders['geocode'] = (function(){
     });
 
     for (var element in temp){
-      if (temp[element[1]] === undefined) {}else{
+      if (temp[element][1] === undefined) {}else{
         obj[temp[element][1]].push(temp[element]);
       }
     }
@@ -3234,12 +3242,12 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
     var self = this;
     var touch = {};
 
-    var preferences = this.preferences = { axis: "x", swipeUpdate: true, sensitivity: 10, loop: true,
+    var preferences = this.preferences = { dots: false, axis: "x", swipeUpdate: true, sensitivity: 10, loop: true,
                          touchbuffer: 20, tapActive: false,  touch: true, jump: 1, loop: true,
                          autoSpeed: 500 };
     
 
-    this.flags = {touched: false, autoID: null }
+    this.flags = {touched: false, autoID: null}
     var flags = this.flags;
 
                                     
@@ -3267,21 +3275,25 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
     }
 
     var setTouch = function () {
+
+      var pef_touch = self.preferences.touch;
+
       slider.addEventListener('touchstart', function (e){
-        touch.start(e, this);
-        e.stopPropagation();
-        e.preventDefault()
+        if (pef_touch == true){
+          touch.start(e, this);
+        }
       }, false);
 
       slider.addEventListener('touchmove', function (e){
-        touch.continu(e, this);
-        e.stopPropagation();
-        e.preventDefault()
+        if (pef_touch == true){
+          touch.move(e, this);
+        }
       }, false);
 
       slider.addEventListener('touchend', function (e){
-        touch.end(e, this);
-        e.stopPropagation();
+        if (pef_touch == true){
+          touch.end(e, this);
+        }
       }, false);
     }
 
@@ -3344,6 +3356,8 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
       return activeObj;
     }
 
+    var touch = {};
+
     touch.start = function (e) {
       flags.touched = true;
 
@@ -3355,14 +3369,14 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
 
     }
 
-    touch.continu = function (e) {
+    touch.move = function (e) {
 
       endPos = {
         x: e.touches[0].clientX,
         y: e.touches[0].clientY
       };
       if(self.preferences.swipeUpdate == true){
-        swipeUpdate();
+        swipeUpdate(e);
       }
 
       var swipeDist =  endPos[axis] - startPos[axis];
@@ -3382,14 +3396,18 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
       markerPos = {};
     }
 
-    var swipeUpdate = function () {
+    var swipeUpdate = function (e) {
       if(endPos[axis] + self.preferences.sensitivity < markerPos[axis]){
         self.next();
         markerPos = endPos;
+        e.stopPropagation();
+        e.preventDefault();
       }
       if(endPos[axis] - self.preferences.sensitivity > markerPos[axis]){
         self.prev();
         markerPos = endPos;
+        e.stopPropagation();
+        e.preventDefault();
       }
     }
 
@@ -3407,13 +3425,24 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
       }
     }
 
-    var activeIndex = function (){
-      var length = slider.childNodes.length;
-      for(i = 0; i < length; i++){
-        if(slider.children[i].getAttribute('data-ur-state') == 'active'){
-          break;
+    var activeIndex = function (Element){
+      if (Element === undefined) {
+        var obj = self.components.slider;
+      } else {
+        var obj = Element;
+      }
+
+      var length = obj.children.length;
+      var i = 0;
+
+      if (length > i) {
+        for(i ; i < length; i++){
+          if(obj.children[i].getAttribute('data-ur-state') == 'active'){
+            break;
+          }
         }
       }
+
       return i;
     }
 
@@ -3441,19 +3470,53 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
       }, this.preferences.autoSpeed);
     }
 
+    SwipeToggle.prototype.dots = function () {
+      // create dots for the carousel
+      
+      var index = activeIndex(this.components.slider);
+      var slider_name = this.components.name;
+      var slider = this.components.slider;
+      var imageLength = x$(slider)[0].children.length -1;
+      var dotsDiv = document.createElement('div');
+      var attributeName = "mw_swipe_toggle_dot"
+
+      dotsDiv.setAttribute("class", "mw_" + slider_name + "_dots mw_swipe_dots")
+
+      for(var i = 0; i < imageLength + 1; i++){
+        tempDivHolder = document.createElement("div");
+        tempDivHolder.id = 'mw_image_dot' + (i+1);
+        dotsDiv.appendChild(tempDivHolder);
+      }
+      if (dotsDiv.children[0] === undefined){} else {
+        dotsDiv.children[index].setAttribute(attributeName, "active");
+      }
+      x$(slider).after(dotsDiv);
+
+      slider.addEventListener('update', function (e){
+        // make new dot active
+        var eventSlider = e.slider;
+        var name = slider_name;
+        var dots_name = "mw_" + slider_name + "_dots";
+
+        var index = activeIndex(e.slider);
+
+        for (var i = 0; i < imageLength + 1; i++) {
+          dotsDiv.children[i].setAttribute(attributeName, "");
+        }
+        dotsDiv.children[index].setAttribute(attributeName, "active");
+      });
+    }
+
     SwipeToggle.prototype.autoPopulate = function (autoPopulateList, append) {
       var location = this.components.slider;
       if (autoPopulateList === undefined) {
-        console.log("no items listed")
+        console.warn("Swipe Toggle: no items listed")
       }else if (append == "top" || append == "bottom"){
         for (var items in autoPopulateList) {
           x$(location)[append](autoPopulateList[items]);
         }
         this.setActive(this.components.slider.children[0]);
       }
-    }
-    SwipeToggle.prototype.start = function () {
-    
     }
 
     if(components === undefined){}else{
@@ -3478,8 +3541,10 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
         console.log("incorrect axis set")
       }
 
-      if (this.preferences.touch == true){
-        setTouch();
+      setTouch();
+
+      if (this.preferences.dots == true) {
+        this.dots()
       }
       loadEvent(this.components.slider);
     }
@@ -3596,19 +3661,7 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
   return new SwipeToggle;
 })
 
-// // // side show carousel :: a addition to the slide toggler
-// Ur.QuickLoaders['SideShow'] = (function(){
-//   function SideShow () {
-//   }
-//   SideShow.prototype = new Ur.QuickLoaders['SwipeToggle'];
-//   SideShow.prototype['bunnies'] = console.log('bunnies');
-//   
-//   SideShow.prototype.initialize = function () {
-//     console.log("initializing side show")
-//   }
-//   
-//   return new SideShow();
-// })
+
 
 /* Flex Table *
  * * * * * *
