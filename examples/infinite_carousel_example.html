@@ -30,10 +30,28 @@
         width: 220px;   /* doesn't look offset when it hasn't loaded yet */
       }
       [data-ur-carousel-component="item"] {
-        -webkit-user-drag: none; /* only for non-mobile browser */
         float: left;
+        position: relative;
         width: 220px;
         height: 125px;
+      }
+      [data-ur-carousel-component="item"] img {
+        -webkit-user-drag: none; /* only for non-mobile browser */
+        width: 220px;
+        height: 125px;
+      }
+      [data-ur-carousel-component="item"] span {
+        font-family: sans-serif;
+        font-size: 32px;
+        line-height: 40px;
+        margin-top: -20px;
+        margin-left: -20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+        width: 40px;
+        height: 40px;
       }
       [data-ur-carousel-button-type] {
         -webkit-user-select: none;
@@ -69,6 +87,10 @@
         padding-top: 15px;
         text-align: center;
       }
+      [data-ur-clone] {
+        background: black;
+        opacity: 0.5;
+      }
     </style>
   </head>
   <body>
@@ -76,13 +98,28 @@
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-state="enabled">previous</div>
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">next</div>
       <div data-ur-carousel-component="count">Initializing...</div>
-      <div data-ur-carousel-component="view_container" data-ur-autoscroll="enabled" data-ur-autoscroll-delay="1500" data-ur-android3d="enabled">
+      <div data-ur-carousel-component="view_container" data-ur-autoscroll="disabled" data-ur-autoscroll-delay="1500" data-ur-android3d="enabled">
       <div data-ur-carousel-component="scroll_container">
-        <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-birthday.png" data-ur-state="inactive">
-        <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-dogable.png" data-ur-state="active">
-        <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-dotw2.png">
-        <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-bonsai.png">
-        <img data-ur-carousel-component="item" src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-happyhour.png">
+        <div data-ur-carousel-component="item">
+          <img src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-birthday.png">
+          <span>1</span>
+        </div>
+        <div data-ur-carousel-component="item">
+          <img src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-dogable.png">
+          <span>2</span>
+        </div>
+        <div data-ur-carousel-component="item">
+          <img src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-dotw2.png">
+          <span>3</span>
+        </div>
+        <div data-ur-carousel-component="item">
+          <img src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-bonsai.png">
+          <span>4</span>
+        </div>
+        <div data-ur-carousel-component="item">
+          <img src="http://d1topzp4nao5hp.cloudfront.net/1800flowers/1.10.522/images/carousel/car-happyhour.png">
+          <span>5</span>
+        </div>
       </div>
     </div>
     <div style="padding: 10px;">
