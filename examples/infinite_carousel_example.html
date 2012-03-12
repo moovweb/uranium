@@ -95,6 +95,22 @@
         background: black;
         opacity: 0.5;
       }
+      @media screen and (min-width: 480px) {
+       [data-ur-carousel-component="view_container"] {
+          height: 178px;
+        }
+        [data-ur-carousel-component="scroll_container"] {
+          width: 313px;   /* doesn't look offset when it hasn't loaded yet */
+        }
+        [data-ur-carousel-component="item"] {
+          width: 313px;
+          height: 178px;
+        }
+        [data-ur-carousel-component="item"] img {
+          width: 313px;
+          height: 178px;
+        }
+      }
     </style>
   </head>
   <body>
