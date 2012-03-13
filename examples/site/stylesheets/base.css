@@ -253,14 +253,14 @@ body#late_load_map_page *[data-ur-set="map"] {
 body#font_resizer_page p[data-ur-font-resizer-component="content"] {
   color: black; }
 
-body#font_resizer_examples_page .font_resizer {
+body#font_resizer_page .font_resizer {
   background: silver;
   color: #323232;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   padding: 10px; }
-  body#font_resizer_examples_page .font_resizer p {
+  body#font_resizer_page .font_resizer p {
     color: #323232; }
 
 body#select_buttons_page [data-ur-select-buttons-component] {
