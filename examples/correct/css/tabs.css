@@ -1,14 +1,14 @@
 *[data-ur-tabs-component='button'] { 
   opacity: 0.5;
   background-color: #6495ED;
-border: 1px solid black;
-border-top-left-radius: 5px 5px;
-border-top-right-radius: 5px 5px;
-bottom: -1px;
-display: inline-block;
-margin: 0px 5px;
-padding: 5px;
-position: relative;	
+  border: 1px solid black;
+  border-top-left-radius: 5px 5px;
+  border-top-right-radius: 5px 5px;
+  bottom: -1px;
+  display: inline-block;
+  margin: 0px 5px;
+  padding: 5px;
+  position: relative;	
 }
 
 *[data-ur-tabs-component='content'] {

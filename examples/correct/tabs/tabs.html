@@ -1,17 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html> 
 <html>
   <head>
     <title>Tabs</title>
- <script src="../build/src/uranium-pretty.js"></script>
-<!--  <script src="../lib/external/xui-2.0.0.js"></script>
-  <script src="../lib/uranium_mixins.js"></script>
-  <script src="../lib/tabs.js"></script>
--->
-   <link rel="stylesheet" type='text/css' href='css/test.css' />
-    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
+    
+    <!-- Production Uranium -->
+    <script src="../../../build/src/uranium-pretty.js"></script>
+
+    <!--  Development JS -->
+    <!-- <script src="../../../lib/external/xui-2.3.2.js"></script>
+    <script src="../../../lib/uranium_mixins.js"></script>
+    <script src="../../../lib/tabs.js"></script>    -->
+
+    <!-- CSS -->
+    <link rel="stylesheet" type='text/css' href='../css/test.css' />
+    <link rel="stylesheet" type='text/css' href='../css/tabs.css' />
+    
   </head>
 
-  <body suite='Tabs'>
+  <body class='tabs'>
 
     <h1> Tabs </h1>
 
@@ -26,15 +32,54 @@
     
     <h2>Options</h2>
     <div class="option">
+      <h3>HTML Attributes</h3>
+      <pre>
+        data-ur-set="tabs"
+        data-ur-tabs-component="button"
+        data-ur-tabs-component="content"
+        data-ur-tab-id="NAME"
+        data-ur-state="enabled"
+      </pre>
+      
+      <h3>Required CSS</h3>
+      <pre>
+        /* Required SCSS Styling */
+        *[data-ur-set="tabs"] {
+          *[data-ur-tabs-component='button'] { 
+            opacity: 0.5;
+          }
+          *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+            opacity: 1.0;
+          }
+          *[data-ur-tabs-component='content'] {
+            display:none;
+          }
+          *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+            display: block;
+          } 
+        }
+      </pre>
+      <pre>
+        /* Required CSS Styling */
+        *[data-ur-set="tabs"] *[data-ur-tabs-component='button'] { 
+          opacity: 0.5;
+        }
+        *[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+            opacity: 1.0;
+        }
+        *[data-ur-set="tabs"] *[data-ur-tabs-component='content'] {
+            display:none;
+        }
+        *[data-ur-set="tabs"] *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+            display: block;
+        }
+      </pre>
+    </div>
+    
+    <h2>Options</h2>
+    <div class="option">
       <p>Here's a list of attributes to add to HTML to make the widget work</p>
-      <ul>
-        <li>data-ur-set="tabs" - add this attribute to a div that wraps the whole widget</li>
-        <li>data-ur-tabs-component="button" - add this attribute to the button (i.e. the thing to be clicked)</li>
-        <li>data-ur-tabs-component="content" - add this attribute to all the contents</li>
-        <li>data-ur-tab-id="NAME" - give matching IDs to button and the content to be toggled</li>
-        <li>data-ur-state="enabled" -  assign this attribute to the button and content that will be activated 
-          when the page loads</li>
-      </ul>
+
     </div>
 
     <h2>Demonstration</h2>
@@ -70,15 +115,15 @@
               Third </span>        
 
               <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
-                <img width='300px' height='300px' src='images/pic1.jpeg?some_attr=noway'/> 
+                <img width='300px' height='300px' src='../images/pic1.jpeg?some_attr=noway'/> 
              </div>
 
               <div data-ur-tabs-component='content' data-ur-tab-id='second'>
-                <img width='300px' height='300px' src='images/pic2.jpeg?some_attr=noway'/> 
+                <img width='300px' height='300px' src='../images/pic2.jpeg?some_attr=noway'/> 
               </div>
 
               <div data-ur-tabs-component='content' data-ur-tab-id='third'>
-                <img width='300px' height='300px' src='images/pic3.jpeg?some_attr=noway'/> 
+                <img width='300px' height='300px' src='../images/pic3.jpeg?some_attr=noway'/> 
               </div>       
             </div>
           </div>
@@ -108,13 +153,69 @@
           </div>
         </div>
       </div>
-      <div>
-        <p>More examples of tabs can be found <a href="tabs_examples.html">here</a>.</p>
-      </div>
-    
+      <div class='test' name='Simple'>
 
-    
+        <h3>Selecting the Second Tab</h3>
+        <div class="description">
+          Here, as proof of principle, we're putting the data-ur-state="enabled" attribute on the
+          second tab to illustrate that a different tab can be selected at the outset.
+        </div>
+        <div data-ur-set='tabs'>
+          <span data-ur-tabs-component='button'
+          data-ur-tab-id='first_sanity'> First </span>        
+          <span data-ur-tabs-component='button'
+          data-ur-tab-id='second_sanity' data-ur-state='enabled'> Second </span>        
+          <span data-ur-tabs-component='button'
+          data-ur-tab-id='third_sanity'> Third </span>        
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='first_sanity'>
+            <img width='30px' height='30px' src='../images/pic1.jpeg?some_attr=noway'/> 
+         </div>
+
+          <div data-ur-tabs-component='content' data-ur-state='enabled'
+           data-ur-tab-id='second_sanity'>
+            <img width='30px' height='30px' src='../images/pic2.jpeg?some_attr=noway'/> 
+          </div>
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='third_sanity'>
+            <img width='30px' height='30px' src='../images/pic3.jpeg?some_attr=noway'/> 
+         </div>       
+
+        </div>
+      </div>    
+
+
+      <div class='test' name='accordions'>
+
+        <h3> Accordions with State </h3>
+
+        <div class='description'>
+          So far, we've set one of the tabs to be enabled at the start. However, this isn't
+          strictly necessary. In the following example, we start out with no statuses defined.
+          The first one we click on will be the first one to be "enabled".
+        </div>
+
+        <div data-ur-set='tabs' data-ur-closeable='true'>
+          <div data-ur-tabs-component='button' data-ur-tab-id='first_accordions'> First </div>
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='first_accordions'>
+            Oh uranium.
+          </div>
+
+          <div data-ur-tabs-component='button' data-ur-tab-id='second_accordions'>Second </div>
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='second_accordions'>
+            You do nifty widget things.
+          </div>
+
+          <div data-ur-tabs-component='button' data-ur-tab-id='third_accordions'> Third </div>        
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='third_accordions'>
+            And you're performant.
+          </div>       
+
+        </div>
+      </div>
 <hr>
-<address></address>
-<!-- hhmts start -->Last modified: Tue Aug 16 19:31:39 PDT 2011 <!-- hhmts end -->
-</body> </html>
+</body> 
+</html>
