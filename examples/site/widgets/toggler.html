@@ -63,30 +63,30 @@ widget_selected: selected
   </div><!-- wrapper -->
   <div class='wrapper'>
     <h2> Required Styles </h2>
-    <div class='content'>
-      <pre>
-        /* Required SCSS Styling */
+    <div class='css'>
+<pre>
+/* Required SCSS Styling */
 
-        *[data-ur-set='toggler'] {
-          /* By Default content is hidden*/
-          *[data-ur-toggler-component='content'] {
-            display:none;
-          }
-          *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-            display: block;
-          }
-        }
-      </pre>
-      <pre>
-        /* Required CSS Styling */
+*[data-ur-set='toggler'] {
+  /* By Default content is hidden*/
+  *[data-ur-toggler-component='content'] {
+    display:none;
+  }
+  *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+    display: block;
+  }
+}
+</pre>
+<pre>
+/* Required CSS Styling */
 
-        *[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
-          display:none;
-        }
-        *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-          display: block;
-        }
-      </pre>      
+*[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
+  display:none;
+}
+*[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+  display: block;
+}
+</pre>      
     </div>
   </div>
   <div class="wrapper">

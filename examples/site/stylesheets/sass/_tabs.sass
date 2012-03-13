@@ -12,6 +12,24 @@ body#tabs_page
       margin: 0px 5px
       padding: 5px
       position: relative
+      &#babutton
+        padding-top: 6px
+        padding-bottom: 0px
+        padding-left: 0px
+        padding-right: 0px
+        margin: 0
+      &#babutton[data-ur-state="disabled"]
+        background: #FFD700
+        color: #323232
+        opacity: 0.2
+      &#babutton[data-ur-state="enabled"]
+        color: #323232
+        background: #FFD700
+      &#babutton[data-ur-tab-id="advancedpage"]
+        margin-right: 100px
+        margin-left: 0px
+        margin-top: 0px
+        margin-bottom: 0px
     &[data-ur-tabs-component='content']
       display: none
       background-color: #C0C0C0
