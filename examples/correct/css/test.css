@@ -1,3 +1,7 @@
+body {
+  font-family: sans-serif;
+}
+
 .test, .description {
   border: 1px solid #555555;
   margin: 20px;
@@ -12,8 +16,5 @@
   color: black;
   margin-left: 10px; 
   font-family: courier;
-  text-align: left;}
-
-body {
-  font-family: sans-serif;
+  text-align: left;
 }
