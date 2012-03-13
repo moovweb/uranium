@@ -666,7 +666,8 @@ body#togglers_page .content {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  overflow: scroll; }
 body#togglers_page div[name='Dialog'] *[data-ur-toggler-component='button'] {
   border-radius: 5px;
   background-color: #ffd700;
