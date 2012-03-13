@@ -12,11 +12,11 @@
 }
 
 [data-ur-select-buttons-component='increment'] {
-  background-color: #33CC00;	
+  background-color: #33CC00;  
 }
 
 [data-ur-select-buttons-component='decrement'] {
-  background-color: #CC3300;	
+  background-color: #CC3300;  
 }
 
 [data-ur-select-buttons-component][data-ur-state='disabled'] { opacity: .5 }

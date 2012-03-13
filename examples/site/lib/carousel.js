@@ -392,7 +392,7 @@ Ur.WindowLoaders['carousel'] = (function(){
         return;
       }     
 
-      this.increment_flag = false;	
+      this.increment_flag = false;  
 
       var x_transform = this.get_transform(this.items);
       var distance = this.destination_offset - x_transform;
@@ -408,12 +408,12 @@ Ur.WindowLoaders['carousel'] = (function(){
 
       if(increment != 0)
       {
-	this.increment_flag = true;
+  this.increment_flag = true;
       }
 
       if(this.increment_flag)
       {
-        setTimeout(function(obj){return function(){obj.momentum()}}(this),16);		    
+        setTimeout(function(obj){return function(){obj.momentum()}}(this),16);        
       } else {
         this.starting_offset = null;
         x$().iterate(

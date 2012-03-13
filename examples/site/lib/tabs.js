@@ -51,12 +51,12 @@ Ur.QuickLoaders['tabs'] = (function(){
               x$(button).attr("data-ur-state","disabled");
               x$(content).attr("data-ur-state","disabled");
             } else {
-	      var new_state = "enabled";
-	      if (closeable) {
-		var old_state = x$(button).attr("data-ur-state")[0];
-		old_state = (old_state === undefined) ? "disabled" : old_state;
-		new_state = (old_state == "enabled") ? "disabled" : "enabled";
-	      }
+        var new_state = "enabled";
+        if (closeable) {
+    var old_state = x$(button).attr("data-ur-state")[0];
+    old_state = (old_state === undefined) ? "disabled" : old_state;
+    new_state = (old_state == "enabled") ? "disabled" : "enabled";
+        }
               x$(button).attr("data-ur-state", new_state);
               x$(content).attr("data-ur-state", new_state);
             }

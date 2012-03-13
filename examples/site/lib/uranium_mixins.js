@@ -198,12 +198,12 @@ var mixins = {
         }
 
         if (valid_component) {
-	  // This is widget specific behavior
-	  // -- For toggler, it makes sense for content to be multiple things
-	  // -- For select-lists, it doesn't
-	  if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-	    component_constructors[component_type](groups[my_set_id], this, component_type);
-	  } else {
+    // This is widget specific behavior
+    // -- For toggler, it makes sense for content to be multiple things
+    // -- For select-lists, it doesn't
+    if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
+      component_constructors[component_type](groups[my_set_id], this, component_type);
+    } else {
             groups[my_set_id][component_type] = this;
           }
         }

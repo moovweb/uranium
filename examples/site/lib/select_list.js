@@ -33,10 +33,10 @@ Ur.QuickLoaders['select-list'] = (function(){
       this.list.children,
       function(element, index){
         if(element == selected_list_option) {
-	  x$(element).attr("data-ur-state","enabled");
+    x$(element).attr("data-ur-state","enabled");
           value = x$(element).attr("value");
         } else {
-	  x$(element).attr("data-ur-state","disabled");
+    x$(element).attr("data-ur-state","disabled");
         }
       }
     );

@@ -28,28 +28,28 @@ body {
 
 /* Table styles */
 table {
-	width: 100%;
-	font-size: 1.2em;
+  width: 100%;
+  font-size: 1.2em;
 }
 .table-wrapper {
    margin: 5em 5%;
 }
 thead th {
-	white-space: nowrap;
-	border-bottom: 1px solid #ccc;
-	color: #888;
+  white-space: nowrap;
+  border-bottom: 1px solid #ccc;
+  color: #888;
 }
 th, td {
    padding: .5em 1em;
-	background-color: #fff;
-	text-align: right;
+  background-color: #fff;
+  text-align: right;
 }
 th:first-child, 
 td:first-child {
    text-align: left;
 }
 tbody th, td {
-	border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
 }
 .co-name {
    display: block;
@@ -130,7 +130,7 @@ tbody th, td {
  }
  
 table {
-	width: 100%;
+  width: 100%;
 }
 .enhanced th,
 .enhanced td {
@@ -149,10 +149,10 @@ table {
 }
 
 @media screen and (min-width: 480px) {
-	.enhanced th.optional, 
-	.enhanced td.optional {
-		display: table-cell;
-	}
+  .enhanced th.optional, 
+  .enhanced td.optional {
+    display: table-cell;
+  }
 }
 
 @media screen and (min-width: 800px) {

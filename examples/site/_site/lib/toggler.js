@@ -48,12 +48,12 @@ Ur.QuickLoaders['toggler'] = (function(){
 
       // Make the content state match the button state
       x$().iterate(
-	toggler["content"],
-	function(content) {
-	  if (x$(content).attr("data-ur-state")[0] === undefined ) {
+  toggler["content"],
+  function(content) {
+    if (x$(content).attr("data-ur-state")[0] === undefined ) {
             x$(content).attr("data-ur-state", toggler_state)
-	  }
-	}
+    }
+  }
       );
 
     }

@@ -1,9 +1,9 @@
 (function () {
 /**
-	Base
-	====
+  Base
+  ====
 
-	Includes functionality used to manipulate the xui object collection; things like iteration and set operations are included here.
+  Includes functionality used to manipulate the xui object collection; things like iteration and set operations are included here.
 
 */
 var undefined,
@@ -49,38 +49,38 @@ function removex(array, from, to) {
 xui.fn = xui.prototype = {
 
 /**
-	extend
-	------
+  extend
+  ------
 
-	Allows extension of xui's prototype with the members/methods of the provided object.
+  Allows extension of xui's prototype with the members/methods of the provided object.
 
-	### syntax ###
+  ### syntax ###
 
-		xui.extend( object );
+    xui.extend( object );
 
-	Call extend on the xui object to extend all xui instances with functionality and/or members of the passed-in object.
+  Call extend on the xui object to extend all xui instances with functionality and/or members of the passed-in object.
 
-	### arguments ###
+  ### arguments ###
 
-	- object:object a JavaScript object whose members will be incorporated into xui's prototype
+  - object:object a JavaScript object whose members will be incorporated into xui's prototype
  
-	### example ###
+  ### example ###
 
-	Given:
+  Given:
 
-		var thing = {
-		    first : function() { return this[ 0 ]; },
-		    last : function() { return this[ this.length - 1 ]; }
-		}
+    var thing = {
+        first : function() { return this[ 0 ]; },
+        last : function() { return this[ this.length - 1 ]; }
+    }
 
-	We can extend xui's prototype with these methods by using `extend`:
+  We can extend xui's prototype with these methods by using `extend`:
 
-		xui.extend( thing );
+    xui.extend( thing );
 
-	Now we can use `first` and `last` in all instances of xui:
+  Now we can use `first` and `last` in all instances of xui:
 
-		var f = x$( '.someClass' ).first();
-		var l = x$( '.differentClass' ).last();
+    var f = x$( '.someClass' ).first();
+    var l = x$( '.differentClass' ).last();
 */
     extend: function(o) {
         for (var i in o) {
@@ -89,37 +89,37 @@ xui.fn = xui.prototype = {
     },
 
 /**
-	find
-	----
+  find
+  ----
 
-	Finds matching elements based on a query string. The global xui entry `x$` function is a reference to the `find` function.
+  Finds matching elements based on a query string. The global xui entry `x$` function is a reference to the `find` function.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(window).find( selector [, context] );
+    x$(window).find( selector [, context] );
 
-	### arguments ###
+  ### arguments ###
 
-	- selector:string a CSS selector string to match elements to.
-	- context:HTMLElement an html element to use as the "root" element to search from.
+  - selector:string a CSS selector string to match elements to.
+  - context:HTMLElement an html element to use as the "root" element to search from.
  
-	### example ###
+  ### example ###
 
-	Given the following markup:
+  Given the following markup:
 
-		<ul id="first">
-		    <li id="one">1</li>
-		    <li id="two">2</li>
-		</ul>
-		<ul id="second">
-		    <li id="three">3</li>
-		    <li id="four">4</li>
-		</ul>
+    <ul id="first">
+        <li id="one">1</li>
+        <li id="two">2</li>
+    </ul>
+    <ul id="second">
+        <li id="three">3</li>
+        <li id="four">4</li>
+    </ul>
 
-	We can select only specific list items by using `find`, as opposed to selecting off the document root:
+  We can select only specific list items by using `find`, as opposed to selecting off the document root:
 
-		x$('li'); // returns all four list item elements.
-		x$('#second').find('li'); // returns list items "three" and "four"
+    x$('li'); // returns all four list item elements.
+    x$('#second').find('li'); // returns list items "three" and "four"
 */
     find: function(q, context) {
         var ele = [], tempNode;
@@ -172,14 +172,14 @@ xui.fn = xui.prototype = {
     },
 
 /**
-	set
-	---
+  set
+  ---
 
-	Sets the objects in the xui collection.
+  Sets the objects in the xui collection.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(window).set( array );
+    x$(window).set( array );
 */
     set: function(elements) {
         var ret = xui();
@@ -190,21 +190,21 @@ xui.fn = xui.prototype = {
     },
 
 /**
-	reduce
-	---
+  reduce
+  ---
 
-	Reduces the set of elements in the xui object to a unique set.
+  Reduces the set of elements in the xui object to a unique set.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(someSelector).reduce( [ elements [, toIndex ]] );
+    x$(someSelector).reduce( [ elements [, toIndex ]] );
 
-	The elements parameter is optional - if not specified, will reduce the elements in the current xui object.
+  The elements parameter is optional - if not specified, will reduce the elements in the current xui object.
 
-	### arguments ###
+  ### arguments ###
 
-	- elements:Array an array of elements to reduce (optional)
-	- toIndex:Number last index of elements to include in the reducing operation.
+  - elements:Array an array of elements to reduce (optional)
+  - toIndex:Number last index of elements to include in the reducing operation.
 */
     reduce: function(elements, b) {
         var a = [],
@@ -219,34 +219,34 @@ xui.fn = xui.prototype = {
     },
 
 /**
-	has
-	---
+  has
+  ---
 
-	Has modifies the elements array and returns all the elements that match (has) a CSS selector.
+  Has modifies the elements array and returns all the elements that match (has) a CSS selector.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(someSelector).has( query );
+    x$(someSelector).has( query );
 
-	Behind the scenes, actually calls the filter method.
+  Behind the scenes, actually calls the filter method.
 
-	### arguments ###
+  ### arguments ###
 
-	- query:string a CSS selector that will match all children of originally-selected xui collection
+  - query:string a CSS selector that will match all children of originally-selected xui collection
 
-	### example ###
+  ### example ###
 
-	Given
+  Given
 
-		<div>
-		    <div class="gotit">these ones</div>
-		    <div class="gotit">have an extra class</div>
-		</div>
-	
-	We can use xui like so
+    <div>
+        <div class="gotit">these ones</div>
+        <div class="gotit">have an extra class</div>
+    </div>
+  
+  We can use xui like so
 
-		var divs = x$('div'); // we've got all four divs from above.
-		var someDivs = divs.has('.gotit'); // we've now got only the two divs with the class
+    var divs = x$('div'); // we've got all four divs from above.
+    var someDivs = divs.has('.gotit'); // we've now got only the two divs with the class
 */
      has: function(q) {
          var list = xui(q);
@@ -260,29 +260,29 @@ xui.fn = xui.prototype = {
          });
      },
 /**
-	filter
-	------
+  filter
+  ------
 
-	Both an internal utility function, but also allows developers to extend xui using custom filters
+  Both an internal utility function, but also allows developers to extend xui using custom filters
 
-	### syntax ###
+  ### syntax ###
 
-		x$(someSelector).filter( functionHandle );
+    x$(someSelector).filter( functionHandle );
 
-	The `functionHandle` function will get invoked with `this` being the element being iterated on,
-	and the index passed in as a parameter.
+  The `functionHandle` function will get invoked with `this` being the element being iterated on,
+  and the index passed in as a parameter.
 
-	### arguments ###
+  ### arguments ###
 
-	- functionHandle:Function a function reference that evaluates to true/false, determining which elements get included in the xui collection.
+  - functionHandle:Function a function reference that evaluates to true/false, determining which elements get included in the xui collection.
 
-	### example ###
+  ### example ###
 
-	Perhaps we'd want to filter input elements that are disabled:
+  Perhaps we'd want to filter input elements that are disabled:
 
-		x$('input').filter(function(i) {
-		    return this.checked;
-		});
+    x$('input').filter(function(i) {
+        return this.checked;
+    });
 */
     filter: function(fn) {
         var elements = [];
@@ -292,32 +292,32 @@ xui.fn = xui.prototype = {
     },
 
 /**
-	not
-	---
+  not
+  ---
 
-	Not modifies the elements array and returns all the elements that DO NOT match a CSS Query - the opposite of has
+  Not modifies the elements array and returns all the elements that DO NOT match a CSS Query - the opposite of has
 
-	### syntax ###
+  ### syntax ###
 
-		x$(someSelector).not( someOtherSelector );
+    x$(someSelector).not( someOtherSelector );
 
-	### arguments ###
+  ### arguments ###
 
-	- someOtherSelector:string a CSS selector that elements should NOT match to.
+  - someOtherSelector:string a CSS selector that elements should NOT match to.
 
-	### example ###
+  ### example ###
 
-	Given
+  Given
 
-		<div>
-		    <div class="gotit">these ones</div>
-		    <div class="gotit">have an extra class</div>
-		</div>
+    <div>
+        <div class="gotit">these ones</div>
+        <div class="gotit">have an extra class</div>
+    </div>
 
-	We can use xui like so
+  We can use xui like so
 
-		var divs = x$('div'); // we've got all four divs from above.
-		var someDivs = divs.not('.gotit'); // we've now got only the two divs _without_ the class "gotit"	
+    var divs = x$('div'); // we've got all four divs from above.
+    var someDivs = divs.not('.gotit'); // we've now got only the two divs _without_ the class "gotit"  
 */
     not: function(q) {
         var list = slice(this);
@@ -331,24 +331,24 @@ xui.fn = xui.prototype = {
     },
 
 /**
-	each
-	----
+  each
+  ----
 
-	Element iterator (over the xui collection).
+  Element iterator (over the xui collection).
 
-	### syntax ###
+  ### syntax ###
 
-		x$(window).each( functionHandle )
+    x$(window).each( functionHandle )
 
-	### arguments ###
+  ### arguments ###
 
-	- functionHandle:Function callback function that will execute with each element being passed in as the `this` object and first parameter to callback
+  - functionHandle:Function callback function that will execute with each element being passed in as the `this` object and first parameter to callback
 
-	### example ###
+  ### example ###
 
-		x$(someSelector).each(function(element, index, xui) {
-		    alert("Here's the " + index + " element: " + element);
-		});	
+    x$(someSelector).each(function(element, index, xui) {
+        alert("Here's the " + index + " element: " + element);
+    });  
 */
     each: function(fn) {
         // we could compress this by using [].forEach.call - but we wouldn't be able to support
@@ -364,55 +364,55 @@ xui.fn = xui.prototype = {
 xui.fn.find.prototype = xui.fn;
 xui.extend = xui.fn.extend;
 /**
-	DOM
-	===
+  DOM
+  ===
 
-	Set of methods used for manipulating the Document Object Model (DOM).
+  Set of methods used for manipulating the Document Object Model (DOM).
 
 */
 xui.extend({
 /**
-	html
-	---
+  html
+  ---
 
-	For manipulating HTML in the DOM.
+  For manipulating HTML in the DOM.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(window).html( location, html );
+    x$(window).html( location, html );
 
-	or this method will accept just an html fragment with a default behavior of inner.
+  or this method will accept just an html fragment with a default behavior of inner.
 
-		x$(window).html( html );
+    x$(window).html( html );
 
-	or you can use shorthand syntax by using the location name argument (see below) as the function name.
+  or you can use shorthand syntax by using the location name argument (see below) as the function name.
 
-		x$(window).outer( html );
-		x$(window).before( html );
+    x$(window).outer( html );
+    x$(window).before( html );
 
-	### arguments ###
+  ### arguments ###
 
-	- location:string can be one of: inner, outer, top, bottom, remove, before or after.
-	- html:string any string of html markup or an HTMLElement.
+  - location:string can be one of: inner, outer, top, bottom, remove, before or after.
+  - html:string any string of html markup or an HTMLElement.
 
-	### example ###
+  ### example ###
 
-		x$('#foo').html( 'inner', '<strong>rock and roll</strong>' );
-		x$('#foo').html( 'outer', '<p>lock and load</p>' );
-		x$('#foo').html( 'top', '<div>bangers and mash</div>');
-		x$('#foo').html( 'bottom','<em>mean and clean</em>');
-		x$('#foo').html( 'remove');
-		x$('#foo').html( 'before', '<p>some warmup html</p>');
-		x$('#foo').html( 'after', '<p>more html!</p>');
+    x$('#foo').html( 'inner', '<strong>rock and roll</strong>' );
+    x$('#foo').html( 'outer', '<p>lock and load</p>' );
+    x$('#foo').html( 'top', '<div>bangers and mash</div>');
+    x$('#foo').html( 'bottom','<em>mean and clean</em>');
+    x$('#foo').html( 'remove');
+    x$('#foo').html( 'before', '<p>some warmup html</p>');
+    x$('#foo').html( 'after', '<p>more html!</p>');
 
-	or
+  or
 
-		x$('#foo').html( '<p>sweet as honey</p>' );
-		x$('#foo').outer( '<p>free as a bird</p>' );
-		x$('#foo').top( '<b>top of the pops</b>' );
-		x$('#foo').bottom( '<span>bottom of the barrel</span>' );
-		x$('#foo').before( '<pre>first in line</pre>' );
-		x$('#foo').after( '<marquee>better late than never</marquee>' );
+    x$('#foo').html( '<p>sweet as honey</p>' );
+    x$('#foo').outer( '<p>free as a bird</p>' );
+    x$('#foo').top( '<b>top of the pops</b>' );
+    x$('#foo').bottom( '<span>bottom of the barrel</span>' );
+    x$('#foo').before( '<pre>first in line</pre>' );
+    x$('#foo').after( '<marquee>better late than never</marquee>' );
 */
     html: function(location, html) {
         clean(this);
@@ -475,27 +475,27 @@ xui.extend({
     },
 
 /**
-	attr
-	---
+  attr
+  ---
 
-	For getting or setting attributes on elements.
+  For getting or setting attributes on elements.
 
-	### syntax (and examples) ###
+  ### syntax (and examples) ###
 
-		x$(window).attr( attribute, value );
+    x$(window).attr( attribute, value );
 
-	To retrieve an attribute value, simply don't provide the optional second parameter:
+  To retrieve an attribute value, simply don't provide the optional second parameter:
 
-		x$('.someClass').attr( 'class' );
+    x$('.someClass').attr( 'class' );
 
-	To set an attribute, use both parameters:
+  To set an attribute, use both parameters:
 
-		x$('.someClass').attr( 'disabled', 'disabled' );
+    x$('.someClass').attr( 'disabled', 'disabled' );
 
-	### arguments ###
+  ### arguments ###
 
-	- attribute:string the name of the element's attribute to set or retrieve.
-	- html:string if retrieving an attribute value, don't specify this parameter. Otherwise, this is the value to set the attribute to.
+  - attribute:string the name of the element's attribute to set or retrieve.
+  - html:string if retrieving an attribute value, don't specify this parameter. Otherwise, this is the value to set the attribute to.
 */
     attr: function(attribute, val) {
         if (arguments.length == 2) {
@@ -596,54 +596,54 @@ function clean(collection) {
     });
 }
 /**
-	Event
-	=====
+  Event
+  =====
 
-	A good old fashioned yet new skool event handling system.
+  A good old fashioned yet new skool event handling system.
 
-	- click
-	- load
-	- touchstart
-	- touchmove
-	- touchend
-	- touchcancel
-	- gesturestart
-	- gesturechange
-	- gestureend
-	- orientationchange
-	
+  - click
+  - load
+  - touchstart
+  - touchmove
+  - touchend
+  - touchcancel
+  - gesturestart
+  - gesturechange
+  - gestureend
+  - orientationchange
+  
 */
 xui.events = {}; var cache = {};
 xui.extend({
 
 /**
-	on
-	--
+  on
+  --
 
-	Registers a callback function to a DOM event on the element collection.
+  Registers a callback function to a DOM event on the element collection.
 
-	For more information see:
+  For more information see:
 
-	- http://developer.apple.com/webapps/docs/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/chapter_7_section_1.html#//apple_ref/doc/uid/TP40006511-SW1
+  - http://developer.apple.com/webapps/docs/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/chapter_7_section_1.html#//apple_ref/doc/uid/TP40006511-SW1
 
-	### syntax ###
+  ### syntax ###
 
-		x$('button').on( 'click', function(e){ alert('hey that tickles!') });
+    x$('button').on( 'click', function(e){ alert('hey that tickles!') });
 
-	or...
+  or...
 
-		x$('a.save').click(function(e){ alert('tee hee!') });
+    x$('a.save').click(function(e){ alert('tee hee!') });
 
-	### arguments ###
+  ### arguments ###
 
-	- type:string the event to subscribe to click|load|etc
-	- fn:function a callback function to execute when the event is fired
+  - type:string the event to subscribe to click|load|etc
+  - fn:function a callback function to execute when the event is fired
 
-	### example ###
+  ### example ###
 
-		x$(window).load(function(e){
-		  x$('.save').touchstart( function(evt){ alert('tee hee!') }).css(background:'grey');
-		});
+    x$(window).load(function(e){
+      x$('.save').touchstart( function(evt){ alert('tee hee!') }).css(background:'grey');
+    });
 */
     on: function(type, fn, details) {
         return this.each(function (el) {
@@ -666,38 +666,38 @@ xui.extend({
     },
 
 /**
-	un
-	--
+  un
+  --
 
-	Unregisters a specific callback, or if no specific callback is passed in, 
-	unregisters all event callbacks of a specific type.
+  Unregisters a specific callback, or if no specific callback is passed in, 
+  unregisters all event callbacks of a specific type.
 
-	### syntax ###
+  ### syntax ###
 
-		x$('button').un('click', specificCallback);
+    x$('button').un('click', specificCallback);
 
-	The above unregisters only the `specificCallback` function on all button elements.
+  The above unregisters only the `specificCallback` function on all button elements.
 
-		x$('button').un('click');
+    x$('button').un('click');
 
-	The above unregisters all callbacks assigned to all button elements.
+  The above unregisters all callbacks assigned to all button elements.
 
-	### arguments ###
+  ### arguments ###
 
-	- type:string the event to unsubscribe from click|load|etc
-	- fn:function callback function to unsubscribe (optional)
+  - type:string the event to unsubscribe from click|load|etc
+  - fn:function callback function to unsubscribe (optional)
 
-	### example ###
+  ### example ###
 
-		x$('button').on('click',function(){alert('hi!');}); // callback subscribed to click.
-		x$('button').un('click'); // No more callbacks fired on click of button elements!
+    x$('button').on('click',function(){alert('hi!');}); // callback subscribed to click.
+    x$('button').un('click'); // No more callbacks fired on click of button elements!
 
-	or ...
+  or ...
 
-		var funk = function() { alert('yo!'); }
-		x$('button').on('click', funk); // callback subscribed to click.
-		x$('button').on('click', function(){ alert('hi!'); });
-		x$('button').un('click', funk); // When buttons are clicked, the 'hi!' alert will pop up but not the 'yo!' alert.
+    var funk = function() { alert('yo!'); }
+    x$('button').on('click', funk); // callback subscribed to click.
+    x$('button').on('click', function(){ alert('hi!'); });
+    x$('button').un('click', funk); // When buttons are clicked, the 'hi!' alert will pop up but not the 'yo!' alert.
 */
     un: function(type, fn) {
         return this.each(function (el) {
@@ -719,23 +719,23 @@ xui.extend({
     },
 
 /**
-	fire
-	----
+  fire
+  ----
 
-	Fires a specific event on the xui collection.
+  Fires a specific event on the xui collection.
 
-	### syntax ###
+  ### syntax ###
 
-		x$('button').fire('click', {some:'data'});
+    x$('button').fire('click', {some:'data'});
 
-	Fires an event with some specific data attached to the event's `data` property.
+  Fires an event with some specific data attached to the event's `data` property.
 
-	### arguments ###
+  ### arguments ###
 
-	- type:string the event to fire, click|load|etc
-	- data:object JavaScript object to attach to the event's `data` property.
+  - type:string the event to fire, click|load|etc
+  - data:object JavaScript object to attach to the event's `data` property.
 
-	### example ###
+  ### example ###
 
         x$('button#reset').fire('click', {died:true});
         x$('.target').fire('touchstart');
@@ -751,8 +751,8 @@ xui.extend({
             event.eventName = type;
           
             el.dispatchEvent(event);
-  	    });
-  	}
+        });
+    }
 });
 
 "click load submit touchstart touchmove touchend touchcancel gesturestart gesturechange gestureend orientationchange".split(' ').forEach(function (event) {
@@ -815,87 +815,87 @@ function _createResponder(element, eventName, handler) {
     return responder;
 }
 /**
-	Effects
-	=======
+  Effects
+  =======
 
-	Animations, transforms and transitions for getting the most out of hardware accelerated CSS.
+  Animations, transforms and transitions for getting the most out of hardware accelerated CSS.
 
 */
 
 xui.extend({
 
 /**
-	Tween
-	-----
+  Tween
+  -----
 
-	Tween is a method for transforming a css property to a new value.
+  Tween is a method for transforming a css property to a new value.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(selector).tween(obj, callback);
+    x$(selector).tween(obj, callback);
 
-	### arguments ###
+  ### arguments ###
 
-	- properties: object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
-	- callback (optional): function to run when the animation is complete
+  - properties: object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
+  - callback (optional): function to run when the animation is complete
 
-	### example ###
+  ### example ###
 
-		x$('#box').tween({ left:'100px', backgroundColor:'blue' });
-		x$('#box').tween({ left:'100px', backgroundColor:'blue' }, function() { alert('done!'); });
-		x$('#box').tween([{ left:'100px', backgroundColor:'green', duration:.2 }, { right:'100px' }]); 
+    x$('#box').tween({ left:'100px', backgroundColor:'blue' });
+    x$('#box').tween({ left:'100px', backgroundColor:'blue' }, function() { alert('done!'); });
+    x$('#box').tween([{ left:'100px', backgroundColor:'green', duration:.2 }, { right:'100px' }]); 
 */
-	// options: duration, after, easing
-	tween: function( props, callback ) {
-	    
-	    // creates an options obj for emile
-	    var emileOpts = function(o) {
-	        var options = {};
-    		"duration after easing".split(' ').forEach( function(p) {
-        		if (props[p]) {
-        		    options[p] = props[p];
-        		    delete props[p];
-        		}
-    		});
-    		return options;
-	    }
-	    
-	    // serialize the properties into a string for emile
-	    var serialize = function(props) {
-		    var serialisedProps = [], key;
-    		if (typeof props != string) {
-      		    for (key in props) {
+  // options: duration, after, easing
+  tween: function( props, callback ) {
+      
+      // creates an options obj for emile
+      var emileOpts = function(o) {
+          var options = {};
+        "duration after easing".split(' ').forEach( function(p) {
+            if (props[p]) {
+                options[p] = props[p];
+                delete props[p];
+            }
+        });
+        return options;
+      }
+      
+      // serialize the properties into a string for emile
+      var serialize = function(props) {
+        var serialisedProps = [], key;
+        if (typeof props != string) {
+              for (key in props) {
                     serialisedProps.push(key + ':' + props[key]);
-    		    }
-      		    serialisedProps = serialisedProps.join(';');
-    		} else {
-    		    serialisedProps = props;
-    		}
-    		return serialisedProps;
-		};
-	    
-		// queued animations
-		if (props instanceof Array) {
-		    // animate each passing the next to the last callback to enqueue
-		    props.forEach(function(a){
-		        
-		    });
-		}
+            }
+              serialisedProps = serialisedProps.join(';');
+        } else {
+            serialisedProps = props;
+        }
+        return serialisedProps;
+    };
+      
+    // queued animations
+    if (props instanceof Array) {
+        // animate each passing the next to the last callback to enqueue
+        props.forEach(function(a){
+            
+        });
+    }
 
-	    // this branch means we're dealing with a single tween
-	    var opts = emileOpts(props);
-	    var prop = serialize(props);
-		
-		return this.each(function(e){
-			emile(e, prop, opts, callback);
-		});
-	}
+      // this branch means we're dealing with a single tween
+      var opts = emileOpts(props);
+      var prop = serialize(props);
+    
+    return this.each(function(e){
+      emile(e, prop, opts, callback);
+    });
+  }
 });
 /**
-	Style
-	=====
+  Style
+  =====
 
-	Anything related to how things look. Usually, this is CSS.
+  Anything related to how things look. Usually, this is CSS.
 
 */
 function hasClass(el, className) {
@@ -912,23 +912,23 @@ function trim(text) {
 
 xui.extend({
 /**
-	setStyle
-	--------
+  setStyle
+  --------
 
-	Sets a single CSS property to a new value.
+  Sets a single CSS property to a new value.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(selector).setStyle(property, value);
+    x$(selector).setStyle(property, value);
 
-	### arguments ###
+  ### arguments ###
 
-	- property:string the property to modify
-	- value:string the property value to set
+  - property:string the property to modify
+  - value:string the property value to set
 
-	### example ###
+  ### example ###
 
-		x$('.txt').setStyle('color', '#000');
+    x$('.txt').setStyle('color', '#000');
 */
     setStyle: function(prop, val) {
         prop = prop.replace(/\-[a-z]/g,function(m) { return m[1].toUpperCase(); });
@@ -938,25 +938,25 @@ xui.extend({
     },
 
 /**
-	getStyle
-	--------
+  getStyle
+  --------
 
-	Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
+  Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(selector).getStyle(property, callback);
+    x$(selector).getStyle(property, callback);
 
-	### arguments ###
+  ### arguments ###
 
-	- property:string a css key (for example, border-color NOT borderColor)
-	- callback:function (optional) a method to call on each element in the collection 
+  - property:string a css key (for example, border-color NOT borderColor)
+  - callback:function (optional) a method to call on each element in the collection 
 
-	### example ###
+  ### example ###
 
-		x$('ul#nav li.trunk').getStyle('font-size');
-		
-		x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
+    x$('ul#nav li.trunk').getStyle('font-size');
+    
+    x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
 */
     getStyle: function(prop, callback) {
         // shortcut getComputedStyle function
@@ -967,33 +967,33 @@ xui.extend({
             return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m) { return '-'+m.toLowerCase(); }));
         }
         if (callback === undefined) {
-        	var styles = [];
+          var styles = [];
             this.each(function(el) {styles.push(s(el, prop))});
- 			return styles;
+       return styles;
         } else {
             this.each(function(el) {
                 callback(s(el, prop));
             });
-		}
+    }
     },
 
 /**
-	addClass
-	--------
+  addClass
+  --------
 
-	Adds the classname to all the elements in the collection.
+  Adds the classname to all the elements in the collection.
 
-	### syntax ###
+  ### syntax ###
 
-		$(selector).addClass(className);
+    $(selector).addClass(className);
 
-	### arguments ###
+  ### arguments ###
 
-	- className:string the name of the CSS class to apply
+  - className:string the name of the CSS class to apply
 
-	### example ###
+  ### example ###
 
-		$('.foo').addClass('awesome');
+    $('.foo').addClass('awesome');
 */
     addClass: function(className) {
         return this.each(function(el) {
@@ -1004,24 +1004,24 @@ xui.extend({
     },
 
 /**
-	hasClass
-	--------
+  hasClass
+  --------
 
-	Checks to see if classname is one the element. If a callback isn't passed, hasClass expects only one element in collection - but should it?
+  Checks to see if classname is one the element. If a callback isn't passed, hasClass expects only one element in collection - but should it?
 
-	### syntax ###
+  ### syntax ###
 
-		$(selector).hasClass('className');
-		$(selector).hasClass('className', function(element) {});	 
+    $(selector).hasClass('className');
+    $(selector).hasClass('className', function(element) {});   
 
-	### arguments ###
+  ### arguments ###
 
-	- className:string the name of the CSS class to apply
+  - className:string the name of the CSS class to apply
 
-	### example ###
+  ### example ###
 
-		$('#foo').hasClass('awesome'); // returns true or false
-		$('.foo').hasClass('awesome',function(e){}); // returns XUI object
+    $('#foo').hasClass('awesome'); // returns true or false
+    $('.foo').hasClass('awesome',function(e){}); // returns XUI object
 */
     hasClass: function(className, callback) {
         var self = this;
@@ -1038,22 +1038,22 @@ xui.extend({
     },
 
 /**
-	removeClass
-	-----------
+  removeClass
+  -----------
 
-	Removes the classname from all the elements in the collection.
+  Removes the classname from all the elements in the collection.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(selector).removeClass(className);
+    x$(selector).removeClass(className);
 
-	### arguments ###
+  ### arguments ###
 
-	- className:string the name of the CSS class to remove.
+  - className:string the name of the CSS class to remove.
 
-	### example ###
+  ### example ###
 
-		x$('.bar').removeClass('awesome');
+    x$('.bar').removeClass('awesome');
 */
     removeClass: function(className) {
         if (className === undefined) {
@@ -1071,22 +1071,22 @@ xui.extend({
 
 
 /**
-	css
-	---
+  css
+  ---
 
-	Set a number of CSS properties at once.
+  Set a number of CSS properties at once.
 
-	### syntax ###
+  ### syntax ###
 
-		x$(selector).css(object);
+    x$(selector).css(object);
 
-	### arguments ###
+  ### arguments ###
 
-	- an object literal of css key/value pairs to set.
+  - an object literal of css key/value pairs to set.
 
-	### example ###
+  ### example ###
 
-		x$('h2.fugly').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
+    x$('h2.fugly').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
 */
     css: function(o) {
         for (var prop in o) {
@@ -1112,62 +1112,62 @@ var reClassNameCache = {},
         return re;
     };
 /**
-	XHR
-	===
+  XHR
+  ===
 
-	Remoting methods and utils.
+  Remoting methods and utils.
 
  */
-xui.extend({	
+xui.extend({  
 /**
-	xhr
-	---
+  xhr
+  ---
 
-	The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent.
-	This method has a few new tricks. It is always invoked on an element collection and follows the identical behaviour as the
-	`html` method. If there no callback is defined the response text will be inserted into the elements in the collection.
+  The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent.
+  This method has a few new tricks. It is always invoked on an element collection and follows the identical behaviour as the
+  `html` method. If there no callback is defined the response text will be inserted into the elements in the collection.
 
-	### syntax ###
+  ### syntax ###
 
-		xhr(location, url, options)
+    xhr(location, url, options)
 
-	or this method will accept just a url with a default behavior of inner...
+  or this method will accept just a url with a default behavior of inner...
 
-		xhr(url, options);
+    xhr(url, options);
 
-	### options ###
+  ### options ###
 
-	- method {String} [get|put|delete|post] Defaults to 'get'.
-	- async {Boolean} Asynchronous request. Defaults to false.
-	- data {String} A url encoded string of parameters to send.
-	- callback {Function} Called on 200 status (success)
+  - method {String} [get|put|delete|post] Defaults to 'get'.
+  - async {Boolean} Asynchronous request. Defaults to false.
+  - data {String} A url encoded string of parameters to send.
+  - callback {Function} Called on 200 status (success)
 
-	### response ###
+  ### response ###
 
-	- The response available to the callback function as 'this', it is not passed in.
-	- `this.reponseText` will have the resulting data from the file.
+  - The response available to the callback function as 'this', it is not passed in.
+  - `this.reponseText` will have the resulting data from the file.
 
-	### example ###
+  ### example ###
 
-		x$('#status').xhr('inner', '/status.html');
-		x$('#status').xhr('outer', '/status.html');
-		x$('#status').xhr('top',   '/status.html');
-		x$('#status').xhr('bottom','/status.html');
-		x$('#status').xhr('before','/status.html');
-		x$('#status').xhr('after', '/status.html');
+    x$('#status').xhr('inner', '/status.html');
+    x$('#status').xhr('outer', '/status.html');
+    x$('#status').xhr('top',   '/status.html');
+    x$('#status').xhr('bottom','/status.html');
+    x$('#status').xhr('before','/status.html');
+    x$('#status').xhr('after', '/status.html');
 
-	or
+  or
 
-		x$('#status').xhr('/status.html');
+    x$('#status').xhr('/status.html');
 
-		x$('#left-panel').xhr('/panel', {callback:function(){ alert("All Done!") }});
+    x$('#left-panel').xhr('/panel', {callback:function(){ alert("All Done!") }});
 
-		x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
+    x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
 */
     xhr:function(location, url, options) {
 
       // this is to keep support for the old syntax (easy as that)
-		if (!/^(inner|outer|top|bottom|before|after)$/.test(location)) {
+    if (!/^(inner|outer|top|bottom|before|after)$/.test(location)) {
             options = url;
             url = location;
             location = 'inner';
@@ -1471,12 +1471,12 @@ var mixins = {
         }
 
         if (valid_component) {
-	  // This is widget specific behavior
-	  // -- For toggler, it makes sense for content to be multiple things
-	  // -- For select-lists, it doesn't
-	  if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-	    component_constructors[component_type](groups[my_set_id], this, component_type);
-	  } else {
+    // This is widget specific behavior
+    // -- For toggler, it makes sense for content to be multiple things
+    // -- For select-lists, it doesn't
+    if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
+      component_constructors[component_type](groups[my_set_id], this, component_type);
+    } else {
             groups[my_set_id][component_type] = this;
           }
         }
@@ -1884,7 +1884,7 @@ Ur.WindowLoaders['carousel'] = (function(){
         return;
       }     
 
-      this.increment_flag = false;	
+      this.increment_flag = false;  
 
       var x_transform = this.get_transform(this.items);
       var distance = this.destination_offset - x_transform;
@@ -1900,12 +1900,12 @@ Ur.WindowLoaders['carousel'] = (function(){
 
       if(increment != 0)
       {
-	this.increment_flag = true;
+  this.increment_flag = true;
       }
 
       if(this.increment_flag)
       {
-        setTimeout(function(obj){return function(){obj.momentum()}}(this),16);		    
+        setTimeout(function(obj){return function(){obj.momentum()}}(this),16);        
       } else {
         this.starting_offset = null;
         x$().iterate(
@@ -2702,10 +2702,10 @@ Ur.QuickLoaders['select-list'] = (function(){
       this.list.children,
       function(element, index){
         if(element == selected_list_option) {
-	  x$(element).attr("data-ur-state","enabled");
+    x$(element).attr("data-ur-state","enabled");
           value = x$(element).attr("value");
         } else {
-	  x$(element).attr("data-ur-state","disabled");
+    x$(element).attr("data-ur-state","disabled");
         }
       }
     );
@@ -2790,12 +2790,12 @@ Ur.QuickLoaders['tabs'] = (function(){
               x$(button).attr("data-ur-state","disabled");
               x$(content).attr("data-ur-state","disabled");
             } else {
-	      var new_state = "enabled";
-	      if (closeable) {
-		var old_state = x$(button).attr("data-ur-state")[0];
-		old_state = (old_state === undefined) ? "disabled" : old_state;
-		new_state = (old_state == "enabled") ? "disabled" : "enabled";
-	      }
+        var new_state = "enabled";
+        if (closeable) {
+    var old_state = x$(button).attr("data-ur-state")[0];
+    old_state = (old_state === undefined) ? "disabled" : old_state;
+    new_state = (old_state == "enabled") ? "disabled" : "enabled";
+        }
               x$(button).attr("data-ur-state", new_state);
               x$(content).attr("data-ur-state", new_state);
             }
@@ -2902,12 +2902,12 @@ Ur.QuickLoaders['toggler'] = (function(){
 
       // Make the content state match the button state
       x$().iterate(
-	toggler["content"],
-	function(content) {
-	  if (x$(content).attr("data-ur-state")[0] === undefined ) {
+  toggler["content"],
+  function(content) {
+    if (x$(content).attr("data-ur-state")[0] === undefined ) {
             x$(content).attr("data-ur-state", toggler_state)
-	  }
-	}
+    }
+  }
       );
 
     }

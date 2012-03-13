@@ -8,7 +8,7 @@ bottom: -1px;
 display: inline-block;
 margin: 0px 5px;
 padding: 5px;
-position: relative;	
+position: relative;  
 }
 
 *[data-ur-tabs-component='content'] {

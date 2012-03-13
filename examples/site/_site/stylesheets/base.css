@@ -645,14 +645,14 @@ body#tabs_page *[data-ur-toggler-component="content"][data-ur-state="enabled"] {
 
 
 #textbody #babutton {
-		width: 98px; height: 25px; padding-top: 6px;
-		font-size: 15px; text-align: center;
-		float: right;
-		display: inline-block;
-		border-left: 1.5px solid rgb(80,80,80); border-right: 1.5px solid rgb(0,0,0);
-		-webkit-border-radius: 5px;
-		-moz-border-radius: 5px;
-		border-radius: 5px;
+    width: 98px; height: 25px; padding-top: 6px;
+    font-size: 15px; text-align: center;
+    float: right;
+    display: inline-block;
+    border-left: 1.5px solid rgb(80,80,80); border-right: 1.5px solid rgb(0,0,0);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 #babutton[data-ur-tab-id="advancedpage"]{
   margin-right: 100px;
@@ -664,7 +664,7 @@ body#tabs_page *[data-ur-toggler-component="content"][data-ur-state="enabled"] {
 }
 #babutton[data-ur-state="enabled"]{
   color: #323232;
-	background: #FFD700;
+  background: #FFD700;
 }
 body#tabsgrand_page *[data-ur-tabs-component="content"][data-ur-state="disabled"] {
   display: none;
@@ -1075,16 +1075,16 @@ body#model_page .model_para {
 }
 
 body#tabs_page *[data-ur-tabs-component="button"]#babutton {
-		width: 98px; height: 25px; padding-top: 6px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;
-		font-size: 15px; text-align: center;
-		float: right;
-		display: block;
-		border-left: 1.5px solid rgb(80,80,80); border-right: 1.5px solid rgb(0,0,0);
-		-webkit-border-radius: 5px;
-		-moz-border-radius: 5px;
-		border-radius: 5px;
-		border-bottom: none;
-		margin: 0px;
+    width: 98px; height: 25px; padding-top: 6px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;
+    font-size: 15px; text-align: center;
+    float: right;
+    display: block;
+    border-left: 1.5px solid rgb(80,80,80); border-right: 1.5px solid rgb(0,0,0);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border-bottom: none;
+    margin: 0px;
 }
 body#tabs_page *[data-ur-tabs-component="button"]#babutton[data-ur-state="disabled"]{
   background: #FFD700;
@@ -1093,7 +1093,7 @@ body#tabs_page *[data-ur-tabs-component="button"]#babutton[data-ur-state="disabl
 }
 body#tabs_page *[data-ur-tabs-component="button"]#babutton[data-ur-state="enabled"]{
   color: #323232;
-	background: #FFD700;}
+  background: #FFD700;}
 body#tabs_page *[data-ur-tabs-component="button"]#babutton[data-ur-tab-id="advancedpage"]{
   margin-right: 100px;
   margin-left:0px;
