@@ -1,7 +1,0 @@
-*[data-ur-tabs-component='content'][data-ur-state='enabled'] {
-  display: block;
-}
-
-*[data-ur-tabs-component='content'] {
-  display:none;
-}
