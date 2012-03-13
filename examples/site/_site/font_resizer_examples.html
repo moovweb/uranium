@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Font Resizer Examples</title>
+    <script src="src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='stylesheets/style_index_yellow.css' />
+    <link rel="stylesheet" type='text/css' href='stylesheets/base.css' />
+  </head>
+  
+  <body id="font_resizer_examples_page">
+    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <div id="menu">
+  		<div id="menuwrap">
+  			<a href="index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
+  			<a href="tutorials.html" class="toplinks "><div class="menuselect">Tutorial</div></a><!-- menuselect-->
+  			<a href="widget_list.html" class="toplinks "><div class="menuselect">Widgets</div></a><!-- menuselect-->
+  			<a href="example_list.html" class="toplinks selected"><div class="menuselect">Examples</div></a><!-- menuselect-->
+  			<a href="more.html" class="toplinks "><div class="menuselect">Philosophy</div></a><!-- menuselect-->
+  			<a href="download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
+  		</div><!-- menuwrap-->	
+  	</div><!-- menu-->
+  	<div id="textbody">
+    <div class="wrapper">
+<h1>Font Resizer Examples</h1>
+<h2>Using data-ur-id:</h2>
+  <a name="using_ids"></a>
+  <div class="font_resizer">
+    <span data-ur-id="foo" data-ur-font-resizer-component="increase">[+]</span>
+    <span data-ur-id="foo" data-ur-font-resizer-component="label"></span>
+    <span data-ur-id="foo" data-ur-font-resizer-component="decrease">[-]</span>
+    <p data-ur-id="foo" data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+  </div>
+
+    <div id="lightgrey"></div><!-- hr-->
+
+<h2>Overriding Defaults</h2>
+<a name="overriding"></a>
+<div class="font_resizer">
+  <div data-ur-set="font-resizer">
+    <span data-ur-font-resizer-component="increase">[+]</span>
+    <span data-ur-font-resizer-component="label"></span>
+    <span data-ur-font-resizer-component="decrease">[-]</span>
+    <p data-ur-font-resizer-component="content"
+       data-ur-font-resizer-min="50"
+       data-ur-font-resizer-max="220"
+       data-ur-font-resizer-size="120"
+       data-ur-font-resizer-delta="10">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+  </div>
+</div>
+
+    <div id="lightgrey"></div><!-- hr-->
+
+<h2>A Self-resizing Resizer</h2>
+<a name="self-sizing"></a>
+<div class="font_resizer">
+  <div data-ur-set="font-resizer" data-ur-font-resizer-component="content">
+    <span data-ur-font-resizer-component="increase">[+]</span>
+    <span data-ur-font-resizer-component="label"></span>
+    <span data-ur-font-resizer-component="decrease">[-]</span>
+    <p>To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+  </div>
+</div>
+
+    <div id="lightgrey"></div><!-- hr-->
+
+<div style="display:none">
+  <h2>A Super-Advanced Example (using the secret "invert" attribute!):</h2>
+  <div class="font_resizer">
+    <div data-ur-set="font-resizer">
+      <span data-ur-font-resizer-component="increase">[+]</span>
+      <span data-ur-font-resizer-component="label"></span>
+      <span data-ur-font-resizer-component="decrease">[-]</span>
+      <p data-ur-font-resizer-component="content" data-ur-font-resizer-delta="10" data-ur-font-resizer-invert="Bam!">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+    </div>
+  </div>
+</div>
+</div> <!--wrapper -->
+    </div>
+    <div id="bottombody">
+  		<div class="wrapper" id="bottomwrap">
+  				<a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
+  				Uranium &copy; 2011 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
+  		</div><!-- wrapper-->
+  	</div><!-- bottombody end-->
+  </body>
+</html>

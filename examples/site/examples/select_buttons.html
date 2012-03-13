@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+<head>
+<title> Select Buttons Unit Tests</title>
+    <script src="../build/src/uranium.js"></script>
+<link rel="stylesheet" type='text/css' href='css/test.css' />
+<link rel="stylesheet" type='text/css' href='css/select_buttons.css' />
+<link rel="stylesheet" type='text/css' href='css/tabs.css' />
+</head>
+
+<body suite='SelectLists'>
+
+<h1> Select Buttons </h1>
+
+<hr>
+
+<h2> Description </h2>
+
+<div class='description'>
+  <p>
+  This widget allows you to bind increment/decrement buttons to trigger
+  the appropriate changes on a &lt;select&gt; element.
+  </p>
+</div>
+
+<h2>Options</h2>
+<div class="option">
+  <p>
+    </p>
+</div>
+
+<h2> Demonstration </h2>
+
+<div class='test' name='One'>
+  <div data-ur-set="tabs">
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
+
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+    
+    <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set='select-buttons'>
+        <select data-ur-select-buttons-component='select'>
+          <option selected='true' value='-1'> -None- </option>
+          <option value='SKU-XS'> XS </option>
+          <option value='SKU-S'> S </option>
+          <option value='SKU-M'> M </option>
+          <option value='SKU-L'> L </option>
+        </select>
+    
+        <span data-ur-select-buttons-component='increment'> [+] </span>
+        <span data-ur-select-buttons-component='decrement'> [-] </span>
+      </div>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      <p class="code">
+        &lt;div data-ur-set='select-buttons'><br/>
+          &emsp;&emsp;&lt;select data-ur-select-buttons-component='select'><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option selected='true' value='-1'> -None- &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-XS'> XS &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-S'> S &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-M'> M &lt;/option><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-L'> L &lt;/option><br/>
+         &emsp;&emsp;&lt;/select><br/>
+    
+          &emsp;&emsp;&lt;span data-ur-select-buttons-component='increment'> [+] &lt;/span><br/>
+          &emsp;&emsp;&lt;span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] &lt;/span><br/>
+        &lt;/div>
+      </p>  
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

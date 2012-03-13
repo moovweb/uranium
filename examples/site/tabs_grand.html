@@ -1,0 +1,231 @@
+---
+layout: default 
+title: TabsGrand
+name: tabsgrand
+widget_selected: selected
+---
+<div data-ur-set="tabs">
+
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+  
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+    
+  <div data-ur-tabs-component="content" data-ur-tab-id="basicpage">
+    <div class="wrapper">
+      <h1> Tabs - Basic </h1>
+      <h2> Description </h2>
+      <div class='description'>
+        <p>
+          Tabs are kind of like togglers, but allow a state to be defined. This means that (unlike togglers) only
+          one tab is active at a time. When you enable the state of one tab, another tab is disabled.
+        </p>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <h2> Attributes </h2>
+      <div class="attributes">
+        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="grandbasic" data-ur-state='enabled'>
+          <ul>
+            <li><span class="inline_code">data-ur-set="tabs"</span> - add this attribute to a div that wraps the whole widget</li>
+            <li><span class="inline_code">data-ur-tabs-component="button"</span> - add this attribute to the button div</li>
+            <li><span class="inline_code">data-ur-tabs-component="content"</span> - add this attribute to the content</li>
+            <li><span class="inline_code">data-ur-tab-id="NAME"</span> - this attribute needs to link the button and the content (i.e. the button and content should have the same id)</li>
+          </ul>
+        </div><!-- basic -->
+       
+      </div> <!-- tabs widget -->
+    </div><!-- wrapper -->
+
+    <div class="wrapper">
+    <h2>Demonstration</h2>
+    <div class='test' name='Simple' data-ur-set="tabs">
+    </div>
+      <div class="demonstration" id="tab_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'> Widget</h3>
+
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+  
+        <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+          <div data-ur-set='tabs'>
+            <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'>
+            First </span>        
+            <span data-ur-tabs-component='button' data-ur-tab-id='second'>
+            Second </span>        
+            <span data-ur-tabs-component='button' data-ur-tab-id='third'>
+            Third </span>        
+
+            <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
+              <img width='300px' height='300px' src='{{site.url}}images/sample1.png?some_attr=noway'/> 
+            </div>
+
+            <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+              <img width='300px' height='300px' src='{{site.url}}images/sample2.png?some_attr=noway'/> 
+            </div>
+
+            <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+              <img width='300px' height='300px' src='{{site.url}}images/sample3.png?some_attr=noway'/> 
+            </div>       
+          </div>
+        </div>
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+          <p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set='tabs'<span id="brown">><br/>
+              <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'<span id="brown">><br/>
+              <span id="brown">&emsp;&emsp;&emsp;&emsp;First<br/> 
+              <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+              <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='second'<span id="brown">><br/>
+              <span id="brown">&emsp;&emsp;&emsp;&emsp;Second <br/>
+              <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+              <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='third'<span id="brown">><br/>
+              <span id="brown">&emsp;&emsp;&emsp;&emsp;Third<br/>
+              <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+
+              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img ONE /><br/>
+            <span id="brown"> &emsp;&emsp;&lt;/div><br/>
+
+              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='second'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img TWO /><br/>
+              <span id="brown">&emsp;&emsp;&lt;/div><br/>
+
+              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='third'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img THREE /><br/>
+             <span id="brown">&emsp;&emsp;&lt;/div><br/>
+             <span id="brown">&lt;/div
+          </p>
+        </div>
+      </div>
+
+  <p>More examples of tabs can be found <a href="{{site.url}}tabs_examples.html">here</a>, including:</p>
+  <ul>
+    <li><a href="{{site.url}}tabs_examples.html#Simple">a proof-of-concept with a different tab enabled first</a></li>
+    <li><a href="{{site.url}}tabs_examples.html#accordions">accordions</a></li>
+  </ul>
+  </div><!-- wrapper end -->
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="advancedpage">
+    <div class="wrapper">
+      <h1> Tabs - Advanced </h1>
+      <h2> Description </h2>
+      <div class='description'>
+        <p>
+          Tabs are kind of like togglers, but allow a state to be defined. This means that (unlike togglers) only
+          one tab is active at a time. When you enable the state of one tab, another tab is disabled.
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <h2> Attributes </h2>
+      <div class="attributes">
+       <div class="advanced_tab" data-ur-tabs-component="content" data-ur-state="enabled">
+          <h3> data-ur-set= </h3>
+          <div class="set_name inline_code">"tabs"</div>
+          <br/>
+          <h3> data-ur-tabs-component= </h3>
+          <div class="components">
+            <ul>
+              <li><div data-ur-toggler-component="button" class="inline_code">"button"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>add this attribute to the button (i.e. the thing to be clicked)</li>
+                  <li>multiple?: true</li>
+                  <li>state: enabled / disabled(default)</li>
+                  <li>attributes
+                    <ul>
+                      <li>required: <span class="inline_code">data-ur-tab-id</span> is required and must match attribute on content element</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"content"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>add this attribute to each content item</li>
+                  <li>multiple?: true</li>
+                  <li>state: enabled / disabled(default)</li>
+                  <li>attributes
+                    <ul>
+                      <li>required: <span class="inline_code">data-ur-tab-id</span> is required and must match attribute on button element</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div> <!-- advanced tab-->
+      </div><!-- attributes -->
+    </div><!-- wrapper -->
+    <div class="wrapper">
+      <div data-ur-tabs-component="content" data-ur-tab-id="grandadvanced2">
+        <h2>Instances</h2>
+        <p class="instance">Each instance is available by set id under <span class="inline_code">Ur.Widgets["tabs"]</span>. Each instance exposes elements property -- raw components of the widget
+        </p>
+      </div>
+    </div><!-- wrapper -->
+    <div class="wrapper">
+      <h2>Demonstration</h2>
+      <div class='test' name='Simple' data-ur-set="tabs">
+      </div>
+        <div class="demonstration" id="tab_demonstration" data-ur-set="tabs">
+          <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'> Widget</h3>
+
+          <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+  
+          <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+            <div data-ur-set='tabs'>
+              <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'>
+              First </span>        
+              <span data-ur-tabs-component='button' data-ur-tab-id='second'>
+              Second </span>        
+              <span data-ur-tabs-component='button' data-ur-tab-id='third'>
+              Third </span>        
+
+              <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
+                <img width='300px' height='300px' src='{{site.url}}images/sample1.png?some_attr=noway'/> 
+              </div>
+
+              <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+                <img width='300px' height='300px' src='{{site.url}}images/sample2.png?some_attr=noway'/> 
+              </div>
+
+              <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+                <img width='300px' height='300px' src='{{site.url}}images/sample3.png?some_attr=noway'/> 
+              </div>       
+            </div>
+          </div>
+          <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+            <p class="code">
+              <span id="brown">&lt;div <span id="green">data-ur-set='tabs'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;First<br/> 
+                <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+                <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='second'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;Second <br/>
+                <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+                <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='third'<span id="brown">><br/>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;Third<br/>
+                <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+
+                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'<span id="brown">><br/>
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img ONE /><br/>
+              <span id="brown"> &emsp;&emsp;&lt;/div><br/>
+
+                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='second'<span id="brown">><br/>
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img TWO /><br/>
+                <span id="brown">&emsp;&emsp;&lt;/div><br/>
+
+                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='third'<span id="brown">><br/>
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img THREE /><br/>
+               <span id="brown">&emsp;&emsp;&lt;/div><br/>
+               <span id="brown">&lt;/div
+            </p>
+          </div>
+        </div>
+
+      <p>More examples of tabs can be found <a href="{{site.url}}tabs_examples.html">here</a>, including:</p>
+      <ul>
+        <li><a href="{{site.url}}tabs_examples.html#Simple">a proof-of-concept with a different tab enabled first</a></li>
+        <li><a href="{{site.url}}tabs_examples.html#accordions">accordions</a></li>
+      </ul>
+    </div><!-- wrapper end -->
+  </div>
+</div>

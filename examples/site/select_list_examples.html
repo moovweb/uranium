@@ -1,0 +1,34 @@
+---
+layout: default 
+title: Select List Examples
+name: select_list_examples
+example_selected: selected
+---
+<div class="wrapper">
+<h1>Select List Examples</h1>
+  <div class='test' name='Two'>
+    <h2> Subset example </h2>
+    <p>
+       A &lt;div&gt; is the trigger list in this case, rather than the &lt;ul> that 
+       was found on the widget page. 
+    </p>
+
+    <select data-ur-select-list-component='select' data-ur-id='MyUIDSelectList'>
+      <option selected='true' value='-1'> -None- </option>
+      <option value='SKU-XS'> XS </option>
+      <option value='SKU-S'> S </option>
+      <option value='SKU-M'> M </option>
+      <option value='SKU-L'> L </option>
+    </select>
+
+
+    <div data-ur-select-list-component='content' data-ur-id='MyUIDSelectList'>
+      <span value='SKU-XS'> XS </span>
+      <span value='SKU-S'> S </span>
+      <span value='SKU-M'> M </span>
+      <span value='SKU-L'> L </span>
+    </div>
+
+
+  </div> <!-- test-->
+</div> <!--wrapper-->

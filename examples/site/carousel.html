@@ -1,0 +1,215 @@
+---
+layout: default 
+title: Carousel
+name: carousel
+widget_selected: selected
+---
+<div data-ur-set="tabs">
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+  
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+  
+  <div>
+  <div class="wrapper">
+    <h1> Carousels </h1>
+  </div>
+  <div class="description_wrapper">
+    <h2> Description </h2>
+
+    <div class='description'>
+      <p>
+        The carousel is a widget that allows horizontal scrolling (with touch or buttons) between a set of items. 
+      </p>
+      <p>
+        The CSS we need to use here is pretty picky, so make sure to check out the CSS tab below.
+      </p>
+      <p>
+        The compatibility of this with FireFox is ... well, not really there. Check out our
+        <a href="{{site.url}}compatibility.html">compatibility tables</a> to see which devices
+        and browsers will display the carousel.
+      </p>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <h2> Attributes </h2>
+    <div class="attributes">
+
+      <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
+        <ul>
+          <li><span class="inline_code">data-ur-set="carousel"</span> - add this attribute to a div that wraps the whole widget</li>
+          <li><span class="inline_code">data-ur-carousel-component="view_container"</span> - for wrapping the whole view container</li>
+          <li><span class="inline_code">data-ur-carousel-component="scroll_container"</span> - for wrapping the whole scrolling container</li>
+          <li><span class="inline_code">data-ur-carousel-component="item"</span> - wrap each scrollable item in this</li>
+          <li><span class="inline_code">data-ur-carousel-component="button"</span> - for the previous and next buttons</li>
+          <li><span class="inline_code">data-ur-carousel-button-type="prev"/"next"</span> - to distinguish the previous and next buttons
+        </ul>
+      </div><!-- basic -->
+      <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage">
+        <h3> data-ur-set= </h3>
+        <div class="set_name inline_code">"carousel"</div>
+        <br/>
+        <h3> data-ur-carousel-component= </h3>
+        <div class="components">
+          <h4> Required </h4>
+          <p>
+            <ul>
+              <li><div data-ur-toggler-component="button" class="inline_code">"view_container"</div>
+                <ul>
+                  <li>this div should wrap the whole carousel; it must be set to no overflow.</li>
+                  <li>multiple?: false</li>
+                  <li>state: N/A</li>
+                  <li>attributes
+                    <ul>
+                      <li>required: <span class="inline_code">data-ur-tab-id</span>: must match corresponding attribute on button element</li>
+                      <li>optional: <span class="inline_code">data-ur-touch</span>: enabled/disabled</li>
+                      <li>optional: <span class="inline_code">data-ur-type:"multi"</span>: multiple items per pane</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"scroll_container"</div>
+                <ul>
+                  <li>this div should wrap the scrolling items on the carousel</li>
+                  <li>multiple?: false</li>
+                  <li>state: N/A</li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"item"</div>
+                <ul>
+                  <li>this attribute is for each item that needs to be displayed in the carousel</li>
+                  <li>multiple?: true</li>
+                  <li>state: active / inactive (reflects currently visible item)</li>
+                  <li>must have <span class="inline_code">float:left</span> and <span class="inline_code">display:inline</span> styles</li>
+                </ul>
+              </li>
+            </ul>
+          </p>
+          <h4> Optional </h4>
+          <p>
+            <ul>
+              <li><div data-ur-toggler-component="button" class="inline_code">"button"</div>
+                <ul>
+                  <li>indicates the previous and next buttons</li>
+                  <li>multiple?: true</li>
+                  <li>state: enabled / disabled ('next' defaults to enabled / 'prev' defaults to 'disabled')</li>
+                  <li>attributes
+                    <ul>
+                      <li>required: <span class="inline_code">data-ur-carousel-button-type:"next"/"prev"</span> for the next and previous buttons, respectively</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"count"</div>
+                <ul>
+                  <li>gives an indicator of the position of the carousel, in the form "1 of 8", etc.</li>
+                  <li>multiple?: false</li>
+                  <li>state: N/A</li>
+                </ul>
+              </li>
+            </ul>
+          </p>
+        </div> <!-- components -->
+        <h3>Instance</h3>
+        <p class="instance">Access the widget via: <span class="inline_code">Ur.Widgets.carousel["ID"]</span>. The following methods are exposed for each carousel widget:
+          <ul>
+            <li><span class="inline_code">jump_to_index(index)</span>: forces the carousel to jump to the specified (zero based) index</li>
+            <li><span class="inline_code">onSlideCallbacks(callback)</span>: supplies a callback which is called when animation has completed</li>
+          </ul>
+        </p>
+      
+      </div> <!-- advanced_tab -->
+    </div><!-- end of attributes tabs -->
+  </div><!-- end of wrapper -->
+
+
+  <div class="wrapper">
+    <h2> Demonstration </h2>
+
+    <div class='demonstration' name='One'>
+
+      <p> Touch-enabled Widget </p>
+      <div id="carousel_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'> Widget</h3>
+
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html">HTML</h3>
+      
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="CSS">CSS</h3>
+    
+        <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+      
+          <div data-ur-set='carousel'
+            data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'>
+            <span data-ur-carousel-component='count'> -- count -- </span>
+            <div data-ur-carousel-component='button'data-ur-carousel-button-type='prev' >
+              Prev
+            </div>
+            <div data-ur-carousel-component='button' data-ur-carousel-button-type='next' >
+              Next
+            </div>
+            <div data-ur-carousel-component='scroll_container'>
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample1.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample2.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample3.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample4.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample5.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample6.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample7.png' />
+              <img data-ur-carousel-component='item' src='{{site.url}}images/sample8.png' />
+            </div>       
+          </div>
+        </div>   
+    
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+          <p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set='carousel'
+              data-ur-carousel-component='view_container' data-ur-id='MyFirstCarousel'<span id="brown">></br>
+              <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-carousel-component='count'<span id="brown">> -- count -- &lt;/span></br>
+              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='button' data-ur-carousel-button-type='prev' <span id="brown">></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;Prev</br>
+              <span id="brown">&emsp;&emsp;&lt;/div></br>
+              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='button' data-ur-carousel-button-type='next' <span id="brown">></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;Next</br>
+              <span id="brown">&emsp;&emsp;&lt;/div></br>
+              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='scroll_container'<span id="brown">></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample1.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample2.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample3.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample4.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample5.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample6.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample7.png' /></br>
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='images/sample8.png' /></br>
+              <span id="brown">&emsp;&emsp;&lt;/div>       </br>
+            <span id="brown">&lt;/div>
+          </p>
+        </div><!-- closing the HTML tab-->
+      
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
+          <p class="code">
+              <span id="brown">div[<span id="green">data-ur-carousel-component='view_container'<span id="brown">] {</br>
+                <span id="brown">&emsp;&emsp;width: 100%;</br>
+                <span id="brown">&emsp;&emsp;overflow-x: hidden; }</br>
+              <span id="brown">div[<span id="green">data-ur-carousel-component="scroll_container"<span id="brown">] {</br>
+                <span id="brown">&emsp;&emsp;display: block; }</br>
+              <span id="brown">div[<span id="green">data-ur-carousel-component="scroll_container"<span id="brown">] > * {</br>
+                <span id="brown">&emsp;&emsp;display: inline-block;</br>
+                <span id="brown">&emsp;&emsp;float: left; }</br>
+              <span id="brown">div[<span id="green">data-ur-carousel-component="button"][data-ur-state="disabled"<span id="brown">] {</br>
+                <span id="brown">&emsp;&emsp;opacity: 0.3; }</br>
+          </p>
+        </div><!-- closing CSS tab -->
+      </div>
+    </div>
+    <div>
+      <p>More examples of the carousel can be found <a href="{{site.url}}carousel_examples.html">here</a>, including:</p>
+      <ul>
+        <li><a href="{{site.url}}carousel_examples.html#vertical">vertical scrolling</a></li>
+        <li><a href="{{site.url}}carousel_examples.html#notouch">no touch</a></li>
+        <li><a href="{{site.url}}carousel_examples.html#multipane">multiple items in a pane</a></li>
+        <li><a href="{{site.url}}carousel_examples.html#jumpto">a "jump to" function</a></li>
+      </ul>
+    </div>
+  </div> <!-- demonstration wrapper -->
+  </div> <!-- basic page -->
+</div><!-- tabs -->

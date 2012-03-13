@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Tabs Examples</title>
+    <script src="src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='stylesheets/style_index_yellow.css' />
+    <link rel="stylesheet" type='text/css' href='stylesheets/base.css' />
+  </head>
+  
+  <body id="tabs_examples_page">
+    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <div id="menu">
+  		<div id="menuwrap">
+  			<a href="index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
+  			<a href="tutorials.html" class="toplinks "><div class="menuselect">Tutorial</div></a><!-- menuselect-->
+  			<a href="widget_list.html" class="toplinks "><div class="menuselect">Widgets</div></a><!-- menuselect-->
+  			<a href="example_list.html" class="toplinks selected"><div class="menuselect">Examples</div></a><!-- menuselect-->
+  			<a href="more.html" class="toplinks "><div class="menuselect">Philosophy</div></a><!-- menuselect-->
+  			<a href="download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
+  		</div><!-- menuwrap-->	
+  	</div><!-- menu-->
+  	<div id="textbody">
+    <div class="wrapper">
+  <h1>Tabs Examples</h1>
+  <div class='test' name='Simple'>
+    <a name="Simple"></a>
+
+    <h3>Selecting the Second Tab</h3>
+    <div class="description">
+      <p>Here, as proof of principle, we're putting the <span class="inline_code">data-ur-state="enabled"</span> attribute on the
+      second tab to illustrate that a different tab can be selected at the outset.</p>
+    </div>
+    <div data-ur-set='tabs'>
+      <span data-ur-tabs-component='button'
+      data-ur-tab-id='first_sanity'> First </span>        
+      <span data-ur-tabs-component='button'
+      data-ur-tab-id='second_sanity' data-ur-state='enabled'> Second </span>        
+      <span data-ur-tabs-component='button'
+      data-ur-tab-id='third_sanity'> Third </span>        
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='first_sanity'>
+        <img width='70px' height='70px' src='images/sample1.png?some_attr=noway'/> 
+     </div>
+
+      <div data-ur-tabs-component='content' data-ur-state='enabled'
+       data-ur-tab-id='second_sanity'>
+        <img width='70px' height='70px' src='images/sample2.png?some_attr=noway'/> 
+      </div>
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='third_sanity'>
+        <img width='70px' height='70px' src='images/sample3.png?some_attr=noway'/> 
+     </div>       
+
+    </div>
+  </div>    
+
+  <div id="lightgrey"></div><!-- hr-->
+
+  <div class='test' name='accordions'>
+    <a name="accordions"></a>
+
+    <h3> Accordions with State </h3>
+
+    <div class='description'>
+      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
+      strictly necessary. In the following example, we start out with no states defined.</p>
+      <p>The first one we click on will be the first one to be "enabled".</p>
+    </div>
+
+    <div data-ur-set='tabs' data-ur-closeable='true'>
+      <div data-ur-tabs-component='button' data-ur-tab-id='first_accordions'> First </div>
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='first_accordions'>
+        Oh uranium.
+      </div>
+
+      <div data-ur-tabs-component='button' data-ur-tab-id='second_accordions'>Second </div>
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='second_accordions'>
+        You do nifty widget things.
+      </div>
+
+      <div data-ur-tabs-component='button' data-ur-tab-id='third_accordions'> Third </div>        
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='third_accordions'>
+        And you're performant.
+      </div>       
+
+    </div>
+  </div>
+</div> <!-- wrapper -->
+    </div>
+    <div id="bottombody">
+  		<div class="wrapper" id="bottomwrap">
+  				<a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
+  				Uranium &copy; 2011 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
+  		</div><!-- wrapper-->
+  	</div><!-- bottombody end-->
+  </body>
+</html>

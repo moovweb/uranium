@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Grouping</title>
+    <script src="src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='stylesheets/style_index_yellow.css' />
+    <link rel="stylesheet" type='text/css' href='stylesheets/base.css' />
+  </head>
+  
+  <body id="grouping_page">
+    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <div id="menu">
+  		<div id="menuwrap">
+  			<a href="index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
+  			<a href="tutorials.html" class="toplinks "><div class="menuselect">Tutorial</div></a><!-- menuselect-->
+  			<a href="widget_list.html" class="toplinks "><div class="menuselect">Widgets</div></a><!-- menuselect-->
+  			<a href="example_list.html" class="toplinks "><div class="menuselect">Examples</div></a><!-- menuselect-->
+  			<a href="more.html" class="toplinks selected"><div class="menuselect">Philosophy</div></a><!-- menuselect-->
+  			<a href="download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
+  		</div><!-- menuwrap-->	
+  	</div><!-- menu-->
+  	<div id="textbody">
+    <div class="wrapper">
+  <h1>Grouping</h1>
+    <h2>Sets vs IDs</h2>
+
+    <p>In Uranium, we can group widgets in two ways: sets and ids. A set is when the whole 
+      widget is wrapped in a div (or other tag) with the attribute <span class="inline_code">data-ur-set="widget"</span>.</p>
+
+    <p>An id is where every component of the widget is given a unique id attribute. For example,
+      giving the attribute <span class="inline_code">data-ur-toggler-id="unique_id"</span>. So, this is an alternative way to
+      group a set of divs.</p>
+
+    <p>It's generally a better practice to use <span class="inline_code">data-ur-set</span>. This allows for better, well-structured
+      and hierarchical HTML. However, it isn't possible in all cases to add this attribute. It's
+      in these instances we use <span class="inline_code">data-ur-widget-id</span> attributes. They are functionally
+      the same - as seen below.</p>
+      
+      
+      <div class="test" id='UniqueIDs'>
+        <div data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'>
+          This Toggler Uses IDs
+        </div>
+
+        <ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'>
+          <li> Thom </li>
+          <li> Jonny </li>
+          <li> Ed </li>
+          <li> Colin </li>
+        </ul>
+      </div><!-- unique IDS -->
+      <div data-ur-set="toggler">  
+        <div data-ur-toggler-component='button'>
+          This Toggler Uses a Set
+        </div>
+
+        <ul data-ur-toggler-component='content'>
+          <li> Mission </li>
+          <li> Guerrero </li>
+          <li> Valencia </li>
+          <li> Dolores </li>
+        </ul>
+      </div>
+
+    <br/>
+    <h2>How Uranium Works</h2>
+
+    <p>Uranium searches through the HTML document for the special attributes
+      we give to tags. Once it sees the <span class="inline_code">data-ur</span>, it looks for groups of components. 
+      The set allows it to determine what widget we're defining.</p>
+
+    <p>Next, the javascript looks for ids on a component. If it finds an
+      id, it uses this. If it <emph>doesn't</emph>, it uses the set.</p>
+  
+    <p>This is explained visually in the flowchart below.</p>
+    
+    <img id="flowchart" src="images/uranium_flowchart.png" />
+</div> <!-- wrapper -->
+    </div>
+    <div id="bottombody">
+  		<div class="wrapper" id="bottomwrap">
+  				<a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
+  				Uranium &copy; 2011 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
+  		</div><!-- wrapper-->
+  	</div><!-- bottombody end-->
+  </body>
+</html>

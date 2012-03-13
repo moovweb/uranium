@@ -1,0 +1,123 @@
+---
+layout: default 
+title: Font Resizer
+name: font_resizer
+widget_selected: selected
+---
+<div data-ur-set="tabs">
+  
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+  
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+  
+  <div data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+    <div class="wrapper">
+      <h1>Font Resizer </h1>
+    </div>
+    <div class="description_wrapper">
+      <h2>Description</h2>
+      <div class="description">
+        <p>This widget allows us to change the font size of a specified page element.</p>
+        <p>To use this widget, we need to use a couple of attributes. We can use the set method (i.e.
+          grouping all of the widget components in a single div with the attribute data-ur-set) or the id method (i.e. giving
+          each component of the widget a data-ur-id with an identical value, which doesn't require them to
+          be grouped inside a single wrapper).</p>
+      </div>
+    </div> <!-- wrapper-->
+
+    <div class="wrapper">
+      <h2> Attributes </h2>
+      <div class="attributes">
+
+        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
+          <p>
+            <ul>
+              <li><span class="inline_code">data-ur-font-resizer-component="increase"</span> - this is used to mark the increase button (e.g. [+])</li>
+              <li><span class="inline_code">data-ur-font-resizer-component="label"</span> - this indicates the text size</li>
+              <li><span class="inline_code">data-ur-font-resizer-component="decrease"</span> - this is used to mark the decrease button (e.g. [-]) </li>
+              <li><span class="inline_code">data-ur-font-resizer-component="content"</span> - this marks the content</li>
+            </ul>
+          </p>
+        </div><!-- basic -->
+        <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+          <h3> data-ur-set= </h3>
+          <div class="set_name inline_code">"font-resizer"</div>
+          <br/>
+          <h3> data-ur-font-resizer-component= </h3>
+          <div class="components">
+            <h4>Required</h4>
+            <ul>
+              <li><div data-ur-toggler-component="button" class="inline_code">"increase"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>multiple?: false</li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"decrease"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>multiple?: false</li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"label"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>multiple?: false</li>
+                </ul>
+              </li>
+              <li><div data-ur-toggler-component="button" class="inline_code">"content"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>multiple?: false</li>
+                  <li>attributes
+                    <ul>
+                      <li>optional: <span class="inline_code">data-ur-font-resizer-min</span> - defaults to "100"</li>
+                      <li>optional: <span class="inline_code">data-ur-font-resizer-max</span> - defaults to "200"</li>
+                      <li>optional: <span class="inline_code">data-ur-font-resizer-size</span> - defaults to min</li>
+                      <li>optional: <span class="inline_code">data-ur-font-resizer-delta</span> - defaults to "20"</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+            </ul>
+          </div><!-- end of components -->
+        </div><!-- end of advanced_tab -->
+      </div><!-- end of attributes tabs -->
+    </div><!-- end of wrapper -->
+
+
+    <div class="wrapper">
+      <h2>Demonstration</h2>
+      <div class="demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'> Widget</h3>
+
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+  
+        <div class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+          <div data-ur-set="font-resizer" class="example_widget">
+            <span data-ur-font-resizer-component="increase">[+]</span>
+            <span data-ur-font-resizer-component="label"></span>
+            <span data-ur-font-resizer-component="decrease">[-]</span>
+            <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+          </div>
+        </div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="html">
+          <p class="code">
+          <span id="brown">&lt;div <span id="green">data-ur-set="font-resizer"<span id="brown">></br>
+            <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-font-resizer-component="increase"<span id="brown">>[+]&lt;/span></br>
+            <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-font-resizer-component="label"<span id="brown">>&lt;/span></br>
+            <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-font-resizer-component="decrease"<span id="brown">>[-]&lt;/span></br>
+            <span id="brown">&emsp;&emsp;&lt;p <span id="green">data-ur-font-resizer-component="content"<span id="brown">>To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.&lt;/p></br>
+          <span id="brown">&lt;/div>
+          <p>
+        </div>
+      </div>
+      <div>
+        <p>More examples of font resizer can be found <a href="{{site.url}}font_resizer_examples.html">here</a>, including:</p>
+        <ul>
+          <li><a href="{{site.url}}font_resizer_examples.html#using_ids">using IDs instead of sets</a></li>
+          <li><a href="{{site.url}}font_resizer_examples.html#overriding">overriding the default settings</a></li>
+          <li><a href="{{site.url}}font_resizer_examples.html#self-sizing">a self-resizing resizer</a></li>
+        </ul>
+      </div>
+  
+    </div><!-- wrapper-->
+  </div> <!-- basicpage -->
+</div> <!-- tabs -->

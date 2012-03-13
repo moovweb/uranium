@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Tutorial</title>
+    <script src="src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='stylesheets/style_index_yellow.css' />
+    <link rel="stylesheet" type='text/css' href='stylesheets/base.css' />
+  </head>
+  
+  <body id="tutorial_page">
+    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <div id="menu">
+  		<div id="menuwrap">
+  			<a href="index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
+  			<a href="tutorials.html" class="toplinks selected"><div class="menuselect">Tutorial</div></a><!-- menuselect-->
+  			<a href="widget_list.html" class="toplinks "><div class="menuselect">Widgets</div></a><!-- menuselect-->
+  			<a href="example_list.html" class="toplinks "><div class="menuselect">Examples</div></a><!-- menuselect-->
+  			<a href="more.html" class="toplinks "><div class="menuselect">Philosophy</div></a><!-- menuselect-->
+  			<a href="download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
+  		</div><!-- menuwrap-->	
+  	</div><!-- menu-->
+  	<div id="textbody">
+    <div class="wrapper">
+  <h1>Tutorial</h1>
+  <div id="tutorial_introduction">
+    <h2>Introduction</h2>
+    <div class="tutorial_para">
+      <p>We've worked hard to make Uranium as streamlined as possible, requiring the least possible 
+      effort from the user.</p>
+      <p>Part of this is ensuring that the widgets are easy to use and once you've learnt how to
+      implement one, the same methods are easily applied to other widgets.</p>
+      <p>As such, here we're going to go over an example of how to use widgets. We'll use
+       the <a href="toggler.html">toggler</a> as a model.</p>
+    </div>
+  </div>
+</div> <!-- wrapper -->
+
+<div class="wrapper">
+  <div class="tutorial" id="toggler_tutorial" data-ur-closeable='true'>
+    <h2>Tutorial: How to Implement A Toggler</h2>
+    <div>
+      <div class="tutorial_para">
+        <p>We're going to start by making a toggler. What's a toggler? Well, it's a widget that has 
+          two components to it: a <i>button</i> and <i>content</i>. When we click on the button, 
+          the content should appear. Here is an example of what we're going to build (click on "Clothing"):</p>
+        <div data-ur-set='toggler' id="end_product">
+          <div data-ur-toggler-component='button'>
+            Clothing
+          </div>
+     
+          <ul data-ur-toggler-component='content'>
+            <li> Hat </li>
+            <li> Socks </li>
+            <li> Shoes </li>
+            <li> Gloves </li>
+            <li> Shirts </li>
+          </ul>
+        </div> <!--end of toggler-->
+        <p>
+          We click on the <i>button</i> ("Clothing") and the <i>content</i> (the list of clothes)
+          appears.
+        </p>
+      </div>
+      <h3>First Step: Adding Attributes to the HTML</h3>
+      <div class="tutorial_para">
+        <p>
+          Let's start with the basic, bare-bones HTML: we have a <span class="inline_code">div</span> for 
+          "Clothing" and then an unordered list with the items in it.
+        </p>
+        <p class="code">
+          <span id="brown">&lt;div><br/>
+          <span id="brown">&emsp;&emsp;Clothing<br/>
+          <span id="brown">&lt;div><br/>
+          <span id="brown">&lt;ul><br/>
+          <span id="brown">&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+          <span id="brown">&lt;/ul>
+        </p>
+        <p>
+          The first thing we need to do is wrap the whole toggler in a <span class="inline_code">div</span> with the 
+          <span class="inline_code">data-ur-set</span> attribute set
+          as <span class="inline_code">"toggler"</span>. This is basically telling Uranium that the whole thing
+          in the div is a toggler.
+        </p>
+        <p class="code">
+          <span id="brown">&lt;div <span id="green">data-ur-set="toggler"<span id="brown">><br/>
+          <span id="brown">&emsp;&emsp;&lt;div><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;Clothing<br/>
+          <span id="brown">&emsp;&emsp;&lt;div><br/>
+          <span id="brown">&emsp;&emsp;&lt;ul><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;/ul><br/>
+          <span id="brown">&lt;/div>
+        </p>
+        <p>
+          This may have already caused a problem. What if we can't wrap the whole
+          thing in a <span class="inline_code">div</span>? Well, there's a trick around
+          that - check out the explanation of ids <a href="grouping.html">here</a>.
+        </p>
+        <p>
+          Next, we indicate where the button is. In our case, we want the button to be the
+          Clothing div. So we give the clothing div the attribute <span class="inline_code">"data-ur-toggler-component"</span> 
+          and the value <span class="inline_code">"button"</span>. 
+          (Want to know why the attributes are named so? Click <a href="model.html#naming">here</a>.)
+        </p>
+        <p class="code">
+          <span id="brown">&lt;div <span id="green">data-ur-set="toggler"<span id="brown">><br/>
+          <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component="button"<span id="brown">><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;Clothing<br/>
+          <span id="brown">&emsp;&emsp;&lt;div><br/>
+          <span id="brown">&emsp;&emsp;&lt;ul><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;/ul><br/>
+          <span id="brown">&lt;/div>
+        </p>
+        <p>
+          The final thing we need to do to this HTML is specify the content bit of the toggler. The content
+          in this case is the unordered list that we want to appear when the button is clicked. We give it the
+          attribute <span class="inline_code">data-ur-toggler-component</span> (the same as for the button, if 
+          you remember) - but this time we use the value <span class="inline_code">"content"</span>.
+        </p>
+        <p class="code">
+          <span id="brown">&lt;div <span id="green">data-ur-set="toggler"<span id="brown">><br/>
+          <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component="button"<span id="brown">><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;Clothing<br/>
+          <span id="brown">&emsp;&emsp;&lt;div><br/>
+          <span id="brown">&emsp;&emsp;&lt;ul <span id="green">data-ur-toggler-component="content"<span id="brown">><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+          <span id="brown">&emsp;&emsp;&lt;/ul><br/>
+          <span id="brown">&lt;/div>
+        </p>
+        <p>That's all we need to do with regards to HTML.</p>
+      </div><!-- tutorial para-->
+      <h3>Second Step: Don't forget the Javascript</h3>
+      <div class="tutorial_para">
+        <p>We've added all the necessary attributes to the HTML. The next job is to make sure
+          we have Uranium running in the page.</p>
+        <p>The Uranium file can be downloaded <a href="download.html">here</a>.</p> Include
+        it in your project folder, and add an appropriate reference to it in the head of the 
+        HTML.</p>
+      </div>
+      <h3>Third Step: Changing the CSS</h3>
+      <div class="tutorial_para">
+        <p>Now we've added the Uranium javascript to the page, go back and refresh the site. The moment of 
+          truth is upon us. Click on the button!</p>
+        <p>...</p>
+        <p>
+          Ruh roh. Nothing seems to happen. Why not? Is the javascript broken? Let's check.
+        </p>
+        <p>
+          Right-click on your widget and "inspect element". You'll see the button and the content divs have
+          an extra attribute - <span class="inline_code">data-ur-state</span>. This is, by default, set 
+          to <span class="inline_code">"disabled"</span>.
+        </p>
+        <img src="images/disabled.png">
+        <p>
+          When the button is clicked, it changes to <span class="inline_code">"enabled"</span>. 
+        </p>
+        <img src="images/enabled.png">
+        <p>The javascript is doing its job. The missing piece of the puzzle is the CSS.</p>
+        <p>
+          What we need to do is change the styling of the page. It needs to be set so that
+          the content does not display when <span class="inline_code">data-ur-state="disabled"</span>, 
+          but to display when <span class="inline_code">data-ur-state="enabled"</span>.
+        </p>
+        <p class="code">
+          <span id="brown">*[<span id="green">data-ur-toggler-component='content'<span id="brown">] {<br/>
+          <span id="brown">&emsp;&emsp;display: none;<br/>
+          <span id="brown">}<br/>
+          <span id="brown">*[<span id="green">data-ur-toggler-component='content'<span id="brown">][<span id="green">data-ur-state='enabled'<span id="brown">] {<br/>
+          <span id="brown">&emsp;&emsp;display: block;<br/>
+          <span id="brown">}
+        </p>
+        <p>
+          (This is actually what we call "lazy" CSS styling. What we're doing is only defining what
+          happens when the data-ur-state is <i>enabled</i> - we don't say anything about its "disabled" state.
+          Check out more about lazy vs proper styling <a href="styling.html">here</a>.)
+        </p>
+        <p>
+          By this point, the widget should be fully functional. Isn't it neat? 
+        </p>
+      </div> <!-- tutorial para-->
+      <h3>Fourth Step: Apply These Skills</h3>
+      <div class="tutorial_para""brown">
+        <p>Pretty much all the widgets in Uranium work in a similar way. You add special attributes to the
+          tags in your HTML, import the javascript, and maybe do a little CSS re-styling.
+        </p>
+        <p>
+          Now we've whetted your appetite, you probably want to check out some more 
+          widgets. Well, <a href="widget_list.html">click here</a> for a list of 
+          all the widgets bundled with Uranium.
+        </p>
+        <p>
+          What's more, the widgets within Uranium are pretty much only limited by your 
+          CSS imagination. We've collected some of the coolest examples of widget usage
+          <a href="example_list.html">here</a>.
+        </p>
+      </div> <!-- tutorial para -->
+    </div>
+  </div><!--tutorial close-->
+</div> <!-- tutorial 1 wrapper close -->
+<!--<div class="wrapper">
+  <div class="tutorial" id="toggler_tutorial" data-ur-set="tabs" data-ur-closeable='true'>
+    <h2 data-ur-tabs-component="button" data-ur-tab-id='second_tutorial'>Click for Tutorial 2: The Carousel</h2>
+    <div data-ur-tabs-component="content" data-ur-tab-id='second_tutorial'>
+      TUTORIAL HERE
+    </div>
+  </div>
+</div>-->
+    </div>
+    <div id="bottombody">
+  		<div class="wrapper" id="bottomwrap">
+  				<a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
+  				Uranium &copy; 2011 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
+  		</div><!-- wrapper-->
+  	</div><!-- bottombody end-->
+  </body>
+</html>

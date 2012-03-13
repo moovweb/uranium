@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Toggler</title>
+   <script src="../build/src/uranium-pretty.js"></script>
+   <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/toggler.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
+  </head>
+
+  <body suite='Togglers'>
+
+    <h1>Togglers</h1>
+
+    <hr>
+
+    <h2>Description</h2>
+    <div class='description'>
+      <p>
+        A toggler is a widget that has two components - a button, and a
+        set of contents. When you click the button, the states (of both
+        the button and the contents) are toggled.
+      </p>
+    </div>
+    
+    <h2>Options</h2>
+    <div class="option">
+      <p>Here's a list of attributes to add to HTML to make the widget work</p>
+      <ul>
+        <li>data-ur-set="toggler" - add this attribute to a div that wraps the whole widget</li>
+        <li>data-ur-toggler-component="button" - add this attribute to the button (i.e. the thing to be clicked)</li>
+        <li>data-ur-toggler-component="content" - add this attribute to all the contents</li>
+      </ul>
+    </div>
+    
+    <h2>Demonstration</h2>
+    <div class='test' name='Simple'>
+
+      <h3>Accordion</h3>  
+      <div class="description">
+        <p>
+        We have one button ("Click Here!"). When we click on it, we want the content 
+        (containing the clothing options) to appear. We call this an "accordion".
+        </p>
+      </div>
+      <div id="accordion_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
+
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+        
+        <div id="tab_widget" class="widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+          <div data-ur-set='toggler'>
+            <div data-ur-toggler-component='button'>
+              Click Here!
+            </div>
+        
+            <ul data-ur-toggler-component='content'>
+              <li> Hat </li>
+              <li> Socks </li>
+              <li> Shoes </li>
+              <li> Gloves </li>
+              <li> Shirts </li>
+            </ul>
+          </div>
+        </div>
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+          <p class="code">
+            &lt;div data-ur-set="toggler"><br/>
+            &emsp;&emsp;&lt;div data-ur-toggler-component="button"><br/>
+            &emsp;&emsp;&emsp;&emsp;Click Here!<br/>
+            &emsp;&emsp;&lt;div><br/>
+            &emsp;&emsp;&lt;ul data-ur-toggler-component="content"><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
+            &emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
+            &emsp;&emsp;&lt;/ul><br/>
+            &lt;/div>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class='test' name='DialogProper'>
+      <a name="non_lazy_styling"></a>
+      <h3>Popup</h3>
+      
+      <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
+        data-ur-state='disabled' class='popup_button'>
+        Click Here !
+      </div>
+      
+      <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
+        data-ur-state='disabled' class='popup_content'>
+         <img src='images/popup.jpeg'>
+      </div>
+      <div class='description'>
+        <p>
+          In this style, we want an image to appear when we click on the button.
+        </p>
+
+      </div>
+      
+    </div>
+
+    <div>
+      <p>More examples of the toggler can be found <a href="toggler_examples.html">here</a>.</p>
+    </div>
+    
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Fri May 13 19:34:03 PDT 2011 <!-- hhmts end -->
+</body> </html>

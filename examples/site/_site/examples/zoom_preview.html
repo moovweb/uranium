@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Zoom Preview</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <script src="../build/src/uranium.js"></script>
+    <link rel="stylesheet" type='text/css' href='css/test.css' />
+    <link rel="stylesheet" type='text/css' href='css/tabs.css' />
+    <link rel="stylesheet" type='text/css' href='css/zoom_preview.css' />
+  </head>
+
+<body suite='ZoomPreview'>
+
+<h1> Zoom Preview </h1>
+
+<hr>
+
+<h2> Description </h2>
+
+<div class='description'>
+  <p>
+  This is a widget to look at a large zoomed image with touch events
+  (although I've simulated it with mouseevents). The idea is that
+  given some thumbnails / image preview, you can insert a button that
+  the user can touch/drag around to view the zoomed image. It seems in
+  the wild we also need a modifier rule, which tells us how to
+  generate the src of the big image so that its really giant.
+  </p>
+  <p>
+  Note: We assume listeners on the thumbnails to update the main
+  image are already in place. If this is not the case, we can make a
+  skeleton image gallery widget.
+  </p>
+
+</div>
+
+<h2>Options</h2>
+<div class="option">
+  <p>
+    </p>
+</div>
+
+<h2> Demonstration</h2>
+<div class='test' name='Simple'>
+
+  <h3> Touch and Drag on the thumbnail to view the zoom preview </h3>
+  
+  <div data-ur-set="tabs">
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
+
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+    
+    <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'>
+        <img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
+      
+        <div class="normal_image">
+          <img data-ur-zoom-preview-component='normal_image'
+          data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/pic1.jpeg" />
+        </div>
+
+        <img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true' data-ur-zoom-preview-component='button'/>
+        
+      </div>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      <p class="code">
+        &lt;div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'></br>
+          &emsp;&emsp;&lt;img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)'</br> &emsp;&emsp;&emsp;&emsp;data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" /></br></br>
+
+          &emsp;&emsp;&lt;div class="normal_image"></br>
+            &emsp;&emsp;&emsp;&emsp;&lt;img data-ur-zoom-preview-component='normal_image'</br>
+            &emsp;&emsp;&emsp;&emsp;data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true'</br> &emsp;&emsp;&emsp;&emsp;src="images/pic1.jpeg" /></br>
+          &emsp;&emsp;&lt;/div></br></br>
+
+          &emsp;&emsp;&lt;img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true'</br> data-ur-zoom-preview-component='button'/></br></br>
+
+        &lt;/div></br>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div>
+  <p>More examples of zoom previews can be found <a href="zoom_preview_examples.html">here</a>.</p>
+</div>
+
+<script type='text/javascript'>
+  var big_image = document.getElementById("big_image");
+  x$().iterate(
+    document.querySelectorAll("[data-ur-zoom-preview-component='thumbnails'] img"),
+    function(elem) {
+      elem.addEventListener('click', function(evt){big_image.src=evt.target.src;}, false);
+    }
+  );
+</script>
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Fri May 13 19:32:34 PDT 2011 <!-- hhmts end -->
+</body> </html>

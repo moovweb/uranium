@@ -1,0 +1,62 @@
+Lazy styling vs Proper styling
+
+<div class='test' name='Dialog'>
+
+  <h3> Popup -- with Lazy Styling</h3>
+
+  <div class='description'>
+    This (and the next) toggler use a button to make an image appear.</br>
+    However, this popup uses "lazy styling". What is "lazy styling", exactly?
+    It's when we aren't really styling the 'disabled' data-ur-state  --- we just style on 
+    the 'enabled' state.
+
+ </div>
+
+  <div data-ur-toggler-component='button' data-ur-id='MyPopup' >
+    Popup !
+  </div>
+
+  <div data-ur-toggler-component='content' data-ur-id='MyPopup'>
+     <img src='images/popup.jpeg'>
+  </div>
+
+  <p>
+    The pop-up appears way up the page. Not good.
+  </p>
+</div>
+
+<div class='test' name='DialogProper'>
+  <a name="non_lazy_styling"></a>
+  <h3> Popup -- with Proper Styling</h3>
+
+  <div class='description'>
+
+    This time, we'll use proper styling for the popup. 
+    We add the data-ur-state attributes so that we can compartmentalize
+    styles.
+
+ </div>
+
+ <p class="code">
+   .popup_content[data-ur-state='disabled'] {<br/>
+    &emsp;&emsp;display: none;<br/>
+     &emsp;&emsp;opacity: 0.5;<br/>
+   }<br/>
+
+   .popup_content[data-ur-state='enabled'] {<br/>
+     &emsp;&emsp;display: inline-block;<br/>
+     &emsp;&emsp;opacity: 1.0;<br/>
+   }
+ </p>
+
+  <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
+    data-ur-state='disabled' class='popup_button'>
+    Popup !
+  </div>
+
+  <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
+    data-ur-state='disabled' class='popup_content'>
+     <img src='images/popup.jpeg'>
+  </div>
+
+</div>

@@ -1,0 +1,47 @@
+*[data-ur-tabs-component='button'] { 
+  opacity: 0.5;
+  background-color: #6495ED;
+border: 1px solid black;
+border-top-left-radius: 5px 5px;
+border-top-right-radius: 5px 5px;
+bottom: -1px;
+display: inline-block;
+margin: 0px 5px;
+padding: 5px;
+position: relative;	
+}
+
+*[data-ur-tabs-component='content'] {
+  display:none;
+  background-color: #6495ED;
+}
+
+*[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+  opacity: 1.0;
+  border-bottom: 1px solid #6495ED;
+}
+
+*[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+  display: block;
+  background-color: #6495ED;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: center;
+}
+
+*[data-ur-set="tabs"][data-ur-tab-id="html"] {
+  text-align: left;
+}
+
+/* Accordions w state */
+
+div[name='accordions'] *[data-ur-tabs-component='button'] { 
+    display: block;
+    border: 1px solid blue;
+    background-color: white;
+}
+
+div[name='accordions'] *[data-ur-tabs-component='content'] { 
+    background-color: white;
+    margin: 0px 20px;
+}

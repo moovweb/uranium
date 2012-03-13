@@ -1,0 +1,7 @@
+li[data-ur-set="toggler"] [data-ur-toggler-component='button'] {
+  background-color: #a3e2f5; }
+li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
+  display: none;
+  background-color: #d0e9f0; }
+  li[data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state="enabled"] {
+    display: block; }

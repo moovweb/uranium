@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+  <head>
+    <title>Zoom Preview</title>
+    <script src="src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='stylesheets/style_index_yellow.css' />
+    <link rel="stylesheet" type='text/css' href='stylesheets/base.css' />
+  </head>
+  
+  <body id="zoom_preview_page">
+    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <div id="menu">
+  		<div id="menuwrap">
+  			<a href="index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
+  			<a href="tutorials.html" class="toplinks "><div class="menuselect">Tutorial</div></a><!-- menuselect-->
+  			<a href="widget_list.html" class="toplinks selected"><div class="menuselect">Widgets</div></a><!-- menuselect-->
+  			<a href="example_list.html" class="toplinks "><div class="menuselect">Examples</div></a><!-- menuselect-->
+  			<a href="more.html" class="toplinks "><div class="menuselect">Philosophy</div></a><!-- menuselect-->
+  			<a href="download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
+  		</div><!-- menuwrap-->	
+  	</div><!-- menu-->
+  	<div id="textbody">
+    <div data-ur-set="tabs">
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+  
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+  <div>
+    <div class="wrapper">
+      <h1> Zoom Preview </h1>
+    </div>
+    <div class="description_wrapper">
+      <h2> Description </h2>
+
+      <div class='description'>
+        <p>
+        This is a widget to look at a large zoomed image with touch events
+        (although here it's simulated with mouse events). The idea is that
+        given some thumbnail/image preview, you can insert a button that
+        the user can touch/drag around to view the zoomed image. It seems in
+        the wild we also need a modifier rule, which tells us how to
+        generate the src of the big image so that it's really giant.
+        </p>
+        <p>
+        Note: We assume listeners on the thumbnails to update the main
+        image are already in place. If this is not the case, we can make a
+        skeleton image gallery widget.
+        </p>
+
+      </div><!-- description-->
+    </div> <!-- wrapper -->
+    <div class="wrapper">
+      <h2>Attributes</h2>
+      <div class="attributes">
+        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>   
+          <p>
+            <h3>To the wrapper div:</h3>
+          </p>
+          <ul>
+            <li><span class="inline_code">data-ur-set="zoom-preview"</span> - add this attribute to a div that wraps the whole widget</li>
+            <li><span class="inline_code">data-ur-zoom-preview-component="container"</span></li>
+          </ul>
+          <p>
+            <h3>To the large image:</h3>
+          </p>
+          <ul>
+            <li><span class="inline_code">data-ur-zoom-preview-component="zoom_image"</span></li>
+            <li><span class="inline_code">style="visibility: hidden"</span></li>
+          </ul>
+          <p>
+            <h3>To the main image:</h3>
+          </p>
+          <ul>
+            <li><span class="inline_code">data-ur-zoom-preview-component="normal_image"</span></li>
+            <li><span class="inline_code">src='images/pic1.jpeg'</span></li>
+            <li>This image should be styled to 200px by 200px in the CSS</li>
+          </ul>
+          <p>
+            <h3>To the thumbnail image:</h3>
+          </p>
+          <ul>
+            <li><span class="inline_code">data-ur-zoom-preview-component="button"</span></li>
+            <li>This image should be styled to roughly 62px by 62px in the CSS</li>
+          </ul>
+        </div><!-- basic -->
+        <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" >
+          <h3> data-ur-set= </h3>
+          <div class="set_name inline_code">"zoom-preview"</div>
+          <br/>
+          <h3> data-ur-zoom-preview-component= </h3>
+          <div class="components">
+            <p>
+              <ul>
+                <li><div data-ur-toggler-component="button" class="inline_code">"normal_image"</div>
+                  <ul>
+                    <li>multiple?: false</li>
+                    <li>state: enabled / disabled(default)</li>
+                    <li>attributes
+                      <ul>
+                        <li>required: <span class="inline_code">data-ur-tab-id</span>: must match corresponding attribute on content element</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><div data-ur-toggler-component="button" class="inline_code">"zoom_image"</div>
+                  <ul>
+                    <li>multiple?: false</li>
+                    <li>state: enabled / disabled(default)</li>
+                    <li>attributes
+                      <ul>
+                        <li>optional: <span class="inline_code">match</span></li>
+                        <li>optional: <span class="inline_code">match</span></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><div data-ur-toggler-component="button" class="inline_code">"buttons"</div>
+                  <ul>
+                    <li>multiple?: false</li>
+                    <li>state: enabled / disabled(default)</li>
+                  </ul>
+                </li>
+                <li><div data-ur-toggler-component="button" class="inline_code">"container"</div>
+                  <ul>
+                    <li>multiple?: false</li>
+                    <li>state: enabled / disabled(default)</li>
+                  </ul>
+                </li>
+              </ul>
+            </p>
+          </div> <!-- components -->
+        </div><!-- end of advanced_tab -->
+      </div>
+    </div><!--wrapper-->
+    <div class="wrapper">
+      <h2> Demonstration</h2>
+      <div class='demonstration' name='Simple'>
+        <div data-ur-set="tabs">
+          <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
+
+          <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+      
+      
+    
+          <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
+            <div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'>
+              <img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)' data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" />
+      
+              <div class="normal_image">
+                <img data-ur-zoom-preview-component='normal_image'
+                data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true' src="images/zoom1.JPG" />
+              </div>
+
+              <img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true' data-ur-zoom-preview-component='button'/>
+        
+            </div>
+          </div>
+          <div data-ur-tabs-component="content" data-ur-tab-id="html">
+            <p class="code">
+              <span id="brown">&lt;div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'></br>
+                <span id="green">&emsp;&emsp;&lt;img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)'</br>     
+                <span id="brown">&emsp;&emsp;&emsp;&emsp;data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" /></br></br>
+
+                <span id="green">&emsp;&emsp;&lt;div class="normal_image"></br>
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img data-ur-zoom-preview-component='normal_image'</br>
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true'</br> 
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;src="images/pic1.jpeg" /></br>
+                <span id="green">&emsp;&emsp;&lt;/div></br></br>
+
+                <span id="green">&emsp;&emsp;&lt;img data-ur-src-modifier-match='$' data-ur-src-modifier-replace='&button_image=true'</br> data-ur-zoom-preview-component='button'/></br></br>
+
+              <span id="brown">&lt;/div></br>
+            </p>
+          </div> <!-- html content -->
+        </div><!-- tabs -->
+      </div> <!-- demonstration -->
+      <div>
+        <p>More examples of zoom previews can be found <a href="zoom_preview_examples.html">here</a>, including using thumbnails.</p>
+      </div>
+    </div> <!-- wrapper -->
+  </div>
+</div> <!-- tabs -->
+    </div>
+    <div id="bottombody">
+  		<div class="wrapper" id="bottomwrap">
+  				<a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
+  				Uranium &copy; 2011 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
+  		</div><!-- wrapper-->
+  	</div><!-- bottombody end-->
+  </body>
+</html>
