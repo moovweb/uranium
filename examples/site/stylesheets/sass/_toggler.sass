@@ -15,6 +15,20 @@ body#togglers_page
   ul[data-ur-toggler-component="content"]
     margin-left: 10px
 
+  .components
+    [data-ur-toggler-component='button']
+      background: none
+
+  .content
+    display: block
+    background: silver url("resources/largestshade.png") no-repeat left bottom
+    border: 1px solid black
+    padding: 20px
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    margin-bottom: 15px
+
   // Popup examples
 
   // Lazy styling
@@ -60,10 +74,10 @@ body#togglers_page
     position: absolute
     border-radius: 5px
     background-color: #AAAAAA
-    //  width: 500px;
-     //height: 500px;
+    //  width: 500px
+     //height: 500px
     left: 200px
-    //  bottom: 50px;
+    //  bottom: 50px
     text-align: center
     padding: 30px
     &[data-ur-state='disabled']
@@ -211,10 +225,10 @@ body#togglers_examples_page
     position: absolute
     border-radius: 5px
     background-color: #AAAAAA
-    //  width: 500px;
-     //height: 500px;
+    //  width: 500px
+     //height: 500px
     left: 270px
-    //  bottom: 50px;
+    //  bottom: 50px
     text-align: center
     padding: 30px
     &[data-ur-state='disabled']
