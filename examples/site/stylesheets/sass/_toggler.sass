@@ -12,8 +12,6 @@ body#togglers_page
       opacity: 1.0
     &[data-ur-toggler-component='content'][data-ur-state='enabled']
       display: block
-  ul[data-ur-toggler-component="content"]
-    margin-left: 10px
 
   .components
     [data-ur-toggler-component='button']
@@ -94,7 +92,6 @@ body#togglers_page
   [name='MultipleContents']
     .popup_content
       position: relative
-      z-index: -1
       width: 250px
       height: 250px
       padding: 20px
@@ -104,7 +101,7 @@ body#togglers_page
     [data-ur-toggler-component="content"]
       display: inline-block
 
-body#togglers_examples_page
+body#togglers_page
   *
     &[data-ur-toggler-component='button']
       opacity: 0.5
@@ -227,6 +224,7 @@ body#togglers_examples_page
     &[data-ur-state='enabled']
       display: inline-block
       opacity: 1.0
+      z-index: 10
       img
         width: 200px
         height: 200px
@@ -257,3 +255,5 @@ body#togglers_examples_page
   #disabled
     background: #323232
     border: none
+  div[data-ur-id='MyToggler'].buttons
+    background-color: #FFD700 !important
