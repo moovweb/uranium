@@ -1,17 +1,17 @@
 ---
-layout: default 
+layout: widgets 
 title: Geolocation
 name: geolocation
 widget_selected: selected
 ---
 <div data-ur-set="tabs">
   <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-  
+
   <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
   <div>
-  <div class="wrapper">
-<h1> Geolocation </h1>
-</div>
+    <div class="wrapper">
+      <h1> {{page.title}} </h1>
+    </div>
   <div class="description_wrapper">
 <h2> Description </h2>
   <div class="description">
@@ -25,6 +25,7 @@ widget_selected: selected
         <li>Country</li>
       </ul>
     </p>
+    <p>You can only have one of these widgets per page.</p>
     <p>
       Some browsers (as for <a href="{{site.url}}maps.html">maps</a>) won't do this locally, so use dropbox
       for testing. Also, it's important to ensure that location services are enabled on the device and/or browser.
@@ -105,6 +106,13 @@ widget_selected: selected
     </div><!-- end of advanced_tab -->
   </div><!-- end of attributes tabs -->
   </div><!-- end of wrapper -->
+
+  <div class='wrapper'>
+    <h2> Required Styles </h2>
+    <p>
+      No styles are required.
+    </p>
+  </div>
 
   <div class="wrapper">
   <h2>Demonstration</h2>
@@ -456,13 +464,13 @@ widget_selected: selected
       </div>
     </div>
   </div>
-  <div>
-    <p>More examples of geolocation can be found <a href="{{site.url}}geocode_examples.html">here</a>, including:</p>
-    <ul>
-      <li><a href="{{site.url}}geocode_button.html">activating the geolocator with a button</a></li>
-      <li><a href="{{site.url}}geocode_text_inputs.html">using text inputs instead of a select list</a></li>
-    </ul>
-  </div>
 </div> <!-- demonstration wrapper -->
+<div id="lightgrey"></div><!-- hr-->
+<div class="wrapper">
+<h2>Further Examples</h2>
+  <h3><a href="{{site.url}}geocode/button.html">Activating the Geolocator with a Button</a></h3>
+  <h3><a href="{{site.url}}geocode/text_inputs.html">Populate Text Inputs Instead of Select Elements</a></h3>
+  
+</div>
   </div>
 </div> <!-- tabs -->
