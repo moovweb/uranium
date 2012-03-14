@@ -22,8 +22,7 @@ widget_selected: selected
         You can only use one map per page.
       </p>
       <p> Note: If you're testing this locally (off of a file in your
-      browser) - then geolocation may not work. Put it in your dropbox
-      to play with these features.</p>
+      browser) - then geolocation may not work. Put it in your public dropbox folder to play with these features.</p>
       </div>
     </div>
 
@@ -99,6 +98,22 @@ widget_selected: selected
         </div><!-- end of advanced_tab -->
       </div><!-- end of attributes tabs -->
     </div><!-- end of wrapper -->
+
+      <div class="wrapper">
+        <h2>Optional CSS</h2>
+        <div class='css'>
+<pre>
+/* CSS Styling */
+/* To constrain the map canvas */
+
+*[data-ur-map-component='canvas'] {
+  width: 300px;
+  height: 300px; 
+}
+</pre>
+        </div>
+    </div><!-- wrapper -->
+    
 
     <div class="wrapper">
       <h2>Demonstration</h2>
