@@ -626,9 +626,8 @@ body#tabs_page div[name='accordions'] *[data-ur-tabs-component='button'] {
 body#tabs_page div[name='accordions'] *[data-ur-tabs-component='content'] {
   background-color: white;
   margin: 0px 20px; }
-
-/* line 73, sass/_tabs.sass */
-body#tabs_examples_page *[data-ur-tabs-component='button'] {
+/* line 71, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page *[data-ur-tabs-component='button'] {
   opacity: 0.5;
   background-color: #ffd700;
   border: 1px solid black;
@@ -639,38 +638,38 @@ body#tabs_examples_page *[data-ur-tabs-component='button'] {
   margin: 0px 5px;
   padding: 5px;
   position: relative; }
-/* line 84, sass/_tabs.sass */
-body#tabs_examples_page *[data-ur-tabs-component='content'] {
+/* line 82, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page *[data-ur-tabs-component='content'] {
   display: none;
   background-color: #ffd700;
   border-radius: 5px; }
-/* line 88, sass/_tabs.sass */
-body#tabs_examples_page *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+/* line 86, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1;
   border-bottom: 1px solid #ffd700; }
-/* line 91, sass/_tabs.sass */
-body#tabs_examples_page *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+/* line 89, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
   display: block;
   background-color: #ffd700;
   border: 1px solid black;
   padding: 20px; }
-/* line 96, sass/_tabs.sass */
-body#tabs_examples_page *[data-ur-set="tabs"][data-ur-tab-id="html"] {
+/* line 94, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page *[data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
+/* line 98, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
+  background: #ffd700; }
 /* line 100, sass/_tabs.sass */
-body#tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
+body#tabs_page #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
   background: #ffd700; }
-/* line 102, sass/_tabs.sass */
-body#tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
-  background: #ffd700; }
-/* line 108, sass/_tabs.sass */
-body#tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='button'] {
+/* line 106, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='button'] {
   display: block;
   border: 1px solid black;
   background-color: #ffd700;
   border-radius: 5px; }
-/* line 113, sass/_tabs.sass */
-body#tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='content'] {
+/* line 111, sass/_tabs.sass */
+body#tabs_page #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='content'] {
   background-color: #ffd700;
   margin: 0px 20px; }
 

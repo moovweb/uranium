@@ -169,11 +169,78 @@ widget_selected: selected
         </p>
       </div>
     </div>
-
-<p>More examples of tabs can be found <a href="{{site.url}}tabs_examples.html">here</a>, including:</p>
-<ul>
-  <li><a href="{{site.url}}tabs_examples.html#Simple">a proof-of-concept with a different tab enabled first</a></li>
-  <li><a href="{{site.url}}tabs_examples.html#accordions">accordions</a></li>
-</ul>
 </div><!-- wrapper end -->
+
+<div id="lightgrey"></div><!-- hr-->
+
+<div class="wrapper" id="{{page.name}}_examples_page">
+  <h2>Further Examples</h2>
+  <div class='test' name='Simple'>
+    <a name="Simple"></a>
+
+    <h3>Selecting the Second Tab</h3>
+    <div class="description">
+      <p>Here, as proof of principle, we're putting the <span class="inline_code">data-ur-state="enabled"</span> attribute on the
+      second tab to illustrate that a different tab can be selected at the outset.</p>
+    </div>
+    <div data-ur-set='tabs'>
+      <span data-ur-tabs-component='button'
+      data-ur-tab-id='first_sanity'> First </span>        
+      <span data-ur-tabs-component='button'
+      data-ur-tab-id='second_sanity' data-ur-state='enabled'> Second </span>        
+      <span data-ur-tabs-component='button'
+      data-ur-tab-id='third_sanity'> Third </span>        
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='first_sanity'>
+        <img width='70px' height='70px' src='{{site.url}}../images/sample1.png?some_attr=noway'/> 
+     </div>
+
+      <div data-ur-tabs-component='content' data-ur-state='enabled'
+       data-ur-tab-id='second_sanity'>
+        <img width='70px' height='70px' src='{{site.url}}../images/sample2.png?some_attr=noway'/> 
+      </div>
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='third_sanity'>
+        <img width='70px' height='70px' src='{{site.url}}../images/sample3.png?some_attr=noway'/> 
+     </div>       
+
+    </div>
+  </div>    
+
+  <div id="lightgrey"></div><!-- hr-->
+
+  <div class='test' name='accordions'>
+    <a name="accordions"></a>
+
+    <h3> Accordions with State </h3>
+
+    <div class='description'>
+      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
+      strictly necessary. In the following example, we start out with no states defined.</p>
+      <p>The first one we click on will be the first one to be "enabled".</p>
+    </div>
+
+    <div data-ur-set='tabs' data-ur-closeable='true'>
+      <div data-ur-tabs-component='button' data-ur-tab-id='first_accordions'> First </div>
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='first_accordions'>
+        Oh uranium.
+      </div>
+
+      <div data-ur-tabs-component='button' data-ur-tab-id='second_accordions'>Second </div>
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='second_accordions'>
+        You do nifty widget things.
+      </div>
+
+      <div data-ur-tabs-component='button' data-ur-tab-id='third_accordions'> Third </div>        
+
+      <div data-ur-tabs-component='content' data-ur-tab-id='third_accordions'>
+        And you're performant.
+      </div>       
+
+    </div>
+  </div>
+</div> <!-- wrapper -->
+
 </div> <!--tabs-->
