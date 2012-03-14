@@ -1,5 +1,5 @@
 ---
-layout: default 
+layout: widgets
 title: Select Buttons
 name: select_buttons
 widget_selected: selected
@@ -19,7 +19,9 @@ widget_selected: selected
       <div class='description'>
         <p>
         This widget allows you to bind increment/decrement buttons to trigger
-        the appropriate changes on a <span class="inline_code">&lt;select&gt;</span> element.
+        the appropriate changes on a <span class="inline_code">&lt;select&gt;</span> element. 
+        It's extremely useful in situations where the options for the select are long, and will not
+        fit on the select popup that most devices present. 
         </p>
       </div>
     </div> <!-- wrapper -->
@@ -70,6 +72,13 @@ widget_selected: selected
       </div><!-- end of attributes tabs -->
     </div><!-- end of wrapper -->
 
+    <div class='wrapper'>
+      <h2> Required Styles </h2>
+      <p>
+        No styles are required.
+      </p>
+    </div>
+
     <div class="wrapper">
       <h2> Demonstration </h2>
 
@@ -89,8 +98,8 @@ widget_selected: selected
                 <option value='SKU-L'> L </option>
               </select>
     
-              <span data-ur-select-buttons-component='increment'> [+] </span>
               <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+              <span data-ur-select-buttons-component='increment'> [+] </span>
             </div>
           </div>
           <div data-ur-tabs-component="content" data-ur-tab-id="html">
@@ -104,8 +113,8 @@ widget_selected: selected
                   <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-L'> L &lt;/option><br/>
                <span id="brown">&emsp;&emsp;&lt;/select><br/>
     
-                <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-select-buttons-component='increment'<span id="brown">> [+] &lt;/span><br/>
                 <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-select-buttons-component='decrement' data-ur-state='disabled'<span id="brown">> [-] &lt;/span><br/>
+                <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-select-buttons-component='increment'<span id="brown">> [+] &lt;/span><br/>
               <span id="brown">&lt;/div>
             </p>  
           </div>
