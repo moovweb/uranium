@@ -12,6 +12,16 @@
     position: absolute
     visibility: hidden
 
+body[id*='map'] 
+  .attributes
+    display: block
+    background: #C0C0C0 url('resources/largestshade.png') no-repeat left bottom
+    border: 1px solid black
+    padding: 20px
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+
 // Hidden example
 
 body.hidden_page
@@ -24,6 +34,15 @@ body.hidden_page
 
 body#advanced_map_page
   *[data-ur-set="map"]
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
+    display: hidden
+    margin: 5px
+    padding: 5px
+    background: gold url("resources/largeshade.png") no-repeat left bottom
+    color: black 
+    width: 300px
     *[data-ur-map-component="icon"]
       img
         width: 10px
@@ -39,7 +58,7 @@ body#late_load_map_page
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-    background: gold url("{{site.url}}resources/largeshade.png") no-repeat left bottom
+    background: gold url("resources/largeshade.png") no-repeat left bottom
     color: black
     margin: 5px
     padding: 5px
@@ -50,5 +69,6 @@ body#late_load_map_page
     display: hidden
     margin: 5px
     padding: 5px
-    background: gold url("{{site.url}}resources/largeshade.png") no-repeat left bottom
+    background: gold url("resources/largeshade.png") no-repeat left bottom
     color: black
+    width: 300px

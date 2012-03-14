@@ -1,29 +1,36 @@
 ---
-layout: default 
-title: Simple Map
-name: simple_map
-example_selected: selected
+layout: map-widget-sub 
+title: Hidden Map
+name: hidden_map
+widget_selected: selected
 ---
 <div class="wrapper">
-  <h1> Simple Map </h1>
+  <h1> {{page.title}} </h1>
 
   <h2> Description </h2>
   <div class='description'>
     <p>
-    Make a map from addresses! Easy peasy!
+    This is a simple map that's hidden initially (but is still loaded automatically). All we do is wrap
+    the map in a <a href="toggler.html">toggler</a>.
     </p>
     <p> Note: If you're testing this locally (off of a file in your
     browser) - then geolocation may not work. Put it in your dropbox
     to play with these features </p>
   </div>
 
-  <h2> Example</h2>
-  <div class='test' name='Simple'>
+  <h2>Demonstration</h2>
+  <div class='test' name='Simple' data-ur-set='toggler'>
 
+    <span data-ur-toggler-component='button'> Click me to show map </span>
+
+  <div data-ur-toggler-component='content' >
     <div data-ur-set='map'>
-      <!-- I don't need to make this element visible -->
       <div data-ur-map-component='user_location'
-      data-ur-state='enabled'></div>        
+      data-ur-state='disabled'> Use My Location!</br></div>        
+
+      <div data-ur-map-component='icon'
+      data-ur-url='{{site.url}}stylesheets/resources/uraniumicon.png'><img
+      src='{{site.url}}stylesheets/resources/uraniumicon.png'/></div>
       
       <div data-ur-map-component='canvas'></div>
 
@@ -67,11 +74,7 @@ example_selected: selected
         <span> (415) 621-4455 </span>
       </div>        
       
+      </div>
     </div>
   </div>
 </div> <!-- wrapper -->
-<div class="wrapper">
-  <p>
-  <a href="{{site.url}}maps_examples.html">Back to examples of maps.</a>
-  </p>
-</div>

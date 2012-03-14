@@ -1,11 +1,11 @@
 ---
-layout: default 
+layout: map-widget-sub 
 title: Late-Load Map
 name: late_load_map
-example_selected: selected
+widget_selected: selected
 ---
 <div class="wrapper">
-  <h1> Late-Load </h1>
+  <h1> {{page.title}} </h1>
 
   <h2> Description</h2>
   <div class='description'>
@@ -57,8 +57,8 @@ example_selected: selected
       data-ur-state='disabled'> Use My Location! </div>        
 
       <div data-ur-map-component='icon'
-      data-ur-url='{{site.url}}stylesheets/resources/uraniumicon.png'><img
-      src='{{site.url}}stylesheets/resources/uraniumicon.png'/></div>
+      data-ur-url='{{site.url}}../../../stylesheets/resources/uraniumicon.png'><img
+      src='{{site.url}}../../../stylesheets/resources/uraniumicon.png'/></div>
       
       <div data-ur-map-component='canvas'></div>
 
@@ -105,8 +105,3 @@ example_selected: selected
       </div>
     </div>
 </div><!-- wrapper -->
-<div class="wrapper">
-  <p>
-  <a href="{{site.url}}maps_examples.html">Back to examples of maps.</a>
-  </p>
-</div>
