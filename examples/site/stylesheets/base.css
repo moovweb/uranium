@@ -376,7 +376,7 @@ body#select_buttons_page [data-ur-select-buttons-component='decrement'] {
 body#select_buttons_page [data-ur-select-buttons-component][data-ur-state='disabled'] {
   opacity: 0.5; }
 
-/* line 4, /Users/jeffpatzer/workspace/uranium/examples/site/stylesheets/sass/_select_lists.sass */
+/* line 4, sass/_select_lists.sass */
 body#select_list_page .demonstration #select_list_demonstration *[data-ur-set="select-list"] {
   width: 230px;
   height: 150px;
@@ -389,15 +389,15 @@ body#select_list_page .demonstration #select_list_demonstration *[data-ur-set="s
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-  /* line 17, /Users/jeffpatzer/workspace/uranium/examples/site/stylesheets/sass/_select_lists.sass */
+  /* line 17, sass/_select_lists.sass */
   body#select_list_page .demonstration #select_list_demonstration *[data-ur-set="select-list"] ul li {
     color: #323232;
     font-size: 18px;
     font-family: Rockwell;
-    text-align: center; }
-
-/* line 25, /Users/jeffpatzer/workspace/uranium/examples/site/stylesheets/sass/_select_lists.sass */
-body#select_list_examples_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] {
+    text-align: center;
+    list-style: none; }
+/* line 24, sass/_select_lists.sass */
+body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] {
   color: #fafafa;
   text-align: left;
   background: silver;
@@ -405,11 +405,11 @@ body#select_list_examples_page [data-ur-id="MyUIDSelectList"][data-ur-select-lis
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-  /* line 33, /Users/jeffpatzer/workspace/uranium/examples/site/stylesheets/sass/_select_lists.sass */
-  body#select_list_examples_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] [data-ur-state="enabled"] {
+  /* line 32, sass/_select_lists.sass */
+  body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] [data-ur-state="enabled"] {
     background-color: #ffd700 url("resources/largeshade.png") no-repeat left bottom; }
-  /* line 35, /Users/jeffpatzer/workspace/uranium/examples/site/stylesheets/sass/_select_lists.sass */
-  body#select_list_examples_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] span {
+  /* line 34, sass/_select_lists.sass */
+  body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] span {
     margin: 10px;
     padding-left: 10px;
     padding-right: 10px; }
