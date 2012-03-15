@@ -1,0 +1,176 @@
+---
+layout: default 
+title: Compatibility
+name: compatibility
+more_selected: selected
+---
+<div class="wrapper">
+  <h1>Compatibility</h1>
+  <p>
+    Our intention with Uranium is to provide as complete as possible mobile coverage.
+  </p>
+  
+  <p>
+    As Uranium is built on xui, there are some issues with IE and BlackBerry. On the <a href="xuijs.con">xui site</a>, you need to download
+    a different version depending on whether you're using IE, BlackBerry, or most other browsers. 
+  </p>
+  <h2>Compatibility Table: Devices</h2>
+  <table border="1">
+    <tr id="widget_list">
+      <th></th>
+      <th><a href="{{site.url}}toggler.html">Toggler</a></th>
+      <th><a href="{{site.url}}tabs.html">Tabs</a></th>
+      <th><a href="{{site.url}}carousel.html">Carousel</a></th>
+      <th><a href="{{site.url}}select_list.html">Select List</a></th>
+      <th><a href="{{site.url}}select_buttons.html">Select Buttons</a></th>
+      <th><a href="{{site.url}}zoom_preview.html">Zoom Preview</a></th>
+      <th><a href="{{site.url}}font_resizer.html">Font Resizer</a></th>  
+      <th><a href="{{site.url}}maps.html">Maps</a></th>
+      <th><a href="{{site.url}}geocode.html">Geolocator</a></th>    
+    </tr>
+    <tr id="iOS5">
+      <td>iOS5</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs">P</td>
+      <td class="passed carousel">P</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="passed zoom_preview">P</td>
+      <td class="mixed font_resizer">M</td>
+      <td class="passed maps">P</td>
+      <td class="passed geocode">P</td>
+    </tr>
+  
+    <tr id="">
+      <td>Android EVO</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs">P</td>
+      <td class="passed carousel">P</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="mixed zoom_previewd">M</td>
+      <td class="passed font_resizer">P</td>
+      <td class="passed maps">P</td>
+      <td class="passed geocode">P</td>
+    </tr>
+  
+    <tr id="">
+      <td>Android (2.2.1)</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs">P</td>
+      <td class="passed carousel">P</td>
+      <td class="passed select_list">P*</td>
+      <td class="passed select_buttons">P</td>
+      <td class="passed zoom_preview">P</td>
+      <td class="font_resizer"></td>
+      <td class="maps"></td>
+      <td class="passed geocode">P</td>
+    </tr>
+    
+    <tr id="blackberry_torch">
+      <td>Bb Torch (v6.4)</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs">P</td>
+      <td class="mixed carousel">M</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="passed zoom_preview">P</td>
+      <td class="failed font_resizer">F</td>
+      <td class="passed maps">P</td>
+      <td class="passed geocode">P</td>
+    </tr>
+   </table>
+   
+   <div id="lightgrey"></div><!-- hr-->
+   
+   <h2>Compatibility Table: Desktop</h2>
+   <table border="1">
+     <tr id="widget_list">
+       <th></th>
+       <th><a href="{{site.url}}toggler.html">Toggler</a></th>
+       <th><a href="{{site.url}}tabs.html">Tabs</a></th>
+       <th><a href="{{site.url}}carousel.html">Carousel</a></th>
+       <th><a href="{{site.url}}select_list.html">Select List</a></th>
+       <th><a href="{{site.url}}select_buttons.html">Select Buttons</a></th>
+       <th><a href="{{site.url}}zoom_preview.html">Zoom Preview</a></th>
+       <th><a href="{{site.url}}font_resizer.html">Font Resizer</a></th>  
+       <th><a href="{{site.url}}maps.html">Maps</a></th>
+       <th><a href="{{site.url}}geocode.html">Geolocator</a></th>    
+     </tr>
+  
+    <tr id="chrome">
+      <td>Chrome</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs">P</td>
+      <td class="passed carousel">P</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="passed zoom_preview">P</td>
+      <td class="passed font_resizer">P</td>
+      <td class="passed maps">P</td>
+      <td class="passed geocode">P</td>
+    </tr>
+  
+    <tr id="safari">
+      <td>Safari</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs"></td>
+      <td class="passed carousel">P</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="passed zoom_preview">P</td>
+      <td class="passed font_resizer">P</td>
+      <td class="passed maps">P</td>
+      <td class="passed geocode">P</td>
+    </tr>
+  
+    <tr id="firefox">
+      <td>Firefox</td>
+      <td class="passed toggler">P</td>
+      <td class="failed tabs">F</td>
+      <td class="failed carousel">F</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="failed zoom_preview">F</td>
+      <td class="failed font_resizer">F</td>
+      <td class="failed maps">F</td>
+      <td class="failed geocode">F</td>
+    </tr>
+  
+    <tr id="opera">
+      <td>Opera</td>
+      <td class="passed toggler">P</td>
+      <td class="passed tabs">P</td>
+      <td class="failed carousel">F</td>
+      <td class="passed select_list">P</td>
+      <td class="passed select_buttons">P</td>
+      <td class="failed zoom_preview">F</td>
+      <td class="failed font_resizer">F</td>
+      <td class="passed maps">P</td>
+      <td class="mixed geocode">M</td>
+    </tr>
+  
+    <tr id="">
+      <td>IE9</td>
+      <td class="toggler"></td>
+      <td class="tabs"></td>
+      <td class="carousel"></td>
+      <td class="select_list"></td>
+      <td class="select_buttons"></td>
+      <td class="zoom_preview"></td>
+      <td class="font_resizer"></td>
+      <td class="maps"></td>
+      <td class="geocode"></td>
+    </tr>
+  
+  </table>
+  <div id="lightgrey"></div><!-- hr-->
+  <p>Here's a key to what each element in the table means.</p>
+  <ul>
+    <li class="passed">P - test passed </li>
+    <li class="mixed">M - mixed results </li>
+    <li class="failed">F - test failed </li>
+    <li>[blank] - not tested </li>
+  </ul>
+  <p>*For select list on Android LG 2.2.1, the wrong element is getting touch-highlighted</p>
+</div> <!-- wrapper -->
