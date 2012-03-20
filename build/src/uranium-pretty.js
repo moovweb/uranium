@@ -1488,7 +1488,7 @@ xui.extend({
 }(this, document);
 })();
 
-if(typeof(Ur) == 'undefined') {
+if(typeof(Ur) == "undefined") {
   Ur = {
     QuickLoaders: {},
     WindowLoaders: {},
@@ -1503,7 +1503,7 @@ if(typeof(Ur) == 'undefined') {
         // These widgets _cant_ be initialized till page load
         Ur.initialize({type: "load"}, fragment);
       } else {
-        window.addEventListener('load', function(e) { Ur.initialize(e, fragment)}, false);
+        window.addEventListener("load", function(e) { Ur.initialize(e, fragment)}, false);
       }
     },
     initialize: function(event, fragment) {
@@ -1522,6 +1522,12 @@ if(typeof(Ur) == 'undefined') {
         Ur._onLoad();
       }
     },
+    error: function(msg) {
+      console.error("Uranium: " + msg);
+    },
+    warn: function(msg) {
+      console.warn("Uranium: " + msg);
+    },
     // TODO: Make private
     _onLoad: function() {
       //iterate through the callbacks
@@ -1538,8 +1544,8 @@ if(typeof(Ur) == 'undefined') {
 
 // This event is compatible with FF/Webkit
 
-window.addEventListener('load', Ur.initialize, false);
-window.addEventListener('DOMContentLoaded', Ur.initialize, false);
+window.addEventListener("load", Ur.initialize, false);
+window.addEventListener("DOMContentLoaded", Ur.initialize, false);
 
 // Do this? OR just initialize as widgets are defined (and have uranium included at the bottom --- but that has limitations in inline JS using all of our x$() mixins) --> I think thats reason enough to try this for now
 
@@ -1563,50 +1569,40 @@ var mixins = {
     i = 0,
     that = arguments[1];
 
-    if (typeof fn == 'function') {
+    if (typeof fn == "function") {
       for (; i < len; i++) {
         fn.call(that, stuff[i], i, stuff);
       }
     }
   },
   offset: function(elm) {
-    if(typeof(elm == "undefined")) {
+    if (elm == undefined)
       elm = this[0];
-    }
-
-    cumulative_top = 0;
-    cumulative_left = 0;
-    while(elm.offsetParent) {
+    
+    var cumulative_top = 0, cumulative_left = 0;
+    while (elm.offsetParent) {
       cumulative_top += elm.offsetTop;
       cumulative_left += elm.offsetLeft;
       elm = elm.offsetParent;
     }
-    return {left: cumulative_left, top:cumulative_top};
+    return {left: cumulative_left, top: cumulative_top};
   },
   
   // TODO: Make private:
-  find_next_ancestor: function(elem, type) {
+  findNextAncestor: function(elem, type) {
     //check to make sure there's still a parent:
     if (elem.parentNode != window.document) {
-      return x$().find_set_ancestor(elem.parentNode, type);
+      return x$().findSetAncestor(elem.parentNode, type);
     } else {
       return null;
     }
   },
 
-  find_set_ancestor: function(elem, type) {
+  findSetAncestor: function(elem, type) {
     var set_name = x$(elem).attr("data-ur-set")[0];
-    if (set_name !== undefined) {
-      if(type == undefined) {
-        return elem;
-      } else if (set_name == type) {
-        return elem;
-      } else {
-        return x$().find_next_ancestor(elem, type);
-      }
-    } else {
-      return x$().find_next_ancestor(elem, type);
-    }
+    if (set_name !== undefined && (type == undefined || set_name == type))
+      return elem;
+    return x$().findNextAncestor(elem, type);
   },
 
   get_unique_uranium_id: (function() {
@@ -1617,7 +1613,7 @@ var mixins = {
     }
   })(),
 
-  find_elements: function(type, component_constructors) {
+  findElements: function(type, component_constructors) {
     var groups = {};
 
     this.each(
@@ -1629,77 +1625,75 @@ var mixins = {
   },
   // TODO: Make helper_find() private since its just a helper function
   helper_find: function(fragment, type, component_constructors, groups) {
-    var all_elements = x$(fragment).find('*[data-ur-' + type + '-component]');
+    var all_elements = x$(fragment).find("*[data-ur-" + type + "-component]");
 
-    all_elements.each(
-      function() {
+    all_elements.each(function() {
 
-        var valid_component = true;
+      var valid_component = true;
 
-        ///////// Resolve this component to its set ///////////
+      ///////// Resolve this component to its set ///////////
 
-        // Check if this has the data-ur-id attribute
-        var my_set_id = x$(this).attr("data-ur-id")[0];
+      // Check if this has the data-ur-id attribute
+      var my_set_id = x$(this).attr("data-ur-id")[0];
 
-        if (my_set_id !== undefined) {
-          if ( groups[my_set_id] === undefined) {
-            groups[my_set_id] = {};
-          }          
-        } else {
-          //Find any set ancestors
-          var my_ancestor = x$().find_set_ancestor(this, type);
+      if (my_set_id !== undefined) {
+        if ( groups[my_set_id] === undefined) {
+          groups[my_set_id] = {};
+        }
+      }
+      else {
+        //Find any set ancestors
+        var my_ancestor = x$().findSetAncestor(this, type);
 
-          var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
-          if(widget_disabled === "disabled" && Ur.loaded == false) {
-            return;
-          }
-
-          if (my_ancestor !== null) {
-            // Check if the set has an id ... if not, 'set' it up -- HA
-
-            my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
-
-            if (my_set_id === undefined) {
-              //generate ID
-              my_set_id = x$().get_unique_uranium_id();
-              x$(my_ancestor).attr("data-ur-id", my_set_id);
-            }
-
-            if (groups[my_set_id] === undefined) {
-              //setup group
-              groups[my_set_id] = {};
-            }
-            
-            groups[my_set_id]["set"] = my_ancestor;
-
-          } else {
-            // we're screwed ... report an error
-            console.log("Uranium Error: Couldn't find associated ur-set for component:",this);
-            valid_component = false;
-          }
+        var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
+        if (widget_disabled === "disabled" && Ur.loaded == false) {
+          return;
         }
 
-        //////////// Add this component to its set /////////////
+        if (my_ancestor !== null) {
+          // Check if the set has an id ... if not, 'set' it up -- HA
 
-        var component_type = x$(this).attr("data-ur-" + type + "-component");
+          my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
 
-        if (component_type === undefined) {
+          if (my_set_id === undefined) {
+            //generate ID
+            my_set_id = x$().get_unique_uranium_id();
+            x$(my_ancestor).attr("data-ur-id", my_set_id);
+          }
+
+          if (groups[my_set_id] === undefined) {
+            //setup group
+            groups[my_set_id] = {};
+          }
+          
+          groups[my_set_id]["set"] = my_ancestor;
+
+        }
+        else {
+          // we're screwed ... report an error
+          Ur.error("couldn't find associated ur-set for component:", this);
           valid_component = false;
         }
-
-        if (valid_component) {
-    // This is widget specific behavior
-    // -- For toggler, it makes sense for content to be multiple things
-    // -- For select-lists, it doesn't
-    if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-      component_constructors[component_type](groups[my_set_id], this, component_type);
-    } else {
-            groups[my_set_id][component_type] = this;
-          }
-        }
-
       }
-    );
+
+      //////////// Add this component to its set /////////////
+
+      var component_type = x$(this).attr("data-ur-" + type + "-component");
+
+      if (component_type === undefined) {
+        valid_component = false;
+      }
+
+      if (valid_component) {
+        // This is widget specific behavior
+        // -- For toggler, it makes sense for content to be multiple things
+        // -- For select-lists, it doesn't
+        if (component_constructors !== undefined && component_constructors[component_type] !== undefined)
+          component_constructors[component_type](groups[my_set_id], this, component_type);
+        else
+          groups[my_set_id][component_type] = this;
+      }
+    });
 
     return groups;
   }
@@ -1709,29 +1703,26 @@ xui.extend(mixins);
 
 /* Carousel  *
  * * * * * * *
- * The carousel is a widget to allow for horizontally scrolling (with touch or  
- * buttons) between a set of items. 
- * 
- * The only assumption is about the items' style -- they must be (float: left) 
- * and (display:inline-block) so that the real width can be accurately totalled.
- * 
+ * The carousel is a widget to allow for horizontally scrolling
+ * (with touch or buttons) between a set of items.
+ *
+ * The only assumption is about the items' style -- they must be
+ * float: left; so that the real width can be accurately totalled.
  */
 
-Ur.WindowLoaders["carousel"] = (function(){
-  function Carousel(components) {
+Ur.WindowLoaders["carousel"] = (function() {
 
+  function Carousel(components) {
     this.container = components["view_container"];
     this.items = components["scroll_container"];
     if (this.items.length == 0) {
-      console.log("Error -- carousel missing item components");
+      Ur.error("carousel missing item components");
       return false;
     }
 
     // Optionally:
-    this.button = (components["button"] === undefined) ? {} : components["button"];
-    this.count = components["count"]; 
-    this.multi = x$(components["view_container"]).attr("data-ur-type")[0] == "multi";
-    this.vertical_scroll = (x$(components["set"]).attr("data-ur-vertical-scroll")[0] === "enabled");
+    this.button = components["button"] === undefined ? {} : components["button"];
+    this.count = components["count"];
 
     this.initialize();
     this.onSlideCallbacks = [];
@@ -1739,32 +1730,16 @@ Ur.WindowLoaders["carousel"] = (function(){
 
   // Private/Helper methods
 
-  function get_real_width(elem) {
-    elem = x$(elem);
-    var total = 0;
-    var styles = ["width", "padding-left", "padding-right", "margin-left", "margin-right", "border-left-width", "border-right-width"];
-
-    x$().iterate(
-      styles,
-      function(style) {
-        total += parseInt(elem.getStyle(style));
-      }
-    );
-
-    return total;
+  function sign(num) {
+    return num < 0 ? -1 : 1;
   }
 
-  function sign(v) 
-  { 
-    return (v >= 0) ? 1 : -1;
+  function zeroCeil(num) {
+    return num <= 0 ? Math.floor(num) : Math.ceil(num);
   }
 
-  function zero_ceil(num) {
-    return (num <= 0) ? Math.floor(num) : Math.ceil(num);
-  }
-
-  function zero_floor(num) {
-    return (num >= 0) ? Math.floor(num) : Math.ceil(num);
+  function zeroFloor(num) {
+    return num >= 0 ? Math.floor(num) : Math.ceil(num);
   }
 
   function stifle(e) {
@@ -1772,22 +1747,26 @@ Ur.WindowLoaders["carousel"] = (function(){
     e.stopPropagation();
   }
 
-  var vendor_prefix = "webkit";
-  if (navigator.userAgent.match(/Firefox/))
-    vendor_prefix = "Moz";
-
-  // translate3d is disabled on Android by default because it often causes problems
-  // however, on some pages translate3d will work fine so the data-ur-android3d
-  // attribute can be set to "enabled" to use translate3d since it seems a bit
-  // faster on some Android devices
-
-  var old_android = navigator.userAgent.match(/Android [12]/);
-  var no_3d = old_android || !window.WebKitCSSMatrix;
-  var translate_prefix = no_3d ? "translate(" : "translate3d(";
-  var translate_suffix = no_3d ? ")" : ", 0px)";
+  function getTranslateX(obj) {
+    var style = getComputedStyle(obj);
+    var transform = style["webkitTransform"] || style["MozTransform"] || style["oTransform"] || style["transform"];
+    if (transform != "none") {
+      if (window.WebKitCSSMatrix)
+        return new WebKitCSSMatrix(transform).m41;
+      else
+        return parseInt(transform.split(",")[4]);
+    }
+    else {
+      Ur.error("no transform found");
+      return 0;
+    }
+  }
 
   function translate(obj, x) {
-    obj.style.webkitTransform = obj.style.MozTransform = translate_prefix + x + "px, 0px" + translate_suffix;
+    var no3d = false;
+    var translatePrefix = no3d ? "translate(" : "translate3d(";
+    var translateSuffix = no3d ? ")" : ", 0px)";
+    obj.style.webkitTransform = obj.style.MozTransform = obj.style.oTransform = obj.style.transform = translatePrefix + x + "px, 0px" + translateSuffix;
   }
 
   //// Public Methods ////
@@ -1796,67 +1775,68 @@ Ur.WindowLoaders["carousel"] = (function(){
     initialize: function() {
       // TODO:
       // add an internal event handler to handle all events on the container:
-      // x$(this.container).on("event",this.handleEvent);
+      // x$(this.container).on("event", this.handleEvent);
 
-      if (this.container.getAttribute("data-ur-android3d") == "enabled" && old_android) {
-        translate_prefix = "translate3d(";
-        translate_suffix = ", 0px)";
+      this.flag = {increment: false, lock: null, timeoutId: null, touched: false};
+      this.options = {
+        autoscroll: true,
+        autoscrollDelay: 5000,
+        autoscrollForward: true,
+        cloneLength: 2,
+        dotCounter: true,
+        infinite: true,
+        transform3d: true,
+        touch: true,
+        verticalScroll: true
+      };
+
+      this.readAttributes();
+
+      if (this.options.touch) {
+        var hasTouch = document.ontouchstart !== undefined;
+        var start = hasTouch ? "touchstart" : "mousedown";
+        var move = hasTouch ? "touchmove" : "mousemove";
+        var end = hasTouch ? "touchend" : "mouseup";
+        x$(this.items).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
+        x$(this.items).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
+        x$(this.items).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
+        x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
       }
 
+      x$(this.button["prev"]).click(function(obj){return function(){obj.moveTo(obj.magazineCount);}}(this));
+      x$(this.button["next"]).click(function(obj){return function(){obj.moveTo(-obj.magazineCount);}}(this));
 
-      var touch_enabled = x$(this.container).attr("data-ur-touch")[0];
-      touch_enabled = (touch_enabled === undefined) ? true : (touch_enabled == "enabled" ? true : false);
-      x$(this.container).attr("data-ur-touch", touch_enabled ? "enabled" : "disabled");
+      this.preCoords = {x: 0, y: 0};
 
-      if (touch_enabled) {
-        if (x$.touch) {
-          this.touch = true;
-          x$(this.items).touchstart(function(obj){return function(e){obj.start_swipe(e)};}(this));
-          x$(this.items).touchmove(function(obj){return function(e){obj.continue_swipe(e)};}(this));
-          x$(this.items).touchend(function(obj){return function(e){obj.finish_swipe(e)};}(this));
-        } else {
-          this.touch = false;
-          x$(this.items).on("mousedown", function(obj){return function(e){obj.start_swipe(e)};}(this));
-          x$(this.items).on("mousemove", function(obj){return function(e){obj.continue_swipe(e)};}(this));
-          x$(this.items).on("mouseup", function(obj){return function(e){obj.finish_swipe(e)};}(this));
-        }
-      }
+      this.itemIndex = 0;
+      this.magazineCount = 1;
 
-      x$(this.button["prev"]).click(function(obj){return function(){obj.move_to(obj.magazine_count);}}(this));
-      x$(this.button["next"]).click(function(obj){return function(){obj.move_to(-obj.magazine_count);}}(this));
-
-      this.item_index = 0;
-      this.magazine_count = 1;
-
-      this.infinite = !(this.container.getAttribute("data-ur-infinite") == "disabled");
-      x$(this.container).attr("data-ur-infinite", this.infinite ? "enabled" : "disabled");
-
-      if (this.infinite) {
+      if (this.options.infinite) {
         var items = x$(this.items).find("[data-ur-carousel-component='item']");
-        this.real_item_count = items.length;
-        this.item_index = this.clone_count = 2;
+        this.realItemCount = items.length;
+        this.itemIndex = this.options.cloneLength;
         this.clones = []; // probaby useless
-        for (var i = 0; i < this.clone_count; i++) {
-          var clone = items[i].cloneNode(false);
+        for (var i = 0; i < this.options.cloneLength; i++) {
+          var clone = items[i].cloneNode(true);
           this.clones.push(clone);
           x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
-          this.items.appendChild(clone);
+          items[items.length - 1].parentNode.appendChild(clone);
         }
-        
-        for (var i = items.length - this.clone_count; i < items.length; i++) {
-          var clone = items[i].cloneNode(false);
+
+        for (var i = items.length - this.options.cloneLength; i < items.length; i++) {
+          var clone = items[i].cloneNode(true);
           this.clones.push(clone);
           x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
-          this.items.insertBefore(clone, items[0]);
+          items[0].parentNode.insertBefore(clone, items[0]);
         }
       }
 
-      this.adjust_spacing();
+      this.adjustSpacing();
 
-      this.update_index(this.infinite ? this.clone_count : 0);
+      this.updateIndex(this.options.infinite ? this.options.cloneLength : 0);
 
       // Expose this function globally: (this will work on webkit / FF)
-      this.jump_to_index = (function(obj) { return function(idx) { obj.__proto__.move_to_index.call(obj, idx); };})(this);
+      this.jumpToIndex = (function(obj) { return function(idx) { obj.__proto__.moveToIndex.call(obj, idx); };})(this);
 
       x$(window).orientationchange(function(obj){return function(){obj.resize();}}(this));
       // orientationchange isn't supported on some androids
@@ -1866,417 +1846,386 @@ Ur.WindowLoaders["carousel"] = (function(){
       }}(this));
       //window.setInterval(function(obj){return function(){obj.resize();}}(this),1000);
 
-      this.flag = {touched: false, timeoutId: null};
-
-      this.autoscroll = !(this.container.getAttribute("data-ur-autoscroll") == "disabled");
-      x$(this.container).attr("data-ur-autoscroll", this.autoscroll ? "enabled" : "disabled");
-
-      this.autoscroll_delay = this.container.getAttribute("data-ur-autoscroll-delay");
-      if (this.autoscroll_delay == null) {
-        this.autoscroll_delay = 5000;
-        x$(this.container).attr("data-ur-autoscroll-timing", this.autoscroll_delay);
-      }
-
-      this.autoscroll_dir = this.container.getAttribute("data-ur-autoscroll-direction");
-      if (this.autoscroll_dir != "prev")
-        this.autoscroll_dir = "next";
-
-      x$(this.container).attr("data-ur-autoscroll-direction", this.autoscroll_dir);
-
-      this.autoscroll_start();
+      this.autoscrollStart();
     },
 
-    get_transform: function(obj) {
-      var transform = getComputedStyle(obj)[vendor_prefix + "Transform"];
-      if (transform != "none") {
-        if (vendor_prefix == "webkit") {
-          transform = new WebKitCSSMatrix(transform);
-          return transform.m41;
-        } else
-          return parseInt(transform.split(',')[4]);
-      } else {
-        console.log("no webkit transform");
-        return 0;
-      }
+    readAttributes: function() {
+      var $container = x$(this.container);
+
+      // translate3d is disabled on Android by default because it often causes problems
+      // however, on some pages translate3d will work fine so the data-ur-android3d
+      // attribute can be set to "enabled" to use translate3d since it can be smoother
+      // on some Android devices
+
+      var oldAndroid = /Android [12]/.test(navigator.userAgent);
+      if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled")
+        this.options.transform3d = false;
+
+      this.options.verticalScroll = $container.attr("data-ur-vertical-scroll")[0] != "disabled";
+      $container.attr("data-ur-vertical-scroll", this.options.verticalScroll ? "enabled" : "disabled");
+
+      this.options.touch = $container.attr("data-ur-touch")[0] != "disabled";
+      $container.attr("data-ur-touch", this.options.touch ? "enabled" : "disabled");
+
+      this.options.infinite = $container.attr("data-ur-infinite")[0] != "disabled";
+      $container.attr("data-ur-infinite", this.options.infinite ? "enabled" : "disabled");
+
+      this.options.autoscroll = $container.attr("data-ur-autoscroll")[0] != "disabled";
+      $container.attr("data-ur-autoscroll", this.options.autoscroll ? "enabled" : "disabled");
+
+      var autoscrollDelay = $container.attr("data-ur-autoscroll-delay")[0];
+      if (autoscrollDelay != null)
+        this.options.autoscrollDelay = autoscrollDelay;
+      $container.attr("data-ur-autoscroll-delay", this.options.autoscrollDelay);
+
+      this.options.autoscrollForward = $container.attr("data-ur-autoscroll-direction")[0] != "prev";
+      $container.attr("data-ur-autoscroll-direction", this.options.autoscrollForward ? "next" : "prev");
     },
 
     resize: function() {
-      // When I have multi-item carousels, I'll just need to need to make a calculate_snap_width method
-      if (this.snap_width != this.container.offsetWidth)
-        this.adjust_spacing();
+      if (this.snapWidth != this.container.offsetWidth)
+        this.adjustSpacing();
     },
-    
-    adjust_spacing: function() {
+
+    adjustSpacing: function() {
       // Will need to be called if the container's size changes --> orientation change
-      var visible_width = this.container.offsetWidth;
-      
-      if (this.old_width !== undefined && this.old_width == visible_width)
+      var visibleWidth = this.container.offsetWidth;
+
+      if (this.oldWidth !== undefined && this.oldWidth == visibleWidth)
         return;
-      var old_snap_width = this.snap_width;
-      this.old_width = visible_width;
-      
-      var cumulative_offset = 0;
+      var oldSnapWidth = this.snapWidth;
+      this.oldWidth = visibleWidth;
+
+      var cumulativeOffset = 0;
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
-      this.item_count = items.length;
+      this.itemCount = items.length;
 
       // Adjust the container to be the necessary width.
       // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
-      var total_width = 0;
-      for (var i = 0; i < items.length; i++)
-        total_width += get_real_width(items[i]);
+      var totalWidth = 0;
 
-      this.items.style.width = total_width + "px";
-
-      // For the multi-pane case --> I'll set the snap_width to the width of a single element
-      this.snap_width = visible_width;
-
-      if (this.multi) {
-        var item_width = get_real_width(items[0]); // I'm making an assumption here that all items have the same width
-        var magazine_count = Math.floor(visible_width / item_width);
-
-        magazine_count = (magazine_count > this.item_count) ? this.item_count : magazine_count;
-        this.magazine_count = magazine_count;
-
-        var space = (visible_width - magazine_count*item_width);
-        this.snap_width = space / (magazine_count - 1) + item_width;
-        this.last_index = this.item_count - this.magazine_count;
-      } else
-        this.last_index = this.item_count - 1;
-
-      this.item_index = (this.last_index < this.item_index) ? this.last_index : this.item_index;
-      
-      cumulative_offset -= items[this.item_index].offsetLeft; // initial offset
-      var center_offset = parseInt((this.snap_width - get_real_width(items[0]))/2);
-      cumulative_offset += center_offset; // CHECK
-      
-      if (old_snap_width) {
-        this.destination_offset = cumulative_offset;
-        translate(this.items, this.get_transform(this.items) + parseInt((this.snap_width - old_snap_width)/2));
-      } else
-        translate(this.items, cumulative_offset);
-      
-      var cumulative_item_offset = 0;
-      
-      if (this.multi) {
-        x$().iterate(
-          items,
-          function(item, i) {
-            var offset = cumulative_item_offset;
-            if ( i != 0 ) {
-              offset += space/(magazine_count - 1);
-            }
-            translate(item, offset);
-            cumulative_item_offset = offset;
-          }
-        );
-        this.update_index(this.item_index);
+      for (var i = 0; i < items.length; i++) {
+        totalWidth += items[i].offsetWidth;
+        console.log(items[i].offsetWidth);
       }
+      this.items.style.width = totalWidth + "px";
+
+      this.snapWidth = visibleWidth;
+
+      this.lastIndex = this.itemCount - 1;
+
+      this.itemIndex = (this.lastIndex < this.itemIndex) ? this.lastIndex : this.itemIndex;
+
+      cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
+      var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
+      cumulativeOffset += centerOffset; // CHECK
+
+      if (oldSnapWidth)
+        this.destinationOffset = cumulativeOffset;
+
+      translate(this.items, cumulativeOffset);
     },
 
-    autoscroll_start: function() {
-      if (!this.autoscroll)
+    autoscrollStart: function() {
+      if (!this.options.autoscroll)
         return;
-      
+
       var self = this;
       self.flag.timeoutId = setTimeout(function() {
-        self.move_to(self.autoscroll_dir == "next" ? -self.magazine_count : self.magazine_count);
-      }, self.autoscroll_delay);
+        self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
+      }, self.options.autoscrollDelay);
     },
 
-    autoscroll_stop: function() {
+    autoscrollStop: function() {
       clearTimeout(this.flag.timeoutId);
     },
 
-    get_event_coordinates: function(e) {
-      if(this.touch) {
-        if(e.touches.length == 1)
-        {
-          return {x: e.touches[0].clientX, y: e.touches[0].clientY};
-        }
-      } else {
-        return {x: e.clientX, y: e.clientY};
-      }
+    getEventCoords: function(event) {
+      if (event.touches && event.touches.length > 0)
+        return {x: event.touches[0].clientX, y: event.touches[0].clientY};
+      else
+        return {x: event.clientX, y: event.clientY};
       return null;
     },
 
-    update_buttons: function() {
-      if(this.item_index == 0) {
-        x$(this.button["prev"]).attr("data-ur-state","disabled")
-        x$(this.button["next"]).attr("data-ur-state","enabled")
-      } else if (this.item_index == this.last_index) {
-        x$(this.button["next"]).attr("data-ur-state","disabled")
-        x$(this.button["prev"]).attr("data-ur-state","enabled")
-      } else {
-        x$(this.button["next"]).attr("data-ur-state","enabled")
-        x$(this.button["prev"]).attr("data-ur-state","enabled")
-      }
+    updateButtons: function() {
+      x$(this.button["prev"]).attr("data-ur-state", this.itemIndex == 0 ? "disabled" : "enabled")
+      x$(this.button["next"]).attr("data-ur-state", this.itemIndex == this.lastIndex ? "disabled" : "enabled")
     },
 
-    get_new_index: function(direction) {
-      var new_idx = this.item_index - direction;
+    getNewIndex: function(direction) {
+      var newIndex = this.itemIndex - direction;
 
-      if(new_idx > this.last_index) {
-        new_idx = this.last_index;
-      } else if (new_idx < 0) {
-        new_idx = 0;
-      }
+      if(newIndex > this.lastIndex)
+        newIndex = this.lastIndex;
+      else if (newIndex < 0)
+        newIndex = 0;
 
-      return new_idx;
+      return newIndex;
     },
 
-    update_index: function(new_index) {
-      if (new_index === undefined)
+    updateIndex: function(newIndex) {
+      if (newIndex === undefined)
         return;
 
-      this.item_index = new_index;
-      if (this.item_index < 0)
-        this.item_index = 0;
-      else if (this.item_index > this.last_index)
-        this.item_index = this.last_index - 1;
-      
+      this.itemIndex = newIndex;
+      if (this.itemIndex < 0)
+        this.itemIndex = 0;
+      else if (this.itemIndex > this.lastIndex)
+        this.itemIndex = this.lastIndex - 1;
+
       if (this.count !== undefined) {
-        if (this.multi)
-          this.count.innerHTML = this.item_index + 1 + " to " + (this.item_index + this.magazine_count) +" of " + this.item_count;
-        else if (this.infinite) {
-          var real_index = (this.real_item_count + this.item_index - this.clone_count) % this.real_item_count;
-          this.count.innerHTML = real_index + 1 + " of " + this.real_item_count;
+        if (this.options.infinite) {
+          var realIndex = (this.realItemCount + this.itemIndex - this.options.cloneLength) % this.realItemCount;
+          this.count.innerHTML = realIndex + 1 + " of " + this.realItemCount;
         }
         else
-          this.count.innerHTML = this.item_index + 1 + " of " + this.item_count;
+          this.count.innerHTML = this.itemIndex + 1 + " of " + this.itemCount;
       }
-      
-      // TODO: Update to work w multipane
-      var active_item = x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']");
-      active_item.attr("data-ur-state","inactive");
-      var new_active_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
-      x$(new_active_item).attr("data-ur-state","active");
 
-      this.update_buttons();
+      var activeItem = x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']");
+      activeItem.attr("data-ur-state", "inactive");
+      var newActiveItem = x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex];
+      x$(newActiveItem).attr("data-ur-state", "active");
+
+      this.updateButtons();
     },
 
-    start_swipe: function(e) {
-      this.flag.touched = true;
+    startSwipe: function(e) {
       stifle(e);
-      this.autoscroll_stop();
+      this.autoscrollStop();
 
-      this.touch_in_progress = true; // For non-touch environments
-      var coords = this.get_event_coordinates(e);
+      this.flag.touched = true; // For non-touch environments
+      var coords = this.getEventCoords(e);
+      this.preCoords.x = coords.x;
+      this.preCoords.y = coords.y;
+      this.flag.lock = document.ontouchstart === undefined ? "x" : null;
 
       if (coords !== null) {
-        var x_transform = this.get_transform(this.items);
+        var translateX = getTranslateX(this.items);
 
-        if (this.starting_offset === undefined || this.starting_offset === null) {
-          this.starting_offset = x_transform;
-          this.start_pos = coords;
+        if (this.startingOffset === undefined || this.startingOffset === null) {
+          this.startingOffset = translateX;
+          this.startPos = this.endPos = coords;
         } else {
           // Fast swipe
-          this.starting_offset = this.destination_offset; //Factor incomplete previous swipe
-          this.start_pos = coords;
+          this.startingOffset = this.destinationOffset; //Factor incomplete previous swipe
+          this.startPos = this.endPos = coords;
         }
       }
       this.click = true;
     },
-    
-    continue_swipe: function(e) {
-      if (!this.vertical_scroll)
-        stifle(e);
 
-      if (!this.touch_in_progress) // For non-touch environments
+    continueSwipe: function(e) {
+      if (!this.flag.touched) // For non-touch environments
         return;
 
-      var coords = this.get_event_coordinates(e);
+      this.click = false;
+
+      var coords = this.getEventCoords(e);
+
+      if (document.ontouchstart !== undefined && this.options.verticalScroll) {
+        if (this.flag.lock) {
+          if (this.flag.lock == "y")
+            return;
+        }
+        else if (Math.abs(this.preCoords.y - coords.y) > 7) {
+          this.flag.lock = "y";
+          return;
+        }
+        else if (Math.abs(this.preCoords.x - coords.x) > 5)
+          this.flag.lock = "x";
+        else
+          return;
+      }
+      stifle(e);
+
       if (coords !== null) {
-        this.end_pos = coords;
-        var dist = this.swipe_dist() + this.starting_offset;
+        this.endPos = coords;
+        var dist = this.swipeDist() + this.startingOffset;
         translate(this.items, dist);
       }
-      this.click = false;
     },
-    
-    finish_swipe: function(e) {
-      if (!this.click)
+
+    finishSwipe: function(e) {
+      if (!this.click || this.flag.lock)
         stifle(e);
-      else {
-        this.touch_in_progress = false; // need this or carousel won't scroll after clicking item without dragging
-        this.autoscroll_start();
-        return;
-      }
-      this.touch_in_progress = false; // For non-touch environments
+      else
+        x$(e.target).click();
 
-      if (!this.touch || e.touches.length == 0)
-        this.move_helper(this.get_displacement_index());
+      this.flag.touched = false; // For non-touch environments
+      
+      if (!this.options.verticalScroll || this.flag.lock == "x")
+        this.moveHelper(this.getDisplacementIndex());
+      else if (this.flag.lock == "y")
+        this.autoscrollStart();
     },
-    get_displacement_index: function() {
-      var swipe_distance = this.swipe_dist();
-      var displacement_index = 0;
-
-      if (this.multi) {
-        // Sigmoid FTW:
-        var range = this.magazine_count;
-        var range_offset = range/2.0;
-        displacement_index = zero_ceil(1/(1 + Math.pow(Math.E,-1.0*swipe_distance)) * range - range_offset);
-      } else
-        displacement_index = zero_ceil(swipe_distance/this.snap_width);
-
-      return displacement_index;
+    getDisplacementIndex: function() {
+      var swipeDistance = this.swipeDist();
+      //var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
+      var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
+      console.log(swipeDistance);
+      console.log(displacementIndex);
+      return displacementIndex;
     },
-    snap_to: function(displacement) {
-      this.destination_offset = displacement + this.starting_offset;
+    snapTo: function(displacement) {
+      this.destinationOffset = displacement + this.startingOffset;
+      console.log("this.startingOffset="+this.startingOffset);
+      var maxOffset = -1*(this.lastIndex)*this.snapWidth;
+      var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
 
-      var max_offset = -1*(this.last_index)*this.snap_width;
-      if (this.infinite)
-        max_offset = -this.items.offsetWidth;
-      if (this.destination_offset < max_offset || this.destination_offset > 0) {
-        if (Math.abs(this.destination_offset - max_offset) < 1) {
+      if (this.options.infinite)
+        maxOffset = -this.items.offsetWidth;
+      if (this.destinationOffset < maxOffset || this.destinationOffset > minOffset) {
+        if (Math.abs(this.destinationOffset - maxOffset) < 1) {
           // Hacky -- but there are rounding errors
           // I see this when I'm in multi-mode and using the buttons
           // This only seems to happen on the desktop browser -- ideally its removed at compile time
-          this.destination_offset = max_offset;
+          this.destinationOffset = maxOffset;
         } else {
-          this.destination_offset = this.starting_offset;
+          this.destinationOffset = this.startingOffset;
         }
       }
-      
+
       this.momentum();
     },
 
-    move_to: function(direction) {
+    moveTo: function(direction) {
       // The animation isnt done yet
-      if (this.increment_flag)
+      if (this.flag.increment)
         return;
-      
-      this.starting_offset = this.get_transform(this.items);
-      var new_idx = this.item_index - direction;
-      this.move_helper(direction);
+
+      this.startingOffset = getTranslateX(this.items);
+      this.moveHelper(direction);
     },
 
-    move_helper: function(direction) {
-      this.autoscroll_stop();
+    moveHelper: function(direction) {
+      this.autoscrollStop();
 
-      var new_idx = this.get_new_index(direction);
+      var newIndex = this.getNewIndex(direction);
 
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
 
-      if (this.infinite) {
-        var old_transform = this.get_transform(this.items);
+      if (this.options.infinite) {
 
-        if (new_idx == this.last_index) { // at the end of carousel
-          this.item_index = this.clone_count;
-          new_idx = this.item_index + 1;
+        var oldTransform = getTranslateX(this.items);
 
-          var alt_transform = old_transform;
-          alt_transform += this.clones[0].offsetLeft - items[this.clone_count].offsetLeft; // CHECK
-          translate(this.items, alt_transform);
-          this.starting_offset = -items[this.clone_count].offsetLeft;
-          this.starting_offset += parseInt((this.snap_width - this.clones[0].offsetWidth)/2); // CHECK
+        if (newIndex == this.lastIndex) { // at the end of carousel
+          this.itemIndex = this.options.cloneLength;
+          newIndex = this.itemIndex + 1;
+
+          var altTransform = oldTransform;
+          altTransform += this.clones[0].offsetLeft - items[this.options.cloneLength].offsetLeft; // CHECK
+          translate(this.items, altTransform);
+          this.startingOffset = -items[this.options.cloneLength].offsetLeft;
+          this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
         }
-        else if (new_idx == 0) { // at the beginning of carousel
-          this.item_index = this.last_index - this.clone_count;
-          new_idx = this.item_index - 1;
+        else if (newIndex == 0) { // at the beginning of carousel
+          this.itemIndex = this.lastIndex - this.options.cloneLength;
+          newIndex = this.itemIndex - 1;
 
-          var alt_transform = old_transform;
-          alt_transform += items[this.clone_count].offsetLeft - this.clones[0].offsetLeft; // CHECK
-          translate(this.items, alt_transform);
-          this.starting_offset = -items[this.last_index - this.clone_count].offsetLeft;
-          this.starting_offset += parseInt((this.snap_width - this.clones[0].offsetWidth)/2); // CHECK
+          var altTransform = oldTransform;
+          altTransform += items[this.options.cloneLength].offsetLeft - this.clones[0].offsetLeft; // CHECK
+          translate(this.items, altTransform);
+          this.startingOffset = -items[this.lastIndex - this.options.cloneLength].offsetLeft;
+          this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
         }
+
       }
+      var newItem = items[newIndex];
+      var currentItem = items[this.itemIndex];
 
-      var new_item = items[new_idx];
-      var current_item = items[this.item_index];
-
-      var displacement = current_item.offsetLeft - new_item.offsetLeft; // CHECK
-      this.snap_to(displacement);
-      this.update_index(new_idx);
+      var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
+      this.snapTo(displacement);
+      this.updateIndex(newIndex);
     },
 
-    move_to_index: function(index) {
-      var direction = this.item_index - index;
-      this.move_to(direction);
+    moveToIndex: function(index) {
+      var direction = this.itemIndex - index;
+      this.moveTo(direction);
     },
 
     momentum: function() {
-      if (this.touch_in_progress)
+      if (this.flag.touched)
         return;
 
-      this.increment_flag = false;
+      this.flag.increment = false;
 
-      var x_transform = this.get_transform(this.items);
-      var distance = this.destination_offset - x_transform;
-      var increment = distance - zero_floor(distance / 1.1);
+      var translateX = getTranslateX(this.items);
+      var distance = this.destinationOffset - translateX;
+      var increment = distance - zeroFloor(distance / 1.1);
 
       // Hacky -- this is for the desktop browser only -- to fix rounding errors
       // Ideally, this is removed at compile time
       if(Math.abs(increment) < 0.01)
         increment = 0;
 
-      translate(this.items, increment + x_transform);
+      var newTransform = increment + translateX;
+
+      translate(this.items, newTransform);
 
       if (increment != 0)
-        this.increment_flag = true;
+        this.flag.increment = true;
 
-      if (this.increment_flag)
+      if (this.flag.increment)
         setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
       else {
-        this.starting_offset = null;
-        
-        if (this.infinite) {
-          if (this.item_index == this.item_count - this.clone_count) // almost at the end of carousel
-            this.item_index = this.clone_count;
-          else if (this.item_index == this.clone_count - 1) // almost at the beginning of carousel
-            this.item_index = this.last_index - this.clone_count;
-          
-          var alt_transform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.item_index].offsetLeft;
-          alt_transform += parseInt((this.snap_width - this.clones[0].offsetWidth)/2); // CHECK
-          translate(this.items, alt_transform);
-        }
-        
-        this.autoscroll_start();
-        
-        x$().iterate(
-          this.onSlideCallbacks,
-          function(callback) {
-            callback();
-          }
-        );
-      }
-    },    
+        this.startingOffset = null;
 
-    swipe_dist: function() {
-      if (this.end_pos === undefined)
+        if (this.options.infinite) {
+          
+          if (this.itemIndex == this.itemCount - this.options.cloneLength) // almost at the end of carousel
+            this.itemIndex = this.options.cloneLength;
+          else if (this.itemIndex == this.options.cloneLength - 1) // almost at the beginning of carousel
+            this.itemIndex = this.lastIndex - this.options.cloneLength;
+
+          this.updateIndex(this.itemIndex);
+
+          var altTransform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex].offsetLeft;
+          altTransform += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          translate(this.items, altTransform);
+        }
+
+        this.autoscrollStart();
+
+        x$().iterate(this.onSlideCallbacks, function(callback) { callback(); });
+      }
+    },
+
+    swipeDist: function() {
+      if (this.endPos === undefined)
         return 0;
-      var sw_dist = this.end_pos['x'] - this.start_pos['x'];
-      return sw_dist;
+      return this.endPos.x - this.startPos.x;
     }
   }
 
   // Private constructors
   var ComponentConstructors = {
-    "button": function(group, component, type) {
+    button: function(group, component, type) {
       if (group["button"] === undefined)
         group["button"] = {};
-      
-      var type = x$(component).attr("data-ur-carousel-button-type")[0];
+
+      var type = component.getAttribute("data-ur-carousel-button-type");
 
       // Declaration error
       if (type === undefined)
-        console.log("Uranium declaration error: Malformed carousel button type on:" + component.outerHTML);
+        Ur.error("malformed carousel button type on:" + component.outerHTML);
 
       group["button"][type] = component;
 
       // Maybe in the future I'll make it so any of the items can be the starting item
       x$(component).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
     }
-  }
+  };
   function CarouselLoader(){}
-  
+
   CarouselLoader.prototype.initialize = function(fragment) {
-    var carousels = x$(fragment).find_elements('carousel', ComponentConstructors);
+    var carousels = x$(fragment).findElements("carousel", ComponentConstructors);
     Ur.Widgets["carousel"] = {};
     for (var name in carousels) {
       var carousel = carousels[name];
       Ur.Widgets["carousel"][name] = new Carousel(carousel);
-      x$(carousel["set"]).attr("data-ur-state","enabled");
+      x$(carousel["set"]).attr("data-ur-state", "enabled");
     }
   }
 
@@ -2350,7 +2299,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
   function FontResizerLoader() {}
   
   FontResizerLoader.prototype.initialize = function(fragment) {
-    var font_resizers = x$(fragment).find_elements('font-resizer');
+    var font_resizers = x$(fragment).findElements('font-resizer');
     for (var name in font_resizers) new FontResizer(font_resizers[name]);
   }
   
@@ -2366,7 +2315,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
  *
  */
  
-Ur.QuickLoaders['geocode'] = (function(){
+Ur.QuickLoaders["geocode"] = (function() {
   
   function Geocode(data) {
     this.elements = data;
@@ -2377,8 +2326,9 @@ Ur.QuickLoaders['geocode'] = (function(){
     var s = document.createElement('script');
     s.type = "text/javascript";
     s.src = "http://maps.googleapis.com/maps/api/js?sensor=true&callback=UrGeocode";
-    x$('head').html('bottom', s);
+    x$('body').html('bottom', s);  
   }
+
   
   var geocoder;
   var geocodeObj;
@@ -2558,7 +2508,7 @@ Ur.QuickLoaders['geocode'] = (function(){
   }
 
   GeocodeLoader.prototype.initialize = function(fragment) {
-    var my_geo = x$(fragment).find_elements('reverse-geocode');
+    var my_geo = x$(fragment).findElements('reverse-geocode');
     
     Ur.Widgets["geocode"] = {}
     
@@ -3018,7 +2968,7 @@ Ur.QuickLoaders['map'] = (function(){
   }
 
   MapLoader.prototype.initialize = function(fragment) {
-    var maps = x$(fragment).find_elements('map', ComponentConstructors);
+    var maps = x$(fragment).findElements('map', ComponentConstructors);
     Ur.Widgets["map"] = {};
 
     for(var name in maps) {
@@ -3117,7 +3067,7 @@ Ur.QuickLoaders['select-buttons'] = (function(){
   }
 
   SelectButtonsLoader.prototype.initialize = function(fragment) {
-    var select_buttons = x$(fragment).find_elements('select-buttons');
+    var select_buttons = x$(fragment).findElements('select-buttons');
     for (var name in select_buttons) {
       new SelectButtons(select_buttons[name]);
       x$(select_buttons[name]["set"]).attr("data-ur-state","enabled");
@@ -3196,7 +3146,7 @@ Ur.QuickLoaders['select-list'] = (function(){
 
 
   SelectListLoader.prototype.initialize = function(fragment) {
-    var select_lists = x$(fragment).find_elements('select-list');
+    var select_lists = x$(fragment).findElements('select-list');
     var self = this;
     for (var name in select_lists) {
       var select_list = select_lists[name];
@@ -3538,7 +3488,7 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
       var axis = this.preferences.axis;
       if (axis == "x" || axis == "Y") {
       }else{
-        console.log("incorrect axis set")
+        Ur.error("incorrect axis set")
       }
 
       setTouch();
@@ -3614,19 +3564,19 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
   }
 
   var find = function(fragment){
-    var swipe_group = x$(fragment).find_elements('swipe-toggle');
+    var swipe_group = x$(fragment).findElements('swipe-toggle');
 
     for(var component_id in swipe_group) {
       var carousel_group = swipe_group[component_id];
       carousel_group.name = component_id;
       if (carousel_group["slider"] === undefined) {
-        console.log("Uranium Declaration Error: No slider found for toggler with id = " + component_id);
+        Ur.error("no slider found for toggler with id = " + component_id);
         continue;
       }else if (carousel_group["slider"].children[0] === undefined){
-        console.log("no children in slider: " + carousel_group )
+        Ur.warn("no children in slider: " + carousel_group )
       }else{
         carousel_group["slider"]["active"] = x$(carousel_group["slider"]).find("[data-ur-state='active']")[0];
-        console.log("Uranium Declaration Warning: No active element found for toggler with id = " + component_id);
+        Ur.warn("no active element found for toggler with id = " + component_id);
         if (carousel_group["slider"]["active"] === undefined) {
           console.log("no active element in slider: " + component_id)
           carousel_group["slider"]["active"] = carousel_group["slider"].children[0];
@@ -3784,7 +3734,7 @@ Ur.QuickLoaders['flex-table'] = (function(){
   function TableLoader () {}
   
   TableLoader.prototype.initialize = function(fragment) {
-    var tables = x$(fragment).find_elements('flex-table');
+    var tables = x$(fragment).findElements('flex-table');
     Ur.Widgets["flex-table"] = {};
 
     for(var table in tables){
@@ -3821,8 +3771,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       }
 
       if(content === undefined) {
-        console.log("Ur error -- no matching tab content for tab button");
-        return
+        Ur.error("no matching tab content for tab button");
+        return;
       }
       
       var state = x$(button).attr("data-ur-state")[0];
@@ -3832,8 +3782,6 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var closeable = x$(this.elements["set"]).attr("data-ur-closeable")[0];
       closeable = (closeable !== undefined && closeable == "true") ? true : false;
-      console.log("closeable? " + closeable);
-
       var self = this;
       x$(button).on(
         "click",
@@ -3876,8 +3824,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var tab_id = x$(component).attr("data-ur-tab-id")[0];
       if (tab_id === undefined) {
-        console.log("Uranium declaration error -- Tab defined without a tab-id");
-        return
+        Ur.error("tab defined without a tab-id");
+        return;
       }
       
       group["buttons"][tab_id] = component;
@@ -3889,8 +3837,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var tab_id = x$(component).attr("data-ur-tab-id")[0];
       if (tab_id === undefined) {
-        console.log("Uranium declaration error -- Tab defined without a tab-id");
-        return
+        Ur.error("tab defined without a tab-id");
+        return;
       }
       
       group["contents"][tab_id] = component;
@@ -3901,7 +3849,7 @@ Ur.QuickLoaders['tabs'] = (function(){
   }
 
   TabsLoader.prototype.initialize = function(fragment) {
-    var tabs = x$(fragment).find_elements('tabs', ComponentConstructors);
+    var tabs = x$(fragment).findElements('tabs', ComponentConstructors);
     Ur.Widgets["tabs"] = {};
 
     for(var name in tabs){
@@ -3939,14 +3887,14 @@ Ur.QuickLoaders['toggler'] = (function(){
   }
 
   ToggleLoader.prototype.find = function(fragment){
-    var togglers = x$(fragment).find_elements('toggler', this.component_constructors);
+    var togglers = x$(fragment).findElements('toggler', this.component_constructors);
     var self=this;
 
     for(var toggler_id in togglers) {
       var toggler = togglers[toggler_id];
 
       if (toggler["button"] === undefined) {
-        console.log("Uranium Declaration Error: No button found for toggler with id=" + toggler_id);
+        Ur.error("no button found for toggler with id=" + toggler_id);
         continue;
       }
 
@@ -3957,7 +3905,7 @@ Ur.QuickLoaders['toggler'] = (function(){
       } 
 
       if (toggler["content"] === undefined) {
-        console.log("Uranium Declaration Error: No content found for toggler with id=" + toggler_id);
+        Ur.error("no content found for toggler with id=" + toggler_id);
         continue;
       }
 
@@ -3999,7 +3947,6 @@ Ur.QuickLoaders['toggler'] = (function(){
 
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
-    console.log(togglers);
     for(var name in togglers){
       var toggler = togglers[name];
       // if (togglers)
@@ -4220,7 +4167,7 @@ Ur.QuickLoaders['zoom-preview'] = (function(){
   }
 
   ZoomPreviewLoader.prototype.initialize = function(fragment) {
-    this.zoom_previews = x$(fragment).find_elements('zoom-preview', ComponentConstructors);
+    this.zoom_previews = x$(fragment).findElements('zoom-preview', ComponentConstructors);
     Ur.Widgets["zoom-preview"] = {};
     for (var name in this.zoom_previews) {
       Ur.Widgets["zoom-preview"][name] = new ZoomPreview(this.zoom_previews[name]);
