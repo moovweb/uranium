@@ -1,3 +1,6 @@
+This documentation file is deprecated. All changes should be now be made in the examples/site folder
+
+---
 # Zoom Preview #
 
 ## Function ##

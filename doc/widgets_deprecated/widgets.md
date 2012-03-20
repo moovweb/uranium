@@ -1,3 +1,6 @@
+This documentation file is deprecated. All changes should be now be made in the examples/site folder
+
+---
 # Widget List #
 
 Brief outline of widget types/components/states. Click a widget for a detailed description.

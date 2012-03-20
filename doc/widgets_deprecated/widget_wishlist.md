@@ -1,3 +1,6 @@
+This documentation file is deprecated. All changes should be now be made in the examples/site folder
+
+---
 # Wishlist #
   
 Widgets that may be coming soon / that we might tryout:
