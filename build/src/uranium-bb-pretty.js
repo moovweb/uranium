@@ -2556,7 +2556,7 @@ window.Sizzle = Sizzle;
 }(this, document);
 })();
 
-if(typeof(Ur) == 'undefined') {
+if(typeof(Ur) == "undefined") {
   Ur = {
     QuickLoaders: {},
     WindowLoaders: {},
@@ -2571,7 +2571,7 @@ if(typeof(Ur) == 'undefined') {
         // These widgets _cant_ be initialized till page load
         Ur.initialize({type: "load"}, fragment);
       } else {
-        window.addEventListener('load', function(e) { Ur.initialize(e, fragment)}, false);
+        window.addEventListener("load", function(e) { Ur.initialize(e, fragment)}, false);
       }
     },
     initialize: function(event, fragment) {
@@ -2590,6 +2590,12 @@ if(typeof(Ur) == 'undefined') {
         Ur._onLoad();
       }
     },
+    error: function(msg) {
+      console.error("Uranium: " + msg);
+    },
+    warn: function(msg) {
+      console.warn("Uranium: " + msg);
+    },
     // TODO: Make private
     _onLoad: function() {
       //iterate through the callbacks
@@ -2606,8 +2612,8 @@ if(typeof(Ur) == 'undefined') {
 
 // This event is compatible with FF/Webkit
 
-window.addEventListener('load', Ur.initialize, false);
-window.addEventListener('DOMContentLoaded', Ur.initialize, false);
+window.addEventListener("load", Ur.initialize, false);
+window.addEventListener("DOMContentLoaded", Ur.initialize, false);
 
 // Do this? OR just initialize as widgets are defined (and have uranium included at the bottom --- but that has limitations in inline JS using all of our x$() mixins) --> I think thats reason enough to try this for now
 
@@ -2631,50 +2637,40 @@ var mixins = {
     i = 0,
     that = arguments[1];
 
-    if (typeof fn == 'function') {
+    if (typeof fn == "function") {
       for (; i < len; i++) {
         fn.call(that, stuff[i], i, stuff);
       }
     }
   },
   offset: function(elm) {
-    if(typeof(elm == "undefined")) {
+    if (elm == undefined)
       elm = this[0];
-    }
-
-    cumulative_top = 0;
-    cumulative_left = 0;
-    while(elm.offsetParent) {
+    
+    var cumulative_top = 0, cumulative_left = 0;
+    while (elm.offsetParent) {
       cumulative_top += elm.offsetTop;
       cumulative_left += elm.offsetLeft;
       elm = elm.offsetParent;
     }
-    return {left: cumulative_left, top:cumulative_top};
+    return {left: cumulative_left, top: cumulative_top};
   },
   
   // TODO: Make private:
-  find_next_ancestor: function(elem, type) {
+  findNextAncestor: function(elem, type) {
     //check to make sure there's still a parent:
     if (elem.parentNode != window.document) {
-      return x$().find_set_ancestor(elem.parentNode, type);
+      return x$().findSetAncestor(elem.parentNode, type);
     } else {
       return null;
     }
   },
 
-  find_set_ancestor: function(elem, type) {
+  findSetAncestor: function(elem, type) {
     var set_name = x$(elem).attr("data-ur-set")[0];
-    if (set_name !== undefined) {
-      if(type == undefined) {
-        return elem;
-      } else if (set_name == type) {
-        return elem;
-      } else {
-        return x$().find_next_ancestor(elem, type);
-      }
-    } else {
-      return x$().find_next_ancestor(elem, type);
-    }
+    if (set_name !== undefined && (type == undefined || set_name == type))
+      return elem;
+    return x$().findNextAncestor(elem, type);
   },
 
   get_unique_uranium_id: (function() {
@@ -2685,7 +2681,7 @@ var mixins = {
     }
   })(),
 
-  find_elements: function(type, component_constructors) {
+  findElements: function(type, component_constructors) {
     var groups = {};
 
     this.each(
@@ -2697,77 +2693,75 @@ var mixins = {
   },
   // TODO: Make helper_find() private since its just a helper function
   helper_find: function(fragment, type, component_constructors, groups) {
-    var all_elements = x$(fragment).find('*[data-ur-' + type + '-component]');
+    var all_elements = x$(fragment).find("*[data-ur-" + type + "-component]");
 
-    all_elements.each(
-      function() {
+    all_elements.each(function() {
 
-        var valid_component = true;
+      var valid_component = true;
 
-        ///////// Resolve this component to its set ///////////
+      ///////// Resolve this component to its set ///////////
 
-        // Check if this has the data-ur-id attribute
-        var my_set_id = x$(this).attr("data-ur-id")[0];
+      // Check if this has the data-ur-id attribute
+      var my_set_id = x$(this).attr("data-ur-id")[0];
 
-        if (my_set_id !== undefined) {
-          if ( groups[my_set_id] === undefined) {
-            groups[my_set_id] = {};
-          }          
-        } else {
-          //Find any set ancestors
-          var my_ancestor = x$().find_set_ancestor(this, type);
+      if (my_set_id !== undefined) {
+        if ( groups[my_set_id] === undefined) {
+          groups[my_set_id] = {};
+        }
+      }
+      else {
+        //Find any set ancestors
+        var my_ancestor = x$().findSetAncestor(this, type);
 
-          var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
-          if(widget_disabled === "disabled" && Ur.loaded == false) {
-            return;
-          }
-
-          if (my_ancestor !== null) {
-            // Check if the set has an id ... if not, 'set' it up -- HA
-
-            my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
-
-            if (my_set_id === undefined) {
-              //generate ID
-              my_set_id = x$().get_unique_uranium_id();
-              x$(my_ancestor).attr("data-ur-id", my_set_id);
-            }
-
-            if (groups[my_set_id] === undefined) {
-              //setup group
-              groups[my_set_id] = {};
-            }
-            
-            groups[my_set_id]["set"] = my_ancestor;
-
-          } else {
-            // we're screwed ... report an error
-            console.log("Uranium Error: Couldn't find associated ur-set for component:",this);
-            valid_component = false;
-          }
+        var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
+        if (widget_disabled === "disabled" && Ur.loaded == false) {
+          return;
         }
 
-        //////////// Add this component to its set /////////////
+        if (my_ancestor !== null) {
+          // Check if the set has an id ... if not, 'set' it up -- HA
 
-        var component_type = x$(this).attr("data-ur-" + type + "-component");
+          my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
 
-        if (component_type === undefined) {
+          if (my_set_id === undefined) {
+            //generate ID
+            my_set_id = x$().get_unique_uranium_id();
+            x$(my_ancestor).attr("data-ur-id", my_set_id);
+          }
+
+          if (groups[my_set_id] === undefined) {
+            //setup group
+            groups[my_set_id] = {};
+          }
+          
+          groups[my_set_id]["set"] = my_ancestor;
+
+        }
+        else {
+          // we're screwed ... report an error
+          Ur.error("couldn't find associated ur-set for component:", this);
           valid_component = false;
         }
-
-        if (valid_component) {
-    // This is widget specific behavior
-    // -- For toggler, it makes sense for content to be multiple things
-    // -- For select-lists, it doesn't
-    if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-      component_constructors[component_type](groups[my_set_id], this, component_type);
-    } else {
-            groups[my_set_id][component_type] = this;
-          }
-        }
-
       }
-    );
+
+      //////////// Add this component to its set /////////////
+
+      var component_type = x$(this).attr("data-ur-" + type + "-component");
+
+      if (component_type === undefined) {
+        valid_component = false;
+      }
+
+      if (valid_component) {
+        // This is widget specific behavior
+        // -- For toggler, it makes sense for content to be multiple things
+        // -- For select-lists, it doesn't
+        if (component_constructors !== undefined && component_constructors[component_type] !== undefined)
+          component_constructors[component_type](groups[my_set_id], this, component_type);
+        else
+          groups[my_set_id][component_type] = this;
+      }
+    });
 
     return groups;
   }
@@ -2801,14 +2795,14 @@ Ur.QuickLoaders['toggler'] = (function(){
   }
 
   ToggleLoader.prototype.find = function(fragment){
-    var togglers = x$(fragment).find_elements('toggler', this.component_constructors);
+    var togglers = x$(fragment).findElements('toggler', this.component_constructors);
     var self=this;
 
     for(var toggler_id in togglers) {
       var toggler = togglers[toggler_id];
 
       if (toggler["button"] === undefined) {
-        console.log("Uranium Declaration Error: No button found for toggler with id=" + toggler_id);
+        Ur.error("no button found for toggler with id=" + toggler_id);
         continue;
       }
 
@@ -2819,7 +2813,7 @@ Ur.QuickLoaders['toggler'] = (function(){
       } 
 
       if (toggler["content"] === undefined) {
-        console.log("Uranium Declaration Error: No content found for toggler with id=" + toggler_id);
+        Ur.error("no content found for toggler with id=" + toggler_id);
         continue;
       }
 
@@ -2861,7 +2855,6 @@ Ur.QuickLoaders['toggler'] = (function(){
 
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
-    console.log(togglers);
     for(var name in togglers){
       var toggler = togglers[name];
       // if (togglers)
@@ -2899,8 +2892,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       }
 
       if(content === undefined) {
-        console.log("Ur error -- no matching tab content for tab button");
-        return
+        Ur.error("no matching tab content for tab button");
+        return;
       }
       
       var state = x$(button).attr("data-ur-state")[0];
@@ -2910,8 +2903,6 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var closeable = x$(this.elements["set"]).attr("data-ur-closeable")[0];
       closeable = (closeable !== undefined && closeable == "true") ? true : false;
-      console.log("closeable? " + closeable);
-
       var self = this;
       x$(button).on(
         "click",
@@ -2954,8 +2945,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var tab_id = x$(component).attr("data-ur-tab-id")[0];
       if (tab_id === undefined) {
-        console.log("Uranium declaration error -- Tab defined without a tab-id");
-        return
+        Ur.error("tab defined without a tab-id");
+        return;
       }
       
       group["buttons"][tab_id] = component;
@@ -2967,8 +2958,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var tab_id = x$(component).attr("data-ur-tab-id")[0];
       if (tab_id === undefined) {
-        console.log("Uranium declaration error -- Tab defined without a tab-id");
-        return
+        Ur.error("tab defined without a tab-id");
+        return;
       }
       
       group["contents"][tab_id] = component;
@@ -2979,7 +2970,7 @@ Ur.QuickLoaders['tabs'] = (function(){
   }
 
   TabsLoader.prototype.initialize = function(fragment) {
-    var tabs = x$(fragment).find_elements('tabs', ComponentConstructors);
+    var tabs = x$(fragment).findElements('tabs', ComponentConstructors);
     Ur.Widgets["tabs"] = {};
 
     for(var name in tabs){
@@ -3061,7 +3052,7 @@ Ur.QuickLoaders['select-list'] = (function(){
 
 
   SelectListLoader.prototype.initialize = function(fragment) {
-    var select_lists = x$(fragment).find_elements('select-list');
+    var select_lists = x$(fragment).findElements('select-list');
     var self = this;
     for (var name in select_lists) {
       var select_list = select_lists[name];
@@ -3157,7 +3148,7 @@ Ur.QuickLoaders['select-buttons'] = (function(){
   }
 
   SelectButtonsLoader.prototype.initialize = function(fragment) {
-    var select_buttons = x$(fragment).find_elements('select-buttons');
+    var select_buttons = x$(fragment).findElements('select-buttons');
     for (var name in select_buttons) {
       new SelectButtons(select_buttons[name]);
       x$(select_buttons[name]["set"]).attr("data-ur-state","enabled");
