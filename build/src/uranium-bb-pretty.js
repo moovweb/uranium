@@ -2739,7 +2739,8 @@ var mixins = {
         }
         else {
           // we're screwed ... report an error
-          Ur.error("couldn't find associated ur-set for component:", this);
+          Ur.error("couldn't find associated ur-set for component:");
+          console.log(this);
           valid_component = false;
         }
       }
