@@ -1671,7 +1671,8 @@ var mixins = {
         }
         else {
           // we're screwed ... report an error
-          Ur.error("couldn't find associated ur-set for component:", this);
+          Ur.error("couldn't find associated ur-set for component:");
+          console.log(this);
           valid_component = false;
         }
       }
@@ -1723,6 +1724,7 @@ Ur.WindowLoaders["carousel"] = (function() {
     // Optionally:
     this.button = components["button"] === undefined ? {} : components["button"];
     this.count = components["count"];
+    this.dots = components["dots"];
 
     this.initialize();
     this.onSlideCallbacks = [];
@@ -1762,13 +1764,6 @@ Ur.WindowLoaders["carousel"] = (function() {
     }
   }
 
-  function translate(obj, x) {
-    var no3d = false;
-    var translatePrefix = no3d ? "translate(" : "translate3d(";
-    var translateSuffix = no3d ? ")" : ", 0px)";
-    obj.style.webkitTransform = obj.style.MozTransform = obj.style.oTransform = obj.style.transform = translatePrefix + x + "px, 0px" + translateSuffix;
-  }
-
   //// Public Methods ////
 
   Carousel.prototype = {
@@ -1777,14 +1772,14 @@ Ur.WindowLoaders["carousel"] = (function() {
       // add an internal event handler to handle all events on the container:
       // x$(this.container).on("event", this.handleEvent);
 
-      this.flag = {increment: false, lock: null, timeoutId: null, touched: false};
+      this.flag = {click: false, increment: false, loop: false, lock: null, timeoutId: null, touched: false};
       this.options = {
         autoscroll: true,
         autoscrollDelay: 5000,
         autoscrollForward: true,
-        cloneLength: 2,
-        dotCounter: true,
+        cloneLength: 1,
         infinite: true,
+        maps: false,
         transform3d: true,
         touch: true,
         verticalScroll: true
@@ -1797,9 +1792,13 @@ Ur.WindowLoaders["carousel"] = (function() {
         var start = hasTouch ? "touchstart" : "mousedown";
         var move = hasTouch ? "touchmove" : "mousemove";
         var end = hasTouch ? "touchend" : "mouseup";
-        x$(this.items).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
-        x$(this.items).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
-        x$(this.items).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
+        var target = (this.options.maps && hasTouch) ? document : this.items;
+        x$(target).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
+        x$(target).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
+        x$(target).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
+        //x$(this.items).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
+        //x$(this.items).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
+        //x$(this.items).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
         x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
       }
 
@@ -1832,6 +1831,20 @@ Ur.WindowLoaders["carousel"] = (function() {
       }
 
       this.adjustSpacing();
+
+      if (!this.options.infinite)
+        this.realItemCount = this.itemCount;
+
+      if (this.dots) {
+        var existing = x$(this.dots).find("[data-ur-carousel-component='dot']");
+        for (var i = existing.length; i < this.realItemCount; i++) {
+          var new_dot = document.createElement("div");
+          x$(new_dot).attr("data-ur-carousel-component", "dot");
+          if (i == 0)
+            x$(new_dot).attr("data-ur-state", "active");
+          this.dots.appendChild(new_dot);
+        }
+      }
 
       this.updateIndex(this.options.infinite ? this.options.cloneLength : 0);
 
@@ -1867,19 +1880,27 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.options.touch = $container.attr("data-ur-touch")[0] != "disabled";
       $container.attr("data-ur-touch", this.options.touch ? "enabled" : "disabled");
 
+      this.options.maps = $container.attr("data-ur-maps")[0] == "enabled";
+      $container.attr("data-ur-maps", this.options.maps ? "enabled" : "disabled");
+
       this.options.infinite = $container.attr("data-ur-infinite")[0] != "disabled";
       $container.attr("data-ur-infinite", this.options.infinite ? "enabled" : "disabled");
 
-      this.options.autoscroll = $container.attr("data-ur-autoscroll")[0] != "disabled";
+      var cloneLength = parseInt($container.attr("data-ur-clones"));
+      if (cloneLength > 0)
+        this.options.cloneLength = cloneLength;
+      $container.attr("data-ur-clones", this.options.cloneLength);
+
+      this.options.autoscroll = $container.attr("data-ur-autoscroll")[0] == "enabled";
       $container.attr("data-ur-autoscroll", this.options.autoscroll ? "enabled" : "disabled");
 
-      var autoscrollDelay = $container.attr("data-ur-autoscroll-delay")[0];
-      if (autoscrollDelay != null)
+      var autoscrollDelay = parseInt($container.attr("data-ur-autoscroll-delay"));
+      if (autoscrollDelay >= 0)
         this.options.autoscrollDelay = autoscrollDelay;
       $container.attr("data-ur-autoscroll-delay", this.options.autoscrollDelay);
 
-      this.options.autoscrollForward = $container.attr("data-ur-autoscroll-direction")[0] != "prev";
-      $container.attr("data-ur-autoscroll-direction", this.options.autoscrollForward ? "next" : "prev");
+      this.options.autoscrollForward = $container.attr("data-ur-autoscroll-dir")[0] != "prev";
+      $container.attr("data-ur-autoscroll-dir", this.options.autoscrollForward ? "next" : "prev");
     },
 
     resize: function() {
@@ -1904,10 +1925,9 @@ Ur.WindowLoaders["carousel"] = (function() {
       // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
       var totalWidth = 0;
 
-      for (var i = 0; i < items.length; i++) {
+      for (var i = 0; i < items.length; i++)
         totalWidth += items[i].offsetWidth;
-        console.log(items[i].offsetWidth);
-      }
+
       this.items.style.width = totalWidth + "px";
 
       this.snapWidth = visibleWidth;
@@ -1917,13 +1937,14 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.itemIndex = (this.lastIndex < this.itemIndex) ? this.lastIndex : this.itemIndex;
 
       cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
-      var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
-      cumulativeOffset += centerOffset; // CHECK
-
+      if (this.options.infinite) {
+        var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
+        cumulativeOffset += centerOffset; // CHECK
+      }
       if (oldSnapWidth)
         this.destinationOffset = cumulativeOffset;
 
-      translate(this.items, cumulativeOffset);
+      this.translate(cumulativeOffset);
     },
 
     autoscrollStart: function() {
@@ -1932,7 +1953,12 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       var self = this;
       self.flag.timeoutId = setTimeout(function() {
-        self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
+        if (!self.options.infinite && self.itemIndex == self.lastIndex && self.options.autoscrollForward)
+          self.jumpToIndex(0);
+        else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
+          self.jumpToIndex(self.lastIndex);
+        else
+          self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
       }, self.options.autoscrollDelay);
     },
 
@@ -1955,12 +1981,14 @@ Ur.WindowLoaders["carousel"] = (function() {
 
     getNewIndex: function(direction) {
       var newIndex = this.itemIndex - direction;
-
-      if(newIndex > this.lastIndex)
-        newIndex = this.lastIndex;
-      else if (newIndex < 0)
-        newIndex = 0;
-
+      
+      if (!this.options.infinite) {
+        if (newIndex > this.lastIndex)
+          newIndex = this.lastIndex;
+        else if (newIndex < 0)
+          newIndex = 0;
+      }
+      
       return newIndex;
     },
 
@@ -1974,25 +2002,28 @@ Ur.WindowLoaders["carousel"] = (function() {
       else if (this.itemIndex > this.lastIndex)
         this.itemIndex = this.lastIndex - 1;
 
-      if (this.count !== undefined) {
-        if (this.options.infinite) {
-          var realIndex = (this.realItemCount + this.itemIndex - this.options.cloneLength) % this.realItemCount;
-          this.count.innerHTML = realIndex + 1 + " of " + this.realItemCount;
-        }
-        else
-          this.count.innerHTML = this.itemIndex + 1 + " of " + this.itemCount;
-      }
+      var realIndex = this.itemIndex;
+      if (this.options.infinite)
+        realIndex = (this.realItemCount + this.itemIndex - this.options.cloneLength) % this.realItemCount;
+      if (this.count !== undefined)
+        this.count.innerHTML = realIndex + 1 + " of " + this.realItemCount;
 
-      var activeItem = x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']");
-      activeItem.attr("data-ur-state", "inactive");
-      var newActiveItem = x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex];
-      x$(newActiveItem).attr("data-ur-state", "active");
+      x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
+      x$(x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex]).attr("data-ur-state", "active");
+
+      x$(this.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive")[realIndex].setAttribute("data-ur-state", "active");
 
       this.updateButtons();
+
+      x$(this.container).fire("slidestart", {index: realIndex});
     },
 
     startSwipe: function(e) {
-      stifle(e);
+      console.log("startSwipe");
+      if (this.options.maps && !x$(e.target).has("[data-ur-carousel-component='item'], [data-ur-carousel-component='item'] *"))
+        return;
+      if (!this.options.verticalScroll)
+        stifle(e);
       this.autoscrollStop();
 
       this.flag.touched = true; // For non-touch environments
@@ -2000,6 +2031,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.preCoords.x = coords.x;
       this.preCoords.y = coords.y;
       this.flag.lock = document.ontouchstart === undefined ? "x" : null;
+      this.flag.loop = false;
 
       if (coords !== null) {
         var translateX = getTranslateX(this.items);
@@ -2013,27 +2045,29 @@ Ur.WindowLoaders["carousel"] = (function() {
           this.startPos = this.endPos = coords;
         }
       }
-      this.click = true;
+      this.flag.click = true;
     },
 
     continueSwipe: function(e) {
+      console.log("continueSwipe");
       if (!this.flag.touched) // For non-touch environments
         return;
 
-      this.click = false;
+      this.flag.click = false;
 
       var coords = this.getEventCoords(e);
 
       if (document.ontouchstart !== undefined && this.options.verticalScroll) {
+        var slope = Math.abs((this.preCoords.y - coords.y)/(this.preCoords.x - coords.x));
         if (this.flag.lock) {
           if (this.flag.lock == "y")
             return;
         }
-        else if (Math.abs(this.preCoords.y - coords.y) > 7) {
+        else if (slope > 1.2) {
           this.flag.lock = "y";
           return;
         }
-        else if (Math.abs(this.preCoords.x - coords.x) > 5)
+        else if (slope <= 1.2)
           this.flag.lock = "x";
         else
           return;
@@ -2043,16 +2077,44 @@ Ur.WindowLoaders["carousel"] = (function() {
       if (coords !== null) {
         this.endPos = coords;
         var dist = this.swipeDist() + this.startingOffset;
-        translate(this.items, dist);
+
+        if (this.options.infinite) {
+          var items = x$(this.items).find("[data-ur-carousel-component='item']");
+          var endLimit = items[this.lastIndex].offsetLeft + items[this.lastIndex].offsetWidth - this.container.offsetWidth;
+
+          if (dist > 0) { // at the beginning of carousel
+            var srcNode = items[this.realItemCount];
+            var offset = srcNode.offsetLeft - items[0].offsetLeft;
+            this.startingOffset -= offset;
+            //console.log(">" + this.startingOffset);
+            dist -= offset;
+            this.flag.loop = !this.flag.loop;
+            //this.itemIndex = this.lastIndex;
+          }
+          else if (dist < -endLimit) {  // at the end of carousel
+            var srcNode = items[this.lastIndex - this.realItemCount];
+            var offset = srcNode.offsetLeft - items[this.lastIndex].offsetLeft;
+            this.startingOffset -= offset;
+            //console.log("<" + this.startingOffset);
+            dist -= offset;
+            this.flag.loop = !this.flag.loop;
+            //this.itemIndex = 0;
+          }
+        }
+
+        this.translate(dist);
       }
     },
 
     finishSwipe: function(e) {
-      if (!this.click || this.flag.lock)
+      console.log("finishSwipe");
+      if (!this.flag.click || this.flag.lock)
         stifle(e);
       else
         x$(e.target).click();
-
+      
+      //console.log(this.itemIndex);
+      
       this.flag.touched = false; // For non-touch environments
       
       if (!this.options.verticalScroll || this.flag.lock == "x")
@@ -2062,15 +2124,12 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
     getDisplacementIndex: function() {
       var swipeDistance = this.swipeDist();
-      //var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
-      var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
-      console.log(swipeDistance);
-      console.log(displacementIndex);
+      var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
+      //var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
       return displacementIndex;
     },
     snapTo: function(displacement) {
       this.destinationOffset = displacement + this.startingOffset;
-      console.log("this.startingOffset="+this.startingOffset);
       var maxOffset = -1*(this.lastIndex)*this.snapWidth;
       var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
 
@@ -2103,41 +2162,59 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.autoscrollStop();
 
       var newIndex = this.getNewIndex(direction);
+      //console.log("newIndex=" + newIndex)
 
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
 
       if (this.options.infinite) {
-
         var oldTransform = getTranslateX(this.items);
+        var altTransform = oldTransform;
 
-        if (newIndex == this.lastIndex) { // at the end of carousel
-          this.itemIndex = this.options.cloneLength;
-          newIndex = this.itemIndex + 1;
-
-          var altTransform = oldTransform;
-          altTransform += this.clones[0].offsetLeft - items[this.options.cloneLength].offsetLeft; // CHECK
-          translate(this.items, altTransform);
-          this.startingOffset = -items[this.options.cloneLength].offsetLeft;
-          this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+        if (newIndex < this.options.cloneLength) { // at the beginning of carousel
+          var offset = items[this.options.cloneLength].offsetLeft - items[this.itemCount - this.options.cloneLength].offsetLeft;
+          //console.log("oldTransform=" + oldTransform);
+          if (!this.flag.loop) {
+            //console.log("blah");
+            altTransform += offset;
+            this.translate(altTransform);
+            this.startingOffset += offset;
+          }
+          //this.startingOffset = -items[newIndex + this.realItemCount + 1].offsetLeft;
+          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          //console.log("altTransform=" + altTransform);
+          //console.log("this.startingOffset=" + this.startingOffset);
+          newIndex += this.realItemCount;
+          this.itemIndex = newIndex + direction;
         }
-        else if (newIndex == 0) { // at the beginning of carousel
-          this.itemIndex = this.lastIndex - this.options.cloneLength;
-          newIndex = this.itemIndex - 1;
-
-          var altTransform = oldTransform;
-          altTransform += items[this.options.cloneLength].offsetLeft - this.clones[0].offsetLeft; // CHECK
-          translate(this.items, altTransform);
-          this.startingOffset = -items[this.lastIndex - this.options.cloneLength].offsetLeft;
-          this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+        else if (newIndex > this.lastIndex - this.options.cloneLength) { // at the end of carousel
+          var offset = items[this.itemCount - this.options.cloneLength].offsetLeft - items[this.options.cloneLength].offsetLeft;
+          if (!this.flag.loop) {
+            //console.log("blah");
+            altTransform += offset;
+            this.translate(altTransform);
+            this.startingOffset += offset;
+          }
+          //altTransform += offset;
+          //this.startingOffset = -items[newIndex - this.realItemCount - 1].offsetLeft;
+          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          //this.startingOffset -= offset;
+          newIndex -= this.realItemCount;
+          this.itemIndex = newIndex + direction;
         }
-
       }
+      //console.log("startingOffset=" + this.startingOffset);
+      //console.log("itemIndex=" + this.itemIndex);
+      //console.log("newIndex=" + newIndex);
       var newItem = items[newIndex];
       var currentItem = items[this.itemIndex];
-
       var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
-      this.snapTo(displacement);
-      this.updateIndex(newIndex);
+
+      setTimeout(function(obj) {
+        return function() {
+          obj.snapTo(displacement);
+          obj.updateIndex(newIndex);
+        }
+      }(this), 6);
     },
 
     moveToIndex: function(index) {
@@ -2162,7 +2239,24 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       var newTransform = increment + translateX;
 
-      translate(this.items, newTransform);
+      
+      /*
+      if (this.options.infinite) {
+        var items = x$(this.items).find("[data-ur-carousel-component='item']");
+        var startLimit = items[this.options.cloneLength - 1].offsetLeft; // almost at the beginning of carousel
+        var endLimit = items[this.lastIndex].offsetLeft - this.container.offsetWidth; // almost at the end of carousel
+
+        if (newTransform >= -startLimit) { // almost at the beginning of carousel
+          this.destinationOffset -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+          newTransform -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+        }
+        if (newTransform <= -endLimit) { // almost at the end of carousel
+          this.destinationOffset += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+          newTransform += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+        }
+      }*/
+      
+      this.translate(newTransform);
 
       if (increment != 0)
         this.flag.increment = true;
@@ -2171,7 +2265,7 @@ Ur.WindowLoaders["carousel"] = (function() {
         setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
       else {
         this.startingOffset = null;
-
+        /*
         if (this.options.infinite) {
           
           if (this.itemIndex == this.itemCount - this.options.cloneLength) // almost at the end of carousel
@@ -2183,10 +2277,13 @@ Ur.WindowLoaders["carousel"] = (function() {
 
           var altTransform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex].offsetLeft;
           altTransform += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
-          translate(this.items, altTransform);
+          this.translate(altTransform);
         }
-
+        */
         this.autoscrollStart();
+
+        var itemIndex = this.itemIndex;
+        x$(this.container).fire("slideend", {index: itemIndex});
 
         x$().iterate(this.onSlideCallbacks, function(callback) { callback(); });
       }
@@ -2196,6 +2293,15 @@ Ur.WindowLoaders["carousel"] = (function() {
       if (this.endPos === undefined)
         return 0;
       return this.endPos.x - this.startPos.x;
+    },
+    
+    translate: function(x) {
+      var container = this.items;
+      var translatePrefix = this.options.transform3d ? "translate3d(" : "translate(";
+      var translateSuffix = this.options.transform3d ? ", 0px)" : ")";
+      ["webkitTransform", "MozTransform", "oTransform", "transform"].forEach(function(i) {
+        container.style[i] = translatePrefix + x + "px, 0px" + translateSuffix;
+      });
     }
   }
 
