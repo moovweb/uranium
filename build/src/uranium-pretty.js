@@ -1763,6 +1763,10 @@ Ur.WindowLoaders["carousel"] = (function() {
       return 0;
     }
   }
+  
+  function getWidth(obj) {
+    return obj.offsetWidth ? obj.offsetWidth : parseInt(x$(obj).getStyle("width"));
+  }
 
   //// Public Methods ////
 
@@ -1904,13 +1908,13 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     resize: function() {
-      if (this.snapWidth != this.container.offsetWidth)
+      if (this.snapWidth != getWidth(this.container))
         this.adjustSpacing();
     },
 
     adjustSpacing: function() {
       // Will need to be called if the container's size changes --> orientation change
-      var visibleWidth = this.container.offsetWidth;
+      var visibleWidth = getWidth(this.container);
 
       if (this.oldWidth !== undefined && this.oldWidth == visibleWidth)
         return;
@@ -1926,7 +1930,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       var totalWidth = 0;
 
       for (var i = 0; i < items.length; i++)
-        totalWidth += items[i].offsetWidth;
+        totalWidth += getWidth(items[i]);
 
       this.items.style.width = totalWidth + "px";
 
@@ -1938,7 +1942,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
       if (this.options.infinite) {
-        var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
+        var centerOffset = parseInt((this.snapWidth - getWidth(items[0]))/2);
         cumulativeOffset += centerOffset; // CHECK
       }
       if (oldSnapWidth)
@@ -2011,7 +2015,8 @@ Ur.WindowLoaders["carousel"] = (function() {
       x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
       x$(x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex]).attr("data-ur-state", "active");
 
-      x$(this.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive")[realIndex].setAttribute("data-ur-state", "active");
+      if (this.dots)
+        x$(this.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive")[realIndex].setAttribute("data-ur-state", "active");
 
       this.updateButtons();
 
@@ -2080,7 +2085,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
         if (this.options.infinite) {
           var items = x$(this.items).find("[data-ur-carousel-component='item']");
-          var endLimit = items[this.lastIndex].offsetLeft + items[this.lastIndex].offsetWidth - this.container.offsetWidth;
+          var endLimit = items[this.lastIndex].offsetLeft + getWidth(items[this.lastIndex]) - getWidth(this.container);
 
           if (dist > 0) { // at the beginning of carousel
             var srcNode = items[this.realItemCount];
@@ -2124,17 +2129,17 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
     getDisplacementIndex: function() {
       var swipeDistance = this.swipeDist();
-      var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
+      var displacementIndex = zeroCeil(swipeDistance/getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]));
       //var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
       return displacementIndex;
     },
     snapTo: function(displacement) {
       this.destinationOffset = displacement + this.startingOffset;
       var maxOffset = -1*(this.lastIndex)*this.snapWidth;
-      var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
+      var minOffset = parseInt((this.snapWidth - getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]))/2);
 
       if (this.options.infinite)
-        maxOffset = -this.items.offsetWidth;
+        maxOffset = -getWidth(this.items);
       if (this.destinationOffset < maxOffset || this.destinationOffset > minOffset) {
         if (Math.abs(this.destinationOffset - maxOffset) < 1) {
           // Hacky -- but there are rounding errors
