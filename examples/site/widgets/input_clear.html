@@ -1,0 +1,125 @@
+---
+layout: widgets
+title: Input Clear
+name: input_clear
+widget_selected: selected
+---
+<div data-ur-set="tabs">
+  
+  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+
+   <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+  
+  <div data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+    <div class="wrapper">
+      <h1> {{page.title}} </h1>
+    </div>
+    <div class="description_wrapper">
+      <h2> Description </h2>
+
+      <div class='description'>
+        <p>When a user focuses on a text input field, a small x appears along the right side of the field that can be clicked to clear it.</p>
+      </div> <!-- description -->
+    </div> <!-- wrapper -->
+
+    <!-- Attributes -->
+    <div class='wrapper'>
+      <div class="attributes">
+        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
+          <ul>
+            <li><span class="inline_code">data-ur-set="flex-table"</span> - add this attribute to a div that wraps the whole widget</li>
+          </ul>
+        </div> <!-- basic -->
+        <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+          <h3> data-ur-set= </h3>
+          <div class="set_name inline_code">"flex-table"</div>
+          <h3> data-ur-flex-table-component= </h3>
+          <div class="components">
+            <ul>
+              <li><div data-ur-flex-table-component='table' class="inline_code">"table"</div>
+                <ul>
+                  <li>add this attribute to the table node</li>
+                </ul>
+              </li>
+              <li><div data-ur-flex-table-component='head' class="inline_code">"head"</div>
+                <ul>
+                  <li>add this attribute to the table head node</li>
+                </ul>
+              </li>
+              <li><div data-ur-flex-table-component='body' class="inline_code">"body"</div>
+                <ul>
+                  <li>add this attribute to the table body node</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div> <!-- advanced -->
+      </div>
+    </div>
+
+    <!-- Styles -->
+    <div class='wrapper'>
+      <h2>Required Styles</h2>
+      <div class='css'>
+<pre>
+/* Required SCSS Styling */
+
+
+</pre>  
+      </div>
+    </div>
+
+    <!-- Demonstration -->
+    <h2 class='wrapper'>Demonstration</h2>
+    <!-- Not wrapping the tables with the wrapper class because it wouldn't look as good as a demo. Better the tables stretch the full-length of the page. -->
+    <div class='wrapper'>
+      <div class='demonstration'>
+        <p>You can have multiple tables on the same page. Two are featured below. Resize your browser window to see the table columns show and hide themselves.</p>
+        <div id="accordion_demonstration" data-ur-set="tabs">
+            <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
+
+            <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+            <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+
+            </div>
+            <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+              <p class='code'>
+                <span id="brown">&lt;div <span id="green">class="table-wrapper"</span>><br/>
+                  <span id="brown">&emsp;&emsp;&lt;table cellspacing="0" id="tech-companies-2"</span><span id="green"> data-ur-flex-table-component="table"</span><span id="brown">></span><br/>
+                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;thead </span><span id="green">data-ur-flex-table-component="head"</span><span id="brown">></span><br/>
+                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;tr></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="persist essential"</span><span id="brown">>Company&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="essential"</span><span id="brown">>Last Trade&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="optional"</span><span id="brown">>Trade Time&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="essential"</span><span id="brown">>Change&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="optional"</span><span id="brown">>Prev Close&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="optional"</span><span id="brown">>Open&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>Bid&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>Ask&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>1y Target Est&lt;/th></span><br/>
+                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;/tr></span><br/>
+                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;/thead></span><br/>
+                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;tbody <span id="green">data-ur-flex-table-component="body"</span><span id="brown">></span><br/>
+                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;tr></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>GOOG &lt;span class="co-name">Google Inc.&lt;/span>&lt;/th></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.74&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>12:12PM&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>14.81 (2.54%)&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>582.93&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.95&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.73 x 100&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.91 x 300&lt;/td></span><br/>
+                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>731.10&lt;/td></span><br/>
+                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;/tr></span><br/>
+                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...</span><br/>
+                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;/tbody></span><br/>
+                  <span id="brown">&emsp;&emsp;&lt;/table></span><br/>
+                <span id="brown">&lt;/div></span><br/>
+              </p>
+            </div><!-- html content end -->
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- basicpage -->
+</div> <!-- tabs -->
