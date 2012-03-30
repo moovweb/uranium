@@ -1,9 +1,18 @@
 (function () {
 /**
-  Base
-  ====
-
-  Includes functionality used to manipulate the xui object collection; things like iteration and set operations are included here.
+  Basics
+  ======
+    
+    xui is available as the global `x$` function. It accepts a CSS selector string or DOM element, or an array of a mix of these, as parameters,
+    and returns the xui object. For example:
+    
+        var header = x$('#header'); // returns the element with id attribute equal to "header".
+        
+    For more information on CSS selectors, see the [W3C specification](http://www.w3.org/TR/CSS2/selector.html). Please note that there are
+    different levels of CSS selector support (Levels 1, 2 and 3) and different browsers support each to different degrees. Be warned!
+    
+  The functions described in the docs are available on the xui object and often manipulate or retrieve information about the elements in the
+  xui collection.
 
 */
 var undefined,
@@ -46,41 +55,49 @@ function removex(array, from, to) {
     return array.push.apply(array, rest);
 }
 
+// converts all CSS style names to DOM style names, i.e. margin-left to marginLeft
+function domstyle(name) {
+  return name.replace(/\-[a-z]/g,function(m) { return m[1].toUpperCase(); });
+}
+
+// converts all DOM style names to CSS style names, i.e. marginLeft to margin-left
+function cssstyle(name) {
+  return name.replace(/[A-Z]/g, function(m) { return '-'+m.toLowerCase(); })
+}
+
 xui.fn = xui.prototype = {
 
 /**
   extend
   ------
 
-  Allows extension of xui's prototype with the members/methods of the provided object.
+  Extends XUI's prototype with the members of another object.
 
   ### syntax ###
 
     xui.extend( object );
 
-  Call extend on the xui object to extend all xui instances with functionality and/or members of the passed-in object.
-
   ### arguments ###
 
-  - object:object a JavaScript object whose members will be incorporated into xui's prototype
+  - object `Object` contains the members that will be added to XUI's prototype.
  
   ### example ###
 
   Given:
 
-    var thing = {
-        first : function() { return this[ 0 ]; },
-        last : function() { return this[ this.length - 1 ]; }
+    var sugar = {
+        first: function() { return this[0]; },
+        last:  function() { return this[this.length - 1]; }
     }
 
-  We can extend xui's prototype with these methods by using `extend`:
+  We can extend xui's prototype with members of `sugar` by using `extend`:
 
-    xui.extend( thing );
+    xui.extend(sugar);
 
   Now we can use `first` and `last` in all instances of xui:
 
-    var f = x$( '.someClass' ).first();
-    var l = x$( '.differentClass' ).last();
+    var f = x$('.button').first();
+    var l = x$('.notice').last();
 */
     extend: function(o) {
         for (var i in o) {
@@ -92,16 +109,16 @@ xui.fn = xui.prototype = {
   find
   ----
 
-  Finds matching elements based on a query string. The global xui entry `x$` function is a reference to the `find` function.
+  Find the elements that match a query string. `x$` is an alias for `find`.
 
   ### syntax ###
 
-    x$(window).find( selector [, context] );
+    x$( window ).find( selector, context );
 
   ### arguments ###
 
-  - selector:string a CSS selector string to match elements to.
-  - context:HTMLElement an html element to use as the "root" element to search from.
+  - selector `String` is a CSS selector that will query for elements.
+  - context `HTMLElement` is the parent element to search from _(optional)_.
  
   ### example ###
 
@@ -116,9 +133,9 @@ xui.fn = xui.prototype = {
         <li id="four">4</li>
     </ul>
 
-  We can select only specific list items by using `find`, as opposed to selecting off the document root:
+  We can select list items using `find`:
 
-    x$('li'); // returns all four list item elements.
+    x$('li');                 // returns all four list item elements.
     x$('#second').find('li'); // returns list items "three" and "four"
 */
     find: function(q, context) {
@@ -159,11 +176,12 @@ xui.fn = xui.prototype = {
               ele = slice(ele);
             } else if (q instanceof Array) {
                 ele = q;
-            } else if (q.toString() == '[object NodeList]') {
-                ele = slice(q);
             } else if (q.nodeName || q === window) { // only allows nodes in
                 // an element was passed in
                 ele = [q];
+            } else if (q.toString() == '[object NodeList]' ||
+q.toString() == '[object HTMLCollection]' || typeof q.length == 'number') {
+                ele = slice(q);
             }
         }
         // disabling the append style, could be a plugin (found in more/base):
@@ -179,7 +197,7 @@ xui.fn = xui.prototype = {
 
   ### syntax ###
 
-    x$(window).set( array );
+    x$( window ).set( array );
 */
     set: function(elements) {
         var ret = xui();
@@ -191,20 +209,18 @@ xui.fn = xui.prototype = {
 
 /**
   reduce
-  ---
+  ------
 
   Reduces the set of elements in the xui object to a unique set.
 
   ### syntax ###
 
-    x$(someSelector).reduce( [ elements [, toIndex ]] );
-
-  The elements parameter is optional - if not specified, will reduce the elements in the current xui object.
+    x$( window ).reduce( elements, index );
 
   ### arguments ###
 
-  - elements:Array an array of elements to reduce (optional)
-  - toIndex:Number last index of elements to include in the reducing operation.
+  - elements `Array` is an array of elements to reduce _(optional)_.
+  - index `Number` is the last array index to include in the reduction. If unspecified, it will reduce all elements _(optional)_.
 */
     reduce: function(elements, b) {
         var a = [],
@@ -222,31 +238,29 @@ xui.fn = xui.prototype = {
   has
   ---
 
-  Has modifies the elements array and returns all the elements that match (has) a CSS selector.
+  Returns the elements that match a given CSS selector.
 
   ### syntax ###
 
-    x$(someSelector).has( query );
-
-  Behind the scenes, actually calls the filter method.
+    x$( window ).has( selector );
 
   ### arguments ###
 
-  - query:string a CSS selector that will match all children of originally-selected xui collection
+  - selector `String` is a CSS selector that will match all children of the xui collection.
 
   ### example ###
 
-  Given
+  Given:
 
     <div>
-        <div class="gotit">these ones</div>
-        <div class="gotit">have an extra class</div>
+        <div class="round">Item one</div>
+        <div class="round">Item two</div>
     </div>
   
-  We can use xui like so
+  We can use `has` to select specific objects:
 
-    var divs = x$('div'); // we've got all four divs from above.
-    var someDivs = divs.has('.gotit'); // we've now got only the two divs with the class
+    var divs    = x$('div');          // got all three divs.
+    var rounded = divs.has('.round'); // got two divs with the class .round
 */
      has: function(q) {
          var list = xui(q);
@@ -259,28 +273,32 @@ xui.fn = xui.prototype = {
              return found;
          });
      },
+
 /**
   filter
   ------
 
-  Both an internal utility function, but also allows developers to extend xui using custom filters
+  Extend XUI with custom filters. This is an interal utility function, but is also useful to developers.
 
   ### syntax ###
 
-    x$(someSelector).filter( functionHandle );
-
-  The `functionHandle` function will get invoked with `this` being the element being iterated on,
-  and the index passed in as a parameter.
+    x$( window ).filter( fn );
 
   ### arguments ###
 
-  - functionHandle:Function a function reference that evaluates to true/false, determining which elements get included in the xui collection.
+  - fn `Function` is called for each element in the XUI collection.
+
+          // `index` is the array index of the current element
+          function( index ) {
+              // `this` is the element iterated on
+              // return true to add element to new XUI collection
+          }
 
   ### example ###
 
-  Perhaps we'd want to filter input elements that are disabled:
+  Filter all the `<input />` elements that are disabled:
 
-    x$('input').filter(function(i) {
+    x$('input').filter(function(index) {
         return this.checked;
     });
 */
@@ -295,35 +313,41 @@ xui.fn = xui.prototype = {
   not
   ---
 
-  Not modifies the elements array and returns all the elements that DO NOT match a CSS Query - the opposite of has
+  The opposite of `has`. It modifies the elements and returns all of the elements that do __not__ match a CSS query.
 
   ### syntax ###
 
-    x$(someSelector).not( someOtherSelector );
+    x$( window ).not( selector );
 
   ### arguments ###
 
-  - someOtherSelector:string a CSS selector that elements should NOT match to.
+  - selector `String` a CSS selector for the elements that should __not__ be matched.
 
   ### example ###
 
-  Given
+  Given:
 
     <div>
-        <div class="gotit">these ones</div>
-        <div class="gotit">have an extra class</div>
+        <div class="round">Item one</div>
+        <div class="round">Item two</div>
+        <div class="square">Item three</div>
+        <div class="shadow">Item four</div>
     </div>
 
-  We can use xui like so
+  We can use `not` to select objects:
 
-    var divs = x$('div'); // we've got all four divs from above.
-    var someDivs = divs.not('.gotit'); // we've now got only the two divs _without_ the class "gotit"  
+    var divs     = x$('div');          // got all four divs.
+    var notRound = divs.not('.round'); // got two divs with classes .square and .shadow
 */
     not: function(q) {
-        var list = slice(this);
+        var list = slice(this),
+            omittedNodes = xui(q);
+        if (!omittedNodes.length) {
+            return this;
+        }
         return this.filter(function(i) {
             var found;
-            xui(q).each(function(el) {
+            omittedNodes.each(function(el) {
                 return found = list[i] != el;
             });
             return found;
@@ -334,21 +358,28 @@ xui.fn = xui.prototype = {
   each
   ----
 
-  Element iterator (over the xui collection).
+  Element iterator for an XUI collection.
 
   ### syntax ###
 
-    x$(window).each( functionHandle )
+    x$( window ).each( fn )
 
   ### arguments ###
 
-  - functionHandle:Function callback function that will execute with each element being passed in as the `this` object and first parameter to callback
+  - fn `Function` callback that is called once for each element.
+
+        // `element` is the current element
+        // `index` is the element index in the XUI collection
+        // `xui` is the XUI collection.
+        function( element, index, xui ) {
+            // `this` is the current element
+        }
 
   ### example ###
 
-    x$(someSelector).each(function(element, index, xui) {
+    x$('div').each(function(element, index, xui) {
         alert("Here's the " + index + " element: " + element);
-    });  
+    });
 */
     each: function(fn) {
         // we could compress this by using [].forEach.call - but we wouldn't be able to support
@@ -367,58 +398,66 @@ xui.extend = xui.fn.extend;
   DOM
   ===
 
-  Set of methods used for manipulating the Document Object Model (DOM).
+  Set of methods for manipulating the Document Object Model (DOM).
 
 */
 xui.extend({
 /**
   html
-  ---
+  ----
 
-  For manipulating HTML in the DOM.
+  Manipulates HTML in the DOM. Also just returns the inner HTML of elements in the collection if called with no arguments.
 
   ### syntax ###
 
-    x$(window).html( location, html );
+    x$( window ).html( location, html );
 
-  or this method will accept just an html fragment with a default behavior of inner.
+  or this method will accept just a HTML fragment with a default behavior of inner:
 
-    x$(window).html( html );
+    x$( window ).html( html );
 
-  or you can use shorthand syntax by using the location name argument (see below) as the function name.
+  or you can use shorthand syntax by using the location name argument as the function name:
 
-    x$(window).outer( html );
-    x$(window).before( html );
+    x$( window ).outer( html );
+    x$( window ).before( html );
+  
+  or you can just retrieve the inner HTML of elements in the collection with:
+  
+      x$( document.body ).html();
 
   ### arguments ###
 
-  - location:string can be one of: inner, outer, top, bottom, remove, before or after.
-  - html:string any string of html markup or an HTMLElement.
+  - location `String` can be one of: _inner_, _outer_, _top_, _bottom_, _remove_, _before_ or _after_.
+  - html `String` is a string of HTML markup or a `HTMLElement`.
 
   ### example ###
 
-    x$('#foo').html( 'inner', '<strong>rock and roll</strong>' );
-    x$('#foo').html( 'outer', '<p>lock and load</p>' );
-    x$('#foo').html( 'top', '<div>bangers and mash</div>');
-    x$('#foo').html( 'bottom','<em>mean and clean</em>');
-    x$('#foo').html( 'remove');
-    x$('#foo').html( 'before', '<p>some warmup html</p>');
-    x$('#foo').html( 'after', '<p>more html!</p>');
+    x$('#foo').html('inner', '<strong>rock and roll</strong>');
+    x$('#foo').html('outer', '<p>lock and load</p>');
+    x$('#foo').html('top',   '<div>bangers and mash</div>');
+    x$('#foo').html('bottom','<em>mean and clean</em>');
+    x$('#foo').html('remove');
+    x$('#foo').html('before', '<p>some warmup html</p>');
+    x$('#foo').html('after',  '<p>more html!</p>');
 
   or
 
-    x$('#foo').html( '<p>sweet as honey</p>' );
-    x$('#foo').outer( '<p>free as a bird</p>' );
-    x$('#foo').top( '<b>top of the pops</b>' );
-    x$('#foo').bottom( '<span>bottom of the barrel</span>' );
-    x$('#foo').before( '<pre>first in line</pre>' );
-    x$('#foo').after( '<marquee>better late than never</marquee>' );
+    x$('#foo').html('<p>sweet as honey</p>');
+    x$('#foo').outer('<p>free as a bird</p>');
+    x$('#foo').top('<b>top of the pops</b>');
+    x$('#foo').bottom('<span>bottom of the barrel</span>');
+    x$('#foo').before('<pre>first in line</pre>');
+    x$('#foo').after('<marquee>better late than never</marquee>');
 */
     html: function(location, html) {
         clean(this);
 
         if (arguments.length == 0) {
-            return this[0].innerHTML;
+            var i = [];
+            this.each(function(el) {
+                i.push(el.innerHTML);
+            });
+            return i;
         }
         if (arguments.length == 1 && arguments[0] != 'remove') {
             html = location;
@@ -458,56 +497,75 @@ xui.extend({
                     el.innerHTML = '';
                     el.appendChild(html);
                 }
-            } else if (location == "outer") { // .replaceWith
-                el.parentNode.replaceChild(wrapHelper(html, el), el);
-            } else if (location == "top") { // .prependTo
-                el.insertBefore(wrapHelper(html, el), el.firstChild);
-            } else if (location == "bottom") { // .appendTo
-                el.insertBefore(wrapHelper(html, el), null);
-            } else if (location == "remove") {
+            } else {
+              if (location == 'remove') {
                 el.parentNode.removeChild(el);
-            } else if (location == "before") { // .insertBefore
-                el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el);
-            } else if (location == "after") { // .insertAfter
-                el.parentNode.insertBefore(wrapHelper(html, el.parentNode), el.nextSibling);
+              } else {
+                var elArray = ['outer', 'top', 'bottom'],
+                    wrappedE = wrapHelper(html, (elArray.indexOf(location) > -1 ? el : el.parentNode )),
+                    children = wrappedE.childNodes;
+                if (location == "outer") { // .replaceWith
+                  el.parentNode.replaceChild(wrappedE, el);
+                } else if (location == "top") { // .prependTo
+                    el.insertBefore(wrappedE, el.firstChild);
+                } else if (location == "bottom") { // .appendTo
+                    el.insertBefore(wrappedE, null);
+                } else if (location == "before") { // .insertBefore
+                    el.parentNode.insertBefore(wrappedE, el);
+                } else if (location == "after") { // .insertAfter
+                    el.parentNode.insertBefore(wrappedE, el.nextSibling);
+                }
+                var parent = wrappedE.parentNode;
+                while(children.length) {
+                  parent.insertBefore(children[0], wrappedE);
+                }
+                parent.removeChild(wrappedE);
+              }
             }
         });
     },
 
 /**
   attr
-  ---
+  ----
 
-  For getting or setting attributes on elements.
+  Gets or sets attributes on elements. If getting, returns an array of attributes matching the xui element collection's indices.
 
-  ### syntax (and examples) ###
+  ### syntax ###
 
-    x$(window).attr( attribute, value );
-
-  To retrieve an attribute value, simply don't provide the optional second parameter:
-
-    x$('.someClass').attr( 'class' );
-
-  To set an attribute, use both parameters:
-
-    x$('.someClass').attr( 'disabled', 'disabled' );
+    x$( window ).attr( attribute, value );
 
   ### arguments ###
 
-  - attribute:string the name of the element's attribute to set or retrieve.
-  - html:string if retrieving an attribute value, don't specify this parameter. Otherwise, this is the value to set the attribute to.
+  - attribute `String` is the name of HTML attribute to get or set.
+  - value `Varies` is the value to set the attribute to. Do not use to get the value of attribute _(optional)_.
+
+  ### example ###
+
+  To get an attribute value, simply don't provide the optional second parameter:
+
+    x$('.someClass').attr('class');
+
+  To set an attribute, use both parameters:
+
+    x$('.someClass').attr('disabled', 'disabled');
 */
     attr: function(attribute, val) {
         if (arguments.length == 2) {
             return this.each(function(el) {
-                (attribute=='checked'&&(val==''||val==false||typeof val=="undefined"))?el.removeAttribute(attribute):el.setAttribute(attribute, val);
+                if (el.tagName && el.tagName.toLowerCase() == 'input' && attribute == 'value') el.value = val;
+                else if (el.setAttribute) {
+                  if (attribute == 'checked' && (val == '' || val == false || typeof val == "undefined")) el.removeAttribute(attribute);
+                  else el.setAttribute(attribute, val);
+                }
             });
         } else {
             var attrs = [];
             this.each(function(el) {
-                var val = el.getAttribute(attribute);
-                if (val != null)
-                attrs.push(val);
+                if (el.tagName && el.tagName.toLowerCase() == 'input' && attribute == 'value') attrs.push(el.value);
+                else if (el.getAttribute && el.getAttribute(attribute)) {
+                    attrs.push(el.getAttribute(attribute));
+                }
             });
             return attrs;
         }
@@ -522,56 +580,18 @@ function getTag(el) {
 }
 
 function wrapHelper(html, el) {
-  return (typeof html == string) ? wrap(html, getTag(el)) : html;
+  if (typeof html == string) return wrap(html, getTag(el));
+  else { var e = document.createElement('div'); e.appendChild(html); return e; }
 }
 
 // private method
 // Wraps the HTML in a TAG, Tag is optional
 // If the html starts with a Tag, it will wrap the context in that tag.
 function wrap(xhtml, tag) {
-
-    var attributes = {},
-        re = /^<([A-Z][A-Z0-9]*)([^>]*)>([\s\S]*)<\/\1>/i,
-        element,
-        x,
-        a,
-        i = 0,
-        attr,
-        node,
-        attrList,
-        result;
-        
-    if (re.test(xhtml)) {
-        result = re.exec(xhtml);
-        tag = result[1];
-
-        // if the node has any attributes, convert to object
-        if (result[2] !== "") {
-            attrList = result[2].split(/([A-Z]*\s*=\s*['|"][A-Z0-9:;#\s]*['|"])/i);
-
-            for (; i < attrList.length; i++) {
-                attr = attrList[i].replace(/^\s*|\s*$/g, "");
-                if (attr !== "" && attr !== " ") {
-                    node = attr.split('=');
-                    attributes[node[0]] = node[1].replace(/(["']?)/g, '');
-                }
-            }
-        }
-        xhtml = result[3];
-    }
-
-    element = document.createElement(tag);
-
-    for (x in attributes) {
-        a = document.createAttribute(x);
-        a.nodeValue = attributes[x];
-        element.setAttributeNode(a);
-    }
-
-    element.innerHTML = xhtml;
-    return element;
+  var e = document.createElement('div');
+  e.innerHTML = xhtml;
+  return e;
 }
-
 
 /*
 * Removes all erronious nodes from the DOM.
@@ -599,7 +619,7 @@ function clean(collection) {
   Event
   =====
 
-  A good old fashioned yet new skool event handling system.
+  A good old fashioned events with new skool handling. Shortcuts exist for:
 
   - click
   - load
@@ -622,27 +642,29 @@ xui.extend({
 
   Registers a callback function to a DOM event on the element collection.
 
-  For more information see:
-
-  - http://developer.apple.com/webapps/docs/documentation/AppleApplications/Reference/SafariWebContent/HandlingEvents/chapter_7_section_1.html#//apple_ref/doc/uid/TP40006511-SW1
-
   ### syntax ###
 
-    x$('button').on( 'click', function(e){ alert('hey that tickles!') });
+    x$( 'button' ).on( type, fn );
 
-  or...
+  or
 
-    x$('a.save').click(function(e){ alert('tee hee!') });
+    x$( 'button' ).click( fn );
 
   ### arguments ###
 
-  - type:string the event to subscribe to click|load|etc
-  - fn:function a callback function to execute when the event is fired
+  - type `String` is the event to subscribe (e.g. _load_, _click_, _touchstart_, etc).
+  - fn `Function` is a callback function to execute when the event is fired.
 
   ### example ###
 
-    x$(window).load(function(e){
-      x$('.save').touchstart( function(evt){ alert('tee hee!') }).css(background:'grey');
+    x$( 'button' ).on( 'click', function(e) {
+        alert('hey that tickles!');
+    });
+
+  or
+
+    x$(window).load(function(e) {
+      x$('.save').touchstart( function(evt) { alert('tee hee!'); }).css(background:'grey');
     });
 */
     on: function(type, fn, details) {
@@ -674,30 +696,40 @@ xui.extend({
 
   ### syntax ###
 
-    x$('button').un('click', specificCallback);
+  Unregister the given function, for the given type, on all button elements:
 
-  The above unregisters only the `specificCallback` function on all button elements.
+    x$( 'button' ).un( type, fn );
 
-    x$('button').un('click');
+  Unregisters all callbacks of the given type, on all button elements:
 
-  The above unregisters all callbacks assigned to all button elements.
+    x$( 'button' ).un( type );
 
   ### arguments ###
 
-  - type:string the event to unsubscribe from click|load|etc
-  - fn:function callback function to unsubscribe (optional)
+  - type `String` is the event to unsubscribe (e.g. _load_, _click_, _touchstart_, etc).
+  - fn `Function` is the callback function to unsubscribe _(optional)_.
 
   ### example ###
 
-    x$('button').on('click',function(){alert('hi!');}); // callback subscribed to click.
-    x$('button').un('click'); // No more callbacks fired on click of button elements!
+    // First, create a click event that display an alert message
+    x$('button').on('click', function() {
+        alert('hi!');
+    });
+    
+    // Now unsubscribe all functions that response to click on all button elements
+    x$('button').un('click');
 
-  or ...
+  or
 
-    var funk = function() { alert('yo!'); }
-    x$('button').on('click', funk); // callback subscribed to click.
-    x$('button').on('click', function(){ alert('hi!'); });
-    x$('button').un('click', funk); // When buttons are clicked, the 'hi!' alert will pop up but not the 'yo!' alert.
+    var greeting = function() { alert('yo!'); };
+    
+    x$('button').on('click', greeting);
+    x$('button').on('click', function() {
+        alert('hi!');
+    });
+    
+    // When any button is clicked, the 'hi!' message will fire, but not the 'yo!' message.
+    x$('button').un('click', greeting);
 */
     un: function(type, fn) {
         return this.each(function (el) {
@@ -722,23 +754,22 @@ xui.extend({
   fire
   ----
 
-  Fires a specific event on the xui collection.
+  Triggers a specific event on the xui collection.
 
   ### syntax ###
 
-    x$('button').fire('click', {some:'data'});
-
-  Fires an event with some specific data attached to the event's `data` property.
+    x$( selector ).fire( type, data );
 
   ### arguments ###
 
-  - type:string the event to fire, click|load|etc
-  - data:object JavaScript object to attach to the event's `data` property.
+  - type `String` is the event to fire (e.g. _load_, _click_, _touchstart_, etc).
+  - data `Object` is a JSON object to use as the event's `data` property.
 
   ### example ###
 
-        x$('button#reset').fire('click', {died:true});
-        x$('.target').fire('touchstart');
+    x$('button#reset').fire('click', { died:true });
+    
+    x$('.target').fire('touchstart');
 */
     fire: function (type, data) {
         return this.each(function (el) {
@@ -786,6 +817,34 @@ xui.touch = (function () {
   };
 })();
 
+/**
+  ready
+  ----
+
+  Event handler for when the DOM is ready. Thank you [domready](http://www.github.com/ded/domready)!
+
+  ### syntax ###
+
+    x$.ready(handler);
+
+  ### arguments ###
+
+  - handler `Function` event handler to be attached to the "dom is ready" event.
+
+  ### example ###
+
+    x$.ready(function() {
+      alert('mah doms are ready');
+    });
+
+    xui.ready(function() {
+      console.log('ready, set, go!');
+    });
+*/
+xui.ready = function(handler) {
+  domReady(handler);
+}
+
 // lifted from Prototype's (big P) event model
 function _getEventID(element) {
     if (element._xuiEventID) return element._xuiEventID;
@@ -806,7 +865,7 @@ function _createResponder(element, eventName, handler) {
         if (handler.call(element, event) === false) {
             event.preventDefault();
             event.stopPropagation();
-        } 
+        }
     };
     
     responder.guid = handler.guid = handler.guid || ++_getEventID.id;
@@ -815,10 +874,10 @@ function _createResponder(element, eventName, handler) {
     return responder;
 }
 /**
-  Effects
-  =======
+  Fx
+  ==
 
-  Animations, transforms and transitions for getting the most out of hardware accelerated CSS.
+  Animations, transforms, and transitions for getting the most out of hardware accelerated CSS.
 
 */
 
@@ -828,63 +887,87 @@ xui.extend({
   Tween
   -----
 
-  Tween is a method for transforming a css property to a new value.
+  Transforms a CSS property's value.
 
   ### syntax ###
 
-    x$(selector).tween(obj, callback);
+    x$( selector ).tween( properties, callback );
 
   ### arguments ###
 
-  - properties: object an object literal of element css properties to tween or an array containing object literals of css properties to tween sequentially.
-  - callback (optional): function to run when the animation is complete
+  - properties `Object` or `Array` of CSS properties to tween.
+      - `Object` is a JSON object that defines the CSS properties.
+      - `Array` is a `Object` set that is tweened sequentially.
+  - callback `Function` to be called when the animation is complete. _(optional)_.
+
+  ### properties ###
+
+  A property can be any CSS style, referenced by the JavaScript notation.
+
+  A property can also be an option from [emile.js](https://github.com/madrobby/emile):
+
+  - duration `Number` of the animation in milliseconds.
+  - after `Function` is called after the animation is finished.
+  - easing `Function` allows for the overriding of the built-in animation function.
+
+      // Receives one argument `pos` that indicates position
+      // in time between animation's start and end.
+      function(pos) {
+          // return the new position
+          return (-Math.cos(pos * Math.PI) / 2) + 0.5;
+      }
 
   ### example ###
 
+    // one JSON object
     x$('#box').tween({ left:'100px', backgroundColor:'blue' });
-    x$('#box').tween({ left:'100px', backgroundColor:'blue' }, function() { alert('done!'); });
-    x$('#box').tween([{ left:'100px', backgroundColor:'green', duration:.2 }, { right:'100px' }]); 
+    x$('#box').tween({ left:'100px', backgroundColor:'blue' }, function() {
+        alert('done!');
+    });
+    
+    // array of two JSON objects
+    x$('#box').tween([{left:'100px', backgroundColor:'green', duration:.2 }, { right:'100px' }]); 
 */
-  // options: duration, after, easing
   tween: function( props, callback ) {
-      
-      // creates an options obj for emile
-      var emileOpts = function(o) {
-          var options = {};
-        "duration after easing".split(' ').forEach( function(p) {
-            if (props[p]) {
-                options[p] = props[p];
-                delete props[p];
-            }
-        });
-        return options;
-      }
-      
-      // serialize the properties into a string for emile
-      var serialize = function(props) {
-        var serialisedProps = [], key;
-        if (typeof props != string) {
-              for (key in props) {
-                    serialisedProps.push(key + ':' + props[key]);
-            }
-              serialisedProps = serialisedProps.join(';');
-        } else {
-            serialisedProps = props;
+
+    // creates an options obj for emile
+    var emileOpts = function(o) {
+      var options = {};
+      "duration after easing".split(' ').forEach( function(p) {
+        if (props[p]) {
+            options[p] = props[p];
+            delete props[p];
         }
-        return serialisedProps;
+      });
+      return options;
+    }
+
+    // serialize the properties into a string for emile
+    var serialize = function(props) {
+      var serialisedProps = [], key;
+      if (typeof props != string) {
+        for (key in props) {
+          serialisedProps.push(cssstyle(key) + ':' + props[key]);
+        }
+        serialisedProps = serialisedProps.join(';');
+      } else {
+        serialisedProps = props;
+      }
+      return serialisedProps;
     };
-      
+
     // queued animations
+    /* wtf is this?
     if (props instanceof Array) {
         // animate each passing the next to the last callback to enqueue
         props.forEach(function(a){
-            
+          
         });
     }
-
-      // this branch means we're dealing with a single tween
-      var opts = emileOpts(props);
-      var prop = serialize(props);
+    */
+    // this branch means we're dealing with a single tween
+    var opts = emileOpts(props);
+    var prop = serialize(props);
     
     return this.each(function(e){
       emile(e, prop, opts, callback);
@@ -895,7 +978,7 @@ xui.extend({
   Style
   =====
 
-  Anything related to how things look. Usually, this is CSS.
+  Everything related to appearance. Usually, this is CSS.
 
 */
 function hasClass(el, className) {
@@ -915,23 +998,24 @@ xui.extend({
   setStyle
   --------
 
-  Sets a single CSS property to a new value.
+  Sets the value of a single CSS property.
 
   ### syntax ###
 
-    x$(selector).setStyle(property, value);
+    x$( selector ).setStyle( property, value );
 
   ### arguments ###
 
-  - property:string the property to modify
-  - value:string the property value to set
+  - property `String` is the name of the property to modify.
+  - value `String` is the new value of the property.
 
   ### example ###
 
-    x$('.txt').setStyle('color', '#000');
+    x$('.flash').setStyle('color', '#000');
+    x$('.button').setStyle('backgroundColor', '#EFEFEF');
 */
     setStyle: function(prop, val) {
-        prop = prop.replace(/\-[a-z]/g,function(m) { return m[1].toUpperCase(); });
+        prop = domstyle(prop);
         return this.each(function(el) {
             el.style[prop] = val;
         });
@@ -941,22 +1025,31 @@ xui.extend({
   getStyle
   --------
 
-  Retuns a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
+  Returns the value of a single CSS property. Can also invoke a callback to perform more specific processing tasks related to the property value.
+  Please note that the return type is always an Array of strings. Each string corresponds to the CSS property value for the element with the same index in the xui collection.
 
   ### syntax ###
 
-    x$(selector).getStyle(property, callback);
+    x$( selector ).getStyle( property, callback );
 
   ### arguments ###
 
-  - property:string a css key (for example, border-color NOT borderColor)
-  - callback:function (optional) a method to call on each element in the collection 
+  - property `String` is the name of the CSS property to get.
+  - callback `Function` is called on each element in the collection and passed the property _(optional)_.
 
   ### example ###
-
-    x$('ul#nav li.trunk').getStyle('font-size');
+        <ul id="nav">
+            <li class="trunk" style="font-size:12px;background-color:blue;">hi</li>
+            <li style="font-size:14px;">there</li>
+        </ul>
+        
+    x$('ul#nav li.trunk').getStyle('font-size'); // returns ['12px']
+    x$('ul#nav li.trunk').getStyle('fontSize'); // returns ['12px']
+    x$('ul#nav li').getStyle('font-size'); // returns ['12px', '14px']
     
-    x$('a.globalnav').getStyle( 'background', function(prop){ prop == 'blue' ? 'green' : 'blue' });
+    x$('ul#nav li.trunk').getStyle('backgroundColor', function(prop) {
+        alert(prop); // alerts 'blue' 
+    });
 */
     getStyle: function(prop, callback) {
         // shortcut getComputedStyle function
@@ -964,42 +1057,41 @@ xui.extend({
             // this *can* be written to be smaller - see below, but in fact it doesn't compress in gzip as well, the commented
             // out version actually *adds* 2 bytes.
             // return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/([A-Z])/g, "-$1").toLowerCase());
-            return document.defaultView.getComputedStyle(el, "").getPropertyValue(p.replace(/[A-Z]/g, function(m) { return '-'+m.toLowerCase(); }));
+            return document.defaultView.getComputedStyle(el, "").getPropertyValue(cssstyle(p));
         }
         if (callback === undefined) {
           var styles = [];
-            this.each(function(el) {styles.push(s(el, prop))});
-       return styles;
-        } else {
-            this.each(function(el) {
-                callback(s(el, prop));
-            });
-    }
+          this.each(function(el) {styles.push(s(el, prop))});
+          return styles;
+        } else return this.each(function(el) { callback(s(el, prop)); });
     },
 
 /**
   addClass
   --------
 
-  Adds the classname to all the elements in the collection.
+  Adds a class to all of the elements in the collection.
 
   ### syntax ###
 
-    $(selector).addClass(className);
+    x$( selector ).addClass( className );
 
   ### arguments ###
 
-  - className:string the name of the CSS class to apply
+  - className `String` is the name of the CSS class to add.
 
   ### example ###
 
-    $('.foo').addClass('awesome');
+    x$('.foo').addClass('awesome');
 */
     addClass: function(className) {
+        var cs = className.split(' ');
         return this.each(function(el) {
-            if (hasClass(el, className) === false) {
-              el.className = trim(el.className + ' ' + className);
-            }
+            cs.forEach(function(clazz) {
+              if (hasClass(el, clazz) === false) {
+                el.className = trim(el.className + ' ' + clazz);
+              }
+            });
         });
     },
 
@@ -1007,31 +1099,50 @@ xui.extend({
   hasClass
   --------
 
-  Checks to see if classname is one the element. If a callback isn't passed, hasClass expects only one element in collection - but should it?
+  Checks if the class is on _all_ elements in the xui collection.
 
   ### syntax ###
 
-    $(selector).hasClass('className');
-    $(selector).hasClass('className', function(element) {});   
+    x$( selector ).hasClass( className, fn );
 
   ### arguments ###
 
-  - className:string the name of the CSS class to apply
+  - className `String` is the name of the CSS class to find.
+  - fn `Function` is a called for each element found and passed the element _(optional)_.
+
+      // `element` is the HTMLElement that has the class
+      function(element) {
+          console.log(element);
+      }
 
   ### example ###
-
-    $('#foo').hasClass('awesome'); // returns true or false
-    $('.foo').hasClass('awesome',function(e){}); // returns XUI object
+        <div id="foo" class="foo awesome"></div>
+        <div class="foo awesome"></div>
+        <div class="foo"></div>
+        
+    // returns true
+    x$('#foo').hasClass('awesome');
+    
+    // returns false (not all elements with class 'foo' have class 'awesome'),
+    // but the callback gets invoked with the elements that did match the 'awesome' class
+    x$('.foo').hasClass('awesome', function(element) {
+        console.log('Hey, I found: ' + element + ' with class "awesome"');
+    });
+    
+    // returns true (all DIV elements have the 'foo' class)
+    x$('div').hasClass('foo');
 */
     hasClass: function(className, callback) {
-        var self = this;
+        var self = this,
+            cs = className.split(' ');
         return this.length && (function() {
-                var hasIt = false;
+                var hasIt = true;
                 self.each(function(el) {
-                    if (hasClass(el, className)) {
-                        hasIt = true;
+                  cs.forEach(function(clazz) {
+                    if (hasClass(el, clazz)) {
                         if (callback) callback(el);
-                    }
+                    } else hasIt = false;
+                  });
                 });
                 return hasIt;
             })();
@@ -1041,52 +1152,79 @@ xui.extend({
   removeClass
   -----------
 
-  Removes the classname from all the elements in the collection.
+  Removes the specified class from all elements in the collection. If no class is specified, removes all classes from the collection.
 
   ### syntax ###
 
-    x$(selector).removeClass(className);
+    x$( selector ).removeClass( className );
 
   ### arguments ###
 
-  - className:string the name of the CSS class to remove.
+  - className `String` is the name of the CSS class to remove. If not specified, then removes all classes from the matched elements. _(optional)_
 
   ### example ###
 
-    x$('.bar').removeClass('awesome');
+    x$('.foo').removeClass('awesome');
 */
     removeClass: function(className) {
-        if (className === undefined) {
-            this.each(function(el) {
-                el.className = '';
+        if (className === undefined) this.each(function(el) { el.className = ''; });
+        else {
+          var cs = className.split(' ');
+          this.each(function(el) {
+            cs.forEach(function(clazz) {
+              el.className = trim(el.className.replace(getClassRegEx(clazz), '$1'));
             });
-        } else {
-            var re = getClassRegEx(className);
-            this.each(function(el) {
-                el.className = trim(el.className.replace(re, '$1'));
-            });
+          });
         }
         return this;
     },
 
+/**
+  toggleClass
+  -----------
 
+  Removes the specified class if it exists on the elements in the xui collection, otherwise adds it. 
+
+  ### syntax ###
+
+    x$( selector ).toggleClass( className );
+
+  ### arguments ###
+
+  - className `String` is the name of the CSS class to toggle.
+
+  ### example ###
+        <div class="foo awesome"></div>
+        
+    x$('.foo').toggleClass('awesome'); // div above loses its awesome class.
+*/
+    toggleClass: function(className) {
+        var cs = className.split(' ');
+        return this.each(function(el) {
+            cs.forEach(function(clazz) {
+              if (hasClass(el, clazz)) el.className = trim(el.className.replace(getClassRegEx(clazz), '$1'));
+              else el.className = trim(el.className + ' ' + clazz);
+            });
+        });
+    },
+    
 /**
   css
   ---
 
-  Set a number of CSS properties at once.
+  Set multiple CSS properties at once.
 
   ### syntax ###
 
-    x$(selector).css(object);
+    x$( selector ).css( properties );
 
   ### arguments ###
 
-  - an object literal of css key/value pairs to set.
+  - properties `Object` is a JSON object that defines the property name/value pairs to set.
 
   ### example ###
 
-    x$('h2.fugly').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
+    x$('.foo').css({ backgroundColor:'blue', color:'white', border:'2px solid red' });
 */
     css: function(o) {
         for (var prop in o) {
@@ -1115,7 +1253,7 @@ var reClassNameCache = {},
   XHR
   ===
 
-  Remoting methods and utils.
+  Everything related to remote network connections.
 
  */
 xui.extend({  
@@ -1123,28 +1261,45 @@ xui.extend({
   xhr
   ---
 
-  The classic Xml Http Request sometimes also known as the Greek God: Ajax. Not to be confused with AJAX the cleaning agent.
-  This method has a few new tricks. It is always invoked on an element collection and follows the identical behaviour as the
-  `html` method. If there no callback is defined the response text will be inserted into the elements in the collection.
+  The classic `XMLHttpRequest` sometimes also known as the Greek hero: _Ajax_. Not to be confused with _AJAX_ the cleaning agent.
+
+  ### detail ###
+
+  This method has a few new tricks.
+
+  It is always invoked on an element collection and uses the behaviour of `html`.
+
+  If there is no callback, then the `responseText` will be inserted into the elements in the collection.
 
   ### syntax ###
 
-    xhr(location, url, options)
+    x$( selector ).xhr( location, url, options )
 
-  or this method will accept just a url with a default behavior of inner...
+  or accept a url with a default behavior of inner:
 
-    xhr(url, options);
+    x$( selector ).xhr( url, options );
 
-  ### options ###
+  or accept a url with a callback:
+  
+    x$( selector ).xhr( url, fn );
 
-  - method {String} [get|put|delete|post] Defaults to 'get'.
-  - async {Boolean} Asynchronous request. Defaults to false.
-  - data {String} A url encoded string of parameters to send.
-  - callback {Function} Called on 200 status (success)
+  ### arguments ###
+
+  - location `String` is the location to insert the `responseText`. See `html` for values.
+  - url `String` is where to send the request.
+  - fn `Function` is called on status 200 (i.e. success callback).
+  - options `Object` is a JSON object with one or more of the following:
+    - method `String` can be _get_, _put_, _delete_, _post_. Default is _get_.
+    - async `Boolean` enables an asynchronous request. Defaults to _false_.
+    - data `String` is a url encoded string of parameters to send.
+                - error `Function` is called on error or status that is not 200. (i.e. failure callback).
+    - callback `Function` is called on status 200 (i.e. success callback).
+    - headers `Object` is a JSON object with key:value pairs that get set in the request's header set.
 
   ### response ###
 
-  - The response available to the callback function as 'this', it is not passed in.
+  - The response is available to the callback function as `this`.
+  - The response is not passed into the callback.
   - `this.reponseText` will have the resulting data from the file.
 
   ### example ###
@@ -1158,11 +1313,24 @@ xui.extend({
 
   or
 
+    // same as using 'inner'
     x$('#status').xhr('/status.html');
 
-    x$('#left-panel').xhr('/panel', {callback:function(){ alert("All Done!") }});
+    // define a callback, enable async execution and add a request header
+    x$('#left-panel').xhr('/panel', {
+        async: true,
+        callback: function() {
+            alert("The response is " + this.responseText);
+        },
+        headers:{
+            'Mobile':'true'
+        }
+    });
 
-    x$('#left-panel').xhr('/panel', function(){ alert(this.responseText) }); 
+    // define a callback with the shorthand syntax
+    x$('#left-panel').xhr('/panel', function() {
+        alert("The response is " + this.responseText);
+    });
 */
     xhr:function(location, url, options) {
 
@@ -1186,22 +1354,27 @@ xui.extend({
         var that   = this,
             req    = new XMLHttpRequest(),
             method = o.method || 'get',
-            async  = o.async || false,           
+            async  = (typeof o.async != 'undefined'?o.async:true),
             params = o.data || null,
-            i = 0;
+            key;
 
         req.queryString = params;
         req.open(method, url, async);
 
-        if (o.headers) {
-            for (; i<o.headers.length; i++) {
-              req.setRequestHeader(o.headers[i].name, o.headers[i].value);
+        // Set "X-Requested-With" header
+        req.setRequestHeader('X-Requested-With','XMLHttpRequest');
+
+        if (method.toLowerCase() == 'post') req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+        for (key in o.headers) {
+            if (o.headers.hasOwnProperty(key)) {
+              req.setRequestHeader(key, o.headers[key]);
             }
         }
 
-        req.handleResp = (o.callback != null) ? o.callback : function() { that.html(location, this.responseText); };
+        req.handleResp = (o.callback != null) ? o.callback : function() { that.html(location, req.responseText); };
         req.handleError = (o.error && typeof o.error == 'function') ? o.error : function () {};
-        function hdl(){ 
+        function hdl(){
             if(req.readyState==4) {
                 delete(that.xmlHttpRequest);
                 if(req.status===0 || req.status==200) req.handleResp(); 
@@ -1269,9 +1442,53 @@ xui.extend({
     },10);
   }
 })('emile', this);
+!function (context, doc) {
+  var fns = [], ol, fn, f = false,
+      testEl = doc.documentElement,
+      hack = testEl.doScroll,
+      domContentLoaded = 'DOMContentLoaded',
+      addEventListener = 'addEventListener',
+      onreadystatechange = 'onreadystatechange',
+      loaded = /^loade|c/.test(doc.readyState);
+
+  function flush(i) {
+    loaded = 1;
+    while (i = fns.shift()) { i() }
+  }
+  doc[addEventListener] && doc[addEventListener](domContentLoaded, fn = function () {
+    doc.removeEventListener(domContentLoaded, fn, f);
+    flush();
+  }, f);
+
+
+  hack && doc.attachEvent(onreadystatechange, (ol = function () {
+    if (/^c/.test(doc.readyState)) {
+      doc.detachEvent(onreadystatechange, ol);
+      flush();
+    }
+  }));
+
+  context['domReady'] = hack ?
+    function (fn) {
+      self != top ?
+        loaded ? fn() : fns.push(fn) :
+        function () {
+          try {
+            testEl.doScroll('left');
+          } catch (e) {
+            return setTimeout(function() { context['domReady'](fn) }, 50);
+          }
+          fn();
+        }()
+    } :
+    function (fn) {
+      loaded ? fn() : fns.push(fn);
+    };
+
+}(this, document);
 })();
 
-if(typeof(Ur) == 'undefined') {
+if(typeof(Ur) == "undefined") {
   Ur = {
     QuickLoaders: {},
     WindowLoaders: {},
@@ -1286,7 +1503,7 @@ if(typeof(Ur) == 'undefined') {
         // These widgets _cant_ be initialized till page load
         Ur.initialize({type: "load"}, fragment);
       } else {
-        window.addEventListener('load', function(e) { Ur.initialize(e, fragment)}, false);
+        window.addEventListener("load", function(e) { Ur.initialize(e, fragment)}, false);
       }
     },
     initialize: function(event, fragment) {
@@ -1305,6 +1522,12 @@ if(typeof(Ur) == 'undefined') {
         Ur._onLoad();
       }
     },
+    error: function(msg) {
+      console.error("Uranium: " + msg);
+    },
+    warn: function(msg) {
+      console.warn("Uranium: " + msg);
+    },
     // TODO: Make private
     _onLoad: function() {
       //iterate through the callbacks
@@ -1321,8 +1544,8 @@ if(typeof(Ur) == 'undefined') {
 
 // This event is compatible with FF/Webkit
 
-window.addEventListener('load', Ur.initialize, false);
-window.addEventListener('DOMContentLoaded', Ur.initialize, false);
+window.addEventListener("load", Ur.initialize, false);
+window.addEventListener("DOMContentLoaded", Ur.initialize, false);
 
 // Do this? OR just initialize as widgets are defined (and have uranium included at the bottom --- but that has limitations in inline JS using all of our x$() mixins) --> I think thats reason enough to try this for now
 
@@ -1346,50 +1569,40 @@ var mixins = {
     i = 0,
     that = arguments[1];
 
-    if (typeof fn == 'function') {
+    if (typeof fn == "function") {
       for (; i < len; i++) {
         fn.call(that, stuff[i], i, stuff);
       }
     }
   },
   offset: function(elm) {
-    if(typeof(elm == "undefined")) {
+    if (elm == undefined)
       elm = this[0];
-    }
-
-    cumulative_top = 0;
-    cumulative_left = 0;
-    while(elm.offsetParent) {
+    
+    var cumulative_top = 0, cumulative_left = 0;
+    while (elm.offsetParent) {
       cumulative_top += elm.offsetTop;
       cumulative_left += elm.offsetLeft;
       elm = elm.offsetParent;
     }
-    return {left: cumulative_left, top:cumulative_top};
+    return {left: cumulative_left, top: cumulative_top};
   },
   
   // TODO: Make private:
-  find_next_ancestor: function(elem, type) {
+  findNextAncestor: function(elem, type) {
     //check to make sure there's still a parent:
     if (elem.parentNode != window.document) {
-      return x$().find_set_ancestor(elem.parentNode, type);
+      return x$().findSetAncestor(elem.parentNode, type);
     } else {
       return null;
     }
   },
 
-  find_set_ancestor: function(elem, type) {
+  findSetAncestor: function(elem, type) {
     var set_name = x$(elem).attr("data-ur-set")[0];
-    if (set_name !== undefined) {
-      if(type == undefined) {
-        return elem;
-      } else if (set_name == type) {
-        return elem;
-      } else {
-        return x$().find_next_ancestor(elem, type);
-      }
-    } else {
-      return x$().find_next_ancestor(elem, type);
-    }
+    if (set_name !== undefined && (type == undefined || set_name == type))
+      return elem;
+    return x$().findNextAncestor(elem, type);
   },
 
   get_unique_uranium_id: (function() {
@@ -1400,7 +1613,7 @@ var mixins = {
     }
   })(),
 
-  find_elements: function(type, component_constructors) {
+  findElements: function(type, component_constructors) {
     var groups = {};
 
     this.each(
@@ -1412,77 +1625,76 @@ var mixins = {
   },
   // TODO: Make helper_find() private since its just a helper function
   helper_find: function(fragment, type, component_constructors, groups) {
-    var all_elements = x$(fragment).find('*[data-ur-' + type + '-component]');
+    var all_elements = x$(fragment).find("*[data-ur-" + type + "-component]");
 
-    all_elements.each(
-      function() {
+    all_elements.each(function() {
 
-        var valid_component = true;
+      var valid_component = true;
 
-        ///////// Resolve this component to its set ///////////
+      ///////// Resolve this component to its set ///////////
 
-        // Check if this has the data-ur-id attribute
-        var my_set_id = x$(this).attr("data-ur-id")[0];
+      // Check if this has the data-ur-id attribute
+      var my_set_id = x$(this).attr("data-ur-id")[0];
 
-        if (my_set_id !== undefined) {
-          if ( groups[my_set_id] === undefined) {
-            groups[my_set_id] = {};
-          }          
-        } else {
-          //Find any set ancestors
-          var my_ancestor = x$().find_set_ancestor(this, type);
+      if (my_set_id !== undefined) {
+        if ( groups[my_set_id] === undefined) {
+          groups[my_set_id] = {};
+        }
+      }
+      else {
+        //Find any set ancestors
+        var my_ancestor = x$().findSetAncestor(this, type);
 
-          var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
-          if(widget_disabled === "disabled" && Ur.loaded == false) {
-            return;
-          }
-
-          if (my_ancestor !== null) {
-            // Check if the set has an id ... if not, 'set' it up -- HA
-
-            my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
-
-            if (my_set_id === undefined) {
-              //generate ID
-              my_set_id = x$().get_unique_uranium_id();
-              x$(my_ancestor).attr("data-ur-id", my_set_id);
-            }
-
-            if (groups[my_set_id] === undefined) {
-              //setup group
-              groups[my_set_id] = {};
-            }
-            
-            groups[my_set_id]["set"] = my_ancestor;
-
-          } else {
-            // we're screwed ... report an error
-            console.log("Uranium Error: Couldn't find associated ur-set for component:",this);
-            valid_component = false;
-          }
+        var widget_disabled = x$(my_ancestor).attr("data-ur-state")[0];
+        if (widget_disabled === "disabled" && Ur.loaded == false) {
+          return;
         }
 
-        //////////// Add this component to its set /////////////
+        if (my_ancestor !== null) {
+          // Check if the set has an id ... if not, 'set' it up -- HA
 
-        var component_type = x$(this).attr("data-ur-" + type + "-component");
+          my_set_id = x$(my_ancestor).attr("data-ur-id")[0];
 
-        if (component_type === undefined) {
+          if (my_set_id === undefined) {
+            //generate ID
+            my_set_id = x$().get_unique_uranium_id();
+            x$(my_ancestor).attr("data-ur-id", my_set_id);
+          }
+
+          if (groups[my_set_id] === undefined) {
+            //setup group
+            groups[my_set_id] = {};
+          }
+          
+          groups[my_set_id]["set"] = my_ancestor;
+
+        }
+        else {
+          // we're screwed ... report an error
+          Ur.error("couldn't find associated ur-set for component:");
+          console.log(this);
           valid_component = false;
         }
-
-        if (valid_component) {
-    // This is widget specific behavior
-    // -- For toggler, it makes sense for content to be multiple things
-    // -- For select-lists, it doesn't
-    if (component_constructors !== undefined && component_constructors[component_type] !== undefined) {
-      component_constructors[component_type](groups[my_set_id], this, component_type);
-    } else {
-            groups[my_set_id][component_type] = this;
-          }
-        }
-
       }
-    );
+
+      //////////// Add this component to its set /////////////
+
+      var component_type = x$(this).attr("data-ur-" + type + "-component");
+
+      if (component_type === undefined) {
+        valid_component = false;
+      }
+
+      if (valid_component) {
+        // This is widget specific behavior
+        // -- For toggler, it makes sense for content to be multiple things
+        // -- For select-lists, it doesn't
+        if (component_constructors !== undefined && component_constructors[component_type] !== undefined)
+          component_constructors[component_type](groups[my_set_id], this, component_type);
+        else
+          groups[my_set_id][component_type] = this;
+      }
+    });
 
     return groups;
   }
@@ -1492,29 +1704,27 @@ xui.extend(mixins);
 
 /* Carousel  *
  * * * * * * *
- * The carousel is a widget to allow for horizontally scrolling (with touch or  
- * buttons) between a set of items. 
- * 
- * The only assumption is about the items' style -- they must be (float: left) 
- * and (display:inline-block) so that the real width can be accurately totalled.
- * 
+ * The carousel is a widget to allow for horizontally scrolling
+ * (with touch or buttons) between a set of items.
+ *
+ * The only assumption is about the items' style -- they must be
+ * float: left; so that the real width can be accurately totalled.
  */
 
-Ur.WindowLoaders['carousel'] = (function(){
+Ur.WindowLoaders["carousel"] = (function() {
 
   function Carousel(components) {
     this.container = components["view_container"];
     this.items = components["scroll_container"];
     if (this.items.length == 0) {
-      console.log("Error -- carousel missing item components");
+      Ur.error("carousel missing item components");
       return false;
     }
 
     // Optionally:
-    this.button = (components["button"] === undefined) ? {} : components["button"];
-    this.count = components["count"]; 
-    this.multi = x$(components["view_container"]).attr("data-ur-type")[0] == "multi";
-    this.vertical_scroll = (x$(components["set"]).attr("data-ur-vertical-scroll")[0] === "enabled");
+    this.button = components["button"] === undefined ? {} : components["button"];
+    this.count = components["count"];
+    this.dots = components["dots"];
 
     this.initialize();
     this.onSlideCallbacks = [];
@@ -1522,43 +1732,40 @@ Ur.WindowLoaders['carousel'] = (function(){
 
   // Private/Helper methods
 
-  function get_real_width(elem) {
-    elem = x$(elem);
-    var total = 0;
-    var styles = ["width", "padding-left", "padding-right", "margin-left", "margin-right", "border-left-width", "border-right-width"];
-
-    x$().iterate(
-      styles,
-      function(style) {
-        total += parseInt(elem.getStyle(style));
-      }
-    );
-
-    return total;
+  function sign(num) {
+    return num < 0 ? -1 : 1;
   }
 
-  function sign(v) 
-  { 
-    return (v >= 0) ? 1 : -1;
+  function zeroCeil(num) {
+    return num <= 0 ? Math.floor(num) : Math.ceil(num);
   }
 
-  function zero_ceil(num) {
-    return (num <= 0) ? Math.floor(num) : Math.ceil(num);
+  function zeroFloor(num) {
+    return num >= 0 ? Math.floor(num) : Math.ceil(num);
   }
 
-  function zero_floor(num)
-  {
-    return (num >= 0) ? Math.floor(num) : Math.ceil(num);
-  }
-
-  function stifle(e)
-  {
+  function stifle(e) {
     e.preventDefault();
     e.stopPropagation();
   }
 
-  function translate(obj, x) {
-    obj.style.webkitTransform = "translate3d(" + x + "px, 0px, 0px)";
+  function getTranslateX(obj) {
+    var style = getComputedStyle(obj);
+    var transform = style["webkitTransform"] || style["MozTransform"] || style["oTransform"] || style["transform"];
+    if (transform != "none") {
+      if (window.WebKitCSSMatrix)
+        return new WebKitCSSMatrix(transform).m41;
+      else
+        return parseInt(transform.split(",")[4]);
+    }
+    else {
+      Ur.error("no transform found");
+      return 0;
+    }
+  }
+  
+  function getWidth(obj) {
+    return obj.offsetWidth ? obj.offsetWidth : parseInt(x$(obj).getStyle("width"));
   }
 
   //// Public Methods ////
@@ -1567,404 +1774,575 @@ Ur.WindowLoaders['carousel'] = (function(){
     initialize: function() {
       // TODO:
       // add an internal event handler to handle all events on the container:
-      // x$(this.container).on("event",this.handleEvent);
+      // x$(this.container).on("event", this.handleEvent);
 
-      var touch_enabled = x$(this.container).attr("data-ur-touch")[0];
-      touch_enabled = (touch_enabled === undefined) ? true : (touch_enabled == "enabled" ? true : false);
-      x$(this.container).attr("data-ur-touch", touch_enabled ? "enabled" : "disabled");      
+      this.flag = {click: false, increment: false, loop: false, lock: null, timeoutId: null, touched: false};
+      this.options = {
+        autoscroll: true,
+        autoscrollDelay: 5000,
+        autoscrollForward: true,
+        cloneLength: 1,
+        infinite: true,
+        maps: false,
+        transform3d: true,
+        touch: true,
+        verticalScroll: true
+      };
 
-      if (touch_enabled) {
-        if(xui.touch) {
-          this.touch = true;
-          x$(this.items).on("touchstart",(function(obj){return function(e){obj.start_swipe(e)};})(this));
-          x$(this.items).on("touchmove",(function(obj){return function(e){obj.continue_swipe(e)};})(this));
-          x$(this.items).on("touchend",(function(obj){return function(e){obj.finish_swipe(e)};})(this));
-        } else {
-          this.touch = false;
-          x$(this.items).on("mousedown",(function(obj){return function(e){obj.start_swipe(e)};})(this));
-          x$(this.items).on("mousemove",(function(obj){return function(e){obj.continue_swipe(e)};})(this));
-          x$(this.items).on("mouseup",(function(obj){return function(e){obj.finish_swipe(e)};})(this));
+      this.readAttributes();
+
+      if (this.options.touch) {
+        var hasTouch = document.ontouchstart !== undefined;
+        var start = hasTouch ? "touchstart" : "mousedown";
+        var move = hasTouch ? "touchmove" : "mousemove";
+        var end = hasTouch ? "touchend" : "mouseup";
+        var target = (this.options.maps && hasTouch) ? document : this.items;
+        x$(target).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
+        x$(target).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
+        x$(target).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
+        //x$(this.items).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
+        //x$(this.items).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
+        //x$(this.items).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
+        x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
+      }
+
+      x$(this.button["prev"]).click(function(obj){return function(){obj.moveTo(obj.magazineCount);}}(this));
+      x$(this.button["next"]).click(function(obj){return function(){obj.moveTo(-obj.magazineCount);}}(this));
+
+      this.preCoords = {x: 0, y: 0};
+
+      this.itemIndex = 0;
+      this.magazineCount = 1;
+
+      if (this.options.infinite) {
+        var items = x$(this.items).find("[data-ur-carousel-component='item']");
+        this.realItemCount = items.length;
+        this.itemIndex = this.options.cloneLength;
+        this.clones = []; // probaby useless
+        for (var i = 0; i < this.options.cloneLength; i++) {
+          var clone = items[i].cloneNode(true);
+          this.clones.push(clone);
+          x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
+          items[items.length - 1].parentNode.appendChild(clone);
+        }
+
+        for (var i = items.length - this.options.cloneLength; i < items.length; i++) {
+          var clone = items[i].cloneNode(true);
+          this.clones.push(clone);
+          x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
+          items[0].parentNode.insertBefore(clone, items[0]);
         }
       }
 
-      x$(this.button["prev"]).on("click", (function(obj){return function(){obj.move_to(obj.magazine_count)};})(this));
-      x$(this.button["next"]).on("click", (function(obj){return function(){obj.move_to(-obj.magazine_count)};})(this));
+      this.adjustSpacing();
 
-      this.item_index = 0;
-      this.magazine_count = 1;
-      this.adjust_spacing();
-      this.update_index(0);
-      
+      if (!this.options.infinite)
+        this.realItemCount = this.itemCount;
+
+      if (this.dots) {
+        var existing = x$(this.dots).find("[data-ur-carousel-component='dot']");
+        for (var i = existing.length; i < this.realItemCount; i++) {
+          var new_dot = document.createElement("div");
+          x$(new_dot).attr("data-ur-carousel-component", "dot");
+          if (i == 0)
+            x$(new_dot).attr("data-ur-state", "active");
+          this.dots.appendChild(new_dot);
+        }
+      }
+
+      this.updateIndex(this.options.infinite ? this.options.cloneLength : 0);
+
       // Expose this function globally: (this will work on webkit / FF)
-      this.jump_to_index = (function(obj) { return function(idx) { obj.__proto__.move_to_index.call(obj, idx); };})(this);
+      this.jumpToIndex = (function(obj) { return function(idx) { obj.__proto__.moveToIndex.call(obj, idx); };})(this);
 
-      window.setInterval(function(obj){return function(){obj.resize();}}(this),1000);
+      x$(window).orientationchange(function(obj){return function(){obj.resize();}}(this));
+      // orientationchange isn't supported on some androids
+      x$(window).on("resize", function(obj) { return function() {
+        obj.resize();
+        setTimeout(function(){obj.resize()}, 100);
+      }}(this));
+      //window.setInterval(function(obj){return function(){obj.resize();}}(this),1000);
+
+      this.autoscrollStart();
     },
 
-    get_transform: function(obj) {
-      var transform = window.getComputedStyle(obj).webkitTransform;
-      if (transform != "none") {
-        transform = new WebKitCSSMatrix(transform);
-        return transform.m41;
-      } else {
-        console.log("no webkit transform");
-        return 0;
-      }
+    readAttributes: function() {
+      var $container = x$(this.container);
+
+      // translate3d is disabled on Android by default because it often causes problems
+      // however, on some pages translate3d will work fine so the data-ur-android3d
+      // attribute can be set to "enabled" to use translate3d since it can be smoother
+      // on some Android devices
+
+      var oldAndroid = /Android [12]/.test(navigator.userAgent);
+      if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled")
+        this.options.transform3d = false;
+
+      this.options.verticalScroll = $container.attr("data-ur-vertical-scroll")[0] != "disabled";
+      $container.attr("data-ur-vertical-scroll", this.options.verticalScroll ? "enabled" : "disabled");
+
+      this.options.touch = $container.attr("data-ur-touch")[0] != "disabled";
+      $container.attr("data-ur-touch", this.options.touch ? "enabled" : "disabled");
+
+      this.options.maps = $container.attr("data-ur-maps")[0] == "enabled";
+      $container.attr("data-ur-maps", this.options.maps ? "enabled" : "disabled");
+
+      this.options.infinite = $container.attr("data-ur-infinite")[0] != "disabled";
+      $container.attr("data-ur-infinite", this.options.infinite ? "enabled" : "disabled");
+
+      var cloneLength = parseInt($container.attr("data-ur-clones"));
+      if (cloneLength > 0)
+        this.options.cloneLength = cloneLength;
+      $container.attr("data-ur-clones", this.options.cloneLength);
+
+      this.options.autoscroll = $container.attr("data-ur-autoscroll")[0] == "enabled";
+      $container.attr("data-ur-autoscroll", this.options.autoscroll ? "enabled" : "disabled");
+
+      var autoscrollDelay = parseInt($container.attr("data-ur-autoscroll-delay"));
+      if (autoscrollDelay >= 0)
+        this.options.autoscrollDelay = autoscrollDelay;
+      $container.attr("data-ur-autoscroll-delay", this.options.autoscrollDelay);
+
+      this.options.autoscrollForward = $container.attr("data-ur-autoscroll-dir")[0] != "prev";
+      $container.attr("data-ur-autoscroll-dir", this.options.autoscrollForward ? "next" : "prev");
     },
 
-    resize: function(){
-      // When I have multi-item carousels, I'll just need to need to make a calculate_snap_width method
-      if (this.snap_width != this.container.offsetWidth) {
-        this.adjust_spacing();
-      }
+    resize: function() {
+      if (this.snapWidth != getWidth(this.container))
+        this.adjustSpacing();
     },
-      
-    adjust_spacing: function() {
+
+    adjustSpacing: function() {
       // Will need to be called if the container's size changes --> orientation change
-      var visible_width = this.container.offsetWidth;
+      var visibleWidth = getWidth(this.container);
 
-      if (this.old_width !== undefined && this.old_width == visible_width) {
-        return
-      }
-      this.old_width = visible_width;
+      if (this.oldWidth !== undefined && this.oldWidth == visibleWidth)
+        return;
+      var oldSnapWidth = this.snapWidth;
+      this.oldWidth = visibleWidth;
 
-      var cumulative_offset = 0;
+      var cumulativeOffset = 0;
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
-      this.item_count = items.length;
+      this.itemCount = items.length;
 
       // Adjust the container to be the necessary width.
       // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
-      var total_width = 0;
-      x$().iterate(
-        items,
-        function(item) {
-          total_width += get_real_width(item);
-        }
-      );
+      var totalWidth = 0;
 
-      this.items.style.width = total_width + "px";
+      for (var i = 0; i < items.length; i++)
+        totalWidth += getWidth(items[i]);
 
-      // For the multi-pane case --> I'll set the snap_width to the width of a single element
-      this.snap_width = visible_width;
+      this.items.style.width = totalWidth + "px";
 
-      if(this.multi) {
-        var item_width = get_real_width(items[0]); // I'm making an assumption here that all items have the same width
-        var magazine_count = Math.floor(visible_width / item_width);
+      this.snapWidth = visibleWidth;
 
-        magazine_count = (magazine_count > this.item_count) ? this.item_count : magazine_count;
-        this.magazine_count = magazine_count;
+      this.lastIndex = this.itemCount - 1;
 
-        var space = (visible_width - magazine_count*item_width);
-        this.snap_width = space / (magazine_count - 1) + item_width;
-        this.last_index = this.item_count - this.magazine_count;
-      } else { 
-        this.last_index = this.item_count - 1;
+      this.itemIndex = (this.lastIndex < this.itemIndex) ? this.lastIndex : this.itemIndex;
+
+      cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
+      if (this.options.infinite) {
+        var centerOffset = parseInt((this.snapWidth - getWidth(items[0]))/2);
+        cumulativeOffset += centerOffset; // CHECK
       }
+      if (oldSnapWidth)
+        this.destinationOffset = cumulativeOffset;
 
-      this.item_index = (this.last_index < this.item_index) ? this.last_index : this.item_index;
-      cumulative_offset -= this.snap_width*this.item_index; // initial offset
-      translate(this.items, cumulative_offset);
-      var cumulative_item_offset = 0;
-
-      if (this.multi) {
-        x$().iterate(
-          items,
-          function(item, i) {
-            var offset = cumulative_item_offset;
-            if ( i != 0 ) {
-              offset += space/(magazine_count - 1);
-            }
-            translate(item, offset);
-            cumulative_item_offset = offset;
-          }
-        );
-        this.update_index(this.item_index);
-      } else {
-        // Single Pane
-        x$().iterate(
-          items,
-          function(item, i) {
-            var offset = cumulative_item_offset;
-            if ( i != 0 ) {
-              offset += visible_width - items[i-1].offsetWidth;
-            }
-            translate(item, offset);
-            cumulative_item_offset = offset;
-          }
-        );
-      }
+      this.translate(cumulativeOffset);
     },
 
-    get_event_coordinates: function(e) {
-      if(this.touch) {
-        if(e.touches.length == 1)
-        {
-          return {x: e.touches[0].clientX, y: e.touches[0].clientY};
-        }
-      } else {
-        return {x: e.clientX, y: e.clientY};
-      }
+    autoscrollStart: function() {
+      if (!this.options.autoscroll)
+        return;
+
+      var self = this;
+      self.flag.timeoutId = setTimeout(function() {
+        if (!self.options.infinite && self.itemIndex == self.lastIndex && self.options.autoscrollForward)
+          self.jumpToIndex(0);
+        else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
+          self.jumpToIndex(self.lastIndex);
+        else
+          self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
+      }, self.options.autoscrollDelay);
+    },
+
+    autoscrollStop: function() {
+      clearTimeout(this.flag.timeoutId);
+    },
+
+    getEventCoords: function(event) {
+      if (event.touches && event.touches.length > 0)
+        return {x: event.touches[0].clientX, y: event.touches[0].clientY};
+      else
+        return {x: event.clientX, y: event.clientY};
       return null;
     },
 
-    update_buttons: function() {
-      if(this.item_index == 0) {
-        x$(this.button["prev"]).attr("data-ur-state","disabled")
-        x$(this.button["next"]).attr("data-ur-state","enabled")
-      } else if (this.item_index == this.last_index) {
-        x$(this.button["next"]).attr("data-ur-state","disabled")
-        x$(this.button["prev"]).attr("data-ur-state","enabled")
-      } else {
-        x$(this.button["next"]).attr("data-ur-state","enabled")
-        x$(this.button["prev"]).attr("data-ur-state","enabled")
-      }
+    updateButtons: function() {
+      x$(this.button["prev"]).attr("data-ur-state", this.itemIndex == 0 ? "disabled" : "enabled")
+      x$(this.button["next"]).attr("data-ur-state", this.itemIndex == this.lastIndex ? "disabled" : "enabled")
     },
 
-    get_new_index: function(direction) {
-      var new_idx = this.item_index - direction;
-
-      if(new_idx > this.last_index) {
-        new_idx = this.last_index;
-      } else if (new_idx < 0) {
-        new_idx = 0;
-      }
-
-      return new_idx;
-    },
-
-    update_index: function(new_index) {
-      if (new_index === undefined) { 
-        return
-      }
-
-      this.item_index = new_index;
-      if (this.item_index < 0) {
-        this.item_index = 0;
-      } else if(this.item_index > this.last_index) {
-        this.item_index = this.last_index - 1;
+    getNewIndex: function(direction) {
+      var newIndex = this.itemIndex - direction;
+      
+      if (!this.options.infinite) {
+        if (newIndex > this.lastIndex)
+          newIndex = this.lastIndex;
+        else if (newIndex < 0)
+          newIndex = 0;
       }
       
-      if(this.count !== undefined) {
-        if(this.multi) {
-          this.count.innerHTML = this.item_index + 1 + " to " + (this.item_index + this.magazine_count) +" of " + this.item_count;
-        } else {
-          this.count.innerHTML = this.item_index + 1 + " of " + this.item_count;
-        }
-      }
-      
-      // TODO: Update to work w multipane
-      var active_item = x$(this.items).find("*[data-ur-carousel-component='item'][data-ur-state='active']");
-      active_item.attr("data-ur-state","inactive");
-      var new_active_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
-      x$(new_active_item).attr("data-ur-state","active");
-
-      this.update_buttons();
+      return newIndex;
     },
 
-    start_swipe: function(e)
-    {
-      this.touch_in_progress = true; // For non-touch environments
-      var coords = this.get_event_coordinates(e);
+    updateIndex: function(newIndex) {
+      if (newIndex === undefined)
+        return;
 
-      if(coords !== null)
-      {
-        var x_transform = this.get_transform(this.items);
+      this.itemIndex = newIndex;
+      if (this.itemIndex < 0)
+        this.itemIndex = 0;
+      else if (this.itemIndex > this.lastIndex)
+        this.itemIndex = this.lastIndex - 1;
 
-        if(this.starting_offset === undefined || this.starting_offset === null) {
-          this.starting_offset = x_transform;
-          this.start_pos = coords;
+      var realIndex = this.itemIndex;
+      if (this.options.infinite)
+        realIndex = (this.realItemCount + this.itemIndex - this.options.cloneLength) % this.realItemCount;
+      if (this.count !== undefined)
+        this.count.innerHTML = realIndex + 1 + " of " + this.realItemCount;
+
+      x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
+      x$(x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex]).attr("data-ur-state", "active");
+
+      if (this.dots)
+        x$(this.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive")[realIndex].setAttribute("data-ur-state", "active");
+
+      this.updateButtons();
+
+      x$(this.container).fire("slidestart", {index: realIndex});
+    },
+
+    startSwipe: function(e) {
+      console.log("startSwipe");
+      if (this.options.maps && !x$(e.target).has("[data-ur-carousel-component='item'], [data-ur-carousel-component='item'] *"))
+        return;
+      if (!this.options.verticalScroll)
+        stifle(e);
+      this.autoscrollStop();
+
+      this.flag.touched = true; // For non-touch environments
+      var coords = this.getEventCoords(e);
+      this.preCoords.x = coords.x;
+      this.preCoords.y = coords.y;
+      this.flag.lock = document.ontouchstart === undefined ? "x" : null;
+      this.flag.loop = false;
+
+      if (coords !== null) {
+        var translateX = getTranslateX(this.items);
+
+        if (this.startingOffset === undefined || this.startingOffset === null) {
+          this.startingOffset = translateX;
+          this.startPos = this.endPos = coords;
         } else {
           // Fast swipe
-          this.starting_offset = this.destination_offset; //Factor incomplete previous swipe
-          this.start_pos = coords;
+          this.startingOffset = this.destinationOffset; //Factor incomplete previous swipe
+          this.startPos = this.endPos = coords;
         }
       }
-      this.click = true;
+      this.flag.click = true;
     },
-    
-    continue_swipe: function(e)
-    {
-      if (!this.vertical_scroll) {
-        stifle(e);
-      }
 
-      if(!this.touch_in_progress) // For non-touch environments
-        return
-
-      var coords = this.get_event_coordinates(e);
-      if(coords !== null)
-      {
-        this.end_pos = coords;
-        var dist = this.swipe_dist() + this.starting_offset;
-        translate(this.items, dist);
-      }
-      this.click = false;    
-    },
-    
-    finish_swipe: function(e)
-    {      
-      if(!this.click) {
-        stifle(e);
-      } else {
+    continueSwipe: function(e) {
+      console.log("continueSwipe");
+      if (!this.flag.touched) // For non-touch environments
         return;
-      }
 
-      this.touch_in_progress = false; // For non-touch environments
+      this.flag.click = false;
+
+      var coords = this.getEventCoords(e);
+
+      if (document.ontouchstart !== undefined && this.options.verticalScroll) {
+        var slope = Math.abs((this.preCoords.y - coords.y)/(this.preCoords.x - coords.x));
+        if (this.flag.lock) {
+          if (this.flag.lock == "y")
+            return;
+        }
+        else if (slope > 1.2) {
+          this.flag.lock = "y";
+          return;
+        }
+        else if (slope <= 1.2)
+          this.flag.lock = "x";
+        else
+          return;
+      }
+      stifle(e);
+
+      if (coords !== null) {
+        this.endPos = coords;
+        var dist = this.swipeDist() + this.startingOffset;
+
+        if (this.options.infinite) {
+          var items = x$(this.items).find("[data-ur-carousel-component='item']");
+          var endLimit = items[this.lastIndex].offsetLeft + getWidth(items[this.lastIndex]) - getWidth(this.container);
+
+          if (dist > 0) { // at the beginning of carousel
+            var srcNode = items[this.realItemCount];
+            var offset = srcNode.offsetLeft - items[0].offsetLeft;
+            this.startingOffset -= offset;
+            //console.log(">" + this.startingOffset);
+            dist -= offset;
+            this.flag.loop = !this.flag.loop;
+            //this.itemIndex = this.lastIndex;
+          }
+          else if (dist < -endLimit) {  // at the end of carousel
+            var srcNode = items[this.lastIndex - this.realItemCount];
+            var offset = srcNode.offsetLeft - items[this.lastIndex].offsetLeft;
+            this.startingOffset -= offset;
+            //console.log("<" + this.startingOffset);
+            dist -= offset;
+            this.flag.loop = !this.flag.loop;
+            //this.itemIndex = 0;
+          }
+        }
+
+        this.translate(dist);
+      }
+    },
+
+    finishSwipe: function(e) {
+      console.log("finishSwipe");
+      if (!this.flag.click || this.flag.lock)
+        stifle(e);
+      else
+        x$(e.target).click();
       
-      if(!this.touch || e.touches.length == 0)
-      {    
-        this.move_helper(this.get_displacement_index());
-      }
+      //console.log(this.itemIndex);
+      
+      this.flag.touched = false; // For non-touch environments
+      
+      if (!this.options.verticalScroll || this.flag.lock == "x")
+        this.moveHelper(this.getDisplacementIndex());
+      else if (this.flag.lock == "y")
+        this.autoscrollStart();
     },
-    get_displacement_index: function() {
-      var swipe_distance = this.swipe_dist();
-      var displacement_index = 0;
-
-      if (this.multi) {
-        // Sigmoid FTW:
-        var range = this.magazine_count;
-        var range_offset = range/2.0;
-        displacement_index = zero_ceil( 1/(1 + Math.pow(Math.E,-1.0*swipe_distance)) * range - range_offset);
-      } else {
-        displacement_index = zero_ceil(swipe_distance/this.snap_width);
-      }
-
-      return displacement_index;
+    getDisplacementIndex: function() {
+      var swipeDistance = this.swipeDist();
+      var displacementIndex = zeroCeil(swipeDistance/getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]));
+      //var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
+      return displacementIndex;
     },
-    snap_to: function(displacement) {
-      this.destination_offset = displacement + this.starting_offset;        
-      var max_offset = -1*(this.last_index)*this.snap_width;
+    snapTo: function(displacement) {
+      this.destinationOffset = displacement + this.startingOffset;
+      var maxOffset = -1*(this.lastIndex)*this.snapWidth;
+      var minOffset = parseInt((this.snapWidth - getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]))/2);
 
-      if ( this.destination_offset < max_offset || this.destination_offset > 0 ) {
-        if (Math.abs(this.destination_offset - max_offset) < 1) {
+      if (this.options.infinite)
+        maxOffset = -getWidth(this.items);
+      if (this.destinationOffset < maxOffset || this.destinationOffset > minOffset) {
+        if (Math.abs(this.destinationOffset - maxOffset) < 1) {
           // Hacky -- but there are rounding errors
           // I see this when I'm in multi-mode and using the buttons
           // This only seems to happen on the desktop browser -- ideally its removed at compile time
-          this.destination_offset = max_offset;
+          this.destinationOffset = maxOffset;
         } else {
-          this.destination_offset = this.starting_offset;
+          this.destinationOffset = this.startingOffset;
         }
       }
-      
-      this.momentum();  
+
+      this.momentum();
     },
 
-    move_to: function(direction) {
-      if (this.increment_flag) {
-        // The animation isnt done yet
-        return
-      }
-      this.starting_offset = this.get_transform(this.items);
-      var new_idx = this.item_index - direction;
-      this.move_helper(direction);
-    },
-
-    move_helper: function(direction){
-      var new_idx = this.get_new_index(direction);
-
-      var new_item = x$(this.items).find("*[data-ur-carousel-component='item']")[new_idx];
-      var current_item = x$(this.items).find("*[data-ur-carousel-component='item']")[this.item_index];
-
-      var offset = this.get_transform(current_item) - this.get_transform(new_item);
-      var displacement = current_item.offsetLeft - new_item.offsetLeft + offset;
-
-      this.snap_to(displacement);
-      this.update_index(new_idx);
-    },
-
-    move_to_index: function(index) {
-      var direction = this.item_index - index;
-      this.move_to(direction);
-    },
-
-    momentum: function()
-    {
-      if (this.touch_in_progress)
-      {
+    moveTo: function(direction) {
+      // The animation isnt done yet
+      if (this.flag.increment)
         return;
-      }     
 
-      this.increment_flag = false;  
+      this.startingOffset = getTranslateX(this.items);
+      this.moveHelper(direction);
+    },
 
-      var x_transform = this.get_transform(this.items);
-      var distance = this.destination_offset - x_transform;
-      var increment = distance - zero_floor(distance / 1.1);
+    moveHelper: function(direction) {
+      this.autoscrollStop();
+
+      var newIndex = this.getNewIndex(direction);
+      //console.log("newIndex=" + newIndex)
+
+      var items = x$(this.items).find("[data-ur-carousel-component='item']");
+
+      if (this.options.infinite) {
+        var oldTransform = getTranslateX(this.items);
+        var altTransform = oldTransform;
+
+        if (newIndex < this.options.cloneLength) { // at the beginning of carousel
+          var offset = items[this.options.cloneLength].offsetLeft - items[this.itemCount - this.options.cloneLength].offsetLeft;
+          //console.log("oldTransform=" + oldTransform);
+          if (!this.flag.loop) {
+            //console.log("blah");
+            altTransform += offset;
+            this.translate(altTransform);
+            this.startingOffset += offset;
+          }
+          //this.startingOffset = -items[newIndex + this.realItemCount + 1].offsetLeft;
+          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          //console.log("altTransform=" + altTransform);
+          //console.log("this.startingOffset=" + this.startingOffset);
+          newIndex += this.realItemCount;
+          this.itemIndex = newIndex + direction;
+        }
+        else if (newIndex > this.lastIndex - this.options.cloneLength) { // at the end of carousel
+          var offset = items[this.itemCount - this.options.cloneLength].offsetLeft - items[this.options.cloneLength].offsetLeft;
+          if (!this.flag.loop) {
+            //console.log("blah");
+            altTransform += offset;
+            this.translate(altTransform);
+            this.startingOffset += offset;
+          }
+          //altTransform += offset;
+          //this.startingOffset = -items[newIndex - this.realItemCount - 1].offsetLeft;
+          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          //this.startingOffset -= offset;
+          newIndex -= this.realItemCount;
+          this.itemIndex = newIndex + direction;
+        }
+      }
+      //console.log("startingOffset=" + this.startingOffset);
+      //console.log("itemIndex=" + this.itemIndex);
+      //console.log("newIndex=" + newIndex);
+      var newItem = items[newIndex];
+      var currentItem = items[this.itemIndex];
+      var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
+
+      setTimeout(function(obj) {
+        return function() {
+          obj.snapTo(displacement);
+          obj.updateIndex(newIndex);
+        }
+      }(this), 6);
+    },
+
+    moveToIndex: function(index) {
+      var direction = this.itemIndex - index;
+      this.moveTo(direction);
+    },
+
+    momentum: function() {
+      if (this.flag.touched)
+        return;
+
+      this.flag.increment = false;
+
+      var translateX = getTranslateX(this.items);
+      var distance = this.destinationOffset - translateX;
+      var increment = distance - zeroFloor(distance / 1.1);
 
       // Hacky -- this is for the desktop browser only -- to fix rounding errors
       // Ideally, this is removed at compile time
-      if(Math.abs(increment) < 0.01) {
+      if(Math.abs(increment) < 0.01)
         increment = 0;
-      } 
 
-      translate(this.items, increment + x_transform);
+      var newTransform = increment + translateX;
 
-      if(increment != 0)
-      {
-  this.increment_flag = true;
+      
+      /*
+      if (this.options.infinite) {
+        var items = x$(this.items).find("[data-ur-carousel-component='item']");
+        var startLimit = items[this.options.cloneLength - 1].offsetLeft; // almost at the beginning of carousel
+        var endLimit = items[this.lastIndex].offsetLeft - this.container.offsetWidth; // almost at the end of carousel
+
+        if (newTransform >= -startLimit) { // almost at the beginning of carousel
+          this.destinationOffset -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+          newTransform -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+        }
+        if (newTransform <= -endLimit) { // almost at the end of carousel
+          this.destinationOffset += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+          newTransform += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+        }
+      }*/
+      
+      this.translate(newTransform);
+
+      if (increment != 0)
+        this.flag.increment = true;
+
+      if (this.flag.increment)
+        setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
+      else {
+        this.startingOffset = null;
+        /*
+        if (this.options.infinite) {
+          
+          if (this.itemIndex == this.itemCount - this.options.cloneLength) // almost at the end of carousel
+            this.itemIndex = this.options.cloneLength;
+          else if (this.itemIndex == this.options.cloneLength - 1) // almost at the beginning of carousel
+            this.itemIndex = this.lastIndex - this.options.cloneLength;
+
+          this.updateIndex(this.itemIndex);
+
+          var altTransform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex].offsetLeft;
+          altTransform += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          this.translate(altTransform);
+        }
+        */
+        this.autoscrollStart();
+
+        var itemIndex = this.itemIndex;
+        x$(this.container).fire("slideend", {index: itemIndex});
+
+        x$().iterate(this.onSlideCallbacks, function(callback) { callback(); });
       }
+    },
 
-      if(this.increment_flag)
-      {
-        setTimeout(function(obj){return function(){obj.momentum()}}(this),16);        
-      } else {
-        this.starting_offset = null;
-        x$().iterate(
-          this.onSlideCallbacks,
-          function(callback) {
-            callback();
-          }
-        );
-      }
-    },    
-
-    swipe_dist: function()
-    {
-      if (this.end_pos === undefined)
+    swipeDist: function() {
+      if (this.endPos === undefined)
         return 0;
-      var sw_dist = this.end_pos['x'] - this.start_pos['x'];
-      return sw_dist;
+      return this.endPos.x - this.startPos.x;
+    },
+    
+    translate: function(x) {
+      var container = this.items;
+      var translatePrefix = this.options.transform3d ? "translate3d(" : "translate(";
+      var translateSuffix = this.options.transform3d ? ", 0px)" : ")";
+      ["webkitTransform", "MozTransform", "oTransform", "transform"].forEach(function(i) {
+        container.style[i] = translatePrefix + x + "px, 0px" + translateSuffix;
+      });
     }
   }
 
   // Private constructors
   var ComponentConstructors = {
-    "button": function(group, component, type) {
-      if (group["button"] === undefined) {
+    button: function(group, component, type) {
+      if (group["button"] === undefined)
         group["button"] = {};
-      }
-      
-      var type = x$(component).attr("data-ur-carousel-button-type")[0];
-      if(type === undefined) {
-        // Declaration error
-        console.log("Uranium declaration error: Malformed carousel button type on:" + component.outerHTML);
-      }
+
+      var type = component.getAttribute("data-ur-carousel-button-type");
+
+      // Declaration error
+      if (type === undefined)
+        Ur.error("malformed carousel button type on:" + component.outerHTML);
 
       group["button"][type] = component;
 
       // Maybe in the future I'll make it so any of the items can be the starting item
-      if (type == "prev") {
-        x$(component).attr("data-ur-state","disabled");
-      } else {
-        x$(component).attr("data-ur-state","enabled");
-      }
-
+      x$(component).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
     }
-  }
-
+  };
   function CarouselLoader(){}
-  
+
   CarouselLoader.prototype.initialize = function(fragment) {
-    var carousels = x$(fragment).find_elements('carousel', ComponentConstructors);
+    var carousels = x$(fragment).findElements("carousel", ComponentConstructors);
     Ur.Widgets["carousel"] = {};
     for (var name in carousels) {
       var carousel = carousels[name];
       Ur.Widgets["carousel"][name] = new Carousel(carousel);
-      x$(carousel["set"]).attr("data-ur-state","enabled");
+      x$(carousel["set"]).attr("data-ur-state", "enabled");
     }
   }
 
   return CarouselLoader;
 })();
+
 /* Font Resizer
    ------------
    Font Resizer displays three components:
@@ -2032,7 +2410,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
   function FontResizerLoader() {}
   
   FontResizerLoader.prototype.initialize = function(fragment) {
-    var font_resizers = x$(fragment).find_elements('font-resizer');
+    var font_resizers = x$(fragment).findElements('font-resizer');
     for (var name in font_resizers) new FontResizer(font_resizers[name]);
   }
   
@@ -2048,18 +2426,20 @@ Ur.QuickLoaders["font-resizer"] = (function() {
  *
  */
  
-Ur.QuickLoaders['geocode'] = (function(){
+Ur.QuickLoaders["geocode"] = (function() {
   
   function Geocode(data) {
     this.elements = data;
     this.callback = x$(this.elements.set).attr("data-ur-callback")[0];
+    this.errorCallback = x$(this.elements.set).attr("data-ur-error-callback")[0];
 
     UrGeocode = function(obj){return function(){obj.setup_callbacks();};}(this);
     var s = document.createElement('script');
     s.type = "text/javascript";
     s.src = "http://maps.googleapis.com/maps/api/js?sensor=true&callback=UrGeocode";
-    x$('head').html('bottom', s);
+    x$('body').html('bottom', s);  
   }
+
   
   var geocoder;
   var geocodeObj;
@@ -2171,18 +2551,21 @@ Ur.QuickLoaders['geocode'] = (function(){
       console.error("Ur geolocation error -- Error Getting Your Coordinates!");
       switch(error.code) 
       {
-      case error.TIMEOUT:
-        console.error ('Ur geolocation error -- Timeout');
-        break;
-      case error.POSITION_UNAVAILABLE:
-        console.error ('Ur geolocation error -- Position unavailable');
-        break;
-      case error.PERMISSION_DENIED:
-        console.error ('Ur geolocation error -- Permission denied');
-        break;
-      case error.UNKNOWN_ERROR:
-        console.error ('Ur geolocation error -- Unknown error');
-        break;
+        case error.TIMEOUT:
+          console.error ('Ur geolocation error -- Timeout');
+          break;
+        case error.POSITION_UNAVAILABLE:
+          console.error ('Ur geolocation error -- Position unavailable');
+          break;
+        case error.PERMISSION_DENIED:
+          console.error ('Ur geolocation error -- Permission denied');
+          break;
+        case error.UNKNOWN_ERROR:
+          console.error ('Ur geolocation error -- Unknown error');
+          break;
+      }
+      if(this.errorCallback !== undefined) {
+        eval(this.errorCallback);
       }
     },
 
@@ -2221,7 +2604,11 @@ Ur.QuickLoaders['geocode'] = (function(){
               obj.geoSuccess(position);
             };
           }(this), 
-          this.geoError, 
+          function(obj) {
+            return function(errors){
+              obj.geoError(errors);
+            };
+          }(this),
           this.geoDenied
         );  
       }
@@ -2232,7 +2619,7 @@ Ur.QuickLoaders['geocode'] = (function(){
   }
 
   GeocodeLoader.prototype.initialize = function(fragment) {
-    var my_geo = x$(fragment).find_elements('reverse-geocode');
+    var my_geo = x$(fragment).findElements('reverse-geocode');
     
     Ur.Widgets["geocode"] = {}
     
@@ -2245,6 +2632,139 @@ Ur.QuickLoaders['geocode'] = (function(){
 
   return GeocodeLoader;
 })();
+
+
+/*
+ * lateload takes any element that has the data-ur-ll-src or
+ * data-ur-ll-href attribute and then once requested, loads that
+ * object
+ */
+
+(function () {
+  
+  function late_load (obj) {
+    
+    var self = this;
+    var components = this.components = obj;
+  }
+
+  late_load.prototype.preferences = {threshold: 300};
+
+  late_load.prototype.release_element = function (obj) {
+
+    if (obj.hasAttribute("data-ur-ll-src")){
+      var type = "src";
+      var att = "data-ur-ll-src";
+      var loc = obj.getAttribute(att);
+    }else if (obj.hasAttribute("data-ur-ll-href")){
+      var type = "href";
+      var att = "data-ur-ll-href";
+      var loc = obj.getAttribute();
+    }else{
+      //console.warn("Uranium Late Load: non-late-load element provided.");
+      return
+    }
+
+    obj.removeAttribute(att);
+    obj.setAttribute(type, loc);
+  }
+
+   late_load.prototype.components = {};
+
+  late_load.prototype.release_group = function (hash) {
+    for (var name in hash){
+      if (hash[name][1] != "scroll"){
+        late_load.prototype.release_element(hash[name][0]);
+      }else if (scrollHelper(hash[name][0]) == true){
+        late_load.prototype.release_element(hash[name][0]);
+      }
+    }
+  }
+
+  var scrollHelper = function (obj) {
+    var fold = window.innerHeight + window.pageYOffset;
+
+    var findPos = function(obj) {
+      var curleft = curtop = 0;curtop;
+      if (obj.offsetParent) {
+        do {
+          curleft += obj.offsetLeft;
+          curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+      }
+      return [curleft,curtop];
+    }
+    var pos = findPos(obj);
+    return fold >= pos[1] - obj.offsetHeight - late_load.prototype.preferences.threshold;
+  }
+
+  var setEvents = function (obj) {
+    var components = obj;
+
+    for (var temp in components){
+
+      switch(temp){
+        case "scroll":
+          x$(window).on(temp, function (e) {
+            late_load.prototype.release_group(components["scroll"], "scroll");
+          });
+        break;
+        case "load":
+          x$(window).on(temp, function (e) {
+            late_load.prototype.release_group(components["load"]);
+          });
+          break;
+        case "DOMContentLoaded":
+          late_load.prototype.release_group(components["DOMContentLoaded"]);
+          break;
+        case "click": case "touch":
+          x$("html").on(temp, function (e) {
+            var type = e.target.getAttribute("data-ur-ll-event")
+            if (type == "click" || type == "touch") {
+              late_load.prototype.release_element(e.target);
+            }
+          });
+          break;
+        default:
+        break;
+      }
+    }
+  }
+
+
+  var find = function () {
+    var obj = {};
+    var temp = [];
+    var group;
+
+    x$(document).find('[data-ur-ll-href],[data-ur-ll-src]').each( function () {
+      group = this.getAttribute("data-ur-ll-event")
+      if (group === null){
+        group = "DOMContentLoaded";
+      }
+      obj[group] = []
+      temp.push([this, group]);
+    });
+
+    for (var element in temp){
+      if (temp[element][1] === undefined) {}else{
+        obj[temp[element][1]].push(temp[element]);
+      }
+    }
+
+    return obj;
+  }
+
+  late_load.prototype.initialize = function() {
+    var lateObj = find();
+    var ll = new late_load(lateObj);
+    setEvents(ll.components)
+    Ur.Widgets["late_load"] = ll;
+  }
+
+  return Ur.QuickLoaders['late_load'] = late_load;
+})();
+
 /* Map *
  * * * *
  * The map creates a fully functional google map (API version 3) from addresses.
@@ -2559,7 +3079,7 @@ Ur.QuickLoaders['map'] = (function(){
   }
 
   MapLoader.prototype.initialize = function(fragment) {
-    var maps = x$(fragment).find_elements('map', ComponentConstructors);
+    var maps = x$(fragment).findElements('map', ComponentConstructors);
     Ur.Widgets["map"] = {};
 
     for(var name in maps) {
@@ -2658,7 +3178,7 @@ Ur.QuickLoaders['select-buttons'] = (function(){
   }
 
   SelectButtonsLoader.prototype.initialize = function(fragment) {
-    var select_buttons = x$(fragment).find_elements('select-buttons');
+    var select_buttons = x$(fragment).findElements('select-buttons');
     for (var name in select_buttons) {
       new SelectButtons(select_buttons[name]);
       x$(select_buttons[name]["set"]).attr("data-ur-state","enabled");
@@ -2696,20 +3216,8 @@ Ur.QuickLoaders['select-list'] = (function(){
 
   SelectList.prototype.trigger_option = function(event) {
     var selected_list_option = event.target;
-    var value = "";
     var self = this;
-    x$().iterate(
-      this.list.children,
-      function(element, index){
-        if(element == selected_list_option) {
-    x$(element).attr("data-ur-state","enabled");
-          value = x$(element).attr("value");
-        } else {
-    x$(element).attr("data-ur-state","disabled");
-        }
-      }
-    );
-
+    var value = iterate(this, selected_list_option);
     //  x$(this.select).attr("value",value); //Odd - this doesn't work, but the following line does
     // -- I think 'value' is a special attribute ... its not in the attributes[] property of a node
     this.select.value = value;
@@ -2717,6 +3225,28 @@ Ur.QuickLoaders['select-list'] = (function(){
     return true;
   }
 
+  function iterate (obj, selected_obj) {
+    var value = "";
+    x$().iterate(
+      obj.list.children,
+      function(element, index){
+        var val1 = element.getAttribute("value");
+        var val2 = selected_obj.getAttribute("value");
+        if(val1 == val2) {
+          x$(element).attr("data-ur-state","enabled");
+          value = x$(element).attr("value");
+        } else {
+          x$(element).attr("data-ur-state","disabled");
+        }
+      }
+    );
+    return value;
+  }
+
+  function matchSelected (obj) {
+    var active = obj.select.children[obj.select.options.selectedIndex];
+    iterate(obj, active);
+  }
 
   function SelectListLoader(){
     this.SelectLists = {};
@@ -2725,18 +3255,607 @@ Ur.QuickLoaders['select-list'] = (function(){
     // - Sometimes we had to listen for different events
   }
 
+
   SelectListLoader.prototype.initialize = function(fragment) {
-    var select_lists = x$(fragment).find_elements('select-list');
+    var select_lists = x$(fragment).findElements('select-list');
     var self = this;
     for (var name in select_lists) {
       var select_list = select_lists[name];
       self.SelectLists[name] = new SelectList(select_lists[name]["select"],select_lists[name]["content"]);
       x$(select_list["set"]).attr("data-ur-state","enabled");
+      matchSelected(self.SelectLists[name])
     }
   }
 
   return SelectListLoader;
 })();
+
+
+/* 
+
+basic structure of swipe toggler
+you must define the swipe toggle name and one active element
+from there this will create the swipe toggle ability.
+
+show this off with a fade in and card deck carousel.
+
+<div data-ur-swipe-toggle="my_name">
+<span data-ur-state="active">item1</span><span>itme2</span><span>itme3</span>
+</div>
+
+*/
+
+// this is a swipe toggler
+Ur.QuickLoaders['SwipeToggle'] = (function () {
+
+  function swipeToggleComponents (group, content_component) {
+    // This is a 'collection' of components
+    // -- if I see it again, I'll make this abstract
+    if(group["slider"] === undefined) {
+      group["slider"] = [];
+    }
+    group["slider"].push(content_component);
+  }
+
+  function SwipeToggle (swipe_element, name){
+    var myName = name;
+    var components = swipe_element;
+    var self = this;
+    var touch = {};
+
+    var preferences = this.preferences = { dots: false, axis: "x", swipeUpdate: true, sensitivity: 10, loop: true,
+                         touchbuffer: 20, tapActive: false,  touch: true, jump: 1, loop: true,
+                         autoSpeed: 500 };
+    
+
+    this.flags = {touched: false, autoID: null}
+    var flags = this.flags;
+
+                                    
+    var startPos = endPos = markerPos = {x: 0, y: 0, time: 0};
+
+    var loadEvent = function (obj) {
+      var event = document.createEvent("Event");
+      event.initEvent("loaded", false, true);
+      obj.dispatchEvent(event);
+    }
+
+    var autoScroll = function(mili_sec){
+      name = setInterval(function (){
+        console.log(name);
+        var imageArray = slider.children.length;
+        
+        if(SwipeToggle.prototype.flags  == true){
+          window.clearInterval(name);
+          wipeToggle.prototype.flags  == false;
+        }else{
+          myCarousel.next(1);
+        }
+        
+      },mili_sec);
+    }
+
+    var setTouch = function () {
+
+      var pef_touch = self.preferences.touch;
+
+      slider.addEventListener('touchstart', function (e){
+        if (pef_touch == true){
+          touch.start(e, this);
+        }
+      }, false);
+
+      slider.addEventListener('touchmove', function (e){
+        if (pef_touch == true){
+          touch.move(e, this);
+        }
+      }, false);
+
+      slider.addEventListener('touchend', function (e){
+        if (pef_touch == true){
+          touch.end(e, this);
+        }
+      }, false);
+    }
+
+    var swipeDirection = function (){
+
+      if (preferences) {
+        var buff = preferences.touchbuffer;
+      }else{
+        var buff = 0;
+      }
+
+      if(startPos[axis] < endPos[axis] - buff){
+        return 1;//right or top >>
+      }else if(startPos[axis] > endPos[axis] + buff){
+        return 2;//left or bottom <<
+      }else{
+        return 3;//tap
+      }
+    }
+
+    SwipeToggle.prototype.getActive = function (e) {
+      var test = this.components.name;
+      var active = x$('[data-ur-id="' + test + '"][data-ur-swipe-toggle-component="slider"] > [data-ur-state="active"]')[0];
+      return active;
+    }
+
+    SwipeToggle.prototype.next = function () {
+
+      var activeObj = this.getActive();
+      var jump = this.preferences.jump;
+      var children = activeObj.parentNode.children;
+
+      for(var i = 0; i < jump; i++){
+        if(lookAhead(activeObj) == true){
+          var update = activeObj.nextElementSibling;
+          activeObj = this.setActive(update);
+        }else if(lookAhead(activeObj) == false && this.preferences.loop == true){
+          this.setActive(children[0])
+        } 
+      }
+
+      return activeObj;
+    }
+
+    SwipeToggle.prototype.prev = function () {
+      var activeObj = this.getActive();
+      var jump = this.preferences.jump;
+      var children = activeObj.parentNode.children;
+      var last = children.length -1;
+
+      for(var i = 0; i < jump; i++){
+        if(lookBehind(activeObj) == true){
+          var update = activeObj.previousElementSibling;
+          activeObj = this.setActive(update);
+        }else if(lookBehind(activeObj) == false && this.preferences.loop == true){
+          this.setActive(children[last])
+        }
+      }
+
+      return activeObj;
+    }
+
+    var touch = {};
+
+    touch.start = function (e) {
+      flags.touched = true;
+
+      markerPos = startPos = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: e.timeStamp
+      };
+
+    }
+
+    touch.move = function (e) {
+
+      endPos = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY
+      };
+      if(self.preferences.swipeUpdate == true){
+        swipeUpdate(e);
+      }
+
+      var swipeDist =  endPos[axis] - startPos[axis];
+    }
+
+    touch.end = function (e) {
+      endPos.time = e.timeStamp;
+
+      touchMove(e)
+
+      touch.clear();
+    }
+
+    touch.clear = function () {
+      startPos = {};
+      endPos = {};
+      markerPos = {};
+    }
+
+    var swipeUpdate = function (e) {
+      if(endPos[axis] + self.preferences.sensitivity < markerPos[axis]){
+        self.next();
+        markerPos = endPos;
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      if(endPos[axis] - self.preferences.sensitivity > markerPos[axis]){
+        self.prev();
+        markerPos = endPos;
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }
+
+    var touchMove = function (e) {
+      var direction = swipeDirection();
+      var target = e.target
+      if (direction == 1) {
+        self.prev()
+      }else if (direction == 2){
+        self.next()
+      }else{
+        if (target.parentNode == slider){
+          self.setActive(target);
+        }
+      }
+    }
+
+    var activeIndex = function (Element){
+      if (Element === undefined) {
+        var obj = self.components.slider;
+      } else {
+        var obj = Element;
+      }
+
+      var length = obj.children.length;
+      var i = 0;
+
+      if (length > i) {
+        for(i ; i < length; i++){
+          if(obj.children[i].getAttribute('data-ur-state') == 'active'){
+            break;
+          }
+        }
+      }
+
+      return i;
+    }
+
+    SwipeToggle.prototype.autoScroll = function (direction) {
+      var imageArray = this.components.slider.children.length;
+      var self = this;
+
+      var autoID = name;
+
+      window.clearInterval(this.flags.autoID);
+       if (direction == "next" || direction == "prev"){}else{
+        console.log("swipe_toggle: impropper autoScroll direction setting");
+        direction = "next";
+      }
+
+     this.flags.autoID = autoID = window.setInterval(function (){
+        var position = activeIndex();
+
+        if((self.preferences.loop == false && position + 1 == imageArray) || flags.touched == true){
+          window.clearInterval(self.flags.autoID);
+        }else{
+          self[direction]()
+        }
+
+      }, this.preferences.autoSpeed);
+    }
+
+    SwipeToggle.prototype.dots = function () {
+      // create dots for the carousel
+      
+      var index = activeIndex(this.components.slider);
+      var slider_name = this.components.name;
+      var slider = this.components.slider;
+      var imageLength = x$(slider)[0].children.length -1;
+      var dotsDiv = document.createElement('div');
+      var attributeName = "mw_swipe_toggle_dot"
+
+      dotsDiv.setAttribute("class", "mw_" + slider_name + "_dots mw_swipe_dots")
+
+      for(var i = 0; i < imageLength + 1; i++){
+        tempDivHolder = document.createElement("div");
+        tempDivHolder.id = 'mw_image_dot' + (i+1);
+        dotsDiv.appendChild(tempDivHolder);
+      }
+      if (dotsDiv.children[0] === undefined){} else {
+        dotsDiv.children[index].setAttribute(attributeName, "active");
+      }
+      x$(slider).after(dotsDiv);
+
+      slider.addEventListener('update', function (e){
+        // make new dot active
+        var eventSlider = e.slider;
+        var name = slider_name;
+        var dots_name = "mw_" + slider_name + "_dots";
+
+        var index = activeIndex(e.slider);
+
+        for (var i = 0; i < imageLength + 1; i++) {
+          dotsDiv.children[i].setAttribute(attributeName, "");
+        }
+        dotsDiv.children[index].setAttribute(attributeName, "active");
+      });
+    }
+
+    SwipeToggle.prototype.autoPopulate = function (autoPopulateList, append) {
+      var location = this.components.slider;
+      if (autoPopulateList === undefined) {
+        console.warn("Swipe Toggle: no items listed")
+      }else if (append == "top" || append == "bottom"){
+        for (var items in autoPopulateList) {
+          x$(location)[append](autoPopulateList[items]);
+        }
+        this.setActive(this.components.slider.children[0]);
+      }
+    }
+
+    if(components === undefined){}else{
+      this.components = swipe_element;
+      var slider = this.components.slider;
+
+      x$(swipe_element['next']).on("click", function(e){
+        Ur.Widgets.SwipeToggle[self.components.name].next(e);
+      });
+      x$(swipe_element['prev']).on("click", function(e){ 
+        Ur.Widgets.SwipeToggle[self.components.name].prev(e);
+      });
+
+      if (this.components.slider.children[0] === undefined) {}else{
+        this.setActive(this.getActive());
+      }
+
+
+      var axis = this.preferences.axis;
+      if (axis == "x" || axis == "Y") {
+      }else{
+        Ur.error("incorrect axis set")
+      }
+
+      setTouch();
+
+      if (this.preferences.dots == true) {
+        this.dots()
+      }
+      loadEvent(this.components.slider);
+    }
+  }
+
+  SwipeToggle.prototype.components = {}
+
+  SwipeToggle.prototype.setActive = function (obj) {
+
+    var activeChangeEvent = function (obj, parent) {
+      var event = document.createEvent("Event");
+      event.initEvent("update", false, true);
+      event.active = obj;
+      event.slider = obj.parentNode;
+      event.activeElement = obj;
+      parent.dispatchEvent(event);
+    }
+
+    var i;
+    var slider = obj.parentNode;
+    var siblings = slider.children.length;
+    var previousSibling = obj.previousElementSibling;
+    var nextSibling = obj.nextElementSibling;
+    var nodeType = obj.nodeType;
+
+    if (nodeType == 1 && slider == slider){
+      obj.setAttribute("data-ur-state", "active");
+
+      for(i=0; i<=siblings; i++){
+        if(previousSibling === null || previousSibling === undefined){
+          break;
+        }else{
+          previousSibling.setAttribute("data-ur-state", "prev" + (i+1));
+          previousSibling = previousSibling.previousElementSibling;
+        }
+      }
+
+      for(i=0; i<=siblings; i++){
+        if(nextSibling === null || nextSibling === undefined){
+          break;
+        }else{
+          nextSibling.setAttribute("data-ur-state", "next" + (i+1));
+          nextSibling = nextSibling.nextElementSibling;
+        }
+      }
+    }
+
+    activeChangeEvent(obj, slider)
+
+    return obj;
+  }
+
+  var lookAhead = function (obj) {
+    if(obj.nextElementSibling === null){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  var lookBehind = function (obj) {
+    if(obj.previousElementSibling === null){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  var find = function(fragment){
+    var swipe_group = x$(fragment).findElements('swipe-toggle');
+
+    for(var component_id in swipe_group) {
+      var carousel_group = swipe_group[component_id];
+      carousel_group.name = component_id;
+      if (carousel_group["slider"] === undefined) {
+        Ur.error("no slider found for toggler with id = " + component_id);
+        continue;
+      }else if (carousel_group["slider"].children[0] === undefined){
+        Ur.warn("no children in slider: " + carousel_group )
+      }else{
+        carousel_group["slider"]["active"] = x$(carousel_group["slider"]).find("[data-ur-state='active']")[0];
+        Ur.warn("no active element found for toggler with id = " + component_id);
+        if (carousel_group["slider"]["active"] === undefined) {
+          console.log("no active element in slider: " + component_id)
+          carousel_group["slider"]["active"] = carousel_group["slider"].children[0];
+          carousel_group["slider"]["active"].setAttribute("data-ur-state", "active")
+          console.log("set active element")
+          continue;
+        }
+      }
+    }
+    return swipe_group;
+  }
+
+  SwipeToggle.prototype.initialize = function (fragment) {
+    var swipe_group = find(fragment);
+    Ur.Widgets["SwipeToggle"] = {};
+
+    var prefEvent = function (obj) {
+      var event = document.createEvent("Event");
+      event.initEvent("preferences", false, true);
+      obj.components.slider.dispatchEvent(event);
+    }
+
+
+    for(var name in swipe_group){
+      Ur.Widgets["SwipeToggle"][name] = new SwipeToggle(swipe_group[name]);
+      prefEvent(Ur.Widgets["SwipeToggle"][name]);
+    }
+
+    return swipe_group;
+  }
+
+  return new SwipeToggle;
+})
+
+
+
+/* Flex Table *
+ * * * * * *
+ * The flex table widget will take a full-sized table and make it fit 
+ * on a variety of different viewport sizes.  
+ * 
+ */
+
+Ur.QuickLoaders['flex-table'] = (function(){
+  
+  // Add an enhanced class to the tables the we'll be modifying
+  function addEnhancedClass(tbl) {
+    x$(tbl).addClass("enhanced");
+  }
+  
+  function flexTable(aTable, table_index) {
+    // TODO :: Add the ability to pass in options
+    this.options = {
+      idprefix: 'col-',   // specify a prefix for the id/headers values
+      persist: "persist", // specify a class assigned to column headers (th) that should always be present; the script not create a checkbox for these columns
+      checkContainer: null // container element where the hide/show checkboxes will be inserted; if none specified, the script creates a menu
+    };
+    
+    var self = this, 
+        o = self.options,
+        table = aTable.table,
+        thead = aTable.head,
+        tbody = aTable.body,
+        hdrCols = x$(thead).find('th'),
+        bodyRows = x$(tbody).find('tr'), 
+        container = o.checkContainer ? x$(o.checkContainer) : x$('<div class="table-menu table-menu-hidden" ><ul /></div>');
+        
+    addEnhancedClass(table);
+    
+    hdrCols.each(function(elm, i){
+      var th = x$(this),
+          id = th.attr('id'),
+          classes = th.attr('class');
+      
+      // assign an id to each header, if none is in the markup
+      if (id.length === 0) {
+        id = ( o.idprefix ? o.idprefix : "col-" ) + i;
+        th.attr('id', id); 
+      }
+      
+      // assign matching "headers" attributes to the associated cells
+      // TEMP - needs to be edited to accommodate colspans
+      bodyRows.each(function(e, j){
+        var cells = x$(e).find("th, td");
+        cells.each(function(cell, k) {
+          if (cell.cellIndex == i) {
+            x$(cell).attr('headers', id);
+            if (classes.length !== 0) { x$(cell).addClass(classes[0]); };
+          }
+        });
+      });
+      
+      // create the show/hide toggles
+      if ( !th.hasClass(o.persist) ) {
+        var toggle = x$('<li><input type="checkbox" name="toggle-cols" id="toggle-col-' +
+                          i +  '-' + table_index +  '" value="' + id + '" /> <label for="toggle-col-' + i + '-' + table_index +  '">'
+                          + th.html() +'</label></li>');
+        container.find('ul').bottom(toggle);
+        var tgl = toggle.find("input");
+        
+        tgl.on("change", function() {
+          var input = x$(this),
+              val = input.attr('value'),
+              cols = x$("div[data-ur-id='" + table_index + "'] " + "#" + val[0] + ", " +
+                        "div[data-ur-id='" + table_index + "'] " + "[headers=" + val[0] + "]");
+          if (!this.checked) { 
+            cols.addClass('ur_ft_hide'); 
+            cols.removeClass("ur_ft_show"); }
+          else { 
+            cols.removeClass("ur_ft_hide"); 
+            cols.addClass('ur_ft_show'); }
+        });
+        tgl.on("updateCheck", function(){
+          if ( th.getStyle("display") == "table-cell" || th.getStyle("display") == "inline" ) {
+            x$(this).attr("checked", true);
+          }
+          else {
+            x$(this).attr("checked", false);
+          }
+        });
+        tgl.fire("updateCheck");
+      }
+      
+    }); // end hdrCols loop
+    
+    // Update the inputs' checked status
+    x$(window).on('orientationchange', function() {
+      container.find('input').fire('updateCheck');
+    });
+    x$(window).on('resize', function() {
+      container.find('input').fire('updateCheck');
+    });
+    
+    // Create a "Display" menu      
+    if (!o.checkContainer) {
+      var menuWrapper = x$('<div class="table-menu-wrapper"></div>'),
+          popupBG = x$('<div class = "table-background-element"></div>'),
+          menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
+      menuBtn.click(function(){
+        container.toggleClass("table-menu-hidden");
+        x$(this).toggleClass("menu-btn-show");
+        return false;
+      });
+      popupBG.click(function(){
+        container.toggleClass("table-menu-hidden");
+        menuBtn.toggleClass("menu-btn-show");
+        return false;
+      });
+      container.bottom(popupBG);
+      menuWrapper.bottom(menuBtn).bottom(container);
+      x$(table).before(menuWrapper);
+    };
+  }
+  
+  function TableLoader () {}
+  
+  TableLoader.prototype.initialize = function(fragment) {
+    var tables = x$(fragment).findElements('flex-table');
+    Ur.Widgets["flex-table"] = {};
+
+    for(var table in tables){
+      Ur.Widgets["flex-table"][name] = new flexTable(tables[table], table);
+    }
+  }
+  
+  return TableLoader;
+})();
+
 /* Tabs *
  * * * * * *
  * The tabs are like togglers with state. If one is opened, the others are closed
@@ -2763,8 +3882,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       }
 
       if(content === undefined) {
-        console.log("Ur error -- no matching tab content for tab button");
-        return
+        Ur.error("no matching tab content for tab button");
+        return;
       }
       
       var state = x$(button).attr("data-ur-state")[0];
@@ -2774,13 +3893,12 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var closeable = x$(this.elements["set"]).attr("data-ur-closeable")[0];
       closeable = (closeable !== undefined && closeable == "true") ? true : false;
-      console.log("closeable? " + closeable);
-
       var self = this;
       x$(button).on(
         "click",
         function(evt) {
-          var this_tab_id = x$(evt.target).attr("data-ur-tab-id")[0];
+          var firstScrollTop = evt.target.offsetTop - document.body.scrollTop;
+          var this_tab_id = x$(evt.currentTarget).attr("data-ur-tab-id")[0];
           
           for(var tab_id in self.elements["buttons"]) {
             var button = self.elements["buttons"][tab_id];
@@ -2800,11 +3918,13 @@ Ur.QuickLoaders['tabs'] = (function(){
               x$(content).attr("data-ur-state", new_state);
             }
           }
+          var secondScrollTop =  evt.target.offsetTop - document.body.scrollTop;
+          if ( secondScrollTop <= 0 ) {
+            window.scrollBy(0, secondScrollTop - firstScrollTop);
+          }
         }
       ); 
-
     }
-
   }
   
   var ComponentConstructors = {
@@ -2815,8 +3935,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var tab_id = x$(component).attr("data-ur-tab-id")[0];
       if (tab_id === undefined) {
-        console.log("Uranium declaration error -- Tab defined without a tab-id");
-        return
+        Ur.error("tab defined without a tab-id");
+        return;
       }
       
       group["buttons"][tab_id] = component;
@@ -2828,8 +3948,8 @@ Ur.QuickLoaders['tabs'] = (function(){
       
       var tab_id = x$(component).attr("data-ur-tab-id")[0];
       if (tab_id === undefined) {
-        console.log("Uranium declaration error -- Tab defined without a tab-id");
-        return
+        Ur.error("tab defined without a tab-id");
+        return;
       }
       
       group["contents"][tab_id] = component;
@@ -2840,7 +3960,7 @@ Ur.QuickLoaders['tabs'] = (function(){
   }
 
   TabsLoader.prototype.initialize = function(fragment) {
-    var tabs = x$(fragment).find_elements('tabs', ComponentConstructors);
+    var tabs = x$(fragment).findElements('tabs', ComponentConstructors);
     Ur.Widgets["tabs"] = {};
 
     for(var name in tabs){
@@ -2853,13 +3973,13 @@ Ur.QuickLoaders['tabs'] = (function(){
 })();
 
 /* Toggler *
- * * * * * *
- * The toggler alternates the state of all the content elements bound to the
- * toggler button. 
- * 
- * If no initial state is provided, the default value 'disabled'
- * is set upon initialization.
- */
+* * * * * *
+* The toggler alternates the state of all the content elements bound to the
+* toggler button. 
+* 
+* If no initial state is provided, the default value 'disabled'
+* is set upon initialization.
+*/
 
 Ur.QuickLoaders['toggler'] = (function(){
   function ToggleContentComponent (group, content_component) {
@@ -2878,14 +3998,14 @@ Ur.QuickLoaders['toggler'] = (function(){
   }
 
   ToggleLoader.prototype.find = function(fragment){
-    var togglers = x$(fragment).find_elements('toggler', this.component_constructors);
+    var togglers = x$(fragment).findElements('toggler', this.component_constructors);
     var self=this;
-    
+
     for(var toggler_id in togglers) {
       var toggler = togglers[toggler_id];
 
       if (toggler["button"] === undefined) {
-        console.log("Uranium Declaration Error: No button found for toggler with id=" + toggler_id);
+        Ur.error("no button found for toggler with id=" + toggler_id);
         continue;
       }
 
@@ -2896,18 +4016,18 @@ Ur.QuickLoaders['toggler'] = (function(){
       } 
 
       if (toggler["content"] === undefined) {
-        console.log("Uranium Declaration Error: No content found for toggler with id=" + toggler_id);
+        Ur.error("no content found for toggler with id=" + toggler_id);
         continue;
       }
 
       // Make the content state match the button state
       x$().iterate(
-  toggler["content"],
-  function(content) {
-    if (x$(content).attr("data-ur-state")[0] === undefined ) {
+        toggler["content"],
+        function(content) {
+          if (x$(content).attr("data-ur-state")[0] === undefined ) {
             x$(content).attr("data-ur-state", toggler_state)
-    }
-  }
+          }
+        }
       );
 
     }
@@ -2938,16 +4058,16 @@ Ur.QuickLoaders['toggler'] = (function(){
 
   ToggleLoader.prototype.initialize = function(fragment) {
     var togglers = this.find(fragment);
-
     for(var name in togglers){
       var toggler = togglers[name];
+      // if (togglers)
       x$(toggler["button"]).click(this.construct_button_callback(toggler["content"], toggler["set"]));
       x$(toggler["set"]).attr("data-ur-state","enabled");
     }
   }
 
   return ToggleLoader;
-})();
+  })();
 
 /* Zoom Preview  *
  * * * * * * * * *
@@ -3158,7 +4278,7 @@ Ur.QuickLoaders['zoom-preview'] = (function(){
   }
 
   ZoomPreviewLoader.prototype.initialize = function(fragment) {
-    this.zoom_previews = x$(fragment).find_elements('zoom-preview', ComponentConstructors);
+    this.zoom_previews = x$(fragment).findElements('zoom-preview', ComponentConstructors);
     Ur.Widgets["zoom-preview"] = {};
     for (var name in this.zoom_previews) {
       Ur.Widgets["zoom-preview"][name] = new ZoomPreview(this.zoom_previews[name]);
