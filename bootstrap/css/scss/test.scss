@@ -1,0 +1,25 @@
+body {
+  font-family: sans-serif; 
+}
+
+.test, .description {
+  border: 1px solid #555555;
+  margin: 20px;
+  padding: 0px 10px 10px; 
+}
+
+.demo {
+  border: 1px solid green;
+  margin: 20px;
+  padding: 0px 10px 10px; 
+}
+
+.code {
+  border: 1px solid blue;
+  margin: 20px;
+  padding: 0px 10px 10px;
+  background: #E8E8E8;
+  color: black;
+  font-family: courier;
+  text-align: left; 
+}
