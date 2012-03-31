@@ -71,91 +71,91 @@ widget_selected: selected
     <div class='wrapper'>
       <h2>Required Styles</h2>
       <div class='css'>
-<pre>
-/* Required SCSS Styling */
+  {% highlight scss %}
+  /* Required SCSS Styling */
 
-.table-wrapper {
-  position: relative; }
-.table-menu {
-  > ul {
+  .table-wrapper {
+    position: relative; }
+  .table-menu {
+    > ul {
+      position: absolute;
+      z-index: 100;
+      background-color: white;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      width: 12em;
+      right: 0;
+      left: auto;
+      top: -7px;
+      list-style: none;
+      li {
+        color: black; } } }
+  .table-background-element {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 99;
+    height: 100%;
+    width: 100% !important; }
+  .table-menu-hidden {
+    display: none;
+    left: -999em;
+    right: auto; }
+  .table-menu-btn {
+    text-decoration: none;
+    color: #333333;
+    background: #eeeeee;
+    padding: 0.4em 10px 0.4em 5px;
+    border: 1px solid #cccccc;
     position: absolute;
     z-index: 100;
-    background-color: white;
-    padding: 10px;
-    border: 1px solid #cccccc;
-    width: 12em;
-    right: 0;
-    left: auto;
-    top: -7px;
-    list-style: none;
-    li {
-      color: black; } } }
-.table-background-element {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  z-index: 99;
-  height: 100%;
-  width: 100% !important; }
-.table-menu-hidden {
-  display: none;
-  left: -999em;
-  right: auto; }
-.table-menu-btn {
-  text-decoration: none;
-  color: #333333;
-  background: #eeeeee;
-  padding: 0.4em 10px 0.4em 5px;
-  border: 1px solid #cccccc;
-  position: absolute;
-  z-index: 100;
-  top: -40px;
-  right: 0; }
-a.table-menu-btn, a.table-menu-btn:hover {
-  color: #333333;
-  text-decoration: none; }
-.table-menu-btn-icon {
-  width: 0px;
-  height: 0px;
-  font-size: 0px;
-  line-height: 0px;
-  border: 6px solid;
-  margin-right: 5px;
-  margin-top: 4px;
-  vertical-align: middle;
-  border-image: initial;
-  display: inline-block;
-  border-color: gray transparent transparent transparent; }
-.menu-btn-show > .table-menu-btn-icon {
-  border-color: transparent transparent gray transparent;
-  margin-top: -8px; }
-.table-menu li {
-  padding: 0.3em 0; }
-table {
-  width: 100%; }
-.enhanced th,
-.enhanced td {
-  display: none; }
-.enhanced th.essential,
-.enhanced td.essential {
-  display: table-cell; }
-.enhanced .ur_ft_hide {
-  display: none !important; }
-.enhanced .ur_ft_show {
-  display: table-cell !important; }
-// Change this width to alter the switch state
-// for the optional classes
-@media screen and (min-width: 480px) {
-  .enhanced th.optional,
-  .enhanced td.optional {
-    display: table-cell; } }
-// Change this width to alter the switch state
-// to show all columns
-@media screen and (min-width: 800px) {
+    top: -40px;
+    right: 0; }
+  a.table-menu-btn, a.table-menu-btn:hover {
+    color: #333333;
+    text-decoration: none; }
+  .table-menu-btn-icon {
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+    line-height: 0px;
+    border: 6px solid;
+    margin-right: 5px;
+    margin-top: 4px;
+    vertical-align: middle;
+    border-image: initial;
+    display: inline-block;
+    border-color: gray transparent transparent transparent; }
+  .menu-btn-show > .table-menu-btn-icon {
+    border-color: transparent transparent gray transparent;
+    margin-top: -8px; }
+  .table-menu li {
+    padding: 0.3em 0; }
+  table {
+    width: 100%; }
   .enhanced th,
   .enhanced td {
-    display: table-cell; } }
-</pre>  
+    display: none; }
+  .enhanced th.essential,
+  .enhanced td.essential {
+    display: table-cell; }
+  .enhanced .ur_ft_hide {
+    display: none !important; }
+  .enhanced .ur_ft_show {
+    display: table-cell !important; }
+  // Change this width to alter the switch state
+  // for the optional classes
+  @media screen and (min-width: 480px) {
+    .enhanced th.optional,
+    .enhanced td.optional {
+      display: table-cell; } }
+  // Change this width to alter the switch state
+  // to show all columns
+  @media screen and (min-width: 800px) {
+    .enhanced th,
+    .enhanced td {
+      display: table-cell; } }
+  {% endhighlight %}
       </div>
     </div>
 
@@ -371,39 +371,39 @@ table {
 
             </div>
             <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-              <p class='code'>
-                <span id="brown">&lt;div <span id="green">class="table-wrapper"</span>><br/>
-                  <span id="brown">&emsp;&emsp;&lt;table cellspacing="0" id="tech-companies-2"</span><span id="green"> data-ur-flex-table-component="table"</span><span id="brown">></span><br/>
-                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;thead </span><span id="green">data-ur-flex-table-component="head"</span><span id="brown">></span><br/>
-                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;tr></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="persist essential"</span><span id="brown">>Company&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="essential"</span><span id="brown">>Last Trade&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="optional"</span><span id="brown">>Trade Time&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="essential"</span><span id="brown">>Change&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="optional"</span><span id="brown">>Prev Close&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th <span id="green">class="optional"</span><span id="brown">>Open&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>Bid&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>Ask&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>1y Target Est&lt;/th></span><br/>
-                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;/tr></span><br/>
-                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;/thead></span><br/>
-                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;tbody <span id="green">data-ur-flex-table-component="body"</span><span id="brown">></span><br/>
-                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;tr></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;th>GOOG &lt;span class="co-name">Google Inc.&lt;/span>&lt;/th></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.74&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>12:12PM&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>14.81 (2.54%)&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>582.93&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.95&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.73 x 100&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>597.91 x 300&lt;/td></span><br/>
-                        <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;td>731.10&lt;/td></span><br/>
-                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&lt;/tr></span><br/>
-                      <span id="brown">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...</span><br/>
-                    <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;/tbody></span><br/>
-                  <span id="brown">&emsp;&emsp;&lt;/table></span><br/>
-                <span id="brown">&lt;/div></span><br/>
-              </p>
+  {% highlight html %}
+  <div class="table-wrapper" data-ur-set="flex-table">
+    <table cellspacing="0" id="tech-companies-1" data-ur-flex-table-component="table">
+      <thead data-ur-flex-table-component="head">
+        <tr>
+          <th class="persist essential">Company</th>
+          <th class="essential">Last Trade</th>
+          <th class="optional">Trade Time</th>
+          <th class="essential">Change</th>
+          <th class="optional">Prev Close</th>
+          <th class="optional">Open</th>
+          <th>Bid</th>
+          <th>Ask</th>
+          <th>1y Target Est</th>
+        </tr>
+      </thead>
+      <tbody data-ur-flex-table-component="body">
+        <tr>
+          <th>GOOG <span class="co-name">Google Inc.</span></th>
+          <td>597.74</td>
+          <td>12:12PM</td>
+          <td>14.81 (2.54%)</td>
+          <td>582.93</td>
+          <td>597.95</td>
+          <td>597.73 x 100</td>
+          <td>597.91 x 300</td>
+          <td>731.10</td>
+        </tr>      
+        ...
+      </tbody>
+    </table>
+  </div>
+  {% endhighlight %}
             </div><!-- html content end -->
         </div>
       </div>

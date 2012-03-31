@@ -102,15 +102,15 @@ widget_selected: selected
       <div class="wrapper">
         <h2>Optional CSS</h2>
         <div class='css'>
-<pre>
-/* CSS Styling */
-/* To constrain the map canvas */
+  {% highlight scss %}
+  /* CSS Styling */
+  /* To constrain the map canvas */
 
-*[data-ur-map-component='canvas'] {
-  width: 300px;
-  height: 300px; 
-}
-</pre>
+  *[data-ur-map-component='canvas'] {
+    width: 300px;
+    height: 300px; 
+  }
+  {% endhighlight %}
         </div>
     </div><!-- wrapper -->
     
@@ -169,19 +169,46 @@ widget_selected: selected
             </div>
           </div>
           <div data-ur-tabs-component="content" data-ur-tab-id="html">
-            <p class="code">
-              <span id="brown">&lt;div <span id="green">data-ur-set='map'<span id="brown">><br/>
-                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-map-component='canvas'<span id="brown">>&lt;/div><br/>
-
-                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-map-component='address'<span id="brown">><br/>
-                  <span id="brown">&emsp;&emsp;&emsp;&emsp;123, Fake St, San Francisco, CA<br/>
-                <span id="brown">&emsp;&emsp;&lt;/div><br/>
-                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-map-component='description'<span id="brown">><br/>
-                  <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;a href='http://website.com'> Name of Place &lt;/a><br/>
-                  <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;span> (555) 255-0333 &lt;/span><br/>
-                <span id="brown">&emsp;&emsp;&lt;/div><br/>
-              <span id="brown">&lt;/div>
-            </p> 
+  {% highlight html %}
+  <div data-ur-set='map'>       
+    <div data-ur-map-component='canvas' id="map_canvas"></div>
+    <div data-ur-map-component='address'>
+      333 11th Street, San Francisco, CA
+    </div>
+    <div data-ur-map-component='description'>
+      <a href='http://slims-sf.com'> Slims </a>
+      <span> (415) 255-0333 </span>
+    </div>        
+    <div data-ur-map-component='address'>
+      1805 Geary Blvd, San Francisco, California 94115
+    </div>
+    <div data-ur-map-component='description'>
+      <a href='http://thefillmore.com/index'> The Fillmore </a>
+      <span> 415.346.6000 </span>          
+    </div>                
+    <div data-ur-map-component='address'>
+      500 4th Street, San Francisco, CA
+    </div>
+    <div data-ur-map-component='description'>
+      <a href='http://hotelutah.com'> Hotel Utah </a>
+      <span> (415) 546-6300 </span>
+    </div>        
+    <div data-ur-map-component='address'>
+      859 O'Farrell Street, San Francisco, CA
+    </div>
+    <div data-ur-map-component='description'>
+      <a href='http://gamh.com'> Great American Music Hall</a>
+      <span> (415) 885-0750 </span>
+    </div>
+    <div data-ur-map-component='address'>
+      1233 17th Street, San Francisco, CA
+    </div>
+    <div data-ur-map-component='description'>
+      <a href='http://bottomofthehill.com'> Bottom of the Hill </a>
+      <span> (415) 621-4455 </span>
+    </div>
+  </div>
+  {% endhighlight %}
           </div>
         </div>
       </div>

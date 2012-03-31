@@ -25,16 +25,14 @@ widget_selected: selected
   <h2> Script </h2>
   
   <p>For this trick, a bit of extra javascript is needed. Just insert the following somewhere on the page:</p>
-    <p class="code">
-      <span id="brown">&lt;script><br/>
-        <span id="green">&emsp;&emsp;function setup_map(evt){<br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;Ur.setup("[data-ur-set='map']");<br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;x$("#map_button").un('click',setup_map);<br/>
-        <span id="green">&emsp;&emsp;}<br/>
+  {% highlight js %}
+  function setup_map(evt){
+    Ur.setup("[data-ur-set='map']");
+    x$("#map_button").un('click',setup_map);
+  }
 
-        <span id="green">&emsp;&emsp;x$("#map_button").on('click',setup_map);   <br/>     
-      <span id="brown">&lt;/script>
-    </p>
+  x$("#map_button").on('click',setup_map);
+  {% endhighlight %}
   <p>Then add a button with the <span class="inline_code">id="map_button"</span>, and set the
      <span class="inline_code">data-ur-state</span> of the map to "disabled".
 

@@ -792,34 +792,35 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
 .attributes *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
   display: block;
   background: silver url("resources/largestshade.png") no-repeat left bottom;
-  border: 1px solid black;
   padding: 20px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 106, sass/_test.sass */
+/* line 103, sass/_test.sass */
 .attributes *[data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
 
-/* line 108, sass/_test.sass */
+/* line 105, sass/_test.sass */
 .attributes #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
   background: silver; }
 
-/* line 110, sass/_test.sass */
+/* line 107, sass/_test.sass */
 .attributes #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
   background: silver; }
 
-/* line 112, sass/_test.sass */
+/* line 109, sass/_test.sass */
 .attributes .advanced_tab ul {
   list-style-type: none;
   margin-bottom: 10px; }
 
-/* line 116, sass/_test.sass */
+/* line 113, sass/_test.sass */
 .attributes li[data-ur-set="toggler"] {
   padding: 10px; }
 
-/* line 119, sass/_test.sass */
+/* line 116, sass/_test.sass */
 .attributes li[data-ur-set="toggler"] [data-ur-toggler-component='button'] {
   background: none;
   color: #323232;
@@ -827,26 +828,26 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
   border: 1px dashed #fafafa;
   border-raduis: none; }
 
-/* line 126, sass/_test.sass */
+/* line 123, sass/_test.sass */
 .attributes li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
   display: none; }
 
-/* line 129, sass/_test.sass */
+/* line 126, sass/_test.sass */
 .attributes li[data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state="enabled"] {
   display: block;
   background: none;
   width: 100%;
   color: #323232; }
 
-/* line 136, sass/_test.sass */
+/* line 133, sass/_test.sass */
 .attributes li[data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state="enabled"] li {
   color: #323232; }
 
-/* line 139, sass/_test.sass */
+/* line 136, sass/_test.sass */
 .attributes p.instance {
   color: #323232; }
 
-/* line 142, sass/_test.sass */
+/* line 139, sass/_test.sass */
 .css {
   display: block;
   background: silver url("resources/largestshade.png") no-repeat left bottom;

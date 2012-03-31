@@ -98,11 +98,8 @@ li[data-ur-set="toggler"]
 .attributes *[data-ur-tabs-component='content'][data-ur-state='enabled'] 
   display: block
   background: #C0C0C0 url('resources/largestshade.png') no-repeat left bottom
-  border: 1px solid black
   padding: 20px
-  -webkit-border-radius: 5px
-  -moz-border-radius: 5px
-  border-radius: 5px 
+  @include border-radius(5px)
 .attributes *[data-ur-set="tabs"][data-ur-tab-id="html"] 
   text-align: left 
 .attributes #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] 
