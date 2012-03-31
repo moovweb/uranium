@@ -855,8 +855,7 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  margin-bottom: 15px;
-  overflow: scroll; }
+  margin-bottom: 15px; }
 
 /* line 3, sass/_toggler.sass */
 body#togglers_page *[data-ur-set="toggler"] {
@@ -1376,3 +1375,128 @@ body#more_page [data-ur-set="toggler"] {
     display: block;
     font-size: 0.7em;
     opacity: 0.4; }
+
+/* line 1, sass/_highlight_code.sass */
+.highlight {
+  color: #f8f8f2;
+  background-color: #282828;
+  border: 3px dashed #3c3c3c;
+  padding: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  overflow: scroll; }
+  /* line 8, sass/_highlight_code.sass */
+  .highlight .hll {
+    background-color: #49483e; }
+  /* line 10, sass/_highlight_code.sass */
+  .highlight .c {
+    color: #75715e; }
+  /* line 12, sass/_highlight_code.sass */
+  .highlight .err {
+    color: #960050;
+    background-color: #1e0010; }
+  /* line 15, sass/_highlight_code.sass */
+  .highlight .k {
+    color: #66d9ef; }
+  /* line 17, sass/_highlight_code.sass */
+  .highlight .l {
+    color: #ae81ff; }
+  /* line 19, sass/_highlight_code.sass */
+  .highlight .n {
+    color: #f8f8f2; }
+  /* line 21, sass/_highlight_code.sass */
+  .highlight .o {
+    color: #f92672; }
+  /* line 23, sass/_highlight_code.sass */
+  .highlight .p {
+    color: #f8f8f2; }
+  /* line 25, sass/_highlight_code.sass */
+  .highlight .cm, .highlight .cp, .highlight .c1, .highlight .cs {
+    color: #75715e; }
+  /* line 27, sass/_highlight_code.sass */
+  .highlight .ge {
+    font-style: italic; }
+  /* line 29, sass/_highlight_code.sass */
+  .highlight .gs {
+    font-weight: bold; }
+  /* line 31, sass/_highlight_code.sass */
+  .highlight .kc, .highlight .kd {
+    color: #66d9ef; }
+  /* line 33, sass/_highlight_code.sass */
+  .highlight .kn {
+    color: #f92672; }
+  /* line 35, sass/_highlight_code.sass */
+  .highlight .kp, .highlight .kr, .highlight .kt {
+    color: #66d9ef; }
+  /* line 37, sass/_highlight_code.sass */
+  .highlight .ld {
+    color: #e6db74; }
+  /* line 39, sass/_highlight_code.sass */
+  .highlight .m {
+    color: #ae81ff; }
+  /* line 41, sass/_highlight_code.sass */
+  .highlight .s {
+    color: #e6db74; }
+  /* line 43, sass/_highlight_code.sass */
+  .highlight .na {
+    color: #a6e22e; }
+  /* line 45, sass/_highlight_code.sass */
+  .highlight .nb {
+    color: #f8f8f2; }
+  /* line 47, sass/_highlight_code.sass */
+  .highlight .nc {
+    color: #a6e22e; }
+  /* line 49, sass/_highlight_code.sass */
+  .highlight .no {
+    color: #66d9ef; }
+  /* line 51, sass/_highlight_code.sass */
+  .highlight .nd {
+    color: #a6e22e; }
+  /* line 53, sass/_highlight_code.sass */
+  .highlight .ni {
+    color: #f8f8f2; }
+  /* line 55, sass/_highlight_code.sass */
+  .highlight .ne, .highlight .nf {
+    color: #a6e22e; }
+  /* line 57, sass/_highlight_code.sass */
+  .highlight .nl, .highlight .nn {
+    color: #f8f8f2; }
+  /* line 59, sass/_highlight_code.sass */
+  .highlight .nx {
+    color: #a6e22e; }
+  /* line 61, sass/_highlight_code.sass */
+  .highlight .py {
+    color: #f8f8f2; }
+  /* line 63, sass/_highlight_code.sass */
+  .highlight .nt {
+    color: #f92672; }
+  /* line 65, sass/_highlight_code.sass */
+  .highlight .nv {
+    color: #f8f8f2; }
+  /* line 67, sass/_highlight_code.sass */
+  .highlight .ow {
+    color: #f92672; }
+  /* line 69, sass/_highlight_code.sass */
+  .highlight .w {
+    color: #f8f8f2; }
+  /* line 71, sass/_highlight_code.sass */
+  .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo {
+    color: #ae81ff; }
+  /* line 73, sass/_highlight_code.sass */
+  .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2 {
+    color: #e6db74; }
+  /* line 75, sass/_highlight_code.sass */
+  .highlight .se {
+    color: #ae81ff; }
+  /* line 77, sass/_highlight_code.sass */
+  .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss {
+    color: #e6db74; }
+  /* line 79, sass/_highlight_code.sass */
+  .highlight .bp, .highlight .vc, .highlight .vg, .highlight .vi {
+    color: #f8f8f2; }
+  /* line 81, sass/_highlight_code.sass */
+  .highlight .il {
+    color: #ae81ff; }
