@@ -64,94 +64,34 @@ widget_selected: selected
   <div class='wrapper'>
     <h2> Required Styles </h2>
     <div class='css'>
-<pre>
-/* Required SCSS Styling */
+  {% highlight scss %}
+  /* Required SCSS Styling */
 
-*[data-ur-set='toggler'] {
+  *[data-ur-set='toggler'] {
   /* By Default content is hidden*/
-  *[data-ur-toggler-component='content'] {
+    *[data-ur-toggler-component='content'] {
+      display:none;
+    }
+    *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+      display: block;
+    }
+  }
+
+  /* Required CSS Styling */
+
+  *[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
     display:none;
   }
-  *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+  *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
     display: block;
   }
-}
-</pre>
-<pre>
-/* Required CSS Styling */
-
-*[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
-  display:none;
-}
-*[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-  display: block;
-}
-</pre>      
+  {% endhighlight %}     
     </div>
+    
   </div><!-- wrapper -->
   <div class="wrapper">
     <h2>Demonstration</h2>
-    <div class='demonstration' name='Simple'>body#carousel_page
-  div
-    &[data-ur-carousel-component='view_container']
-      height: 270px
-      width: 100%
-      overflow-x: hidden
-      border: 1px solid black
-      background: #FFD700 url('resources/largeshade.png') no-repeat left bottom
-    &[data-ur-carousel-component="scroll_container"]
-      display: inline-block
-      img
-        display: block
-        float: left
-      // This is important -- otherwise, the carousel can't calculate the accurate total width
-      // background-color: #3CC;
-    &[data-ur-carousel-component="button"]
-      display: inline-block
-      &[data-ur-state="disabled"]
-        opacity: 0.3
-
-  // Non essential styling
-
-
-  div[name='Three'] img
-    width: 62px !important
-    // on iphone without the important, it doesn't work!!
-    height: 62px
-
-body#carousel_examples_page
-  div
-    &[data-ur-carousel-component='view_container']
-      height: 300px
-      width: 100%
-      overflow-x: hidden
-      border: 1px solid black
-      background: #FFD700 url('resources/largeshade.png') no-repeat left bottom
-    &[data-ur-carousel-component="scroll_container"]
-      display: block
-      > *
-        display: inline-block
-        float: left
-        // This is important -- otherwise, the carousel can't calculate the accurate total width
-        // background-color: #3CC;
-    &[data-ur-carousel-component="button"]
-      display: inline-block
-      &[data-ur-state="disabled"]
-        opacity: 0.3
-
-  // Non essential styling
-
-
-  div[name='Three'] img
-    width: 250px !important
-    // on iphone without the important, it doesn't work!!
-    height: 250px
-
-  div.fixed_width
-    width: 500px
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
+    <div class='demonstration' name='Simple'>
       <div class="description">
         <p>
         We have one button ("Click Here!"). When we click on it, we want the content 
@@ -179,20 +119,18 @@ body#carousel_examples_page
           </div> <!-- toggler end -->
         </div> <!-- widget content end -->
         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-          <p class="code">
-            <span id="brown">&lt;div <span id="green">data-ur-set="toggler"<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component="button"<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;Click Here!<br/>
-            <span id="brown">&emsp;&emsp;&lt;div><br/>
-            <span id="brown">&emsp;&emsp;&lt;ul <span id="green">data-ur-toggler-component="content"<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Hat &lt;/li><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Socks &lt;/li><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shoes &lt;/li><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Gloves &lt;/li><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li> Shirts &lt;/li><br/>
-            <span id="brown">&emsp;&emsp;&lt;/ul><br/>
-            <span id="brown">&lt;/div>
-          </p>
+  {% highlight html %}
+  <div data-ur-set='toggler'>
+    <div data-ur-toggler-component='button'>Click Here!</div>
+    <ul data-ur-toggler-component='content'>
+      <li> Hat </li>
+      <li> Socks </li>
+      <li> Shoes </li>
+      <li> Gloves </li>
+      <li> Shirts </li>
+    </ul>
+  </div>
+  {% endhighlight %}
         </div><!-- html content end -->
       </div><!--accortion demonstraion end-->
     </div><!-- demonstration end -->
@@ -314,19 +252,15 @@ body#carousel_examples_page
         Then, we add the following javascript, which enables the toggler when clicked.
       </p>
       
-      <p class="code">
-        <span id="brown">&lt;script type='text/javascript'><br/>
-          <span id="green">&emsp;&emsp;x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});<br/>
-        <span id="brown">&lt;/script>
-      </p>
-      
+  {% highlight javascript %}
+  x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
+  {% endhighlight %}
       
       <div class='activate_button'>
       <p> Click here to activate the toggler. </p>
       </div>
 
-      <script type='text/javascript'>
-        x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
+      <script type='text/javascript'> x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
       </script>
 
       <div data-ur-set='toggler' data-ur-state='disabled' id="disabled">
@@ -349,3 +283,4 @@ body#carousel_examples_page
 
 
 </div> <!-- tabs end -->
+
