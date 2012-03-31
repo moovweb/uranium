@@ -75,38 +75,39 @@ widget_selected: selected
   <div class="wrapper">
     <h2>Required CSS</h2>
     <div class='css'>
-<pre>
-/* Required SCSS Styling */
-*[data-ur-set="tabs"] {
-  *[data-ur-tabs-component='button'] { 
+  {% highlight scss %}
+  /* Required SCSS Styling */
+
+  *[data-ur-set="tabs"] {
+    *[data-ur-tabs-component='button'] { 
+      opacity: 0.5;
+    }
+    *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+      opacity: 1.0;
+    }
+    *[data-ur-tabs-component='content'] {
+      display:none;
+    }
+    *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+      display: block;
+    } 
+  }
+  
+  /* Required CSS Styling */
+  
+  *[data-ur-set="tabs"] *[data-ur-tabs-component='button'] { 
     opacity: 0.5;
   }
-  *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+  *[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
     opacity: 1.0;
   }
-  *[data-ur-tabs-component='content'] {
+  *[data-ur-set="tabs"] *[data-ur-tabs-component='content'] {
     display:none;
   }
-  *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+  *[data-ur-set="tabs"] *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
     display: block;
-  } 
-}
-</pre>
-<pre>
-/* Required CSS Styling */
-*[data-ur-set="tabs"] *[data-ur-tabs-component='button'] { 
-  opacity: 0.5;
-}
-*[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
-  opacity: 1.0;
-}
-*[data-ur-set="tabs"] *[data-ur-tabs-component='content'] {
-  display:none;
-}
-*[data-ur-set="tabs"] *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
-  display: block;
-}
-</pre>      
+  }
+  {% endhighlight %}
     </div>
   </div><!-- wrapper -->
 
@@ -142,31 +143,25 @@ widget_selected: selected
         </div>
       </div>
       <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-        <p class="code">
-          <span id="brown">&lt;div <span id="green">data-ur-set='tabs'<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;First<br/> 
-            <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
-            <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='second'<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;Second <br/>
-            <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
-            <span id="brown">&emsp;&emsp;&lt;span <span id="green">data-ur-tabs-component='button' data-ur-tab-id='third'<span id="brown">><br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;Third<br/>
-            <span id="brown">&emsp;&emsp;&lt;/span>        <br/>
+  {% highlight html %}
+    <div data-ur-set='tabs'>
+      <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
 
-            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'<span id="brown">><br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img ONE /><br/>
-          <span id="brown"> &emsp;&emsp;&lt;/div><br/>
+      <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
+        <img width='300px' height='300px' src='{{site.url}}../images/sample1.png?some_attr=noway'/> 
+      </div>
 
-            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='second'<span id="brown">><br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img TWO /><br/>
-            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+      <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+        <img width='300px' height='300px' src='{{site.url}}../images/sample2.png?some_attr=noway'/> 
+      </div>
 
-            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-tabs-component='content' data-ur-tab-id='third'<span id="brown">><br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img THREE /><br/>
-           <span id="brown">&emsp;&emsp;&lt;/div><br/>
-           <span id="brown">&lt;/div
-        </p>
+      <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+        <img width='300px' height='300px' src='{{site.url}}../images/sample3.png?some_attr=noway'/> 
+      </div>       
+    </div>
+  {% endhighlight %}
       </div>
     </div>
 </div><!-- wrapper end -->
