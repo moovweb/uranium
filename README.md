@@ -99,6 +99,10 @@ If you're contributing to the code base, you need to test your changes and updat
 
 TODO: Information on how the code base should be structured, conventions, etc...
 
+Start the jekyll server with `jekyll --server --pygments`
+
+Run `sass --watch stylesheets/sass:stylesheets --line-comments --compass` onteh stylesheets folder to compile your SASS files. 
+
 **Documentation**
 
 You'll need to generate an .html file that goes in the _site/widgets folder that should do the following things
