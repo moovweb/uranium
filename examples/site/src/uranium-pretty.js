@@ -1488,6 +1488,44 @@ xui.extend({
 }(this, document);
 })();
 
+xui.extend({
+	/**
+	 * Adds more DOM nodes to the existing element list.
+	 */
+	add: function(q) {
+	  [].push.apply(this, slice(xui(q)));
+	  return this.set(this.reduce());
+	},
+
+	/**
+	 * Pops the last selector from XUI
+	 */
+	end: function () {	
+		return this.set(this.cache || []);	 	
+	},
+  /**
+   * Sets the `display` CSS property to `block`.
+   */
+  show:function() {
+    return this.setStyle('display','block');
+  },
+  /**
+   * Sets the `display` CSS property to `none`.
+   */
+  hide:function() {
+    return this.setStyle('display','none');
+  }
+});
+
+xui.extend({
+   fade:function(to, callback) {
+       var target = 0;
+       if (typeof to == 'string' && to == 'in') target = 1;
+       else if (typeof to == 'number') target = to;
+       return this.tween({opacity:target,duration:.2}, callback);
+   } 
+});
+
 if(typeof(Ur) == "undefined") {
   Ur = {
     QuickLoaders: {},
@@ -1763,10 +1801,6 @@ Ur.WindowLoaders["carousel"] = (function() {
       return 0;
     }
   }
-  
-  function getWidth(obj) {
-    return obj.offsetWidth ? obj.offsetWidth : parseInt(x$(obj).getStyle("width"));
-  }
 
   //// Public Methods ////
 
@@ -1800,9 +1834,6 @@ Ur.WindowLoaders["carousel"] = (function() {
         x$(target).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
         x$(target).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
         x$(target).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
-        //x$(this.items).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
-        //x$(this.items).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
-        //x$(this.items).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
         x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
       }
 
@@ -1908,13 +1939,13 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     resize: function() {
-      if (this.snapWidth != getWidth(this.container))
+      if (this.snapWidth != this.container.offsetWidth)
         this.adjustSpacing();
     },
 
     adjustSpacing: function() {
       // Will need to be called if the container's size changes --> orientation change
-      var visibleWidth = getWidth(this.container);
+      var visibleWidth = this.container.offsetWidth;
 
       if (this.oldWidth !== undefined && this.oldWidth == visibleWidth)
         return;
@@ -1930,7 +1961,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       var totalWidth = 0;
 
       for (var i = 0; i < items.length; i++)
-        totalWidth += getWidth(items[i]);
+        totalWidth += items[i].offsetWidth;
 
       this.items.style.width = totalWidth + "px";
 
@@ -1942,7 +1973,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
       if (this.options.infinite) {
-        var centerOffset = parseInt((this.snapWidth - getWidth(items[0]))/2);
+        var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
         cumulativeOffset += centerOffset; // CHECK
       }
       if (oldSnapWidth)
@@ -2054,7 +2085,6 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     continueSwipe: function(e) {
-      console.log("continueSwipe");
       if (!this.flag.touched) // For non-touch environments
         return;
 
@@ -2085,25 +2115,21 @@ Ur.WindowLoaders["carousel"] = (function() {
 
         if (this.options.infinite) {
           var items = x$(this.items).find("[data-ur-carousel-component='item']");
-          var endLimit = items[this.lastIndex].offsetLeft + getWidth(items[this.lastIndex]) - getWidth(this.container);
+          var endLimit = items[this.lastIndex].offsetLeft + items[this.lastIndex].offsetWidth - this.container.offsetWidth;
 
           if (dist > 0) { // at the beginning of carousel
             var srcNode = items[this.realItemCount];
             var offset = srcNode.offsetLeft - items[0].offsetLeft;
             this.startingOffset -= offset;
-            //console.log(">" + this.startingOffset);
             dist -= offset;
             this.flag.loop = !this.flag.loop;
-            //this.itemIndex = this.lastIndex;
           }
           else if (dist < -endLimit) {  // at the end of carousel
             var srcNode = items[this.lastIndex - this.realItemCount];
             var offset = srcNode.offsetLeft - items[this.lastIndex].offsetLeft;
             this.startingOffset -= offset;
-            //console.log("<" + this.startingOffset);
             dist -= offset;
             this.flag.loop = !this.flag.loop;
-            //this.itemIndex = 0;
           }
         }
 
@@ -2112,13 +2138,10 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     finishSwipe: function(e) {
-      console.log("finishSwipe");
       if (!this.flag.click || this.flag.lock)
         stifle(e);
       else
         x$(e.target).click();
-      
-      //console.log(this.itemIndex);
       
       this.flag.touched = false; // For non-touch environments
       
@@ -2129,17 +2152,16 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
     getDisplacementIndex: function() {
       var swipeDistance = this.swipeDist();
-      var displacementIndex = zeroCeil(swipeDistance/getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]));
-      //var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
+      var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
       return displacementIndex;
     },
     snapTo: function(displacement) {
       this.destinationOffset = displacement + this.startingOffset;
       var maxOffset = -1*(this.lastIndex)*this.snapWidth;
-      var minOffset = parseInt((this.snapWidth - getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]))/2);
+      var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
 
       if (this.options.infinite)
-        maxOffset = -getWidth(this.items);
+        maxOffset = -this.items.offsetWidth;
       if (this.destinationOffset < maxOffset || this.destinationOffset > minOffset) {
         if (Math.abs(this.destinationOffset - maxOffset) < 1) {
           // Hacky -- but there are rounding errors
@@ -2167,7 +2189,6 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.autoscrollStop();
 
       var newIndex = this.getNewIndex(direction);
-      //console.log("newIndex=" + newIndex)
 
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
 
@@ -2177,39 +2198,25 @@ Ur.WindowLoaders["carousel"] = (function() {
 
         if (newIndex < this.options.cloneLength) { // at the beginning of carousel
           var offset = items[this.options.cloneLength].offsetLeft - items[this.itemCount - this.options.cloneLength].offsetLeft;
-          //console.log("oldTransform=" + oldTransform);
           if (!this.flag.loop) {
-            //console.log("blah");
             altTransform += offset;
             this.translate(altTransform);
             this.startingOffset += offset;
           }
-          //this.startingOffset = -items[newIndex + this.realItemCount + 1].offsetLeft;
-          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
-          //console.log("altTransform=" + altTransform);
-          //console.log("this.startingOffset=" + this.startingOffset);
           newIndex += this.realItemCount;
           this.itemIndex = newIndex + direction;
         }
         else if (newIndex > this.lastIndex - this.options.cloneLength) { // at the end of carousel
           var offset = items[this.itemCount - this.options.cloneLength].offsetLeft - items[this.options.cloneLength].offsetLeft;
           if (!this.flag.loop) {
-            //console.log("blah");
             altTransform += offset;
             this.translate(altTransform);
             this.startingOffset += offset;
           }
-          //altTransform += offset;
-          //this.startingOffset = -items[newIndex - this.realItemCount - 1].offsetLeft;
-          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
-          //this.startingOffset -= offset;
           newIndex -= this.realItemCount;
           this.itemIndex = newIndex + direction;
         }
       }
-      //console.log("startingOffset=" + this.startingOffset);
-      //console.log("itemIndex=" + this.itemIndex);
-      //console.log("newIndex=" + newIndex);
       var newItem = items[newIndex];
       var currentItem = items[this.itemIndex];
       var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
@@ -2244,23 +2251,6 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       var newTransform = increment + translateX;
 
-      
-      /*
-      if (this.options.infinite) {
-        var items = x$(this.items).find("[data-ur-carousel-component='item']");
-        var startLimit = items[this.options.cloneLength - 1].offsetLeft; // almost at the beginning of carousel
-        var endLimit = items[this.lastIndex].offsetLeft - this.container.offsetWidth; // almost at the end of carousel
-
-        if (newTransform >= -startLimit) { // almost at the beginning of carousel
-          this.destinationOffset -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
-          newTransform -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
-        }
-        if (newTransform <= -endLimit) { // almost at the end of carousel
-          this.destinationOffset += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
-          newTransform += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
-        }
-      }*/
-      
       this.translate(newTransform);
 
       if (increment != 0)
@@ -2270,21 +2260,6 @@ Ur.WindowLoaders["carousel"] = (function() {
         setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
       else {
         this.startingOffset = null;
-        /*
-        if (this.options.infinite) {
-          
-          if (this.itemIndex == this.itemCount - this.options.cloneLength) // almost at the end of carousel
-            this.itemIndex = this.options.cloneLength;
-          else if (this.itemIndex == this.options.cloneLength - 1) // almost at the beginning of carousel
-            this.itemIndex = this.lastIndex - this.options.cloneLength;
-
-          this.updateIndex(this.itemIndex);
-
-          var altTransform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex].offsetLeft;
-          altTransform += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
-          this.translate(altTransform);
-        }
-        */
         this.autoscrollStart();
 
         var itemIndex = this.itemIndex;
@@ -2341,6 +2316,138 @@ Ur.WindowLoaders["carousel"] = (function() {
   }
 
   return CarouselLoader;
+})();
+
+/* Flex Table *
+ * * * * * *
+ * The flex table widget will take a full-sized table and make it fit 
+ * on a variety of different viewport sizes.  
+ * 
+ */
+
+Ur.QuickLoaders['flex-table'] = (function(){
+  
+  // Add an enhanced class to the tables the we'll be modifying
+  function addEnhancedClass(tbl) {
+    x$(tbl).addClass("enhanced");
+  }
+  
+  function flexTable(aTable, table_index) {
+    // TODO :: Add the ability to pass in options
+    this.options = {
+      idprefix: 'col-',   // specify a prefix for the id/headers values
+      persist: "persist", // specify a class assigned to column headers (th) that should always be present; the script not create a checkbox for these columns
+      checkContainer: null // container element where the hide/show checkboxes will be inserted; if none specified, the script creates a menu
+    };
+    
+    var self = this, 
+        o = self.options,
+        table = aTable.table,
+        thead = aTable.head,
+        tbody = aTable.body,
+        hdrCols = x$(thead).find('th'),
+        bodyRows = x$(tbody).find('tr'), 
+        container = o.checkContainer ? x$(o.checkContainer) : x$('<div class="table-menu table-menu-hidden" ><ul /></div>');
+        
+    addEnhancedClass(table);
+    
+    hdrCols.each(function(elm, i){
+      var th = x$(this),
+          id = th.attr('id'),
+          classes = th.attr('class');
+      
+      // assign an id to each header, if none is in the markup
+      if (id.length === 0) {
+        id = ( o.idprefix ? o.idprefix : "col-" ) + i;
+        th.attr('id', id); 
+      }
+      
+      // assign matching "headers" attributes to the associated cells
+      // TEMP - needs to be edited to accommodate colspans
+      bodyRows.each(function(e, j){
+        var cells = x$(e).find("th, td");
+        cells.each(function(cell, k) {
+          if (cell.cellIndex == i) {
+            x$(cell).attr('headers', id);
+            if (classes.length !== 0) { x$(cell).addClass(classes[0]); };
+          }
+        });
+      });
+      
+      // create the show/hide toggles
+      if ( !th.hasClass(o.persist) ) {
+        var toggle = x$('<li><input type="checkbox" name="toggle-cols" id="toggle-col-' +
+                          i +  '-' + table_index +  '" value="' + id + '" /> <label for="toggle-col-' + i + '-' + table_index +  '">'
+                          + th.html() +'</label></li>');
+        container.find('ul').bottom(toggle);
+        var tgl = toggle.find("input");
+        
+        tgl.on("change", function() {
+          var input = x$(this),
+              val = input.attr('value'),
+              cols = x$("div[data-ur-id='" + table_index + "'] " + "#" + val[0] + ", " +
+                        "div[data-ur-id='" + table_index + "'] " + "[headers=" + val[0] + "]");
+          if (!this.checked) { 
+            cols.addClass('ur_ft_hide'); 
+            cols.removeClass("ur_ft_show"); }
+          else { 
+            cols.removeClass("ur_ft_hide"); 
+            cols.addClass('ur_ft_show'); }
+        });
+        tgl.on("updateCheck", function(){
+          if ( th.getStyle("display") == "table-cell" || th.getStyle("display") == "inline" ) {
+            x$(this).attr("checked", true);
+          }
+          else {
+            x$(this).attr("checked", false);
+          }
+        });
+        tgl.fire("updateCheck");
+      }
+      
+    }); // end hdrCols loop
+    
+    // Update the inputs' checked status
+    x$(window).on('orientationchange', function() {
+      container.find('input').fire('updateCheck');
+    });
+    x$(window).on('resize', function() {
+      container.find('input').fire('updateCheck');
+    });
+    
+    // Create a "Display" menu      
+    if (!o.checkContainer) {
+      var menuWrapper = x$('<div class="table-menu-wrapper"></div>'),
+          popupBG = x$('<div class = "table-background-element"></div>'),
+          menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
+      menuBtn.click(function(){
+        container.toggleClass("table-menu-hidden");
+        x$(this).toggleClass("menu-btn-show");
+        return false;
+      });
+      popupBG.click(function(){
+        container.toggleClass("table-menu-hidden");
+        menuBtn.toggleClass("menu-btn-show");
+        return false;
+      });
+      container.bottom(popupBG);
+      menuWrapper.bottom(menuBtn).bottom(container);
+      x$(table).before(menuWrapper);
+    };
+  }
+  
+  function TableLoader () {}
+  
+  TableLoader.prototype.initialize = function(fragment) {
+    var tables = x$(fragment).findElements('flex-table');
+    Ur.Widgets["flex-table"] = {};
+
+    for(var table in tables){
+      Ur.Widgets["flex-table"][name] = new flexTable(tables[table], table);
+    }
+  }
+  
+  return TableLoader;
 })();
 
 /* Font Resizer
@@ -2632,6 +2739,63 @@ Ur.QuickLoaders["geocode"] = (function() {
 
   return GeocodeLoader;
 })();
+/* Input Clear *
+ * * * * * *
+ * The input clear widget will provide a small X when a user focuses on a text input
+ * that can be clicked to clear the field.
+ * 
+ * Customize the appearance of the X with CSS
+ * 
+ */
+
+Ur.QuickLoaders['input-clear'] = (function(){
+  
+  function inputClear (input) {
+    // XUIify the input we're working with
+    var that = x$(input.input);
+        
+    // Create the X div
+    var ex = x$('<div class="data-ur-input-clear-ex"></div>')
+    // Hide it (even though this should be in CSS)
+    ex.hide();
+    // Inject it
+    that.html('after', ex);
+    
+    ex.on('click', function() {
+      // remove text in the box
+      that[0].value='';
+    });
+    
+    that.on('focus', function() {
+      if (that[0].value != '') {
+        ex.show();
+      }
+    })
+    that.on('keydown', function() {
+      ex.show();
+    });
+    that.on('blur', function() {
+      // Delay the hide so that the button can be clicked
+      setTimeout(function() { ex.hide();}, 100);
+    });
+  }
+  
+  function InputClearLoader () {}
+  
+  InputClearLoader.prototype.initialize = function(fragment) {
+    var inputs = x$(fragment).findElements('input-clear');
+    e = inputs;
+    
+    Ur.Widgets["input-clear"] = {};
+    
+    for(var input in inputs){
+      Ur.Widgets["input-clear"][input] = new inputClear(inputs[input]);
+    }
+  }
+  
+  return InputClearLoader;
+})();
+
 
 
 /*
@@ -3723,138 +3887,6 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
 })
 
 
-
-/* Flex Table *
- * * * * * *
- * The flex table widget will take a full-sized table and make it fit 
- * on a variety of different viewport sizes.  
- * 
- */
-
-Ur.QuickLoaders['flex-table'] = (function(){
-  
-  // Add an enhanced class to the tables the we'll be modifying
-  function addEnhancedClass(tbl) {
-    x$(tbl).addClass("enhanced");
-  }
-  
-  function flexTable(aTable, table_index) {
-    // TODO :: Add the ability to pass in options
-    this.options = {
-      idprefix: 'col-',   // specify a prefix for the id/headers values
-      persist: "persist", // specify a class assigned to column headers (th) that should always be present; the script not create a checkbox for these columns
-      checkContainer: null // container element where the hide/show checkboxes will be inserted; if none specified, the script creates a menu
-    };
-    
-    var self = this, 
-        o = self.options,
-        table = aTable.table,
-        thead = aTable.head,
-        tbody = aTable.body,
-        hdrCols = x$(thead).find('th'),
-        bodyRows = x$(tbody).find('tr'), 
-        container = o.checkContainer ? x$(o.checkContainer) : x$('<div class="table-menu table-menu-hidden" ><ul /></div>');
-        
-    addEnhancedClass(table);
-    
-    hdrCols.each(function(elm, i){
-      var th = x$(this),
-          id = th.attr('id'),
-          classes = th.attr('class');
-      
-      // assign an id to each header, if none is in the markup
-      if (id.length === 0) {
-        id = ( o.idprefix ? o.idprefix : "col-" ) + i;
-        th.attr('id', id); 
-      }
-      
-      // assign matching "headers" attributes to the associated cells
-      // TEMP - needs to be edited to accommodate colspans
-      bodyRows.each(function(e, j){
-        var cells = x$(e).find("th, td");
-        cells.each(function(cell, k) {
-          if (cell.cellIndex == i) {
-            x$(cell).attr('headers', id);
-            if (classes.length !== 0) { x$(cell).addClass(classes[0]); };
-          }
-        });
-      });
-      
-      // create the show/hide toggles
-      if ( !th.hasClass(o.persist) ) {
-        var toggle = x$('<li><input type="checkbox" name="toggle-cols" id="toggle-col-' +
-                          i +  '-' + table_index +  '" value="' + id + '" /> <label for="toggle-col-' + i + '-' + table_index +  '">'
-                          + th.html() +'</label></li>');
-        container.find('ul').bottom(toggle);
-        var tgl = toggle.find("input");
-        
-        tgl.on("change", function() {
-          var input = x$(this),
-              val = input.attr('value'),
-              cols = x$("div[data-ur-id='" + table_index + "'] " + "#" + val[0] + ", " +
-                        "div[data-ur-id='" + table_index + "'] " + "[headers=" + val[0] + "]");
-          if (!this.checked) { 
-            cols.addClass('ur_ft_hide'); 
-            cols.removeClass("ur_ft_show"); }
-          else { 
-            cols.removeClass("ur_ft_hide"); 
-            cols.addClass('ur_ft_show'); }
-        });
-        tgl.on("updateCheck", function(){
-          if ( th.getStyle("display") == "table-cell" || th.getStyle("display") == "inline" ) {
-            x$(this).attr("checked", true);
-          }
-          else {
-            x$(this).attr("checked", false);
-          }
-        });
-        tgl.fire("updateCheck");
-      }
-      
-    }); // end hdrCols loop
-    
-    // Update the inputs' checked status
-    x$(window).on('orientationchange', function() {
-      container.find('input').fire('updateCheck');
-    });
-    x$(window).on('resize', function() {
-      container.find('input').fire('updateCheck');
-    });
-    
-    // Create a "Display" menu      
-    if (!o.checkContainer) {
-      var menuWrapper = x$('<div class="table-menu-wrapper"></div>'),
-          popupBG = x$('<div class = "table-background-element"></div>'),
-          menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
-      menuBtn.click(function(){
-        container.toggleClass("table-menu-hidden");
-        x$(this).toggleClass("menu-btn-show");
-        return false;
-      });
-      popupBG.click(function(){
-        container.toggleClass("table-menu-hidden");
-        menuBtn.toggleClass("menu-btn-show");
-        return false;
-      });
-      container.bottom(popupBG);
-      menuWrapper.bottom(menuBtn).bottom(container);
-      x$(table).before(menuWrapper);
-    };
-  }
-  
-  function TableLoader () {}
-  
-  TableLoader.prototype.initialize = function(fragment) {
-    var tables = x$(fragment).findElements('flex-table');
-    Ur.Widgets["flex-table"] = {};
-
-    for(var table in tables){
-      Ur.Widgets["flex-table"][name] = new flexTable(tables[table], table);
-    }
-  }
-  
-  return TableLoader;
-})();
 
 /* Tabs *
  * * * * * *
