@@ -3,10 +3,14 @@
   :input_directory: ../lib
   :input_files:
   - ../lib/external/xui-2.3.2.js
+  - ../lib/external/showhide.js
+  - ../lib/external/fade.js
   - ../lib/uranium_mixins.js
 - :output_file: src/uranium-bb.js
   :input_files:
   - ../lib/external/xui-bb-2.3.2.js
+  - ../lib/external/showhide.js
+  - ../lib/external/fade.js
   - ../lib/uranium_mixins.js
   - ../lib/toggler.js
   - ../lib/tabs.js
@@ -15,6 +19,8 @@
 - :output_file: src/uranium-ie.js
   :input_files:
   - ../lib/external/xui-ie-2.3.2.js
+  - ../lib/external/showhide.js
+  - ../lib/external/fade.js
   - ../lib/uranium_mixins.js
   - ../lib/toggler.js
   - ../lib/tabs.js

@@ -2556,6 +2556,44 @@ window.Sizzle = Sizzle;
 }(this, document);
 })();
 
+xui.extend({
+	/**
+	 * Adds more DOM nodes to the existing element list.
+	 */
+	add: function(q) {
+	  [].push.apply(this, slice(xui(q)));
+	  return this.set(this.reduce());
+	},
+
+	/**
+	 * Pops the last selector from XUI
+	 */
+	end: function () {	
+		return this.set(this.cache || []);	 	
+	},
+  /**
+   * Sets the `display` CSS property to `block`.
+   */
+  show:function() {
+    return this.setStyle('display','block');
+  },
+  /**
+   * Sets the `display` CSS property to `none`.
+   */
+  hide:function() {
+    return this.setStyle('display','none');
+  }
+});
+
+xui.extend({
+   fade:function(to, callback) {
+       var target = 0;
+       if (typeof to == 'string' && to == 'in') target = 1;
+       else if (typeof to == 'number') target = to;
+       return this.tween({opacity:target,duration:.2}, callback);
+   } 
+});
+
 if(typeof(Ur) == "undefined") {
   Ur = {
     QuickLoaders: {},
