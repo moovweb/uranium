@@ -1,5 +1,5 @@
 task :enrich do
-  require 'fusion'     
+  require 'fusion'
 
   modes = {"pretty-bundles" => Fusion::Quick, "optimized-bundles" => Fusion::Optimized}
   # The old pretty mode would remove comments and auto-indent ... I should add that to fusion

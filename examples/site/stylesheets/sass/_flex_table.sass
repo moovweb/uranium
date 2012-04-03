@@ -1,10 +1,10 @@
-#flex_table_page 
+#flex_table_page
 
-  // Essential Styles 
+  // Essential Styles
   // Include these in your style sheets.
-  .table-wrapper 
+  .table-wrapper
     position: relative
-  .table-menu 
+  .table-menu
     > ul
       position: absolute
       z-index: 100
@@ -18,18 +18,18 @@
       list-style: none
       li
         color: black
-  .table-background-element 
-    position: fixed 
-    left: 0px 
-    top: 0px 
+  .table-background-element
+    position: fixed
+    left: 0px
+    top: 0px
     z-index: 99
-    height: 100% 
+    height: 100%
     width: 100% !important
-  .table-menu-hidden 
+  .table-menu-hidden
     display: none
     left: -999em
     right: auto
-  .table-menu-btn 
+  .table-menu-btn
     text-decoration: none
     color: #333
     background: #eee
@@ -42,7 +42,7 @@
   a.table-menu-btn, a.table-menu-btn:hover
     color: #333
     text-decoration: none
-  .table-menu-btn-icon 
+  .table-menu-btn-icon
     width: 0px
     height: 0px
     font-size: 0px
@@ -54,62 +54,62 @@
     border-image: initial
     display: inline-block
     border-color: gray transparent transparent transparent
-  .menu-btn-show > .table-menu-btn-icon 
+  .menu-btn-show > .table-menu-btn-icon
     border-color: transparent transparent gray transparent
     margin-top: -8px
-  .table-menu li 
+  .table-menu li
     padding: .3em 0
   table
     width: 100%
   .enhanced th,
-  .enhanced td 
+  .enhanced td
     display: none
-  .enhanced th.essential, 
-  .enhanced td.essential 
+  .enhanced th.essential,
+  .enhanced td.essential
     display: table-cell
-  .enhanced .ur_ft_hide 
+  .enhanced .ur_ft_hide
     display: none !important
-  .enhanced .ur_ft_show 
+  .enhanced .ur_ft_show
     display: table-cell !important
 
   // Change this width to alter the switch state
   // for the optional classes
-  @media screen and (min-width: 480px) 
-    .enhanced th.optional, 
-    .enhanced td.optional 
+  @media screen and (min-width: 480px)
+    .enhanced th.optional,
+    .enhanced td.optional
       display: table-cell
 
   // Change this width to alter the switch state
   // to show all columns
-  @media screen and (min-width: 800px) 
-    .enhanced th, 
-    .enhanced td 
+  @media screen and (min-width: 800px)
+    .enhanced th,
+    .enhanced td
       display: table-cell
   // End Essential Styles
 
 
   /* Table styles */
-  table 
+  table
     font-size: .9em
-  .table-wrapper 
+  .table-wrapper
     margin: 10px
     margin-top: 40px
     margin-bottom: 70px
-  thead th 
+  thead th
     white-space: nowrap
     border-bottom: 1px solid #ccc
     color: #888
     padding: 10px 5px
-  th, td 
+  th, td
     padding: 2px 5px
     background-color: #fff
     text-align: right
   th:first-child,
   td:first-child
     text-align: left
-  tbody th, td 
+  tbody th, td
     border-bottom: 1px solid #e6e6e6
-  .co-name 
+  .co-name
     display: block
     font-size: .7em
     opacity: .4

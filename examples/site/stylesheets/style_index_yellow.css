@@ -29,7 +29,7 @@ body {
   .menuselect:hover {
     background: rgb(55,55,55);
   }
-    .toplinks.selected  div {      
+    .toplinks.selected  div {
       background: #FFD700 url('resources/largeshade.png') no-repeat left top;
     }
     .toplinks.selected a {
@@ -199,7 +199,7 @@ body {
     #toggler {}
     #togglercode {}
     #carousel {
-      height: 250px; 
+      height: 250px;
     }
     #carouselcode {
       height: 250px;
@@ -223,7 +223,7 @@ body {
         }
           #extitle {
             width: 100px; height: 20px;
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;            
+            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;
           }
           #exbutton {
             width: 190px; height: 30px;
@@ -232,7 +232,7 @@ body {
             background: #FFD700;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;            
+            border-radius: 5px;
           }
           #exbutton:hover {
             cursor: hand;
@@ -268,8 +268,8 @@ body {
             background: #FFD700;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;      
-            display: inline;      
+            border-radius: 5px;
+            display: inline;
           }
           #exback[data-ur-state="disabled"]{
             opacity: 0.5;
@@ -282,8 +282,8 @@ body {
             background: #FFD700;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;    
-            display: inline;        
+            border-radius: 5px;
+            display: inline;
           }
           .cbutton:hover {
             cursor: hand;
@@ -298,26 +298,7 @@ body {
             margin: auto; margin-top: 5px;
             text-align: center; color: rgb(50,50,50); font-family: Rockwell;
           }
-          div[data-ur-carousel-component='view-container'] {
-            height: 200px;
-            width: 100%;
-            overflow-x: hidden;
-            }
-          div[data-ur-carousel-component="scroll_container"] {
-            display: block; 
-            width: 3000px;}
-          div[data-ur-carousel-component="scroll_container"] > * {
-              display: inline-block;
-              float: left; }
-          div[data-ur-carousel-component="scroll_container"] img {
-            margin-right: 150px;
-            margin-top: 10px;
-            margin-bottom: 0px;
-            margin-left: 66px;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-          }
+
           
           #exselectlist {
             width: 230px; height: 150px;
@@ -348,7 +329,7 @@ body {
             height: 225px;
           }
 
-/* Used by logos */      
+/* Used by logos */
 #threelogoholder {
   width: 508px; height: 75px; margin-top: 10px;
   margin: auto; margin-bottom: 20px;
@@ -358,7 +339,7 @@ body {
   margin: auto;
 }
   .onelogo {
-    width: 150px; height: 75px;    
+    width: 150px; height: 75px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -366,7 +347,7 @@ body {
   
     #oneleft {
       float: left;
-    }    
+    }
     #oneright {
       float: right; margin-left: 25px;
     }
@@ -375,11 +356,11 @@ body {
 #bottombody {
   width: 100%; margin: 0 auto; border-top: 1px solid #000000;
   background: url('resources/topshadow.png') repeat-x left top;
-}    
-#bottomwrap {  
+}
+#bottomwrap {
   margin-top: 10px; margin-bottom: 20px;
   text-align: center; color: rgb(50,50,50); font-size: 12px;
-}    
+}
   #moovweblogo {
     width: 300px; height: 100px;
     margin: auto; margin-bottom: 10px;
