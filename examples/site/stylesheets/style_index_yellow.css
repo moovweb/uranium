@@ -128,7 +128,12 @@ body {
   li {
     color: #C0C0C0;
   }
-  #lightgrey { border-top: 1px solid rgb(70,70,70); border-bottom: 1px solid rgb(30,30,30); width: 100%; float: left; margin: auto; margin-top: 30px; margin-bottom: 30px; }
+  hr {
+    border-top: solid #464646;
+    border-bottom: solid #1e1e1e;
+    border-width: 1px 0;
+    margin: 30px auto;
+  }
   
   #how_to_use {
     width: 350px;

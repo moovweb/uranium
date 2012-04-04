@@ -1,61 +1,42 @@
 body#carousel_page
-  div
-    &[data-ur-carousel-component='view_container']
-      height: 270px
-      width: 100%
-      overflow-x: hidden
-      border: 1px solid black
-      background: #FFD700 url('resources/largeshade.png') no-repeat left bottom
-    &[data-ur-carousel-component="scroll_container"]
-      display: inline-block
-      img
-        display: block
-        float: left
-      // This is important -- otherwise, the carousel can't calculate the accurate total width
-      // background-color: #3CC;
-    &[data-ur-carousel-component="button"]
-      display: inline-block
-      &[data-ur-state="disabled"]
-        opacity: 0.3
-
-  // Non essential styling
-
-
+  [data-ur-carousel-component='view_container']
+    background: #FFD700 url('resources/largeshade.png') no-repeat left bottom
+    border: 1px solid black
+    overflow: hidden
+    position: relative
+    height: 250px
+  
+  [data-ur-infinite="enabled"] [data-ur-carousel-component="scroll_container"]
+    margin: auto
+    width: 250px
+  [data-ur-carousel-component="scroll_container"] img
+    -webkit-user-drag: none
+    float: left
+    width: 250px
+    height: 250px
+  [data-ur-carousel-component="button"]
+    display: inline-block
+    &[data-ur-state="disabled"]
+      opacity: 0.3
+  
+  .test [data-ur-carousel-component="view_container"] 
+    width: 50%
+  
+  [data-ur-carousel-component="dots"]
+    float: right
+  
+  [data-ur-carousel-component="dot"]
+    @include border-radius(7px)
+    background: black
+    display: inline-block
+    margin: 0 5px
+    opacity: 0.8
+    width: 10px
+    height: 10px
+    &[data-ur-state="inactive"]
+      opacity: 0.3
+  
   div[name='Three'] img
     width: 62px !important
     // on iphone without the important, it doesn't work!!
     height: 62px
-
-body#carousel_examples_page
-  div
-    &[data-ur-carousel-component='view_container']
-      height: 300px
-      width: 100%
-      overflow-x: hidden
-      border: 1px solid black
-      background: #FFD700 url('resources/largeshade.png') no-repeat left bottom
-    &[data-ur-carousel-component="scroll_container"]
-      display: block
-      > *
-        display: inline-block
-        float: left
-        // This is important -- otherwise, the carousel can't calculate the accurate total width
-        // background-color: #3CC;
-    &[data-ur-carousel-component="button"]
-      display: inline-block
-      &[data-ur-state="disabled"]
-        opacity: 0.3
-
-  // Non essential styling
-
-
-  div[name='Three'] img
-    width: 250px !important
-    // on iphone without the important, it doesn't work!!
-    height: 250px
-
-  div.fixed_width
-    width: 500px
-    -webkit-border-radius: 5px
-    -moz-border-radius: 5px
-    border-radius: 5px
