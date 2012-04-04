@@ -1,5 +1,5 @@
 ---
-layout: index 
+layout: index
 title: Home
 name: home
 home_selected: selected
@@ -9,7 +9,7 @@ home_selected: selected
   <div id="uraniumlogo"></div><!-- uraniumlogo-->
   <div id="rightshadow"></div>
   <div id="rightinfo">Fast, Lean Web<br>Interaction Library.<br><br><span class="smalltext">*for mobile too!</span></div><!-- rightinfo-->
-</div><!-- top_wrapper-->  
+</div><!-- top_wrapper-->
   <div id="textbody">
     <div class="wrapper">
     <div id="centertext">
@@ -44,19 +44,19 @@ home_selected: selected
         <br>
         
     </div> <!-- wrapper-->
-        <div class="wrapper">    
+        <div class="wrapper">
           <h2>Why use Uranium?</h2>
             <h3>It's Lightweight</h3>
             <p>
               The whole Uranium library is 15 KB zipped! This includes all the widgets and <a href="http://xiujs.com">xui</a>.
             </p>
             
-            <h3>It's Easy to Use</h3>      
+            <h3>It's Easy to Use</h3>
             <p>
               Uranium requires <i>zero</i> javascript programming on your part.
             </p>
             <div id="sidenote">*he may not have actually said this, but we think he'd love Uranium anyway.</div>
-            <div id="lightgrey"></div><!-- hr-->
+            <hr />
           </div> <!-- why wrapper-->
       
           
@@ -65,10 +65,10 @@ home_selected: selected
         <h2>What can Uranium do?</h2>
       <div class="examplewrap">
         <div id="lefthead">
-  <h3>Example</h3>            
-        </div><!-- lefthead-->        
+  <h3>Example</h3>
+        </div><!-- lefthead-->
         <div id="righthead">
-  <h3>The Code</h3>            
+  <h3>The Code</h3>
         </div><!-- righthead-->
         
           <div class="example" id="toggler">
@@ -76,45 +76,47 @@ home_selected: selected
     <!-- PLACE CODE FOR EXAMPLE BETWEEN HERE-->
             <div id="extoggler" data-ur-set="toggler">
               <a href="{{site.url}}toggler.html"><div id="extitle">Toggler</div></a>
-              <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>  
-              <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>            
-            </div>  
+              <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>
+              <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
+            </div>
     <!-- AND HERE-->
               
           </div><!-- example end-->
           
-          <div class="mainpage_code" id="toggler">  
+          <div class="mainpage_code" id="toggler">
     <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
             <!-- fakecode-->
-            <span id="brown">&lt;div <span id="green">data-ur-set='toggler'<span id="brown">&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&lt;p&gt;Toggler&lt;/p&gt;</span><br>
-                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component='button'<span id="brown">&gt;</span><br>
-                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;p&gt;Click on the button&lt;/p&gt;</span><br>
-                <span id="brown">&emsp;&emsp;&lt;/div&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component='content'<span id="brown">&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;p&gt;And content appears&lt;/p&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&lt;/div&gt;<br>
-            <span id="brown">&lt;/div&gt;</span>        
+{% highlight html %}
+<div data-ur-set="toggler">
+  <p>Toggler</p>
+  <div data-ur-toggler-component="button">
+    <p>Click on the button</p>
+  </div>
+  <div data-ur-toggler-component="content">
+    <p>And content appears</p>
+  </div>
+</div>
+{% endhighlight %}
             <!-- fakecode-->
     <!-- AND HERE-->
           </div><!-- code end-->
-      </div><!-- examplewrap end-->    
-  <div id="lightgrey"></div><!-- hr-->
+      </div><!-- examplewrap end-->
+  <hr />
       <br>
       <div class="examplewrap">
         <div id="lefthead">
-  <h3>Example</h3>            
-        </div><!-- lefthead-->        
+  <h3>Example</h3>
+        </div><!-- lefthead-->
         <div id="righthead">
-  <h3>The Code</h3>            
+  <h3>The Code</h3>
         </div><!-- righthead-->
         
-        <div class="example" id="carousel">          
-    <!-- PLACE CODE FOR EXAMPLE BETWEEN HERE-->          
+        <div class="example" id="carousel">
+    <!-- PLACE CODE FOR EXAMPLE BETWEEN HERE-->
             <div id="excarousel">
               <a href="{{site.url}}carousel.html"><div id="extitle">Carousel</div></a>
                 <div data-ur-set="carousel" data-ur-touch="disabled" data-ur-state="enabled">
-                  <div data-ur-carousel-component="view-container" >
+                  <div data-ur-carousel-component="view_container" data-ur-clones="2">
                     <div data-ur-carousel-component="scroll_container">
                       <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov1.JPG"/>
                       <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov2.JPG"/>
@@ -134,39 +136,37 @@ home_selected: selected
           
     <!-- AND HERE-->
             
-        </div><!-- exampleend-->          
+        </div><!-- exampleend-->
         
         
           <div class="mainpage_code" id="carouselcode">
     <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
-            <span id="brown">&lt;div <span id="green">data-ur-set='carousel' data-ur-carousel-component='view_container' data-ur-touch='disabled'<span id="brown">&gt;<br/>
-            
-            <span id="brown">  &emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='scroll_container'<span id="brown">&gt;<br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='1.jpg' /&gt;<br/>
-              &emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='2.jpg' /&gt;<br/>
-              &emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='3.jpg' /&gt;<br/>
-              &emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='4.jpg' /&gt;<br/>
-            <span id="brown">&emsp;&emsp;&lt;/div&gt;<br/>
-              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='button' data-ur-carousel-button-type='prev'<span id="brown"> &gt;<br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;< <br/>
-              <span id="brown">&emsp;&emsp;&lt;/div&gt;<br/>
-                &emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='button' data-ur-carousel-button-type='next'<span id="brown"> &gt;<br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;> <br/>
-                <span id="brown">&emsp;&emsp;&lt;/div&gt;<br/>
-              <span id="brown">&lt;/div&gt;
+{% highlight html %}
+<div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-touch="disabled">
+  <div data-ur-carousel-component="scroll_container">
+    <img data-ur-carousel-component="item" src="1.jpg" />
+    <img data-ur-carousel-component="item" src="2.jpg" />
+    <img data-ur-carousel-component="item" src="3.jpg" />
+    <img data-ur-carousel-component="item" src="4.jpg" />
+  </div>
+  <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">&lt;</div>
+  <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">&gt;</div>
+</div>
+{% endhighlight %}
+
     <!-- AND HERE-->
     
             <!-- fakecode-->
           </div><!-- codeend-->
-      </div><!-- examplewrap-->  
-  <div id="lightgrey"></div><!-- hr-->
+      </div><!-- examplewrap-->
+  <hr />
   
   <div class="examplewrap">
     <div id="lefthead">
-<h3>Example</h3>            
-    </div><!-- lefthead-->        
+<h3>Example</h3>
+    </div><!-- lefthead-->
     <div id="righthead">
-<h3>The Code</h3>            
+<h3>The Code</h3>
     </div><!-- righthead-->
     
       <div class="example" id="select_list">
@@ -193,45 +193,45 @@ home_selected: selected
           
       </div><!-- example end-->
       
-      <div class="mainpage_code" id="select_list_code">  
+      <div class="mainpage_code" id="select_list_code">
 <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
         <!-- fakecode-->
-        <span id="brown">&lt;div <span id="green">data-ur-set='select-list'<span id="brown">><br/>
-        <span id="brown">&emsp;&emsp;&lt;select <span id="green">data-ur-select-list-component='select'<span id="brown">></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option selected='true' value='SKU-A'> Click on &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-B'> a Value &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-C'> in this &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-D'> List &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&lt;/select></span><br/>
-
-
-        <span id="brown">&emsp;&emsp;&lt;ul <span id="green">data-ur-select-list-component='content'<span id="brown">></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-A'> Click on &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-B'> a Value &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-C'> in this &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-D'> List &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&lt;ul><br/>
-       <span id="brown">&lt;/div>
+{% highlight html %}
+<div data-ur-set="select-list">
+  <select data-ur-select-list-component="select">
+    <option selected="true" value="SKU-A"> Click on </option>
+    <option value="SKU-B"> a Value </option>
+    <option value="SKU-C"> in this </option>
+    <option value="SKU-D"> List </option>
+  </select>
+  <ul data-ur-select-list-component="content">
+    <li value="SKU-A"> Click on </li>
+    <li value="SKU-B"> a Value </li>
+    <li value="SKU-C"> in this </li>
+    <li value="SKU-D"> List </li>
+  </ul>
+</div>
+{% endhighlight %}
         <!-- fakecode-->
 <!-- AND HERE-->
       </div><!-- code end-->
   </div><!-- examplewrap end-->
-  <div id="lightgrey"></div><!-- hr-->
+  <hr />
 </div><!-- wrapper-->
     
 
         
-      <div class="wrapper">  
+      <div class="wrapper">
       <h2>Uranium is used by...</h2>
       <p></p>
         <div id="threelogoholder">
-          <a href="http://m.macys.com/"><div class="onelogo" id="oneleft" style="background: url('{{site.url}}stylesheets/resources/BW_macys.png') no-repeat center center;"></div></a>            
+          <a href="http://m.macys.com/"><div class="onelogo" id="oneleft" style="background: url('{{site.url}}stylesheets/resources/BW_macys.png') no-repeat center center;"></div></a>
           <a href="http://m.cancer.org/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_AmCancer.png') no-repeat center center;"></div></a>
-          <a href="http://m.belk.com/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_belk.png') no-repeat center center;"></div></a>          
-        </div><!-- threelogoholder end-->        
+          <a href="http://m.belk.com/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_belk.png') no-repeat center center;"></div></a>
+        </div><!-- threelogoholder end-->
         <div id="twologoholder">
-          <a href="http://m.ross-simons.com/"><div class="onelogo" id="oneleft" style="background: url('{{site.url}}stylesheets/resources/BW_RS.png') no-repeat center center;"></div></a>              
-          <a href="http://m.barenecessities.com/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_barenecessities.png') no-repeat center center;"></div></a>                
+          <a href="http://m.ross-simons.com/"><div class="onelogo" id="oneleft" style="background: url('{{site.url}}stylesheets/resources/BW_RS.png') no-repeat center center;"></div></a>
+          <a href="http://m.barenecessities.com/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_barenecessities.png') no-repeat center center;"></div></a>
         </div><!-- threelogoholder end-->
         
     </div><!-- wrapper-->

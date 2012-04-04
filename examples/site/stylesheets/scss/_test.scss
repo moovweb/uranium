@@ -7,7 +7,10 @@ li[data-ur-set="toggler"] {
     &[data-ur-state="enabled"] {
       display: block; } } }
 
-#textbody #babutton {
+#adv_btn, #basic_btn {
+  @include border-radius(5px);
+  background: #ffd700;
+  color: #323232;
   width: 98px;
   height: 25px;
   padding-top: 6px;
@@ -17,21 +20,14 @@ li[data-ur-set="toggler"] {
   display: inline-block;
   border-left: 1.5px solid rgb(80, 80, 80);
   border-right: 1.5px solid rgb(0, 0, 0);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px; }
+  &[data-ur-state="disabled"] {
+    opacity: 0.2;
+  }
+}
 
-#babutton[data-ur-tab-id="advancedpage"] {
-  margin-right: 100px; }
-
-#babutton[data-ur-state="disabled"] {
-  background: #ffd700;
-  color: #323232;
-  opacity: 0.2; }
-
-#babutton[data-ur-state="enabled"] {
-  color: #323232;
-  background: #ffd700; }
+#adv_btn {
+  margin-right: 100px;
+}
 
 .components li {
   color: #323232; }
@@ -139,13 +135,3 @@ li[data-ur-set="toggler"] {
 
 .attributes p.instance {
   color: #323232; }
-
-.css {
-  display: block;
-  background: silver url("resources/largestshade.png") no-repeat left bottom;
-  border: 1px solid black;
-  padding: 20px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  margin-bottom: 15px; }

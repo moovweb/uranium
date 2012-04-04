@@ -5,6 +5,5 @@ JENKINS
 doc/*.html
 .rvmrc
 examples/site/_site/*
-examples/_site/*
 .sass-cache/
 
