@@ -69,17 +69,21 @@ body#index_page
 
 // Carousel Styling
 
-#excarousel
-  *[data-ur-set="carousel"]
-    *[data-ur-carousel-component="view_container"]
-      overflow-x: hidden
-      *[data-ur-carousel-component="scroll_container"]
-        display: block
-        img
-          display: inline-block
-          float: left
-          // This is important -- otherwise, the carousel can't calculate the accurate total width
-          //  background-color: #3CC;
-      *[data-ur-carousel-component="button"]
-        &[data-ur-state="disabled"]
-          opacity: 0.3
+#excarousel [data-ur-set="carousel"]
+  [data-ur-carousel-component="view_container"]
+    overflow-x: hidden
+    [data-ur-carousel-component="scroll_container"]
+      display: block
+      img
+        float: left
+        width: 100px
+        height: 100px
+  [data-ur-carousel-component="button"][data-ur-state="disabled"]
+    opacity: 0.3
+
+  [data-ur-carousel-component="scroll_container"]
+    margin: auto
+    overflow: hidden
+    position: relative
+    width: 100px
+    height: 100px
