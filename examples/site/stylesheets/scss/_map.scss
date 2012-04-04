@@ -1,0 +1,74 @@
+* {
+  &[data-ur-map-component='canvas'] {
+    width: 300px;
+    height: 300px; }
+  &[data-ur-map-component='description'] {
+    display: none;
+    &[data-ur-state='enabled'] {
+      display: block; } }
+  &[data-ur-map-component='address'] {
+    display: none; }
+  &[data-ur-map-component='icon'] {
+    position: absolute;
+    visibility: hidden; } }
+
+body[id*='map'] {
+  .attributes {
+    display: block;
+    background: silver url("resources/largestshade.png") no-repeat left bottom;
+    border: 1px solid black;
+    padding: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; } }
+
+// Hidden example
+
+body.hidden_page {
+  [data-ur-set='map'] {
+    position: absolute;
+    visibility: hidden; }
+  [data-ur-toggler-component='content'][data-ur-state='enabled'] > [data-ur-set='map'] {
+    position: relative;
+    visibility: visible; } }
+
+body#advanced_map_page {
+  *[data-ur-set="map"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: hidden;
+    margin: 5px;
+    padding: 5px;
+    background: gold url("resources/largeshade.png") no-repeat left bottom;
+    color: black;
+    width: 300px;
+    *[data-ur-map-component="icon"] {
+      img {
+        width: 10px;
+        height: 10px; } } } }
+
+body#hidden_map_page {
+  [data-ur-set="toggler"] {
+    background: #323232;
+    border: none; } }
+
+body#late_load_map_page {
+  span#map_button {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: gold url("resources/largeshade.png") no-repeat left bottom;
+    color: black;
+    margin: 5px;
+    padding: 5px; }
+  *[data-ur-set="map"] {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: hidden;
+    margin: 5px;
+    padding: 5px;
+    background: gold url("resources/largeshade.png") no-repeat left bottom;
+    color: black;
+    width: 300px; } }

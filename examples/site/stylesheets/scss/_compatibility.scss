@@ -1,0 +1,27 @@
+body#compatibility_page {
+  th {
+    background: silver; }
+  td {
+    text-align: center;
+    background: #fafafa; }
+  td.passed {
+    background: #c7e8ad; }
+  td.failed {
+    background: #e8b5ad; }
+  td.mixed {
+    background: #fbf6bb; }
+  li {
+    color: #323232;
+    background: #fafafa;
+    margin: 10px;
+    width: 200px;
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }
+  li.passed {
+    background: #c7e8ad; }
+  li.failed {
+    background: #e8b5ad; }
+  li.mixed {
+    background: #fbf6bb; } }
