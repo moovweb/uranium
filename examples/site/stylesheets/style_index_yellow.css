@@ -29,7 +29,7 @@ body {
   .menuselect:hover {
     background: rgb(55,55,55);
   }
-    .toplinks.selected  div {      
+    .toplinks.selected  div {
       background: #FFD700 url('resources/largeshade.png') no-repeat left top;
     }
     .toplinks.selected a {
@@ -128,7 +128,12 @@ body {
   li {
     color: #C0C0C0;
   }
-  #lightgrey { border-top: 1px solid rgb(70,70,70); border-bottom: 1px solid rgb(30,30,30); width: 100%; float: left; margin: auto; margin-top: 30px; margin-bottom: 30px; }
+  hr {
+    border-top: solid #464646;
+    border-bottom: solid #1e1e1e;
+    border-width: 1px 0;
+    margin: 30px auto;
+  }
   
   #how_to_use {
     width: 350px;
@@ -157,12 +162,13 @@ body {
 }
   /* Example Styles */
   .examplewrap {
-    width: 800px; height: 240px;
     margin: auto;
   }
     
-    #lefthead { width: 310px; float: left; }
-    #righthead { width: 430px; float: right; }
+    #lefthead {
+      float: left;
+      width: 360px;
+    }
     .example {
       width: 310px; height: 170px;
       float: left; padding: 10px;
@@ -173,14 +179,8 @@ body {
       border-radius: 10px;
     }
     .mainpage_code {
-      width: 410px; height: 170px;
-      float: right; padding: 10px; margin: 5px;
-      background-color: rgb(40,40,40);
-      border: 3px dashed rgb(60,60,60);
-      color: #C0C0C0; font-family: Courier New; font-size: 14px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
+      overflow: hidden;
+      padding-left: 10px;
     }
     .code {
       background-color: rgb(40,40,40);
@@ -199,14 +199,13 @@ body {
     #toggler {}
     #togglercode {}
     #carousel {
-      height: 250px; 
+      height: 250px;
     }
     #carouselcode {
       height: 250px;
       font-size: 12px;
     }
     #select_list_code {
-      height: 225px;
       font-size: 12px;
     }
       #brown { color: #FA8072; }
@@ -223,7 +222,7 @@ body {
         }
           #extitle {
             width: 100px; height: 20px;
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;            
+            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;
           }
           #exbutton {
             width: 190px; height: 30px;
@@ -232,7 +231,7 @@ body {
             background: #FFD700;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;            
+            border-radius: 5px;
           }
           #exbutton:hover {
             cursor: hand;
@@ -268,8 +267,8 @@ body {
             background: #FFD700;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;      
-            display: inline;      
+            border-radius: 5px;
+            display: inline;
           }
           #exback[data-ur-state="disabled"]{
             opacity: 0.5;
@@ -282,8 +281,8 @@ body {
             background: #FFD700;
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
-            border-radius: 5px;    
-            display: inline;        
+            border-radius: 5px;
+            display: inline;
           }
           .cbutton:hover {
             cursor: hand;
@@ -298,26 +297,7 @@ body {
             margin: auto; margin-top: 5px;
             text-align: center; color: rgb(50,50,50); font-family: Rockwell;
           }
-          div[data-ur-carousel-component='view-container'] {
-            height: 200px;
-            width: 100%;
-            overflow-x: hidden;
-            }
-          div[data-ur-carousel-component="scroll_container"] {
-            display: block; 
-            width: 3000px;}
-          div[data-ur-carousel-component="scroll_container"] > * {
-              display: inline-block;
-              float: left; }
-          div[data-ur-carousel-component="scroll_container"] img {
-            margin-right: 150px;
-            margin-top: 10px;
-            margin-bottom: 0px;
-            margin-left: 66px;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-          }
+
           
           #exselectlist {
             width: 230px; height: 150px;
@@ -348,7 +328,7 @@ body {
             height: 225px;
           }
 
-/* Used by logos */      
+/* Used by logos */
 #threelogoholder {
   width: 508px; height: 75px; margin-top: 10px;
   margin: auto; margin-bottom: 20px;
@@ -358,7 +338,7 @@ body {
   margin: auto;
 }
   .onelogo {
-    width: 150px; height: 75px;    
+    width: 150px; height: 75px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -366,7 +346,7 @@ body {
   
     #oneleft {
       float: left;
-    }    
+    }
     #oneright {
       float: right; margin-left: 25px;
     }
@@ -375,11 +355,11 @@ body {
 #bottombody {
   width: 100%; margin: 0 auto; border-top: 1px solid #000000;
   background: url('resources/topshadow.png') repeat-x left top;
-}    
-#bottomwrap {  
+}
+#bottomwrap {
   margin-top: 10px; margin-bottom: 20px;
   text-align: center; color: rgb(50,50,50); font-size: 12px;
-}    
+}
   #moovweblogo {
     width: 300px; height: 100px;
     margin: auto; margin-bottom: 10px;

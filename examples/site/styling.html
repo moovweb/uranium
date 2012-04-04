@@ -1,5 +1,5 @@
 ---
-layout: default 
+layout: default
 title: Styling
 name: styling
 more_selected: selected
@@ -21,7 +21,7 @@ more_selected: selected
             need to write out two declaration blocks. The first covers the element in its
             non-enabled state, and the other when the element is enabled.</p>
     
-          <p>Say we're styling a toggler button. When <span class="inline_code">"enabled"</span>, we want it to be full opacity. However, 
+          <p>Say we're styling a toggler button. When <span class="inline_code">"enabled"</span>, we want it to be full opacity. However,
             when disabled we want it to be at 50% opacity. Pretty simple using the following CSS:</p>
       
           <p class="code">
@@ -56,7 +56,7 @@ more_selected: selected
       <h3>Proper Styling</h3>
       <div class="styling_para">
         <p>The problem with lazy styling is this: you're only really saying what the
-          element looks like when the <span class="inline_code">data-ur-state</span> is <i>enabled</i>. We're taking it 
+          element looks like when the <span class="inline_code">data-ur-state</span> is <i>enabled</i>. We're taking it
           for granted that the non-enabled state is the same as the disabled state. This
           is an OK assumption to make in most cases.</p>
     
@@ -69,7 +69,7 @@ more_selected: selected
           <i>two</i> states - the one before any state has been assigned AND the "disabled"
           state.</p>
     
-        <p>We can style these states separately, as shown.</p>        
+        <p>We can style these states separately, as shown.</p>
     
         <p class="code">
           *[data-ur-toggler-component='button'] {</br>
@@ -95,7 +95,7 @@ more_selected: selected
           Popup !
           </div>
 
-          <div data-ur-toggler-component='content' 
+          <div data-ur-toggler-component='content'
             data-ur-state='disabled' class='popup_content'>
              <img src='{{site.url}}images/popup.jpeg'>
           </div>

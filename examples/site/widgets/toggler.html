@@ -1,14 +1,14 @@
 ---
-layout: widgets 
+layout: widgets
 title: Togglers
 name: togglers
 widget_selected: selected
 ---
 <div data-ur-set="tabs">
   
-  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+  <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
   
-  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+  <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
 
   <div>
   <div class="wrapper">
@@ -85,7 +85,7 @@ widget_selected: selected
   *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
     display: block;
   }
-  {% endhighlight %}     
+  {% endhighlight %}
     </div>
     
   </div><!-- wrapper -->
@@ -94,7 +94,7 @@ widget_selected: selected
     <div class='demonstration' name='Simple'>
       <div class="description">
         <p>
-        We have one button ("Click Here!"). When we click on it, we want the content 
+        We have one button ("Click Here!"). When we click on it, we want the content
         (containing the clothing options) to appear. We call this an "accordion".
         </p>
       </div> <!-- closing the description -->
@@ -136,7 +136,7 @@ widget_selected: selected
     </div><!-- demonstration end -->
   </div><!-- wrapper end -->
 
-  <div id="lightgrey"></div><!-- hr-->
+  <hr />
     
   <div class="wrapper">
   
@@ -150,7 +150,7 @@ widget_selected: selected
       <div class='description'>
 
         <p>It's super-easy to nest togglers as well. You'll have to use <a href="{{site.url}}grouping.html">ids</a>.
-          Give the button component and the content component the same attribute: 
+          Give the button component and the content component the same attribute:
           <span class="inline_code">data-ur-id="ID"</span>.</p>
      </div>
 
@@ -178,7 +178,7 @@ widget_selected: selected
 
     </div><!-- end of nesting -->
   
-    <div id="lightgrey"></div><!-- hr-->
+    <hr />
   
     <div class='test' name='DialogProper'>
       <a  name='DialogProper'></a>
@@ -203,7 +203,7 @@ widget_selected: selected
     
     </div><!-- end of popup-->
 
-    <div id="lightgrey"></div><!-- hr-->
+    <hr />
 
     <div class='test' name='MultipleContents'>
       <a name='MultipleContents'></a>
@@ -216,7 +216,7 @@ widget_selected: selected
         toggle between the two images. We start off by defining the button, giving it
         a data-ur-id and making its state disabled.</p>
 
-        <p>Then, we apply the same data-ur-id to the content and define the two content 
+        <p>Then, we apply the same data-ur-id to the content and define the two content
           panes. However, we specify that one of the contents has a disabled state, and
           the other one has an enabled state. As they have opposing states, when the button
           is clicked they will remain the opposite of each other (i.e. the enabled image
@@ -241,7 +241,7 @@ widget_selected: selected
       </div>
     </div>
   
-    <div id="lightgrey"></div><!-- hr-->
+    <hr />
 
     <div class='test' name='Disabled'>
       <a name='Disabled'></a>

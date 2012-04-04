@@ -1,13 +1,13 @@
 ---
-layout: widgets 
+layout: widgets
 title: Zoom Preview Deprecated
 name: zoom_preview
 widget_selected: selected
 ---
 <div data-ur-set="tabs">
-  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+  <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
   
-  <div id="babutton" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+  <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
   <div>
     <div class="wrapper">
       <h1> Zoom Preview </h1>
@@ -35,7 +35,7 @@ widget_selected: selected
     <div class="wrapper">
       <h2>Attributes</h2>
       <div class="attributes">
-        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>   
+        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
           <p>
             <h3>To the wrapper div:</h3>
           </p>
@@ -141,12 +141,12 @@ widget_selected: selected
           <div data-ur-tabs-component="content" data-ur-tab-id="html">
             <p class="code">
               <span id="brown">&lt;div data-ur-set='zoom-preview' data-ur-zoom-preview-component='container'></br>
-                <span id="green">&emsp;&emsp;&lt;img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)'</br>     
+                <span id="green">&emsp;&emsp;&lt;img data-ur-zoom-preview-component='zoom_image' data-ur-src-modifier-match='(some_attr=)(.*)'</br>
                 <span id="brown">&emsp;&emsp;&emsp;&emsp;data-ur-src-modifier-replace='$1yesway' style="visibility: hidden" /></br></br>
 
                 <span id="green">&emsp;&emsp;&lt;div class="normal_image"></br>
                   <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img data-ur-zoom-preview-component='normal_image'</br>
-                  <span id="brown">&emsp;&emsp;&emsp;&emsp;data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true'</br> 
+                  <span id="brown">&emsp;&emsp;&emsp;&emsp;data-ur-zoom-modifier-match='$' data-ur-zoom-modifier-replace='?small_image=true'</br>
                   <span id="brown">&emsp;&emsp;&emsp;&emsp;src="images/pic1.jpeg" /></br>
                 <span id="green">&emsp;&emsp;&lt;/div></br></br>
 
@@ -160,7 +160,7 @@ widget_selected: selected
     </div> <!-- wrapper -->
   </div>
   
-  <div id="lightgrey"></div><!-- hr-->
+  <hr />
   
   <div class="wrapper">
     <h2> Further Examples </h2>

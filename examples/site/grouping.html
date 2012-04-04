@@ -1,5 +1,5 @@
 ---
-layout: default 
+layout: default
 title: Grouping
 name: grouping
 more_selected: selected
@@ -8,7 +8,7 @@ more_selected: selected
   <h1>Grouping</h1>
     <h2>Sets vs IDs</h2>
 
-    <p>In Uranium, we can group widgets in two ways: sets and ids. A set is when the whole 
+    <p>In Uranium, we can group widgets in two ways: sets and ids. A set is when the whole
       widget is wrapped in a div (or other tag) with the attribute <span class="inline_code">data-ur-set="widget"</span>.</p>
 
     <p>An id is where every component of the widget is given a unique id attribute. For example,
@@ -33,7 +33,7 @@ more_selected: selected
           <li> Colin </li>
         </ul>
       </div><!-- unique IDS -->
-      <div data-ur-set="toggler">  
+      <div data-ur-set="toggler">
         <div data-ur-toggler-component='button'>
           This Toggler Uses a Set
         </div>
@@ -50,7 +50,7 @@ more_selected: selected
     <h2>How Uranium Works</h2>
 
     <p>Uranium searches through the HTML document for the special attributes
-      we give to tags. Once it sees the <span class="inline_code">data-ur</span>, it looks for groups of components. 
+      we give to tags. Once it sees the <span class="inline_code">data-ur</span>, it looks for groups of components.
       The set allows it to determine what widget we're defining.</p>
 
     <p>Next, the javascript looks for ids on a component. If it finds an

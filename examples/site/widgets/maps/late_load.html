@@ -1,5 +1,5 @@
 ---
-layout: map-widget-sub 
+layout: map-widget-sub
 title: Late-Load Map
 name: late_load_map
 widget_selected: selected
@@ -10,7 +10,7 @@ widget_selected: selected
   <h2> Description</h2>
   <div class='description'>
     <p>
-    Simple map thats that gets initialized when you click a button. This is pretty important for 
+    Simple map thats that gets initialized when you click a button. This is pretty important for
     mobile applications for two reasons. It reduces the amount of data necessary to load
     the page, increasing speed. It also prevents too many requests being sent to Google,
     which they've threatened to start charging for.
@@ -47,12 +47,12 @@ widget_selected: selected
         x$("#map_button").un('click',setup_map);
       }
 
-      x$("#map_button").on('click',setup_map);        
+      x$("#map_button").on('click',setup_map);
     </script>
     
     <div data-ur-set='map' data-ur-state='disabled'>
       <div data-ur-map-component='user_location'
-      data-ur-state='disabled'> Use My Location! </div>        
+      data-ur-state='disabled'> Use My Location! </div>
 
       <div data-ur-map-component='icon'
       data-ur-url='{{site.url}}../../../stylesheets/resources/uraniumicon.png'><img
@@ -66,15 +66,15 @@ widget_selected: selected
       <div data-ur-map-component='description'>
         <a href='http://slims-sf.com'> Slims </a>
         <span> (415) 255-0333 </span>
-      </div>        
+      </div>
 
       <div data-ur-map-component='address'>
         1805 Geary Blvd, San Francisco, California 94115
       </div>
       <div data-ur-map-component='description'>
         <a href='http://thefillmore.com/index'> The Fillmore </a>
-        <span> 415.346.6000 </span>          
-      </div>                
+        <span> 415.346.6000 </span>
+      </div>
 
       <div data-ur-map-component='address'>
         500 4th Street, San Francisco, CA
@@ -82,7 +82,7 @@ widget_selected: selected
       <div data-ur-map-component='description'>
         <a href='http://hotelutah.com'> Hotel Utah </a>
         <span> (415) 546-6300 </span>
-      </div>        
+      </div>
 
       <div data-ur-map-component='address'>
         859 O'Farrell Street, San Francisco, CA
@@ -90,7 +90,7 @@ widget_selected: selected
       <div data-ur-map-component='description'>
         <a href='http://gamh.com'> Great American Music Hall</a>
         <span> (415) 885-0750 </span>
-      </div>        
+      </div>
 
       <div data-ur-map-component='address'>
         1233 17th Street, San Francisco, CA
@@ -98,7 +98,7 @@ widget_selected: selected
       <div data-ur-map-component='description'>
         <a href='http://bottomofthehill.com'> Bottom of the Hill </a>
         <span> (415) 621-4455 </span>
-      </div>        
+      </div>
       
       </div>
     </div>
