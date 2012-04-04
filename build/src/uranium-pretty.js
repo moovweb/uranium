@@ -2747,7 +2747,7 @@ Ur.QuickLoaders["geocode"] = (function() {
  * Customize the appearance of the X with CSS
  * 
  */
-
+ 
 Ur.QuickLoaders['input-clear'] = (function(){
   
   function inputClear (input) {
@@ -2760,10 +2760,24 @@ Ur.QuickLoaders['input-clear'] = (function(){
     ex.hide();
     // Inject it
     that.html('after', ex);
+
+    // Use these when testing on desktop
+    // ex.on('mousedown', function() {
+    //   // remove text in the box
+    //   that[0].value='';
+    // });
+    // ex.on('mouseup', function() {
+    //   that[0].focus();
+    // });
     
-    ex.on('click', function() {
+    // Touch Events
+    ex.on('touchstart', function() {
       // remove text in the box
       that[0].value='';
+    });
+    ex.on('touchend', function() {
+      // make sure the keyboard doesn't disappear
+      that[0].focus();
     });
     
     that.on('focus', function() {
@@ -2776,7 +2790,7 @@ Ur.QuickLoaders['input-clear'] = (function(){
     });
     that.on('blur', function() {
       // Delay the hide so that the button can be clicked
-      setTimeout(function() { ex.hide();}, 100);
+      setTimeout(function() { ex.hide();}, 150);
     });
   }
   
