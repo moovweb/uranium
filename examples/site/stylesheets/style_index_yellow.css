@@ -162,12 +162,13 @@ body {
 }
   /* Example Styles */
   .examplewrap {
-    width: 800px; height: 240px;
     margin: auto;
   }
     
-    #lefthead { width: 310px; float: left; }
-    #righthead { width: 430px; float: right; }
+    #lefthead {
+      float: left;
+      width: 360px;
+    }
     .example {
       width: 310px; height: 170px;
       float: left; padding: 10px;
@@ -178,14 +179,8 @@ body {
       border-radius: 10px;
     }
     .mainpage_code {
-      width: 410px; height: 170px;
-      float: right; padding: 10px; margin: 5px;
-      background-color: rgb(40,40,40);
-      border: 3px dashed rgb(60,60,60);
-      color: #C0C0C0; font-family: Courier New; font-size: 14px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
+      overflow: hidden;
+      padding-left: 10px;
     }
     .code {
       background-color: rgb(40,40,40);
@@ -211,7 +206,6 @@ body {
       font-size: 12px;
     }
     #select_list_code {
-      height: 225px;
       font-size: 12px;
     }
       #brown { color: #FA8072; }

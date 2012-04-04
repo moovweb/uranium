@@ -86,15 +86,17 @@ home_selected: selected
           <div class="mainpage_code" id="toggler">
     <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
             <!-- fakecode-->
-            <span id="brown">&lt;div <span id="green">data-ur-set='toggler'<span id="brown">&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&lt;p&gt;Toggler&lt;/p&gt;</span><br>
-                <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component='button'<span id="brown">&gt;</span><br>
-                <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;p&gt;Click on the button&lt;/p&gt;</span><br>
-                <span id="brown">&emsp;&emsp;&lt;/div&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-toggler-component='content'<span id="brown">&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;p&gt;And content appears&lt;/p&gt;</span><br>
-              <span id="brown">&emsp;&emsp;&lt;/div&gt;<br>
-            <span id="brown">&lt;/div&gt;</span>
+{% highlight html %}
+<div data-ur-set="toggler">
+  <p>Toggler</p>
+  <div data-ur-toggler-component="button">
+    <p>Click on the button</p>
+  </div>
+  <div data-ur-toggler-component="content">
+    <p>And content appears</p>
+  </div>
+</div>
+{% endhighlight %}
             <!-- fakecode-->
     <!-- AND HERE-->
           </div><!-- code end-->
@@ -139,21 +141,19 @@ home_selected: selected
         
           <div class="mainpage_code" id="carouselcode">
     <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
-            <span id="brown">&lt;div <span id="green">data-ur-set='carousel' data-ur-carousel-component='view_container' data-ur-touch='disabled'<span id="brown">&gt;<br/>
-            
-            <span id="brown">  &emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='scroll_container'<span id="brown">&gt;<br/>
-            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='1.jpg' /&gt;<br/>
-              &emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='2.jpg' /&gt;<br/>
-              &emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='3.jpg' /&gt;<br/>
-              &emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component='item'<span id="brown"> src='4.jpg' /&gt;<br/>
-            <span id="brown">&emsp;&emsp;&lt;/div&gt;<br/>
-              <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='button' data-ur-carousel-button-type='prev'<span id="brown"> &gt;<br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;< <br/>
-              <span id="brown">&emsp;&emsp;&lt;/div&gt;<br/>
-                &emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component='button' data-ur-carousel-button-type='next'<span id="brown"> &gt;<br/>
-              <span id="brown">&emsp;&emsp;&emsp;&emsp;> <br/>
-                <span id="brown">&emsp;&emsp;&lt;/div&gt;<br/>
-              <span id="brown">&lt;/div&gt;
+{% highlight html %}
+<div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-touch="disabled">
+  <div data-ur-carousel-component="scroll_container">
+    <img data-ur-carousel-component="item" src="1.jpg" />
+    <img data-ur-carousel-component="item" src="2.jpg" />
+    <img data-ur-carousel-component="item" src="3.jpg" />
+    <img data-ur-carousel-component="item" src="4.jpg" />
+  </div>
+  <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">&lt;</div>
+  <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">&gt;</div>
+</div>
+{% endhighlight %}
+
     <!-- AND HERE-->
     
             <!-- fakecode-->
@@ -196,22 +196,22 @@ home_selected: selected
       <div class="mainpage_code" id="select_list_code">
 <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
         <!-- fakecode-->
-        <span id="brown">&lt;div <span id="green">data-ur-set='select-list'<span id="brown">><br/>
-        <span id="brown">&emsp;&emsp;&lt;select <span id="green">data-ur-select-list-component='select'<span id="brown">></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option selected='true' value='SKU-A'> Click on &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-B'> a Value &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-C'> in this &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;option value='SKU-D'> List &lt;/option></span><br/>
-          <span id="brown">&emsp;&emsp;&lt;/select></span><br/>
-
-
-        <span id="brown">&emsp;&emsp;&lt;ul <span id="green">data-ur-select-list-component='content'<span id="brown">></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-A'> Click on &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-B'> a Value &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-C'> in this &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;li value='SKU-D'> List &lt;/li></span><br/>
-        <span id="brown">&emsp;&emsp;&lt;ul><br/>
-       <span id="brown">&lt;/div>
+{% highlight html %}
+<div data-ur-set="select-list">
+  <select data-ur-select-list-component="select">
+    <option selected="true" value="SKU-A"> Click on </option>
+    <option value="SKU-B"> a Value </option>
+    <option value="SKU-C"> in this </option>
+    <option value="SKU-D"> List </option>
+  </select>
+  <ul data-ur-select-list-component="content">
+    <li value="SKU-A"> Click on </li>
+    <li value="SKU-B"> a Value </li>
+    <li value="SKU-C"> in this </li>
+    <li value="SKU-D"> List </li>
+  </ul>
+</div>
+{% endhighlight %}
         <!-- fakecode-->
 <!-- AND HERE-->
       </div><!-- code end-->
