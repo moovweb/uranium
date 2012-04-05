@@ -1,4 +1,5 @@
-# url: "http://moovweb.github.com/uranium/"
+url: "http://moovweb.github.com/uranium/"
 source: "examples/site"
 destination: "examples/site/_site"
-auto: "true"
+auto: true
+pygments: true
