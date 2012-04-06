@@ -1,3 +1,4 @@
+
 body#carousel_page [data-ur-carousel-component='view_container'] {
   background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
   border: 1px solid black;
