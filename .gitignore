@@ -7,8 +7,3 @@ doc/*.html
 examples/site/_site/*
 .sass-cache/
 _site
-examples/base.css/base.css
-examples/base.css/yellow_base.css
-examples/site/base.css/base.css
-examples/site/base.css/yellow_base.css
-examples/site/stylesheets/sass/base.css
