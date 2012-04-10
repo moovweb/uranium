@@ -27,7 +27,19 @@ widget_selected: selected
     <div>
       every swipe toggle element has pre set preferences that can be changed at any point.
     </div>
-    <ul>
+
+    <div class="example_code" data-ur-set="toggler">
+      <div class="example_header" data-ur-toggler-component="button">Code Example</div>
+        
+      <div class="example_content" data-ur-toggler-component="content">
+        Ur.Widgets.SwipeToggle.your_widget.preferences = {
+                     dots: false, axis: "x", swipeUpdate: true, sensitivity: 10, loop: true,
+                     touchbuffer: 20, tapActive: false,  touch: true, jump: 1, loop: true,
+                     autoSpeed: 500 };
+      </div>
+    </div>
+
+    <ul class="attributes">
       <li>axis: ("x", "y") based on expected swipe direction for attribute change</li>
       <li>swipeUpdate: (bool) allows single swipe mode</li>
       <li>sensitivity: (num) contains a pixel distance before triggering multi swipe attribute change</li>
@@ -45,7 +57,7 @@ widget_selected: selected
     <div>
       some flags are set when auto scrolling takes place.
     </div>
-    <ul>
+    <ul class="attributes">
       <li>touched: (bool) must be reset to allow autscrolling after first touch event on carousel</li>
       <li>autoID: (num) the numeric value/name of the setInterval() for auto scrolling</li>
     </ul>
@@ -54,7 +66,17 @@ widget_selected: selected
   <p>
     <h2>events</h2>
       to assist you with adding modefications to this widget there are 3 events that are fired on the slider element only.
-    <ul>
+
+    <div class="example_code" data-ur-set="toggler">
+      <div class="example_header" data-ur-toggler-component="button">Code Example</div>
+        
+      <div class="example_content" data-ur-toggler-component="content">
+        x$(".your_element").on("update" function () {
+          console.log("widget updated")
+        });
+    </div>
+    </div>
+    <ul class="attributes">
       <li>loaded: this is fired after the object is created but just prior to being placed in the Ur.Widgets object</li>
       <li>preferences: this is called directly after placing the swipe toggle object into the Ur.Widgets object and is the best time to change your preferences.</li>
       <li>update: fired every time the attributes have changed through this widget.</li>
@@ -74,39 +96,49 @@ widget_selected: selected
   <p>
     <h3>1: swipe toggle.</h3>
     <div id="live_auto_left">autoscroll left</div><div id="live_auto_right">autoscroll right</div>
-    <div data-ur-swipe-toggle-component='next' data-ur-id='ima_live'>next</div>
-    <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_live'>prev</div>
-    <div data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_live' class="swipe_Bar">
-      <div >item 1</div><div>item 2</div><div>item 3</div><div>item 4</div><div>item 5</div> 
-    </div>
+    <div class="attributes">
+      <div data-ur-swipe-toggle-component='next' data-ur-id='ima_live'>next</div>
+      <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_live'>prev</div>
+      <div class="mw_clear_both"></div>
+      <div data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_live' class="swipe_Bar">
+        <div >item 1</div><div>item 2</div><div>item 3</div><div>item 4</div><div>item 5</div> 
+      </div>
 
-    <div class="mw_clear_both"></div>
+      <div class="mw_clear_both"></div>
+    </div>
   </p>
 
   <p>
-    <h3>2: missing buttons and no children</h3>
-    <div id="empty_auto_left">autoscroll left</div><div id="empty_auto_right">autoscroll right</div><div id="empty_populate_left">auto populate</div>
-    <div data-ur-swipe-toggle-component='next' data-ur-id='ima_empty'>next</div>
-    <div class="imageSwitcher" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_empty' class="swipe_Bar">
-    </div>
+   <h3>2: auto-populate</h3>
+    <div id="empty_auto_left">autoscroll left</div>
+    <div id="empty_auto_right">autoscroll right</div>
+    <div id="empty_populate_left">auto-populate with numbers 4 - 6</div>
+    <div class="attributes">
+      <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_empty'>prev</div>
+      <div data-ur-swipe-toggle-component='next' data-ur-id='ima_empty'>next</div>
+      <div class="imageSwitcher" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_empty' class="swipe_Bar">
+      </div>
 
-    <div class="mw_clear_both"></div>
+      <div class="mw_clear_both"></div>
+    </div>
   </p>
 
   <p>
     <h3>3: 360 carousel</h3>
     <div id="zombie_auto_left">autoscroll left</div><div id="zombie_auto_right">autoscroll right</div>
-    <div data-ur-swipe-toggle-component='next' data-ur-id='ima_zombie'>next</div>
-    <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_zombie'>prev</div>
-    <div class="imageSwitcher" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_zombie' class="swipe_Bar">
-      <div data-ur-state="active"><img src="../../images/sample1.png"/></div>
-      <img src="../images/sample2.png"/>
-      <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
-      <div><img src="../images/sample4.png"/></div>
-      <div><img src="../images/sample5.png"/></div>
-      <div><img src="../images/sample6.png"/></div>
+    <div class="attributes">
+      <div data-ur-swipe-toggle-component='next' data-ur-id='ima_zombie'>next</div>
+      <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_zombie'>prev</div>
+      <div class="imageSwitcher" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_zombie' class="swipe_Bar">
+        <div data-ur-state="active"><img src="../../images/sample1.png"/></div>
+        <img src="../images/sample2.png"/>
+        <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
+        <div><img src="../images/sample4.png"/></div>
+        <div><img src="../images/sample5.png"/></div>
+        <div><img src="../images/sample6.png"/></div>
+      </div>
+      <div class="mw_clear_both"></div>
     </div>
-    <div class="mw_clear_both"></div>
   </p>
 
   <p>
@@ -115,27 +147,29 @@ widget_selected: selected
 
     <div class="mw_clear_both"></div>
     <div id="shape_auto_left">autoscroll left</div><div id="shape_auto_right">autoscroll right</div>
-    <div data-ur-swipe-toggle-component='next' data-ur-id='ima_shape'>next</div>
-    <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_shape'>prev</div>
-    <div class="shape" id="ima_shape" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_shape' class="swipe_Bar">
-      <div data-ur-state="active"><img src="../images/sample1.png"/></div>
-      <img src="../images/sample2.png"/>
-      <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
-      <div><img src="../images/sample4.png"/></div>
-      <div><img src="../images/sample5.png"/></div>
-      <div><img src="../images/sample6.png"/></div>
-      <div data-ur-state="active"><img src="../images/sample1.png"/></div>
-      <img src="../images/sample2.png"/>
-      <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
-      <div><img src="../images/sample4.png"/></div>
-      <div><img src="../images/sample5.png"/></div>
-      <div><img src="../images/sample6.png"/></div>
-      <div data-ur-state="active"><img src="../images/sample1.png"/></div>
-      <img src="../images/sample2.png"/>
-      <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
-      <div><img src="../images/sample4.png"/></div>
-      <div><img src="../images/sample5.png"/></div>
-      <div><img src="../images/sample6.png"/></div>
+    <div class="attributes">
+      <div data-ur-swipe-toggle-component='next' data-ur-id='ima_shape'>next</div>
+      <div data-ur-swipe-toggle-component='prev' data-ur-id='ima_shape'>prev</div>
+      <div class="shape" id="ima_shape" data-ur-swipe-toggle-component='slider' data-ur-set="swipe_toggle" data-ur-id='ima_shape' class="swipe_Bar">
+        <div data-ur-state="active"><img src="../images/sample1.png"/></div>
+        <img src="../images/sample2.png"/>
+        <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
+        <div><img src="../images/sample4.png"/></div>
+        <div><img src="../images/sample5.png"/></div>
+        <div><img src="../images/sample6.png"/></div>
+        <div data-ur-state="active"><img src="../images/sample1.png"/></div>
+        <img src="../images/sample2.png"/>
+        <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
+        <div><img src="../images/sample4.png"/></div>
+        <div><img src="../images/sample5.png"/></div>
+        <div><img src="../images/sample6.png"/></div>
+        <div data-ur-state="active"><img src="../images/sample1.png"/></div>
+        <img src="../images/sample2.png"/>
+        <a href="http://www.google.com"><img src="../images/sample3.png"/></a>
+        <div><img src="../images/sample4.png"/></div>
+        <div><img src="../images/sample5.png"/></div>
+        <div><img src="../images/sample6.png"/></div>
+      </div>
     </div>
   </p>
   <script>
