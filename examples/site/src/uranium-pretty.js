@@ -1488,7 +1488,6 @@ xui.extend({
 }(this, document);
 })();
 
-
 xui.extend({
 	/**
 	 * Adds more DOM nodes to the existing element list.
@@ -1717,15 +1716,9 @@ var mixins = {
       }
 
       //////////// Add this component to its set /////////////
-<<<<<<< Updated upstream
 
       var component_type = x$(this).attr("data-ur-" + type + "-component");
 
-=======
-
-      var component_type = x$(this).attr("data-ur-" + type + "-component");
-
->>>>>>> Stashed changes
       if (component_type === undefined) {
         valid_component = false;
       }
@@ -1747,31 +1740,6 @@ var mixins = {
 
 xui.extend(mixins);
 
-<<<<<<< Updated upstream
-/* Carousel  *
- * * * * * * *
- * The carousel is a widget to allow for horizontally scrolling
- * (with touch or buttons) between a set of items.
- *
- * The only assumption is about the items' style -- they must be
- * float: left; so that the real width can be accurately totalled.
- */
-
-Ur.WindowLoaders["carousel"] = (function() {
-
-  function Carousel(components) {
-    this.container = components["view_container"];
-    this.items = components["scroll_container"];
-    if (this.items.length == 0) {
-      Ur.error("carousel missing item components");
-      return false;
-    }
-
-    // Optionally:
-    this.button = components["button"] === undefined ? {} : components["button"];
-    this.count = components["count"];
-    this.dots = components["dots"];
-=======
 /* Carousel  *
  * * * * * * *
  * The carousel is a widget to allow for horizontally scrolling
@@ -1870,9 +1838,6 @@ Ur.WindowLoaders["carousel"] = (function() {
         x$(target).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
         x$(target).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
         x$(target).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
-        //x$(this.items).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
-        //x$(this.items).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
-        //x$(this.items).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
         x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
       }
 
@@ -2095,7 +2060,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
     startSwipe: function(e) {
       console.log("startSwipe");
-      if (this.options.maps && !x$(e.target).has("[data-ur-carousel-component='item'], [data-ur-carousel-component='item'] *"))
+      if (this.options.maps && e.target.tagName != "AREA" && !this.container.contains(e.target))
         return;
       if (!this.options.verticalScroll)
         stifle(e);
@@ -2413,582 +2378,6 @@ Ur.WindowLoaders["carousel"] = (function() {
   return CarouselLoader;
 })();
 
-/* Font Resizer
-   ------------
-   Font Resizer displays three components:
-   (1) a button which, when pressed, increases the font size of some
-       specified page elements
-   (2) a button which, when pressed, decreases the font size of some
-       specified page elements
-   (3) a label which reports the current font size of the aforementioned
-       page elements
-*/
-
-Ur.QuickLoaders["font-resizer"] = (function() {
-  
-  var labelText = "Text Size: ";
-  var up = 1, down = -1;
->>>>>>> Stashed changes
-
-  function FontResizer(components) {
-    this.increase = components["increase"];
-    this.decrease = components["decrease"];
-    this.label = components["label"];
-    this.content = components["content"];
-    this.initialize();
-  }
-
-<<<<<<< Updated upstream
-  // Private/Helper methods
-
-  function sign(num) {
-    return num < 0 ? -1 : 1;
-  }
-
-  function zeroCeil(num) {
-    return num <= 0 ? Math.floor(num) : Math.ceil(num);
-  }
-
-  function zeroFloor(num) {
-    return num >= 0 ? Math.floor(num) : Math.ceil(num);
-  }
-
-  function stifle(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  }
-
-  function getTranslateX(obj) {
-    var style = getComputedStyle(obj);
-    var transform = style["webkitTransform"] || style["MozTransform"] || style["oTransform"] || style["transform"];
-    if (transform != "none") {
-      if (window.WebKitCSSMatrix)
-        return new WebKitCSSMatrix(transform).m41;
-      else
-        return parseInt(transform.split(",")[4]);
-    }
-    else {
-      Ur.error("no transform found");
-      return 0;
-    }
-  }
-
-  //// Public Methods ////
-
-  Carousel.prototype = {
-    initialize: function() {
-      // TODO:
-      // add an internal event handler to handle all events on the container:
-      // x$(this.container).on("event", this.handleEvent);
-
-      this.flag = {click: false, increment: false, loop: false, lock: null, timeoutId: null, touched: false};
-      this.options = {
-        autoscroll: true,
-        autoscrollDelay: 5000,
-        autoscrollForward: true,
-        cloneLength: 1,
-        infinite: true,
-        maps: false,
-        transform3d: true,
-        touch: true,
-        verticalScroll: true
-      };
-
-      this.readAttributes();
-
-      if (this.options.touch) {
-        var hasTouch = document.ontouchstart !== undefined;
-        var start = hasTouch ? "touchstart" : "mousedown";
-        var move = hasTouch ? "touchmove" : "mousemove";
-        var end = hasTouch ? "touchend" : "mouseup";
-        var target = (this.options.maps && hasTouch) ? document : this.items;
-        x$(target).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
-        x$(target).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
-        x$(target).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
-        x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
-      }
-
-      x$(this.button["prev"]).click(function(obj){return function(){obj.moveTo(obj.magazineCount);}}(this));
-      x$(this.button["next"]).click(function(obj){return function(){obj.moveTo(-obj.magazineCount);}}(this));
-
-      this.preCoords = {x: 0, y: 0};
-
-      this.itemIndex = 0;
-      this.magazineCount = 1;
-
-      if (this.options.infinite) {
-        var items = x$(this.items).find("[data-ur-carousel-component='item']");
-        this.realItemCount = items.length;
-        this.itemIndex = this.options.cloneLength;
-        this.clones = []; // probaby useless
-        for (var i = 0; i < this.options.cloneLength; i++) {
-          var clone = items[i].cloneNode(true);
-          this.clones.push(clone);
-          x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
-          items[items.length - 1].parentNode.appendChild(clone);
-        }
-
-        for (var i = items.length - this.options.cloneLength; i < items.length; i++) {
-          var clone = items[i].cloneNode(true);
-          this.clones.push(clone);
-          x$(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
-          items[0].parentNode.insertBefore(clone, items[0]);
-        }
-      }
-
-      this.adjustSpacing();
-
-      if (!this.options.infinite)
-        this.realItemCount = this.itemCount;
-
-      if (this.dots) {
-        var existing = x$(this.dots).find("[data-ur-carousel-component='dot']");
-        for (var i = existing.length; i < this.realItemCount; i++) {
-          var new_dot = document.createElement("div");
-          x$(new_dot).attr("data-ur-carousel-component", "dot");
-          if (i == 0)
-            x$(new_dot).attr("data-ur-state", "active");
-          this.dots.appendChild(new_dot);
-        }
-      }
-
-      this.updateIndex(this.options.infinite ? this.options.cloneLength : 0);
-
-      // Expose this function globally: (this will work on webkit / FF)
-      this.jumpToIndex = (function(obj) { return function(idx) { obj.__proto__.moveToIndex.call(obj, idx); };})(this);
-
-      x$(window).orientationchange(function(obj){return function(){obj.resize();}}(this));
-      // orientationchange isn't supported on some androids
-      x$(window).on("resize", function(obj) { return function() {
-        obj.resize();
-        setTimeout(function(){obj.resize()}, 100);
-      }}(this));
-      //window.setInterval(function(obj){return function(){obj.resize();}}(this),1000);
-
-      this.autoscrollStart();
-    },
-
-    readAttributes: function() {
-      var $container = x$(this.container);
-
-      // translate3d is disabled on Android by default because it often causes problems
-      // however, on some pages translate3d will work fine so the data-ur-android3d
-      // attribute can be set to "enabled" to use translate3d since it can be smoother
-      // on some Android devices
-
-      var oldAndroid = /Android [12]/.test(navigator.userAgent);
-      if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled")
-        this.options.transform3d = false;
-
-      this.options.verticalScroll = $container.attr("data-ur-vertical-scroll")[0] != "disabled";
-      $container.attr("data-ur-vertical-scroll", this.options.verticalScroll ? "enabled" : "disabled");
-
-      this.options.touch = $container.attr("data-ur-touch")[0] != "disabled";
-      $container.attr("data-ur-touch", this.options.touch ? "enabled" : "disabled");
-
-      this.options.maps = $container.attr("data-ur-maps")[0] == "enabled";
-      $container.attr("data-ur-maps", this.options.maps ? "enabled" : "disabled");
-
-      this.options.infinite = $container.attr("data-ur-infinite")[0] != "disabled";
-      $container.attr("data-ur-infinite", this.options.infinite ? "enabled" : "disabled");
-
-      var cloneLength = parseInt($container.attr("data-ur-clones"));
-      if (cloneLength > 0)
-        this.options.cloneLength = cloneLength;
-      $container.attr("data-ur-clones", this.options.cloneLength);
-
-      this.options.autoscroll = $container.attr("data-ur-autoscroll")[0] == "enabled";
-      $container.attr("data-ur-autoscroll", this.options.autoscroll ? "enabled" : "disabled");
-
-      var autoscrollDelay = parseInt($container.attr("data-ur-autoscroll-delay"));
-      if (autoscrollDelay >= 0)
-        this.options.autoscrollDelay = autoscrollDelay;
-      $container.attr("data-ur-autoscroll-delay", this.options.autoscrollDelay);
-
-      this.options.autoscrollForward = $container.attr("data-ur-autoscroll-dir")[0] != "prev";
-      $container.attr("data-ur-autoscroll-dir", this.options.autoscrollForward ? "next" : "prev");
-    },
-
-    resize: function() {
-      if (this.snapWidth != this.container.offsetWidth)
-        this.adjustSpacing();
-    },
-
-    adjustSpacing: function() {
-      // Will need to be called if the container's size changes --> orientation change
-      var visibleWidth = this.container.offsetWidth;
-
-      if (this.oldWidth !== undefined && this.oldWidth == visibleWidth)
-        return;
-      var oldSnapWidth = this.snapWidth;
-      this.oldWidth = visibleWidth;
-
-      var cumulativeOffset = 0;
-      var items = x$(this.items).find("[data-ur-carousel-component='item']");
-      this.itemCount = items.length;
-
-      // Adjust the container to be the necessary width.
-      // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
-      var totalWidth = 0;
-
-      for (var i = 0; i < items.length; i++)
-        totalWidth += items[i].offsetWidth;
-
-      this.items.style.width = totalWidth + "px";
-
-      this.snapWidth = visibleWidth;
-
-      this.lastIndex = this.itemCount - 1;
-
-      this.itemIndex = (this.lastIndex < this.itemIndex) ? this.lastIndex : this.itemIndex;
-
-      cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
-      if (this.options.infinite) {
-        var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
-        cumulativeOffset += centerOffset; // CHECK
-      }
-      if (oldSnapWidth)
-        this.destinationOffset = cumulativeOffset;
-
-      this.translate(cumulativeOffset);
-    },
-
-    autoscrollStart: function() {
-      if (!this.options.autoscroll)
-        return;
-
-      var self = this;
-      self.flag.timeoutId = setTimeout(function() {
-        if (!self.options.infinite && self.itemIndex == self.lastIndex && self.options.autoscrollForward)
-          self.jumpToIndex(0);
-        else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
-          self.jumpToIndex(self.lastIndex);
-        else
-          self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
-      }, self.options.autoscrollDelay);
-    },
-
-    autoscrollStop: function() {
-      clearTimeout(this.flag.timeoutId);
-    },
-
-    getEventCoords: function(event) {
-      if (event.touches && event.touches.length > 0)
-        return {x: event.touches[0].clientX, y: event.touches[0].clientY};
-      else
-        return {x: event.clientX, y: event.clientY};
-      return null;
-    },
-
-    updateButtons: function() {
-      x$(this.button["prev"]).attr("data-ur-state", this.itemIndex == 0 ? "disabled" : "enabled")
-      x$(this.button["next"]).attr("data-ur-state", this.itemIndex == this.lastIndex ? "disabled" : "enabled")
-    },
-
-    getNewIndex: function(direction) {
-      var newIndex = this.itemIndex - direction;
-      
-      if (!this.options.infinite) {
-        if (newIndex > this.lastIndex)
-          newIndex = this.lastIndex;
-        else if (newIndex < 0)
-          newIndex = 0;
-      }
-      
-      return newIndex;
-    },
-
-    updateIndex: function(newIndex) {
-      if (newIndex === undefined)
-        return;
-
-      this.itemIndex = newIndex;
-      if (this.itemIndex < 0)
-        this.itemIndex = 0;
-      else if (this.itemIndex > this.lastIndex)
-        this.itemIndex = this.lastIndex - 1;
-
-      var realIndex = this.itemIndex;
-      if (this.options.infinite)
-        realIndex = (this.realItemCount + this.itemIndex - this.options.cloneLength) % this.realItemCount;
-      if (this.count !== undefined)
-        this.count.innerHTML = realIndex + 1 + " of " + this.realItemCount;
-
-      x$(this.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
-      x$(x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex]).attr("data-ur-state", "active");
-
-      if (this.dots)
-        x$(this.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive")[realIndex].setAttribute("data-ur-state", "active");
-
-      this.updateButtons();
-
-      x$(this.container).fire("slidestart", {index: realIndex});
-    },
-
-    startSwipe: function(e) {
-      console.log("startSwipe");
-      if (this.options.maps && !x$(e.target).has("[data-ur-carousel-component='item'], [data-ur-carousel-component='item'] *"))
-        return;
-      if (!this.options.verticalScroll)
-        stifle(e);
-      this.autoscrollStop();
-
-      this.flag.touched = true; // For non-touch environments
-      var coords = this.getEventCoords(e);
-      this.preCoords.x = coords.x;
-      this.preCoords.y = coords.y;
-      this.flag.lock = document.ontouchstart === undefined ? "x" : null;
-      this.flag.loop = false;
-
-      if (coords !== null) {
-        var translateX = getTranslateX(this.items);
-
-        if (this.startingOffset === undefined || this.startingOffset === null) {
-          this.startingOffset = translateX;
-          this.startPos = this.endPos = coords;
-        } else {
-          // Fast swipe
-          this.startingOffset = this.destinationOffset; //Factor incomplete previous swipe
-          this.startPos = this.endPos = coords;
-        }
-      }
-      this.flag.click = true;
-    },
-
-    continueSwipe: function(e) {
-      if (!this.flag.touched) // For non-touch environments
-        return;
-
-      this.flag.click = false;
-
-      var coords = this.getEventCoords(e);
-
-      if (document.ontouchstart !== undefined && this.options.verticalScroll) {
-        var slope = Math.abs((this.preCoords.y - coords.y)/(this.preCoords.x - coords.x));
-        if (this.flag.lock) {
-          if (this.flag.lock == "y")
-            return;
-        }
-        else if (slope > 1.2) {
-          this.flag.lock = "y";
-          return;
-        }
-        else if (slope <= 1.2)
-          this.flag.lock = "x";
-        else
-          return;
-      }
-      stifle(e);
-
-      if (coords !== null) {
-        this.endPos = coords;
-        var dist = this.swipeDist() + this.startingOffset;
-
-        if (this.options.infinite) {
-          var items = x$(this.items).find("[data-ur-carousel-component='item']");
-          var endLimit = items[this.lastIndex].offsetLeft + items[this.lastIndex].offsetWidth - this.container.offsetWidth;
-
-          if (dist > 0) { // at the beginning of carousel
-            var srcNode = items[this.realItemCount];
-            var offset = srcNode.offsetLeft - items[0].offsetLeft;
-            this.startingOffset -= offset;
-            dist -= offset;
-            this.flag.loop = !this.flag.loop;
-          }
-          else if (dist < -endLimit) {  // at the end of carousel
-            var srcNode = items[this.lastIndex - this.realItemCount];
-            var offset = srcNode.offsetLeft - items[this.lastIndex].offsetLeft;
-            this.startingOffset -= offset;
-            dist -= offset;
-            this.flag.loop = !this.flag.loop;
-          }
-        }
-
-        this.translate(dist);
-      }
-    },
-
-    finishSwipe: function(e) {
-      if (!this.flag.click || this.flag.lock)
-        stifle(e);
-      else
-        x$(e.target).click();
-      
-      this.flag.touched = false; // For non-touch environments
-      
-      if (!this.options.verticalScroll || this.flag.lock == "x")
-        this.moveHelper(this.getDisplacementIndex());
-      else if (this.flag.lock == "y")
-        this.autoscrollStart();
-    },
-    getDisplacementIndex: function() {
-      var swipeDistance = this.swipeDist();
-      var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
-      return displacementIndex;
-    },
-    snapTo: function(displacement) {
-      this.destinationOffset = displacement + this.startingOffset;
-      var maxOffset = -1*(this.lastIndex)*this.snapWidth;
-      var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
-
-      if (this.options.infinite)
-        maxOffset = -this.items.offsetWidth;
-      if (this.destinationOffset < maxOffset || this.destinationOffset > minOffset) {
-        if (Math.abs(this.destinationOffset - maxOffset) < 1) {
-          // Hacky -- but there are rounding errors
-          // I see this when I'm in multi-mode and using the buttons
-          // This only seems to happen on the desktop browser -- ideally its removed at compile time
-          this.destinationOffset = maxOffset;
-        } else {
-          this.destinationOffset = this.startingOffset;
-        }
-      }
-
-      this.momentum();
-    },
-
-    moveTo: function(direction) {
-      // The animation isnt done yet
-      if (this.flag.increment)
-        return;
-
-      this.startingOffset = getTranslateX(this.items);
-      this.moveHelper(direction);
-    },
-
-    moveHelper: function(direction) {
-      this.autoscrollStop();
-
-      var newIndex = this.getNewIndex(direction);
-
-      var items = x$(this.items).find("[data-ur-carousel-component='item']");
-
-      if (this.options.infinite) {
-        var oldTransform = getTranslateX(this.items);
-        var altTransform = oldTransform;
-
-        if (newIndex < this.options.cloneLength) { // at the beginning of carousel
-          var offset = items[this.options.cloneLength].offsetLeft - items[this.itemCount - this.options.cloneLength].offsetLeft;
-          if (!this.flag.loop) {
-            altTransform += offset;
-            this.translate(altTransform);
-            this.startingOffset += offset;
-          }
-          newIndex += this.realItemCount;
-          this.itemIndex = newIndex + direction;
-        }
-        else if (newIndex > this.lastIndex - this.options.cloneLength) { // at the end of carousel
-          var offset = items[this.itemCount - this.options.cloneLength].offsetLeft - items[this.options.cloneLength].offsetLeft;
-          if (!this.flag.loop) {
-            altTransform += offset;
-            this.translate(altTransform);
-            this.startingOffset += offset;
-          }
-          newIndex -= this.realItemCount;
-          this.itemIndex = newIndex + direction;
-        }
-      }
-      var newItem = items[newIndex];
-      var currentItem = items[this.itemIndex];
-      var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
-
-      setTimeout(function(obj) {
-        return function() {
-          obj.snapTo(displacement);
-          obj.updateIndex(newIndex);
-        }
-      }(this), 6);
-    },
-
-    moveToIndex: function(index) {
-      var direction = this.itemIndex - index;
-      this.moveTo(direction);
-    },
-
-    momentum: function() {
-      if (this.flag.touched)
-        return;
-
-      this.flag.increment = false;
-
-      var translateX = getTranslateX(this.items);
-      var distance = this.destinationOffset - translateX;
-      var increment = distance - zeroFloor(distance / 1.1);
-
-      // Hacky -- this is for the desktop browser only -- to fix rounding errors
-      // Ideally, this is removed at compile time
-      if(Math.abs(increment) < 0.01)
-        increment = 0;
-
-      var newTransform = increment + translateX;
-
-      this.translate(newTransform);
-
-      if (increment != 0)
-        this.flag.increment = true;
-
-      if (this.flag.increment)
-        setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
-      else {
-        this.startingOffset = null;
-        this.autoscrollStart();
-
-        var itemIndex = this.itemIndex;
-        x$(this.container).fire("slideend", {index: itemIndex});
-
-        x$().iterate(this.onSlideCallbacks, function(callback) { callback(); });
-      }
-    },
-
-    swipeDist: function() {
-      if (this.endPos === undefined)
-        return 0;
-      return this.endPos.x - this.startPos.x;
-    },
-    
-    translate: function(x) {
-      var container = this.items;
-      var translatePrefix = this.options.transform3d ? "translate3d(" : "translate(";
-      var translateSuffix = this.options.transform3d ? ", 0px)" : ")";
-      ["webkitTransform", "MozTransform", "oTransform", "transform"].forEach(function(i) {
-        container.style[i] = translatePrefix + x + "px, 0px" + translateSuffix;
-      });
-    }
-  }
-
-  // Private constructors
-  var ComponentConstructors = {
-    button: function(group, component, type) {
-      if (group["button"] === undefined)
-        group["button"] = {};
-
-      var type = component.getAttribute("data-ur-carousel-button-type");
-
-      // Declaration error
-      if (type === undefined)
-        Ur.error("malformed carousel button type on:" + component.outerHTML);
-
-      group["button"][type] = component;
-
-      // Maybe in the future I'll make it so any of the items can be the starting item
-      x$(component).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
-    }
-  };
-  function CarouselLoader(){}
-
-  CarouselLoader.prototype.initialize = function(fragment) {
-    var carousels = x$(fragment).findElements("carousel", ComponentConstructors);
-    Ur.Widgets["carousel"] = {};
-    for (var name in carousels) {
-      var carousel = carousels[name];
-      Ur.Widgets["carousel"][name] = new Carousel(carousel);
-      x$(carousel["set"]).attr("data-ur-state", "enabled");
-    }
-  }
-
-  return CarouselLoader;
-})();
-
 /* Flex Table *
  * * * * * *
  * The flex table widget will take a full-sized table and make it fit 
@@ -3145,8 +2534,6 @@ Ur.QuickLoaders["font-resizer"] = (function() {
     this.initialize();
   }
 
-=======
->>>>>>> Stashed changes
   FontResizer.prototype.initialize = function() {  
     var content = x$(this.content);
     this.min = parseInt(content.attr("data-ur-font-resizer-min")) || 100;
@@ -3412,7 +2799,6 @@ Ur.QuickLoaders["geocode"] = (function() {
 
   return GeocodeLoader;
 })();
-<<<<<<< Updated upstream
 /* Input Clear *
  * * * * * *
  * The input clear widget will provide a small X when a user focuses on a text input
@@ -3421,7 +2807,7 @@ Ur.QuickLoaders["geocode"] = (function() {
  * Customize the appearance of the X with CSS
  * 
  */
-
+ 
 Ur.QuickLoaders['input-clear'] = (function(){
   
   function inputClear (input) {
@@ -3434,10 +2820,24 @@ Ur.QuickLoaders['input-clear'] = (function(){
     ex.hide();
     // Inject it
     that.html('after', ex);
+
+    // Use these when testing on desktop
+    // ex.on('mousedown', function() {
+    //   // remove text in the box
+    //   that[0].value='';
+    // });
+    // ex.on('mouseup', function() {
+    //   that[0].focus();
+    // });
     
-    ex.on('click', function() {
+    // Touch Events
+    ex.on('touchstart', function() {
       // remove text in the box
       that[0].value='';
+    });
+    ex.on('touchend', function() {
+      // make sure the keyboard doesn't disappear
+      that[0].focus();
     });
     
     that.on('focus', function() {
@@ -3450,7 +2850,7 @@ Ur.QuickLoaders['input-clear'] = (function(){
     });
     that.on('blur', function() {
       // Delay the hide so that the button can be clicked
-      setTimeout(function() { ex.hide();}, 100);
+      setTimeout(function() { ex.hide();}, 150);
     });
   }
   
@@ -3470,8 +2870,6 @@ Ur.QuickLoaders['input-clear'] = (function(){
   return InputClearLoader;
 })();
 
-=======
->>>>>>> Stashed changes
 
 
 /*
@@ -4564,141 +3962,6 @@ Ur.QuickLoaders['SwipeToggle'] = (function () {
 
 
 
-<<<<<<< Updated upstream
-=======
-/* Flex Table *
- * * * * * *
- * The flex table widget will take a full-sized table and make it fit 
- * on a variety of different viewport sizes.  
- * 
- */
-
-Ur.QuickLoaders['flex-table'] = (function(){
-  
-  // Add an enhanced class to the tables the we'll be modifying
-  function addEnhancedClass(tbl) {
-    x$(tbl).addClass("enhanced");
-  }
-  
-  function flexTable(aTable, table_index) {
-    // TODO :: Add the ability to pass in options
-    this.options = {
-      idprefix: 'col-',   // specify a prefix for the id/headers values
-      persist: "persist", // specify a class assigned to column headers (th) that should always be present; the script not create a checkbox for these columns
-      checkContainer: null // container element where the hide/show checkboxes will be inserted; if none specified, the script creates a menu
-    };
-    
-    var self = this, 
-        o = self.options,
-        table = aTable.table,
-        thead = aTable.head,
-        tbody = aTable.body,
-        hdrCols = x$(thead).find('th'),
-        bodyRows = x$(tbody).find('tr'), 
-        container = o.checkContainer ? x$(o.checkContainer) : x$('<div class="table-menu table-menu-hidden" ><ul /></div>');
-        
-    addEnhancedClass(table);
-    
-    hdrCols.each(function(elm, i){
-      var th = x$(this),
-          id = th.attr('id'),
-          classes = th.attr('class');
-      
-      // assign an id to each header, if none is in the markup
-      if (id.length === 0) {
-        id = ( o.idprefix ? o.idprefix : "col-" ) + i;
-        th.attr('id', id); 
-      }
-      
-      // assign matching "headers" attributes to the associated cells
-      // TEMP - needs to be edited to accommodate colspans
-      bodyRows.each(function(e, j){
-        var cells = x$(e).find("th, td");
-        cells.each(function(cell, k) {
-          if (cell.cellIndex == i) {
-            x$(cell).attr('headers', id);
-            if (classes.length !== 0) { x$(cell).addClass(classes[0]); };
-          }
-        });
-      });
-      
-      // create the show/hide toggles
-      if ( !th.hasClass(o.persist) ) {
-        var toggle = x$('<li><input type="checkbox" name="toggle-cols" id="toggle-col-' +
-                          i +  '-' + table_index +  '" value="' + id + '" /> <label for="toggle-col-' + i + '-' + table_index +  '">'
-                          + th.html() +'</label></li>');
-        container.find('ul').bottom(toggle);
-        var tgl = toggle.find("input");
-        
-        tgl.on("change", function() {
-          var input = x$(this),
-              val = input.attr('value'),
-              cols = x$("div[data-ur-id='" + table_index + "'] " + "#" + val[0] + ", " +
-                        "div[data-ur-id='" + table_index + "'] " + "[headers=" + val[0] + "]");
-          if (!this.checked) { 
-            cols.addClass('ur_ft_hide'); 
-            cols.removeClass("ur_ft_show"); }
-          else { 
-            cols.removeClass("ur_ft_hide"); 
-            cols.addClass('ur_ft_show'); }
-        });
-        tgl.on("updateCheck", function(){
-          if ( th.getStyle("display") == "table-cell" || th.getStyle("display") == "inline" ) {
-            x$(this).attr("checked", true);
-          }
-          else {
-            x$(this).attr("checked", false);
-          }
-        });
-        tgl.fire("updateCheck");
-      }
-      
-    }); // end hdrCols loop
-    
-    // Update the inputs' checked status
-    x$(window).on('orientationchange', function() {
-      container.find('input').fire('updateCheck');
-    });
-    x$(window).on('resize', function() {
-      container.find('input').fire('updateCheck');
-    });
-    
-    // Create a "Display" menu      
-    if (!o.checkContainer) {
-      var menuWrapper = x$('<div class="table-menu-wrapper"></div>'),
-          popupBG = x$('<div class = "table-background-element"></div>'),
-          menuBtn = x$('<a href="#" class="table-menu-btn" ><span class="table-menu-btn-icon"></span>Display</a>');
-      menuBtn.click(function(){
-        container.toggleClass("table-menu-hidden");
-        x$(this).toggleClass("menu-btn-show");
-        return false;
-      });
-      popupBG.click(function(){
-        container.toggleClass("table-menu-hidden");
-        menuBtn.toggleClass("menu-btn-show");
-        return false;
-      });
-      container.bottom(popupBG);
-      menuWrapper.bottom(menuBtn).bottom(container);
-      x$(table).before(menuWrapper);
-    };
-  }
-  
-  function TableLoader () {}
-  
-  TableLoader.prototype.initialize = function(fragment) {
-    var tables = x$(fragment).findElements('flex-table');
-    Ur.Widgets["flex-table"] = {};
-
-    for(var table in tables){
-      Ur.Widgets["flex-table"][name] = new flexTable(tables[table], table);
-    }
-  }
-  
-  return TableLoader;
-})();
-
->>>>>>> Stashed changes
 /* Tabs *
  * * * * * *
  * The tabs are like togglers with state. If one is opened, the others are closed
