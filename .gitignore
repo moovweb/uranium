@@ -6,4 +6,4 @@ doc/*.html
 .rvmrc
 examples/site/_site/*
 .sass-cache/
-
+_site

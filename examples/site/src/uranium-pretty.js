@@ -1801,6 +1801,10 @@ Ur.WindowLoaders["carousel"] = (function() {
       return 0;
     }
   }
+  
+  function getWidth(obj) {
+    return obj.offsetWidth ? obj.offsetWidth : parseInt(x$(obj).getStyle("width"));
+  }
 
   //// Public Methods ////
 
@@ -1939,13 +1943,13 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     resize: function() {
-      if (this.snapWidth != this.container.offsetWidth)
+      if (this.snapWidth != getWidth(this.container))
         this.adjustSpacing();
     },
 
     adjustSpacing: function() {
       // Will need to be called if the container's size changes --> orientation change
-      var visibleWidth = this.container.offsetWidth;
+      var visibleWidth = getWidth(this.container);
 
       if (this.oldWidth !== undefined && this.oldWidth == visibleWidth)
         return;
@@ -1961,7 +1965,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       var totalWidth = 0;
 
       for (var i = 0; i < items.length; i++)
-        totalWidth += items[i].offsetWidth;
+        totalWidth += getWidth(items[i]);
 
       this.items.style.width = totalWidth + "px";
 
@@ -1973,7 +1977,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
       if (this.options.infinite) {
-        var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
+        var centerOffset = parseInt((this.snapWidth - getWidth(items[0]))/2);
         cumulativeOffset += centerOffset; // CHECK
       }
       if (oldSnapWidth)
@@ -2056,7 +2060,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
     startSwipe: function(e) {
       console.log("startSwipe");
-      if (this.options.maps && !x$(e.target).has("[data-ur-carousel-component='item'], [data-ur-carousel-component='item'] *"))
+      if (this.options.maps && e.target.tagName != "AREA" && !this.container.contains(e.target))
         return;
       if (!this.options.verticalScroll)
         stifle(e);
@@ -2085,6 +2089,7 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     continueSwipe: function(e) {
+      console.log("continueSwipe");
       if (!this.flag.touched) // For non-touch environments
         return;
 
@@ -2115,21 +2120,25 @@ Ur.WindowLoaders["carousel"] = (function() {
 
         if (this.options.infinite) {
           var items = x$(this.items).find("[data-ur-carousel-component='item']");
-          var endLimit = items[this.lastIndex].offsetLeft + items[this.lastIndex].offsetWidth - this.container.offsetWidth;
+          var endLimit = items[this.lastIndex].offsetLeft + getWidth(items[this.lastIndex]) - getWidth(this.container);
 
           if (dist > 0) { // at the beginning of carousel
             var srcNode = items[this.realItemCount];
             var offset = srcNode.offsetLeft - items[0].offsetLeft;
             this.startingOffset -= offset;
+            //console.log(">" + this.startingOffset);
             dist -= offset;
             this.flag.loop = !this.flag.loop;
+            //this.itemIndex = this.lastIndex;
           }
           else if (dist < -endLimit) {  // at the end of carousel
             var srcNode = items[this.lastIndex - this.realItemCount];
             var offset = srcNode.offsetLeft - items[this.lastIndex].offsetLeft;
             this.startingOffset -= offset;
+            //console.log("<" + this.startingOffset);
             dist -= offset;
             this.flag.loop = !this.flag.loop;
+            //this.itemIndex = 0;
           }
         }
 
@@ -2138,10 +2147,13 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     finishSwipe: function(e) {
+      console.log("finishSwipe");
       if (!this.flag.click || this.flag.lock)
         stifle(e);
       else
         x$(e.target).click();
+      
+      //console.log(this.itemIndex);
       
       this.flag.touched = false; // For non-touch environments
       
@@ -2152,16 +2164,17 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
     getDisplacementIndex: function() {
       var swipeDistance = this.swipeDist();
-      var displacementIndex = zeroCeil(swipeDistance/x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
+      var displacementIndex = zeroCeil(swipeDistance/getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]));
+      //var displacementIndex = zeroCeil(swipeDistance/this.snapWidth);
       return displacementIndex;
     },
     snapTo: function(displacement) {
       this.destinationOffset = displacement + this.startingOffset;
       var maxOffset = -1*(this.lastIndex)*this.snapWidth;
-      var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
+      var minOffset = parseInt((this.snapWidth - getWidth(x$(this.items).find("[data-ur-carousel-component='item']")[0]))/2);
 
       if (this.options.infinite)
-        maxOffset = -this.items.offsetWidth;
+        maxOffset = -getWidth(this.items);
       if (this.destinationOffset < maxOffset || this.destinationOffset > minOffset) {
         if (Math.abs(this.destinationOffset - maxOffset) < 1) {
           // Hacky -- but there are rounding errors
@@ -2189,6 +2202,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.autoscrollStop();
 
       var newIndex = this.getNewIndex(direction);
+      //console.log("newIndex=" + newIndex)
 
       var items = x$(this.items).find("[data-ur-carousel-component='item']");
 
@@ -2198,25 +2212,39 @@ Ur.WindowLoaders["carousel"] = (function() {
 
         if (newIndex < this.options.cloneLength) { // at the beginning of carousel
           var offset = items[this.options.cloneLength].offsetLeft - items[this.itemCount - this.options.cloneLength].offsetLeft;
+          //console.log("oldTransform=" + oldTransform);
           if (!this.flag.loop) {
+            //console.log("blah");
             altTransform += offset;
             this.translate(altTransform);
             this.startingOffset += offset;
           }
+          //this.startingOffset = -items[newIndex + this.realItemCount + 1].offsetLeft;
+          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          //console.log("altTransform=" + altTransform);
+          //console.log("this.startingOffset=" + this.startingOffset);
           newIndex += this.realItemCount;
           this.itemIndex = newIndex + direction;
         }
         else if (newIndex > this.lastIndex - this.options.cloneLength) { // at the end of carousel
           var offset = items[this.itemCount - this.options.cloneLength].offsetLeft - items[this.options.cloneLength].offsetLeft;
           if (!this.flag.loop) {
+            //console.log("blah");
             altTransform += offset;
             this.translate(altTransform);
             this.startingOffset += offset;
           }
+          //altTransform += offset;
+          //this.startingOffset = -items[newIndex - this.realItemCount - 1].offsetLeft;
+          //this.startingOffset += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          //this.startingOffset -= offset;
           newIndex -= this.realItemCount;
           this.itemIndex = newIndex + direction;
         }
       }
+      //console.log("startingOffset=" + this.startingOffset);
+      //console.log("itemIndex=" + this.itemIndex);
+      //console.log("newIndex=" + newIndex);
       var newItem = items[newIndex];
       var currentItem = items[this.itemIndex];
       var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
@@ -2251,6 +2279,23 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       var newTransform = increment + translateX;
 
+      
+      /*
+      if (this.options.infinite) {
+        var items = x$(this.items).find("[data-ur-carousel-component='item']");
+        var startLimit = items[this.options.cloneLength - 1].offsetLeft; // almost at the beginning of carousel
+        var endLimit = items[this.lastIndex].offsetLeft - this.container.offsetWidth; // almost at the end of carousel
+
+        if (newTransform >= -startLimit) { // almost at the beginning of carousel
+          this.destinationOffset -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+          newTransform -= items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+        }
+        if (newTransform <= -endLimit) { // almost at the end of carousel
+          this.destinationOffset += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+          newTransform += items[this.lastIndex - this.options.cloneLength].offsetLeft - items[this.options.cloneLength - 1].offsetLeft;
+        }
+      }*/
+      
       this.translate(newTransform);
 
       if (increment != 0)
@@ -2260,6 +2305,21 @@ Ur.WindowLoaders["carousel"] = (function() {
         setTimeout(function(obj){return function(){obj.momentum()}}(this), 16);
       else {
         this.startingOffset = null;
+        /*
+        if (this.options.infinite) {
+          
+          if (this.itemIndex == this.itemCount - this.options.cloneLength) // almost at the end of carousel
+            this.itemIndex = this.options.cloneLength;
+          else if (this.itemIndex == this.options.cloneLength - 1) // almost at the beginning of carousel
+            this.itemIndex = this.lastIndex - this.options.cloneLength;
+
+          this.updateIndex(this.itemIndex);
+
+          var altTransform = -x$(this.items).find("[data-ur-carousel-component='item']")[this.itemIndex].offsetLeft;
+          altTransform += parseInt((this.snapWidth - this.clones[0].offsetWidth)/2); // CHECK
+          this.translate(altTransform);
+        }
+        */
         this.autoscrollStart();
 
         var itemIndex = this.itemIndex;
@@ -2747,7 +2807,7 @@ Ur.QuickLoaders["geocode"] = (function() {
  * Customize the appearance of the X with CSS
  * 
  */
-
+ 
 Ur.QuickLoaders['input-clear'] = (function(){
   
   function inputClear (input) {
@@ -2760,10 +2820,24 @@ Ur.QuickLoaders['input-clear'] = (function(){
     ex.hide();
     // Inject it
     that.html('after', ex);
+
+    // Use these when testing on desktop
+    // ex.on('mousedown', function() {
+    //   // remove text in the box
+    //   that[0].value='';
+    // });
+    // ex.on('mouseup', function() {
+    //   that[0].focus();
+    // });
     
-    ex.on('click', function() {
+    // Touch Events
+    ex.on('touchstart', function() {
       // remove text in the box
       that[0].value='';
+    });
+    ex.on('touchend', function() {
+      // make sure the keyboard doesn't disappear
+      that[0].focus();
     });
     
     that.on('focus', function() {
@@ -2776,7 +2850,7 @@ Ur.QuickLoaders['input-clear'] = (function(){
     });
     that.on('blur', function() {
       // Delay the hide so that the button can be clicked
-      setTimeout(function() { ex.hide();}, 100);
+      setTimeout(function() { ex.hide();}, 150);
     });
   }
   
