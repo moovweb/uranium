@@ -1,0 +1,57 @@
+body#download_page {
+ 	#version {
+    width: auto;
+	  float: right;
+	  background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
+	  padding: 6px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	  color: #323232;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 5px;
+	  color: #323232;
+	  font-style: italic;
+	  font-family: Rockwell;
+	  text-align: center;
+	  font-size: 1.3em;
+ 	}
+ 	#download_spiel {
+	  margin-top: 40px;
+	  margin-bottom: 40px;
+  }
+  #left_dl {
+	  float: left;
+	}
+	#right_dl {
+	  float: right;
+	  margin-left: 30px;
+	}
+	#center_dl {
+	  float: right;
+	}
+	#links {
+	  width: 600px;
+	  margin: auto;
+	}
+	.download_link {
+	  width: 160px;
+	  background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
+	  padding: 6px;
+	  padding-left: 10px;
+	  padding-right: 10px;
+	  padding-bottom: 10px;
+	  margin-bottom: 30px;
+	  color: #323232;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 5px;
+	  text-align: center;
+	  h4 {
+	  	font-size: 1.9em;
+	  }
+	}
+	#links a:hover {
+	  text-decoration: none;
+	}
+}
