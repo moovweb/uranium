@@ -2463,7 +2463,7 @@ Ur.QuickLoaders['flex-table'] = (function(){
 
 /* Font Resizer
    ------------
-   Font Resizer displays three components:
+   Font Resizer displays four components:
    (1) a button which, when pressed, increases the font size of some
        specified page elements
    (2) a button which, when pressed, decreases the font size of some
@@ -2471,7 +2471,7 @@ Ur.QuickLoaders['flex-table'] = (function(){
    (3) a label which reports the current font size of the aforementioned
        page elements
    (4) a button which, when pressed, resets the contents to the original
-       font size
+       font size (optional component)
 */
 
 Ur.QuickLoaders["font-resizer"] = (function() {
@@ -2498,6 +2498,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
     this.max = parseInt(content.attr("data-ur-font-resizer-max")) || 200;
     this.delta = parseInt(content.attr("data-ur-font-resizer-delta")) || 20;
     this.size = parseInt(content.attr("data-ur-font-resizer-size")) || this.min;
+    this.original_size = this.size;
     this.invert = content.attr("data-ur-font-resizer-invert") == "Bam!" ? true : false;
 
     x$(this.increase).click(function (obj) { return function() { obj.change(up); }; }(this));
@@ -2533,7 +2534,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
         this.label.style["font-size"] = this.controlSize + "%";
       }
     } else if (direction == reset) {
-      this.size = this.min;
+      this.size = this.original_size;
       this.content.style["font-size"] = this.size + "%";
       this.label.innerText = labelText + this.size + "%";
     }
