@@ -1815,8 +1815,9 @@ Ur.WindowLoaders["carousel"] = (function() {
         autoscroll: true,
         autoscrollDelay: 5000,
         autoscrollForward: true,
+        center: true,
         cloneLength: 1,
-        fill: true,
+        fill: 0,
         infinite: true,
         maps: false,
         transform3d: true,
@@ -1910,9 +1911,6 @@ Ur.WindowLoaders["carousel"] = (function() {
       if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled")
         this.options.transform3d = false;
 
-      this.options.fill = $container.attr("data-ur-fill")[0] == "enabled";
-      $container.attr("data-ur-fill", this.options.fill ? "enabled" : "disabled");
-
       this.options.verticalScroll = $container.attr("data-ur-vertical-scroll")[0] != "disabled";
       $container.attr("data-ur-vertical-scroll", this.options.verticalScroll ? "enabled" : "disabled");
 
@@ -1925,7 +1923,17 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.options.infinite = $container.attr("data-ur-infinite")[0] != "disabled";
       $container.attr("data-ur-infinite", this.options.infinite ? "enabled" : "disabled");
 
+      this.options.center = $container.attr("data-ur-center")[0] == "enabled";
+      $container.attr("data-ur-center", this.options.center ? "enabled" : "disabled");
+
+      var fill = parseInt($container.attr("data-ur-fill"));
+      if (fill > 0)
+        this.options.fill = fill;
+      $container.attr("data-ur-fill", this.options.fill);
+
       var cloneLength = parseInt($container.attr("data-ur-clones"));
+      if (isNaN(cloneLength) || cloneLength < fill)
+        cloneLength = fill;
       if (cloneLength > 0)
         this.options.cloneLength = cloneLength;
       $container.attr("data-ur-clones", this.options.cloneLength);
@@ -1962,12 +1970,16 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.itemCount = items.length;
 
       // Adjust the container to be the necessary width.
-      // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
       var totalWidth = 0;
+
+      var itemWidth = Math.round(visibleWidth / this.options.fill);
+      var lastItemWidth = visibleWidth - (this.options.fill - 1) * itemWidth;
+
       for (var i = 0; i < items.length; i++) {
-        if (this.options.fill) {
-          items[i].style.width = visible_width + "px";
-          totalWidth += visible_width;
+        if (this.options.fill > 0) {
+          var last_pos = (i - this.options.cloneLength) % this.options.fill == this.options.fill - 1;
+          items[i].style.width = (last_pos ? lastItemWidth : itemWidth) + "px";
+          totalWidth += (last_pos ? lastItemWidth : itemWidth);
         }
         else
           totalWidth += items[i].offsetWidth;
@@ -1982,7 +1994,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.itemIndex = (this.lastIndex < this.itemIndex) ? this.lastIndex : this.itemIndex;
 
       cumulativeOffset -= items[this.itemIndex].offsetLeft; // initial offset
-      if (this.options.infinite) {
+      if (this.options.center) {
         var centerOffset = parseInt((this.snapWidth - items[0].offsetWidth)/2);
         cumulativeOffset += centerOffset; // CHECK
       }
@@ -2018,8 +2030,9 @@ Ur.WindowLoaders["carousel"] = (function() {
     getEventCoords: function(event) {
       if (event.touches && event.touches.length > 0)
         return {x: event.touches[0].clientX, y: event.touches[0].clientY};
-      else
+      else if (event.clientX != undefined)
         return {x: event.clientX, y: event.clientY};
+      return null;
     },
 
     updateButtons: function() {
@@ -2031,7 +2044,9 @@ Ur.WindowLoaders["carousel"] = (function() {
       var newIndex = this.itemIndex - direction;
       
       if (!this.options.infinite) {
-        if (newIndex > this.lastIndex)
+        if (this.options.fill > 1 && newIndex > this.lastIndex - this.options.fill + 1)
+          newIndex = this.lastIndex - this.options.fill + 1;
+        else if (newIndex > this.lastIndex)
           newIndex = this.lastIndex;
         else if (newIndex < 0)
           newIndex = 0;
@@ -2075,25 +2090,24 @@ Ur.WindowLoaders["carousel"] = (function() {
       this.autoscrollStop();
 
       this.flag.touched = true; // For non-touch environments
+      this.flag.lock = document.ontouchstart === undefined ? "x" : null;
+      this.flag.loop = false;
+      this.flag.click = true;
       var coords = this.getEventCoords(e);
       this.preCoords.x = coords.x;
       this.preCoords.y = coords.y;
-      this.flag.lock = document.ontouchstart === undefined ? "x" : null;
-      this.flag.loop = false;
 
       if (coords !== null) {
         var translateX = getTranslateX(this.items);
 
-        if (this.startingOffset === undefined || this.startingOffset === null) {
+        if (this.startingOffset == null)
           this.startingOffset = translateX;
-          this.startPos = this.endPos = coords;
-        } else {
+        else
           // Fast swipe
           this.startingOffset = this.destinationOffset; //Factor incomplete previous swipe
-          this.startPos = this.endPos = coords;
-        }
+        
+        this.startPos = this.endPos = coords;
       }
-      this.flag.click = true;
     },
 
     continueSwipe: function(e) {
@@ -2157,10 +2171,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       
       this.flag.touched = false; // For non-touch environments
       
-      if (!this.options.verticalScroll || this.flag.lock == "x")
-        this.moveHelper(this.getDisplacementIndex());
-      else if (this.flag.lock == "y")
-        this.autoscrollStart();
+      this.moveHelper(this.getDisplacementIndex());
     },
     getDisplacementIndex: function() {
       var swipeDistance = this.swipeDist();
@@ -2169,7 +2180,7 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
     snapTo: function(displacement) {
       this.destinationOffset = displacement + this.startingOffset;
-      var maxOffset = -1*(this.lastIndex)*this.snapWidth;
+      var maxOffset = -1*this.lastIndex*this.snapWidth;
       var minOffset = parseInt((this.snapWidth - x$(this.items).find("[data-ur-carousel-component='item']")[0].offsetWidth)/2);
 
       if (this.options.infinite)
