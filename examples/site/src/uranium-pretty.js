@@ -1816,6 +1816,7 @@ Ur.WindowLoaders["carousel"] = (function() {
         autoscrollDelay: 5000,
         autoscrollForward: true,
         cloneLength: 1,
+        fill: true,
         infinite: true,
         maps: false,
         transform3d: true,
@@ -1834,7 +1835,7 @@ Ur.WindowLoaders["carousel"] = (function() {
         x$(target).on(start, function(obj){return function(e){obj.startSwipe(e)};}(this));
         x$(target).on(move, function(obj){return function(e){obj.continueSwipe(e)};}(this));
         x$(target).on(end, function(obj){return function(e){obj.finishSwipe(e)};}(this));
-        x$(this.items).click(function(obj){return function(e){if (!obj.click) stifle(e);}}(this));
+        x$(this.items).click(function(obj){return function(e){if (!obj.flag.click) stifle(e);}}(this));
       }
 
       x$(this.button["prev"]).click(function(obj){return function(){obj.moveTo(obj.magazineCount);}}(this));
@@ -1909,6 +1910,9 @@ Ur.WindowLoaders["carousel"] = (function() {
       if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled")
         this.options.transform3d = false;
 
+      this.options.fill = $container.attr("data-ur-fill")[0] == "enabled";
+      $container.attr("data-ur-fill", this.options.fill ? "enabled" : "disabled");
+
       this.options.verticalScroll = $container.attr("data-ur-vertical-scroll")[0] != "disabled";
       $container.attr("data-ur-vertical-scroll", this.options.verticalScroll ? "enabled" : "disabled");
 
@@ -1939,7 +1943,8 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     resize: function() {
-      if (this.snapWidth != this.container.offsetWidth)
+      var offsetWidth = this.container.offsetWidth;
+      if (this.snapWidth != offsetWidth && offsetWidth != 0)
         this.adjustSpacing();
     },
 
@@ -1959,9 +1964,14 @@ Ur.WindowLoaders["carousel"] = (function() {
       // Adjust the container to be the necessary width.
       // I have to do this because the alternative is assuming the container expands to its full width (display:table-row) which is non-standard if the container isn't a <tr>
       var totalWidth = 0;
-
-      for (var i = 0; i < items.length; i++)
-        totalWidth += items[i].offsetWidth;
+      for (var i = 0; i < items.length; i++) {
+        if (this.options.fill) {
+          items[i].style.width = visible_width + "px";
+          totalWidth += visible_width;
+        }
+        else
+          totalWidth += items[i].offsetWidth;
+      }
 
       this.items.style.width = totalWidth + "px";
 
@@ -1988,12 +1998,16 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       var self = this;
       self.flag.timeoutId = setTimeout(function() {
-        if (!self.options.infinite && self.itemIndex == self.lastIndex && self.options.autoscrollForward)
-          self.jumpToIndex(0);
-        else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
-          self.jumpToIndex(self.lastIndex);
+        if (self.container.offsetWidth != 0) {
+          if (!self.options.infinite && self.itemIndex == self.lastIndex && self.options.autoscrollForward)
+            self.jumpToIndex(0);
+          else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
+            self.jumpToIndex(self.lastIndex);
+          else
+            self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
+        }
         else
-          self.moveTo(self.options.autoscrollForward ? -self.magazineCount : self.magazineCount);
+          self.autoscrollStart();
       }, self.options.autoscrollDelay);
     },
 
@@ -2006,7 +2020,6 @@ Ur.WindowLoaders["carousel"] = (function() {
         return {x: event.touches[0].clientX, y: event.touches[0].clientY};
       else
         return {x: event.clientX, y: event.clientY};
-      return null;
     },
 
     updateButtons: function() {
@@ -2055,8 +2068,7 @@ Ur.WindowLoaders["carousel"] = (function() {
     },
 
     startSwipe: function(e) {
-      console.log("startSwipe");
-      if (this.options.maps && !x$(e.target).has("[data-ur-carousel-component='item'], [data-ur-carousel-component='item'] *"))
+      if (this.options.maps && e.target.tagName != "AREA" && !this.container.contains(e.target))
         return;
       if (!this.options.verticalScroll)
         stifle(e);
@@ -2220,13 +2232,12 @@ Ur.WindowLoaders["carousel"] = (function() {
       var newItem = items[newIndex];
       var currentItem = items[this.itemIndex];
       var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
-
-      setTimeout(function(obj) {
-        return function() {
-          obj.snapTo(displacement);
-          obj.updateIndex(newIndex);
-        }
-      }(this), 6);
+      var self = this;
+      
+      setTimeout(function() {
+        self.snapTo(displacement);
+        self.updateIndex(newIndex);
+      }, 6);
     },
 
     moveToIndex: function(index) {
@@ -2452,39 +2463,50 @@ Ur.QuickLoaders['flex-table'] = (function(){
 
 /* Font Resizer
    ------------
-   Font Resizer displays three components:
+   Font Resizer displays four components:
    (1) a button which, when pressed, increases the font size of some
        specified page elements
    (2) a button which, when pressed, decreases the font size of some
        specified page elements
    (3) a label which reports the current font size of the aforementioned
        page elements
+   (4) a button which, when pressed, resets the contents to the original
+       font size (optional component)
 */
 
 Ur.QuickLoaders["font-resizer"] = (function() {
-  
+
   var labelText = "Text Size: ";
-  var up = 1, down = -1;
+  var up = 1, down = -1, reset = 0;
+  var is_reset_enabled = "false";
 
   function FontResizer(components) {
     this.increase = components["increase"];
     this.decrease = components["decrease"];
     this.label = components["label"];
     this.content = components["content"];
+    if (components["reset"]) {
+      this.reset_size = components["reset"];
+      is_reset_enabled = true;
+    }
     this.initialize();
   }
 
-  FontResizer.prototype.initialize = function() {  
+  FontResizer.prototype.initialize = function() {
     var content = x$(this.content);
     this.min = parseInt(content.attr("data-ur-font-resizer-min")) || 100;
     this.max = parseInt(content.attr("data-ur-font-resizer-max")) || 200;
     this.delta = parseInt(content.attr("data-ur-font-resizer-delta")) || 20;
     this.size = parseInt(content.attr("data-ur-font-resizer-size")) || this.min;
+    this.original_size = this.size;
     this.invert = content.attr("data-ur-font-resizer-invert") == "Bam!" ? true : false;
 
     x$(this.increase).click(function (obj) { return function() { obj.change(up); }; }(this));
     x$(this.decrease).click(function (obj) { return function() { obj.change(down); }; }(this));
-    
+    if (is_reset_enabled) {
+      x$(this.reset_size).click(function (obj) { return function() { obj.change(reset); }; }(this));
+    }
+
     if (this.invert) {
       this.size = this.min;
       this.controlSize = this.max;
@@ -2492,7 +2514,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
       this.decrease.style["font-size"] = this.controlSize + "%";
       this.label.style["font-size"] = this.controlSize + "%";
     }
-    
+
     content[0].style["font-size"] = this.size + "%";
     x$(this.label).inner(labelText + this.size + "%");
 
@@ -2504,23 +2526,27 @@ Ur.QuickLoaders["font-resizer"] = (function() {
       this.size += direction * this.delta;
       this.content.style["font-size"] = this.size + "%";
       this.label.innerText = labelText + this.size + "%";
-      
+
       if (this.invert) {
         this.controlSize += -direction * this.delta;
         this.increase.style["font-size"] = this.controlSize + "%";
         this.decrease.style["font-size"] = this.controlSize + "%";
         this.label.style["font-size"] = this.controlSize + "%";
       }
+    } else if (direction == reset) {
+      this.size = this.original_size;
+      this.content.style["font-size"] = this.size + "%";
+      this.label.innerText = labelText + this.size + "%";
     }
   }
 
   function FontResizerLoader() {}
-  
+
   FontResizerLoader.prototype.initialize = function(fragment) {
     var font_resizers = x$(fragment).findElements('font-resizer');
     for (var name in font_resizers) new FontResizer(font_resizers[name]);
   }
-  
+
   return FontResizerLoader;
 })();
 
@@ -2747,7 +2773,7 @@ Ur.QuickLoaders["geocode"] = (function() {
  * Customize the appearance of the X with CSS
  * 
  */
-
+ 
 Ur.QuickLoaders['input-clear'] = (function(){
   
   function inputClear (input) {
@@ -2760,10 +2786,24 @@ Ur.QuickLoaders['input-clear'] = (function(){
     ex.hide();
     // Inject it
     that.html('after', ex);
+
+    // Use these when testing on desktop
+    // ex.on('mousedown', function() {
+    //   // remove text in the box
+    //   that[0].value='';
+    // });
+    // ex.on('mouseup', function() {
+    //   that[0].focus();
+    // });
     
-    ex.on('click', function() {
+    // Touch Events
+    ex.on('touchstart', function() {
       // remove text in the box
       that[0].value='';
+    });
+    ex.on('touchend', function() {
+      // make sure the keyboard doesn't disappear
+      that[0].focus();
     });
     
     that.on('focus', function() {
@@ -2776,7 +2816,7 @@ Ur.QuickLoaders['input-clear'] = (function(){
     });
     that.on('blur', function() {
       // Delay the hide so that the button can be clicked
-      setTimeout(function() { ex.hide();}, 100);
+      setTimeout(function() { ex.hide();}, 150);
     });
   }
   

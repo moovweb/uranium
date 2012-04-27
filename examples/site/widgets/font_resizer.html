@@ -5,11 +5,11 @@ name: font_resizer
 widget_selected: selected
 ---
 <div data-ur-set="tabs">
-  
+
   <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-  
+
   <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-  
+
   <div data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
     <div class="wrapper">
       <h1> {{page.title}} </h1>
@@ -35,6 +35,7 @@ widget_selected: selected
               <li><span class="inline_code">data-ur-font-resizer-component="increase"</span> - this is used to mark the increase button (e.g. [+])</li>
               <li><span class="inline_code">data-ur-font-resizer-component="label"</span> - this indicates the text size</li>
               <li><span class="inline_code">data-ur-font-resizer-component="decrease"</span> - this is used to mark the decrease button (e.g. [-]) </li>
+              <li><span class="inline_code">data-ur-font-resizer-component="reset"</span> - this is used to reset to the original font size (e.g. [Reset]) </li>
               <li><span class="inline_code">data-ur-font-resizer-component="content"</span> - this marks the content</li>
             </ul>
           </p>
@@ -44,6 +45,16 @@ widget_selected: selected
           <div class="set_name inline_code">"font-resizer"</div>
           <br/>
           <h3> data-ur-font-resizer-component= </h3>
+					<div class="components">
+						<h4>Optional</h4>
+						<ul>
+              <li><div data-ur-toggler-component="button" class="inline_code">"reset"</div>
+                <ul data-ur-toggler-component="content">
+                  <li>multiple?: false</li>
+                </ul>
+              </li>
+						</ul>
+					</div>
           <div class="components">
             <h4>Required</h4>
             <ul>
@@ -95,12 +106,13 @@ widget_selected: selected
         <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'> Widget</h3>
 
         <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
-  
+
         <div class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
           <div data-ur-set="font-resizer" class="example_widget">
             <span data-ur-font-resizer-component="increase">[+]</span>
             <span data-ur-font-resizer-component="label"></span>
             <span data-ur-font-resizer-component="decrease">[-]</span>
+            <span data-ur-font-resizer-component="reset">[Reset]</span>
             <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
           </div>
         </div>
@@ -118,7 +130,7 @@ widget_selected: selected
     </div><!-- wrapper-->
 
     <hr />
-    
+
     <div class="wrapper">
     <h2>Further Examples</h2>
     <h3>Using data-ur-id:</h3>
@@ -139,6 +151,7 @@ widget_selected: selected
         <span data-ur-font-resizer-component="increase">[+]</span>
         <span data-ur-font-resizer-component="label"></span>
         <span data-ur-font-resizer-component="decrease">[-]</span>
+				<span data-ur-font-resizer-component="reset">[Reset]</span>
         <p data-ur-font-resizer-component="content"
            data-ur-font-resizer-min="50"
            data-ur-font-resizer-max="220"
