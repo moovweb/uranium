@@ -3,8 +3,37 @@
   <head>
     <title>Uranium JS | {{ page.title }}</title>
     <script src="{{site.url}}../src/uranium-pretty.js"></script>
-    <link rel="stylesheet" type='text/css' href='{{site.url}}../stylesheets/style_index_yellow.css' />
-    <link rel="stylesheet" type='text/css' href='{{site.url}}../stylesheets/base.css' />
+    <script>
+    if (location.hostname == "localhost")
+      document.write('<script src="{{site.url}}..\/src\/jasmine.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/jasmine-html.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/jquery-1.7.2.min.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/synthetic.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/mouse.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/browsers.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/key.js"><\/script>\
+                      <script src="{{site.url}}..\/src\/drag.js"><\/script>');
+    </script>
+    <script>
+    if (location.hostname == "localhost")
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 250;
+      
+        var jsApiReporter;
+        var htmlReporter = new jasmine.HtmlReporter();
+          jasmineEnv.addReporter(htmlReporter);
+
+          jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+          };
+
+          window.onload = function() { jasmineEnv.execute(); };
+        })();
+    </script>
+    <link rel="stylesheet" type="text/css" href="{{site.url}}../stylesheets/jasmine.css" />
+    <link rel="stylesheet" type="text/css" href="{{site.url}}../stylesheets/style_index_yellow.css" />
+    <link rel="stylesheet" type="text/css" href="{{site.url}}../stylesheets/base.css" />
   </head>
   
   <body id="{{page.name}}_page">
