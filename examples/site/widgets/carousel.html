@@ -7,6 +7,7 @@ widget_selected: selected
 <script>
 var carouselHtml;
 x$(document).on("DOMContentLoaded", function() {
+  x$("#carousel_widget").setStyle("width", "750px");
   carouselHtml = x$("#carousel_widget")[0].innerHTML;
 });
 
@@ -75,10 +76,9 @@ describe("A plain carousel", function() {
   });
 });
 
-
 describe("An infinite carousel", function() {
   beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-clones", "3");
+    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
     Ur.setup("#carousel_widget");
   });
   it("loops around going left", function() {
@@ -87,10 +87,25 @@ describe("An infinite carousel", function() {
       Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
     });
     waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1750/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
     }, "carousel scroll left", 1000);
     runs(function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
+    });
+  });
+  it("loops around going right", function() {
+    var dragged = false;
+    runs(function() {
+      Ur.Widgets.carousel.MyFirstCarousel.jumpToIndex(7);
+      setTimeout(function() {
+        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"), function() {dragged = true;});
+      }, 1000);
+    });
+    waitsFor(function() {
+      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+    }, "carousel scroll right", 2000);
+    runs(function() {
+      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(3);
     });
   });
 });
@@ -106,6 +121,14 @@ describe("An auto-scrolling carousel", function() {
     }, "carousel scroll right", 3000);
     runs(function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
+    });
+  });
+  it("scrolls back to the beginning", function() {
+    waitsFor(function() {
+      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+    }, "carousel loop around", 3000);
+    runs(function() {
+      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
     });
   });
 });
