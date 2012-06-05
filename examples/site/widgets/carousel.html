@@ -15,11 +15,9 @@ describe("A plain carousel", function() {
     x$("#carousel_widget").html(carouselHtml);
     Ur.setup("#carousel_widget");
   });
-  it("slides to the left by 1 item", function() {
+  it("slides to the right by 1 item", function() {
     runs(function() {
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-      }, 0);
+      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
     });
     waitsFor(function() {
       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
@@ -28,7 +26,7 @@ describe("A plain carousel", function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
     });
   });
-  it("slides to the left by 1 item and then right by 1 item", function() {
+  it("slides to the right by 1 item and then left by 1 item", function() {
     var dragged = false;
     runs(function() {
       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
@@ -55,7 +53,7 @@ describe("A plain carousel", function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
     });
   });
-  it("can slide to the very right", function() {
+  it("slides to the very right", function() {
     runs(function() {
       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
       setTimeout(function() {
@@ -73,6 +71,25 @@ describe("A plain carousel", function() {
     }, "carousel scroll", 7000);
     runs(function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
+    });
+  });
+});
+
+describe("An infinite carousel", function() {
+  beforeEach(function() {
+    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-clones", "3");
+    Ur.setup("#carousel_widget");
+  });
+  it("slides to the left by 1 item", function() {
+    var dragged = false;
+    runs(function() {
+      Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"), function() {dragged = true;});
+    });
+    waitsFor(function() {
+      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1750/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+    }, "carousel scroll left", 1000);
+    runs(function() {
+      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
     });
   });
 });
@@ -333,9 +350,9 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
       <h3>Infinite scrolling example</h3>
 
       <p>
-        Here we have a carousel that loops from front to back. Note that the current element is centered.
+        Here we have a carousel that loops from front to back.
       </p>
-      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-carousel-component="view_container" data-ur-clones="2">
+      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-center="enabled" data-ur-carousel-component="view_container" data-ur-clones="2">
         <span data-ur-carousel-component="count"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
