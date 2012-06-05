@@ -44,11 +44,11 @@ describe("A plain carousel", function() {
   it("slides back if it slid to the left when already at the very left", function() {
     var dragged = false;
     runs(function() {
-      Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"), function() {dragged = true;});
+      Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
     });
     waitsFor(function() {
       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 1000);
+    }, "carousel scroll left", 1000);
     runs(function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
     });
@@ -75,21 +75,37 @@ describe("A plain carousel", function() {
   });
 });
 
+
 describe("An infinite carousel", function() {
   beforeEach(function() {
     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-clones", "3");
     Ur.setup("#carousel_widget");
   });
-  it("slides to the left by 1 item", function() {
+  it("loops around going left", function() {
     var dragged = false;
     runs(function() {
-      Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"), function() {dragged = true;});
+      Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
     });
     waitsFor(function() {
       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1750/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
     }, "carousel scroll left", 1000);
     runs(function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
+    });
+  });
+});
+
+describe("An auto-scrolling carousel", function() {
+  beforeEach(function() {
+    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
+    Ur.setup("#carousel_widget");
+  });
+  it("scrolls to the very right", function() {
+    waitsFor(function() {
+      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+    }, "carousel scroll right", 3000);
+    runs(function() {
+      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
     });
   });
 });
