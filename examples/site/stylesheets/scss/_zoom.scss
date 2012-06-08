@@ -1,0 +1,78 @@
+body#zoom_page {
+  [data-ur-set="zoom"] {
+    outline: 1px solid #333;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 300px;
+    height: 300px;
+  }
+  [data-ur-set="zoom"]::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+  
+  [data-ur-state="enabled-in"], [data-ur-state="enabled-out"] {
+    [data-ur-zoom-component] {
+      @include transition-duration(0.4s);
+      @include transition-timing-function(ease-in-out);
+      -webkit-transition-property: -webkit-transform;
+      -moz-transition-property: -moz-transform;
+      -o-transition-property: -o-transform;
+    }
+  }
+  
+  [data-ur-set="zoom"] img {
+    vertical-align: middle;
+  }
+  
+  [data-ur-zoom-component="button"] {
+    background: #ddd;
+    border-radius: 15px;
+    font-size: 24px;
+    line-height: 27px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+  }
+  
+  [data-ur-zoom-component="loading"] {
+    background: white;
+    border: 1px solid #ccc;
+    color: #333;
+    font-size: 14px;
+    line-height: 50px;
+    margin-top: -26px;
+    margin-left: -81px;
+    opacity: 0.8;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 50px;
+    text-align: center;
+  }
+  
+  [data-ur-zoom-component="button"] {
+    span:last-child {
+      display: none;
+    }
+    &[data-ur-state="enabled"] span {
+      &:first-child {
+        display: none;
+      }
+      &:last-child {
+        display: inline;
+      }
+    }
+  }
+  
+  [data-ur-zoom-component="loading"][data-ur-state="disabled"] {
+    display: none;
+  }
+}

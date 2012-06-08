@@ -22,7 +22,7 @@ describe("A plain carousel", function() {
     });
     waitsFor(function() {
       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 1000);
+    }, "carousel scroll right", 1200);
     runs(function() {
       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
     });
@@ -30,9 +30,9 @@ describe("A plain carousel", function() {
   it("slides to the right by 1 item and then left by 1 item", function() {
     var dragged = false;
     runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
+      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
       setTimeout(function() {
-        Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"), function() {dragged = true;});
+        Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
       }, 1200);
     });
     waitsFor(function() {
@@ -264,7 +264,7 @@ describe("An auto-scrolling carousel", function() {
             <li><span class="inline_code">jumpToIndex(index)</span>: forces the carousel to jump to the specified (zero based) index</li>
             <li><span class="inline_code">onSlideCallbacks(callback)</span>: supplies a callback which is called when animation has completed</li>
             <li><span class="inline_code">"slidestart"</span> event is fired on view_container when sliding begins (excluding touch input)</li>
-            <li><span class="inline_code">"slideend"</span> event is fired on view_container when sliding begins</li>
+            <li><span class="inline_code">"slideend"</span> event is fired on view_container when sliding ends</li>
           </ul>
         </div>
       </div>
