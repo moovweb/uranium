@@ -3,123 +3,79 @@ layout: widgets
 title: Select Buttons
 name: select_buttons
 widget_selected: selected
+description: |
+    <p>
+      This widget allows you to bind increment/decrement buttons to trigger the appropriate
+      changes on a <span class="inline_code">&lt;select&gt;</span> element. It's extremely
+      useful in situations where the options for the select are long, and will not fit on the
+      select popup that most devices present.
+    </p>
+basic_tab:
+  data-ur-set="select-buttons": add this attribute to a div that wraps the whole widget
+  data-ur-select-buttons-component="select": add this attribute to the select tag
+  data-ur-select-buttons-component="increment": add this attribute to the increment button
+  data-ur-select-buttons-component="decrement": add this attribute to the decrement button
+advanced_tab:
+  Required:
+    select:
+      - add this attribute to the drop-down list, which should be in a select tag
+      - "multiple?: false"
+      - "state: N/A"
+    increment:
+      - for the increment button
+      - "multiple?: false"
+      - "state: enabled / disabled (default is no state)"
+    decrement:
+      - for the decrement button
+      - "multiple?: false"
+      - "state: enabled / disabled (default is no state; you should set to disabled)"
 ---
-<div data-ur-set="tabs">
-  <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-  
-  <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-  
-  <div data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-    <div class="wrapper">
-      <h1> {{page.title}} </h1>
-    </div>
-    <div class="description_wrapper">
-      <h2> Description </h2>
+<div class='wrapper'>
+  <h2> Required Styles </h2>
+  <p>
+    No styles are required.
+  </p>
+</div>
 
-      <div class='description'>
-        <p>
-        This widget allows you to bind increment/decrement buttons to trigger
-        the appropriate changes on a <span class="inline_code">&lt;select&gt;</span> element.
-        It's extremely useful in situations where the options for the select are long, and will not
-        fit on the select popup that most devices present.
-        </p>
-      </div>
-    </div> <!-- wrapper -->
+<div class="wrapper">
+  <h2> Demonstration </h2>
 
-    <div class="wrapper">
-      <h2> Attributes </h2>
-      <div class="attributes">
+  <div class='demonstration' name='One'>
+    <div data-ur-set="tabs">
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
 
-        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
-          <ul>
-            <li><span class="inline_code">data-ur-set="select-buttons"</span> - add this attribute to a div that wraps the whole widget</li>
-            <li><span class="inline_code">data-ur-select-buttons-component="select"</span> - add this attribute to the select tag</li>
-            <li><span class="inline_code">data-ur-select-buttons-component="increment"</span> - add this attribute to the increment button</li>
-            <li><span class="inline_code">data-ur-select-buttons-component="decrement"</span> - add this attribute to the decrement button</li>
-          </ul>
-        </div><!-- basic -->
-        <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-          <h3> data-ur-set= </h3>
-          <div class="set_name inline_code">"select-buttons"</div>
-          <br/>
-          <h3> data-ur-select-buttons-component= </h3>
-          <div class="components">
-            <ul>
-              <li><div data-ur-toggler-component="button" class="inline_code">"select"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>add this attribute to the drop-down list, which should be in a select tag</li>
-                  <li>multiple?: false</li>
-                  <li>state: N/A</li>
-                </ul>
-              </li>
-              <li><div data-ur-toggler-component="button" class="inline_code">"increment"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>for the increment button</li>
-                  <li>multiple?: false</li>
-                  <li>state: enabled / disabled (default is no state)</li>
-                </ul>
-              </li>
-              <li><div data-ur-toggler-component="button" class="inline_code">"decrement"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>for the decrement button</li>
-                  <li>multiple?: false</li>
-                  <li>state: enabled / disabled (default is no state; you should set to disabled)</li>
-                </ul>
-              </li>
-            </ul>
-          </div><!-- end of components -->
-        </div><!-- end of advanced_tab -->
-      </div><!-- end of attributes tabs -->
-    </div><!-- end of wrapper -->
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
 
-    <div class='wrapper'>
-      <h2> Required Styles </h2>
-      <p>
-        No styles are required.
-      </p>
-    </div>
+      <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
+        <div data-ur-set='select-buttons'>
+          <select data-ur-select-buttons-component='select'>
+            <option selected='true' value='-1'> -None- </option>
+            <option value='SKU-XS'> XS </option>
+            <option value='SKU-S'> S </option>
+            <option value='SKU-M'> M </option>
+            <option value='SKU-L'> L </option>
+          </select>
 
-    <div class="wrapper">
-      <h2> Demonstration </h2>
-
-      <div class='demonstration' name='One'>
-        <div data-ur-set="tabs">
-          <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
-
-          <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
-    
-          <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
-            <div data-ur-set='select-buttons'>
-              <select data-ur-select-buttons-component='select'>
-                <option selected='true' value='-1'> -None- </option>
-                <option value='SKU-XS'> XS </option>
-                <option value='SKU-S'> S </option>
-                <option value='SKU-M'> M </option>
-                <option value='SKU-L'> L </option>
-              </select>
-    
-              <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
-              <span data-ur-select-buttons-component='increment'> [+] </span>
-            </div>
-          </div>
-          <div data-ur-tabs-component="content" data-ur-tab-id="html">
-  {% highlight html %}
-  <div data-ur-set='select-buttons'>
-    <select data-ur-select-buttons-component='select'>
-      <option selected='true' value='-1'> -None- </option>
-      <option value='SKU-XS'> XS </option>
-      <option value='SKU-S'> S </option>
-      <option value='SKU-M'> M </option>
-      <option value='SKU-L'> L </option>
-    </select>
-
-    <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
-    <span data-ur-select-buttons-component='increment'> [+] </span>
-  </div>
-  {% endhighlight %}
-          </div>
+          <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+          <span data-ur-select-buttons-component='increment'> [+] </span>
         </div>
       </div>
-    </div> <!-- wrapper -->
-  </div> <!-- basicpage -->
-</div> <!-- tabs -->
+      <div data-ur-tabs-component="content" data-ur-tab-id="html">
+{% highlight html %}
+<div data-ur-set='select-buttons'>
+<select data-ur-select-buttons-component='select'>
+  <option selected='true' value='-1'> -None- </option>
+  <option value='SKU-XS'> XS </option>
+  <option value='SKU-S'> S </option>
+  <option value='SKU-M'> M </option>
+  <option value='SKU-L'> L </option>
+</select>
+
+<span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+<span data-ur-select-buttons-component='increment'> [+] </span>
+</div>
+{% endhighlight %}
+      </div>
+    </div>
+  </div>
+</div> <!-- wrapper -->

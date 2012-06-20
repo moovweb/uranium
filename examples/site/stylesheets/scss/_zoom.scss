@@ -1,11 +1,10 @@
 body#zoom_page {
   [data-ur-set="zoom"] {
+    display: inline-block;
     outline: 1px solid #333;
     overflow: hidden;
     position: relative;
     text-align: center;
-    width: 300px;
-    height: 300px;
   }
   [data-ur-set="zoom"]::before {
     content: "";
@@ -17,10 +16,8 @@ body#zoom_page {
   [data-ur-state="enabled-in"], [data-ur-state="enabled-out"] {
     [data-ur-zoom-component] {
       @include transition-duration(0.4s);
+      @include transition-property(transform);
       @include transition-timing-function(ease-in-out);
-      -webkit-transition-property: -webkit-transform;
-      -moz-transition-property: -moz-transform;
-      -o-transition-property: -o-transform;
     }
   }
   
@@ -29,10 +26,10 @@ body#zoom_page {
   }
   
   [data-ur-zoom-component="button"] {
-    background: #ddd;
+    background: rgba(white, 0.6);
     border-radius: 15px;
     font-size: 24px;
-    line-height: 27px;
+    line-height: 30px;
     position: absolute;
     bottom: 5px;
     right: 5px;

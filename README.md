@@ -101,7 +101,7 @@ TODO: Information on how the code base should be structured, conventions, etc...
 
 Start the jekyll server with `jekyll --server --pygments`
 
-Run `sass --watch stylesheets/sass:stylesheets --line-comments --compass` on the stylesheets folder to compile your SASS files. 
+Run `sass --watch stylesheets/scss:stylesheets --line-comments --compass` on the stylesheets folder to compile your SASS files.
 
 **Documentation**
 

@@ -3,187 +3,123 @@ layout: widgets
 title: Font Resizer
 name: font_resizer
 widget_selected: selected
+description: |
+    <p>This widget allows us to change the font size of a specified page element.</p>
+    <p>To use this widget, we need to use a couple of attributes. We can use the set method (i.e. grouping all of the widget components in a single div with the attribute data-ur-set) or the id method (i.e. giving each component of the widget a data-ur-id with an identical value, which doesn't require them to be grouped inside a single wrapper).</p>
+basic_tab:
+  data-ur-font-resizer-component="increase": this is used to mark the increase button (e.g. [+])
+  data-ur-font-resizer-component="label": this indicates the text size
+  data-ur-font-resizer-component="decrease": this is used to mark the decrease button (e.g. [-])
+  data-ur-font-resizer-component="reset": this is used to reset to the original font size (e.g. [Reset])
+  data-ur-font-resizer-component="content": this marks the content
+advanced_tab:
+  Required:
+    increase:
+      - "multiple?: false"
+    decrease:
+      - "multiple?: false"
+    label:
+      - "multiple?: false"
+    content:
+      - "multiple?: false"
+      - attributes:
+        - "<code>data-ur-font-resizer-min</code>: defaults to \"100\""
+        - "<code>data-ur-font-resizer-max</code>: defaults to \"200\""
+        - "<code>data-ur-font-resizer-size</code>: defaults to min"
+        - "<code>data-ur-font-resizer-delta</code>: defaults to \"20\""
+  Optional:
+    reset:
+      - "multiple?: false"
 ---
-<div data-ur-set="tabs">
+<div class='wrapper'>
+  <h2> Required Styles </h2>
+  <p>
+    No styles are required. All styles are handled inline by the widget.
+  </p>
+</div>
 
-  <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+<div class="wrapper">
+  <h2>Demonstration</h2>
+  <div class="demonstration" data-ur-set="tabs">
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'> Widget</h3>
 
-  <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+    <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
 
-  <div data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-    <div class="wrapper">
-      <h1> {{page.title}} </h1>
-    </div>
-    <div class="description_wrapper">
-      <h2>Description</h2>
-      <div class="description">
-        <p>This widget allows us to change the font size of a specified page element.</p>
-        <p>To use this widget, we need to use a couple of attributes. We can use the set method (i.e.
-          grouping all of the widget components in a single div with the attribute data-ur-set) or the id method (i.e. giving
-          each component of the widget a data-ur-id with an identical value, which doesn't require them to
-          be grouped inside a single wrapper).</p>
+    <div class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set="font-resizer" class="example_widget">
+        <span data-ur-font-resizer-component="increase">[+]</span>
+        <span data-ur-font-resizer-component="label"></span>
+        <span data-ur-font-resizer-component="decrease">[-]</span>
+        <span data-ur-font-resizer-component="reset">[Reset]</span>
+        <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
       </div>
-    </div> <!-- wrapper-->
-
-    <div class="wrapper">
-      <h2> Attributes </h2>
-      <div class="attributes">
-
-        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
-          <p>
-            <ul>
-              <li><span class="inline_code">data-ur-font-resizer-component="increase"</span> - this is used to mark the increase button (e.g. [+])</li>
-              <li><span class="inline_code">data-ur-font-resizer-component="label"</span> - this indicates the text size</li>
-              <li><span class="inline_code">data-ur-font-resizer-component="decrease"</span> - this is used to mark the decrease button (e.g. [-]) </li>
-              <li><span class="inline_code">data-ur-font-resizer-component="reset"</span> - this is used to reset to the original font size (e.g. [Reset]) </li>
-              <li><span class="inline_code">data-ur-font-resizer-component="content"</span> - this marks the content</li>
-            </ul>
-          </p>
-        </div><!-- basic -->
-        <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-          <h3> data-ur-set= </h3>
-          <div class="set_name inline_code">"font-resizer"</div>
-          <br/>
-          <h3> data-ur-font-resizer-component= </h3>
-					<div class="components">
-						<h4>Optional</h4>
-						<ul>
-              <li><div data-ur-toggler-component="button" class="inline_code">"reset"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>multiple?: false</li>
-                </ul>
-              </li>
-						</ul>
-					</div>
-          <div class="components">
-            <h4>Required</h4>
-            <ul>
-              <li><div data-ur-toggler-component="button" class="inline_code">"increase"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>multiple?: false</li>
-                </ul>
-              </li>
-              <li><div data-ur-toggler-component="button" class="inline_code">"decrease"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>multiple?: false</li>
-                </ul>
-              </li>
-              <li><div data-ur-toggler-component="button" class="inline_code">"label"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>multiple?: false</li>
-                </ul>
-              </li>
-              <li><div data-ur-toggler-component="button" class="inline_code">"content"</div>
-                <ul data-ur-toggler-component="content">
-                  <li>multiple?: false</li>
-                  <li>attributes
-                    <ul>
-                      <li>optional: <span class="inline_code">data-ur-font-resizer-min</span> - defaults to "100"</li>
-                      <li>optional: <span class="inline_code">data-ur-font-resizer-max</span> - defaults to "200"</li>
-                      <li>optional: <span class="inline_code">data-ur-font-resizer-size</span> - defaults to min</li>
-                      <li>optional: <span class="inline_code">data-ur-font-resizer-delta</span> - defaults to "20"</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-            </ul>
-          </div><!-- end of components -->
-        </div><!-- end of advanced_tab -->
-      </div><!-- end of attributes tabs -->
-    </div><!-- end of wrapper -->
-
-    <div class='wrapper'>
-      <h2> Required Styles </h2>
-      <p>
-        No styles are required. All styles are handled inline by the widget.
-      </p>
     </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+{% highlight html %}
+<div data-ur-set="font-resizer" class="example_widget">
+  <span data-ur-font-resizer-component="increase">[+]</span>
+  <span data-ur-font-resizer-component="label"></span>
+  <span data-ur-font-resizer-component="decrease">[-]</span>
+  <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+</div>
+{% endhighlight %}
+    </div>
+  </div>
+</div><!-- wrapper-->
 
-    <div class="wrapper">
-      <h2>Demonstration</h2>
-      <div class="demonstration" data-ur-set="tabs">
-        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'> Widget</h3>
+<hr />
 
-        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+<div class="wrapper">
+<h2>Further Examples</h2>
+<h3>Using data-ur-id:</h3>
+  <a name="using_ids"></a>
+  <div class="font_resizer">
+    <span data-ur-id="foo" data-ur-font-resizer-component="increase">[+]</span>
+    <span data-ur-id="foo" data-ur-font-resizer-component="label"></span>
+    <span data-ur-id="foo" data-ur-font-resizer-component="decrease">[-]</span>
+    <p data-ur-id="foo" data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+  </div>
 
-        <div class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-          <div data-ur-set="font-resizer" class="example_widget">
-            <span data-ur-font-resizer-component="increase">[+]</span>
-            <span data-ur-font-resizer-component="label"></span>
-            <span data-ur-font-resizer-component="decrease">[-]</span>
-            <span data-ur-font-resizer-component="reset">[Reset]</span>
-            <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-          </div>
-        </div>
-        <div data-ur-tabs-component="content" data-ur-tab-id="html">
-  {% highlight html %}
-  <div data-ur-set="font-resizer" class="example_widget">
+    <hr />
+
+<h3>Overriding Defaults</h3>
+<a name="overriding"></a>
+<div class="font_resizer">
+  <div data-ur-set="font-resizer">
     <span data-ur-font-resizer-component="increase">[+]</span>
     <span data-ur-font-resizer-component="label"></span>
     <span data-ur-font-resizer-component="decrease">[-]</span>
-    <p data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+		<span data-ur-font-resizer-component="reset">[Reset]</span>
+    <p data-ur-font-resizer-component="content"
+       data-ur-font-resizer-min="50"
+       data-ur-font-resizer-max="220"
+       data-ur-font-resizer-size="120"
+       data-ur-font-resizer-delta="10">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
   </div>
-  {% endhighlight %}
-        </div>
-      </div>
-    </div><!-- wrapper-->
+</div>
 
-    <hr />
+<hr />
 
-    <div class="wrapper">
-    <h2>Further Examples</h2>
-    <h3>Using data-ur-id:</h3>
-      <a name="using_ids"></a>
-      <div class="font_resizer">
-        <span data-ur-id="foo" data-ur-font-resizer-component="increase">[+]</span>
-        <span data-ur-id="foo" data-ur-font-resizer-component="label"></span>
-        <span data-ur-id="foo" data-ur-font-resizer-component="decrease">[-]</span>
-        <p data-ur-id="foo" data-ur-font-resizer-component="content">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-      </div>
+<h3>A Self-resizing Resizer</h3>
+<a name="self-sizing"></a>
+<div class="font_resizer">
+  <div data-ur-set="font-resizer" data-ur-font-resizer-component="content">
+    <span data-ur-font-resizer-component="increase">[+]</span>
+    <span data-ur-font-resizer-component="label"></span>
+    <span data-ur-font-resizer-component="decrease">[-]</span>
+    <p>To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
+  </div>
+</div>
 
-        <hr />
-
-    <h3>Overriding Defaults</h3>
-    <a name="overriding"></a>
-    <div class="font_resizer">
-      <div data-ur-set="font-resizer">
-        <span data-ur-font-resizer-component="increase">[+]</span>
-        <span data-ur-font-resizer-component="label"></span>
-        <span data-ur-font-resizer-component="decrease">[-]</span>
-				<span data-ur-font-resizer-component="reset">[Reset]</span>
-        <p data-ur-font-resizer-component="content"
-           data-ur-font-resizer-min="50"
-           data-ur-font-resizer-max="220"
-           data-ur-font-resizer-size="120"
-           data-ur-font-resizer-delta="10">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-      </div>
+<div style="display:none">
+  <h2>A Super-Advanced Example (using the secret "invert" attribute!):</h2>
+  <div class="font_resizer">
+    <div data-ur-set="font-resizer">
+      <span data-ur-font-resizer-component="increase">[+]</span>
+      <span data-ur-font-resizer-component="label"></span>
+      <span data-ur-font-resizer-component="decrease">[-]</span>
+      <p data-ur-font-resizer-component="content" data-ur-font-resizer-delta="10" data-ur-font-resizer-invert="Bam!">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
     </div>
-
-    <hr />
-
-    <h3>A Self-resizing Resizer</h3>
-    <a name="self-sizing"></a>
-    <div class="font_resizer">
-      <div data-ur-set="font-resizer" data-ur-font-resizer-component="content">
-        <span data-ur-font-resizer-component="increase">[+]</span>
-        <span data-ur-font-resizer-component="label"></span>
-        <span data-ur-font-resizer-component="decrease">[-]</span>
-        <p>To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-      </div>
-    </div>
-
-    <div style="display:none">
-      <h2>A Super-Advanced Example (using the secret "invert" attribute!):</h2>
-      <div class="font_resizer">
-        <div data-ur-set="font-resizer">
-          <span data-ur-font-resizer-component="increase">[+]</span>
-          <span data-ur-font-resizer-component="label"></span>
-          <span data-ur-font-resizer-component="decrease">[-]</span>
-          <p data-ur-font-resizer-component="content" data-ur-font-resizer-delta="10" data-ur-font-resizer-invert="Bam!">To be or not to be, that is the question. Whether 'tis nobler in the mind to endure the slings and arrows of outrageous fortune etc etc.</p>
-        </div>
-      </div>
-    </div>
-    </div> <!--wrapper -->
-  </div> <!-- basicpage -->
-</div> <!-- tabs -->
+  </div>
+</div>
+</div> <!--wrapper -->

@@ -3,411 +3,385 @@ layout: widgets
 title: Flex Table
 name: flex_table
 widget_selected: selected
+description: |
+    <p>There are a <a href='http://css-tricks.com/responsive-data-table-roundup/'>lot of ways to deal with tabular data</a> in a mobile format. This solution should be credited to the FilamentGroup for their <a href='http://filamentgroup.com/lab/responsive_design_approach_for_complex_multicolumn_data_tables/'>blog post</a>.</p>
+    <p>This is accomplished by assigning semantic classes to the column headings that indicate which data values take precedence (essential vs optional), in combination with media queries to display them at different screen widths (a.k.a., <a href="http://www.alistapart.com/articles/responsive-web-design/">responsive design</a>).</p>
+    <p>There is a bit of JavaScript logic to control which data is displayed by checking column names in the "Display" menu on the right.  Once an option is checked, the associated data will persist and display at all screen widths until the option is unchecked.</p>
+    <p>You can also set a column to always persist by assigning a class in the markup, in which case it has no menu option.</p>
+basic_tab:
+  data-ur-set="flex-table": add this attribute to a div that wraps the whole widget
+  data-ur-flex-table-component="table": add this attribute to the table node
+  data-ur-flex-table-component="head": add this attribute to the table head node
+  data-ur-flex-table-component="body": add this attribute to the table body node
+  class="persist": add this attribute to the th node that should never disappear as a column. The option to enable/disable it via a checkbox is also removed.
+  class="essential": add this attribute to the th node that shouldn't disappear as a column due to screen size. The option to enable/disable it via a checkbox is available.
+  class="optional": add this attribute to the th node that should disappear as a column due to screen size at the large screen break. The option to enable/disable it via a checkbox is available.
+  no class: Leave the th node with no class of persist, essential, or optional for the columns to only be present at the large screen size break. The option to enable/disable it via a checkbox is present
+advanced_tab:
+  Required:
+    table:
+      - add this attribute to the table node
+    head:
+      - add this attribute to the table head node
+    body:
+      - add this attribute to the table body node
+
+
 ---
-<div data-ur-set="tabs">
-  
-  <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+<!-- Styles -->
+<div class='wrapper'>
+  <h2>Required Styles</h2>
+  <div class='css'>
+{% highlight scss %}
+/* Required SCSS Styling */
 
-   <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-  
-  <div data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-    <div class="wrapper">
-      <h1> {{page.title}} </h1>
-    </div>
-    <div class="description_wrapper">
-      <h2> Description </h2>
-
-      <div class='description'>
-        <p>There are a <a href='http://css-tricks.com/responsive-data-table-roundup/'>lot of ways to deal with tabular data</a> in a mobile format. This solution should be credited to the FilamentGroup for their <a href='http://filamentgroup.com/lab/responsive_design_approach_for_complex_multicolumn_data_tables/'>blog post</a>.</p>
-        <p>This is accomplished by assigning semantic classes to the column headings that indicate which data values take precedence (essential vs optional), in combination with media queries to display them at different screen widths (a.k.a., <a href="http://www.alistapart.com/articles/responsive-web-design/">responsive design</a>).</p>
-        <p>There is a bit of JavaScript logic to control which data is displayed by checking column names in the "Display" menu on the right.  Once an option is checked, the associated data will persist and display at all screen widths until the option is unchecked.</p>
-        <p>You can also set a column to always persist by assigning a class in the markup, in which case it has no menu option.</p>
-      </div>
-    </div> <!-- wrapper -->
-
-    <!-- Attributes -->
-    <div class='wrapper'>
-      <div class="attributes">
-        <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
-          <ul>
-            <li><span class="inline_code">data-ur-set="flex-table"</span> - add this attribute to a div that wraps the whole widget</li>
-            <li><span class="inline_code">data-ur-flex-table-component="table"</span> - add this attribute to the table node</li>
-            <li><span class="inline_code">data-ur-flex-table-component="head</span> - add this attribute to the table head node</li>
-            <li><span class="inline_code">data-ur-flex-table-component="body"</span> - add this attribute to the table body node</li>
-            <li><span class="inline_code">class='persist'</span> - add this attribute to the th node that should never disappear as a column. The option to enable/disable it via a checkbox is also removed.</li>
-            <li><span class="inline_code">class='essential'</span> - add this attribute to the th node that shouldn't disappear as a column due to screen size. The option to enable/disable it via a checkbox is available.</li>
-            <li><span class="inline_code">class='optional'</span> - add this attribute to the th node that should disappear as a column due to screen size at the large screen break. The option to enable/disable it via a checkbox is available.</li>
-            <li><span class="inline_code">no class</span> - Leave the th node with no class of persist, essential, or optional for the columns to only be present at the large screen size break. The option to enable/disable it via a checkbox is present</li>
-          </ul>
-        </div> <!-- basic -->
-        <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-          <h3> data-ur-set= </h3>
-          <div class="set_name inline_code">"flex-table"</div>
-          <h3> data-ur-flex-table-component= </h3>
-          <div class="components">
-            <ul>
-              <li><div data-ur-flex-table-component='table' class="inline_code">"table"</div>
-                <ul>
-                  <li>add this attribute to the table node</li>
-                </ul>
-              </li>
-              <li><div data-ur-flex-table-component='head' class="inline_code">"head"</div>
-                <ul>
-                  <li>add this attribute to the table head node</li>
-                </ul>
-              </li>
-              <li><div data-ur-flex-table-component='body' class="inline_code">"body"</div>
-                <ul>
-                  <li>add this attribute to the table body node</li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div> <!-- advanced -->
-      </div>
-    </div>
-
-    <!-- Styles -->
-    <div class='wrapper'>
-      <h2>Required Styles</h2>
-      <div class='css'>
-  {% highlight scss %}
-  /* Required SCSS Styling */
-
-  .table-wrapper {
-    position: relative; }
-  .table-menu {
-    > ul {
-      position: absolute;
-      z-index: 100;
-      background-color: white;
-      padding: 10px;
-      border: 1px solid #cccccc;
-      width: 12em;
-      right: 0;
-      left: auto;
-      top: -7px;
-      list-style: none;
-      li {
-        color: black; } } }
-  .table-background-element {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    z-index: 99;
-    height: 100%;
-    width: 100% !important; }
-  .table-menu-hidden {
-    display: none;
-    left: -999em;
-    right: auto; }
-  .table-menu-btn {
-    text-decoration: none;
-    color: #333333;
-    background: #eeeeee;
-    padding: 0.4em 10px 0.4em 5px;
-    border: 1px solid #cccccc;
+.table-wrapper {
+  position: relative;
+}
+.table-menu {
+  > ul {
     position: absolute;
     z-index: 100;
-    top: -40px;
-    right: 0; }
-  a.table-menu-btn, a.table-menu-btn:hover {
-    color: #333333;
-    text-decoration: none; }
-  .table-menu-btn-icon {
-    width: 0px;
-    height: 0px;
-    font-size: 0px;
-    line-height: 0px;
-    border: 6px solid;
-    margin-right: 5px;
-    margin-top: 4px;
-    vertical-align: middle;
-    border-image: initial;
-    display: inline-block;
-    border-color: gray transparent transparent transparent; }
-  .menu-btn-show > .table-menu-btn-icon {
-    border-color: transparent transparent gray transparent;
-    margin-top: -8px; }
-  .table-menu li {
-    padding: 0.3em 0; }
-  table {
-    width: 100%; }
-  .enhanced th,
-  .enhanced td {
-    display: none; }
-  .enhanced th.essential,
-  .enhanced td.essential {
-    display: table-cell; }
-  .enhanced .ur_ft_hide {
-    display: none !important; }
-  .enhanced .ur_ft_show {
-    display: table-cell !important; }
-  // Change this width to alter the switch state
-  // for the optional classes
-  @media screen and (min-width: 480px) {
-    .enhanced th.optional,
-    .enhanced td.optional {
-      display: table-cell; } }
-  // Change this width to alter the switch state
-  // to show all columns
-  @media screen and (min-width: 800px) {
-    .enhanced th,
-    .enhanced td {
-      display: table-cell; } }
-  {% endhighlight %}
-      </div>
-    </div>
-
-    <!-- Demonstration -->
-    <h2 class='wrapper'>Demonstration</h2>
-    <!-- Not wrapping the tables with the wrapper class because it wouldn't look as good as a demo. Better the tables stretch the full-length of the page. -->
-    <div class='wrapper'>
-      <div class='demonstration'>
-        <p>You can have multiple tables on the same page. Two are featured below. Resize your browser window to see the table columns show and hide themselves.</p>
-        <div id="accordion_demonstration" data-ur-set="tabs">
-            <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
-
-            <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
-            <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
-              <div class="table-wrapper" data-ur-set="flex-table">
-
-                <table cellspacing="0" id="tech-companies-1" data-ur-flex-table-component="table">
-                  <thead data-ur-flex-table-component="head">
-                    <tr>
-                      <th class="persist essential">Company</th>
-                      <th class="essential">Last Trade</th>
-                      <th class="optional">Trade Time</th>
-                      <th class="essential">Change</th>
-                      <th class="optional">Prev Close</th>
-                      <th class="optional">Open</th>
-                      <th>Bid</th>
-                      <th>Ask</th>
-                      <th>1y Target Est</th>
-                    </tr>
-                  </thead>
-                  <tbody data-ur-flex-table-component="body">
-                    <tr>
-                      <th>GOOG <span class="co-name">Google Inc.</span></th>
-                      <td>597.74</td>
-                      <td>12:12PM</td>
-                      <td>14.81 (2.54%)</td>
-                      <td>582.93</td>
-                      <td>597.95</td>
-                      <td>597.73 x 100</td>
-                      <td>597.91 x 300</td>
-                      <td>731.10</td>
-                    </tr>
-                    <tr>
-                      <th>AAPL <span class="co-name">Apple Inc.</span></th>
-                      <td>378.94</td>
-                      <td>12:22PM</td>
-                      <td>5.74 (1.54%)</td>
-                      <td>373.20</td>
-                      <td>381.02</td>
-                      <td>378.92 x 300</td>
-                      <td>378.99 x 100</td>
-                      <td>505.94</td>
-                    </tr>
-                    <tr>
-                      <th>AMZN <span class="co-name">Amazon.com Inc.</span></th>
-                      <td>191.55</td>
-                      <td>12:23PM</td>
-                      <td>3.16 (1.68%)</td>
-                      <td>188.39</td>
-                      <td>194.99</td>
-                      <td>191.52 x 300</td>
-                      <td>191.58 x 100</td>
-                      <td>240.32</td>
-                    </tr>
-                    <tr>
-                      <th>ORCL <span class="co-name">Oracle Corporation</span></th>
-                      <td>31.15</td>
-                      <td>12:44PM</td>
-                      <td>1.41 (4.72%)</td>
-                      <td>29.74</td>
-                      <td>30.67</td>
-                      <td>31.14 x 6500</td>
-                      <td>31.15 x 3200</td>
-                      <td>36.11</td>
-                    </tr>
-                    <tr>
-                      <th>MSFT <span class="co-name">Microsoft Corporation</span></th>
-                      <td>25.50</td>
-                      <td>12:27PM</td>
-                      <td>0.66 (2.67%)</td>
-                      <td>24.84</td>
-                      <td>25.37</td>
-                      <td>25.50 x 71100</td>
-                      <td>25.51 x 17800</td>
-                      <td>31.50</td>
-                    </tr>
-                    <tr>
-                      <th>CSCO <span class="co-name">Cisco Systems, Inc.</span></th>
-                      <td>18.65</td>
-                      <td>12:45PM</td>
-                      <td>0.97 (5.49%)</td>
-                      <td>17.68</td>
-                      <td>18.23</td>
-                      <td>18.65 x 10300</td>
-                      <td>18.66 x 24000</td>
-                      <td>21.12</td>
-                    </tr>
-                    <tr>
-                      <th>YHOO <span class="co-name">Yahoo! Inc.</span></th>
-                      <td>15.81</td>
-                      <td>12:25PM</td>
-                      <td>0.11 (0.67%)</td>
-                      <td>15.70</td>
-                      <td>15.94</td>
-                      <td>15.79 x 6100</td>
-                      <td>15.80 x 17000</td>
-                      <td>18.16</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div><!-- /table-wrapper -->
-
-              <div class="table-wrapper" data-ur-set="flex-table">
-
-                <table cellspacing="0" id="tech-companies-2" data-ur-flex-table-component="table">
-                  <thead data-ur-flex-table-component="head">
-                    <tr>
-                      <th class="persist essential">Company</th>
-                      <th class="essential">Last Trade</th>
-                      <th class="optional">Trade Time</th>
-                      <th class="essential">Change</th>
-                      <th class="optional">Prev Close</th>
-                      <th class="optional">Open</th>
-                      <th>Bid</th>
-                      <th>Ask</th>
-                      <th>1y Target Est</th>
-                    </tr>
-                  </thead>
-                  <tbody data-ur-flex-table-component="body">
-                    <tr>
-                      <th>GOOG <span class="co-name">Google Inc.</span></th>
-                      <td>597.74</td>
-                      <td>12:12PM</td>
-                      <td>14.81 (2.54%)</td>
-                      <td>582.93</td>
-                      <td>597.95</td>
-                      <td>597.73 x 100</td>
-                      <td>597.91 x 300</td>
-                      <td>731.10</td>
-                    </tr>
-                    <tr>
-                      <th>AAPL <span class="co-name">Apple Inc.</span></th>
-                      <td>378.94</td>
-                      <td>12:22PM</td>
-                      <td>5.74 (1.54%)</td>
-                      <td>373.20</td>
-                      <td>381.02</td>
-                      <td>378.92 x 300</td>
-                      <td>378.99 x 100</td>
-                      <td>505.94</td>
-                    </tr>
-                    <tr>
-                      <th>AMZN <span class="co-name">Amazon.com Inc.</span></th>
-                      <td>191.55</td>
-                      <td>12:23PM</td>
-                      <td>3.16 (1.68%)</td>
-                      <td>188.39</td>
-                      <td>194.99</td>
-                      <td>191.52 x 300</td>
-                      <td>191.58 x 100</td>
-                      <td>240.32</td>
-                    </tr>
-                    <tr>
-                      <th>ORCL <span class="co-name">Oracle Corporation</span></th>
-                      <td>31.15</td>
-                      <td>12:44PM</td>
-                      <td>1.41 (4.72%)</td>
-                      <td>29.74</td>
-                      <td>30.67</td>
-                      <td>31.14 x 6500</td>
-                      <td>31.15 x 3200</td>
-                      <td>36.11</td>
-                    </tr>
-                    <tr>
-                      <th>MSFT <span class="co-name">Microsoft Corporation</span></th>
-                      <td>25.50</td>
-                      <td>12:27PM</td>
-                      <td>0.66 (2.67%)</td>
-                      <td>24.84</td>
-                      <td>25.37</td>
-                      <td>25.50 x 71100</td>
-                      <td>25.51 x 17800</td>
-                      <td>31.50</td>
-                    </tr>
-                    <tr>
-                      <th>CSCO <span class="co-name">Cisco Systems, Inc.</span></th>
-                      <td>18.65</td>
-                      <td>12:45PM</td>
-                      <td>0.97 (5.49%)</td>
-                      <td>17.68</td>
-                      <td>18.23</td>
-                      <td>18.65 x 10300</td>
-                      <td>18.66 x 24000</td>
-                      <td>21.12</td>
-                    </tr>
-                    <tr>
-                      <th>YHOO <span class="co-name">Yahoo! Inc.</span></th>
-                      <td>15.81</td>
-                      <td>12:25PM</td>
-                      <td>0.11 (0.67%)</td>
-                      <td>15.70</td>
-                      <td>15.94</td>
-                      <td>15.79 x 6100</td>
-                      <td>15.80 x 17000</td>
-                      <td>18.16</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div><!-- /table-wrapper -->
-
-
-            </div>
-            <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-  {% highlight html %}
-  <div class="table-wrapper" data-ur-set="flex-table">
-    <table cellspacing="0" id="tech-companies-1" data-ur-flex-table-component="table">
-      <thead data-ur-flex-table-component="head">
-        <tr>
-          <th class="persist essential">Company</th>
-          <th class="essential">Last Trade</th>
-          <th class="optional">Trade Time</th>
-          <th class="essential">Change</th>
-          <th class="optional">Prev Close</th>
-          <th class="optional">Open</th>
-          <th>Bid</th>
-          <th>Ask</th>
-          <th>1y Target Est</th>
-        </tr>
-      </thead>
-      <tbody data-ur-flex-table-component="body">
-        <tr>
-          <th>GOOG <span class="co-name">Google Inc.</span></th>
-          <td>597.74</td>
-          <td>12:12PM</td>
-          <td>14.81 (2.54%)</td>
-          <td>582.93</td>
-          <td>597.95</td>
-          <td>597.73 x 100</td>
-          <td>597.91 x 300</td>
-          <td>731.10</td>
-        </tr>
-        ...
-      </tbody>
-    </table>
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    width: 12em;
+    right: 0;
+    left: auto;
+    top: -7px;
+    list-style: none;
+    li {
+      color: black;
+    }
+  }
+}
+.table-background-element {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 99;
+  height: 100%;
+  width: 100% !important;
+}
+.table-menu-hidden {
+  display: none;
+  left: -999em;
+  right: auto;
+}
+.table-menu-btn {
+  text-decoration: none;
+  color: #333333;
+  background: #eeeeee;
+  padding: 0.4em 10px 0.4em 5px;
+  border: 1px solid #cccccc;
+  position: absolute;
+  z-index: 100;
+  top: -40px;
+  right: 0;
+}
+a.table-menu-btn, a.table-menu-btn:hover {
+  color: #333333;
+  text-decoration: none;
+}
+.table-menu-btn-icon {
+  width: 0px;
+  height: 0px;
+  font-size: 0px;
+  line-height: 0px;
+  border: 6px solid;
+  margin-right: 5px;
+  margin-top: 4px;
+  vertical-align: middle;
+  border-image: initial;
+  display: inline-block;
+  border-color: gray transparent transparent transparent;
+}
+.menu-btn-show > .table-menu-btn-icon {
+  border-color: transparent transparent gray transparent;
+  margin-top: -8px;
+}
+.table-menu li {
+  padding: 0.3em 0;
+}
+table {
+  width: 100%;
+}
+.enhanced th, .enhanced td {
+  display: none;
+}
+.enhanced th.essential, .enhanced td.essential {
+  display: table-cell;
+}
+.enhanced .ur_ft_hide {
+  display: none !important;
+}
+.enhanced .ur_ft_show {
+  display: table-cell !important;
+}
+// Change this width to alter the switch state
+// for the optional classes
+@media screen and (min-width: 480px) {
+  .enhanced th.optional, .enhanced td.optional {
+    display: table-cell;
+  }
+}
+// Change this width to alter the switch state
+// to show all columns
+@media screen and (min-width: 800px) {
+  .enhanced th, .enhanced td {
+    display: table-cell;
+  }
+}
+{% endhighlight %}
   </div>
-  {% endhighlight %}
-            </div><!-- html content end -->
-        </div>
-      </div>
-    </div>
+</div>
 
-  </div> <!-- basicpage -->
-</div> <!-- tabs -->
+<!-- Demonstration -->
+<h2 class='wrapper'>Demonstration</h2>
+<!-- Not wrapping the tables with the wrapper class because it wouldn't look as good as a demo. Better the tables stretch the full-length of the page. -->
+<div class='wrapper'>
+  <div class='demonstration'>
+    <p>You can have multiple tables on the same page. Two are featured below. Resize your browser window to see the table columns show and hide themselves.</p>
+    <div id="accordion_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
+
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+        <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+          <div class="table-wrapper" data-ur-set="flex-table">
+
+            <table cellspacing="0" id="tech-companies-1" data-ur-flex-table-component="table">
+              <thead data-ur-flex-table-component="head">
+                <tr>
+                  <th class="persist essential">Company</th>
+                  <th class="essential">Last Trade</th>
+                  <th class="optional">Trade Time</th>
+                  <th class="essential">Change</th>
+                  <th class="optional">Prev Close</th>
+                  <th class="optional">Open</th>
+                  <th>Bid</th>
+                  <th>Ask</th>
+                  <th>1y Target Est</th>
+                </tr>
+              </thead>
+              <tbody data-ur-flex-table-component="body">
+                <tr>
+                  <th>GOOG <span class="co-name">Google Inc.</span></th>
+                  <td>597.74</td>
+                  <td>12:12PM</td>
+                  <td>14.81 (2.54%)</td>
+                  <td>582.93</td>
+                  <td>597.95</td>
+                  <td>597.73 x 100</td>
+                  <td>597.91 x 300</td>
+                  <td>731.10</td>
+                </tr>
+                <tr>
+                  <th>AAPL <span class="co-name">Apple Inc.</span></th>
+                  <td>378.94</td>
+                  <td>12:22PM</td>
+                  <td>5.74 (1.54%)</td>
+                  <td>373.20</td>
+                  <td>381.02</td>
+                  <td>378.92 x 300</td>
+                  <td>378.99 x 100</td>
+                  <td>505.94</td>
+                </tr>
+                <tr>
+                  <th>AMZN <span class="co-name">Amazon.com Inc.</span></th>
+                  <td>191.55</td>
+                  <td>12:23PM</td>
+                  <td>3.16 (1.68%)</td>
+                  <td>188.39</td>
+                  <td>194.99</td>
+                  <td>191.52 x 300</td>
+                  <td>191.58 x 100</td>
+                  <td>240.32</td>
+                </tr>
+                <tr>
+                  <th>ORCL <span class="co-name">Oracle Corporation</span></th>
+                  <td>31.15</td>
+                  <td>12:44PM</td>
+                  <td>1.41 (4.72%)</td>
+                  <td>29.74</td>
+                  <td>30.67</td>
+                  <td>31.14 x 6500</td>
+                  <td>31.15 x 3200</td>
+                  <td>36.11</td>
+                </tr>
+                <tr>
+                  <th>MSFT <span class="co-name">Microsoft Corporation</span></th>
+                  <td>25.50</td>
+                  <td>12:27PM</td>
+                  <td>0.66 (2.67%)</td>
+                  <td>24.84</td>
+                  <td>25.37</td>
+                  <td>25.50 x 71100</td>
+                  <td>25.51 x 17800</td>
+                  <td>31.50</td>
+                </tr>
+                <tr>
+                  <th>CSCO <span class="co-name">Cisco Systems, Inc.</span></th>
+                  <td>18.65</td>
+                  <td>12:45PM</td>
+                  <td>0.97 (5.49%)</td>
+                  <td>17.68</td>
+                  <td>18.23</td>
+                  <td>18.65 x 10300</td>
+                  <td>18.66 x 24000</td>
+                  <td>21.12</td>
+                </tr>
+                <tr>
+                  <th>YHOO <span class="co-name">Yahoo! Inc.</span></th>
+                  <td>15.81</td>
+                  <td>12:25PM</td>
+                  <td>0.11 (0.67%)</td>
+                  <td>15.70</td>
+                  <td>15.94</td>
+                  <td>15.79 x 6100</td>
+                  <td>15.80 x 17000</td>
+                  <td>18.16</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div><!-- /table-wrapper -->
+
+          <div class="table-wrapper" data-ur-set="flex-table">
+
+            <table cellspacing="0" id="tech-companies-2" data-ur-flex-table-component="table">
+              <thead data-ur-flex-table-component="head">
+                <tr>
+                  <th class="persist essential">Company</th>
+                  <th class="essential">Last Trade</th>
+                  <th class="optional">Trade Time</th>
+                  <th class="essential">Change</th>
+                  <th class="optional">Prev Close</th>
+                  <th class="optional">Open</th>
+                  <th>Bid</th>
+                  <th>Ask</th>
+                  <th>1y Target Est</th>
+                </tr>
+              </thead>
+              <tbody data-ur-flex-table-component="body">
+                <tr>
+                  <th>GOOG <span class="co-name">Google Inc.</span></th>
+                  <td>597.74</td>
+                  <td>12:12PM</td>
+                  <td>14.81 (2.54%)</td>
+                  <td>582.93</td>
+                  <td>597.95</td>
+                  <td>597.73 x 100</td>
+                  <td>597.91 x 300</td>
+                  <td>731.10</td>
+                </tr>
+                <tr>
+                  <th>AAPL <span class="co-name">Apple Inc.</span></th>
+                  <td>378.94</td>
+                  <td>12:22PM</td>
+                  <td>5.74 (1.54%)</td>
+                  <td>373.20</td>
+                  <td>381.02</td>
+                  <td>378.92 x 300</td>
+                  <td>378.99 x 100</td>
+                  <td>505.94</td>
+                </tr>
+                <tr>
+                  <th>AMZN <span class="co-name">Amazon.com Inc.</span></th>
+                  <td>191.55</td>
+                  <td>12:23PM</td>
+                  <td>3.16 (1.68%)</td>
+                  <td>188.39</td>
+                  <td>194.99</td>
+                  <td>191.52 x 300</td>
+                  <td>191.58 x 100</td>
+                  <td>240.32</td>
+                </tr>
+                <tr>
+                  <th>ORCL <span class="co-name">Oracle Corporation</span></th>
+                  <td>31.15</td>
+                  <td>12:44PM</td>
+                  <td>1.41 (4.72%)</td>
+                  <td>29.74</td>
+                  <td>30.67</td>
+                  <td>31.14 x 6500</td>
+                  <td>31.15 x 3200</td>
+                  <td>36.11</td>
+                </tr>
+                <tr>
+                  <th>MSFT <span class="co-name">Microsoft Corporation</span></th>
+                  <td>25.50</td>
+                  <td>12:27PM</td>
+                  <td>0.66 (2.67%)</td>
+                  <td>24.84</td>
+                  <td>25.37</td>
+                  <td>25.50 x 71100</td>
+                  <td>25.51 x 17800</td>
+                  <td>31.50</td>
+                </tr>
+                <tr>
+                  <th>CSCO <span class="co-name">Cisco Systems, Inc.</span></th>
+                  <td>18.65</td>
+                  <td>12:45PM</td>
+                  <td>0.97 (5.49%)</td>
+                  <td>17.68</td>
+                  <td>18.23</td>
+                  <td>18.65 x 10300</td>
+                  <td>18.66 x 24000</td>
+                  <td>21.12</td>
+                </tr>
+                <tr>
+                  <th>YHOO <span class="co-name">Yahoo! Inc.</span></th>
+                  <td>15.81</td>
+                  <td>12:25PM</td>
+                  <td>0.11 (0.67%)</td>
+                  <td>15.70</td>
+                  <td>15.94</td>
+                  <td>15.79 x 6100</td>
+                  <td>15.80 x 17000</td>
+                  <td>18.16</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div><!-- /table-wrapper -->
+
+
+        </div>
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+{% highlight html %}
+<div class="table-wrapper" data-ur-set="flex-table">
+<table cellspacing="0" id="tech-companies-1" data-ur-flex-table-component="table">
+  <thead data-ur-flex-table-component="head">
+    <tr>
+      <th class="persist essential">Company</th>
+      <th class="essential">Last Trade</th>
+      <th class="optional">Trade Time</th>
+      <th class="essential">Change</th>
+      <th class="optional">Prev Close</th>
+      <th class="optional">Open</th>
+      <th>Bid</th>
+      <th>Ask</th>
+      <th>1y Target Est</th>
+    </tr>
+  </thead>
+  <tbody data-ur-flex-table-component="body">
+    <tr>
+      <th>GOOG <span class="co-name">Google Inc.</span></th>
+      <td>597.74</td>
+      <td>12:12PM</td>
+      <td>14.81 (2.54%)</td>
+      <td>582.93</td>
+      <td>597.95</td>
+      <td>597.73 x 100</td>
+      <td>597.91 x 300</td>
+      <td>731.10</td>
+    </tr>
+    ...
+  </tbody>
+</table>
+</div>
+{% endhighlight %}
+        </div><!-- html content end -->
+    </div>
+  </div>
+</div>

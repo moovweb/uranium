@@ -102,7 +102,7 @@ img{
   top: 100px;
   left: 0;
 }
- 
+
 [data-ur-id="ima_shape"] > [data-ur-state*="prev"]{
   opacity: .1;
   position: absolute;
@@ -110,7 +110,3 @@ img{
   left: 100%;
   margin-left: -170px;
 }
-
-
-
-

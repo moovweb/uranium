@@ -53,9 +53,10 @@ li[data-ur-set="toggler"] {
 .attributes *[data-ur-tabs-component="content"] li {
   color: #323232; }
 
-.attributes .inline_code {
-  background: none;
-  color: #323232; }
+.attributes code {
+  color: #323232;
+  font: 17px "Courier New";
+}
 
 .attributes .set_name {
   padding: 5px;

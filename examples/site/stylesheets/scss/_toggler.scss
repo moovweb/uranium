@@ -1,4 +1,4 @@
-body#togglers_page {
+body#toggler_page {
   * {
     &[data-ur-set="toggler"] {
       border: none;
@@ -91,7 +91,7 @@ body#togglers_page {
     [data-ur-toggler-component="content"] {
       display: inline-block; } } }
 
-body#togglers_page {
+body#toggler_page {
   * {
     &[data-ur-toggler-component='button'] {
       opacity: 0.5;

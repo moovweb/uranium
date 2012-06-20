@@ -1,241 +1,189 @@
 ---
 layout: widgets
-title: Tabs
-name: tabs
+title: Tab
+name: tab
 widget_selected: selected
+description: <p>Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.</p>
+basic_tab:
+  data-ur-set="tabs": add this attribute to a div that wraps the whole widget
+  data-ur-tabs-component="button": add this attribute to the button div
+  data-ur-tabs-component="content": add this attribute to the content
+  data-ur-tab-id="NAME": this attribute needs to link the button and the content (i.e. the button and content should have the same id)
+advanced_tab:
+  Required:
+    button:
+      - add this attribute to the button (i.e. the thing to be clicked)
+      - "multiple?: true"
+      - "state: enabled / disabled(default)"
+      - attributes:
+        - "required: <code>data-ur-tab-id</code> is required and must match attribute on content element"
+    content:
+      - add this attribute to each content item
+      - "multiple?: true"
+      - "state: enabled / disabled(default)"
+      - attributes:
+        - "required: <code>data-ur-tab-id</code> is required and must match attribute on button element"
 ---
-<div data-ur-set="tabs">
-  <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-  
-  <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-  <div class="wrapper">
-      <h1> {{page.title}} </h1>
-  </div>
-  <div class="description_wrapper">
-    <h2> Description </h2>
-    <div class='description'>
-      <p>
-        Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.
-      </p>
-    </div>
-  </div>
+<div class="wrapper">
+  <h2>Required CSS</h2>
+  <div class='css'>
+    {% highlight scss %}
+    /* Required SCSS Styling */
 
-  <div class="wrapper">
-    <h2> Attributes </h2>
-    <div class="attributes">
+    *[data-ur-set="tabs"] {
+      *[data-ur-tabs-component='button'] {
+        opacity: 0.5;
+      }
+      *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+        opacity: 1.0;
+      }
+      *[data-ur-tabs-component='content'] {
+        display:none;
+      }
+      *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+        display: block;
+      }
+    }
 
-      <div class="basic_tab"  data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state='enabled'>
-        <ul>
-          <li><span class="inline_code">data-ur-set="tabs"</span> - add this attribute to a div that wraps the whole widget</li>
-          <li><span class="inline_code">data-ur-tabs-component="button"</span> - add this attribute to the button div</li>
-          <li><span class="inline_code">data-ur-tabs-component="content"</span> - add this attribute to the content</li>
-          <li><span class="inline_code">data-ur-tab-id="NAME"</span> - this attribute needs to link the button and the content (i.e. the button and content should have the same id)</li>
-        </ul>
-      </div><!-- basic -->
-      <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage">
-        <h3> data-ur-set= </h3>
-        <div class="set_name inline_code">"tabs"</div>
-        <br/>
-        <h3> data-ur-tabs-component= </h3>
-        <div class="components">
-          <ul>
-            <li><div data-ur-toggler-component="button" class="inline_code">"button"</div>
-              <ul data-ur-toggler-component="content">
-                <li>add this attribute to the button (i.e. the thing to be clicked)</li>
-                <li>multiple?: true</li>
-                <li>state: enabled / disabled(default)</li>
-                <li>attributes
-                  <ul>
-                    <li>required: <span class="inline_code">data-ur-tab-id</span> is required and must match attribute on content element</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><div data-ur-toggler-component="button" class="inline_code">"content"</div>
-              <ul data-ur-toggler-component="content">
-                <li>add this attribute to each content item</li>
-                <li>multiple?: true</li>
-                <li>state: enabled / disabled(default)</li>
-                <li>attributes
-                  <ul>
-                    <li>required: <span class="inline_code">data-ur-tab-id</span> is required and must match attribute on button element</li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <h3>Instance</h3>
-        <p class="instance">Each instance is available by set id under <span class="inline_code">Ur.Widgets["tabs"]</span>. Each instance exposes elements property -- raw components of the widget
-        </p>
-      </div> <!-- advanced tab-->
-    </div> <!-- tabs widget -->
-  </div><!-- wrapper -->
+    /* Required CSS Styling */
 
-  <div class="wrapper">
-    <h2>Required CSS</h2>
-    <div class='css'>
-  {% highlight scss %}
-  /* Required SCSS Styling */
-
-  *[data-ur-set="tabs"] {
-    *[data-ur-tabs-component='button'] {
+    *[data-ur-set="tabs"] *[data-ur-tabs-component='button'] {
       opacity: 0.5;
     }
-    *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+    *[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
       opacity: 1.0;
     }
-    *[data-ur-tabs-component='content'] {
+    *[data-ur-set="tabs"] *[data-ur-tabs-component='content'] {
       display:none;
     }
-    *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+    *[data-ur-set="tabs"] *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
       display: block;
     }
-  }
-  
-  /* Required CSS Styling */
-  
-  *[data-ur-set="tabs"] *[data-ur-tabs-component='button'] {
-    opacity: 0.5;
-  }
-  *[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
-    opacity: 1.0;
-  }
-  *[data-ur-set="tabs"] *[data-ur-tabs-component='content'] {
-    display:none;
-  }
-  *[data-ur-set="tabs"] *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
-    display: block;
-  }
-  {% endhighlight %}
-    </div>
-  </div><!-- wrapper -->
-
-  <div class="wrapper">
-  <h2>Demonstration</h2>
-  <div class='test' name='Simple' data-ur-set="tabs">
+    {% endhighlight %}
   </div>
-    <div class="demonstration" id="tab_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'> Widget</h3>
+</div>
 
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
-  
-      <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
-        <div data-ur-set='tabs'>
-          <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'>
-          First </span>
-          <span data-ur-tabs-component='button' data-ur-tab-id='second'>
-          Second </span>
-          <span data-ur-tabs-component='button' data-ur-tab-id='third'>
-          Third </span>
+<div class="wrapper">
+  <h2>Demonstration</h2>
+  <div class="test" name="Simple" data-ur-set="tabs">
+  </div>
+  <div class="demonstration" id="tab_demonstration" data-ur-set="tabs" data-ur-id="2">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Widget</h3>
 
-          <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
-            <img width='300px' height='300px' src='{{site.url}}../images/sample1.png?some_attr=noway'/>
-          </div>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="html"> HTML</h3>
 
-          <div data-ur-tabs-component='content' data-ur-tab-id='second'>
-            <img width='300px' height='300px' src='{{site.url}}../images/sample2.png?some_attr=noway'/>
-          </div>
+    <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set="tabs" data-ur-id="3">
+        <span data-ur-tabs-component="button" data-ur-tab-id="first" data-ur-state="enabled"> First </span>
+        <span data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
+        <span data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
 
-          <div data-ur-tabs-component='content' data-ur-tab-id='third'>
-            <img width='300px' height='300px' src='{{site.url}}../images/sample3.png?some_attr=noway'/>
-          </div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">
+          <img width="300px" height="300px" src="../images/sample1.png?some_attr=noway">
+        </div>
+
+        <div data-ur-tabs-component="content" data-ur-tab-id="second">
+          <img width="300px" height="300px" src="../images/sample2.png?some_attr=noway">
+        </div>
+
+        <div data-ur-tabs-component="content" data-ur-tab-id="third">
+          <img width="300px" height="300px" src="../images/sample3.png?some_attr=noway">
         </div>
       </div>
-      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-  {% highlight html %}
-    <div data-ur-set='tabs'>
-      <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
-      <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
-      <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
-
-      <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
-        <img width='300px' height='300px' src='{{site.url}}../images/sample1.png?some_attr=noway'/>
-      </div>
-
-      <div data-ur-tabs-component='content' data-ur-tab-id='second'>
-        <img width='300px' height='300px' src='{{site.url}}../images/sample2.png?some_attr=noway'/>
-      </div>
-
-      <div data-ur-tabs-component='content' data-ur-tab-id='third'>
-        <img width='300px' height='300px' src='{{site.url}}../images/sample3.png?some_attr=noway'/>
-      </div>
     </div>
-  {% endhighlight %}
+    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+      {% highlight html %}
+      <div data-ur-set='tabs'>
+        <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
+        <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+        <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
+
+        <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
+          <img width='300px' height='300px' src='{{site.url}}../images/sample1.png?some_attr=noway'/>
+        </div>
+
+        <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+          <img width='300px' height='300px' src='{{site.url}}../images/sample2.png?some_attr=noway'/>
+        </div>
+
+        <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+          <img width='300px' height='300px' src='{{site.url}}../images/sample3.png?some_attr=noway'/>
+        </div>
       </div>
+      {% endhighlight %}
     </div>
-</div><!-- wrapper end -->
 
-<hr />
+  </div>
+</div>
 
-<div class="wrapper" id="{{page.name}}_examples_page">
+
+
+
+
+
+
+<div class="wrapper" id="tabs_examples_page">
   <h2>Further Examples</h2>
-  <div class='test' name='Simple'>
+  <div class="test" name="Simple">
     <a name="Simple"></a>
 
     <h3>Selecting the Second Tab</h3>
     <div class="description">
       <p>Here, as proof of principle, we're putting the <span class="inline_code">data-ur-state="enabled"</span> attribute on the
-      second tab to illustrate that a different tab can be selected at the outset.</p>
+        second tab to illustrate that a different tab can be selected at the outset.</p>
     </div>
-    <div data-ur-set='tabs'>
-      <span data-ur-tabs-component='button'
-      data-ur-tab-id='first_sanity'> First </span>
-      <span data-ur-tabs-component='button'
-      data-ur-tab-id='second_sanity' data-ur-state='enabled'> Second </span>
-      <span data-ur-tabs-component='button'
-      data-ur-tab-id='third_sanity'> Third </span>
+    <div data-ur-set="tabs" data-ur-id="4">
+      <span data-ur-tabs-component="button" data-ur-tab-id="first_sanity"> First </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="second_sanity" data-ur-state="enabled"> Second </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="third_sanity"> Third </span>
 
-      <div data-ur-tabs-component='content' data-ur-tab-id='first_sanity'>
-        <img width='70px' height='70px' src='{{site.url}}../images/sample1.png?some_attr=noway'/>
-     </div>
-
-      <div data-ur-tabs-component='content' data-ur-state='enabled'
-       data-ur-tab-id='second_sanity'>
-        <img width='70px' height='70px' src='{{site.url}}../images/sample2.png?some_attr=noway'/>
+      <div data-ur-tabs-component="content" data-ur-tab-id="first_sanity">
+        <img width="70px" height="70px" src="../images/sample1.png?some_attr=noway">
       </div>
 
-      <div data-ur-tabs-component='content' data-ur-tab-id='third_sanity'>
-        <img width='70px' height='70px' src='{{site.url}}../images/sample3.png?some_attr=noway'/>
-     </div>
+      <div data-ur-tabs-component="content" data-ur-state="enabled" data-ur-tab-id="second_sanity">
+        <img width="70px" height="70px" src="../images/sample2.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="third_sanity">
+        <img width="70px" height="70px" src="../images/sample3.png?some_attr=noway">
+      </div>
 
     </div>
   </div>
 
-  <hr />
+  <hr>
 
-  <div class='test' name='accordions'>
+  <div class="test" name="accordions">
     <a name="accordions"></a>
 
     <h3> Accordions with State </h3>
 
-    <div class='description'>
+    <div class="description">
       <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
-      strictly necessary. In the following example, we start out with no states defined.</p>
-      <p>The first one we click on will be the first one to be "enabled".</p>
+        strictly necessary. In the following example, we start out with no states defined.</p>
+        <p>The first one we click on will be the first one to be "enabled".</p>
     </div>
 
-    <div data-ur-set='tabs' data-ur-closeable='true'>
-      <div data-ur-tabs-component='button' data-ur-tab-id='first_accordions'> First </div>
+    <div data-ur-set="tabs" data-ur-closeable="true" data-ur-id="5">
+      <div data-ur-tabs-component="button" data-ur-tab-id="first_accordions"> First </div>
 
-      <div data-ur-tabs-component='content' data-ur-tab-id='first_accordions'>
+      <div data-ur-tabs-component="content" data-ur-tab-id="first_accordions">
         Oh uranium.
       </div>
 
-      <div data-ur-tabs-component='button' data-ur-tab-id='second_accordions'>Second </div>
+      <div data-ur-tabs-component="button" data-ur-tab-id="second_accordions">Second </div>
 
-      <div data-ur-tabs-component='content' data-ur-tab-id='second_accordions'>
+      <div data-ur-tabs-component="content" data-ur-tab-id="second_accordions">
         You do nifty widget things.
       </div>
 
-      <div data-ur-tabs-component='button' data-ur-tab-id='third_accordions'> Third </div>
+      <div data-ur-tabs-component="button" data-ur-tab-id="third_accordions"> Third </div>
 
-      <div data-ur-tabs-component='content' data-ur-tab-id='third_accordions'>
+      <div data-ur-tabs-component="content" data-ur-tab-id="third_accordions">
         And you're performant.
       </div>
 
     </div>
   </div>
-</div> <!-- wrapper -->
-
-</div> <!--tabs-->
+</div>
