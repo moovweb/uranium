@@ -1,0 +1,142 @@
+#home_page {
+  /* Top Header */
+  .top_wrapper {
+    background: $color2;
+    padding: 0 30px;
+    text-align: center;
+  }
+  #uraniumlogo {
+    background: image-url("uraniumlogo.png") no-repeat 0% 50%;
+    @include background-size(100% auto);
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: middle;
+    max-width: 40%;
+    width: image-width("uraniumlogo.png");
+    height: image-height("uraniumlogo.png");
+  }
+  #small_desc {
+    @include background(linear-gradient(#fafafa, darken(#fafafa, 10%)));
+    @include box-shadow(rgba(#333, 0.8) 0 0 20px 2px);
+    display: inline-block;
+    padding: 30px 7%;
+    color: #323232;
+    font: 24px "Ultra", sans-serif;
+    text-align: center;
+    text-shadow: #c7c7c7 0px 1px 0px;
+    vertical-align: middle;
+    width: 240px;
+    small {
+      display: block;
+      font: 300 70% "Open Sans", sans-serif;
+      margin-top: 20px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 18px;
+      width: 30%;
+    }
+  }
+  #quote {
+    text-align: center;
+    p {
+      display: inline-block;
+    }
+    q {
+      color: white;
+      font: italic 32px "Otama", serif;
+      &:before {
+        content: "\201c";
+        margin-right: 3px;
+      }
+      &:after {
+        content: "\201d";
+        margin-left: 3px;
+      }
+    }
+    span {
+      color: $color2;
+      display: block;
+      font: 20px "Open Sans", sans-serif;
+      text-align: right;
+    }
+  }
+  h2 {
+    font-size: 30px;
+  }
+  #how_to_use {
+    @include border-radius(5px);
+    @include background($grad1);
+    color: #323232;
+    padding: 10px 20px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 70%;
+    h4 {
+      font: italic 20px "Crete Round", serif;
+      margin-top: 10px;
+    }
+    li {
+      font-size: 18px;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+  }
+  
+  #sidenote {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+  }
+  
+  /* Example Styles */
+  .ur_ex {
+    overflow: hidden;
+    h3, > div {
+      overflow: hidden;
+      &:first-of-type {
+        @include box-sizing(border-box);
+        float: left;
+        margin-right: 2%;
+        width: 48%;
+      }
+    }
+    @media screen and (max-width: 479px), screen and (max-height: 479px) {
+      > div:first-of-type {
+        float: none;
+        margin: 0;
+        width: auto;
+      }
+      [data-ur-tabs-component="content"][data-ur-state="disabled"] {
+        display: none;
+      }
+    }
+  }
+  
+  .example {
+    @include border-radius(10px);
+    background: #282828;
+    border: 3px solid #3c3c3c;
+    padding: 10px;
+  }
+  .mainpage_code {
+    font-size: 12px;
+    overflow: hidden;
+  }
+  
+  
+  #threelogoholder, #twologoholder {
+    margin: 20px auto;
+    text-align: center;
+    a {
+      margin-right: 15px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+    img {
+      @include border-radius(5px);
+      max-width: 28%;
+    }
+  }
+}

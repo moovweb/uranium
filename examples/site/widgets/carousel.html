@@ -63,13 +63,15 @@ instance:
   '"slideend"': event is fired on view_container when sliding ends
 ---
 <script>
-var carouselHtml;
-x$(document).on("DOMContentLoaded", function() {
-  x$("#carousel_widget").setStyle("width", "750px");
-  carouselHtml = x$("#carousel_widget")[0].innerHTML;
-});
+if (dev_mode) {
+  var carouselHtml;
+  x$(document).on("DOMContentLoaded", function() {
+    x$("#carousel_widget").setStyle("width", "750px");
+    carouselHtml = x$("#carousel_widget")[0].innerHTML;
+  });
+}
 
-xdescribe("A plain carousel", function() {
+describe("A plain carousel", function() {
   beforeEach(function() {
     x$("#carousel_widget").html(carouselHtml);
     Ur.setup("#carousel_widget");
@@ -134,7 +136,7 @@ xdescribe("A plain carousel", function() {
   });
 });
 
-xdescribe("An infinite carousel", function() {
+describe("An infinite carousel", function() {
   beforeEach(function() {
     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
     Ur.setup("#carousel_widget");
@@ -168,7 +170,7 @@ xdescribe("An infinite carousel", function() {
   });
 });
 
-xdescribe("An auto-scrolling carousel", function() {
+describe("An auto-scrolling carousel", function() {
   beforeEach(function() {
     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
     Ur.setup("#carousel_widget");

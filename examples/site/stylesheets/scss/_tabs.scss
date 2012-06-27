@@ -76,6 +76,7 @@ body#tab_page {
   #tabs_examples_page {
     * {
       &[data-ur-tabs-component='button'] {
+        color: black;
         opacity: 0.5;
         background-color: #ffd700;
         border: 1px solid black;
@@ -87,6 +88,7 @@ body#tab_page {
         padding: 5px;
         position: relative; }
       &[data-ur-tabs-component='content'] {
+        color: black;
         display: none;
         background-color: #ffd700;
         border-radius: 5px; }

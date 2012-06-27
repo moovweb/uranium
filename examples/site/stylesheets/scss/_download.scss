@@ -1,57 +1,52 @@
 body#download_page {
- 	#version {
-    width: auto;
-	  float: right;
-	  background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
-	  padding: 6px;
-	  padding-left: 10px;
-	  padding-right: 10px;
-	  color: #323232;
-	  -webkit-border-radius: 5px;
-	  -moz-border-radius: 5px;
-	  border-radius: 5px;
-	  color: #323232;
-	  font-style: italic;
-	  font-family: Rockwell;
-	  text-align: center;
-	  font-size: 1.3em;
- 	}
- 	#download_spiel {
-	  margin-top: 40px;
-	  margin-bottom: 40px;
+  #version {
+    @include border-radius(5px);
+    background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
+    color: #323232;
+    float: right;
+    padding: 0 12px;
+    font: italic 16px "Crete Round", serif;
+    text-shadow: none;
+    vertical-align: middle;
+    &:before {
+      content: "";
+      font: 30px "Ultra", sans-serif;
+      vertical-align: middle;
+    }
   }
-  #left_dl {
-	  float: left;
-	}
-	#right_dl {
-	  float: right;
-	  margin-left: 30px;
-	}
-	#center_dl {
-	  float: right;
-	}
-	#links {
-	  width: 600px;
-	  margin: auto;
-	}
-	.download_link {
-	  width: 160px;
-	  background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
-	  padding: 6px;
-	  padding-left: 10px;
-	  padding-right: 10px;
-	  padding-bottom: 10px;
-	  margin-bottom: 30px;
-	  color: #323232;
-	  -webkit-border-radius: 5px;
-	  -moz-border-radius: 5px;
-	  border-radius: 5px;
-	  text-align: center;
-	  h4 {
-	  	font-size: 1.9em;
-	  }
-	}
-	#links a:hover {
-	  text-decoration: none;
-	}
+
+  #links {
+    margin: 20px auto;
+    width: 90%;
+    a {
+      @include background($grad1);
+      @include border-radius(5px);
+      @include box-align(center);
+      @include display-box;
+      color: #323232;
+      float: left;
+      margin-right: 5%;
+      min-height: 38px;
+      padding: 2% 0;
+      text-align: center;
+      width: 30%;
+      &:last-child {
+        float: none;
+        margin: 0;
+        overflow: hidden;
+        width: auto;
+      }
+    }
+    div {
+      @include box-flex(1);
+    }
+    h4 {
+      font-size: 1.9em;
+    }
+    @media screen and (max-width: 479px), screen and (max-height: 479px) {
+      h4 {
+        display: none;
+      }
+    }
+  }
 }
