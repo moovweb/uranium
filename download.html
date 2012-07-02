@@ -44,7 +44,7 @@ function createJS() {
 
   x$("#result .success").setStyle("display", "inline");
   var link = x$("#custom_dl")[0];
-  link.href = webkitURL.createObjectURL(blob);
+  link.href = (window.webkitURL || window.URL).createObjectURL(blob);
   link.click();
 }
 
@@ -105,7 +105,7 @@ x$.ready(function() {
     <br />
     <input id="init" type="button" value="Generate" onclick="fetchJS()" />
     <div id="result">
-      <span class="success">The download should start automatically or you can <a id="custom_dl" download="uranium-pretty-custom.js">manually download</a>.</span>
+      <span class="success">The download should start automatically or you can <a id="custom_dl" target="_blank" download="uranium-pretty-custom.js">manually download</a>.</span>
       <span class="error">Sorry, there was an error fetching the JS files.</span>
     </div>
   </form>
