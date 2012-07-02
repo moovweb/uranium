@@ -6,7 +6,7 @@
     <script src="/src/uranium-pretty.js"></script>
     <script>
     describe = function(){};
-    dev_mode = location.hostname == "localhost";
+    dev_mode = false;//location.hostname == "localhost";
     if (dev_mode)
       document.write('<script src="{{site.url}}..\/src\/jasmine.js"><\/script>\
                       <script src="{{site.url}}..\/src\/jasmine-html.js"><\/script>\
@@ -36,18 +36,8 @@
     </script>
   </head>
   
-  <body id="{{page.name}}_page">
-    <a id="github_ribbon" href="https://github.com/moovweb/uranium">Fork me<span class="desktop"> on GitHub</span></a>
-    <nav id="menu">
-      {% capture tmp %}
-      <a href="/" {% if page.home_selected %}class="selected"{% endif %}>Main</a>
-      <a href="/tutorials.html" {% if page.tutorials_selected %}class="selected"{% endif %}>Tutorial</a>
-      <a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
-      <a href="/more.html" {% if page.more_selected %}class="selected"{% endif %}>Philosophy</a>
-      <a href="/download.html" {% if page.download_selected %}class="selected"{% endif %}>Download</a>
-      {% endcapture %}
-      {{ tmp | strip_newlines | remove: "  " }}
-    </nav>
+  <body id="{{page.name}}_page" class="widget_page">
+    {% include header.html %}
     <div id="textbody">
       <div data-ur-set="tabs">
         <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
@@ -66,13 +56,13 @@
           <h2>Attributes</h2>
           <div class="attributes">
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-              <ul>
+              <dl>
                 {% for i in page.basic_tab %}
-                  <li><code>{{i[0]}}</code> - {{i[1]}}</li>
+                  <dt><code>{{i[0]}}</code></dt><dd>{{i[1]}}</dd>
                 {% endfor %}
-              </ul>
+              </dl>
             </div><!-- basic -->
-            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage">
+            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
               <h3> data-ur-set= </h3>
               <code class="set_name">"{{page.name}}"</code>
               <br />
@@ -123,9 +113,6 @@
 
       
     </div>
-    <footer id="footer">
-        <a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
-        Uranium &copy; 2012 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
-    </footer>
+    {% include footer.html %}
   </body>
 </html>

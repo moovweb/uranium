@@ -5,21 +5,8 @@
   </head>
   
   <body id="{{page.name}}_page">
-    <a id="github_ribbon" href="https://github.com/moovweb/uranium">Fork me<span class="desktop"> on GitHub</span></a>
-    <nav id="menu">
-      {% capture tmp %}
-      <a href="/" {% if page.home_selected %}class="selected"{% endif %}>Main</a>
-      <a href="/tutorials.html" {% if page.tutorials_selected %}class="selected"{% endif %}>Tutorial</a>
-      <a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
-      <a href="/more.html" {% if page.more_selected %}class="selected"{% endif %}>Philosophy</a>
-      <a href="/download.html" {% if page.download_selected %}class="selected"{% endif %}>Download</a>
-      {% endcapture %}
-      {{ tmp | strip_newlines | remove: "  " }}
-    </nav>
+    {% include header.html %}
     {{content}}
-    <footer id="footer">
-        <a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
-        Uranium &copy; 2012 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
-    </footer>
+    {% include footer.html %}
   </body>
 </html>
