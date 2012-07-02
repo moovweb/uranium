@@ -152,21 +152,25 @@ tutorials_selected: selected
             an extra attribute - <span class="inline_code">data-ur-state</span>. This is, by default, set
             to <span class="inline_code">"disabled"</span>.
           </p>
+          <samp>
 {% highlight html %}
 <div data-ur-set="toggler" data-ur-id="1" data-ur-state="enabled">
   <div data-ur-toggler-component="button" data-ur-state="disabled">Clothings</div>
   <ul data-ur-toggler-component="content" data-ur-state="disabled">...</ul>
 </div>
 {% endhighlight %}
+          </samp>
           <p>
             When the button is clicked, it changes to <span class="inline_code">"enabled"</span>.
           </p>
+          <samp>
 {% highlight html %}
 <div data-ur-set="toggler" data-ur-id="1" data-ur-state="enabled">
   <div data-ur-toggler-component="button" data-ur-state="enabled">Clothings</div>
   <ul data-ur-toggler-component="content" data-ur-state="enabled">...</ul>
 </div>
 {% endhighlight %}
+          </samp>
           <p>The javascript is doing its job. The missing piece of the puzzle is the CSS.</p>
           <p>
             What we need to do is change the styling of the page. It needs to be set so that

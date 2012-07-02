@@ -28,7 +28,7 @@
     width: 240px;
     small {
       display: block;
-      font: 300 70% "Open Sans", sans-serif;
+      font-family: "Yellowtail", serif;
       margin-top: 20px;
     }
     @media screen and (max-width: 768px) {
@@ -43,7 +43,7 @@
     }
     q {
       color: white;
-      font: italic 32px "Otama", serif;
+      font: 40px "Yellowtail", serif;
       &:before {
         content: "\201c";
         margin-right: 3px;
@@ -56,7 +56,7 @@
     span {
       color: $color2;
       display: block;
-      font: 20px "Open Sans", sans-serif;
+      font: 300 18px "Open Sans", sans-serif;
       text-align: right;
     }
   }

@@ -3,25 +3,29 @@
 @import "lib";
 @import "base";
 @import "index";
-@import "carousel";
-@import "compatibility";
-@import "demonstration";
-@import "geocode";
+
+@import "highlight_code";
+
 @import "intro";
+@import "compatibility";
+@import "tutorial";
+@import "demonstration";
+@import "download";
+@import "more";
+@import "styling";
+
+@import "widget_list";
+@import "widget";
+
+@import "carousel";
+@import "geocode";
 @import "map";
 @import "resizer";
 @import "select_buttons";
 @import "select_lists";
-@import "styling";
 @import "tabs";
-@import "test";
 @import "toggler";
-@import "tutorial";
 @import "zoom";
-@import "widget_list";
-@import "more";
 @import "swipe_toggle";
 @import "flex_table";
 @import "input_clear";
-@import "highlight_code";
-@import "download";
