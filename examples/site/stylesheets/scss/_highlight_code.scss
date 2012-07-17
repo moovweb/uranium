@@ -5,6 +5,11 @@
   padding: 0 10px;
   @include border-radius(10px);
   overflow: scroll;
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    pre {
+      white-space: pre-wrap;
+    }
+  }
   .hll {
     background-color: #49483e; }
   .c {

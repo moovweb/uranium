@@ -1,91 +1,69 @@
 ---
-layout: index
+layout: default
 title: Home
 name: home
 home_selected: selected
 ---
 
-<div class="top_wrapper">
+<div class="top_wrapper desktop">
   <div id="uraniumlogo"></div><!-- uraniumlogo-->
-  <div id="rightshadow"></div>
-  <div id="rightinfo">Fast, Lean Web<br>Interaction Library.<br><br><span class="smalltext">*for mobile too!</span></div><!-- rightinfo-->
+  <div id="small_desc">Fast, Lean Web<br />Interaction Library.<small>*for mobile too!</small></div>
 </div><!-- top_wrapper-->
-  <div id="textbody">
-    <div class="wrapper">
-    <div id="centertext">
-      <h1>"The best thing I've seen in a long time!"</h1>
-        <div id="lefttext">
-          <h2>-Otto Frederick Rohwedder*</h2>
-        </div><!-- lefttext end-->
-    </div><!-- centertext end-->
-    <br>
-    <br>
-    <br>
-      <h2>What is Uranium?</h2>
-        <p>
-          Uranium is a set of widgets - snippets of code that allow you to do neat things on your website.
-        </p>
-        <div id="how_to_use">
-          <p>HOW TO USE:</p>
-          <ol>
-            <li>Give HTML pre-defined attributes</li>
-            <li>Include the Uranium library</li>
-            <li>... That's it</li>
-          </ol>
+<div id="textbody">
+  <aside id="quote" class="desktop">
+    <p>
+      <q>The best thing I've seen in a long time!</q>
+      <span>&mdash; Otto Frederick Rohwedder*</span>
+    </p>
+  </aside>
+  <h2>What is Uranium?</h2>
+  <p>
+    Uranium is a set of widgets &ndash; snippets of code that allow you to do neat things on your website.
+  </p>
+  <div id="how_to_use">
+    <h4>How to Use:</h4>
+    <ol>
+      <li>Include the Uranium library</li>
+      <li>Give HTML pre-defined attributes</li>
+      <li>&hellip; that's it!</li>
+    </ol>
+  </div>
+  <p>
+    It's seriously that easy. We've put in all the hard work to make awesome widgets that are
+    really easy to use.
+  </p>
+  <p>
+    Uranium is perfect for mobile development. Lots of the widgets were made with that in mind. But,
+    as you can see by the examples below, they're great on a desktop site too.
+  </p>
+  
+  <h2>Why use Uranium?</h2>
+  <h3>It's Lightweight</h3>
+  <p>
+    The whole Uranium library is 15 KB zipped! This includes all the widgets and <a href="http://xuijs.com">xui</a>.
+  </p>
+  
+  <h3>It's Easy to Use</h3>
+  <p>
+    Uranium requires <i>zero</i> javascript programming on your part.
+  </p>
+  <small id="sidenote">*he may not have actually said this, but we think he'd love Uranium anyway.</small>
+  
+  <hr />
+  
+  
+  <h2>What can Uranium do?</h2>
+  <div class="ur_ex" data-ur-set="tabs">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
+      <div class="example" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+        <div id="extoggler" data-ur-set="toggler">
+          <a href="{{site.url}}/widgets/toggler.html"><div id="extitle">Toggler</div></a>
+          <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>
+          <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
         </div>
-        <p>
-          It's seriously that easy. We've put in all the hard work to make awesome widgets that are
-          really easy to use.
-        </p>
-        <p>
-          Uranium is perfect for mobile development. Lots of the widgets were made with that in mind. But,
-          as you can see by the examples below, they're great on a desktop site too.
-        </p>
-        <br>
-        
-    </div> <!-- wrapper-->
-        <div class="wrapper">
-          <h2>Why use Uranium?</h2>
-            <h3>It's Lightweight</h3>
-            <p>
-              The whole Uranium library is 15 KB zipped! This includes all the widgets and <a href="http://xiujs.com">xui</a>.
-            </p>
-            
-            <h3>It's Easy to Use</h3>
-            <p>
-              Uranium requires <i>zero</i> javascript programming on your part.
-            </p>
-            <div id="sidenote">*he may not have actually said this, but we think he'd love Uranium anyway.</div>
-            <hr />
-          </div> <!-- why wrapper-->
-      
-          
-      <div class="wrapper">
-        
-        <h2>What can Uranium do?</h2>
-      <div class="examplewrap">
-        <div id="lefthead">
-  <h3>Example</h3>
-        </div><!-- lefthead-->
-        <div id="righthead">
-  <h3>The Code</h3>
-        </div><!-- righthead-->
-        
-          <div class="example" id="toggler">
-          
-    <!-- PLACE CODE FOR EXAMPLE BETWEEN HERE-->
-            <div id="extoggler" data-ur-set="toggler">
-              <a href="{{site.url}}/widgets/toggler.html"><div id="extitle">Toggler</div></a>
-              <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>
-              <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
-            </div>
-    <!-- AND HERE-->
-              
-          </div><!-- example end-->
-          
-          <div class="mainpage_code" id="toggler">
-    <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
-            <!-- fakecode-->
+      </div><!-- example end-->
+      <div class="mainpage_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
 {% highlight html %}
 <div data-ur-set="toggler">
   <p>Toggler</p>
@@ -97,50 +75,36 @@ home_selected: selected
   </div>
 </div>
 {% endhighlight %}
-            <!-- fakecode-->
-    <!-- AND HERE-->
-          </div><!-- code end-->
-      </div><!-- examplewrap end-->
+      </div><!-- code end-->
+  </div>
   <hr />
-      <br>
-      <div class="examplewrap">
-        <div id="lefthead">
-  <h3>Example</h3>
-        </div><!-- lefthead-->
-        <div id="righthead">
-  <h3>The Code</h3>
-        </div><!-- righthead-->
-        
-        <div class="example" id="carousel">
-    <!-- PLACE CODE FOR EXAMPLE BETWEEN HERE-->
-            <div id="excarousel">
-              <a href="{{site.url}}/widgets/carousel.html"><div id="extitle">Carousel</div></a>
-                <div data-ur-set="carousel" data-ur-touch="disabled" data-ur-state="enabled">
-                  <div data-ur-carousel-component="view_container" data-ur-clones="2">
-                    <div data-ur-carousel-component="scroll_container">
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov1.JPG"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov2.JPG"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov3.JPG"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov4.JPG"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov5.JPG"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov6.jpg"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov7.jpg"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov8.jpg"/>
-                      <img data-ur-carousel-component="item" src="{{site.url}}stylesheets/resources/moov9.png"/>
-                    </div> <!-- scroll_container end -->
-                  <div class="cbutton" id="exback" data-ur-carousel-component="button" data-ur-carousel-button-type="prev"><</div>
-                  <div class="cbutton" id="exnext" data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">></div>
-                </div><!-- view container end -->
-              </div>
-            </div>
-          
-    <!-- AND HERE-->
-            
-        </div><!-- exampleend-->
-        
-        
-          <div class="mainpage_code" id="carouselcode">
-    <!-- PLACE EXAMPLE CODE BETWEEN HERE-->
+  
+  <div class="ur_ex" data-ur-set="tabs">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
+      <div class="example" id="carousel" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+        <div id="excarousel">
+          <a href="{{site.url}}/widgets/carousel.html"><div id="extitle">Carousel</div></a>
+          <div data-ur-set="carousel" data-ur-touch="disabled" data-ur-state="enabled">
+            <div data-ur-carousel-component="view_container" data-ur-clones="2">
+              <div data-ur-carousel-component="scroll_container">
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov1.JPG"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov2.JPG"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov3.JPG"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov4.JPG"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov5.JPG"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov6.jpg"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov7.jpg"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov8.jpg"/>
+                <img data-ur-carousel-component="item" src="/stylesheets/resources/moov9.png"/>
+              </div> <!-- scroll_container end -->
+              <div class="cbutton" id="exback" data-ur-carousel-component="button" data-ur-carousel-button-type="prev">&lt;</div>
+              <div class="cbutton" id="exnext" data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">&gt;</div>
+            </div><!-- view container end -->
+          </div>
+        </div>
+      </div><!-- exampleend-->
+      <div class="mainpage_code" id="carouselcode" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
 {% highlight html %}
 <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-touch="disabled">
   <div data-ur-carousel-component="scroll_container">
@@ -153,49 +117,31 @@ home_selected: selected
   <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">&gt;</div>
 </div>
 {% endhighlight %}
-
-    <!-- AND HERE-->
-    
-            <!-- fakecode-->
-          </div><!-- codeend-->
-      </div><!-- examplewrap-->
+      </div><!-- codeend-->
+  </div>
   <hr />
   
-  <div class="examplewrap">
-    <div id="lefthead">
-<h3>Example</h3>
-    </div><!-- lefthead-->
-    <div id="righthead">
-<h3>The Code</h3>
-    </div><!-- righthead-->
-    
-      <div class="example" id="select_list">
-      
-<!-- PLACE CODE FOR EXAMPLE BETWEEN HERE-->
-        <div id="exselectlist" data-ur-set="select-list">
-          <a href="{{site.url}}/widgets/select-list.html"><div id="extitle">Select List</div></a>
-          <select data-ur-select-list-component='select'>
-            <option selected='true' value='SKU-A'> Click on </option>
-            <option value='SKU-B'> a Value </option>
-            <option value='SKU-C'> in this </option>
-            <option value='SKU-D'> List </option>
-          </select>
-
-
-          <div data-ur-select-list-component='content'>
-            <div value='SKU-A'> Click on </div>
-            <div value='SKU-B'> a Value </div>
-            <div value='SKU-C'> in this </div>
-            <div value='SKU-D'> List </div>
-          </div>
+  <div class="ur_ex" data-ur-set="tabs">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
+    <div class="example" id="select_list" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div id="exselectlist" data-ur-set="select-list">
+        <a href="{{site.url}}/widgets/select-list.html"><div id="extitle">Select List</div></a>
+        <select data-ur-select-list-component='select'>
+          <option selected='true' value='SKU-A'> Click on </option>
+          <option value='SKU-B'> a Value </option>
+          <option value='SKU-C'> in this </option>
+          <option value='SKU-D'> List </option>
+        </select>
+        <div data-ur-select-list-component='content'>
+          <div value='SKU-A'> Click on </div>
+          <div value='SKU-B'> a Value </div>
+          <div value='SKU-C'> in this </div>
+          <div value='SKU-D'> List </div>
         </div>
-<!-- AND HERE-->
-          
-      </div><!-- example end-->
-      
-      <div class="mainpage_code" id="select_list_code">
-<!-- PLACE EXAMPLE CODE BETWEEN HERE-->
-        <!-- fakecode-->
+      </div>
+    </div><!-- example end-->
+    <div class="mainpage_code" id="select_list_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
 {% highlight html %}
 <div data-ur-set="select-list">
   <select data-ur-select-list-component="select">
@@ -212,30 +158,20 @@ home_selected: selected
   </ul>
 </div>
 {% endhighlight %}
-        <!-- fakecode-->
-<!-- AND HERE-->
-      </div><!-- code end-->
-  </div><!-- examplewrap end-->
+    </div>
+  </div>
   <hr />
-</div><!-- wrapper-->
     
+    
+  <h2>Uranium is used by...</h2>
+  <div id="threelogoholder">
+    <a href="http://m.macys.com/"><img src="images/BW_macys.png" alt="Macy's" /></a>
+    <a href="http://m.cancer.org/"><img src="images/BW_AmCancer.png" alt="ACS" /></a>
+    <a href="http://m.belk.com/"><img src="images/BW_belk.png" alt="Belk" /></a>
+  </div><!-- threelogoholder end-->
+  <div id="twologoholder">
+    <a href="http://m.ross-simons.com/"><img src="images/BW_RS.png" alt="Ross-Simons" /></a>
+    <a href="http://m.barenecessities.com/"><img src="images/BW_barenecessities.png" alt="Bare Necessities" /></a>
+  </div><!-- threelogoholder end-->
 
-        
-      <div class="wrapper">
-      <h2>Uranium is used by...</h2>
-      <p></p>
-        <div id="threelogoholder">
-          <a href="http://m.macys.com/"><div class="onelogo" id="oneleft" style="background: url('{{site.url}}stylesheets/resources/BW_macys.png') no-repeat center center;"></div></a>
-          <a href="http://m.cancer.org/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_AmCancer.png') no-repeat center center;"></div></a>
-          <a href="http://m.belk.com/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_belk.png') no-repeat center center;"></div></a>
-        </div><!-- threelogoholder end-->
-        <div id="twologoholder">
-          <a href="http://m.ross-simons.com/"><div class="onelogo" id="oneleft" style="background: url('{{site.url}}stylesheets/resources/BW_RS.png') no-repeat center center;"></div></a>
-          <a href="http://m.barenecessities.com/"><div class="onelogo" id="oneright" style="background: url('{{site.url}}stylesheets/resources/BW_barenecessities.png') no-repeat center center;"></div></a>
-        </div><!-- threelogoholder end-->
-        
-    </div><!-- wrapper-->
-    
-  </div><!-- textbody-->
-</body>
-</html>
+</div>

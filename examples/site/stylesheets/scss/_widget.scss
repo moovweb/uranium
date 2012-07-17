@@ -1,3 +1,20 @@
+.widget_page {
+  .attributes {
+    [data-ur-tabs-component="content"] {
+      @include border-radius(5px);
+      background: #c1c1c1;
+      color: #323232;
+      padding: 10px 20px;
+      &[data-ur-state="disabled"] {
+        display: none;
+      }
+    }
+    dd {
+      margin-bottom: 10px;
+    }
+  }
+}
+
 li[data-ur-set="toggler"] {
   [data-ur-toggler-component='button'] {
     background-color: #a3e2f5; }
@@ -45,18 +62,8 @@ li[data-ur-set="toggler"] {
   border-radius: 5px; }
 
 .attributes {
+  word-wrap: break-word;
   margin-bottom: 15px; }
-
-.attributes h3 {
-  color: #323232; }
-
-.attributes *[data-ur-tabs-component="content"] li {
-  color: #323232; }
-
-.attributes code {
-  color: #323232;
-  font: 17px "Courier New";
-}
 
 .attributes .set_name {
   padding: 5px;
@@ -68,9 +75,6 @@ li[data-ur-set="toggler"] {
   border: 2px dashed #fafafa;
   margin-bottom: 10px;
   margin-left: 25px; }
-
-.attributes *[data-ur-tabs-component="content"] li *[data-ur-toggler-component="content"] li [data-ur-state="enabled"] {
-  color: #323232; }
 
 .attributes *[data-ur-tabs-component='button'] {
   opacity: 0.5;
@@ -84,20 +88,13 @@ li[data-ur-set="toggler"] {
   padding: 5px;
   position: relative; }
 
-.attributes *[data-ur-tabs-component='content'] {
-  display: none;
-  background: silver; }
+
 
 .attributes *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1;
   background: #fafafa;
   border-bottom: 1px solid #fafafa; }
 
-.attributes *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
-  display: block;
-  background: silver url("resources/largestshade.png") no-repeat left bottom;
-  padding: 20px;
-  @include border-radius(5px); }
 
 .attributes *[data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
