@@ -1783,6 +1783,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       cloneLength: 1,
       fill: 0,
       infinite: true,
+      speed: 1.1,
       transform3d: true,
       touch: true,
       verticalScroll: true
@@ -1872,8 +1873,13 @@ Ur.WindowLoaders["carousel"] = (function() {
       // on some Android devices
 
       var oldAndroid = /Android [12]/.test(navigator.userAgent);
-      if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled")
+      if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled") {
         self.options.transform3d = false;
+        var speed = parseFloat($container.attr("data-ur-speed"));
+        self.options.speed = speed > 1 ? speed : 1.3;
+      }
+
+      $container.attr("data-ur-speed", self.options.speed);
 
       self.options.verticalScroll = $container.attr("data-ur-vertical-scroll")[0] != "disabled";
       $container.attr("data-ur-vertical-scroll", self.options.verticalScroll ? "enabled" : "disabled");
@@ -2245,7 +2251,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
       var translate = getTranslateX();
       var distance = self.destinationOffset - translate;
-      var increment = distance - zeroFloor(distance / (self.options.transform3d ? 1.1 : 1.2));
+      var increment = distance - zeroFloor(distance / self.options.speed);
 
       // Hacky -- this is for the desktop browser only -- to fix rounding errors
       // Ideally, this is removed at compile time
@@ -2576,7 +2582,7 @@ Ur.QuickLoaders["geocode"] = (function() {
     var s = document.createElement('script');
     s.type = "text/javascript";
     s.src = "http://maps.googleapis.com/maps/api/js?sensor=true&callback=UrGeocode";
-    x$('body').html('bottom', s);  
+    x$('head')[0].appendChild(s);
   }
 
   
@@ -2830,7 +2836,7 @@ Ur.QuickLoaders['input-clear'] = (function(){
   
   InputClearLoader.prototype.initialize = function(fragment) {
     var inputs = x$(fragment).findElements('input-clear');
-    e = inputs;
+    //e = inputs;
     
     Ur.Widgets["input-clear"] = {};
     
@@ -2851,9 +2857,9 @@ Ur.QuickLoaders['input-clear'] = (function(){
  */
 
 (function () {
-  
+
   function late_load (obj) {
-    
+
     var self = this;
     var components = this.components = obj;
   }
@@ -2862,11 +2868,11 @@ Ur.QuickLoaders['input-clear'] = (function(){
 
   late_load.prototype.release_element = function (obj) {
 
-    if (obj.hasAttribute("data-ur-ll-src")){
+    if (x$(obj).attr("data-ur-ll-src").length > 0){
       var type = "src";
       var att = "data-ur-ll-src";
-      var loc = obj.getAttribute(att);
-    }else if (obj.hasAttribute("data-ur-ll-href")){
+      var loc = x$(obj).attr(att)[0];
+    }else if (x$(obj).attr("data-ur-ll-href").length > 0){
       var type = "href";
       var att = "data-ur-ll-href";
       var loc = obj.getAttribute();
@@ -4262,9 +4268,8 @@ Ur.WindowLoaders["zoom"] = (function() {
       if (self.state == "enabled-in") {
         $img.css({ webkitTransitionDelay: "", MozTransitionDelay: "", OTransitionDelay: "", transitionDelay: "" });
         
+        self.img.src = $img.attr("data-ur-src")[0];
         if (loaded_imgs.indexOf(self.img.getAttribute("data-ur-src")) == -1) {
-          self.img.src = $img.attr("data-ur-src")[0];
-
           setTimeout(function() {
             if (loaded_imgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
               $idler.attr("data-ur-state", "enabled");
