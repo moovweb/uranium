@@ -53,7 +53,8 @@ Ur.WindowLoaders["carousel"] = (function() {
     var preCoords = {x: 0, y: 0};
     var startPos = {x: 0, y: 0}, endPos = {x: 0, y: 0};
     
-    var oldWidth = 0, snapWidth = 0;
+    this.oldWidth = 0;
+    var snapWidth = 0;
     
     var startingOffset = null;
     
@@ -88,7 +89,7 @@ Ur.WindowLoaders["carousel"] = (function() {
         translateSuffix = ")";
       }
 
-      adjustSpacing();
+      self.adjustSpacing();
 
       if (!self.options.infinite)
         self.realItemCount = self.itemCount;
@@ -188,18 +189,18 @@ Ur.WindowLoaders["carousel"] = (function() {
     function resize() {
       var offsetWidth = self.container.offsetWidth;
       if (snapWidth != offsetWidth && offsetWidth != 0)
-        adjustSpacing();
+        self.adjustSpacing();
     }
 
-    function adjustSpacing() {
+    this.adjustSpacing = function() {
       // Will need to be called if the container's size changes --> orientation change
       var visibleWidth = self.container.offsetWidth;
 
-      if (oldWidth !== undefined && oldWidth == visibleWidth)
+      if (self.oldWidth !== undefined && self.oldWidth == visibleWidth)
         return;
 
       var oldSnapWidth = snapWidth;
-      oldWidth = visibleWidth;
+      self.oldWidth = visibleWidth;
 
       var cumulativeOffset = 0;
       var items = x$(self.items).find("[data-ur-carousel-component='item']");
@@ -245,7 +246,7 @@ Ur.WindowLoaders["carousel"] = (function() {
         self.destinationOffset = cumulativeOffset;
 
       translateX(cumulativeOffset);
-    }
+    };
 
     this.autoscrollStart = function() {
       if (!self.options.autoscroll)
@@ -339,7 +340,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       if (coords !== null) {
         var translate = getTranslateX();
 
-        if (startingOffset == null)
+        if (startingOffset == null || self.destinationOffset == undefined)
           startingOffset = translate;
         else
           // Fast swipe
