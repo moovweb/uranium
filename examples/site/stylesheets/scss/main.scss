@@ -29,3 +29,7 @@
 @import "swipe_toggle";
 @import "flex_table";
 @import "input_clear";
+
+@media screen and (min-width: 480px) and (min-height: 480px) {
+  @import "desktop";
+}

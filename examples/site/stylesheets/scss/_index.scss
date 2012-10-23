@@ -21,14 +21,14 @@
     display: inline-block;
     padding: 30px 7%;
     color: #323232;
-    font: 24px "Ultra", sans-serif;
+    font: italic 800 24px "Open Sans", sans-serif;
     text-align: center;
     text-shadow: #c7c7c7 0px 1px 0px;
     vertical-align: middle;
     width: 240px;
     small {
       display: block;
-      font-family: "Yellowtail", serif;
+      font: 20px "Yellowtail", serif;
       margin-top: 20px;
     }
     @media screen and (max-width: 768px) {
@@ -60,8 +60,8 @@
       text-align: right;
     }
   }
-  h2 {
-    font-size: 30px;
+  h1 {
+    color: $color2;
   }
   #how_to_use {
     @include border-radius(5px);
@@ -73,7 +73,7 @@
     margin-bottom: 30px;
     width: 70%;
     h4 {
-      font: italic 20px "Crete Round", serif;
+      font: 20px "Open Sans", sans-serif;
       margin-top: 10px;
     }
     li {

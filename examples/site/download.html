@@ -44,7 +44,7 @@ function createJS() {
 
   x$("#result .success").setStyle("display", "inline");
   var link = x$("#custom_dl")[0];
-  link.href = webkitURL.createObjectURL(blob);
+  link.href = (window.webkitURL || window.URL).createObjectURL(blob);
   link.click();
 }
 
@@ -63,25 +63,25 @@ x$.ready(function() {
 <div id="textbody">
   <h1>
     Download
-    <div id="version"><span class="desktop">Current Version: </span>{{version}}</div>
+    <div id="version_wrapper"><span id="version"><span class="desktop">Current Version : </span>{{version}}</span></div>
   </h1>
 
   <p id="download_spiel">Here you can download Uranium for use in a project. Right-click on the appropriate file from the choices below, save it, then add it to your project. Hopefully the names are pretty self-explanatory. The webkit option should work on most browsers (check out the <a href="{{site.url}}compatibility.html">compatibility tables</a>.) The BlackBerry version is for older, non-webkit BlackBerries. Internet Explorer also requires its own version.</p>
   <div id="links">
     <a href="http://d1topzp4nao5hp.cloudfront.net/uranium-upload/{{version}}/uranium.js">
-      <div><h4>Uranium</h4> Webkit</div>
+      <h4>Uranium</h4> Webkit
     </a>
 
     <a href="http://d1topzp4nao5hp.cloudfront.net/uranium-upload/{{version}}/uranium-bb.js">
-      <div><h4>Uranium</h4> BlackBerry</div>
+      <h4>Uranium</h4> BlackBerry
     </a>
 
     <a href="http://d1topzp4nao5hp.cloudfront.net/uranium-upload/{{version}}/uranium-ie.js">
-      <div><h4>Uranium</h4> Internet Explorer</div>
+      <h4>Uranium</h4> I<span class="desktop">nternet </span>E<span class="desktop">xplorer</span>
     </a>
   </div> <!-- links -->
   <form id="custom_ur">
-    <h2>Custom Uranium (&beta;)</h2>
+    <h2>Custom Uranium <small>Beta</small></h2>
     <input id="xui-2.3.2" type="checkbox" disabled="disabled" checked="checked" />
     <label for="xui-2.3.2">xuijs</label>
     <br />
@@ -105,7 +105,7 @@ x$.ready(function() {
     <br />
     <input id="init" type="button" value="Generate" onclick="fetchJS()" />
     <div id="result">
-      <span class="success">The download should start automatically or you can <a id="custom_dl" download="uranium-pretty-custom.js">manually download</a>.</span>
+      <span class="success">The download should start automatically or you can <a id="custom_dl" target="_blank" download="uranium-pretty-custom.js">manually download</a>.</span>
       <span class="error">Sorry, there was an error fetching the JS files.</span>
     </div>
   </form>

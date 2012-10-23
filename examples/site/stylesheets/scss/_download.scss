@@ -1,47 +1,49 @@
 body#download_page {
-  #version {
-    @include border-radius(5px);
-    background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
-    color: #323232;
+  #version_wrapper {
+    font-size: 18px;
     float: right;
-    padding: 0 12px;
-    font: italic 16px "Crete Round", serif;
-    text-shadow: none;
-    vertical-align: middle;
     &:before {
       content: "";
-      font: 30px "Ultra", sans-serif;
+      font-size: $h1_size;
       vertical-align: middle;
     }
   }
-
+  #version {
+    @include border-radius(5px);
+    background: #eee;
+    color: #323232;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    text-shadow: none;
+    text-transform: none;
+    vertical-align: middle;
+    span {
+      letter-spacing: 1px;
+    }
+  }
+  
   #links {
     margin: 20px auto;
     width: 90%;
     a {
       @include background($grad1);
       @include border-radius(5px);
-      @include box-align(center);
-      @include display-box;
       color: #323232;
       float: left;
       margin-right: 5%;
-      min-height: 38px;
       padding: 2% 0;
       text-align: center;
       width: 30%;
       &:last-child {
+        display: block;
         float: none;
         margin: 0;
         overflow: hidden;
         width: auto;
       }
     }
-    div {
-      @include box-flex(1);
-    }
     h4 {
-      font-size: 1.9em;
+      font-size: 24px;
     }
     @media screen and (max-width: 479px), screen and (max-height: 479px) {
       h4 {
@@ -51,6 +53,12 @@ body#download_page {
   }
   #custom_ur {
     display: none;
+    small {
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
   }
   #init {
     margin: 10px 0;
