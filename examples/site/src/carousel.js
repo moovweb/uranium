@@ -280,7 +280,7 @@ Ur.WindowLoaders["carousel"] = (function() {
 
     function updateButtons() {
       x$(self.button["prev"]).attr("data-ur-state", self.itemIndex == 0 ? "disabled" : "enabled")
-      x$(self.button["next"]).attr("data-ur-state", self.itemIndex == self.lastIndex ? "disabled" : "enabled")
+      x$(self.button["next"]).attr("data-ur-state", self.itemIndex == self.lastIndex - Math.max(self.options.fill, 1) + 1 ? "disabled" : "enabled");
     }
 
     function getNewIndex(direction) {
