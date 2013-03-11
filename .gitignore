@@ -7,3 +7,4 @@ doc/*.html
 examples/site/_site/*
 .sass-cache/
 
+build/.remote/
