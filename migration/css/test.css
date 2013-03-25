@@ -1,0 +1,38 @@
+/*test.css*/
+
+/* Structure */
+
+  /* Togglers */
+  *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state="enabled"] {
+    display: block;
+  }
+  *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state="disabled"] {
+    display: none;
+  }
+
+  /* Tabs */
+  *[data-ur-set='tabs'] *[data-ur-tabs-component='content'] {
+    display:none;
+  }
+  *[data-ur-set='tabs'] *[data-ur-tabs-component='content'][data-ur-state="enabled"] {
+    display:block;
+  }
+  *[data-ur-set="tabs"] *[data-ur-tabs-component='button'] {
+    opacity: 0.5;
+  }
+  *[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+    opacity: 1.0;
+  }
+
+/* Appearance */
+
+  /* Tabs */
+  *[data-ur-set='tabs'] span {
+    padding: 10px;
+    border: 1px solid black;
+    display: inline-block;
+  }
+  *[data-ur-set='tabs'] div {
+    padding: 10px;
+    border: 1px solid red;
+  }
