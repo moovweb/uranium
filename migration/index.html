@@ -21,21 +21,60 @@
 
 
     <!-- Stylesheets -->
-    <!-- <link rel="stylesheet" type='text/css' href='css/test.css' /> -->
+    <link rel="stylesheet" type='text/css' href='css/test.css' />
   </head>
   <body>
     <h1>Migration Index</h1>
     <div>Just getting it working for now.</div>
 
     <div data-ur-set='toggler'>
-      <div data-ur-toggler-component='button'>Click Here!</div>
-        <ul data-ur-toggler-component='content'>
-          <li> Hat </li>
-          <li> Socks </li>
-          <li> Shoes </li>
-          <li> Gloves </li>
-          <li> Shirts </li>
-        </ul>
+      <div data-ur-toggler-component='button'>Click Here1!</div>
+      <ul data-ur-toggler-component='content'>
+        <li> Hat </li>
+        <li> Socks </li>
+        <li> Shoes </li>
+        <li> Gloves </li>
+        <li> Shirts </li>
+      </ul>
     </div>
+    <div data-ur-set='toggler'>
+      <div data-ur-toggler-component='button'>Click Here2!</div>
+      <ul data-ur-toggler-component='content'>
+        <li> Hat </li>
+        <li> Socks </li>
+        <li> Shoes </li>
+        <li> Gloves </li>
+        <li> Shirts </li>
+      </ul>
+    </div>
+    <div data-ur-set='toggler'>
+      <div data-ur-toggler-component='button' data-ur-state="enabled">Click Here3!</div>
+      <ul data-ur-toggler-component='content' data-ur-state="enabled">
+        <li> Hat </li>
+        <li> Socks </li>
+        <li> Shoes </li>
+        <li> Gloves </li>
+        <li> Shirts </li>
+      </ul>
+    </div>
+
+    <div data-ur-set='tabs' data-ur-id="tabs-test">
+      <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
+      <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
+      <div data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
+      <div data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
+    </div>
+
+    <div data-ur-set='tabs'>
+      <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
+      <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
+      <div data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
+      <div data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
+    </div>
+
   </body>
 </html>
