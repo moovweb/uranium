@@ -2541,8 +2541,8 @@ xui.extend({
 	/**
 	 * Pops the last selector from XUI
 	 */
-	end: function () {	
-		return this.set(this.cache || []);	 	
+	end: function () {
+		return this.set(this.cache || []);
 	},
   /**
    * Sets the `display` CSS property to `block`.

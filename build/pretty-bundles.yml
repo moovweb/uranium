@@ -1,10 +1,12 @@
---- 
+---
 - :output_file: src/uranium-pretty.js
   :input_directory: ../lib
   :input_files:
-  - ../lib/external/xui-2.3.2.js
-  - ../lib/external/showhide.js
-  - ../lib/external/fade.js
+  # - http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+  - ../lib/external/jquery-1.9.1.js
+  # - ../lib/external/xui-2.3.2.js
+  # - ../lib/external/showhide.js
+  # - ../lib/external/fade.js
   - ../lib/uranium_mixins.js
 - :output_file: src/uranium-bb-pretty.js
   :input_files:

@@ -27,10 +27,17 @@
 /* Appearance */
 
   /* Tabs */
+  *[data-ur-set='tabs'] {
+    margin-bottom: 15px;
+  }
   *[data-ur-set='tabs'] span {
     padding: 10px;
     border: 1px solid black;
     display: inline-block;
+    border-bottom: 0px;
+  }
+  *[data-ur-set='tabs'][data-ur-closeable="true"] span {
+    border: 1px solid black;
   }
   *[data-ur-set='tabs'] div {
     padding: 10px;
