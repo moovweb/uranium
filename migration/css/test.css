@@ -38,6 +38,7 @@
   }
   *[data-ur-set='tabs'][data-ur-closeable="true"] span {
     border: 1px solid black;
+    display: block;
   }
   *[data-ur-set='tabs'] div {
     padding: 10px;
