@@ -90,6 +90,7 @@ Ur.WindowLoaders["carousel"] = (function() {
       }
 
       self.adjustSpacing();
+      self.destinationOffset = getTranslateX();
 
       if (!self.options.infinite)
         self.realItemCount = self.itemCount;
