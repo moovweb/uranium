@@ -7,7 +7,7 @@ Moving this framework from XUI to jQuery
 * [DONE] Toggler
 * [DONE] Tabs
 * [DONE] Input Clear
-* Geolocation
-* Zoom
+* [DONE] Geolocation
+* [DONE] Zoom
 * Carousel
 * RequireJS => Componentize
