@@ -1,5 +1,3 @@
-test.css*/
-
 /* Structure */
 
   /* Togglers */
@@ -69,7 +67,18 @@ test.css*/
     display: inline;
   }
 
-
+  /* Carousel */
+  div[data-ur-carousel-component="view_container"] {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  div[data-ur-carousel-component="scroll_container"] > * {
+    display: inline-block;
+    float: left;
+  }
+  div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+    opacity: 0.3;
+  }
 
 /* Appearance */
 
