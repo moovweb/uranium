@@ -1,4 +1,21 @@
-# Overview
+# Overview for the Github Page
+
+---
+# Getting started 
+
+Start with installing [Jekyll](http://jekyllrb.com/) 
+		gem install jekyll
+Run the server
+		jekyll serve 
+Check it [out](http://localhost:4000/) after launching
+
+---
+# Widgets
+
+
+
+
+# Uranium Overview
 
 Uranium is meant to be :
 
