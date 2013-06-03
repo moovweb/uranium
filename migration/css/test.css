@@ -71,6 +71,7 @@
   div[data-ur-carousel-component="view_container"] {
     width: 100%;
     overflow-x: hidden;
+    cursor: pointer;
   }
   div[data-ur-carousel-component="scroll_container"] > * {
     display: inline-block;
@@ -137,7 +138,7 @@
 
   /* Carousel */
   [data-ur-carousel-component='view_container'] {
-    background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
+    background-color: #ffd700;
     border: 1px solid black;
     overflow: hidden;
     position: relative;
