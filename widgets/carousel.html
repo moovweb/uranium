@@ -228,39 +228,39 @@ describe("An auto-scrolling carousel", function() {
         </div>
 
         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-{% highlight html %}
-<div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel">
-  <span data-ur-carousel-component="count"> -- count -- </span>
-  <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-  <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-  <div data-ur-carousel-component='scroll_container'>
-    <img data-ur-carousel-component='item' src='images/sample1.png' alt="1" />
-    <img data-ur-carousel-component='item' src='images/sample2.png' alt="2" />
-    <img data-ur-carousel-component='item' src='images/sample3.png' alt="3" />
-    <img data-ur-carousel-component='item' src='images/sample4.png' alt="4" />
-    <img data-ur-carousel-component='item' src='images/sample5.png' alt="5" />
-    <img data-ur-carousel-component='item' src='images/sample6.png' alt="6" />
-    <img data-ur-carousel-component='item' src='images/sample7.png' alt="7" />
-    <img data-ur-carousel-component='item' src='images/sample8.png' alt="8" />
-  </div>
-</div>
-{% endhighlight %}
+          {% highlight html %}
+          <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel">
+            <span data-ur-carousel-component="count"> -- count -- </span>
+            <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
+            <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
+            <div data-ur-carousel-component='scroll_container'>
+              <img data-ur-carousel-component='item' src='images/sample1.png' alt="1" />
+              <img data-ur-carousel-component='item' src='images/sample2.png' alt="2" />
+              <img data-ur-carousel-component='item' src='images/sample3.png' alt="3" />
+              <img data-ur-carousel-component='item' src='images/sample4.png' alt="4" />
+              <img data-ur-carousel-component='item' src='images/sample5.png' alt="5" />
+              <img data-ur-carousel-component='item' src='images/sample6.png' alt="6" />
+              <img data-ur-carousel-component='item' src='images/sample7.png' alt="7" />
+              <img data-ur-carousel-component='item' src='images/sample8.png' alt="8" />
+            </div>
+          </div>
+          {% endhighlight %}
         </div>
 
         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
-{% highlight css %}
-div[data-ur-carousel-component="view_container"] {
-  width: 100%;
-  overflow-x: hidden;
-}
-div[data-ur-carousel-component="scroll_container"] > * {
-  display: inline-block;
-  float: left;
-}
-div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
-  opacity: 0.3;
-}
-{% endhighlight %}
+          {% highlight css %}
+          div[data-ur-carousel-component="view_container"] {
+            width: 100%;
+            overflow-x: hidden;
+          }
+          div[data-ur-carousel-component="scroll_container"] > * {
+            display: inline-block;
+            float: left;
+          }
+          div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+            opacity: 0.3;
+          }
+          {% endhighlight %}
         </div>
       </div>
     </div>

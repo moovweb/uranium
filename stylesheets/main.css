@@ -35,7 +35,7 @@ h1 {
 
 /* line 36, scss/_base.scss */
 h2 {
-  color: #ffd700;
+  color: gold;
   font: italic 24px "Crete Round", serif;
   text-shadow: black 0px 1px;
   margin: 0 auto 10px; }
@@ -46,13 +46,16 @@ h3 {
   font-weight: 300;
   text-shadow: black 0px 1px; }
 
-/* Menu */
+/* Menu (Header) */
 /* line 50, scss/_base.scss */
 #menu {
   overflow: hidden;
   margin: 10px 0;
   text-align: center; }
   /* line 54, scss/_base.scss */
+  #menu #uraniumlogo {
+    background-color: pink !important; }
+  /* line 57, scss/_base.scss */
   #menu a {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -66,20 +69,20 @@ h3 {
     text-align: center;
     text-decoration: none;
     width: 120px;
-    height: 32px; }
-    /* line 66, scss/_base.scss */
+    height: 32px;
+    letter-spacing: 1px; }
+    /* line 70, scss/_base.scss */
     #menu a:first-child {
       border-left: none; }
-    /* line 69, scss/_base.scss */
+    /* line 73, scss/_base.scss */
     #menu a:last-child {
       border-right: none; }
-  /* line 73, scss/_base.scss */
+  /* line 77, scss/_base.scss */
   #menu .selected {
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd700), color-stop(100%, #e6c200));
     background: -webkit-linear-gradient(#ffd700, #e6c200);
     background: -moz-linear-gradient(#ffd700, #e6c200);
     background: -o-linear-gradient(#ffd700, #e6c200);
-    background: -ms-linear-gradient(#ffd700, #e6c200);
     background: linear-gradient(#ffd700, #e6c200);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -92,15 +95,15 @@ h3 {
     /* line 50, scss/_base.scss */
     #menu {
       margin: 0; }
-      /* line 81, scss/_base.scss */
+      /* line 85, scss/_base.scss */
       #menu a {
         border-top: 1px solid #505050;
         border-bottom: 1px solid black;
         float: left;
         width: 50%; }
-        /* line 86, scss/_base.scss */
+        /* line 90, scss/_base.scss */
         #menu a:first-child {
-          background: #ffd700 url('/images/uraniumlogo.png?1340827225') no-repeat 50% 50%;
+          background: gold url('/images/uraniumlogo.png?1370279903') no-repeat 50% 50%;
           -webkit-background-size: 100px 30px;
           -moz-background-size: 100px 30px;
           -o-background-size: 100px 30px;
@@ -110,24 +113,24 @@ h3 {
           display: block;
           float: none;
           width: auto; }
-        /* line 95, scss/_base.scss */
+        /* line 99, scss/_base.scss */
         #menu a:nth-of-type(odd) {
           border-right: none; }
-        /* line 98, scss/_base.scss */
+        /* line 102, scss/_base.scss */
         #menu a:nth-of-type(even) {
           border-left: none; }
-      /* line 102, scss/_base.scss */
+      /* line 106, scss/_base.scss */
       #menu .selected {
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         -ms-border-radius: 0;
         -o-border-radius: 0;
         border-radius: 0; }
-      /* line 105, scss/_base.scss */
+      /* line 109, scss/_base.scss */
       #menu span {
         display: none; } }
 
-/* line 111, scss/_base.scss */
+/* line 115, scss/_base.scss */
 #github_ribbon {
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px 2px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px 2px;
@@ -147,7 +150,7 @@ h3 {
   text-align: center;
   width: 170px;
   height: 28px; }
-  /* line 124, scss/_base.scss */
+  /* line 128, scss/_base.scss */
   #github_ribbon:before {
     border: 1px solid #ccc;
     border-width: 1px 0;
@@ -159,7 +162,7 @@ h3 {
     width: 100%;
     height: 22px; }
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 111, scss/_base.scss */
+    /* line 115, scss/_base.scss */
     #github_ribbon {
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -168,7 +171,6 @@ h3 {
       background: -webkit-linear-gradient(left, #aaaaaa, #808080);
       background: -moz-linear-gradient(left, #aaaaaa, #808080);
       background: -o-linear-gradient(left, #aaaaaa, #808080);
-      background: -ms-linear-gradient(left, #aaaaaa, #808080);
       background: linear-gradient(left, #aaaaaa, #808080);
       -webkit-transform: none;
       -moz-transform: none;
@@ -180,35 +182,35 @@ h3 {
       top: 5px;
       width: 60px;
       height: 22px; }
-      /* line 144, scss/_base.scss */
+      /* line 148, scss/_base.scss */
       #github_ribbon:before {
         border: 10px solid;
-        border-color: transparent #ffd700 transparent transparent;
+        border-color: transparent gold transparent transparent;
         top: 1px;
         right: 0;
         height: 0; } }
 
 /* Body Text */
-/* line 155, scss/_base.scss */
+/* line 159, scss/_base.scss */
 #textbody {
   margin: 10px 10%; }
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 155, scss/_base.scss */
+    /* line 159, scss/_base.scss */
     #textbody {
       margin: 10px; } }
 
-/* line 172, scss/_base.scss */
+/* line 176, scss/_base.scss */
 .description_wrapper {
   margin-bottom: 20px; }
 
-/* line 182, scss/_base.scss */
+/* line 186, scss/_base.scss */
 hr {
   border-top: solid #464646;
   border-bottom: solid #1e1e1e;
   border-width: 1px 0;
   margin: 30px auto; }
 
-/* line 191, scss/_base.scss */
+/* line 195, scss/_base.scss */
 .code {
   background-color: #282828;
   border: 3px dashed #3c3c3c;
@@ -220,7 +222,7 @@ hr {
   -moz-border-radius: 10px;
   border-radius: 10px; }
 
-/* line 200, scss/_base.scss */
+/* line 204, scss/_base.scss */
 .inline_code {
   background-color: #282828;
   color: #C0C0C0;
@@ -228,25 +230,25 @@ hr {
   font-size: 18px;
   margin: 5px; }
 
-/* line 208, scss/_base.scss */
+/* line 212, scss/_base.scss */
 #carouselcode {
   height: 250px;
   font-size: 12px; }
 
-/* line 212, scss/_base.scss */
+/* line 216, scss/_base.scss */
 #select_list_code {
   font-size: 12px; }
 
-/* line 215, scss/_base.scss */
+/* line 219, scss/_base.scss */
 #brown {
   color: #FA8072; }
 
-/* line 216, scss/_base.scss */
+/* line 220, scss/_base.scss */
 #green {
   color: #8FBC8F; }
 
 /* Example styles. Non-functioning */
-/* line 219, scss/_base.scss */
+/* line 223, scss/_base.scss */
 #extoggler {
   width: 200px;
   background: #fafafa url("resources/largeshade.png") no-repeat left bottom;
@@ -259,7 +261,7 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 227, scss/_base.scss */
+/* line 231, scss/_base.scss */
 #extitle {
   width: 100px;
   height: 20px;
@@ -267,7 +269,7 @@ hr {
   font-size: 18px;
   font-family: Rockwell; }
 
-/* line 231, scss/_base.scss */
+/* line 235, scss/_base.scss */
 #exbutton {
   width: 190px;
   height: 30px;
@@ -283,16 +285,16 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 240, scss/_base.scss */
+/* line 244, scss/_base.scss */
 #exbutton:hover {
   cursor: hand;
   cursor: pointer; }
 
-/* line 244, scss/_base.scss */
+/* line 248, scss/_base.scss */
 #extoggler_content[data-ur-toggler-component="content"][data-ur-state="disabled"] {
   display: none; }
 
-/* line 247, scss/_base.scss */
+/* line 251, scss/_base.scss */
 #extoggler_content[data-ur-toggler-component="content"][data-ur-state="enabled"] {
   display: block;
   background: #C0C0C0;
@@ -304,7 +306,7 @@ hr {
   margin-top: 10px;
   width: 170px; }
 
-/* line 258, scss/_base.scss */
+/* line 262, scss/_base.scss */
 #excarousel {
   width: 230px;
   height: 180px;
@@ -318,7 +320,7 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 266, scss/_base.scss */
+/* line 270, scss/_base.scss */
 #exback {
   width: 30px;
   height: 30px;
@@ -335,11 +337,11 @@ hr {
   border-radius: 5px;
   display: inline; }
 
-/* line 277, scss/_base.scss */
+/* line 281, scss/_base.scss */
 #exback[data-ur-state="disabled"] {
   opacity: 0.5; }
 
-/* line 280, scss/_base.scss */
+/* line 284, scss/_base.scss */
 #exnext {
   width: 30px;
   height: 30px;
@@ -356,19 +358,19 @@ hr {
   border-radius: 5px;
   display: inline; }
 
-/* line 291, scss/_base.scss */
+/* line 295, scss/_base.scss */
 .cbutton:hover {
   cursor: hand;
   cursor: pointer; }
 
-/* line 295, scss/_base.scss */
+/* line 299, scss/_base.scss */
 #eximage {
   width: 70px;
   height: 70px;
   margin: auto;
   background: url("resources/photo1.png") no-repeat center center; }
 
-/* line 300, scss/_base.scss */
+/* line 304, scss/_base.scss */
 #exbottomtext {
   margin: auto;
   margin-top: 5px;
@@ -376,7 +378,7 @@ hr {
   color: #323232;
   font-family: Rockwell; }
 
-/* line 306, scss/_base.scss */
+/* line 310, scss/_base.scss */
 #exselectlist {
   width: 230px;
   height: 150px;
@@ -390,33 +392,33 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 314, scss/_base.scss */
+/* line 318, scss/_base.scss */
 #exselectlist select {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
   margin-top: 10px; }
 
-/* line 321, scss/_base.scss */
+/* line 325, scss/_base.scss */
 *[data-ur-select-list-component="content"] {
   color: #323232;
   font-size: 18px;
   font-family: Rockwell;
   text-align: center; }
 
-/* line 324, scss/_base.scss */
+/* line 328, scss/_base.scss */
 *[data-ur-select-list-component="content"] [data-ur-state="enabled"] {
   background: #FFD700;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 331, scss/_base.scss */
+/* line 335, scss/_base.scss */
 .example#select_list {
   height: 225px; }
 
 /* Footer */
-/* line 337, scss/_base.scss */
+/* line 341, scss/_base.scss */
 #footer {
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 15px 15px -5px inset;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 15px 15px -5px inset;
@@ -428,30 +430,30 @@ hr {
   font-weight: normal;
   padding: 20px 0;
   text-align: center; }
-  /* line 346, scss/_base.scss */
+  /* line 350, scss/_base.scss */
   #footer a {
     color: #323232;
     text-decoration: none; }
-    /* line 349, scss/_base.scss */
+    /* line 353, scss/_base.scss */
     #footer a:hover {
       text-decoration: underline; }
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 354, scss/_base.scss */
+    /* line 358, scss/_base.scss */
     #footer > br {
       display: none; } }
-  /* line 358, scss/_base.scss */
+  /* line 362, scss/_base.scss */
   #footer nav {
     margin-top: 10px; }
 
-/* line 363, scss/_base.scss */
+/* line 367, scss/_base.scss */
 #moovweblogo {
   display: inline-block; }
-  /* line 365, scss/_base.scss */
+  /* line 369, scss/_base.scss */
   #moovweblogo img {
     width: 247px;
     height: 43px; }
     @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      /* line 365, scss/_base.scss */
+      /* line 369, scss/_base.scss */
       #moovweblogo img {
         vertical-align: bottom;
         width: 123.5px;
@@ -463,12 +465,12 @@ hr {
   /* Example Styles */ }
   /* line 3, scss/_index.scss */
   #home_page .top_wrapper {
-    background: #ffd700;
+    background: gold;
     padding: 0 30px;
     text-align: center; }
   /* line 8, scss/_index.scss */
   #home_page #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1340827225') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1370279903') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -485,57 +487,55 @@ hr {
     background: -webkit-linear-gradient(#fafafa, #e1e1e1);
     background: -moz-linear-gradient(#fafafa, #e1e1e1);
     background: -o-linear-gradient(#fafafa, #e1e1e1);
-    background: -ms-linear-gradient(#fafafa, #e1e1e1);
     background: linear-gradient(#fafafa, #e1e1e1);
     -webkit-box-shadow: rgba(51, 51, 51, 0.8) 0 0 20px 2px;
     -moz-box-shadow: rgba(51, 51, 51, 0.8) 0 0 20px 2px;
     box-shadow: rgba(51, 51, 51, 0.8) 0 0 20px 2px;
     display: inline-block;
-    padding: 30px 7%;
+    padding: 16px 5%;
     color: #323232;
     font: 24px "Ultra", sans-serif;
-    text-align: center;
     text-shadow: #c7c7c7 0px 1px 0px;
-    vertical-align: middle;
-    width: 240px; }
-    /* line 29, scss/_index.scss */
+    vertical-align: middle; }
+    /* line 27, scss/_index.scss */
     #home_page #small_desc small {
       display: block;
       font-family: "Yellowtail", serif;
-      margin-top: 20px; }
+      margin-top: 20px;
+      text-align: right; }
     @media screen and (max-width: 768px) {
       /* line 18, scss/_index.scss */
       #home_page #small_desc {
         font-size: 18px;
         width: 30%; } }
-  /* line 39, scss/_index.scss */
+  /* line 38, scss/_index.scss */
   #home_page #quote {
     text-align: center; }
-    /* line 41, scss/_index.scss */
+    /* line 40, scss/_index.scss */
     #home_page #quote p {
       display: inline-block; }
-    /* line 44, scss/_index.scss */
+    /* line 43, scss/_index.scss */
     #home_page #quote q {
       color: white;
       font: 40px "Yellowtail", serif; }
-      /* line 47, scss/_index.scss */
+      /* line 46, scss/_index.scss */
       #home_page #quote q:before {
         content: "\201c";
         margin-right: 3px; }
-      /* line 51, scss/_index.scss */
+      /* line 50, scss/_index.scss */
       #home_page #quote q:after {
         content: "\201d";
         margin-left: 3px; }
-    /* line 56, scss/_index.scss */
+    /* line 55, scss/_index.scss */
     #home_page #quote span {
-      color: #ffd700;
+      color: gold;
       display: block;
       font: 300 18px "Open Sans", sans-serif;
       text-align: right; }
-  /* line 63, scss/_index.scss */
+  /* line 62, scss/_index.scss */
   #home_page h2 {
     font-size: 30px; }
-  /* line 66, scss/_index.scss */
+  /* line 65, scss/_index.scss */
   #home_page #how_to_use {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -546,7 +546,6 @@ hr {
     background: -webkit-linear-gradient(#ffffff, #e5e5e5);
     background: -moz-linear-gradient(#ffffff, #e5e5e5);
     background: -o-linear-gradient(#ffffff, #e5e5e5);
-    background: -ms-linear-gradient(#ffffff, #e5e5e5);
     background: linear-gradient(#ffffff, #e5e5e5);
     color: #323232;
     padding: 10px 20px;
@@ -554,27 +553,27 @@ hr {
     margin-top: 30px;
     margin-bottom: 30px;
     width: 70%; }
-    /* line 75, scss/_index.scss */
+    /* line 74, scss/_index.scss */
     #home_page #how_to_use h4 {
       font: italic 20px "Crete Round", serif;
       margin-top: 10px; }
-    /* line 79, scss/_index.scss */
+    /* line 78, scss/_index.scss */
     #home_page #how_to_use li {
       font-size: 18px;
       font-style: italic;
       margin-bottom: 10px; }
-  /* line 86, scss/_index.scss */
+  /* line 85, scss/_index.scss */
   #home_page #sidenote {
     display: block;
     text-align: right;
     font-size: 12px; }
-  /* line 93, scss/_index.scss */
+  /* line 92, scss/_index.scss */
   #home_page .ur_ex {
     overflow: hidden; }
-    /* line 95, scss/_index.scss */
+    /* line 94, scss/_index.scss */
     #home_page .ur_ex h3, #home_page .ur_ex > div {
       overflow: hidden; }
-      /* line 97, scss/_index.scss */
+      /* line 96, scss/_index.scss */
       #home_page .ur_ex h3:first-of-type, #home_page .ur_ex > div:first-of-type {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -583,15 +582,15 @@ hr {
         margin-right: 2%;
         width: 48%; }
     @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      /* line 105, scss/_index.scss */
+      /* line 104, scss/_index.scss */
       #home_page .ur_ex > div:first-of-type {
         float: none;
         margin: 0;
         width: auto; }
-      /* line 110, scss/_index.scss */
+      /* line 109, scss/_index.scss */
       #home_page .ur_ex [data-ur-tabs-component="content"][data-ur-state="disabled"] {
         display: none; } }
-  /* line 116, scss/_index.scss */
+  /* line 115, scss/_index.scss */
   #home_page .example {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -601,21 +600,21 @@ hr {
     background: #282828;
     border: 3px solid #3c3c3c;
     padding: 10px; }
-  /* line 122, scss/_index.scss */
+  /* line 121, scss/_index.scss */
   #home_page .mainpage_code {
     font-size: 12px;
     overflow: hidden; }
-  /* line 128, scss/_index.scss */
+  /* line 127, scss/_index.scss */
   #home_page #threelogoholder, #home_page #twologoholder {
     margin: 20px auto;
     text-align: center; }
-    /* line 131, scss/_index.scss */
+    /* line 130, scss/_index.scss */
     #home_page #threelogoholder a, #home_page #twologoholder a {
       margin-right: 15px; }
-      /* line 133, scss/_index.scss */
+      /* line 132, scss/_index.scss */
       #home_page #threelogoholder a:last-child, #home_page #twologoholder a:last-child {
         margin: 0; }
-    /* line 137, scss/_index.scss */
+    /* line 136, scss/_index.scss */
     #home_page #threelogoholder img, #home_page #twologoholder img {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -796,7 +795,7 @@ hr {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
+    background: gold url("resources/largeshade.png") no-repeat left bottom;
     color: black;
     margin: 5px;
     padding: 5px; }
@@ -811,7 +810,7 @@ hr {
       display: block;
       margin: 5px;
       padding: 5px;
-      background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
+      background: gold url("resources/largeshade.png") no-repeat left bottom;
       color: black; }
       /* line 54, scss/_intro.scss */
       [data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state='enabled'] li {
@@ -826,7 +825,7 @@ hr {
   padding: 5px; }
   /* line 65, scss/_intro.scss */
   #exselectlist [data-ur-state='enabled'] {
-    background: #ffd700 url("resources/largeshade.png") no-repeat left bottom; }
+    background: gold url("resources/largeshade.png") no-repeat left bottom; }
 
 /* line 71, scss/_intro.scss */
 #excarousel [data-ur-set="carousel"] [data-ur-carousel-component="view_container"] {
@@ -980,7 +979,6 @@ body#download_page #links {
     background: -webkit-linear-gradient(#ffffff, #e5e5e5);
     background: -moz-linear-gradient(#ffffff, #e5e5e5);
     background: -o-linear-gradient(#ffffff, #e5e5e5);
-    background: -ms-linear-gradient(#ffffff, #e5e5e5);
     background: linear-gradient(#ffffff, #e5e5e5);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -1099,7 +1097,7 @@ body#styling_page .popup_content {
   bottom: -600px;
   text-align: center;
   padding: 30px;
-  z-index: 1; }
+  z-index: +1; }
 /* line 45, scss/_styling.scss */
 body#styling_page .popup_button {
   border-radius: 5px;
@@ -1357,7 +1355,7 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
 
 /* line 2, scss/_carousel.scss */
 body#carousel_page [data-ur-carousel-component='view_container'] {
-  background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
+  background: gold url("resources/largeshade.png") no-repeat left bottom;
   border: 1px solid black;
   overflow: hidden;
   position: relative;
@@ -1583,7 +1581,7 @@ body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-compone
   border-radius: 5px; }
   /* line 36, scss/_select_lists.scss */
   body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] [data-ur-state="enabled"] {
-    background-color: #ffd700 url("resources/largeshade.png") no-repeat left bottom; }
+    background-color: gold url("resources/largeshade.png") no-repeat left bottom; }
   /* line 38, scss/_select_lists.scss */
   body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] span {
     margin: 10px;
@@ -1982,17 +1980,14 @@ body#zoom_page [data-ur-set="zoom"]::before {
 body#zoom_page [data-ur-state="enabled-in"] [data-ur-zoom-component], body#zoom_page [data-ur-state="enabled-out"] [data-ur-zoom-component] {
   -webkit-transition-duration: 0.4s;
   -moz-transition-duration: 0.4s;
-  -ms-transition-duration: 0.4s;
   -o-transition-duration: 0.4s;
   transition-duration: 0.4s;
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
-  -ms-transition-property: -ms-transform;
   -o-transition-property: -o-transform;
   transition-property: transform;
   -webkit-transition-timing-function: ease-in-out;
   -moz-transition-timing-function: ease-in-out;
-  -ms-transition-timing-function: ease-in-out;
   -o-transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out; }
 /* line 24, scss/_zoom.scss */

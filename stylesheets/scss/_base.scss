@@ -46,11 +46,14 @@ h3 {
 }
 
 
-/* Menu */
+/* Menu (Header) */
 #menu {
   overflow: hidden;
   margin: 10px 0;
   text-align: center;
+  #uraniumlogo {
+    background-color: pink !important;
+  }
   a {
     @include box-sizing(border-box);
     color: #fffafa;
@@ -63,6 +66,7 @@ h3 {
     text-decoration: none;
     width: 120px;
     height: 32px;
+    letter-spacing: 1px;
     &:first-child {
       border-left: none;
     }

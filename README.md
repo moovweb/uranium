@@ -4,15 +4,45 @@
 # Getting started 
 
 Start with installing [Jekyll](http://jekyllrb.com/) 
-		gem install jekyll
+			gem install jekyll
+
+Update the CSS
+			sass --watch stylesheets/scss:stylesheets --line-comments --compass on the stylesheets folder to compile your SASS files.
+			
 Run the server
-		jekyll serve 
+			jekyll serve 
+
 Check it [out](http://localhost:4000/) after launching
 
 ---
-# Widgets
+# Widgets Available
+Carousel
 
+- The carousel is a widget that allows horizontal scrolling (with touch or buttons) between a set of items.
 
+Toggler
+
+- A toggler is a widget that has two components - a button, and a set of contents.
+- When you click the button, the states (of both the button and the contents) are toggled.
+
+Tabs
+
+- Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.
+
+Reverse Geocode
+
+- This widget allows you to reverse geocode a location. 
+- You can use this to populate forms using the user's location. 
+- You can only have one of these widgets per page
+
+Zoom
+
+- A widget that zooms into an image and displays a higher resolution image that can be panned.
+
+Input Clear
+
+- When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. 
+- If there is already text in the input field the x will appear without any typing.
 
 
 # Uranium Overview
