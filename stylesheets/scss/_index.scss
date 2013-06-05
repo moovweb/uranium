@@ -5,16 +5,6 @@
     padding: 0 30px;
     text-align: center;
   }
-  #uraniumlogo {
-    background: image-url("uraniumlogo.png") no-repeat 0% 50%;
-    @include background-size(100% auto);
-    display: inline-block;
-    margin-right: 20px;
-    vertical-align: middle;
-    max-width: 40%;
-    width: image-width("uraniumlogo.png");
-    height: image-height("uraniumlogo.png");
-  }
   #small_desc {
     @include background(linear-gradient(#fafafa, darken(#fafafa, 10%)));
     @include box-shadow(rgba(#333, 0.8) 0 0 20px 2px);

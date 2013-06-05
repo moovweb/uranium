@@ -9,54 +9,187 @@ home_selected: selected
   <div id="small_desc">Fast, Lean Web Interaction Library.<small>*for mobile too!</small></div>
 </div><!-- top_wrapper-->
 <div id="textbody">
-  <aside id="quote" class="desktop">
-    <p>
-      <q>The best thing I've seen in a long time!</q>
-      <span>&mdash; Otto Frederick Rohwedder*</span>
-    </p>
-  </aside>
-  <h2>What is Uranium?</h2>
-  <p>
-    Uranium is a set of widgets &ndash; snippets of code that allow you to do neat things on your website.
-  </p>
-  <div id="how_to_use">
-    <h4>How to Use:</h4>
-    <ol>
-      <li>Include the Uranium library</li>
-      <li>Give HTML pre-defined attributes</li>
-      <li>&hellip; that's it!</li>
-    </ol>
+ 
+  <h1>Top ways to use Uranium</h1>
+  <!-- Test -->
+  <div class="demonstration">
+    <h2> Carousel </h2>
+    <div id="carousel_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_widget" data-ur-state="enabled"> Widget</h3>
+
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_html">HTML</h3>
+
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_CSS">CSS</h3>
+
+      <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="carousel_widget" data-ur-state="enabled">
+
+        <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
+          <span data-ur-carousel-component="count"> -- count -- </span>
+          <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
+            Prev
+          </div>
+          <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
+            Next
+          </div>
+          <div data-ur-carousel-component="view_container" data-ur-infinite="disabled">
+            <div data-ur-carousel-component="scroll_container">
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample1.png' alt="1" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample2.png' alt="2" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample3.png' alt="3" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample4.png' alt="4" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample5.png' alt="5" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample6.png' alt="6" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample7.png' alt="7" />
+              <img data-ur-carousel-component="item" src='{{site.url}}../images/sample8.png' alt="8" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_html">
+        {% highlight html %}
+        <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel">
+          <span data-ur-carousel-component="count"> -- count -- </span>
+          <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
+          <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
+          <div data-ur-carousel-component='scroll_container'>
+            <img data-ur-carousel-component='item' src='images/sample1.png' alt="1" />
+            <img data-ur-carousel-component='item' src='images/sample2.png' alt="2" />
+            <img data-ur-carousel-component='item' src='images/sample3.png' alt="3" />
+            <img data-ur-carousel-component='item' src='images/sample4.png' alt="4" />
+            <img data-ur-carousel-component='item' src='images/sample5.png' alt="5" />
+            <img data-ur-carousel-component='item' src='images/sample6.png' alt="6" />
+            <img data-ur-carousel-component='item' src='images/sample7.png' alt="7" />
+            <img data-ur-carousel-component='item' src='images/sample8.png' alt="8" />
+          </div>
+        </div>
+        {% endhighlight %}
+      </div>
+
+      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_CSS">
+        {% highlight css %}
+        div[data-ur-carousel-component="view_container"] {
+          width: 100%;
+          overflow-x: hidden;
+        }
+        div[data-ur-carousel-component="scroll_container"] > * {
+          display: inline-block;
+          float: left;
+        }
+        div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+          opacity: 0.3;
+        }
+        {% endhighlight %}
+      </div>
+    </div>
+    <a href="/widgets/carousel.html" class="see_more_link">
+      More about carousel
+    </a>
+    <hr />
   </div>
-  <p>
-    It's seriously that easy. We've put in all the hard work to make awesome widgets that are
-    really easy to use.
-  </p>
-  <p>
-    Uranium is perfect for mobile development. Lots of the widgets were made with that in mind. But,
-    as you can see by the examples below, they're great on a desktop site too.
-  </p>
-  
-  <h2>Why use Uranium?</h2>
-  <h3>It's Lightweight</h3>
-  <p>
-    The whole Uranium library is 15 KB zipped! This includes all the widgets and <a href="http://xuijs.com">xui</a>.
-  </p>
-  
-  <h3>It's Easy to Use</h3>
-  <p>
-    Uranium requires <i>zero</i> javascript programming on your part.
-  </p>
-  <small id="sidenote">*he may not have actually said this, but we think he'd love Uranium anyway.</small>
-  <hr />
-  
-  
-  <h2>Start using Uranium?</h2>
+
+  <div class="demonstration">
+    <h2> Tabs </h2>
+    <div id="tab_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_widget" data-ur-state="enabled"> Widget</h3>
+
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_html"> HTML</h3>
+
+      <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="tabs_widget" data-ur-state="enabled">
+        <div data-ur-set="tabs" data-ur-id="tabs_example">
+          <span data-ur-tabs-component="button" data-ur-tab-id="first" data-ur-state="enabled"> First </span>
+          <span data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
+          <span data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
+
+          <div data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">
+            <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+          </div>
+
+          <div data-ur-tabs-component="content" data-ur-tab-id="second">
+            <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+          </div>
+
+          <div data-ur-tabs-component="content" data-ur-tab-id="third">
+            <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+          </div>
+        </div>
+      </div>
+      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="tabs_html">
+        {% highlight html %}
+        <div data-ur-set='tabs'>
+          <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
+          <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+          <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
+            <img width='100px' height='100px' src='{{site.url}}../images/sample1.png?some_attr=noway'/>
+          </div>
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+            <img width='100px' height='100px' src='{{site.url}}../images/sample2.png?some_attr=noway'/>
+          </div>
+
+          <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+            <img width='100px' height='100px' src='{{site.url}}../images/sample3.png?some_attr=noway'/>
+          </div>
+        </div>
+        {% endhighlight %}
+      </div>
+    </div>
+    <a href="/widgets/tabs.html" class="see_more_link">
+      More about Tabs
+    </a>
+    <hr />
+  </div>
+
+  <div class='demonstration' name='Simple'>
+    <h2>Toggler</h2>
+    <div id="accordion_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_widget"data-ur-state='enabled'>Widget</h3>
+
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_html"> HTML</h3>
+
+      <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="toggler_widget" data-ur-state='enabled'>
+        <div data-ur-set='toggler'>
+          <div data-ur-toggler-component='button'>
+            Click Here!
+          </div>
+
+          <ul data-ur-toggler-component='content'>
+            <li> Hat </li>
+            <li> Socks </li>
+            <li> Shoes </li>
+            <li> Gloves </li>
+            <li> Shirts </li>
+          </ul>
+        </div> 
+      </div>
+    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="toggler_html">
+    {% highlight html %}
+    <div data-ur-set='toggler'>
+      <div data-ur-toggler-component='button'>Click Here!</div>
+      <ul data-ur-toggler-component='content'>
+        <li> Hat </li>
+        <li> Socks </li>
+        <li> Shoes </li>
+        <li> Gloves </li>
+        <li> Shirts </li>
+      </ul>
+    </div>
+    {% endhighlight %}
+      </div>
+    </div>
+    <a href="/widgets/toggler.html" class="see_more_link">
+      More about Toggler
+    </a>
+    <hr />
+  </div> 
 
   <!-- Toggler Example -->
-  <div class="ur_ex" data-ur-set="tabs">
+<!--   <div class="ur_ex" data-ur-set="toggler_demo">
     <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Toggler</h3>
     <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
-    <!-- example start -->
+    
     <div class="example" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
       <div id="extoggler" data-ur-set="toggler">
         <a href="{{site.url}}/widgets/toggler.html"><div id="extitle">Toggler</div></a>
@@ -64,7 +197,7 @@ home_selected: selected
         <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
       </div>
     </div>
-    <!-- example end-->
+    
     <div class="mainpage_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
       {% highlight html %}
       <div data-ur-set="toggler">
@@ -77,12 +210,12 @@ home_selected: selected
         </div>
       </div>
       {% endhighlight %}
-    </div><!-- code end-->
+    </div>
   </div>
-  <hr />
+  <hr /> -->
 
   <!-- Carousel Example -->
-  <h3> Carousel Example </h3>
+ <!--  <h3> Carousel Example </h3>
   <div class="example" id="carousel" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
     <div id="excarousel">
       <a href="{{site.url}}/widgets/carousel.html"><div id="extitle">Carousel</div></a>
@@ -98,13 +231,13 @@ home_selected: selected
             <img data-ur-carousel-component="item" src="/stylesheets/resources/moov7.jpg"/>
             <img data-ur-carousel-component="item" src="/stylesheets/resources/moov8.jpg"/>
             <img data-ur-carousel-component="item" src="/stylesheets/resources/moov9.png"/>
-          </div> <!-- scroll_container end -->
+          </div> 
           <div class="cbutton" id="exback" data-ur-carousel-component="button" data-ur-carousel-button-type="prev">&lt;</div>
           <div class="cbutton" id="exnext" data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">&gt;</div>
-        </div><!-- view container end -->
+        </div>
       </div>
     </div>
-  </div><!-- exampleend-->
+  </div>
   <div class="ur_ex" data-ur-set="tabs">
     <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">The Code</h3>
     <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The CSS</h3>
@@ -121,19 +254,19 @@ home_selected: selected
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">&gt;</div>
       </div>
       {% endhighlight %}
-    </div><!-- codeend-->
+    </div>
     <div class="mainpage_code" id="carouselcode" data-ur-tabs-component="content" data-ur-tab-id="css" data-ur-state="disabled">
       {% highlight css %}
       html {
       margin: 0;
       padding: 0; }
       {% endhighlight %}
-    </div><!-- cssend-->
+    </div>
   </div>
-  <hr />
+  <hr /> -->
 
-  <!-- Defunct Example -->
-  <div class="ur_ex" data-ur-set="tabs">
+  <!-- Tabs Example -->
+<!--   <div class="ur_ex" data-ur-set="tabs">
     <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</h3>
     <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
     <div class="example" id="select_list" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
@@ -152,7 +285,8 @@ home_selected: selected
           <div value='SKU-D'> List </div>
         </div>
       </div>
-    </div><!-- example end-->
+    </div>
+
     <div class="mainpage_code" id="select_list_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
       {% highlight html %}
       <div data-ur-set="select-list">
@@ -172,77 +306,8 @@ home_selected: selected
       {% endhighlight %}
     </div>
   </div>
-  <hr />
+  <hr /> -->
     
-  <!-- Test -->
-  <div class="demonstration">
-  <p> Touch-enabled Widget </p>
-  <div id="carousel_demonstration" data-ur-set="tabs">
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Widget</h3>
-
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="html">HTML</h3>
-
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="CSS">CSS</h3>
-
-    <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-
-      <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
-        <span data-ur-carousel-component="count"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
-          Prev
-        </div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
-          Next
-        </div>
-        <div data-ur-carousel-component="view_container" data-ur-infinite="disabled">
-          <div data-ur-carousel-component="scroll_container">
-            <img data-ur-carousel-component="item" src='{{site.url}}../images/sample1.png' alt="1" />
-            <img data-ur-carousel-component="item" src='{{site.url}}../images/sample2.png' alt="2" />
-            <img data-ur-carousel-component="item" src='{{site.url}}../images/sample3.png' alt="3" />
-            <img data-ur-carousel-component="item" src='{{site.url}}../images/sample4.png' alt="4" />
-            <img data-ur-carousel-component="item" src='{{site.url}}../images/sample5.png' alt="5" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-      {% highlight html %}
-      <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel">
-        <span data-ur-carousel-component="count"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-        <div data-ur-carousel-component='scroll_container'>
-          <img data-ur-carousel-component='item' src='images/sample1.png' alt="1" />
-          <img data-ur-carousel-component='item' src='images/sample2.png' alt="2" />
-          <img data-ur-carousel-component='item' src='images/sample3.png' alt="3" />
-          <img data-ur-carousel-component='item' src='images/sample4.png' alt="4" />
-          <img data-ur-carousel-component='item' src='images/sample5.png' alt="5" />
-          <img data-ur-carousel-component='item' src='images/sample6.png' alt="6" />
-          <img data-ur-carousel-component='item' src='images/sample7.png' alt="7" />
-          <img data-ur-carousel-component='item' src='images/sample8.png' alt="8" />
-        </div>
-      </div>
-      {% endhighlight %}
-    </div>
-
-    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
-      {% highlight css %}
-      div[data-ur-carousel-component="view_container"] {
-        width: 100%;
-        overflow-x: hidden;
-      }
-      div[data-ur-carousel-component="scroll_container"] > * {
-        display: inline-block;
-        float: left;
-      }
-      div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
-        opacity: 0.3;
-      }
-      {% endhighlight %}
-    </div>
-  </div>
-</div>
   <!-- Uranium is used by -->
   <h2>Uranium is used by...</h2>
   <div id="threelogoholder">

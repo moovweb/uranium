@@ -45,114 +45,18 @@ h3 {
   text-shadow: black 0px 1px;
 }
 
-
-/* Menu (Header) */
-#menu {
-  overflow: hidden;
-  margin: 10px 0;
-  text-align: center;
-  #uraniumlogo {
-    background-color: pink !important;
-  }
-  a {
-    @include box-sizing(border-box);
-    color: #fffafa;
-    border-left: 1px solid #505050;
-    border-right: 1px solid black;
-    display: inline-block;
-    font: 13px "Ultra", sans-serif;
-    padding: 6px 0;
-    text-align: center;
-    text-decoration: none;
-    width: 120px;
-    height: 32px;
-    letter-spacing: 1px;
-    &:first-child {
-      border-left: none;
-    }
-    &:last-child {
-      border-right: none;
-    }
-  }
-  .selected {
-    @include background(linear-gradient($color2, darken($color2, 5%)));
-    @include border-radius(5px);
-    border-color: transparent;
-    color: #323232;
-  }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    margin: 0;
-    a {
-      border-top: 1px solid #505050;
-      border-bottom: 1px solid black;
-      float: left;
-      width: 50%;
-      &:first-child {
-        background: $color2 image-url("uraniumlogo.png") no-repeat 50% 50%;
-        @include background-size(image-width("uraniumlogo.png")/4 image-height("uraniumlogo.png")/4);
-        border-top: none;
-        color: transparent;
-        display: block;
-        float: none;
-        width: auto;
-      }
-      &:nth-of-type(odd) {
-        border-right: none;
-      }
-      &:nth-of-type(even) {
-        border-left: none;
-      }
-    }
-    .selected {
-      @include border-radius(0);
-    }
-    span {
-      display: none;
-    }
-  }
+hr {
+  border-top: solid #464646;
+  border-bottom: solid #1e1e1e;
+  border-width: 1px 0;
+  margin: 15px auto;
 }
 
-#github_ribbon {
-  @include box-shadow(rgba(black, 0.2) 0 0 6px 2px);
-  @include transform(translate(-35px, 37px) rotate(-45deg));
-  background: gray;
+.see_more_link{
   color: white;
-  font-weight: normal;
-  font: 15px "Collegiate", sans-serif;
-  line-height: 27px;
-  position: absolute;
-  top: 0;
-  text-align: center;
-  width: 170px;
-  height: 28px;
-  &:before {
-    border: 1px solid #ccc;
-    border-width: 1px 0;
-    content: "";
-    display: block;
-    pointer-events: none;
-    position: absolute;
-    top: 2px;
-    width: 100%;
-    height: 22px;
-  }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    @include box-shadow(none);
-    @include background(linear-gradient(left, #aaa, gray));
-    @include transform(none);
-    line-height: 22px;
-    padding-right: 8px;
-    top: 5px;
-    width: 60px;
-    height: 22px;
-    &:before {
-      border: 10px solid;
-      border-color: transparent $color2 transparent transparent;
-      top: 1px;
-      right: 0;
-      height: 0;
-    }
-  }
+  display: block;
+  text-align: right;
+  margin-top: 10px;
 }
 
 /* Body Text */
@@ -164,215 +68,148 @@ h3 {
 }
 
 
-
-
-
-
-
-
-
-
-
 .description_wrapper {
   margin-bottom: 20px;
 }
 
+.code {
+  background-color: rgb(40,40,40);
+  border: 3px dashed rgb(60,60,60);
+  padding: 10px;
+  color: #C0C0C0; font-family: Courier New; font-size: 14px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+.inline_code {
+  background-color: rgb(40,40,40);
+  color: #C0C0C0; font-family: Courier New; font-size: 18px;
+  margin: 5px;
+}
 
+#carouselcode {
+height: 250px;
+font-size: 12px;
+}
+#select_list_code {
+font-size: 12px;
+}
+#brown { color: #FA8072; }
+#green { color: #8FBC8F; }
 
-
-
-
-
-hr {
-  border-top: solid #464646;
-  border-bottom: solid #1e1e1e;
-  border-width: 1px 0;
-  margin: 30px auto;
+/* Example styles. Non-functioning */
+#extoggler {
+width: 200px;
+background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
+padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+#extitle {
+  width: 100px; height: 20px;
+  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;
+}
+#exbutton {
+  width: 190px; height: 30px;
+  margin: auto; margin-top: 15px;  padding-top: 10px;
+  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
+  background: #FFD700;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#exbutton:hover {
+  cursor: hand;
+  cursor: pointer;
+}
+#extoggler_content[data-ur-toggler-component="content"][data-ur-state="disabled"] {
+  display: none;
+}
+#extoggler_content[data-ur-toggler-component="content"][data-ur-state="enabled"] {
+  display: block;
+  background: #C0C0C0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 5px;
+  margin-top: 10px;
+  width: 170px;
+}
+#excarousel {
+width: 230px; height: 180px;
+background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
+padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+#exback {
+  width: 30px; height: 30px;
+  float: left;
+  margin: auto; padding-top: 10px;
+  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
+  background: #FFD700;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: inline;
+}
+#exback[data-ur-state="disabled"]{
+  opacity: 0.5;
+}
+#exnext {
+  width: 30px; height: 30px;
+  float: right;
+  margin: auto; padding-top: 10px;
+  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
+  background: #FFD700;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: inline;
+}
+.cbutton:hover {
+  cursor: hand;
+  cursor: pointer;
+}
+#eximage {
+  width: 70px; height: 70px;
+  margin: auto;
+  background: url('resources/photo1.png') no-repeat center center;
+}
+#exbottomtext {
+  margin: auto; margin-top: 5px;
+  text-align: center; color: rgb(50,50,50); font-family: Rockwell;
 }
 
 
-
-    .code {
-      background-color: rgb(40,40,40);
-      border: 3px dashed rgb(60,60,60);
-      padding: 10px;
-      color: #C0C0C0; font-family: Courier New; font-size: 14px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-    }
-    .inline_code {
-      background-color: rgb(40,40,40);
-      color: #C0C0C0; font-family: Courier New; font-size: 18px;
-      margin: 5px;
-    }
-    #toggler {}
-    #togglercode {}
-    
-    #carouselcode {
-      height: 250px;
-      font-size: 12px;
-    }
-    #select_list_code {
-      font-size: 12px;
-    }
-      #brown { color: #FA8072; }
-      #green { color: #8FBC8F; }
-        
-        /* Example styles. Non-functioning */
-        #extoggler {
-          width: 200px;
-          background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
-          padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
-          -webkit-border-radius: 5px;
-          -moz-border-radius: 5px;
-          border-radius: 5px;
-        }
-          #extitle {
-            width: 100px; height: 20px;
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;
-          }
-          #exbutton {
-            width: 190px; height: 30px;
-            margin: auto; margin-top: 15px;  padding-top: 10px;
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
-            background: #FFD700;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-          }
-          #exbutton:hover {
-            cursor: hand;
-            cursor: pointer;
-          }
-          #extoggler_content[data-ur-toggler-component="content"][data-ur-state="disabled"] {
-            display: none;
-          }
-          #extoggler_content[data-ur-toggler-component="content"][data-ur-state="enabled"] {
-            display: block;
-            background: #C0C0C0;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            padding: 10px;
-            margin-left: 5px;
-            margin-top: 10px;
-            width: 170px;
-          }
-        #excarousel {
-          width: 230px; height: 180px;
-          background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
-          padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
-          -webkit-border-radius: 5px;
-          -moz-border-radius: 5px;
-          border-radius: 5px;
-        }
-          #exback {
-            width: 30px; height: 30px;
-            float: left;
-            margin: auto; padding-top: 10px;
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
-            background: #FFD700;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            display: inline;
-          }
-          #exback[data-ur-state="disabled"]{
-            opacity: 0.5;
-          }
-          #exnext {
-            width: 30px; height: 30px;
-            float: right;
-            margin: auto; padding-top: 10px;
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
-            background: #FFD700;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            display: inline;
-          }
-          .cbutton:hover {
-            cursor: hand;
-            cursor: pointer;
-          }
-          #eximage {
-            width: 70px; height: 70px;
-            margin: auto;
-            background: url('resources/photo1.png') no-repeat center center;
-          }
-          #exbottomtext {
-            margin: auto; margin-top: 5px;
-            text-align: center; color: rgb(50,50,50); font-family: Rockwell;
-          }
-
-          
-          #exselectlist {
-            width: 230px; height: 150px;
-            background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
-            padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-          }
-          #exselectlist select{
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-            margin-top: 10px;
-          }
-          
-          *[data-ur-select-list-component="content"] {
-            color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center; }
-          
-          *[data-ur-select-list-component="content"] [data-ur-state="enabled"] {
-            background: #FFD700;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            }
-            
-          .example#select_list {
-            height: 225px;
-          }
-
-
-/* Footer */
-#footer {
-  @include box-shadow(rgba(black, 0.3) 0 15px 15px -5px inset);
-  background: #ffd700;
-  border-top: 1px solid black;
-  color: black;
-  font-size: 12px;
-  font-weight: normal;
-  padding: 20px 0;
-  text-align: center;
-  a {
-    color: #323232;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    > br {
-      display: none;
-    }
-  }
-  nav {
-    margin-top: 10px;
-  }
+#exselectlist {
+  width: 230px; height: 150px;
+  background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
+  padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#exselectlist select{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  margin-top: 10px;
 }
 
-#moovweblogo {
-  display: inline-block;
-  img {
-    width: image-width("moovweblogo.png");
-    height: image-height("moovweblogo.png");
-    @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      vertical-align: bottom;
-      width: image-width("moovweblogo.png")/2;
-      height: image-height("moovweblogo.png")/2;
-    }
+*[data-ur-select-list-component="content"] {
+  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center; }
+
+*[data-ur-select-list-component="content"] [data-ur-state="enabled"] {
+  background: #FFD700;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   }
+  
+.example#select_list {
+  height: 225px;
 }

@@ -3,7 +3,18 @@
   {% capture tmp %}
   <a href="/" id="uraniumlogo" {% if page.home_selected %}class="selected"{% endif %}></a>
   <a href="/" {% if page.home_selected %}class="selected"{% endif %}>Main</a>
-  <a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
+  <div class='menu_widget'>
+  	<a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
+  	<ul>
+  		<li>Test</li>
+  		<li>Test</li>
+  		<li>Test</li>
+  		<li>Test</li>
+  		<li>Test</li>
+  		<li>Test</li>
+  	</ul>
+  </div>
+  <a href="/about.html" {% if page.about_selected %}class="selected"{% endif %}>About</a>
   {% endcapture %}
   {{ tmp | strip_newlines | remove: "  " }}
 </nav>

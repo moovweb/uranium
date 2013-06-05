@@ -1,10 +1,10 @@
-body#carousel_page {
+body {
   [data-ur-carousel-component='view_container'] {
     background: #FFD700 url('resources/largeshade.png') no-repeat left bottom;
     border: 1px solid black;
     overflow: hidden;
     position: relative;
-    height: 250px;
+    height: 100px;
   }
   [data-ur-infinite="enabled"] [data-ur-carousel-component="scroll_container"] {
     margin: auto;
@@ -13,8 +13,8 @@ body#carousel_page {
   [data-ur-carousel-component="scroll_container"] img {
     -webkit-user-drag: none;
     float: left;
-    width: 250px;
-    height: 250px;
+    width: 100px;
+    height: 100px;
   }
   [data-ur-carousel-component="button"] {
     display: inline-block;
@@ -44,5 +44,11 @@ body#carousel_page {
     width: 62px !important;
     // on iphone without the important, it doesn't work!!
     height: 62px;
+  }
+}
+
+body#carousel_page{
+  [data-ur-carousel-component='view_container'] {
+    height: 125px;
   }
 }
