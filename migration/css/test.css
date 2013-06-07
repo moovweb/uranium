@@ -69,7 +69,6 @@
 
   /* Carousel */
   *[data-ur-carousel-component="view_container"] {
-    width: 50%;
     overflow-x: hidden;
     cursor: pointer;
   }
@@ -142,7 +141,8 @@
     border: 1px solid black;
     overflow: hidden;
     position: relative;
-    height: 250px; 
+    /*height: 250px; */
+    max-width: 750px;
   }
   [data-ur-infinite="enabled"] [data-ur-carousel-component="scroll_container"] {
     margin: auto;
