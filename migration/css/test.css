@@ -69,7 +69,7 @@
 
   /* Carousel */
   *[data-ur-carousel-component="view_container"] {
-   // width: 50%;
+    width: 50%;
     overflow-x: hidden;
     cursor: pointer;
   }
