@@ -353,14 +353,15 @@ hr {
     text-decoration: none;
     width: 120px;
     height: 32px;
-    letter-spacing: 1px; }
-    /* line 64, scss/_header.scss */
+    letter-spacing: 1px;
+    line-height: 2.4; }
+    /* line 65, scss/_header.scss */
     #menu > *:first-child {
       border: none; }
-    /* line 67, scss/_header.scss */
+    /* line 68, scss/_header.scss */
     #menu > *:last-child {
       border-right: none; }
-    /* line 70, scss/_header.scss */
+    /* line 71, scss/_header.scss */
     #menu > *:hover {
       background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #252525));
       background: -webkit-linear-gradient(#323232, #252525);
@@ -373,7 +374,7 @@ hr {
       -o-border-radius: 5px;
       border-radius: 5px;
       color: #fffafa; }
-  /* line 76, scss/_header.scss */
+  /* line 77, scss/_header.scss */
   #menu .selected {
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd700), color-stop(100%, #e6c200));
     background: -webkit-linear-gradient(#ffd700, #e6c200);
@@ -386,8 +387,7 @@ hr {
     -o-border-radius: 5px;
     border-radius: 5px;
     border-color: transparent;
-    color: #323232;
-    line-height: 2.4; }
+    color: #323232; }
     /* line 82, scss/_header.scss */
     #menu .selected:hover {
       background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #252525));

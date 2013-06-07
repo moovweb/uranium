@@ -61,6 +61,7 @@
     width: 120px;
     height: 32px;
     letter-spacing: 1px;
+    line-height: 2.4;
     &:first-child {
       border: none;
     }
@@ -78,7 +79,6 @@
     @include border-radius(5px);
     border-color: transparent;
     color: #323232;
-    line-height: 2.4;
     &:hover{
       @include background(linear-gradient($color1, darken($color1, 5%)));
       @include border-radius(5px);
