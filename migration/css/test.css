@@ -68,16 +68,16 @@
   }
 
   /* Carousel */
-  div[data-ur-carousel-component="view_container"] {
-    width: 100%;
+  *[data-ur-carousel-component="view_container"] {
+   // width: 50%;
     overflow-x: hidden;
     cursor: pointer;
   }
-  div[data-ur-carousel-component="scroll_container"] > * {
+  *[data-ur-carousel-component="scroll_container"] > * {
     display: inline-block;
     float: left;
   }
-  div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+  *[data-ur-carousel-component="button"][data-ur-state="disabled"] {
     opacity: 0.3;
   }
 
