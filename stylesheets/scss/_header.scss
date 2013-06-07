@@ -1,0 +1,175 @@
+#menu {
+  overflow: hidden;
+  margin: 10px 0;
+  text-align: center;
+  #uraniumlogo {
+    background: image-url("uraniumlogo.png") no-repeat 0% 50%;
+    @include background-size(100% auto);
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: middle;
+    width: image-width("uraniumlogo.png")/2;
+    height: image-height("uraniumlogo.png")/2;
+  }
+  .menu_widget{
+    display: inline-block;
+    text-align: center;
+    a{
+      display: block;
+      line-height: 2.4;
+    }
+    >ul{
+      display: none;
+      position: absolute;
+      list-style: none;
+      width: 113px;
+      padding: 0px 3px;
+      margin: 0px;
+      z-index: 1;
+      li {
+        background-color:$color1;
+        border: 1px solid #505050;
+        color: #fffafa;
+        padding: 3px 0px;
+        a{
+          color: inherit;
+          display: block;
+          font: 300 14px "Open Sans", Arial, sans-serif;
+        }
+      }
+      li:hover {
+        @include background(linear-gradient($color1, darken($color1, 5%)));
+      }
+    }
+    &:hover{
+      @include background(linear-gradient($color1, darken($color1, 5%)));
+      >ul{
+        display:block;
+      }
+    }
+  }
+  /* It's children */
+  > * {
+    @include box-sizing(border-box);
+    color: #fffafa;
+    border-left: 1px solid #505050;
+    border-right: 1px solid black;
+    display: inline-block;
+    font: 13px "Ultra", sans-serif;
+    text-align: center;
+    text-decoration: none;
+    width: 120px;
+    height: 32px;
+    letter-spacing: 1px;
+    &:first-child {
+      border: none;
+    }
+    &:last-child {
+      border-right: none;
+    }
+    &:hover{
+      @include background(linear-gradient($color1, darken($color1, 5%)));
+      @include border-radius(5px);
+      color: #fffafa;
+    }
+  }
+  .selected {
+    @include background(linear-gradient($color2, darken($color2, 5%)));
+    @include border-radius(5px);
+    border-color: transparent;
+    color: #323232;
+    line-height: 2.4;
+    &:hover{
+      @include background(linear-gradient($color1, darken($color1, 5%)));
+      @include border-radius(5px);
+      color: #fffafa;
+    }
+  }
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    margin: 0px 0px 10px 0px;
+    #uraniumlogo{
+      background: $color2 image-url("uraniumlogo.png") no-repeat 50% 50%;
+      @include background-size(image-width("uraniumlogo.png")/4 image-height("uraniumlogo.png")/4);
+      border-top: none;
+      color: transparent;
+      display: block;
+      float: none;
+      width: auto;
+      height: 22px;
+      margin: 5px 0px 0px 0px;
+    }
+    > * {
+      border-left: none;
+    }
+    .menu_widget, >a{
+      border-top: 1px solid #505050;
+      border-bottom: 1px solid black;
+      float: left;
+      width: 50%;
+      &:nth-of-type(odd) {
+        border-right: none;
+      }
+      &:nth-of-type(even) {
+        border-left: none;
+      }
+    }
+    .menu_widget{
+      >ul{
+        width: 50%;
+        padding: 0px;
+      }
+    }
+    .selected {
+      @include border-radius(0);
+    }
+    span {
+      display: none;
+    }
+  }
+}
+
+#github_ribbon {
+  @include box-shadow(rgba(black, 0.2) 0 0 6px 2px);
+  @include transform(translate(-35px, 37px) rotate(-45deg));
+  background: gray;
+  color: white;
+  font-weight: normal;
+  font: 15px "Collegiate", sans-serif;
+  line-height: 27px;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 170px;
+  height: 28px;
+  &:before {
+    border: 1px solid #ccc;
+    border-width: 1px 0;
+    content: "";
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    top: 2px;
+    width: 100%;
+    height: 22px;
+  }
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    @include box-shadow(none);
+    @include background(linear-gradient(left, #aaa, gray));
+    @include transform(none);
+    line-height: 22px;
+    padding-right: 8px;
+    top: 5px;
+    width: 60px;
+    height: 22px;
+    &:before {
+      border: 10px solid;
+      border-color: transparent $color2 transparent transparent;
+      top: 1px;
+      right: 0;
+      height: 0;
+    }
+    .desktop{
+      display: none;
+    }
+  }
+}

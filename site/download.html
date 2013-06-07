@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<title>Uranium JS | Download</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/uranium-pretty.js"></script>
+
+  </head>
+  
+  <body id="download_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" >Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Reverse Geocode</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/" >TEST LINK</a>
+</nav>
+
+    <script>
+var responses;
+var edgeBrowser = false;
+
+function fetchJS() {
+  responses = ["// This is a custom version of Uranium which contains: "];
+  var success = true;
+  x$("input[type='checkbox']").each(function() {
+    if (!this.checked)
+      return;
+    responses[0] += this.id + ", ";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/src/" + this.id + ".js", false);
+    xhr.onerror = function() {success = false;};
+    xhr.send();
+    if (!success) {
+      x$("#result .error").setStyle("display", "inline");
+      return false;
+    }
+    responses.push(xhr.response);
+  });
+  if (success)
+    createJS();
+}
+
+function createJS() {
+  responses[0] = responses[0].slice(0, -2) + "\n\n";
+  var mimeType = "application/javascript";
+  var blob;
+  if (edgeBrowser)
+    blob = new Blob(responses, {type: mimeType});
+  else {
+    var builder = new (window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder || window.BlobBuilder)();
+    for (var i = 0; i < responses.length; i++)
+      builder.append(responses[i]);
+    blob = builder.getBlob(mimeType);
+  }
+
+  x$("#result .success").setStyle("display", "inline");
+  var link = x$("#custom_dl")[0];
+  link.href = (window.webkitURL || window.URL).createObjectURL(blob);
+  link.click();
+}
+
+x$.ready(function() {
+  try {
+    new Blob;
+    edgeBrowser = true;
+  }
+  catch(e) {}
+  
+  if (edgeBrowser || window.WebKitBlobBuilder || window.MozBlobBuilder || window.MSBlobBuilder || window.BlobBuilder)
+    x$("#custom_ur").setStyle("display", "block");
+});
+</script>
+
+<div id="textbody">
+  <h1>
+    Download
+    <div id="version"><span class="desktop">Current Version: </span>0.1.104</div>
+  </h1>
+
+  <p id="download_spiel">Here you can download Uranium for use in a project. Right-click on the appropriate file from the choices below, save it, then add it to your project. Hopefully the names are pretty self-explanatory. The webkit option should work on most browsers (check out the <a href="compatibility.html">compatibility tables</a>.) The BlackBerry version is for older, non-webkit BlackBerries. Internet Explorer also requires its own version.</p>
+  <div id="links">
+    <a href="http://d1topzp4nao5hp.cloudfront.net/uranium-upload/0.1.104/uranium.js">
+      <div><h4>Uranium</h4> Webkit</div>
+    </a>
+
+    <a href="http://d1topzp4nao5hp.cloudfront.net/uranium-upload/0.1.104/uranium-bb.js">
+      <div><h4>Uranium</h4> BlackBerry</div>
+    </a>
+
+    <a href="http://d1topzp4nao5hp.cloudfront.net/uranium-upload/0.1.104/uranium-ie.js">
+      <div><h4>Uranium</h4> Internet Explorer</div>
+    </a>
+  </div> <!-- links -->
+  <form id="custom_ur">
+    <h2>Custom Uranium (&beta;)</h2>
+    <input id="xui-2.3.2" type="checkbox" disabled="disabled" checked="checked" />
+    <label for="xui-2.3.2">xuijs</label>
+    <br />
+    <input id="uranium_mixins" type="checkbox" disabled="disabled" checked="checked" />
+    <label for="uranium_mixins">Uranium mixins</label>
+    <br />
+    <input id="toggler" type="checkbox" />
+    <label for="toggler">Toggler</label>
+    <br />
+    <input id="tabs" type="checkbox" />
+    <label for="tabs">Tabs</label>
+    <br />
+    <input id="carousel" type="checkbox" />
+    <label for="carousel">Carousel</label>
+    <br />
+    <input id="geolocation" type="checkbox" />
+    <label for="geolocation">Reverse Geocode</label>
+    <br />
+    <input id="zoom" type="checkbox" />
+    <label for="zoom">Zoom</label>
+    <br />
+    <input id="init" type="button" value="Generate" onclick="fetchJS()" />
+    <div id="result">
+      <span class="success">The download should start automatically or you can <a id="custom_dl" target="_blank" download="uranium-pretty-custom.js">manually download</a>.</span>
+      <span class="error">Sorry, there was an error fetching the JS files.</span>
+    </div>
+  </form>
+
+</div> <!-- wrapper -->
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

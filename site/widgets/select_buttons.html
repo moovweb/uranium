@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<title>Uranium JS | Select Buttons</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/uranium-pretty.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
+    <script src="/src/uranium-pretty.js"></script>
+    <script>
+    describe = function(){};
+    dev_mode = false;//location.hostname == "localhost";
+    if (dev_mode)
+      document.write('<script src="..\/src\/jasmine.js"><\/script>\
+                      <script src="..\/src\/jasmine-html.js"><\/script>\
+                      <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
+                      <script src="..\/src\/synthetic.js"><\/script>\
+                      <script src="..\/src\/mouse.js"><\/script>\
+                      <script src="..\/src\/browsers.js"><\/script>\
+                      <script src="..\/src\/key.js"><\/script>\
+                      <script src="..\/src\/drag.js"><\/script>');
+    </script>
+    <script>
+    if (dev_mode)
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 250;
+      
+        var jsApiReporter;
+        var htmlReporter = new jasmine.HtmlReporter();
+          jasmineEnv.addReporter(htmlReporter);
+
+          jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+          };
+
+          window.onload = function() { jasmineEnv.execute(); };
+        })();
+    </script>
+  </head>
+  
+  <body id="select_buttons_page" class="widget_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" class="selected">Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Reverse Geocode</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/" >TEST LINK</a>
+</nav>
+
+    <div id="textbody">
+      <div data-ur-set="tabs">
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
+        <div class="wrapper">
+          <h1> Select Buttons </h1>
+        </div>
+        <div class="description_wrapper">
+          <h2> Description </h2>
+          <div class="description">
+            <p>
+  This widget allows you to bind increment/decrement buttons to trigger the appropriate
+  changes on a <span class="inline_code">&lt;select&gt;</span> element. It's extremely
+  useful in situations where the options for the select are long, and will not fit on the
+  select popup that most devices present.
+</p>
+
+          </div>
+        </div>
+        <div class="wrapper">
+          <h2>Attributes</h2>
+          <div class="attributes">
+            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+              <dl>
+                
+                  <dt><code>data-ur-set="select-buttons"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
+                
+                  <dt><code>data-ur-select-buttons-component="select"</code></dt><dd>add this attribute to the select tag</dd>
+                
+                  <dt><code>data-ur-select-buttons-component="increment"</code></dt><dd>add this attribute to the increment button</dd>
+                
+                  <dt><code>data-ur-select-buttons-component="decrement"</code></dt><dd>add this attribute to the decrement button</dd>
+                
+              </dl>
+            </div><!-- basic -->
+            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+              <h3> data-ur-set= </h3>
+              <code class="set_name">"select_buttons"</code>
+              <br />
+              <h3> data-ur-select_buttons-component= </h3>
+              
+              <div class="components">
+                
+                  <h4>Required</h4>
+                  <ul>
+                    
+                      <code>"select"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the drop-down list, which should be in a select tag
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: N/A
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"increment"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            for the increment button
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled (default is no state)
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"decrement"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            for the decrement button
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled (default is no state; you should set to disabled)
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                  </ul>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='wrapper'>
+  <h2> Required Styles </h2>
+  <p>
+    No styles are required.
+  </p>
+</div>
+
+<div class="wrapper">
+  <h2> Demonstration </h2>
+
+  <div class='demonstration' name='One'>
+    <div data-ur-set="tabs">
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
+
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
+        <div data-ur-set='select-buttons'>
+          <select data-ur-select-buttons-component='select'>
+            <option selected='true' value='-1'> -None- </option>
+            <option value='SKU-XS'> XS </option>
+            <option value='SKU-S'> S </option>
+            <option value='SKU-M'> M </option>
+            <option value='SKU-L'> L </option>
+          </select>
+
+          <span data-ur-select-buttons-component='decrement' data-ur-state='disabled'> [-] </span>
+          <span data-ur-select-buttons-component='increment'> [+] </span>
+        </div>
+      </div>
+      <div data-ur-tabs-component="content" data-ur-tab-id="html">
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;select-buttons&#39;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">data-ur-select-buttons-component=</span><span class="s">&#39;select&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">selected=</span><span class="s">&#39;true&#39;</span> <span class="na">value=</span><span class="s">&#39;-1&#39;</span><span class="nt">&gt;</span> -None- <span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-XS&#39;</span><span class="nt">&gt;</span> XS <span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-S&#39;</span><span class="nt">&gt;</span> S <span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-M&#39;</span><span class="nt">&gt;</span> M <span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-L&#39;</span><span class="nt">&gt;</span> L <span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="nt">&lt;span</span> <span class="na">data-ur-select-buttons-component=</span><span class="s">&#39;decrement&#39;</span> <span class="na">data-ur-state=</span><span class="s">&#39;disabled&#39;</span><span class="nt">&gt;</span> [-] <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">data-ur-select-buttons-component=</span><span class="s">&#39;increment&#39;</span><span class="nt">&gt;</span> [+] <span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+      </div>
+    </div>
+  </div>
+</div> <!-- wrapper -->
+
+
+      
+    </div>
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

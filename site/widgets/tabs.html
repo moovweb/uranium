@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<title>Uranium JS | Tab</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/uranium-pretty.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
+    <script src="/src/uranium-pretty.js"></script>
+    <script>
+    describe = function(){};
+    dev_mode = false;//location.hostname == "localhost";
+    if (dev_mode)
+      document.write('<script src="..\/src\/jasmine.js"><\/script>\
+                      <script src="..\/src\/jasmine-html.js"><\/script>\
+                      <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
+                      <script src="..\/src\/synthetic.js"><\/script>\
+                      <script src="..\/src\/mouse.js"><\/script>\
+                      <script src="..\/src\/browsers.js"><\/script>\
+                      <script src="..\/src\/key.js"><\/script>\
+                      <script src="..\/src\/drag.js"><\/script>');
+    </script>
+    <script>
+    if (dev_mode)
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 250;
+      
+        var jsApiReporter;
+        var htmlReporter = new jasmine.HtmlReporter();
+          jasmineEnv.addReporter(htmlReporter);
+
+          jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+          };
+
+          window.onload = function() { jasmineEnv.execute(); };
+        })();
+    </script>
+  </head>
+  
+  <body id="tab_page" class="widget_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" class="selected">Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Reverse Geocode</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/" >TEST LINK</a>
+</nav>
+
+    <div id="textbody">
+      <div data-ur-set="tabs">
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
+        <div class="wrapper">
+          <h1> Tab </h1>
+        </div>
+        <div class="description_wrapper">
+          <h2> Description </h2>
+          <div class="description">
+            <p>Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.</p>
+          </div>
+        </div>
+        <div class="wrapper">
+          <h2>Attributes</h2>
+          <div class="attributes">
+            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+              <dl>
+                
+                  <dt><code>data-ur-set="tabs"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
+                
+                  <dt><code>data-ur-tabs-component="button"</code></dt><dd>add this attribute to the button div</dd>
+                
+                  <dt><code>data-ur-tabs-component="content"</code></dt><dd>add this attribute to the content</dd>
+                
+                  <dt><code>data-ur-tab-id="NAME"</code></dt><dd>this attribute needs to link the button and the content (i.e. the button and content should have the same id)</dd>
+                
+              </dl>
+            </div><!-- basic -->
+            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+              <h3> data-ur-set= </h3>
+              <code class="set_name">"tab"</code>
+              <br />
+              <h3> data-ur-tab-component= </h3>
+              
+              <div class="components">
+                
+                  <h4>Required</h4>
+                  <ul>
+                    
+                      <code>"button"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the button (i.e. the thing to be clicked)
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: true
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled(default)
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            attributes
+                            <ul>
+                              
+                                <li>required: <code>data-ur-tab-id</code> is required and must match attribute on content element</li>
+                              
+                            </ul>
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"content"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to each content item
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: true
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled(default)
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            attributes
+                            <ul>
+                              
+                                <li>required: <code>data-ur-tab-id</code> is required and must match attribute on button element</li>
+                              
+                            </ul>
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                  </ul>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper">
+  <h2>Required CSS</h2>
+  <div class='css'>
+    <div class="highlight"><pre><code class="scss">    <span class="cm">/* Required SCSS Styling */</span>
+
+    <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.5</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.0</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+      <span class="p">}</span>
+      <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="cm">/* Required CSS Styling */</span>
+
+    <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.5</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+    <span class="p">}</span>
+    <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+</code></pre></div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <h2>Demonstration</h2>
+  <div class="test" name="Simple" data-ur-set="tabs">
+  </div>
+  <div class="demonstration" id="tab_demonstration" data-ur-set="tabs" data-ur-id="2">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Widget</h3>
+
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="html"> HTML</h3>
+
+    <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set="tabs" data-ur-id="3">
+        <span data-ur-tabs-component="button" data-ur-tab-id="first" data-ur-state="enabled"> First </span>
+        <span data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
+        <span data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
+
+        <div data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">
+          <img width="300px" height="300px" src="../images/sample1.png?some_attr=noway">
+        </div>
+
+        <div data-ur-tabs-component="content" data-ur-tab-id="second">
+          <img width="300px" height="300px" src="../images/sample2.png?some_attr=noway">
+        </div>
+
+        <div data-ur-tabs-component="content" data-ur-tab-id="third">
+          <img width="300px" height="300px" src="../images/sample3.png?some_attr=noway">
+        </div>
+      </div>
+    </div>
+    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+      <div class="highlight"><pre><code class="html">      <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;tabs&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;first&#39;</span> <span class="na">data-ur-state=</span><span class="s">&#39;enabled&#39;</span><span class="nt">&gt;</span> First <span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;second&#39;</span><span class="nt">&gt;</span> Second <span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;third&#39;</span><span class="nt">&gt;</span> Third <span class="nt">&lt;/span&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;first&#39;</span> <span class="na">data-ur-state=</span><span class="s">&#39;enabled&#39;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&#39;300px&#39;</span> <span class="na">height=</span><span class="s">&#39;300px&#39;</span> <span class="na">src=</span><span class="s">&#39;../images/sample1.png?some_attr=noway&#39;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;second&#39;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&#39;300px&#39;</span> <span class="na">height=</span><span class="s">&#39;300px&#39;</span> <span class="na">src=</span><span class="s">&#39;../images/sample2.png?some_attr=noway&#39;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;third&#39;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&#39;300px&#39;</span> <span class="na">height=</span><span class="s">&#39;300px&#39;</span> <span class="na">src=</span><span class="s">&#39;../images/sample3.png?some_attr=noway&#39;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      
+</code></pre></div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="wrapper" id="tabs_examples_page">
+  <h2>Further Examples</h2>
+  <div class="test" name="Simple">
+    <a name="Simple"></a>
+
+    <h3>Selecting the Second Tab</h3>
+    <div class="description">
+      <p>Here, as proof of principle, we're putting the <span class="inline_code">data-ur-state="enabled"</span> attribute on the
+        second tab to illustrate that a different tab can be selected at the outset.</p>
+    </div>
+    <div data-ur-set="tabs" data-ur-id="4">
+      <span data-ur-tabs-component="button" data-ur-tab-id="first_sanity"> First </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="second_sanity" data-ur-state="enabled"> Second </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="third_sanity"> Third </span>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="first_sanity">
+        <img width="70px" height="70px" src="../images/sample1.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-state="enabled" data-ur-tab-id="second_sanity">
+        <img width="70px" height="70px" src="../images/sample2.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="third_sanity">
+        <img width="70px" height="70px" src="../images/sample3.png?some_attr=noway">
+      </div>
+
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="test" name="accordions">
+    <a name="accordions"></a>
+
+    <h3> Accordions with State </h3>
+
+    <div class="description">
+      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
+        strictly necessary. In the following example, we start out with no states defined.</p>
+        <p>The first one we click on will be the first one to be "enabled".</p>
+    </div>
+
+    <div data-ur-set="tabs" data-ur-closeable="true" data-ur-id="5">
+      <div data-ur-tabs-component="button" data-ur-tab-id="first_accordions"> First </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="first_accordions">
+        Oh uranium.
+      </div>
+
+      <div data-ur-tabs-component="button" data-ur-tab-id="second_accordions">Second </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="second_accordions">
+        You do nifty widget things.
+      </div>
+
+      <div data-ur-tabs-component="button" data-ur-tab-id="third_accordions"> Third </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="third_accordions">
+        And you're performant.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+      
+    </div>
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

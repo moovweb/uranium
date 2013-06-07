@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uranium JS | Geocode Text Inputs</title>
+    <script src="../../src/uranium-pretty.js"></script>
+    <link rel="stylesheet" type='text/css' href='../../stylesheets/main.css' />
+  </head>
+  
+  <body id="geocode_text_inputs_page">
+    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
+    <div id="menu">
+      <div id="menuwrap">
+        <a href="../../index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
+        <a href="../../tutorials.html" class="toplinks "><div class="menuselect">Tutorial</div></a><!-- menuselect-->
+        <a href="../../widget_list.html" class="toplinks selected"><div class="menuselect">Widgets</div></a><!-- menuselect-->
+        <a href="../../more.html" class="toplinks "><div class="menuselect">Philosophy</div></a><!-- menuselect-->
+        <a href="../../download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
+      </div><!-- menuwrap-->
+    </div><!-- menu-->
+    <div id="textbody">
+    <div class="wrapper">
+  <h1> Reverse Geocode with Text Inputs </h1>
+  
+  <h2>Description</h2>
+  
+    <p>
+      This example illustrates that a select form is not necessary to fill a field. We've used a text input instead
+      of a select for the state and country.
+    </p>
+
+  <h2>Demonstration</h2>
+
+  
+  <div class='test' data-ur-set="reverse-geocode">
+    <button  value="clickMe" typepe='button' data-ur-reverse-geocode-component="rg-button">Reverse Geocode</button>
+    <form action="geocode_submit" method="get" accept-charset="utf-8" >
+      <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
+      <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
+      <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
+      <!-- State works with both inputs and select elements -->
+      <input type="text" name="state" value="" id="state" placeholder="state" data-ur-reverse-geocode-component="rg-state">
+      <!-- Country works with both inputs and select elements -->
+      <input type="text" name="country" value="" id="country" placeholder="country" data-ur-reverse-geocode-component="rg-country">
+    </form>
+  </div>
+</div> <!-- wrapper -->
+
+    
+    <div class="wrapper">
+      <p>
+      <a href="../../widgets/geocode.html">Back to Reverse Geocode Widget</a>
+      </p>
+    </div>
+    
+    </div>
+    <div id="bottombody">
+      <div class="wrapper" id="bottomwrap">
+          <a href="http://site.moovweb.com/"><div id="moovweblogo"></div></a>
+          Uranium &copy; 2012 | <a href="https://github.com/moovweb/uranium">GitHub</a> | <a href="mailto:uranium@moovweb.com">Contact</a>
+      </div><!-- wrapper-->
+    </div><!-- bottombody end-->
+  </body>
+</html>

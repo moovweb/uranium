@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<title>Uranium JS | Toggler</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/uranium-pretty.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
+    <script src="/src/uranium-pretty.js"></script>
+    <script>
+    describe = function(){};
+    dev_mode = false;//location.hostname == "localhost";
+    if (dev_mode)
+      document.write('<script src="..\/src\/jasmine.js"><\/script>\
+                      <script src="..\/src\/jasmine-html.js"><\/script>\
+                      <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
+                      <script src="..\/src\/synthetic.js"><\/script>\
+                      <script src="..\/src\/mouse.js"><\/script>\
+                      <script src="..\/src\/browsers.js"><\/script>\
+                      <script src="..\/src\/key.js"><\/script>\
+                      <script src="..\/src\/drag.js"><\/script>');
+    </script>
+    <script>
+    if (dev_mode)
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 250;
+      
+        var jsApiReporter;
+        var htmlReporter = new jasmine.HtmlReporter();
+          jasmineEnv.addReporter(htmlReporter);
+
+          jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+          };
+
+          window.onload = function() { jasmineEnv.execute(); };
+        })();
+    </script>
+  </head>
+  
+  <body id="toggler_page" class="widget_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" class="selected">Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Reverse Geocode</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/" >TEST LINK</a>
+</nav>
+
+    <div id="textbody">
+      <div data-ur-set="tabs">
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
+        <div class="wrapper">
+          <h1> Toggler </h1>
+        </div>
+        <div class="description_wrapper">
+          <h2> Description </h2>
+          <div class="description">
+            <p>A toggler is a widget that has two components - a button, and a set of contents.</p>
+<p>When you click the button, the states (of both the button and the contents) are toggled.</p>
+
+          </div>
+        </div>
+        <div class="wrapper">
+          <h2>Attributes</h2>
+          <div class="attributes">
+            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+              <dl>
+                
+                  <dt><code>data-ur-set="toggler"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
+                
+                  <dt><code>data-ur-toggler-component="button"</code></dt><dd>add this attribute to the button</dd>
+                
+                  <dt><code>data-ur-toggler-component="content"</code></dt><dd>add this attribute to the content</dd>
+                
+              </dl>
+            </div><!-- basic -->
+            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+              <h3> data-ur-set= </h3>
+              <code class="set_name">"toggler"</code>
+              <br />
+              <h3> data-ur-toggler-component= </h3>
+              
+              <div class="components">
+                
+                  <h4>Required</h4>
+                  <ul>
+                    
+                      <code>"button"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the button (i.e. the thing to be clicked)
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled(default)
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"content"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to each content item
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: true
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled(default)
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                  </ul>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='wrapper'>
+  <h2> Required Styles </h2>
+  <div class='css'>
+<div class="highlight"><pre><code class="scss"><span class="cm">/* Required SCSS Styling */</span>
+
+<span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="cm">/* By Default content is hidden*/</span>
+  <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+  <span class="p">}</span>
+  <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="cm">/* Required CSS Styling */</span>
+
+<span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+<span class="p">}</span>
+<span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+  
+</div><!-- wrapper -->
+<div class="wrapper">
+  <h2>Demonstration</h2>
+  <div class='demonstration' name='Simple'>
+    <div class="description">
+      <p>
+      We have one button ("Click Here!"). When we click on it, we want the content
+      (containing the clothing options) to appear. We call this an "accordion".
+      </p>
+    </div> <!-- closing the description -->
+    <div id="accordion_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
+
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+
+      <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+        <div data-ur-set='toggler'>
+          <div data-ur-toggler-component='button'>
+            Click Here!
+          </div>
+
+          <ul data-ur-toggler-component='content'>
+            <li> Hat </li>
+            <li> Socks </li>
+            <li> Shoes </li>
+            <li> Gloves </li>
+            <li> Shirts </li>
+          </ul>
+        </div> <!-- toggler end -->
+      </div> <!-- widget content end -->
+    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+    <div class="highlight"><pre><code class="html">    <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;toggler&#39;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>Click Here!<span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    
+</code></pre></div>
+      </div><!-- html content end -->
+    </div><!--accortion demonstraion end-->
+  </div><!-- demonstration end -->
+</div><!-- wrapper end -->
+
+<hr />
+  
+<div class="wrapper">
+
+  <h2>Further Examples</h2>
+  
+  <div class='test' name='Nested'>
+    <a  name='Nested'></a>
+
+    <h3> Nested Togglers</h3>
+
+    <div class='description'>
+
+      <p>It's super-easy to nest togglers as well. You'll have to use <a href="grouping.html">ids</a>.
+        Give the button component and the content component the same attribute:
+        <span class="inline_code">data-ur-id="ID"</span>.</p>
+   </div>
+
+
+    <div data-ur-toggler-component='button' data-ur-id='FoodAccordion'>
+      Foods
+    </div>
+
+    <ul data-ur-toggler-component='content' data-ur-id='FoodAccordion'>
+      <li data-ur-set='toggler' >
+        <span data-ur-toggler-component='button'> Veggies </span>
+        <ul data-ur-toggler-component='content'>
+          <li> Beets </li>
+          <li> Carrots </li>
+        </ul>
+      </li>
+      <li data-ur-set="toggler">
+        <span data-ur-toggler-component='button'> Meats </span>
+        <ul data-ur-toggler-component='content'>
+          <li> Beef </li>
+          <li> Fish </li>
+        </ul>
+      </li>
+    </ul>
+
+  </div><!-- end of nesting -->
+
+  <hr />
+
+  <div class='test' name='DialogProper'>
+    <a  name='DialogProper'></a>
+    <h3>Popup</h3>
+  
+    <div class='description'>
+      <p>
+        In this style, we want an image to appear when we click on the button.
+      </p>
+
+    </div>
+  
+    <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
+      data-ur-state='disabled' class='popup_button'>
+      Click Here !
+    </div>
+
+    <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
+      data-ur-state='disabled' class='popup_content'>
+       <img src='../../images/popup.jpeg'>
+    </div>
+  
+  </div><!-- end of popup-->
+
+  <hr />
+
+  <div class='test' name='MultipleContents'>
+    <a name='MultipleContents'></a>
+
+    <h3> Multiple Toggling Elements </h3>
+
+    <div class='description'>
+
+      <p>Now we're getting to quite a complex example. The buttons are used to
+      toggle between the two images. We start off by defining the button, giving it
+      a data-ur-id and making its state disabled.</p>
+
+      <p>Then, we apply the same data-ur-id to the content and define the two content
+        panes. However, we specify that one of the contents has a disabled state, and
+        the other one has an enabled state. As they have opposing states, when the button
+        is clicked they will remain the opposite of each other (i.e. the enabled image
+        will become disabled, and vice versa).</p>
+
+   </div>
+
+    <div data-ur-toggler-component='button' data-ur-id='MyToggler'
+      class='buttons' data-ur-state='disabled'>
+      <span class='popup_button'> Thing 1 </span>
+      <span class='popup_button'> Thing 2 </span>
+    </div>
+
+    <div data-ur-toggler-component='content' data-ur-id='MyToggler'
+      class='popup_content' data-ur-state='enabled'>
+       <img src='../../images/popup.jpeg'>
+    </div>
+
+    <div data-ur-toggler-component='content' data-ur-id='MyToggler'
+         class='popup_content' data-ur-state='disabled'>
+       <img src='../../images/popup2.jpg'>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class='test' name='Disabled'>
+    <a name='Disabled'></a>
+
+    <h3>Requiring Activation</h3>
+    <p>We use an extra snippet of javascript to make the toggler work <i>only</i> when a different button
+      is clicked. We start by making the whole toggler have a <span class="inline_code">data-ur-state="disabled"</span>.
+      Then, we add the following javascript, which enables the toggler when clicked.
+    </p>
+    
+<div class="highlight"><pre><code class="javascript"><span class="nx">x$</span><span class="p">(</span><span class="s2">&quot;.activate_button&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">Ur</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="s2">&quot;div[name=&#39;Disabled&#39;]&quot;</span><span class="p">)});</span>
+</code></pre></div>
+    
+    <div class='activate_button'>
+    <p> Click here to activate the toggler. </p>
+    </div>
+
+    <script type='text/javascript'> x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
+    </script>
+
+    <div data-ur-set='toggler' data-ur-state='disabled' id="disabled">
+      <div data-ur-toggler-component='button'>
+        Clothing
+      </div>
+
+      <ul data-ur-toggler-component='content'>
+        <li> Hat </li>
+        <li> Socks </li>
+        <li> Shoes </li>
+        <li> Gloves </li>
+        <li> Shirts </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+      
+    </div>
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

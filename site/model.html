@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<title>Uranium JS | Model</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/uranium-pretty.js"></script>
+
+  </head>
+  
+  <body id="model_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" >Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Reverse Geocode</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/" >TEST LINK</a>
+</nav>
+
+    <div class="wrapper">
+  <h1>Model</h1>
+  
+  <h2 name="sets">Sets and Components</h2>
+  <div class="model_para">
+    <p>Every widget has at its core a set and a series of components. The set is unique for every
+      widget: <span class="inline_code">data-ur-set="toggler"</span> for the <a href="toggler.html">toggler</a> widget, etc. The set
+      attribute should be used to wrap the whole widget.</p>
+    <p>There are usually a few components per widget. For example, a toggler has a button and
+      content. Components are designated in the following way: they'll have <span class="inline_code">data-ur-{widget}-component="thing"</span>.</p>
+    <p>Most of the widgets also have some extra properties. For example, <a href="font-resizer.html">
+      font resizer</a> has a <span class="inline_code">data-ur-font-resizer-min</span>, which is used to set the minimum font
+      size value.</p>
+  </div>
+  
+  <h2 name="naming">Naming</h2>
+  <div class="model_para">
+    <p>The attributes in Uranium are fairly lengthy. This is because we have chosen to follow the
+      conventions of HTML5.</p>
+    <p>In HTML4, we weren't allowed to create our own attributes. Only ids, classes and names were really
+      accepted. In HTML5, we can &mdash; but we have to start every attribute with "data". So that's
+      why all Uranium's attributes start with that. After that, it's "ur" &mdash; to signify that
+      the attribute is for Uranium.</p>
+    <p>After those two, the names of the attributes are quite straight-forward. data-ur-set helps
+      define the following set of tags by grouping them into a set (giving the name of the widget as
+      a value).</p>
+  </div>
+  
+  <h2 name="declarative_javascript">Declarative Javascript</h2>
+  <div class="model_para">
+    <p>Uranium works with declarative javascript. What this means is that we give tags in the HTML
+    specific attributes. These attributes tell the javascript what to do.</p>
+    <p>Here's a couple of simple examples:</p>
+    <p class="code">
+    &lt;div data-ur-set='toggler'>&emsp;&emsp;&emsp;&emsp;&lt;/div>
+    </p>
+    <p>This attribute tells javascript to treat this div tag as a toggler set.</p>
+    <p>And this:</p>
+    <p class="code">
+    &lt;span data-ur-toggler-component='button' data-ur-state='enabled'>&emsp;&emsp;&emsp;&emsp;&lt;/span>
+    </p>
+    <p>Tells Uranium to treat the span as a toggler button in its enabled state.</p>
+  </div>
+    
+</div> <!-- wrapper -->
+
+
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

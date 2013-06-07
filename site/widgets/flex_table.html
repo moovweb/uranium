@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<title>Uranium JS | Flex Table</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/uranium-pretty.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
+    <script src="/src/uranium-pretty.js"></script>
+    <script>
+    describe = function(){};
+    dev_mode = false;//location.hostname == "localhost";
+    if (dev_mode)
+      document.write('<script src="..\/src\/jasmine.js"><\/script>\
+                      <script src="..\/src\/jasmine-html.js"><\/script>\
+                      <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
+                      <script src="..\/src\/synthetic.js"><\/script>\
+                      <script src="..\/src\/mouse.js"><\/script>\
+                      <script src="..\/src\/browsers.js"><\/script>\
+                      <script src="..\/src\/key.js"><\/script>\
+                      <script src="..\/src\/drag.js"><\/script>');
+    </script>
+    <script>
+    if (dev_mode)
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 250;
+      
+        var jsApiReporter;
+        var htmlReporter = new jasmine.HtmlReporter();
+          jasmineEnv.addReporter(htmlReporter);
+
+          jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+          };
+
+          window.onload = function() { jasmineEnv.execute(); };
+        })();
+    </script>
+  </head>
+  
+  <body id="flex_table_page" class="widget_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" class="selected">Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Reverse Geocode</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/" >TEST LINK</a>
+</nav>
+
+    <div id="textbody">
+      <div data-ur-set="tabs">
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
+        <div class="wrapper">
+          <h1> Flex Table </h1>
+        </div>
+        <div class="description_wrapper">
+          <h2> Description </h2>
+          <div class="description">
+            <p>There are a <a href='http://css-tricks.com/responsive-data-table-roundup/'>lot of ways to deal with tabular data</a> in a mobile format. This solution should be credited to the FilamentGroup for their <a href='http://filamentgroup.com/lab/responsive_design_approach_for_complex_multicolumn_data_tables/'>blog post</a>.</p>
+<p>This is accomplished by assigning semantic classes to the column headings that indicate which data values take precedence (essential vs optional), in combination with media queries to display them at different screen widths (a.k.a., <a href="http://www.alistapart.com/articles/responsive-web-design/">responsive design</a>).</p>
+<p>There is a bit of JavaScript logic to control which data is displayed by checking column names in the "Display" menu on the right.  Once an option is checked, the associated data will persist and display at all screen widths until the option is unchecked.</p>
+<p>You can also set a column to always persist by assigning a class in the markup, in which case it has no menu option.</p>
+
+          </div>
+        </div>
+        <div class="wrapper">
+          <h2>Attributes</h2>
+          <div class="attributes">
+            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+              <dl>
+                
+                  <dt><code>data-ur-set="flex-table"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
+                
+                  <dt><code>data-ur-flex-table-component="table"</code></dt><dd>add this attribute to the table node</dd>
+                
+                  <dt><code>data-ur-flex-table-component="head"</code></dt><dd>add this attribute to the table head node</dd>
+                
+                  <dt><code>data-ur-flex-table-component="body"</code></dt><dd>add this attribute to the table body node</dd>
+                
+                  <dt><code>class="persist"</code></dt><dd>add this attribute to the th node that should never disappear as a column. The option to enable/disable it via a checkbox is also removed.</dd>
+                
+                  <dt><code>class="essential"</code></dt><dd>add this attribute to the th node that shouldn't disappear as a column due to screen size. The option to enable/disable it via a checkbox is available.</dd>
+                
+                  <dt><code>class="optional"</code></dt><dd>add this attribute to the th node that should disappear as a column due to screen size at the large screen break. The option to enable/disable it via a checkbox is available.</dd>
+                
+                  <dt><code>no class</code></dt><dd>Leave the th node with no class of persist, essential, or optional for the columns to only be present at the large screen size break. The option to enable/disable it via a checkbox is present</dd>
+                
+              </dl>
+            </div><!-- basic -->
+            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+              <h3> data-ur-set= </h3>
+              <code class="set_name">"flex_table"</code>
+              <br />
+              <h3> data-ur-flex_table-component= </h3>
+              
+              <div class="components">
+                
+                  <h4>Required</h4>
+                  <ul>
+                    
+                      <code>"table"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the table node
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"head"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the table head node
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"body"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the table body node
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                  </ul>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Styles -->
+<div class='wrapper'>
+  <h2>Required Styles</h2>
+  <div class='css'>
+<div class="highlight"><pre><code class="scss"><span class="cm">/* Required SCSS Styling */</span>
+
+<span class="nc">.table-wrapper</span> <span class="p">{</span>
+  <span class="na">position</span><span class="o">:</span> <span class="no">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.table-menu</span> <span class="p">{</span>
+  <span class="o">&gt;</span> <span class="nt">ul</span> <span class="p">{</span>
+    <span class="na">position</span><span class="o">:</span> <span class="no">absolute</span><span class="p">;</span>
+    <span class="na">z-index</span><span class="o">:</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="na">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+    <span class="na">padding</span><span class="o">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+    <span class="na">border</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="mh">#cccccc</span><span class="p">;</span>
+    <span class="na">width</span><span class="o">:</span> <span class="mi">12</span><span class="kt">em</span><span class="p">;</span>
+    <span class="na">right</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="na">left</span><span class="o">:</span> <span class="no">auto</span><span class="p">;</span>
+    <span class="na">top</span><span class="o">:</span> <span class="mi">-7</span><span class="kt">px</span><span class="p">;</span>
+    <span class="na">list-style</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+    <span class="nt">li</span> <span class="p">{</span>
+      <span class="na">color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nc">.table-background-element</span> <span class="p">{</span>
+  <span class="na">position</span><span class="o">:</span> <span class="no">fixed</span><span class="p">;</span>
+  <span class="na">left</span><span class="o">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">top</span><span class="o">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">z-index</span><span class="o">:</span> <span class="mi">99</span><span class="p">;</span>
+  <span class="na">height</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+  <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span> <span class="nv">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.table-menu-hidden</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+  <span class="na">left</span><span class="o">:</span> <span class="mi">-999</span><span class="kt">em</span><span class="p">;</span>
+  <span class="na">right</span><span class="o">:</span> <span class="no">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.table-menu-btn</span> <span class="p">{</span>
+  <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#333333</span><span class="p">;</span>
+  <span class="na">background</span><span class="o">:</span> <span class="mh">#eeeeee</span><span class="p">;</span>
+  <span class="na">padding</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.4</span><span class="kt">em</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">0</span><span class="mf">.4</span><span class="kt">em</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">border</span><span class="o">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="no">solid</span> <span class="mh">#cccccc</span><span class="p">;</span>
+  <span class="na">position</span><span class="o">:</span> <span class="no">absolute</span><span class="p">;</span>
+  <span class="na">z-index</span><span class="o">:</span> <span class="mi">100</span><span class="p">;</span>
+  <span class="na">top</span><span class="o">:</span> <span class="mi">-40</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">right</span><span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span><span class="nc">.table-menu-btn</span><span class="o">,</span> <span class="nt">a</span><span class="nc">.table-menu-btn</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="na">color</span><span class="o">:</span> <span class="mh">#333333</span><span class="p">;</span>
+  <span class="na">text-decoration</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.table-menu-btn-icon</span> <span class="p">{</span>
+  <span class="na">width</span><span class="o">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">height</span><span class="o">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">font-size</span><span class="o">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">line-height</span><span class="o">:</span> <span class="mi">0</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">border</span><span class="o">:</span> <span class="mi">6</span><span class="kt">px</span> <span class="no">solid</span><span class="p">;</span>
+  <span class="na">margin-right</span><span class="o">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">margin-top</span><span class="o">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+  <span class="na">vertical-align</span><span class="o">:</span> <span class="no">middle</span><span class="p">;</span>
+  <span class="na">border-image</span><span class="o">:</span> <span class="n">initial</span><span class="p">;</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">inline</span><span class="o">-</span><span class="no">block</span><span class="p">;</span>
+  <span class="na">border-color</span><span class="o">:</span> <span class="nb">gray</span> <span class="no">transparent</span> <span class="no">transparent</span> <span class="no">transparent</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.menu-btn-show</span> <span class="o">&gt;</span> <span class="nc">.table-menu-btn-icon</span> <span class="p">{</span>
+  <span class="na">border-color</span><span class="o">:</span> <span class="no">transparent</span> <span class="no">transparent</span> <span class="nb">gray</span> <span class="no">transparent</span><span class="p">;</span>
+  <span class="na">margin-top</span><span class="o">:</span> <span class="mi">-8</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.table-menu</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="na">padding</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.3</span><span class="kt">em</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">table</span> <span class="p">{</span>
+  <span class="na">width</span><span class="o">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.enhanced</span> <span class="nt">th</span><span class="o">,</span> <span class="nc">.enhanced</span> <span class="nt">td</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.enhanced</span> <span class="nt">th</span><span class="nc">.essential</span><span class="o">,</span> <span class="nc">.enhanced</span> <span class="nt">td</span><span class="nc">.essential</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">table-cell</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.enhanced</span> <span class="nc">.ur_ft_hide</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">none</span> <span class="nv">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.enhanced</span> <span class="nc">.ur_ft_show</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">table-cell</span> <span class="nv">!important</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// Change this width to alter the switch state</span>
+<span class="c1">// for the optional classes</span>
+<span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-width</span><span class="nd">:</span> <span class="nt">480px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.enhanced</span> <span class="nt">th</span><span class="nc">.optional</span><span class="o">,</span> <span class="nc">.enhanced</span> <span class="nt">td</span><span class="nc">.optional</span> <span class="p">{</span>
+    <span class="na">display</span><span class="o">:</span> <span class="no">table-cell</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// Change this width to alter the switch state</span>
+<span class="c1">// to show all columns</span>
+<span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-width</span><span class="nd">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nc">.enhanced</span> <span class="nt">th</span><span class="o">,</span> <span class="nc">.enhanced</span> <span class="nt">td</span> <span class="p">{</span>
+    <span class="na">display</span><span class="o">:</span> <span class="no">table-cell</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+</div>
+
+<!-- Demonstration -->
+<h2 class='wrapper'>Demonstration</h2>
+<!-- Not wrapping the tables with the wrapper class because it wouldn't look as good as a demo. Better the tables stretch the full-length of the page. -->
+<div class='wrapper'>
+  <div class='demonstration'>
+    <p>You can have multiple tables on the same page. Two are featured below. Resize your browser window to see the table columns show and hide themselves.</p>
+    <div id="accordion_demonstration" data-ur-set="tabs">
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
+
+        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+        <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
+          <div class="table-wrapper" data-ur-set="flex-table">
+
+            <table cellspacing="0" id="tech-companies-1" data-ur-flex-table-component="table">
+              <thead data-ur-flex-table-component="head">
+                <tr>
+                  <th class="persist essential">Company</th>
+                  <th class="essential">Last Trade</th>
+                  <th class="optional">Trade Time</th>
+                  <th class="essential">Change</th>
+                  <th class="optional">Prev Close</th>
+                  <th class="optional">Open</th>
+                  <th>Bid</th>
+                  <th>Ask</th>
+                  <th>1y Target Est</th>
+                </tr>
+              </thead>
+              <tbody data-ur-flex-table-component="body">
+                <tr>
+                  <th>GOOG <span class="co-name">Google Inc.</span></th>
+                  <td>597.74</td>
+                  <td>12:12PM</td>
+                  <td>14.81 (2.54%)</td>
+                  <td>582.93</td>
+                  <td>597.95</td>
+                  <td>597.73 x 100</td>
+                  <td>597.91 x 300</td>
+                  <td>731.10</td>
+                </tr>
+                <tr>
+                  <th>AAPL <span class="co-name">Apple Inc.</span></th>
+                  <td>378.94</td>
+                  <td>12:22PM</td>
+                  <td>5.74 (1.54%)</td>
+                  <td>373.20</td>
+                  <td>381.02</td>
+                  <td>378.92 x 300</td>
+                  <td>378.99 x 100</td>
+                  <td>505.94</td>
+                </tr>
+                <tr>
+                  <th>AMZN <span class="co-name">Amazon.com Inc.</span></th>
+                  <td>191.55</td>
+                  <td>12:23PM</td>
+                  <td>3.16 (1.68%)</td>
+                  <td>188.39</td>
+                  <td>194.99</td>
+                  <td>191.52 x 300</td>
+                  <td>191.58 x 100</td>
+                  <td>240.32</td>
+                </tr>
+                <tr>
+                  <th>ORCL <span class="co-name">Oracle Corporation</span></th>
+                  <td>31.15</td>
+                  <td>12:44PM</td>
+                  <td>1.41 (4.72%)</td>
+                  <td>29.74</td>
+                  <td>30.67</td>
+                  <td>31.14 x 6500</td>
+                  <td>31.15 x 3200</td>
+                  <td>36.11</td>
+                </tr>
+                <tr>
+                  <th>MSFT <span class="co-name">Microsoft Corporation</span></th>
+                  <td>25.50</td>
+                  <td>12:27PM</td>
+                  <td>0.66 (2.67%)</td>
+                  <td>24.84</td>
+                  <td>25.37</td>
+                  <td>25.50 x 71100</td>
+                  <td>25.51 x 17800</td>
+                  <td>31.50</td>
+                </tr>
+                <tr>
+                  <th>CSCO <span class="co-name">Cisco Systems, Inc.</span></th>
+                  <td>18.65</td>
+                  <td>12:45PM</td>
+                  <td>0.97 (5.49%)</td>
+                  <td>17.68</td>
+                  <td>18.23</td>
+                  <td>18.65 x 10300</td>
+                  <td>18.66 x 24000</td>
+                  <td>21.12</td>
+                </tr>
+                <tr>
+                  <th>YHOO <span class="co-name">Yahoo! Inc.</span></th>
+                  <td>15.81</td>
+                  <td>12:25PM</td>
+                  <td>0.11 (0.67%)</td>
+                  <td>15.70</td>
+                  <td>15.94</td>
+                  <td>15.79 x 6100</td>
+                  <td>15.80 x 17000</td>
+                  <td>18.16</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div><!-- /table-wrapper -->
+
+          <div class="table-wrapper" data-ur-set="flex-table">
+
+            <table cellspacing="0" id="tech-companies-2" data-ur-flex-table-component="table">
+              <thead data-ur-flex-table-component="head">
+                <tr>
+                  <th class="persist essential">Company</th>
+                  <th class="essential">Last Trade</th>
+                  <th class="optional">Trade Time</th>
+                  <th class="essential">Change</th>
+                  <th class="optional">Prev Close</th>
+                  <th class="optional">Open</th>
+                  <th>Bid</th>
+                  <th>Ask</th>
+                  <th>1y Target Est</th>
+                </tr>
+              </thead>
+              <tbody data-ur-flex-table-component="body">
+                <tr>
+                  <th>GOOG <span class="co-name">Google Inc.</span></th>
+                  <td>597.74</td>
+                  <td>12:12PM</td>
+                  <td>14.81 (2.54%)</td>
+                  <td>582.93</td>
+                  <td>597.95</td>
+                  <td>597.73 x 100</td>
+                  <td>597.91 x 300</td>
+                  <td>731.10</td>
+                </tr>
+                <tr>
+                  <th>AAPL <span class="co-name">Apple Inc.</span></th>
+                  <td>378.94</td>
+                  <td>12:22PM</td>
+                  <td>5.74 (1.54%)</td>
+                  <td>373.20</td>
+                  <td>381.02</td>
+                  <td>378.92 x 300</td>
+                  <td>378.99 x 100</td>
+                  <td>505.94</td>
+                </tr>
+                <tr>
+                  <th>AMZN <span class="co-name">Amazon.com Inc.</span></th>
+                  <td>191.55</td>
+                  <td>12:23PM</td>
+                  <td>3.16 (1.68%)</td>
+                  <td>188.39</td>
+                  <td>194.99</td>
+                  <td>191.52 x 300</td>
+                  <td>191.58 x 100</td>
+                  <td>240.32</td>
+                </tr>
+                <tr>
+                  <th>ORCL <span class="co-name">Oracle Corporation</span></th>
+                  <td>31.15</td>
+                  <td>12:44PM</td>
+                  <td>1.41 (4.72%)</td>
+                  <td>29.74</td>
+                  <td>30.67</td>
+                  <td>31.14 x 6500</td>
+                  <td>31.15 x 3200</td>
+                  <td>36.11</td>
+                </tr>
+                <tr>
+                  <th>MSFT <span class="co-name">Microsoft Corporation</span></th>
+                  <td>25.50</td>
+                  <td>12:27PM</td>
+                  <td>0.66 (2.67%)</td>
+                  <td>24.84</td>
+                  <td>25.37</td>
+                  <td>25.50 x 71100</td>
+                  <td>25.51 x 17800</td>
+                  <td>31.50</td>
+                </tr>
+                <tr>
+                  <th>CSCO <span class="co-name">Cisco Systems, Inc.</span></th>
+                  <td>18.65</td>
+                  <td>12:45PM</td>
+                  <td>0.97 (5.49%)</td>
+                  <td>17.68</td>
+                  <td>18.23</td>
+                  <td>18.65 x 10300</td>
+                  <td>18.66 x 24000</td>
+                  <td>21.12</td>
+                </tr>
+                <tr>
+                  <th>YHOO <span class="co-name">Yahoo! Inc.</span></th>
+                  <td>15.81</td>
+                  <td>12:25PM</td>
+                  <td>0.11 (0.67%)</td>
+                  <td>15.70</td>
+                  <td>15.94</td>
+                  <td>15.79 x 6100</td>
+                  <td>15.80 x 17000</td>
+                  <td>18.16</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div><!-- /table-wrapper -->
+
+
+        </div>
+        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;table-wrapper&quot;</span> <span class="na">data-ur-set=</span><span class="s">&quot;flex-table&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;table</span> <span class="na">cellspacing=</span><span class="s">&quot;0&quot;</span> <span class="na">id=</span><span class="s">&quot;tech-companies-1&quot;</span> <span class="na">data-ur-flex-table-component=</span><span class="s">&quot;table&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;thead</span> <span class="na">data-ur-flex-table-component=</span><span class="s">&quot;head&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">&quot;persist essential&quot;</span><span class="nt">&gt;</span>Company<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">&quot;essential&quot;</span><span class="nt">&gt;</span>Last Trade<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>Trade Time<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">&quot;essential&quot;</span><span class="nt">&gt;</span>Change<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>Prev Close<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th</span> <span class="na">class=</span><span class="s">&quot;optional&quot;</span><span class="nt">&gt;</span>Open<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th&gt;</span>Bid<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th&gt;</span>Ask<span class="nt">&lt;/th&gt;</span>
+      <span class="nt">&lt;th&gt;</span>1y Target Est<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;/thead&gt;</span>
+  <span class="nt">&lt;tbody</span> <span class="na">data-ur-flex-table-component=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+      <span class="nt">&lt;th&gt;</span>GOOG <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;co-name&quot;</span><span class="nt">&gt;</span>Google Inc.<span class="nt">&lt;/span&gt;&lt;/th&gt;</span>
+      <span class="nt">&lt;td&gt;</span>597.74<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>12:12PM<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>14.81 (2.54%)<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>582.93<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>597.95<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>597.73 x 100<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>597.91 x 300<span class="nt">&lt;/td&gt;</span>
+      <span class="nt">&lt;td&gt;</span>731.10<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+    ...
+  <span class="nt">&lt;/tbody&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+        </div><!-- html content end -->
+    </div>
+  </div>
+</div>
+
+
+      
+    </div>
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

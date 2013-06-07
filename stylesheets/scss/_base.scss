@@ -23,11 +23,6 @@ a {
   text-decoration: none;
 }
 
-@media screen and (max-width: 479px), screen and (max-height: 479px) {
-  .desktop {
-    display: none;
-  }
-}
 h1 {
   color: #F5F5F5;
   font: 30px "Ultra", sans-serif;

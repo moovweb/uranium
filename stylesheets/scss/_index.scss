@@ -22,7 +22,6 @@
     }
     @media screen and (max-width: 768px) {
       font-size: 18px;
-      width: 30%;
     }
   }
   #quote {
@@ -128,4 +127,9 @@
       max-width: 28%;
     }
   }
+}
+
+/* Responsive*/
+@media screen and (max-width: 479px), screen and (max-height: 479px) {
+
 }
