@@ -3,37 +3,36 @@
   <head>
     {% include head.html %}
     <link href="/stylesheets/jasmine.css" rel="stylesheet" />
-    <script src="/src/uranium-pretty.js"></script>
-    <script>
-    describe = function(){};
-    dev_mode = false;//location.hostname == "localhost";
-    if (dev_mode)
-      document.write('<script src="{{site.url}}..\/src\/jasmine.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/jasmine-html.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/jquery-1.7.2.min.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/synthetic.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/mouse.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/browsers.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/key.js"><\/script>\
-                      <script src="{{site.url}}..\/src\/drag.js"><\/script>');
-    </script>
-    <script>
-    if (dev_mode)
-      (function() {
-        var jasmineEnv = jasmine.getEnv();
-        jasmineEnv.updateInterval = 250;
+    // <script>
+    // describe = function(){};
+    // dev_mode = false;//location.hostname == "localhost";
+    // if (dev_mode)
+    //   document.write('<script src="{{site.url}}..\/src\/jasmine.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/jasmine-html.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/jquery-1.7.2.min.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/synthetic.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/mouse.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/browsers.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/key.js"><\/script>\
+    //                   <script src="{{site.url}}..\/src\/drag.js"><\/script>');
+    // </script>
+    // <script>
+    // if (dev_mode)
+    //   (function() {
+    //     var jasmineEnv = jasmine.getEnv();
+    //     jasmineEnv.updateInterval = 250;
       
-        var jsApiReporter;
-        var htmlReporter = new jasmine.HtmlReporter();
-          jasmineEnv.addReporter(htmlReporter);
+    //     var jsApiReporter;
+    //     var htmlReporter = new jasmine.HtmlReporter();
+    //       jasmineEnv.addReporter(htmlReporter);
 
-          jasmineEnv.specFilter = function(spec) {
-            return htmlReporter.specFilter(spec);
-          };
+    //       jasmineEnv.specFilter = function(spec) {
+    //         return htmlReporter.specFilter(spec);
+    //       };
 
-          window.onload = function() { jasmineEnv.execute(); };
-        })();
-    </script>
+    //       window.onload = function() { jasmineEnv.execute(); };
+    //     })();
+    // </script>
   </head>
   
   <body id="{{page.name}}_page" class="widget_page">

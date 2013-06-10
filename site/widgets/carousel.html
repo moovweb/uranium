@@ -2,44 +2,44 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=0;" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 <title>Uranium JS | Carousel</title>
 <link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
 <link href="/stylesheets/main.css" rel="stylesheet" />
-<script src="/src/uranium-pretty.js"></script>
+<script src="/src/jquery-1.9.1.js"></script>
+<script src="/src/jQuery.uranium.js"></script>
 
     <link href="/stylesheets/jasmine.css" rel="stylesheet" />
-    <script src="/src/uranium-pretty.js"></script>
-    <script>
-    describe = function(){};
-    dev_mode = false;//location.hostname == "localhost";
-    if (dev_mode)
-      document.write('<script src="..\/src\/jasmine.js"><\/script>\
-                      <script src="..\/src\/jasmine-html.js"><\/script>\
-                      <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
-                      <script src="..\/src\/synthetic.js"><\/script>\
-                      <script src="..\/src\/mouse.js"><\/script>\
-                      <script src="..\/src\/browsers.js"><\/script>\
-                      <script src="..\/src\/key.js"><\/script>\
-                      <script src="..\/src\/drag.js"><\/script>');
-    </script>
-    <script>
-    if (dev_mode)
-      (function() {
-        var jasmineEnv = jasmine.getEnv();
-        jasmineEnv.updateInterval = 250;
+    // <script>
+    // describe = function(){};
+    // dev_mode = false;//location.hostname == "localhost";
+    // if (dev_mode)
+    //   document.write('<script src="..\/src\/jasmine.js"><\/script>\
+    //                   <script src="..\/src\/jasmine-html.js"><\/script>\
+    //                   <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
+    //                   <script src="..\/src\/synthetic.js"><\/script>\
+    //                   <script src="..\/src\/mouse.js"><\/script>\
+    //                   <script src="..\/src\/browsers.js"><\/script>\
+    //                   <script src="..\/src\/key.js"><\/script>\
+    //                   <script src="..\/src\/drag.js"><\/script>');
+    // </script>
+    // <script>
+    // if (dev_mode)
+    //   (function() {
+    //     var jasmineEnv = jasmine.getEnv();
+    //     jasmineEnv.updateInterval = 250;
       
-        var jsApiReporter;
-        var htmlReporter = new jasmine.HtmlReporter();
-          jasmineEnv.addReporter(htmlReporter);
+    //     var jsApiReporter;
+    //     var htmlReporter = new jasmine.HtmlReporter();
+    //       jasmineEnv.addReporter(htmlReporter);
 
-          jasmineEnv.specFilter = function(spec) {
-            return htmlReporter.specFilter(spec);
-          };
+    //       jasmineEnv.specFilter = function(spec) {
+    //         return htmlReporter.specFilter(spec);
+    //       };
 
-          window.onload = function() { jasmineEnv.execute(); };
-        })();
-    </script>
+    //       window.onload = function() { jasmineEnv.execute(); };
+    //     })();
+    // </script>
   </head>
   
   <body id="carousel_page" class="widget_page">
@@ -310,137 +310,137 @@
         </div>
       </div>
 
-      <script>
-if (dev_mode) {
-  var carouselHtml;
-  x$(document).on("DOMContentLoaded", function() {
-    x$("#carousel_widget").setStyle("width", "750px");
-    carouselHtml = x$("#carousel_widget")[0].innerHTML;
-  });
-}
+      // <script>
+// if (dev_mode) {
+//   var carouselHtml;
+//   x$(document).on("DOMContentLoaded", function() {
+//     x$("#carousel_widget").setStyle("width", "750px");
+//     carouselHtml = x$("#carousel_widget")[0].innerHTML;
+//   });
+// }
 
-describe("A plain carousel", function() {
-  beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml);
-    Ur.setup("#carousel_widget");
-  });
-  it("slides to the right by 1 item", function() {
-    runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-    });
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 1200);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
-    });
-  });
-  it("slides to the right by 1 item and then left by 1 item", function() {
-    var dragged = false;
-    runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
-      setTimeout(function() {
-        Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
-      }, 1200);
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll left", 2000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-    });
-  });
-  it("slides back if it slid to the left when already at the very left", function() {
-    var dragged = false;
-    runs(function() {
-      Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll left", 1000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-    });
-  });
-  it("slides to the very right", function() {
-    runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-      }, 1200);
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='4.png']"));
-      }, 2400);
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"));
-      }, 3600);
-    });
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll", 7000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
-    });
-  });
-});
+// describe("A plain carousel", function() {
+//   beforeEach(function() {
+//     x$("#carousel_widget").html(carouselHtml);
+//     Ur.setup("#carousel_widget");
+//   });
+//   it("slides to the right by 1 item", function() {
+//     runs(function() {
+//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
+//     });
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll right", 1200);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
+//     });
+//   });
+//   it("slides to the right by 1 item and then left by 1 item", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
+//       setTimeout(function() {
+//         Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
+//       }, 1200);
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll left", 2000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
+//     });
+//   });
+//   it("slides back if it slid to the left when already at the very left", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll left", 1000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
+//     });
+//   });
+//   it("slides to the very right", function() {
+//     runs(function() {
+//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
+//       }, 1200);
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='4.png']"));
+//       }, 2400);
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"));
+//       }, 3600);
+//     });
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll", 7000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
+//     });
+//   });
+// });
 
-describe("An infinite carousel", function() {
-  beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
-    Ur.setup("#carousel_widget");
-  });
-  it("loops around going left", function() {
-    var dragged = false;
-    runs(function() {
-      Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll left", 1000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
-    });
-  });
-  it("loops around going right", function() {
-    var dragged = false;
-    runs(function() {
-      Ur.Widgets.carousel.MyFirstCarousel.jumpToIndex(7);
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"), function() {dragged = true;});
-      }, 1000);
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 2000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(3);
-    });
-  });
-});
+// describe("An infinite carousel", function() {
+//   beforeEach(function() {
+//     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
+//     Ur.setup("#carousel_widget");
+//   });
+//   it("loops around going left", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll left", 1000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
+//     });
+//   });
+//   it("loops around going right", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Ur.Widgets.carousel.MyFirstCarousel.jumpToIndex(7);
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"), function() {dragged = true;});
+//       }, 1000);
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll right", 2000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(3);
+//     });
+//   });
+// });
 
-describe("An auto-scrolling carousel", function() {
-  beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
-    Ur.setup("#carousel_widget");
-  });
-  it("scrolls to the very right", function() {
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 3000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
-    });
-  });
-  it("scrolls back to the beginning", function() {
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel loop around", 3000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-    });
-  });
-});
-</script>
+// describe("An auto-scrolling carousel", function() {
+//   beforeEach(function() {
+//     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
+//     Ur.setup("#carousel_widget");
+//   });
+//   it("scrolls to the very right", function() {
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll right", 3000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
+//     });
+//   });
+//   it("scrolls back to the beginning", function() {
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel loop around", 3000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
+//     });
+//   });
+// });
+// </script>
   <div class="wrapper">
     <h2> Demonstration </h2>
 

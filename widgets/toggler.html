@@ -102,7 +102,7 @@ advanced_tab:
 
   <h2>Further Examples</h2>
   
-  <div class='test' name='Nested'>
+  <div class='test' name='Nested' >
     <a  name='Nested'></a>
 
     <h3> Nested Togglers</h3>
@@ -112,31 +112,34 @@ advanced_tab:
       <p>It's super-easy to nest togglers as well. You'll have to use <a href="{{site.url}}grouping.html">ids</a>.
         Give the button component and the content component the same attribute:
         <span class="inline_code">data-ur-id="ID"</span>.</p>
-   </div>
-
-
-    <div data-ur-toggler-component='button' data-ur-id='FoodAccordion'>
-      Foods
     </div>
 
-    <ul data-ur-toggler-component='content' data-ur-id='FoodAccordion'>
-      <li data-ur-set='toggler' >
-        <span data-ur-toggler-component='button'> Veggies </span>
-        <ul data-ur-toggler-component='content'>
-          <li> Beets </li>
-          <li> Carrots </li>
-        </ul>
-      </li>
-      <li data-ur-set="toggler">
-        <span data-ur-toggler-component='button'> Meats </span>
-        <ul data-ur-toggler-component='content'>
-          <li> Beef </li>
-          <li> Fish </li>
-        </ul>
-      </li>
-    </ul>
+    <div data-ur-set="toggler" data-ur-id='FoodAccordion'>
+      <div data-ur-toggler-component='button' data-ur-id='FoodAccordion'>
+        Foods
+      </div>
+      <ul data-ur-toggler-component='content' data-ur-id='FoodAccordion'>
+        <li  data-ur-set="toggler">
+          <span data-ur-toggler-component='button'> Veggies </span>
+          <ul data-ur-toggler-component='content'>
+            <li> Beets </li>
+            <li> Carrots </li>
+          </ul>
+        </li>
+        <li data-ur-set="toggler">
+          <span data-ur-toggler-component='button'> Meats </span>
+          <ul data-ur-toggler-component='content'>
+            <li> Beef </li>
+            <li> Fish </li>
+          </ul>
+        </li>
+<!--         <li >
+          <span > Veggies </span>
+        </li> -->
+      </ul>
 
-  </div><!-- end of nesting -->
+    </div><!-- end of nesting -->
+  </div>
 
   <hr />
 
@@ -150,17 +153,17 @@ advanced_tab:
       </p>
 
     </div>
-  
-    <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
-      data-ur-state='disabled' class='popup_button'>
-      Click Here !
-    </div>
+    <div data-ur-set="toggler">
+      <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
+        data-ur-state='enabled' class='popup_button'>
+        Click Here !
+      </div>
 
-    <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
-      data-ur-state='disabled' class='popup_content'>
-       <img src='{{site.url}}../../images/popup.jpeg'>
+      <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
+        data-ur-state='disabled' class='popup_content'>
+         <img src='{{site.url}}../../images/popup.jpeg'>
+      </div>
     </div>
-  
   </div><!-- end of popup-->
 
   <hr />
@@ -183,21 +186,24 @@ advanced_tab:
         will become disabled, and vice versa).</p>
 
    </div>
+   <div data-ur-set="toggler" data-ur-id='MyToggler'>  
+      <div data-ur-toggler-component='button' data-ur-id='MyToggler'
+        class='buttons' data-ur-state='disabled'>
+        <span class='popup_button'> Thing 1 </span>
+        <span class='popup_button'> Thing 2 </span>
+      </div>
 
-    <div data-ur-toggler-component='button' data-ur-id='MyToggler'
-      class='buttons' data-ur-state='disabled'>
-      <span class='popup_button'> Thing 1 </span>
-      <span class='popup_button'> Thing 2 </span>
-    </div>
+      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
+           class='popup_content' data-ur-state='disabled'>
+         <img src='{{site.url}}../../images/popup2.jpg'>
+         goodbye
+      </div>
 
-    <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-      class='popup_content' data-ur-state='enabled'>
-       <img src='{{site.url}}../../images/popup.jpeg'>
-    </div>
-
-    <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-         class='popup_content' data-ur-state='disabled'>
-       <img src='{{site.url}}../../images/popup2.jpg'>
+      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
+        class='popup_content' data-ur-state='disabled'>
+         <img src='{{site.url}}../../images/popup.jpeg'>
+         hello
+      </div>
     </div>
   </div>
 
@@ -212,16 +218,16 @@ advanced_tab:
       Then, we add the following javascript, which enables the toggler when clicked.
     </p>
     
-{% highlight javascript %}
+<!-- {% highlight javascript %}
 x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
-{% endhighlight %}
+{% endhighlight %} -->
     
     <div class='activate_button'>
     <p> Click here to activate the toggler. </p>
     </div>
 
-    <script type='text/javascript'> x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
-    </script>
+    <!-- <script type='text/javascript'> x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
+    </script> -->
 
     <div data-ur-set='toggler' data-ur-state='disabled' id="disabled">
       <div data-ur-toggler-component='button'>
