@@ -4092,7 +4092,7 @@ Ur.QuickLoaders['toggler'] = (function(){
       if(toggler_state === undefined) {
         x$(toggler["button"]).attr("data-ur-state", 'disabled');
         toggler_state = "disabled";
-      } 
+      }  
 
       if (toggler["content"] === undefined) {
         Ur.error("no content found for toggler with id=" + toggler_id);

@@ -77,36 +77,6 @@
     font-size: 12px;
   }
   
-  /* Example Styles */
-  .ur_ex {
-    overflow: hidden;
-    h3, > div {
-      overflow: hidden;
-      &:first-of-type {
-        @include box-sizing(border-box);
-        float: left;
-        margin-right: 2%;
-        width: 48%;
-      }
-    }
-    @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      > div:first-of-type {
-        float: none;
-        margin: 0;
-        width: auto;
-      }
-      [data-ur-tabs-component="content"][data-ur-state="disabled"] {
-        display: none;
-      }
-    }
-  }
-  
-  .example {
-    @include border-radius(10px);
-    background: #282828;
-    border: 3px solid #3c3c3c;
-    padding: 10px;
-  }
   .mainpage_code {
     font-size: 12px;
     overflow: hidden;

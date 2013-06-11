@@ -556,8 +556,7 @@ hr {
 
 /* line 1, scss/_index.scss */
 #home_page {
-  /* Top Header */
-  /* Example Styles */ }
+  /* Top Header */ }
   /* line 3, scss/_index.scss */
   #home_page .top_wrapper {
     background: gold;
@@ -648,54 +647,21 @@ hr {
     display: block;
     text-align: right;
     font-size: 12px; }
-  /* line 81, scss/_index.scss */
-  #home_page .ur_ex {
-    overflow: hidden; }
-    /* line 83, scss/_index.scss */
-    #home_page .ur_ex h3, #home_page .ur_ex > div {
-      overflow: hidden; }
-      /* line 85, scss/_index.scss */
-      #home_page .ur_ex h3:first-of-type, #home_page .ur_ex > div:first-of-type {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        float: left;
-        margin-right: 2%;
-        width: 48%; }
-    @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      /* line 93, scss/_index.scss */
-      #home_page .ur_ex > div:first-of-type {
-        float: none;
-        margin: 0;
-        width: auto; }
-      /* line 98, scss/_index.scss */
-      #home_page .ur_ex [data-ur-tabs-component="content"][data-ur-state="disabled"] {
-        display: none; } }
-  /* line 104, scss/_index.scss */
-  #home_page .example {
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
-    background: #282828;
-    border: 3px solid #3c3c3c;
-    padding: 10px; }
-  /* line 110, scss/_index.scss */
+  /* line 80, scss/_index.scss */
   #home_page .mainpage_code {
     font-size: 12px;
     overflow: hidden; }
-  /* line 116, scss/_index.scss */
+  /* line 86, scss/_index.scss */
   #home_page #threelogoholder, #home_page #twologoholder {
     margin: 20px auto;
     text-align: center; }
-    /* line 119, scss/_index.scss */
+    /* line 89, scss/_index.scss */
     #home_page #threelogoholder a, #home_page #twologoholder a {
       margin-right: 15px; }
-      /* line 121, scss/_index.scss */
+      /* line 91, scss/_index.scss */
       #home_page #threelogoholder a:last-child, #home_page #twologoholder a:last-child {
         margin: 0; }
-    /* line 125, scss/_index.scss */
+    /* line 95, scss/_index.scss */
     #home_page #threelogoholder img, #home_page #twologoholder img {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
@@ -705,6 +671,54 @@ hr {
       max-width: 28%; }
 
 /* Responsive*/
+/* Example Styles */
+/* line 2, scss/_example.scss */
+.ur_ex {
+  overflow: hidden; }
+  /* line 4, scss/_example.scss */
+  .ur_ex h3, .ur_ex > div {
+    overflow: hidden; }
+    /* line 6, scss/_example.scss */
+    .ur_ex h3:first-of-type, .ur_ex > div:first-of-type {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      margin-right: 2%;
+      width: 44%; }
+  /* line 13, scss/_example.scss */
+  .ur_ex [data-ur-tabs-component='button'] {
+    background-color: transparent;
+    border: none !important; }
+  /* line 17, scss/_example.scss */
+  .ur_ex [data-ur-tabs-component='content'] {
+    display: block;
+    background-color: transparent;
+    border: none; }
+  /* line 22, scss/_example.scss */
+  .ur_ex [data-ur-tabs-component='content'][data-ur-state='enabled'] {
+    background-color: transparent;
+    border: none; }
+  /* line 26, scss/_example.scss */
+  .ur_ex .example {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    background: #282828 !important;
+    border: 3px solid #3c3c3c !important;
+    padding: 10px; }
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    /* line 33, scss/_example.scss */
+    .ur_ex > div:first-of-type {
+      float: none;
+      margin: 0;
+      width: auto; }
+    /* line 38, scss/_example.scss */
+    .ur_ex [data-ur-tabs-component="content"][data-ur-state="disabled"] {
+      display: none; } }
+
 /* line 1, scss/_highlight_code.scss */
 .highlight {
   color: #f8f8f2;
