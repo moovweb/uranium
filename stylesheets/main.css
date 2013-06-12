@@ -1792,23 +1792,24 @@ body #tabs_examples_page *[data-ur-tabs-component='content'][data-ur-state='enab
   display: block;
   background-color: #ffd700;
   border: 1px solid black;
-  padding: 20px; }
-/* line 103, scss/_tabs.scss */
+  padding: 20px;
+  margin: 0px; }
+/* line 105, scss/_tabs.scss */
 body #tabs_examples_page *[data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
-/* line 106, scss/_tabs.scss */
+/* line 108, scss/_tabs.scss */
 body #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
   background: #ffd700; }
-/* line 108, scss/_tabs.scss */
+/* line 110, scss/_tabs.scss */
 body #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
   background: #ffd700; }
-/* line 112, scss/_tabs.scss */
+/* line 114, scss/_tabs.scss */
 body #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='button'] {
   display: block;
   border: 1px solid black;
   background-color: #ffd700;
   border-radius: 5px; }
-/* line 117, scss/_tabs.scss */
+/* line 119, scss/_tabs.scss */
 body #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='content'] {
   background-color: #ffd700;
   margin: 0px 20px; }
