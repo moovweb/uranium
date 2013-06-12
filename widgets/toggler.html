@@ -21,34 +21,8 @@ advanced_tab:
       - "multiple?: true"
       - "state: enabled / disabled(default)"
 ---
-<div class='wrapper'>
-  <h2> Required Styles </h2>
-  <div class='css'>
-{% highlight scss %}
-/* Required SCSS Styling */
 
-*[data-ur-set='toggler'] {
-  /* By Default content is hidden*/
-  *[data-ur-toggler-component='content'] {
-    display:none;
-  }
-  *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-    display: block;
-  }
-}
 
-/* Required CSS Styling */
-
-*[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
-  display:none;
-}
-*[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-  display: block;
-}
-{% endhighlight %}
-  </div>
-  
-</div><!-- wrapper -->
 <div class="wrapper">
   <h2>Demonstration</h2>
   <div class='demonstration' name='Simple'>
@@ -58,6 +32,33 @@ advanced_tab:
       (containing the clothing options) to appear. We call this an "accordion".
       </p>
     </div> <!-- closing the description -->
+      <div class="ur_ex" data-ur-set="toggler_demo">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Toggler</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
+    
+    <div class="example" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div id="extoggler" data-ur-set="toggler">
+        <a href="{{site.url}}/widgets/toggler.html"><div id="extitle">Toggler</div></a>
+        <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>
+        <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
+      </div>
+    </div>
+    
+    <div class="mainpage_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
+      {% highlight html %}
+      <div data-ur-set="toggler">
+        <p>Toggler</p>
+        <div data-ur-toggler-component="button">
+          <p>Click on the button</p>
+        </div>
+        <div data-ur-toggler-component="content">
+          <p>And content appears</p>
+        </div>
+      </div>
+      {% endhighlight %}
+    </div>
+  </div>
+  <hr />
     <div id="accordion_demonstration" data-ur-set="tabs">
       <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
 
@@ -97,9 +98,36 @@ advanced_tab:
 </div><!-- wrapper end -->
 
 <hr />
-  
-<div class="wrapper">
 
+<!-- Required SCSS -->
+<div class='wrapper'>
+  <h2> Required Styles </h2>
+  <div class='css'>
+    {% highlight scss %}
+      /* Required SCSS Styling */
+      *[data-ur-set='toggler'] {
+        /* By Default content is hidden*/
+        *[data-ur-toggler-component='content'] {
+          display:none;
+        }
+        *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+          display: block;
+        }
+      }
+      /* Required CSS Styling */
+
+      *[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
+        display:none;
+      }
+      *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+        display: block;
+      }
+    {% endhighlight %}
+  </div>
+</div>
+
+<!-- Further Examples -->
+<div class="wrapper">
   <h2>Further Examples</h2>
   
   <div class='test' name='Nested' >
@@ -161,84 +189,7 @@ advanced_tab:
          <img src='{{site.url}}../../images/popup.jpeg'>
       </div>
     </div>
-  </div><!-- end of popup-->
-
-  <hr />
-
-  <div class='test' name='MultipleContents'>
-    <a name='MultipleContents'></a>
-
-    <h3> Multiple Toggling Elements </h3>
-
-    <div class='description'>
-
-      <p>Now we're getting to quite a complex example. The buttons are used to
-      toggle between the two images. We start off by defining the button, giving it
-      a data-ur-id and making its state disabled.</p>
-
-      <p>Then, we apply the same data-ur-id to the content and define the two content
-        panes. However, we specify that one of the contents has a disabled state, and
-        the other one has an enabled state. As they have opposing states, when the button
-        is clicked they will remain the opposite of each other (i.e. the enabled image
-        will become disabled, and vice versa).</p>
-
-   </div>
-   <div data-ur-set="toggler" data-ur-id='MyToggler'>  
-      <div data-ur-toggler-component='button' data-ur-id='MyToggler'
-        class='buttons' data-ur-state='disabled'>
-        <span class='popup_button'> Thing 1 </span>
-        <span class='popup_button'> Thing 2 </span>
-      </div>
-
-      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-           class='popup_content' data-ur-state='disabled'>
-         <img src='{{site.url}}../../images/popup2.jpg'>
-         goodbye
-      </div>
-
-      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-        class='popup_content' data-ur-state='disabled'>
-         <img src='{{site.url}}../../images/popup.jpeg'>
-         hello
-      </div>
-    </div>
   </div>
 
-  <hr />
-
-  <div class='test' name='Disabled'>
-    <a name='Disabled'></a>
-
-    <h3>Requiring Activation</h3>
-    <p>We use an extra snippet of javascript to make the toggler work <i>only</i> when a different button
-      is clicked. We start by making the whole toggler have a <span class="inline_code">data-ur-state="disabled"</span>.
-      Then, we add the following javascript, which enables the toggler when clicked.
-    </p>
-    
-<!-- {% highlight javascript %}
-x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
-{% endhighlight %} -->
-    
-    <div class='activate_button'>
-    <p> Click here to activate the toggler. </p>
-    </div>
-
-    <!-- <script type='text/javascript'> x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
-    </script> -->
-
-    <div data-ur-set='toggler' data-ur-state='disabled' id="disabled">
-      <div data-ur-toggler-component='button'>
-        Clothing
-      </div>
-
-      <ul data-ur-toggler-component='content'>
-        <li> Hat </li>
-        <li> Socks </li>
-        <li> Shoes </li>
-        <li> Gloves </li>
-        <li> Shirts </li>
-      </ul>
-    </div>
-  </div>
 </div>
 

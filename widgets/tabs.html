@@ -24,6 +24,57 @@ advanced_tab:
       - attributes:
         - "required: <code>data-ur-tab-id</code> is required and must match attribute on button element"
 ---
+<!-- Example -->
+<div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+  <div id="tabs_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+
+    <div data-ur-set="tabs" id="tabs_examples_page" data-ur-state="enabled">
+      <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="two"> Second </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
+        <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="two">
+        <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="three">
+        <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+      </div>
+    </div>
+  </div>
+
+  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+    {% highlight html %}
+    <div data-ur-set="tabs">
+      <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="two"> Second </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
+        <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="two">
+        <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="three">
+        <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+      </div>
+    </div>
+    {% endhighlight %}
+  </div>
+  <hr />
+</div>
+
+<!-- Required CSS -->
 <div class="wrapper">
   <h2>Required CSS</h2>
   <div class='css'>
@@ -61,67 +112,10 @@ advanced_tab:
     }
     {% endhighlight %}
   </div>
+  <hr />
 </div>
 
-<div class="wrapper">
-  <h2>Demonstration</h2>
-  <div class="test" name="Simple" data-ur-set="tabs">
-  </div>
-  <div class="demonstration" id="tab_demonstration" data-ur-set="tabs" data-ur-id="2">
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Widget</h3>
-
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="html"> HTML</h3>
-
-    <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-      <div data-ur-set="tabs" data-ur-id="3">
-        <span data-ur-tabs-component="button" data-ur-tab-id="first" data-ur-state="enabled"> First </span>
-        <span data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
-        <span data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
-
-        <div data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">
-          <img width="300px" height="300px" src="../images/sample1.png?some_attr=noway">
-        </div>
-
-        <div data-ur-tabs-component="content" data-ur-tab-id="second">
-          <img width="300px" height="300px" src="../images/sample2.png?some_attr=noway">
-        </div>
-
-        <div data-ur-tabs-component="content" data-ur-tab-id="third">
-          <img width="300px" height="300px" src="../images/sample3.png?some_attr=noway">
-        </div>
-      </div>
-    </div>
-    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-      {% highlight html %}
-      <div data-ur-set='tabs'>
-        <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
-        <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
-        <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
-
-        <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>
-          <img width='300px' height='300px' src='{{site.url}}../images/sample1.png?some_attr=noway'/>
-        </div>
-
-        <div data-ur-tabs-component='content' data-ur-tab-id='second'>
-          <img width='300px' height='300px' src='{{site.url}}../images/sample2.png?some_attr=noway'/>
-        </div>
-
-        <div data-ur-tabs-component='content' data-ur-tab-id='third'>
-          <img width='300px' height='300px' src='{{site.url}}../images/sample3.png?some_attr=noway'/>
-        </div>
-      </div>
-      {% endhighlight %}
-    </div>
-
-  </div>
-</div>
-
-
-
-
-
-
-
+<!-- More Examples -->
 <div class="wrapper" id="tabs_examples_page">
   <h2>Further Examples</h2>
   <div class="test" name="Simple">
@@ -132,7 +126,7 @@ advanced_tab:
       <p>Here, as proof of principle, we're putting the <span class="inline_code">data-ur-state="enabled"</span> attribute on the
         second tab to illustrate that a different tab can be selected at the outset.</p>
     </div>
-    <div data-ur-set="tabs" data-ur-id="4">
+    <div data-ur-set="tabs">
       <span data-ur-tabs-component="button" data-ur-tab-id="first_sanity"> First </span>
       <span data-ur-tabs-component="button" data-ur-tab-id="second_sanity" data-ur-state="enabled"> Second </span>
       <span data-ur-tabs-component="button" data-ur-tab-id="third_sanity"> Third </span>
@@ -152,7 +146,7 @@ advanced_tab:
     </div>
   </div>
 
-  <hr>
+  <hr />
 
   <div class="test" name="accordions">
     <a name="accordions"></a>

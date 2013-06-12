@@ -10,36 +10,6 @@
 <script src="/src/jQuery.uranium.js"></script>
 
     <link href="/stylesheets/jasmine.css" rel="stylesheet" />
-    <script>
-    // describe = function(){};
-    // dev_mode = false;//location.hostname == "localhost";
-    // if (dev_mode)
-    //   document.write('<script src="..\/src\/jasmine.js"><\/script>\
-    //                   <script src="..\/src\/jasmine-html.js"><\/script>\
-    //                   <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
-    //                   <script src="..\/src\/synthetic.js"><\/script>\
-    //                   <script src="..\/src\/mouse.js"><\/script>\
-    //                   <script src="..\/src\/browsers.js"><\/script>\
-    //                   <script src="..\/src\/key.js"><\/script>\
-    //                   <script src="..\/src\/drag.js"><\/script>');
-    </script>
-    <script>
-    // if (dev_mode)
-    //   (function() {
-    //     var jasmineEnv = jasmine.getEnv();
-    //     jasmineEnv.updateInterval = 250;
-      
-    //     var jsApiReporter;
-    //     var htmlReporter = new jasmine.HtmlReporter();
-    //       jasmineEnv.addReporter(htmlReporter);
-
-    //       jasmineEnv.specFilter = function(spec) {
-    //         return htmlReporter.specFilter(spec);
-    //       };
-
-    //       window.onload = function() { jasmineEnv.execute(); };
-    //     })();
-    </script>
   </head>
   
   <body id="toggler_page" class="widget_page">
@@ -51,9 +21,6 @@
 
     <div id="textbody">
       <div data-ur-set="tabs">
-        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-
         <div class="wrapper">
           <h1> Toggler </h1>
         </div>
@@ -65,6 +32,9 @@
 
           </div>
         </div>
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
         <div class="wrapper">
           <h2>Attributes</h2>
           <div class="attributes">
@@ -145,34 +115,7 @@
         </div>
       </div>
 
-      <div class='wrapper'>
-  <h2> Required Styles </h2>
-  <div class='css'>
-<div class="highlight"><pre><code class="scss"><span class="cm">/* Required SCSS Styling */</span>
-
-<span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="p">{</span>
-  <span class="cm">/* By Default content is hidden*/</span>
-  <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
-    <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
-  <span class="p">}</span>
-  <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-    <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="cm">/* Required CSS Styling */</span>
-
-<span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
-  <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
-<span class="p">}</span>
-<span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-  <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-  </div>
-  
-</div><!-- wrapper -->
-<div class="wrapper">
+      <div class="wrapper">
   <h2>Demonstration</h2>
   <div class='demonstration' name='Simple'>
     <div class="description">
@@ -181,6 +124,33 @@
       (containing the clothing options) to appear. We call this an "accordion".
       </p>
     </div> <!-- closing the description -->
+      <div class="ur_ex" data-ur-set="toggler_demo">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Toggler</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
+    
+    <div class="example" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div id="extoggler" data-ur-set="toggler">
+        <a href="/widgets/toggler.html"><div id="extitle">Toggler</div></a>
+        <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>
+        <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
+      </div>
+    </div>
+    
+    <div class="mainpage_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
+      <div class="highlight"><pre><code class="html">      <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Toggler<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;p&gt;</span>Click on the button<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;p&gt;</span>And content appears<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      
+</code></pre></div>
+    </div>
+  </div>
+  <hr />
     <div id="accordion_demonstration" data-ur-set="tabs">
       <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
 
@@ -220,9 +190,36 @@
 </div><!-- wrapper end -->
 
 <hr />
-  
-<div class="wrapper">
 
+<!-- Required SCSS -->
+<div class='wrapper'>
+  <h2> Required Styles </h2>
+  <div class='css'>
+    <div class="highlight"><pre><code class="scss">      <span class="cm">/* Required SCSS Styling */</span>
+      <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="cm">/* By Default content is hidden*/</span>
+        <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+          <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+        <span class="p">}</span>
+        <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+          <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="cm">/* Required CSS Styling */</span>
+
+      <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+      <span class="p">}</span>
+      <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+      <span class="p">}</span>
+    
+</code></pre></div>
+  </div>
+</div>
+
+<!-- Further Examples -->
+<div class="wrapper">
   <h2>Further Examples</h2>
   
   <div class='test' name='Nested' >
@@ -284,84 +281,8 @@
          <img src='../../images/popup.jpeg'>
       </div>
     </div>
-  </div><!-- end of popup-->
-
-  <hr />
-
-  <div class='test' name='MultipleContents'>
-    <a name='MultipleContents'></a>
-
-    <h3> Multiple Toggling Elements </h3>
-
-    <div class='description'>
-
-      <p>Now we're getting to quite a complex example. The buttons are used to
-      toggle between the two images. We start off by defining the button, giving it
-      a data-ur-id and making its state disabled.</p>
-
-      <p>Then, we apply the same data-ur-id to the content and define the two content
-        panes. However, we specify that one of the contents has a disabled state, and
-        the other one has an enabled state. As they have opposing states, when the button
-        is clicked they will remain the opposite of each other (i.e. the enabled image
-        will become disabled, and vice versa).</p>
-
-   </div>
-   <div data-ur-set="toggler" data-ur-id='MyToggler'>  
-      <div data-ur-toggler-component='button' data-ur-id='MyToggler'
-        class='buttons' data-ur-state='disabled'>
-        <span class='popup_button'> Thing 1 </span>
-        <span class='popup_button'> Thing 2 </span>
-      </div>
-
-      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-           class='popup_content' data-ur-state='disabled'>
-         <img src='../../images/popup2.jpg'>
-         goodbye
-      </div>
-
-      <div data-ur-toggler-component='content' data-ur-id='MyToggler'
-        class='popup_content' data-ur-state='disabled'>
-         <img src='../../images/popup.jpeg'>
-         hello
-      </div>
-    </div>
   </div>
 
-  <hr />
-
-  <div class='test' name='Disabled'>
-    <a name='Disabled'></a>
-
-    <h3>Requiring Activation</h3>
-    <p>We use an extra snippet of javascript to make the toggler work <i>only</i> when a different button
-      is clicked. We start by making the whole toggler have a <span class="inline_code">data-ur-state="disabled"</span>.
-      Then, we add the following javascript, which enables the toggler when clicked.
-    </p>
-    
-<!-- <div class="highlight"><pre><code class="javascript"><span class="nx">x$</span><span class="p">(</span><span class="s2">&quot;.activate_button&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span><span class="nx">Ur</span><span class="p">.</span><span class="nx">setup</span><span class="p">(</span><span class="s2">&quot;div[name=&#39;Disabled&#39;]&quot;</span><span class="p">)});</span>
-</code></pre></div> -->
-    
-    <div class='activate_button'>
-    <p> Click here to activate the toggler. </p>
-    </div>
-
-    <!-- <script type='text/javascript'> x$(".activate_button").on('click',function(){Ur.setup("div[name='Disabled']")});
-    </script> -->
-
-    <div data-ur-set='toggler' data-ur-state='disabled' id="disabled">
-      <div data-ur-toggler-component='button'>
-        Clothing
-      </div>
-
-      <ul data-ur-toggler-component='content'>
-        <li> Hat </li>
-        <li> Socks </li>
-        <li> Shoes </li>
-        <li> Gloves </li>
-        <li> Shirts </li>
-      </ul>
-    </div>
-  </div>
 </div>
 
 

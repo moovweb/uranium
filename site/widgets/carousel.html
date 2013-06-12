@@ -10,36 +10,6 @@
 <script src="/src/jQuery.uranium.js"></script>
 
     <link href="/stylesheets/jasmine.css" rel="stylesheet" />
-    <script>
-    // describe = function(){};
-    // dev_mode = false;//location.hostname == "localhost";
-    // if (dev_mode)
-    //   document.write('<script src="..\/src\/jasmine.js"><\/script>\
-    //                   <script src="..\/src\/jasmine-html.js"><\/script>\
-    //                   <script src="..\/src\/jquery-1.7.2.min.js"><\/script>\
-    //                   <script src="..\/src\/synthetic.js"><\/script>\
-    //                   <script src="..\/src\/mouse.js"><\/script>\
-    //                   <script src="..\/src\/browsers.js"><\/script>\
-    //                   <script src="..\/src\/key.js"><\/script>\
-    //                   <script src="..\/src\/drag.js"><\/script>');
-    </script>
-    <script>
-    // if (dev_mode)
-    //   (function() {
-    //     var jasmineEnv = jasmine.getEnv();
-    //     jasmineEnv.updateInterval = 250;
-      
-    //     var jsApiReporter;
-    //     var htmlReporter = new jasmine.HtmlReporter();
-    //       jasmineEnv.addReporter(htmlReporter);
-
-    //       jasmineEnv.specFilter = function(spec) {
-    //         return htmlReporter.specFilter(spec);
-    //       };
-
-    //       window.onload = function() { jasmineEnv.execute(); };
-    //     })();
-    </script>
   </head>
   
   <body id="carousel_page" class="widget_page">
@@ -51,9 +21,6 @@
 
     <div id="textbody">
       <div data-ur-set="tabs">
-        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-
         <div class="wrapper">
           <h1> Carousel </h1>
         </div>
@@ -66,6 +33,9 @@
 
           </div>
         </div>
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
         <div class="wrapper">
           <h2>Attributes</h2>
           <div class="attributes">
@@ -443,57 +413,16 @@
 </script>
   <div class="wrapper">
     <h2> Demonstration </h2>
-    <div class="ur_ex" data-ur-set="tabs">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</h3>
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
-        <div class="example" id="carousel" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
-          <div id="excarousel">
-            <a href="/widgets/carousel.html"><div id="extitle">Carousel</div></a>
-            <div data-ur-set="carousel" data-ur-touch="disabled" data-ur-state="enabled">
-              <div data-ur-carousel-component="view_container" data-ur-clones="2">
-                <div data-ur-carousel-component="scroll_container">
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov1.JPG"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov2.JPG"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov3.JPG"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov4.JPG"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov5.JPG"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov6.jpg"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov7.jpg"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov8.jpg"/>
-                  <img data-ur-carousel-component="item" src="/stylesheets/resources/moov9.png"/>
-                </div> <!-- scroll_container end -->
-                <div class="cbutton" id="exback" data-ur-carousel-component="button" data-ur-carousel-button-type="prev">&lt;</div>
-                <div class="cbutton" id="exnext" data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-state="enabled">&gt;</div>
-              </div><!-- view container end -->
-            </div>
-          </div>
-        </div><!-- exampleend-->
-        <div class="mainpage_code" id="carouselcode" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
-      <div class="highlight"><pre><code class="html">      <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;view_container&quot;</span> <span class="na">data-ur-touch=</span><span class="s">&quot;disabled&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;scroll_container&quot;</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;item&quot;</span> <span class="na">src=</span><span class="s">&quot;1.jpg&quot;</span> <span class="nt">/&gt;</span>
-          <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;item&quot;</span> <span class="na">src=</span><span class="s">&quot;2.jpg&quot;</span> <span class="nt">/&gt;</span>
-          <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;item&quot;</span> <span class="na">src=</span><span class="s">&quot;3.jpg&quot;</span> <span class="nt">/&gt;</span>
-          <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;item&quot;</span> <span class="na">src=</span><span class="s">&quot;4.jpg&quot;</span> <span class="nt">/&gt;</span>
-        <span class="nt">&lt;/div&gt;</span>
-        <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;prev&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;lt;</span><span class="nt">&lt;/div&gt;</span>
-        <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;next&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;gt;</span><span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;/div&gt;</span>
-      
-</code></pre></div>
-    </div><!-- codeend-->
-  </div>
-  <hr />
-    <div class="demonstration">
+    <div>
       <p> Touch-enabled Widget </p>
-      <div id="carousel_demonstration" data-ur-set="tabs">
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Widget</h3>
+      <div id="carousel_demonstration" data-ur-set="tabs" class="ur_ex">
+        <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
 
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="html">HTML</h3>
+        <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="CSS">CSS</h3>
+<!--         <h3 data-ur-tabs-component="button" data-ur-tab-id="CSS">CSS</h3> -->
 
-        <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+        <div id="carousel_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
 
           <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
             <span data-ur-carousel-component="count"> -- count -- </span>
@@ -535,7 +464,7 @@
 </code></pre></div>
         </div>
 
-        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
+<!--         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
           <div class="highlight"><pre><code class="css">          <span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;view_container&quot;</span><span class="o">]</span> <span class="p">{</span>
             <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
             <span class="k">overflow-x</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
@@ -549,8 +478,9 @@
           <span class="p">}</span>
           
 </code></pre></div>
-        </div>
+        </div> -->
       </div>
+      <hr />
     </div>
     <div>
       <p>More examples of the carousel can be found here, including:</p>

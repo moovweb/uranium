@@ -3,8 +3,7 @@
 
 (function ( $ ) {
 
-  // helper function for log
-  // TODO: Remove
+  //HELPER FUNCTIONS
   var log = function (msg) {
     return console.log(msg);
   }
@@ -20,20 +19,14 @@
 
   // Find elements for the widgets
   var findElements = function(fragment, type) {
-    log("findElements");
     var groups = {};
-    log(groups);
     var set_elements = $(fragment).find("*[data-ur-set='" + type + "']");
     set_elements.each(function( index ) {
-      log("set_elements");
-      log(this);
-      log(index);
       var my_set_id = $(this).attr('data-ur-id');
       log(my_set_id);
 
       if ( my_set_id === undefined ) {
         // No explict ID set
-        log($(this).find("*[data-ur-" + type + "-component]"));
         my_set_id = get_unique_uranium_id();
       }
       $(this).attr('data-ur-id', my_set_id);
@@ -43,8 +36,6 @@
 
     });
     if ( !jQuery.isEmptyObject(groups) ) {
-      log("NEW GROUPS");
-      log(groups);
       return groups;
     } else {
       return false;
@@ -53,11 +44,17 @@
 
   var findComponents = function( element, component ) {
     log("findComponents");
-    var components = $(element).find("*[data-ur-" + component + "-component]");
-    log(components);
+    var components = $(element).find(" *[data-ur-" + component + "-component]");
     return components;
   }
 
+  var findChildComponents = function( element, component ) {
+    log("findChildComponents");
+    var components = $(element).children(" *[data-ur-" + component + "-component]");
+    return components;
+  }
+
+  // URANIUM OBJECTS
   // Toggler
   var toggler = function( fragment ) {
 
@@ -65,18 +62,12 @@
     var groups = findElements( fragment, "toggler" );
 
     if ( groups !== false ) {
-      log("FIRST ISNTANCE");
-      log(groups);
       for (group in groups) {
         var tglr = groups[group];
-        var components = findComponents(tglr["set"], "toggler");
-        log("TGLR")
-        log(tglr);
-        log("COMPONENTS")
-        log(components[1]);
-        log(components[2]);
+        //Special case for togglers
+        var components = findChildComponents(tglr["set"], "toggler");
         components.each(function() {
-          groups[group][$(this).attr("data-ur-" + "toggler" + "-component")] = this;
+          tglr[$(this).attr("data-ur-" + "toggler" + "-component")] = this;
         });
 
         // Error if button does not exists
@@ -104,17 +95,11 @@
       }
       // Toggle the state
       $.each(groups, function() {
-        log("GROUPS")
-        log(groups);
         var self = this;
-        log(this);
-        log("This is: " + $(self["button"]).text());
-        log("Content: " + $(self["content"]).first().text());
         $(self["button"]).click(function() {
           var new_state = $(self["button"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
           var new_content_state = $(self["content"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
-          log("New state: " + new_state);
-          log("New content state: " + new_content_state);
+          log("CLiCk");
           $(self["button"]).attr('data-ur-state', new_state);
           $(self["content"]).attr("data-ur-state", new_content_state);
         });
@@ -127,7 +112,7 @@
 
     log("Tabs");
     var groups = findElements(fragment, "tabs");
-
+    log(groups);
     if ( groups !== false ) {
       for (var group in groups ) {
         var tab_set = groups[group];
@@ -173,6 +158,7 @@
         $.each(allTabs, function() {
           var self = this;
           $(self["button"]).click(function(evt) {
+            log("click");
             // Is the tab open already?
             var open = $(this).attr("data-ur-state") === "enabled";
             $.each(groups[self["tabs_id"]]["tabs"], function() {
@@ -781,7 +767,7 @@
      }
 
     // for each carousel
-     $.each(groups, function() {
+    $.each(groups, function() {
       var self = this;
       var set = self['set'];
       var set_id = self['carousel_id'];
@@ -798,9 +784,9 @@
       this["components"] = components;
       self["crsl_object"] = new Carousel(this);
       $(self["set"]).attr("data-ur-state", "enabled");
-     });
+    });
 
-     function Carousel(set) {
+    function Carousel(set) {
       var self = this;
       var components = set.components;
       this.container = set["set"];
@@ -1470,7 +1456,6 @@
 
   var initialized = false;
   var widgets = [toggler, tabs, inputClear, geoCode, zoom, carousel];
-  // , tabs, inputClear, geoCode, zoom, carousel];
 
   // Have methods here to make private
   var methods = {
@@ -1497,6 +1482,7 @@
 
       initialized = true;
     },
+    // Must be applied to parent
     lateInit : function( options ) {
       // Initialize the function here
       log("Uranium lateInit: " + options);
@@ -1550,5 +1536,3 @@
 $(document).ready(function() {
   $("body").Uranium("init");
 });
-
-var global;

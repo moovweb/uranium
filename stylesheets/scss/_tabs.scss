@@ -37,6 +37,7 @@ body{
   [data-ur-tabs-component='content'] {
     display: none;
     background-color: silver;
+    padding: 10px;
   }
   [data-ur-tabs-component='button'][data-ur-state='disabled'] {
     opacity: 0.5;
@@ -49,7 +50,6 @@ body{
     display: block;
     background-color: silver;
     border: 1px solid black;
-    padding: 20px;
   }
   [data-ur-set="tabs"][data-ur-tab-id="html"] {
     text-align: left;

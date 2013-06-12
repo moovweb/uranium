@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
   <head>
@@ -8,14 +9,8 @@
     <!-- <script src="../build/src/uranium-pretty.js"></script> -->
 
     <!-- Dev Links to Javascript Files -->
-    <script src="../lib/external/jquery-1.9.1.js"></script>
-    <!-- <script src="../lib/external/showhide.js"></script> -->
-    <!-- <script src="../lib/external/fade.js"></script> -->
-    <!-- <script src="../lib/uranium_mixins.js"></script> -->
-    <!-- The one below is to the widget you're working on -->
-    <!-- <script src="../lib/toggler.js"></script>
-    <script src="../lib/tabs.js"></script> -->
-    <script src="../lib/jQuery.Uranium.js"></script>
+    <script src="../src/jquery-1.9.1.js"></script>
+    <script src="../src/jQuery.Uranium.js"></script>
 
 
 
@@ -50,13 +45,24 @@
       </ul>
     </div>
     <div data-ur-set='toggler'>
-      <div data-ur-toggler-component='button' data-ur-state="enabled">Click Here3!</div>
-      <ul data-ur-toggler-component='content' data-ur-state="enabled">
+      <div data-ur-toggler-component='button' >Click Here3!</div>
+      <ul data-ur-toggler-component='content' >
         <li> Hat </li>
         <li> Socks </li>
         <li> Shoes </li>
         <li> Gloves </li>
-        <li> Shirts </li>
+        <li>
+            <div data-ur-set='toggler'>
+            <div data-ur-toggler-component='button' >Click Here3!</div>
+            <ul data-ur-toggler-component='content' >
+              <li> Hat </li>
+              <li> Socks </li>
+              <li> Shoes </li>
+              <li> Gloves </li>
+              <li> Shirts </li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </div>
 
@@ -78,7 +84,16 @@
       <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
       <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
       <div data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
-      <div data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
+      <div data-ur-tabs-component='content' data-ur-tab-id='third'>
+        <div data-ur-set='tabs'>
+          <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
+          <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+          <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
+          <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
+          <div data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
+          <div data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
+        </div>
+      </div>
     </div>
 
     <div data-ur-set='tabs' data-ur-closeable="true">
