@@ -1547,6 +1547,10 @@ body#geocode_page div[name='Three'] img {
   width: 62px !important;
   height: 62px; }
 
+/* line 34, scss/_geocode.scss */
+body#geocode_text_inputs_page button[value=clickMe], body#geocode_button_page button[value=clickMe] {
+  margin-bottom: 10px; }
+
 /* line 2, scss/_map.scss */
 *[data-ur-map-component='canvas'] {
   width: 300px;
