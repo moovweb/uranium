@@ -205,7 +205,63 @@
         </div>
       </div>
 
-      <div class='wrapper'>
+      <!-- Zoom Demonstration -->
+<h2>Demonstration</h2>
+<p>Basic zoom widget </p>
+<div id="zoom_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+  <div id="zoom_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+    <div data-ur-set="zoom" data-ur-zoom-component="view_container">
+      <img data-ur-zoom-component="img" width="500" height="287" src="../images/pic5.jpeg" data-ur-src="../images/pic4.jpeg">
+      <span data-ur-zoom-component="button">
+        <span>+</span>
+        <span>&minus;</span>
+      </span>
+      <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
+      <script>
+        // I use display: inline-block to center the img but this leaves whitespace so
+        // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
+        // You can also use display: box or table-cell to get vertical alignment instead.
+        var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
+        for (var i in nodes) {
+          if (nodes[i].nodeType == Node.TEXT_NODE)
+            nodes[i].textContent = nodes[i].textContent.trim();
+        }
+      </script>
+    </div>
+
+  </div>
+
+  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;zoom&quot;</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;view_container&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;img&quot;</span> <span class="na">width=</span><span class="s">&quot;500&quot;</span> <span class="na">height=</span><span class="s">&quot;287&quot;</span> <span class="na">src=</span><span class="s">&quot;../images/pic5.jpeg&quot;</span> <span class="na">data-ur-src=</span><span class="s">&quot;../images/pic4.jpeg&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;span&gt;</span>+<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span&gt;</span><span class="ni">&amp;minus;</span><span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;loading&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;disabled&quot;</span><span class="nt">&gt;</span>Loading<span class="ni">&amp;hellip;</span><span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="c1">// I use display: inline-block to center the img but this leaves whitespace so</span>
+  <span class="c1">// remove the whitespace with JS (font-size: 0px trick doesn&#39;t work on Android)</span>
+  <span class="c1">// You can also use display: box or table-cell to get vertical alignment instead.</span>
+  <span class="kd">var</span> <span class="nx">nodes</span> <span class="o">=</span> <span class="nx">x$</span><span class="p">(</span><span class="s2">&quot;[data-ur-set=&#39;zoom&#39;]&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">childNodes</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">nodes</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">nodes</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="nx">Node</span><span class="p">.</span><span class="nx">TEXT_NODE</span><span class="p">)</span>
+      <span class="nx">nodes</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">nodes</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">textContent</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+
+  </div>
+  <hr />
+</div>
+
+<!-- Required Style -->
+<div class='wrapper'>
   <h2> Required Styles </h2>
   <div class='css'>
 <div class="highlight"><pre><code class="scss"><span class="cm">/* Required SCSS Styling */</span>
@@ -233,53 +289,6 @@
   </div>
     
 </div><!-- wrapper -->
-<div class="wrapper">
-  <h2>Demonstration</h2>
-  <div class="demonstration" name="Simple">
-    <div class="description">
-      <p>
-        Basic zoom widget
-      </p>
-    </div> <!-- closing the description -->
-    <div id="accordion_demonstration" data-ur-set="tabs" data-ur-id="2">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled">Widget</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="html"> HTML</h3>
-
-      <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-        <div data-ur-set="zoom" data-ur-zoom-component="view_container">
-          <img data-ur-zoom-component="img" width="500" height="287" src="../images/pic5.jpeg" data-ur-src="../images/pic4.jpeg">
-          <span data-ur-zoom-component="button">
-            <span>+</span>
-            <span>&minus;</span>
-          </span>
-          <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
-          <script>
-            // I use display: inline-block to center the img but this leaves whitespace so
-            // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
-            // You can also use display: box or table-cell to get vertical alignment instead.
-            var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
-            for (var i in nodes) {
-              if (nodes[i].nodeType == Node.TEXT_NODE)
-                nodes[i].textContent = nodes[i].textContent.trim();
-            }
-          </script>
-        </div>
-      </div> <!-- widget content end -->
-      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;zoom&quot;</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;view_container&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;img</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;img&quot;</span> <span class="na">width=</span><span class="s">&quot;500&quot;</span> <span class="na">height=</span><span class="s">&quot;287&quot;</span> <span class="na">src=</span><span class="s">&quot;../images/pic5.jpeg&quot;</span> <span class="na">data-ur-src=</span><span class="s">&quot;../images/pic4.jpeg&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;span</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;span&gt;</span>+<span class="nt">&lt;/span&gt;</span>
-  <span class="nt">&lt;span&gt;</span><span class="ni">&amp;minus;</span><span class="nt">&lt;/span&gt;</span>
-<span class="nt">&lt;/span&gt;</span>
-<span class="nt">&lt;div</span> <span class="na">data-ur-zoom-component=</span><span class="s">&quot;loading&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;disabled&quot;</span><span class="nt">&gt;</span>Loading<span class="ni">&amp;hellip;</span><span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-      </div>
-    </div><!-- html content end -->
-  </div><!--accortion demonstraion end-->
-</div>
 
 
       
