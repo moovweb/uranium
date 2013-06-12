@@ -2,27 +2,37 @@
 <html>
   <head>
     <title>Uranium JS | {{ page.title }}</title>
-    <script src="{{site.url}}../../src/uranium-pretty.js"></script>
-    <link rel="stylesheet" type='text/css' href='{{site.url}}../../stylesheets/main.css' />
+    {% include head.html %}
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
   </head>
   
   <body id="{{page.name}}_page">
-    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
-    <div id="menu">
-      <div id="menuwrap">
-        <a href="{{site.url}}../../index.html" class="toplinks {{page.home_selected}}"><div class="menuselect">Main</div></a><!-- menuselect-->
-        <a href="{{site.url}}../../tutorials.html" class="toplinks {{page.tutorials_selected}}"><div class="menuselect">Tutorial</div></a><!-- menuselect-->
-        <a href="{{site.url}}../../widget_list.html" class="toplinks {{page.widget_selected}}"><div class="menuselect">Widgets</div></a><!-- menuselect-->
-        <a href="{{site.url}}../../more.html" class="toplinks {{page.more_selected}}"><div class="menuselect">Philosophy</div></a><!-- menuselect-->
-        <a href="{{site.url}}../../download.html" class="toplinks {{page.download_selected}}"><div class="menuselect">Download</div></a><!-- menuselect-->
-      </div><!-- menuwrap-->
-    </div><!-- menu-->
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+    <nav id="menu">
+      {% capture tmp %}
+      <a href="/" id="uraniumlogo" {% if page.home_selected %}class="selected"{% endif %}></a>
+      <div class='menu_widget'>
+        <a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
+        <ul>
+          <li><a href="/widgets/carousel.html">Carousel</a></li>
+          <li><a href="/widgets/input_clear.html">Input Clear</a></li>
+          <li><a href="/widgets/geocode.html">Reverse Geocode</a></li>
+          <li><a href="/widgets/tabs.html">Tabs</a></li>
+          <li><a href="/widgets/toggler.html">Toggler</a></li>
+          <li><a href="/widgets/zoom.html">Zoom</a></li>
+        </ul>
+      </div>
+      <a href="/" {% if page.home_selected %}class="selected"{% endif %}>TEST LINK</a>
+      {% endcapture %}
+      {{ tmp | strip_newlines | remove: "  " }}
+    </nav>
+
     <div id="textbody">
     {{content}}
     
     <div class="wrapper">
       <p>
-      <a href="{{site.url}}../../widgets/geocode.html">Back to Reverse Geocode Widget</a>
+      <a href="{{site.url}}../../widgets/geocode.html">Back to Geolocation Widget</a>
       </p>
     </div>
     

@@ -27,12 +27,16 @@ h1 {
   color: #F5F5F5;
   font: 30px "Ultra", sans-serif;
   text-shadow: black 0 2px;
+  letter-spacing: 1px;
 }
 h2 {
   color: $color2;
   font: italic 24px "Crete Round", serif;
   text-shadow: black 0px 1px;
   margin: 0 auto 10px;
+  a{
+    color: inherit;
+  }
 }
 h3 {
   color: $color4;
@@ -45,6 +49,9 @@ hr {
   border-bottom: solid #1e1e1e;
   border-width: 1px 0;
   margin: 15px auto;
+}
+select{
+  max-width: 95%;
 }
 
 .see_more_link{

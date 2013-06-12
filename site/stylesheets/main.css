@@ -27,29 +27,37 @@ a {
 h1 {
   color: #F5F5F5;
   font: 30px "Ultra", sans-serif;
-  text-shadow: black 0 2px; }
+  text-shadow: black 0 2px;
+  letter-spacing: 1px; }
 
-/* line 31, scss/_base.scss */
+/* line 32, scss/_base.scss */
 h2 {
   color: gold;
   font: italic 24px "Crete Round", serif;
   text-shadow: black 0px 1px;
   margin: 0 auto 10px; }
+  /* line 37, scss/_base.scss */
+  h2 a {
+    color: inherit; }
 
-/* line 37, scss/_base.scss */
+/* line 41, scss/_base.scss */
 h3 {
   color: #9c9fa8;
   font-weight: 300;
   text-shadow: black 0px 1px; }
 
-/* line 43, scss/_base.scss */
+/* line 47, scss/_base.scss */
 hr {
   border-top: solid #464646;
   border-bottom: solid #1e1e1e;
   border-width: 1px 0;
   margin: 15px auto; }
 
-/* line 50, scss/_base.scss */
+/* line 53, scss/_base.scss */
+select {
+  max-width: 95%; }
+
+/* line 57, scss/_base.scss */
 .see_more_link {
   color: white;
   display: block;
@@ -57,19 +65,19 @@ hr {
   margin-top: 10px; }
 
 /* Body Text */
-/* line 58, scss/_base.scss */
+/* line 65, scss/_base.scss */
 #textbody {
   margin: 10px 10%; }
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 58, scss/_base.scss */
+    /* line 65, scss/_base.scss */
     #textbody {
       margin: 10px; } }
 
-/* line 66, scss/_base.scss */
+/* line 73, scss/_base.scss */
 .description_wrapper {
   margin-bottom: 20px; }
 
-/* line 70, scss/_base.scss */
+/* line 77, scss/_base.scss */
 .code {
   background-color: #282828;
   border: 3px dashed #3c3c3c;
@@ -81,7 +89,7 @@ hr {
   -moz-border-radius: 10px;
   border-radius: 10px; }
 
-/* line 79, scss/_base.scss */
+/* line 86, scss/_base.scss */
 .inline_code {
   background-color: #282828;
   color: #C0C0C0;
@@ -89,25 +97,25 @@ hr {
   font-size: 18px;
   margin: 5px; }
 
-/* line 85, scss/_base.scss */
+/* line 92, scss/_base.scss */
 #carouselcode {
   height: 250px;
   font-size: 12px; }
 
-/* line 89, scss/_base.scss */
+/* line 96, scss/_base.scss */
 #select_list_code {
   font-size: 12px; }
 
-/* line 92, scss/_base.scss */
+/* line 99, scss/_base.scss */
 #brown {
   color: #FA8072; }
 
-/* line 93, scss/_base.scss */
+/* line 100, scss/_base.scss */
 #green {
   color: #8FBC8F; }
 
 /* Example styles. Non-functioning */
-/* line 96, scss/_base.scss */
+/* line 103, scss/_base.scss */
 #extoggler {
   width: 200px;
   background: #fafafa url("resources/largeshade.png") no-repeat left bottom;
@@ -120,7 +128,7 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 104, scss/_base.scss */
+/* line 111, scss/_base.scss */
 #extitle {
   width: 100px;
   height: 20px;
@@ -128,7 +136,7 @@ hr {
   font-size: 18px;
   font-family: Rockwell; }
 
-/* line 108, scss/_base.scss */
+/* line 115, scss/_base.scss */
 #exbutton {
   width: 190px;
   height: 30px;
@@ -144,16 +152,16 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 117, scss/_base.scss */
+/* line 124, scss/_base.scss */
 #exbutton:hover {
   cursor: hand;
   cursor: pointer; }
 
-/* line 121, scss/_base.scss */
+/* line 128, scss/_base.scss */
 #extoggler_content[data-ur-toggler-component="content"][data-ur-state="disabled"] {
   display: none; }
 
-/* line 124, scss/_base.scss */
+/* line 131, scss/_base.scss */
 #extoggler_content[data-ur-toggler-component="content"][data-ur-state="enabled"] {
   display: block;
   background: #C0C0C0;
@@ -165,7 +173,7 @@ hr {
   margin-top: 10px;
   width: 170px; }
 
-/* line 135, scss/_base.scss */
+/* line 142, scss/_base.scss */
 #excarousel {
   width: 230px;
   height: 180px;
@@ -179,7 +187,7 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 143, scss/_base.scss */
+/* line 150, scss/_base.scss */
 #exback {
   width: 30px;
   height: 30px;
@@ -196,11 +204,11 @@ hr {
   border-radius: 5px;
   display: inline; }
 
-/* line 154, scss/_base.scss */
+/* line 161, scss/_base.scss */
 #exback[data-ur-state="disabled"] {
   opacity: 0.5; }
 
-/* line 157, scss/_base.scss */
+/* line 164, scss/_base.scss */
 #exnext {
   width: 30px;
   height: 30px;
@@ -217,19 +225,19 @@ hr {
   border-radius: 5px;
   display: inline; }
 
-/* line 168, scss/_base.scss */
+/* line 175, scss/_base.scss */
 .cbutton:hover {
   cursor: hand;
   cursor: pointer; }
 
-/* line 172, scss/_base.scss */
+/* line 179, scss/_base.scss */
 #eximage {
   width: 70px;
   height: 70px;
   margin: auto;
   background: url("resources/photo1.png") no-repeat center center; }
 
-/* line 177, scss/_base.scss */
+/* line 184, scss/_base.scss */
 #exbottomtext {
   margin: auto;
   margin-top: 5px;
@@ -237,7 +245,7 @@ hr {
   color: #323232;
   font-family: Rockwell; }
 
-/* line 183, scss/_base.scss */
+/* line 190, scss/_base.scss */
 #exselectlist {
   width: 230px;
   height: 150px;
@@ -251,28 +259,28 @@ hr {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 191, scss/_base.scss */
+/* line 198, scss/_base.scss */
 #exselectlist select {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
   margin-top: 10px; }
 
-/* line 198, scss/_base.scss */
+/* line 205, scss/_base.scss */
 *[data-ur-select-list-component="content"] {
   color: #323232;
   font-size: 18px;
   font-family: Rockwell;
   text-align: center; }
 
-/* line 201, scss/_base.scss */
+/* line 208, scss/_base.scss */
 *[data-ur-select-list-component="content"] [data-ur-state="enabled"] {
   background: #FFD700;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
-/* line 208, scss/_base.scss */
+/* line 215, scss/_base.scss */
 .example#select_list {
   height: 225px; }
 

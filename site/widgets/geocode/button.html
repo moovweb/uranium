@@ -2,24 +2,27 @@
 <html>
   <head>
     <title>Uranium JS | Geocode Button</title>
-    <script src="../../src/uranium-pretty.js"></script>
-    <link rel="stylesheet" type='text/css' href='../../stylesheets/main.css' />
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Uranium JS | Geocode Button</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/jquery-1.9.1.js"></script>
+<script src="/src/jQuery.uranium.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
   </head>
   
   <body id="geocode_button_page">
-    <a href="http://github.com/moovweb/uranium"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/c641758e06304bc53ae7f633269018169e7e5851/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub"></a>
-    <div id="menu">
-      <div id="menuwrap">
-        <a href="../../index.html" class="toplinks "><div class="menuselect">Main</div></a><!-- menuselect-->
-        <a href="../../tutorials.html" class="toplinks "><div class="menuselect">Tutorial</div></a><!-- menuselect-->
-        <a href="../../widget_list.html" class="toplinks selected"><div class="menuselect">Widgets</div></a><!-- menuselect-->
-        <a href="../../more.html" class="toplinks "><div class="menuselect">Philosophy</div></a><!-- menuselect-->
-        <a href="../../download.html" class="toplinks "><div class="menuselect">Download</div></a><!-- menuselect-->
-      </div><!-- menuwrap-->
-    </div><!-- menu-->
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+    <nav id="menu">
+      
+      <a href="/" id="uraniumlogo" ></a><div class='menu_widget'><a href="/widget_list.html" class="selected">Widgets</a><ul><li><a href="/widgets/carousel.html">Carousel</a></li><li><a href="/widgets/input_clear.html">Input Clear</a></li><li><a href="/widgets/geocode.html">Reverse Geocode</a></li><li><a href="/widgets/tabs.html">Tabs</a></li><li><a href="/widgets/toggler.html">Toggler</a></li><li><a href="/widgets/zoom.html">Zoom</a></li></ul></div><a href="/" >TEST LINK</a>
+    </nav>
+
     <div id="textbody">
     <div class="wrapper">
-  <h1> Reverse Geocode with a Button </h1>
+  <h1> Geolocation with a Button </h1>
   
   <h2>Description</h2>
     <p>
@@ -35,7 +38,7 @@
     </ul>
 
 
-  <h2>Demonstration</h2>
+`<h2>Demonstration</h2>
 <script>
 function foo(){
   alert("Populated zip value:" + x$("input[name='zip']")[0].value);
@@ -353,7 +356,7 @@ function foo(){
     
     <div class="wrapper">
       <p>
-      <a href="../../widgets/geocode.html">Back to Reverse Geocode Widget</a>
+      <a href="../../widgets/geocode.html">Back to Geolocation Widget</a>
       </p>
     </div>
     
