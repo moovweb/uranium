@@ -29,9 +29,9 @@ Tabs
 
 - Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.
 
-Reverse Geocode
+Geolocation
 
-- This widget allows you to reverse geocode a location. 
+- This widget allows you to Geolocation a location. 
 - You can use this to populate forms using the user's location. 
 - You can only have one of these widgets per page
 

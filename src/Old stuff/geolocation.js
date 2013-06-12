@@ -2,7 +2,7 @@
  * * * * * * * * *
  *
  *  The Geolocation widget is meant to
- *  reverse geocode a position to give back an address and then
+ *  Geolocation a position to give back an address and then
  *  populate form fields
  *
  */
