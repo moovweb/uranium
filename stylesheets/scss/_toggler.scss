@@ -1,4 +1,9 @@
 body#toggler_page {
+  .example{
+    [data-ur-set="toggler"]{
+      background-color: transparent;
+    }
+  }
   * {
     &[data-ur-set="toggler"] {
       border: none;
@@ -92,6 +97,11 @@ body#toggler_page {
       display: inline-block; } } }
 
 body#toggler_page {
+  .wrapper{
+    [data-ur-set='toggler']{
+      background-color: transparent;
+    }
+  }
   * {
     &[data-ur-toggler-component='button'] {
       opacity: 0.5;
@@ -196,10 +206,7 @@ body#toggler_page {
     position: absolute;
     border-radius: 5px;
     background-color: #aaaaaa;
-    //  width: 500px
-    // //height: 500px
     left: 270px;
-    //  bottom: 50px
     text-align: center;
     padding: 30px;
     &[data-ur-state='disabled'] {

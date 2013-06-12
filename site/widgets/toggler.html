@@ -115,81 +115,32 @@
         </div>
       </div>
 
-      <div class="wrapper">
-  <h2>Demonstration</h2>
-  <div class='demonstration' name='Simple'>
-    <div class="description">
-      <p>
-      We have one button ("Click Here!"). When we click on it, we want the content
-      (containing the clothing options) to appear. We call this an "accordion".
-      </p>
-    </div> <!-- closing the description -->
-      <div class="ur_ex" data-ur-set="toggler_demo">
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Toggler</h3>
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
-    
-    <div class="example" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
-      <div id="extoggler" data-ur-set="toggler">
-        <a href="/widgets/toggler.html"><div id="extitle">Toggler</div></a>
-        <div id="exbutton" data-ur-toggler-component="button">Click on the button</div>
-        <div id="extoggler_content" data-ur-toggler-component="content">And content appears</div>
-      </div>
-    </div>
-    
-    <div class="mainpage_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
-      <div class="highlight"><pre><code class="html">      <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;p&gt;</span>Toggler<span class="nt">&lt;/p&gt;</span>
-        <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;p&gt;</span>Click on the button<span class="nt">&lt;/p&gt;</span>
-        <span class="nt">&lt;/div&gt;</span>
-        <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
-          <span class="nt">&lt;p&gt;</span>And content appears<span class="nt">&lt;/p&gt;</span>
-        <span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;/div&gt;</span>
-      
-</code></pre></div>
+      <!-- Demonstration -->
+<h2>Demonstration</h2>
+<div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+  <div id="toggler_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+    <div data-ur-set="toggler">
+      <div data-ur-toggler-component="button">Click on the button</div>
+      <div data-ur-toggler-component="content">And content appears</div>
     </div>
   </div>
-  <hr />
-    <div id="accordion_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
 
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
-
-      <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
-        <div data-ur-set='toggler'>
-          <div data-ur-toggler-component='button'>
-            Click Here!
-          </div>
-
-          <ul data-ur-toggler-component='content'>
-            <li> Hat </li>
-            <li> Socks </li>
-            <li> Shoes </li>
-            <li> Gloves </li>
-            <li> Shirts </li>
-          </ul>
-        </div> <!-- toggler end -->
-      </div> <!-- widget content end -->
-    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-    <div class="highlight"><pre><code class="html">    <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;toggler&#39;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>Click Here!<span class="nt">&lt;/div&gt;</span>
-      <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
-        <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
-        <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
-        <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
-        <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;/ul&gt;</span>
-    <span class="nt">&lt;/div&gt;</span>
+  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+    <div class="highlight"><pre><code class="html">      <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
+          Click on the button
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+          And content appears<span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
     
 </code></pre></div>
-      </div><!-- html content end -->
-    </div><!--accortion demonstraion end-->
-  </div><!-- demonstration end -->
-</div><!-- wrapper end -->
-
-<hr />
+  </div>
+  <hr />
+</div>
 
 <!-- Required SCSS -->
 <div class='wrapper'>
@@ -216,12 +167,38 @@
     
 </code></pre></div>
   </div>
+  <hr/>
 </div>
 
 <!-- Further Examples -->
 <div class="wrapper">
   <h2>Further Examples</h2>
   
+  <div class='test' name='DialogProper'>
+    <a  name='DialogProper'></a>
+    <h3>Popup</h3>
+  
+    <div class='description'>
+      <p>
+        In this style, we want an image to appear when we click on the button.
+      </p>
+
+    </div>
+    <div data-ur-set="toggler">
+      <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
+        data-ur-state='enabled' class='popup_button'>
+        Click Here !
+      </div>
+
+      <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
+        data-ur-state='disabled' class='popup_content'>
+         <img src='../../images/popup.jpeg'>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
   <div class='test' name='Nested' >
     <a  name='Nested'></a>
 
@@ -258,30 +235,6 @@
     </div> <!-- end of nesting -->
   </div>
 
-  <hr />
-
-   <div class='test' name='DialogProper'>
-    <a  name='DialogProper'></a>
-    <h3>Popup</h3>
-  
-    <div class='description'>
-      <p>
-        In this style, we want an image to appear when we click on the button.
-      </p>
-
-    </div>
-    <div data-ur-set="toggler">
-      <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
-        data-ur-state='enabled' class='popup_button'>
-        Click Here !
-      </div>
-
-      <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
-        data-ur-state='disabled' class='popup_content'>
-         <img src='../../images/popup.jpeg'>
-      </div>
-    </div>
-  </div>
 
 </div>
 

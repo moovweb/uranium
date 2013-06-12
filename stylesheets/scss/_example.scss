@@ -18,10 +18,14 @@
     display: block;
     background-color: transparent;
     border: none;
+    margin: 10px 0px;
   }
   [data-ur-tabs-component='content'][data-ur-state='enabled']{
     background-color: transparent;
     border: none;
+  }
+  .widget_html{
+    padding: 0px;
   }
   .example {
     @include border-radius(10px);
