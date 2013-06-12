@@ -202,8 +202,6 @@ instance:
 
         <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-<!--         <h3 data-ur-tabs-component="button" data-ur-tab-id="CSS">CSS</h3> -->
-
         <div id="carousel_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
 
           <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
@@ -221,6 +219,9 @@ instance:
                 <img data-ur-carousel-component="item" src='{{site.url}}../images/sample3.png' alt="3" />
                 <img data-ur-carousel-component="item" src='{{site.url}}../images/sample4.png' alt="4" />
                 <img data-ur-carousel-component="item" src='{{site.url}}../images/sample5.png' alt="5" />
+                <img data-ur-carousel-component="item" src='{{site.url}}../images/sample6.png' alt="6" />
+                <img data-ur-carousel-component="item" src='{{site.url}}../images/sample7.png' alt="7" />
+                <img data-ur-carousel-component="item" src='{{site.url}}../images/sample8.png' alt="8" />
               </div>
             </div>
           </div>
@@ -246,21 +247,6 @@ instance:
           {% endhighlight %}
         </div>
 
-<!--         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
-          {% highlight css %}
-          div[data-ur-carousel-component="view_container"] {
-            width: 100%;
-            overflow-x: hidden;
-          }
-          div[data-ur-carousel-component="scroll_container"] > * {
-            display: inline-block;
-            float: left;
-          }
-          div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
-            opacity: 0.3;
-          }
-          {% endhighlight %}
-        </div> -->
       </div>
       <hr />
     </div>
@@ -270,7 +256,6 @@ instance:
         <li><a href="#vertical">vertical scrolling</a></li>
         <li><a href="#infinite">infinite scrolling</a></li>
         <li><a href="#autoscroll">autoscroll</a></li>
-        <li><a href="#jumpto">a "jump to" function</a></li>
       </ul>
     </div>
   </div>
@@ -331,7 +316,7 @@ instance:
     
     <div class="test">
       <a id="autoscroll"></a>
-      <h3>Slideshow example</h3>
+      <h3>Autoscroll example</h3>
 
       <p>
         Here we have a carousel that scrolls every five seconds with a "dot" indicator. Note that the current element is centered.
@@ -358,46 +343,5 @@ instance:
       </div>
     </div>
 
-    <hr />
-
-<!--     <div class="test">
-      <a id="jumpto"></a>
-      <h3> "Jump to..." function </h3>
-
-      <p>
-        In this example, we have a bit of extra javascript to include in the page. We use this to
-        jump to a location in the carousel. It's what we call an "instance" - only for this <i>instance</i>
-        of the carousel will the feature be enabled.
-      </p>
-
-      {% highlight html %}
-      <script type="text/javascript">
-        x$("[data-ur-carousel-component='item']").click(function(e) {
-          console.log("You clicked:", e.target.src);
-        });
-        x$("#jump").click(function() {
-          Ur.Widgets["carousel"]["MyFirstCarousel"].jump_to_index(4);
-        });
-      </script>
-      {% endhighlight %}
-
-      <p id="jump" onclick="Ur.Widgets.carousel.JumpCarousel.jumpToIndex(4)">Jump to 5th item</p>
-
-      <div class="fixed_width" data-ur-set="carousel" data-ur-id="JumpCarousel" data-ur-carousel-component="view_container" data-ur-infinite="disabled">
-        <span data-ur-carousel-component="count"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-        <div data-ur-carousel-component="scroll_container">
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample1.png' alt="1" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample2.png' alt="2" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample3.png' alt="3" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample4.png' alt="4" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample5.png' alt="5" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample6.png' alt="6" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample7.png' alt="7" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample8.png' alt="8" />
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>
