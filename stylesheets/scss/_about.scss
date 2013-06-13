@@ -1,13 +1,17 @@
-body#more_page [data-ur-set="toggler"] {
+body#about_page [data-ur-set="toggler"] {
   background: none;
   border: none;
-  [data-ur-toggler-component="button"] {
-    width: 250px; }
   [data-ur-toggler-component="content"] {
     display: none;
-    width: 250px;
     &[data-ur-state="enabled"] {
-      display: block; } }
+      display: block; 
+    } 
+  }
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    [data-ur-toggler-component="button"], [data-ur-toggler-component="content"] {
+      width: 250px;
+    }
+  }
   .bio {
     background: #323232;
     padding: 5px;
@@ -15,8 +19,12 @@ body#more_page [data-ur-set="toggler"] {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    p {
-      color: silver; } }
+    color: #aaa;
+    a{
+      font-weight: bold;
+    }
+
+  }
   img {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
