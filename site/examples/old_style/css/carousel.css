@@ -1,0 +1,40 @@
+div[data-ur-carousel-component='view_container'] {
+  height: 270px;
+  width: 100%;
+  overflow-x: hidden;
+  border: 1px solid black;
+  background-color: #9C0;
+}
+
+div[data-ur-carousel-component="scroll_container"] {
+  display: block;
+}
+
+div[data-ur-carousel-component="scroll_container"] > * {
+  display:inline-block;
+  float: left; /* This is important -- otherwise, the carousel can't calculate the accurate total width */
+/*  background-color: #3CC;*/
+}
+
+div[data-ur-carousel-component="button"] {
+    display: inline-block;
+}
+
+div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
+  opacity: 0.3;
+}
+
+/* Non essential styling */
+
+#giant {
+  height: 1000px;
+  background-color: #F60;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+
+div[name='Three'] img{
+    width: 62px !important; /* on iphone without the important, it doesn't work!! */
+    height: 62px;
+}

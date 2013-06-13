@@ -13,6 +13,43 @@ advanced_tab:
       - add this attribute to the input node
   
 ---
+<h2 class='wrapper'>Demonstration</h2>
+<div id="input_clear_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+  <div id="input_clear_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+    <div data-ur-set='input-clear'>
+      <input data-ur-input-clear-component='input' type='text'/>
+    </div>
+
+    <div data-ur-set='input-clear'>
+      <input data-ur-input-clear-component='input' type='text'/>
+    </div>
+
+    <div data-ur-set='input-clear'>
+      <input data-ur-input-clear-component='input' type='text'/>
+    </div>
+  </div>
+
+  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+{% highlight html %}
+<div data-ur-set='input-clear'>
+  <input data-ur-input-clear-component='input' type='text'/>
+</div>
+
+<div data-ur-set='input-clear'>
+  <input data-ur-input-clear-component='input' type='text'/>
+</div>
+
+<div data-ur-set='input-clear'>
+  <input data-ur-input-clear-component='input' type='text'/>
+</div>
+{% endhighlight %}
+  </div>
+  <hr />
+</div>
+
 <!-- Styles -->
 <div class='wrapper'>
   <h2>Required Styles</h2>
@@ -47,45 +84,4 @@ advanced_tab:
   </div>
 </div>
 
-<!-- Demonstration -->
-<h2 class='wrapper'>Demonstration</h2>
-<!-- Not wrapping the tables with the wrapper class because it wouldn't look as good as a demo. Better the tables stretch the full-length of the page. -->
-<div class='wrapper'>
-  <div class='demonstration'>
-    <p>You can have multiple tables on the same page. Two are featured below. Resize your browser window to see the table columns show and hide themselves.</p>
-    <div id="accordion_demonstration" data-ur-set="tabs">
-        <h3 data-ur-tabs-component='button' data-ur-tab-id="widget"data-ur-state='enabled'>Widget</h3>
-
-        <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
-        <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state='enabled'>
-          <div data-ur-set='input-clear'>
-            <input data-ur-input-clear-component='input' type='text'/>
-          </div>
-
-          <div data-ur-set='input-clear'>
-            <input data-ur-input-clear-component='input' type='text'/>
-          </div>
-
-          <div data-ur-set='input-clear'>
-            <input data-ur-input-clear-component='input' type='text'/>
-          </div>
-        </div>
-        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-{% highlight html %}
-<div data-ur-set='input-clear'>
-  <input data-ur-input-clear-component='input' type='text'/>
-</div>
-
-<div data-ur-set='input-clear'>
-  <input data-ur-input-clear-component='input' type='text'/>
-</div>
-
-<div data-ur-set='input-clear'>
-  <input data-ur-input-clear-component='input' type='text'/>
-</div>
-{% endhighlight %}
-        </div><!-- html content end -->
-    </div>
-  </div>
-</div>
 

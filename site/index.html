@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Uranium JS | Home</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/jquery-1.9.1.js"></script>
+<script src="/src/jQuery.uranium.js"></script>
+
+  </head>
+  
+  <body id="home_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" class="selected"></a><div class='menu_widget'>	<a href="/widget_list.html" >Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Geolocation</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/about.html" >About</a>
+</nav>
+
+    <div class="top_wrapper desktop">
+  <div id="small_desc">Fast, Lean Web Interaction Library.<small>*for mobile too!</small></div>
+</div><!-- top_wrapper-->
+<div id="textbody">
+ 
+  <h1>Top ways to use Uranium</h1>
+  <!-- Test -->
+  <div class="demonstration">
+    <h2> Carousel </h2>
+    <div id="carousel_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_widget" data-ur-state="enabled"> Widget</h3>
+
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_html">HTML</h3>
+
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_CSS">CSS</h3>
+
+      <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="carousel_widget" data-ur-state="enabled">
+
+        <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
+          <span data-ur-carousel-component="count"> -- count -- </span>
+          <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
+            Prev
+          </div>
+          <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
+            Next
+          </div>
+          <div data-ur-carousel-component="view_container" data-ur-infinite="disabled">
+            <div data-ur-carousel-component="scroll_container">
+              <img data-ur-carousel-component="item" src='../images/sample1.png' alt="1" />
+              <img data-ur-carousel-component="item" src='../images/sample2.png' alt="2" />
+              <img data-ur-carousel-component="item" src='../images/sample3.png' alt="3" />
+              <img data-ur-carousel-component="item" src='../images/sample4.png' alt="4" />
+              <img data-ur-carousel-component="item" src='../images/sample5.png' alt="5" />
+              <img data-ur-carousel-component="item" src='../images/sample6.png' alt="6" />
+              <img data-ur-carousel-component="item" src='../images/sample7.png' alt="7" />
+              <img data-ur-carousel-component="item" src='../images/sample8.png' alt="8" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_html">
+        <div class="highlight"><pre><code class="html">        <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;view_container&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;MyFirstCarousel&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;count&quot;</span><span class="nt">&gt;</span> -- count -- <span class="nt">&lt;/span&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;prev&quot;</span><span class="nt">&gt;</span>Prev<span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;next&quot;</span><span class="nt">&gt;</span>Next<span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;scroll_container&#39;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample1.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample2.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;2&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample3.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;3&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample4.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;4&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample5.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;5&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample6.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;6&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample7.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;7&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">data-ur-carousel-component=</span><span class="s">&#39;item&#39;</span> <span class="na">src=</span><span class="s">&#39;images/sample8.png&#39;</span> <span class="na">alt=</span><span class="s">&quot;8&quot;</span> <span class="nt">/&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        
+</code></pre></div>
+      </div>
+
+      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_CSS">
+        <div class="highlight"><pre><code class="css">        <span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;view_container&quot;</span><span class="o">]</span> <span class="p">{</span>
+          <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+          <span class="k">overflow-x</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;scroll_container&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
+          <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+          <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;button&quot;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="o">]</span> <span class="p">{</span>
+          <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+</code></pre></div>
+      </div>
+    </div>
+    <a href="/widgets/carousel.html" class="see_more_link">
+      More about carousel
+    </a>
+    <hr />
+  </div>
+
+  <div class="demonstration">
+    <h2> Tabs </h2>
+    <div id="tab_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_widget" data-ur-state="enabled"> Widget</h3>
+
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_html"> HTML</h3>
+
+      <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="tabs_widget" data-ur-state="enabled">
+        <div data-ur-set="tabs" data-ur-id="tabs_example">
+          <span data-ur-tabs-component="button" data-ur-tab-id="first" data-ur-state="enabled"> First </span>
+          <span data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
+          <span data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
+
+          <div data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">
+            <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+          </div>
+
+          <div data-ur-tabs-component="content" data-ur-tab-id="second">
+            <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+          </div>
+
+          <div data-ur-tabs-component="content" data-ur-tab-id="third">
+            <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+          </div>
+        </div>
+      </div>
+      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="tabs_html">
+        <div class="highlight"><pre><code class="html">        <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;tabs&#39;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;first&#39;</span> <span class="na">data-ur-state=</span><span class="s">&#39;enabled&#39;</span><span class="nt">&gt;</span> First <span class="nt">&lt;/span&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;second&#39;</span><span class="nt">&gt;</span> Second <span class="nt">&lt;/span&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;third&#39;</span><span class="nt">&gt;</span> Third <span class="nt">&lt;/span&gt;</span>
+
+          <span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;first&#39;</span> <span class="na">data-ur-state=</span><span class="s">&#39;enabled&#39;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&#39;100px&#39;</span> <span class="na">height=</span><span class="s">&#39;100px&#39;</span> <span class="na">src=</span><span class="s">&#39;../images/sample1.png?some_attr=noway&#39;</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+
+          <span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;second&#39;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&#39;100px&#39;</span> <span class="na">height=</span><span class="s">&#39;100px&#39;</span> <span class="na">src=</span><span class="s">&#39;../images/sample2.png?some_attr=noway&#39;</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+
+          <span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;third&#39;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">width=</span><span class="s">&#39;100px&#39;</span> <span class="na">height=</span><span class="s">&#39;100px&#39;</span> <span class="na">src=</span><span class="s">&#39;../images/sample3.png?some_attr=noway&#39;</span><span class="nt">/&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        
+</code></pre></div>
+      </div>
+    </div>
+    <a href="/widgets/tabs.html" class="see_more_link">
+      More about Tabs
+    </a>
+    <hr />
+  </div>
+
+  <div class='demonstration' name='Simple'>
+    <h2>Toggler</h2>
+    <div id="accordion_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_widget"data-ur-state='enabled'>Widget</h3>
+
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_html"> HTML</h3>
+
+      <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="toggler_widget" data-ur-state='enabled'>
+        <div data-ur-set='toggler'>
+          <div data-ur-toggler-component='button'>
+            Click Here!
+          </div>
+
+          <ul data-ur-toggler-component='content'>
+            <li> Hat </li>
+            <li> Socks </li>
+            <li> Shoes </li>
+            <li> Gloves </li>
+            <li> Shirts </li>
+          </ul>
+        </div> 
+      </div>
+    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="toggler_html">
+    <div class="highlight"><pre><code class="html">    <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;toggler&#39;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>Click Here!<span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    
+</code></pre></div>
+      </div>
+    </div>
+    <a href="/widgets/toggler.html" class="see_more_link">
+      More about Toggler
+    </a>
+    <hr />
+  </div> 
+
+  <!-- Toggler Example -->
+
+  <!-- Tabs Example -->
+<!--   <div class="ur_ex" data-ur-set="tabs">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="code" data-ur-state="disabled">The Code</h3>
+    <div class="example" id="select_list" data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div id="exselectlist" data-ur-set="select-list">
+        <a href="/widgets/select-list.html"><div id="extitle">Select List</div></a>
+        <select data-ur-select-list-component='select'>
+          <option selected='true' value='SKU-A'> Click on </option>
+          <option value='SKU-B'> a Value </option>
+          <option value='SKU-C'> in this </option>
+          <option value='SKU-D'> List </option>
+        </select>
+        <div data-ur-select-list-component='content'>
+          <div value='SKU-A'> Click on </div>
+          <div value='SKU-B'> a Value </div>
+          <div value='SKU-C'> in this </div>
+          <div value='SKU-D'> List </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainpage_code" id="select_list_code" data-ur-tabs-component="content" data-ur-tab-id="code" data-ur-state="disabled">
+      <div class="highlight"><pre><code class="html">      <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;select-list&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;select</span> <span class="na">data-ur-select-list-component=</span><span class="s">&quot;select&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;option</span> <span class="na">selected=</span><span class="s">&quot;true&quot;</span> <span class="na">value=</span><span class="s">&quot;SKU-A&quot;</span><span class="nt">&gt;</span> Click on <span class="nt">&lt;/option&gt;</span>
+          <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;SKU-B&quot;</span><span class="nt">&gt;</span> a Value <span class="nt">&lt;/option&gt;</span>
+          <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;SKU-C&quot;</span><span class="nt">&gt;</span> in this <span class="nt">&lt;/option&gt;</span>
+          <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;SKU-D&quot;</span><span class="nt">&gt;</span> List <span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;/select&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">data-ur-select-list-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&quot;SKU-A&quot;</span><span class="nt">&gt;</span> Click on <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&quot;SKU-B&quot;</span><span class="nt">&gt;</span> a Value <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&quot;SKU-C&quot;</span><span class="nt">&gt;</span> in this <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&quot;SKU-D&quot;</span><span class="nt">&gt;</span> List <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      
+</code></pre></div>
+    </div>
+  </div>
+  <hr /> -->
+    
+  <!-- Uranium is used by -->
+  <h2>Uranium is used by...</h2>
+  <div id="threelogoholder">
+    <a href="http://m.macys.com/"><img src="images/BW_macys.png" alt="Macy's" /></a>
+    <a href="http://m.cancer.org/"><img src="images/BW_AmCancer.png" alt="ACS" /></a>
+    <a href="http://m.belk.com/"><img src="images/BW_belk.png" alt="Belk" /></a>
+  </div><!-- threelogoholder end-->
+  <div id="twologoholder">
+    <a href="http://m.ross-simons.com/"><img src="images/BW_RS.png" alt="Ross-Simons" /></a>
+    <a href="http://m.barenecessities.com/"><img src="images/BW_barenecessities.png" alt="Bare Necessities" /></a>
+  </div><!-- threelogoholder end-->
+
+</div>
+
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

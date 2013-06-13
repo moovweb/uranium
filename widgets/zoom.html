@@ -39,7 +39,63 @@ instance:
   zoom(): zooms in/out
   reset(): resets the zoom widget
 ---
+<!-- Zoom Demonstration -->
+<h2>Demonstration</h2>
+<p>Basic zoom widget </p>
+<div id="zoom_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
+  <div id="zoom_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+    <div data-ur-set="zoom" data-ur-zoom-component="view_container">
+      <img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
+      <span data-ur-zoom-component="button">
+        <span>+</span>
+        <span>&minus;</span>
+      </span>
+      <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
+      <script>
+        // I use display: inline-block to center the img but this leaves whitespace so
+        // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
+        // You can also use display: box or table-cell to get vertical alignment instead.
+        var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
+        for (var i in nodes) {
+          if (nodes[i].nodeType == Node.TEXT_NODE)
+            nodes[i].textContent = nodes[i].textContent.trim();
+        }
+      </script>
+    </div>
+
+  </div>
+
+  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+
+{% highlight html %}
+<div data-ur-set="zoom" data-ur-zoom-component="view_container">
+<img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
+<span data-ur-zoom-component="button">
+  <span>+</span>
+  <span>&minus;</span>
+</span>
+<div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
+<script>
+  // I use display: inline-block to center the img but this leaves whitespace so
+  // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
+  // You can also use display: box or table-cell to get vertical alignment instead.
+  var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
+  for (var i in nodes) {
+    if (nodes[i].nodeType == Node.TEXT_NODE)
+      nodes[i].textContent = nodes[i].textContent.trim();
+  }
+</script>
+</div>
+{% endhighlight %}
+
+  </div>
+  <hr />
+</div>
+
+<!-- Required Style -->
 <div class='wrapper'>
   <h2> Required Styles </h2>
   <div class='css'>
@@ -69,51 +125,3 @@ instance:
   </div>
     
 </div><!-- wrapper -->
-<div class="wrapper">
-  <h2>Demonstration</h2>
-  <div class="demonstration" name="Simple">
-    <div class="description">
-      <p>
-        Basic zoom widget
-      </p>
-    </div> <!-- closing the description -->
-    <div id="accordion_demonstration" data-ur-set="tabs" data-ur-id="2">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled">Widget</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="html"> HTML</h3>
-
-      <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-        <div data-ur-set="zoom" data-ur-zoom-component="view_container">
-          <img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
-          <span data-ur-zoom-component="button">
-            <span>+</span>
-            <span>&minus;</span>
-          </span>
-          <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
-          <script>
-            // I use display: inline-block to center the img but this leaves whitespace so
-            // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
-            // You can also use display: box or table-cell to get vertical alignment instead.
-            var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
-            for (var i in nodes) {
-              if (nodes[i].nodeType == Node.TEXT_NODE)
-                nodes[i].textContent = nodes[i].textContent.trim();
-            }
-          </script>
-        </div>
-      </div> <!-- widget content end -->
-      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-{% highlight html %}
-<div data-ur-set="zoom" data-ur-zoom-component="view_container">
-<img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
-<span data-ur-zoom-component="button">
-  <span>+</span>
-  <span>&minus;</span>
-</span>
-<div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
-</div>
-{% endhighlight %}
-      </div>
-    </div><!-- html content end -->
-  </div><!--accortion demonstraion end-->
-</div>

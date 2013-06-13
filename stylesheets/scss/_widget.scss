@@ -9,6 +9,9 @@
         display: none;
       }
     }
+    h3{
+      color: black;
+    }
     dd {
       margin-bottom: 10px;
     }
@@ -37,6 +40,7 @@ li[data-ur-set="toggler"] {
   display: inline-block;
   border-left: 1.5px solid rgb(80, 80, 80);
   border-right: 1.5px solid rgb(0, 0, 0);
+  height: 20px;
   &[data-ur-state="disabled"] {
     opacity: 0.2;
   }

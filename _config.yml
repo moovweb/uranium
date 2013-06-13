@@ -1,4 +1,4 @@
-source: "examples/site"
-destination: "examples/site/_site"
+source: "."
+destination: "./site"
 auto: true
 pygments: true

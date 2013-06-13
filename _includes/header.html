@@ -1,11 +1,19 @@
 <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   {% capture tmp %}
-  <a href="/" {% if page.home_selected %}class="selected"{% endif %}>Main</a>
-  <a href="/tutorials.html" {% if page.tutorials_selected %}class="selected"{% endif %}>Tutorial</a>
-  <a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
-  <a href="/more.html" {% if page.more_selected %}class="selected"{% endif %}>Philosophy</a>
-  <a href="/download.html" {% if page.download_selected %}class="selected"{% endif %}>Download</a>
+  <a href="/" id="uraniumlogo" {% if page.home_selected %}class="selected"{% endif %}></a>
+  <div class='menu_widget'>
+  	<a href="/widget_list.html" {% if page.widget_selected %}class="selected"{% endif %}>Widgets</a>
+  	<ul>
+  		<li><a href="/widgets/carousel.html">Carousel</a></li>
+  		<li><a href="/widgets/input_clear.html">Input Clear</a></li>
+  		<li><a href="/widgets/geocode.html">Geolocation</a></li>
+  		<li><a href="/widgets/tabs.html">Tabs</a></li>
+  		<li><a href="/widgets/toggler.html">Toggler</a></li>
+  		<li><a href="/widgets/zoom.html">Zoom</a></li>
+  	</ul>
+  </div>
+  <a href="/about.html" {% if page.about_selected %}class="selected"{% endif %}>About</a>
   {% endcapture %}
   {{ tmp | strip_newlines | remove: "  " }}
 </nav>

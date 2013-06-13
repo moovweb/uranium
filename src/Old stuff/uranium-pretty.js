@@ -2560,7 +2560,7 @@ Ur.QuickLoaders["font-resizer"] = (function() {
  * * * * * * * * *
  *
  *  The Geolocation widget is meant to
- *  reverse geocode a position to give back an address and then
+ *  Geolocation a position to give back an address and then
  *  populate form fields
  *
  */
@@ -4092,7 +4092,7 @@ Ur.QuickLoaders['toggler'] = (function(){
       if(toggler_state === undefined) {
         x$(toggler["button"]).attr("data-ur-state", 'disabled');
         toggler_state = "disabled";
-      } 
+      }  
 
       if (toggler["content"] === undefined) {
         Ur.error("no content found for toggler with id=" + toggler_id);
