@@ -63,149 +63,146 @@ instance:
   '"slideend"': event is fired on view_container when sliding ends
 ---
 <script>
-if (dev_mode) {
-  var carouselHtml;
-  x$(document).on("DOMContentLoaded", function() {
-    x$("#carousel_widget").setStyle("width", "750px");
-    carouselHtml = x$("#carousel_widget")[0].innerHTML;
-  });
-}
+// if (dev_mode) {
+//   var carouselHtml;
+//   x$(document).on("DOMContentLoaded", function() {
+//     x$("#carousel_widget").setStyle("width", "750px");
+//     carouselHtml = x$("#carousel_widget")[0].innerHTML;
+//   });
+// }
 
-describe("A plain carousel", function() {
-  beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml);
-    Ur.setup("#carousel_widget");
-  });
-  it("slides to the right by 1 item", function() {
-    runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-    });
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 1200);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
-    });
-  });
-  it("slides to the right by 1 item and then left by 1 item", function() {
-    var dragged = false;
-    runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
-      setTimeout(function() {
-        Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
-      }, 1200);
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll left", 2000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-    });
-  });
-  it("slides back if it slid to the left when already at the very left", function() {
-    var dragged = false;
-    runs(function() {
-      Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll left", 1000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-    });
-  });
-  it("slides to the very right", function() {
-    runs(function() {
-      Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-      }, 1200);
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='4.png']"));
-      }, 2400);
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"));
-      }, 3600);
-    });
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll", 7000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
-    });
-  });
-});
+// describe("A plain carousel", function() {
+//   beforeEach(function() {
+//     x$("#carousel_widget").html(carouselHtml);
+//     Ur.setup("#carousel_widget");
+//   });
+//   it("slides to the right by 1 item", function() {
+//     runs(function() {
+//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
+//     });
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll right", 1200);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
+//     });
+//   });
+//   it("slides to the right by 1 item and then left by 1 item", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
+//       setTimeout(function() {
+//         Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
+//       }, 1200);
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll left", 2000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
+//     });
+//   });
+//   it("slides back if it slid to the left when already at the very left", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll left", 1000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
+//     });
+//   });
+//   it("slides to the very right", function() {
+//     runs(function() {
+//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
+//       }, 1200);
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='4.png']"));
+//       }, 2400);
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"));
+//       }, 3600);
+//     });
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll", 7000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
+//     });
+//   });
+// });
 
-describe("An infinite carousel", function() {
-  beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
-    Ur.setup("#carousel_widget");
-  });
-  it("loops around going left", function() {
-    var dragged = false;
-    runs(function() {
-      Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll left", 1000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
-    });
-  });
-  it("loops around going right", function() {
-    var dragged = false;
-    runs(function() {
-      Ur.Widgets.carousel.MyFirstCarousel.jumpToIndex(7);
-      setTimeout(function() {
-        Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"), function() {dragged = true;});
-      }, 1000);
-    });
-    waitsFor(function() {
-      return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 2000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(3);
-    });
-  });
-});
+// describe("An infinite carousel", function() {
+//   beforeEach(function() {
+//     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
+//     Ur.setup("#carousel_widget");
+//   });
+//   it("loops around going left", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll left", 1000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
+//     });
+//   });
+//   it("loops around going right", function() {
+//     var dragged = false;
+//     runs(function() {
+//       Ur.Widgets.carousel.MyFirstCarousel.jumpToIndex(7);
+//       setTimeout(function() {
+//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"), function() {dragged = true;});
+//       }, 1000);
+//     });
+//     waitsFor(function() {
+//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll right", 2000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(3);
+//     });
+//   });
+// });
 
-describe("An auto-scrolling carousel", function() {
-  beforeEach(function() {
-    x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
-    Ur.setup("#carousel_widget");
-  });
-  it("scrolls to the very right", function() {
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel scroll right", 3000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
-    });
-  });
-  it("scrolls back to the beginning", function() {
-    waitsFor(function() {
-      return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-    }, "carousel loop around", 3000);
-    runs(function() {
-      expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-    });
-  });
-});
+// describe("An auto-scrolling carousel", function() {
+//   beforeEach(function() {
+//     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
+//     Ur.setup("#carousel_widget");
+//   });
+//   it("scrolls to the very right", function() {
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel scroll right", 3000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
+//     });
+//   });
+//   it("scrolls back to the beginning", function() {
+//     waitsFor(function() {
+//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
+//     }, "carousel loop around", 3000);
+//     runs(function() {
+//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
+//     });
+//   });
+// });
 </script>
   <div class="wrapper">
     <h2> Demonstration </h2>
-
-    <div class="demonstration">
+    <div>
       <p> Touch-enabled Widget </p>
-      <div id="carousel_demonstration" data-ur-set="tabs">
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Widget</h3>
+      <div id="carousel_demonstration" data-ur-set="tabs" class="ur_ex">
+        <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
 
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="html">HTML</h3>
+        <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="CSS">CSS</h3>
-
-        <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+        <div id="carousel_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
 
           <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
             <span data-ur-carousel-component="count"> -- count -- </span>
@@ -222,12 +219,16 @@ describe("An auto-scrolling carousel", function() {
                 <img data-ur-carousel-component="item" src='{{site.url}}../images/sample3.png' alt="3" />
                 <img data-ur-carousel-component="item" src='{{site.url}}../images/sample4.png' alt="4" />
                 <img data-ur-carousel-component="item" src='{{site.url}}../images/sample5.png' alt="5" />
+                <img data-ur-carousel-component="item" src='{{site.url}}../images/sample6.png' alt="6" />
+                <img data-ur-carousel-component="item" src='{{site.url}}../images/sample7.png' alt="7" />
+                <img data-ur-carousel-component="item" src='{{site.url}}../images/sample8.png' alt="8" />
               </div>
             </div>
           </div>
         </div>
 
         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+          
 {% highlight html %}
 <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel">
   <span data-ur-carousel-component="count"> -- count -- </span>
@@ -247,22 +248,8 @@ describe("An auto-scrolling carousel", function() {
 {% endhighlight %}
         </div>
 
-        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="CSS">
-{% highlight css %}
-div[data-ur-carousel-component="view_container"] {
-  width: 100%;
-  overflow-x: hidden;
-}
-div[data-ur-carousel-component="scroll_container"] > * {
-  display: inline-block;
-  float: left;
-}
-div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
-  opacity: 0.3;
-}
-{% endhighlight %}
-        </div>
       </div>
+      <hr />
     </div>
     <div>
       <p>More examples of the carousel can be found here, including:</p>
@@ -270,7 +257,6 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
         <li><a href="#vertical">vertical scrolling</a></li>
         <li><a href="#infinite">infinite scrolling</a></li>
         <li><a href="#autoscroll">autoscroll</a></li>
-        <li><a href="#jumpto">a "jump to" function</a></li>
       </ul>
     </div>
   </div>
@@ -278,7 +264,7 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
     <h1>Carousel Examples</h1>
     <div class="test">
       <a id="vertical"></a>
-      <h3>Vertical Scrolling</h3>
+      <h2>Vertical Scrolling</h2>
 
       <p>This carousel doesn't allow vertical scrolling on touch screens.</p>
       <ul>
@@ -305,7 +291,7 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
     
     <div class="test">
       <a id="infinite"></a>
-      <h3>Infinite scrolling example</h3>
+      <h2>Infinite scrolling example</h2>
 
       <p>
         Here we have a carousel that loops from front to back.
@@ -331,7 +317,7 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
     
     <div class="test">
       <a id="autoscroll"></a>
-      <h3>Slideshow example</h3>
+      <h2>Autoscroll example</h2>
 
       <p>
         Here we have a carousel that scrolls every five seconds with a "dot" indicator. Note that the current element is centered.
@@ -358,46 +344,5 @@ div[data-ur-carousel-component="button"][data-ur-state="disabled"] {
       </div>
     </div>
 
-    <hr />
-
-    <div class="test">
-      <a id="jumpto"></a>
-      <h3> "Jump to..." function </h3>
-
-      <p>
-        In this example, we have a bit of extra javascript to include in the page. We use this to
-        jump to a location in the carousel. It's what we call an "instance" - only for this <i>instance</i>
-        of the carousel will the feature be enabled.
-      </p>
-
-{% highlight html %}
-<script type="text/javascript">
-  x$("[data-ur-carousel-component='item']").click(function(e) {
-    console.log("You clicked:", e.target.src);
-  });
-  x$("#jump").click(function() {
-    Ur.Widgets["carousel"]["MyFirstCarousel"].jump_to_index(4);
-  });
-</script>
-{% endhighlight %}
-
-      <p id="jump" onclick="Ur.Widgets.carousel.JumpCarousel.jumpToIndex(4)">Jump to 5th item</p>
-
-      <div class="fixed_width" data-ur-set="carousel" data-ur-id="JumpCarousel" data-ur-carousel-component="view_container" data-ur-infinite="disabled">
-        <span data-ur-carousel-component="count"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-        <div data-ur-carousel-component="scroll_container">
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample1.png' alt="1" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample2.png' alt="2" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample3.png' alt="3" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample4.png' alt="4" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample5.png' alt="5" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample6.png' alt="6" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample7.png' alt="7" />
-          <img data-ur-carousel-component="item" src='{{site.url}}../images/sample8.png' alt="8" />
-        </div>
-      </div>
-    </div>
   </div>
 </div>

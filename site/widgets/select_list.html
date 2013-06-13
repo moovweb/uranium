@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Uranium JS | Select List</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/jquery-1.9.1.js"></script>
+<script src="/src/jQuery.uranium.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
+  </head>
+  
+  <body id="select_list_page" class="widget_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/widget_list.html" class="selected">Widgets</a>	<ul>		<li><a href="/widgets/carousel.html">Carousel</a></li>		<li><a href="/widgets/input_clear.html">Input Clear</a></li>		<li><a href="/widgets/geocode.html">Geolocation</a></li>		<li><a href="/widgets/tabs.html">Tabs</a></li>		<li><a href="/widgets/toggler.html">Toggler</a></li>		<li><a href="/widgets/zoom.html">Zoom</a></li>	</ul></div><a href="/about.html" >About</a>
+</nav>
+
+    <div id="textbody">
+      <div data-ur-set="tabs">
+        <div class="wrapper">
+          <h1> Select List </h1>
+        </div>
+        <div class="description_wrapper">
+          <h2> Description </h2>
+          <div class="description">
+            <p>
+  This widget allows you to bind a non-select list (for example a regular ol' <span class="inline_code">&lt;ul></span>)
+  to trigger changes on a <span class="inline_code">&lt;select&gt;</span> element. So clicking on an item in the
+  list will automatically select an option in a drop-down menu.
+</p>
+
+          </div>
+        </div>
+        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+
+        <div class="wrapper">
+          <h2>Attributes</h2>
+          <div class="attributes">
+            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
+              <dl>
+                
+                  <dt><code>data-ur-set="select-list"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
+                
+                  <dt><code>data-ur-select-list-component="select"</code></dt><dd>add this attribute to the select tag</dd>
+                
+                  <dt><code>data-ur-select-list-component="content"</code></dt><dd>add this attribute to the content</dd>
+                
+                  <dt><code>value</code></dt><dd>each child item in the select list should have a matching value to an item in the content</dd>
+                
+              </dl>
+            </div><!-- basic -->
+            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
+              <h3> data-ur-set= </h3>
+              <code class="set_name">"select_list"</code>
+              <br />
+              <h3> data-ur-select_list-component= </h3>
+              
+              <div class="components">
+                
+                  <h4>Required</h4>
+                  <ul>
+                    
+                      <code>"select"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the drop-down list, which should be in a select tag
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: N/A
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                      <code>"content"</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            the children of this element must have the same ID as the select tag's children
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: enabled / disabled(default)
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                  </ul>
+                
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='wrapper'>
+  <h2> Required Styles </h2>
+  <p>
+    No styles are required.
+  </p>
+</div>
+
+<div class="wrapper">
+  <h2>Demonstration</h2>
+  <div class='demonstration' name='One'>
+    <p>
+    A &lt;ul&gt; is the trigger list in this case.
+    </p>
+    <div id="select_list_demonstration" data-ur-set="tabs">
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="widget" data-ur-state='enabled'>Widget</h3>
+
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="html"> HTML</h3>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
+        <div data-ur-set='select-list'>
+          <select data-ur-select-list-component='select'>
+            <option selected='true' value='-1'> -None- </option>
+            <option value='SKU-XS'> XS </option>
+            <option value='SKU-S'> S </option>
+            <option value='SKU-M'> M </option>
+            <option value='SKU-L'> L </option>
+          </select>
+
+
+          <ul data-ur-select-list-component='content'>
+            <li value='-1'> -None- </li>
+            <li value='SKU-XS'> XS </li>
+            <li value='SKU-S'> S </li>
+            <li value='SKU-M'> M </li>
+            <li value='SKU-L'> L </li>
+          </ul>
+        </div>
+      </div>
+      <div data-ur-tabs-component="content" data-ur-tab-id="html">
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;select-list&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;select</span> <span class="na">data-ur-select-list-component=</span><span class="s">&#39;select&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">selected=</span><span class="s">&#39;true&#39;</span> <span class="na">value=</span><span class="s">&#39;-1&#39;</span><span class="nt">&gt;</span> -None- <span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-XS&#39;</span><span class="nt">&gt;</span> XS <span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-S&#39;</span><span class="nt">&gt;</span> S <span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-M&#39;</span><span class="nt">&gt;</span> M <span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&#39;SKU-L&#39;</span><span class="nt">&gt;</span> L <span class="nt">&lt;/option&gt;</span>
+  <span class="nt">&lt;/select&gt;</span>
+
+  <span class="nt">&lt;ul</span> <span class="na">data-ur-select-list-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&#39;-1&#39;</span><span class="nt">&gt;</span> -None- <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&#39;SKU-XS&#39;</span><span class="nt">&gt;</span> XS <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&#39;SKU-S&#39;</span><span class="nt">&gt;</span> S <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&#39;SKU-M&#39;</span><span class="nt">&gt;</span> M <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li</span> <span class="na">value=</span><span class="s">&#39;SKU-L&#39;</span><span class="nt">&gt;</span> L <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p>Another example of a selecting list can be found <a href="selecting_list_examples.html">here</a>. This one uses a <span class="inline_code">&lt;div></span>
+      instead of a <span class="inline_code">&lt;ul></span> as its trigger list.</p>
+  </div>
+</div> <!-- demonstration wrapper -->
+
+
+      
+    </div>
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Uranium JS | Geocode Text Inputs</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Uranium JS | Geocode Text Inputs</title>
+<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script src="/src/jquery-1.9.1.js"></script>
+<script src="/src/jQuery.uranium.js"></script>
+
+    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
+  </head>
+  
+  <body id="geocode_text_inputs_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+    <nav id="menu">
+      
+      <a href="/" id="uraniumlogo" ></a><div class='menu_widget'><a href="/widget_list.html" class="selected">Widgets</a><ul><li><a href="/widgets/carousel.html">Carousel</a></li><li><a href="/widgets/input_clear.html">Input Clear</a></li><li><a href="/widgets/geocode.html">Geolocation</a></li><li><a href="/widgets/tabs.html">Tabs</a></li><li><a href="/widgets/toggler.html">Toggler</a></li><li><a href="/widgets/zoom.html">Zoom</a></li></ul></div><a href="/" >TEST LINK</a>
+    </nav>
+
+    <div id="textbody">
+    <div class="wrapper">
+  <h1> Geolocation with Text Inputs </h1>
+  
+  <h2>Description</h2>
+  
+    <p>
+      This example illustrates that a select form is not necessary to fill a field. We've used a text input instead
+      of a select for the state and country.
+    </p>
+
+  <h2>Demonstration</h2>
+  <p>The demonstration here activates on button click.</p>
+  <div id="geocode_demonstration" data-ur-set="tabs" class="ur_ex">
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+    <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+    <div id="geocode_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+      <div data-ur-set="reverse-geocode">
+        <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
+        <form action="geocode_submit" method="get" accept-charset="utf-8" >
+          <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
+          <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
+          <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
+          <!-- State works with both inputs and select elements -->
+          <input type="text" name="state" value="" id="state" placeholder="state" data-ur-reverse-geocode-component="rg-state">
+          <!-- Country works with both inputs and select elements -->
+          <input type="text" name="country" value="" id="country" placeholder="country" data-ur-reverse-geocode-component="rg-country">
+            </form>
+      </div>
+    </div>
+
+    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&quot;content&quot;</span> <span class="na">data-ur-tab-id=</span><span class="s">&quot;widget&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span> <span class="na">class=</span><span class="s">&quot;example_widget&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;reverse-geocode&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span>  <span class="na">value=</span><span class="s">&quot;clickMe&quot;</span> <span class="na">type=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-button&quot;</span><span class="nt">&gt;</span>Click here to find your location<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;geocode_submit&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">accept-charset=</span><span class="s">&quot;utf-8&quot;</span> <span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;addr_1&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;street_address&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;street address&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-street&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;city&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;city&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;city&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-city&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;zip&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;zip&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;zip&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-zip&quot;</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- State works with both inputs and select elements --&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;state&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;state&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;state&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-state&quot;</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- Country works with both inputs and select elements --&gt;</span>
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;country&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;country&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;country&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-country&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+    </div>
+    <hr />
+  </div>
+  
+</div> <!-- wrapper -->
+
+    
+    <div class="wrapper">
+      <p>
+      <a href="../../widgets/geocode.html"> < Back to Geolocation Widget</a>
+      </p>
+    </div>
+    
+    </div>
+    <footer id="footer">
+  <span>Brought to you by&hellip;</span>
+  <br />
+  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2012 |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,11 @@
+[data-ur-state='enabled'] {
+  background-color: white;  
+}
+
+span {
+    display: block;
+}
+
+*[data-ur-select-list-component="content"][data-ur-state="enabled"] {
+  background-color: #336699;
+}
