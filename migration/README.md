@@ -10,4 +10,7 @@ Moving this framework from XUI to jQuery
 * [DONE] Geolocation
 * [DONE] Zoom
 * Carousel
-* RequireJS => Componentize
+	* Wish List:
+		* stop autoscroll button
+		* active item animate to larger then inactive items
+		* auto populate clones on infinite scroll when container is way larger than actual items
