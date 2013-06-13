@@ -13,7 +13,7 @@
   		<li><a href="/widgets/zoom.html">Zoom</a></li>
   	</ul>
   </div>
-  <a href="/" {% if page.home_selected %}class="selected"{% endif %}>TEST LINK</a>
+  <a href="/about.html" {% if page.about_selected %}class="selected"{% endif %}>About</a>
   {% endcapture %}
   {{ tmp | strip_newlines | remove: "  " }}
 </nav>
