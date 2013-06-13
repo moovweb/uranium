@@ -1133,33 +1133,34 @@ body#download_page #init {
 body#download_page #result span {
   display: none; }
 
-/* line 1, scss/_more.scss */
-body#more_page [data-ur-set="toggler"] {
+/* line 1, scss/_about.scss */
+body#about_page [data-ur-set="toggler"] {
   background: none;
   border: none; }
-  /* line 4, scss/_more.scss */
-  body#more_page [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
-    width: 250px; }
-  /* line 6, scss/_more.scss */
-  body#more_page [data-ur-set="toggler"] [data-ur-toggler-component="content"] {
-    display: none;
-    width: 250px; }
-    /* line 9, scss/_more.scss */
-    body#more_page [data-ur-set="toggler"] [data-ur-toggler-component="content"][data-ur-state="enabled"] {
+  /* line 4, scss/_about.scss */
+  body#about_page [data-ur-set="toggler"] [data-ur-toggler-component="content"] {
+    display: none; }
+    /* line 6, scss/_about.scss */
+    body#about_page [data-ur-set="toggler"] [data-ur-toggler-component="content"][data-ur-state="enabled"] {
       display: block; }
-  /* line 11, scss/_more.scss */
-  body#more_page [data-ur-set="toggler"] .bio {
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    /* line 11, scss/_about.scss */
+    body#about_page [data-ur-set="toggler"] [data-ur-toggler-component="button"], body#about_page [data-ur-set="toggler"] [data-ur-toggler-component="content"] {
+      width: 250px; } }
+  /* line 15, scss/_about.scss */
+  body#about_page [data-ur-set="toggler"] .bio {
     background: #323232;
     padding: 5px;
     margin: 10px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    border-radius: 5px; }
-    /* line 18, scss/_more.scss */
-    body#more_page [data-ur-set="toggler"] .bio p {
-      color: silver; }
-  /* line 20, scss/_more.scss */
-  body#more_page [data-ur-set="toggler"] img {
+    border-radius: 5px;
+    color: #aaa; }
+    /* line 23, scss/_about.scss */
+    body#about_page [data-ur-set="toggler"] .bio a {
+      font-weight: bold; }
+  /* line 28, scss/_about.scss */
+  body#about_page [data-ur-set="toggler"] img {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
