@@ -44,3 +44,51 @@
     }
   }
 }
+
+.ur_tabs {
+  overflow: hidden;
+  #tabs_widget, .widget_html{
+    &[data-ur-state="disabled"]{
+      display: none;
+    }
+  }
+  h3, > div {
+    overflow: hidden;
+    &:first-of-type {
+      @include box-sizing(border-box);
+    }
+  }
+  [data-ur-tabs-component='button']{
+    background-color: transparent;
+    border: none !important;
+  }
+  [data-ur-tabs-component='content']{
+    display: block;
+    background-color: transparent;
+    border: none;
+    margin: 10px 0px;
+  }
+  [data-ur-tabs-component='content'][data-ur-state='enabled']{
+    background-color: transparent;
+    border: none;
+  }
+  .widget_html{
+    padding: 0px;
+  }
+  .example {
+    @include border-radius(10px);
+    background: #282828 !important;
+    border: 3px solid #3c3c3c !important;
+    padding: 10px;
+  }
+  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+    > div:first-of-type {
+      float: none;
+      margin: 0;
+      width: auto;
+    }
+    [data-ur-tabs-component="content"][data-ur-state="disabled"] {
+      display: none;
+    }
+  }
+}
