@@ -1,10 +1,15 @@
 .widget_page {
   .attributes {
+    text-align:right;
+    .attr_title{
+      float: left;
+    }
     [data-ur-tabs-component="content"] {
       @include border-radius(5px);
       background: #c1c1c1;
       color: #323232;
       padding: 10px 20px;
+      text-align: left;
       &[data-ur-state="disabled"] {
         display: none;
       }
@@ -36,18 +41,14 @@ li[data-ur-set="toggler"] {
   padding-top: 6px;
   font-size: 15px;
   text-align: center;
-  float: right;
   display: inline-block;
+  margin-bottom: 20px;
   border-left: 1.5px solid rgb(80, 80, 80);
   border-right: 1.5px solid rgb(0, 0, 0);
   height: 20px;
   &[data-ur-state="disabled"] {
     opacity: 0.2;
   }
-}
-
-#adv_btn {
-  margin-right: 100px;
 }
 
 .components li {
