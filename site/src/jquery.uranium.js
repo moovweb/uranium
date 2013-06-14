@@ -23,7 +23,6 @@
     var set_elements = $(fragment).find("*[data-ur-set='" + type + "']");
     set_elements.each(function( index ) {
       var my_set_id = $(this).attr('data-ur-id');
-      log(my_set_id);
 
       if ( my_set_id === undefined ) {
         // No explict ID set
@@ -43,13 +42,13 @@
   }
 
   var findComponents = function( element, component ) {
-    log("findComponents");
+    // log("findComponents");
     var components = $(element).find(" *[data-ur-" + component + "-component]");
     return components;
   }
 
   var findChildComponents = function( element, component ) {
-    log("findChildComponents");
+    // log("findChildComponents");
     var components = $(element).children(" *[data-ur-" + component + "-component]");
     return components;
   }
@@ -99,7 +98,6 @@
         $(self["button"]).click(function() {
           var new_state = $(self["button"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
           var new_content_state = $(self["content"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
-          log("CLiCk");
           $(self["button"]).attr('data-ur-state', new_state);
           $(self["content"]).attr("data-ur-state", new_content_state);
         });
@@ -112,7 +110,6 @@
 
     log("Tabs");
     var groups = findElements(fragment, "tabs");
-    log(groups);
     if ( groups !== false ) {
       for (var group in groups ) {
         var tab_set = groups[group];
@@ -122,9 +119,7 @@
 
         tab_set["tabs"] = {};
         var allTabs = tab_set["tabs"];
-
-        var components = findComponents(tab_set["set"], "tabs");
-
+        var components = findChildComponents(tab_set["set"], "tabs");
         var set_id = tab_set["tabs_id"];
         components.each(function() {
             var tabId = $(this).attr("data-ur-" + "tab" + "-id");
@@ -158,7 +153,6 @@
         $.each(allTabs, function() {
           var self = this;
           $(self["button"]).click(function(evt) {
-            log("click");
             // Is the tab open already?
             var open = $(this).attr("data-ur-state") === "enabled";
             $.each(groups[self["tabs_id"]]["tabs"], function() {

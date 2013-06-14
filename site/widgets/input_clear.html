@@ -7,7 +7,7 @@
 <link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
 <link href="/stylesheets/main.css" rel="stylesheet" />
 <script src="/src/jquery-1.9.1.js"></script>
-<script src="/src/jQuery.uranium.js"></script>
+<script src="/src/jquery.uranium.js"></script>
 
     <link href="/stylesheets/jasmine.css" rel="stylesheet" />
   </head>
@@ -30,12 +30,11 @@
             <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field the x will appear without any typing.</p>
           </div>
         </div>
-        <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-        <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-
         <div class="wrapper">
-          <h2>Attributes</h2>
-          <div class="attributes">
+          <div class="attributes" data-ur-set="tabs">
+            <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
+            <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
+            <h2 class="attr_title">Attributes</h2>
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
               <dl>
                 
