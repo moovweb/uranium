@@ -110,6 +110,10 @@ You'll need to generate an .html file that goes in the _site/widgets folder that
 * Provide documentation of all the attributes, CSS, and JS required to make the widget go.
 * At least one example of how the widget can be used.
 
+**Important Note**
+
+If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery, if that is not possible, you would need to use jQuery.noConflict() on both instances.
+
 ---
 
 # MIT License

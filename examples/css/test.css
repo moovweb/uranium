@@ -146,13 +146,13 @@
   }
   [data-ur-infinite="enabled"] [data-ur-carousel-component="scroll_container"] {
     margin: auto;
-    width: 250px; 
+/*    width: 250px; */
   }
   [data-ur-carousel-component="scroll_container"] img {
     -webkit-user-drag: none;
     float: left;
-    width: 250px;
-    height: 250px; 
+/*    width: 250px;
+    height: 250px; */
   }
   [data-ur-carousel-component="button"] {
     display: inline-block; 
