@@ -15,7 +15,8 @@
     <!-- The one below is to the widget you're working on -->
     <!-- <script src="../lib/toggler.js"></script>
     <script src="../lib/tabs.js"></script> -->
-    <script src="../build/src/uranium.js"></script>
+    <!-- // <script src="../build/src/uranium.js"></script>  -->
+    <script src='../lib/jquery.uranium.js'></script>
 
 
 
@@ -53,7 +54,16 @@
       <div data-ur-toggler-component='button' data-ur-state="enabled">Click Here3!</div>
       <ul data-ur-toggler-component='content' data-ur-state="enabled">
         <li> Hat </li>
-        <li> Socks </li>
+        <li data-ur-set='toggler'>
+          <div data-ur-toggler-component='button' data-ur-state="enabled">Click Here4!</div>
+          <ul data-ur-toggler-component='content' data-ur-state="enabled">
+            <li> Hat </li>
+            <li> Socks </li>
+            <li> Shoes </li>
+            <li> Gloves </li>
+            <li> Shirts </li>
+          </ul>
+      </li>
         <li> Shoes </li>
         <li> Gloves </li>
         <li> Shirts </li>
@@ -77,7 +87,27 @@
       <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
       <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
       <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
-      <div data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
+      <div data-ur-tabs-component='content' data-ur-tab-id='second'>
+        <div data-ur-set='toggler'>
+          <div data-ur-toggler-component='button' data-ur-state="enabled">Click Here3!</div>
+          <ul data-ur-toggler-component='content' data-ur-state="enabled">
+            <li> Hat </li>
+            <li data-ur-set='toggler'>
+              <div data-ur-toggler-component='button' data-ur-state="enabled">Click Here4!</div>
+              <ul data-ur-toggler-component='content' data-ur-state="enabled">
+                <li> Hat </li>
+                <li> Socks </li>
+                <li> Shoes </li>
+                <li> Gloves </li>
+                <li> Shirts </li>
+              </ul>
+          </li>
+            <li> Shoes </li>
+            <li> Gloves </li>
+            <li> Shirts </li>
+          </ul>
+        </div>
+      </div>
       <div data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
     </div>
 
@@ -450,7 +480,7 @@
        </div>
     <!--<p id="jump" onclick="Ur.Widgets.carousel.JumpCarousel.jumpToIndex(4)">Jump to 5th item</p>-->
     <!--     <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel" data-ur-clones="1" data-ur-autoscroll="enabled" data-ur-autoscroll-dir="prev" data-ur-autoscroll-delay="1000" data-ur-vertical-scroll="disabled" data-ur-center="disabled" data-ur-infinite="enabled" data-ur-fill="5"> -->
-    
+
 <!--     <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel2" data-ur-clones="2">
       <div data-ur-carousel-component="dots"></div>
       <span data-ur-carousel-component="count"> -- count -- </span>
@@ -525,10 +555,10 @@
                     </div>
     </div>
     </div>
-                    
-                    
-                    
-                  </li>             
+
+
+
+                  </li>
                   <li class="Even" data-ur-carousel-component="item" alt="2" data-role="none">
                     <div class="_flex_box">
     <div class="ProductImage QuickView _flex_box_item_1" data-product="6" style="height: 120px; width: 120px;">
@@ -547,10 +577,10 @@
                     </div>
     </div>
     </div>
-                    
-                    
-                    
-                  </li>             
+
+
+
+                  </li>
 
                   <li class="Odd" data-ur-carousel-component="item" alt="3" data-role="none" >
                     <div class="_flex_box">
@@ -570,9 +600,9 @@
                     </div>
     </div>
     </div>
-                    
-                    
-                    
+
+
+
                   </li>
 </ul>
     <div data-ur-carousel-component="dots" data-role="none"></div>
