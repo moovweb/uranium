@@ -17,6 +17,7 @@
     // console.log("findElements");
     var groups = {};
     // console.log(groups);
+    // console.log(fragment);
     var set_elements = $(fragment).find("*[data-ur-set='" + type + "']");
     set_elements.each(function( index ) {
       // console.log("set_elements");
@@ -44,8 +45,11 @@
   }
 
   var findComponents = function( element, component ) {
-    // console.log("findComponents");
-    var components = $(element).find("*[data-ur-" + component + "-component]");
+    console.log("findComponents");
+    // console.log(element);
+    // console.log(component);
+    var components = $(element).children("*[data-ur-" + component + "-component]");
+    // console.log(components);
     return components;
   }
 
@@ -90,6 +94,7 @@
       $.each(groups, function() {
         var self = this;
         $(self["button"]).click(function() {
+          event.stopPropagation();
           var new_state = $(self["button"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
           $(self["button"]).attr('data-ur-state', new_state);
           $(self["content"]).attr("data-ur-state", new_state);
@@ -592,9 +597,9 @@
 
           var touch = "ontouchstart" in window;
           var $container = $(self.container);
-          $container.un(touch ? "touchstart" : "mousedown", panStart);
-          $container.un(touch ? "touchmove" : "mousemove", panMove);
-          $container.un(touch ? "touchend" : "mouseup", panEnd);
+          $container.unbind(touch ? "touchstart" : "mousedown", panStart);
+          $container.unbind(touch ? "touchmove" : "mousemove", panMove);
+          $container.unbind(touch ? "touchend" : "mouseup", panEnd);
         }
       }
 
@@ -904,7 +909,8 @@
       function readAttributes() {
 
         var oldAndroid = /Android [12]/.test(navigator.userAgent);
-        if (oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled") {
+        var ios6Device = /iP(hone|od) OS 6/.test(navigator.userAgent);
+        if ((oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled") || ios6Device ) {
           self.options.transform3d = false;
           var speed = parseFloat($container.attr("data-ur-speed"));
           self.options.speed = speed > 1 ? speed : 1.3;
@@ -1015,16 +1021,24 @@
             $(items[i]).width(length + "px");
             totalWidth += length;
           }
-          else {
-            $(items[i]).load(function() {
-              totalWidth += $(this).width();
-            });
-          }
-        }
+          else if (self.options.fill == 0) {
+            //hacky - fix this
+            if($(items[i]).width() > 0) {
+                totalWidth += $(items[i]).width();
+              }
+              else {
+                $(items[i]).on('load',function() {
+                  totalWidth += $(this).width();
+                });
+              }
+           }
+      }
 
-        $(window).load(function() {
-          $(self.items).width(totalWidth + "px");
-        });
+        // $(window).load(function() {
+        //   $(self.items).width(totalWidth + "px");
+        // });
+
+        $(self.items).width(totalWidth + "px");
 
 
         var cumulativeOffset = -items[self.itemIndex].offsetLeft; // initial offset
@@ -1222,6 +1236,8 @@
       }
 
       function finishSwipe(e) {
+        // log("finishSwipe");
+        // log("STARTINGOFFSET: " + startingOffset);
         if (!self.flag.click || self.flag.lock)
           stifle(e);
         else if (e.target.tagName == "AREA")
@@ -1234,7 +1250,7 @@
 
       function getDisplacementIndex() {
         var swipeDistance = swipeDist();
-        var displacementIndex = zeroCeil(swipeDistance/$(self.items).find("[data-ur-carousel-component='item']")[0].width);
+        var displacementIndex = zeroCeil(swipeDistance/$(self.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
         return displacementIndex;
       }
 
@@ -1308,7 +1324,8 @@
               startingOffset += offset;
             }
             //console.log("startingOffset: " + startingOffset);
-            newIndex += self.realItemCount;
+            //make sure the new index is position (if the items are really tiny and the swipe distance is huge and there aren't enough clones to cover the distance)
+            newIndex += Math.ceil(Math.abs(newIndex) / self.realItemCount)*self.realItemCount;
             self.itemIndex = newIndex + direction;
             if(self.itemIndex > self.realItemCount + self.options.cloneLength) {
               self.itemIndex = self.realItemCount + self.options.cloneLength;
@@ -1332,7 +1349,8 @@
               translateX(altTransform);
               startingOffset += offset;
             }
-            newIndex -= self.realItemCount;
+            //make sure the new index is position (if the items are really tiny and the swipe distance is huge and there aren't enough clones to cover the distance)
+            newIndex -= Math.floor(Math.abs(newIndex) / self.realItemCount)*self.realItemCount;
             self.itemIndex = newIndex + direction;
             // console.log("  newIndex: " + newIndex);
             // console.log("  direction: " + direction);
@@ -1522,5 +1540,3 @@
 $(document).ready(function() {
   $("body").Uranium("init");
 });
-
-var global;
