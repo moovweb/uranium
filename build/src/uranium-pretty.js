@@ -45,7 +45,7 @@
   }
 
   var findComponents = function( element, component ) {
-    console.log("findComponents");
+    // console.log("findComponents");
     // console.log(element);
     // console.log(component);
     var components = $(element).children("*[data-ur-" + component + "-component]");
@@ -93,7 +93,7 @@
 
       $.each(groups, function() {
         var self = this;
-        $(self["button"]).click(function() {
+        $(self["button"]).click(function(event) {
           event.stopPropagation();
           var new_state = $(self["button"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
           $(self["button"]).attr('data-ur-state', new_state);
@@ -193,13 +193,14 @@
 
       // Touch Events
       ex
-        .bind('touchstart', function() {
+        .bind("ontouchstart" in window ? "touchstart" : "click", function() {
           // remove text in the box
           that[0].value='';
+          that[0].focus();
         })
         .bind('touchend', function() {
           // make sure the keyboard doesn't disappear
-          that[0].focus();
+          that[0].blur();
         });
 
       that
@@ -308,7 +309,6 @@
 
       function populateFields (geoInfo) {
         var elements = currentObj.elements;
-        global = elements;
         for (elm in elements) {
           if (elements[elm].localName === "input") {
             fieldHelper(elements[elm], geoInfo, "input")
@@ -500,8 +500,8 @@
       function initialize() {
         self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
         self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
-        self.width = self.width || parseInt($img.attr("width")) || parseInt($img.getStyle("width")) || self.img.width;
-        self.height = self.height || parseInt($img.attr("height")) || parseInt($img.getStyle("height")) || self.img.height;
+        self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
+        self.height = self.height || parseInt($img.attr("height")) || parseInt($img.css("height")) || self.img.height;
 
         self.bigWidth = parseInt($img.attr("data-ur-width")) || self.img.naturalWidth;
         self.bigHeight = parseInt($img.attr("data-ur-height")) || self.img.naturalHeight;
@@ -533,7 +533,7 @@
           offsetY = matrix.m42;
         }
         else {
-          var transform = style.MozTransform || style.OTransform || style.transform || "translate(0, 0)";
+          var transform = style.MozTransform || style.msTransform || style.transform || "translate(0, 0)";
           transform = transform.replace(/.*?\(|\)/, "").split(",");
 
           offsetX = parseInt(transform[0]);
@@ -623,7 +623,7 @@
           else
             t += " scale3d(" + scale + ", " + scale + ", 1)";
         }
-        return $img.css({ webkitTransform: t, MozTransform: t, OTransform: t, transform: t });
+        return $img.css({ webkitTransform: t, MozTransform: t, msTransform: t, transform: t });
       }
 
       // attempts to zoom in centering in on the area that was touched
@@ -792,12 +792,16 @@
       }
 
       // Optionally:
-      this.button = $(components).filter("[data-ur-carousel-component='button']")[0] === undefined ? {} : $(components).filter("[data-ur-carousel-component='button']");
+      this.button = $(components).filter("[data-ur-carousel-component='button']");
       this.count = $(components).filter("[data-ur-carousel-component='count']")[0];
       this.dots = $(components).filter("[data-ur-carousel-component='dots']")[0];
 
-      this.button["prev"] = this.button.filter("[data-ur-carousel-button-type='prev']");
-      this.button["next"] = this.button.filter("[data-ur-carousel-button-type='next']");
+      if (this.button.length == 0) {
+        this.button = {};
+      } else {
+        this.button["prev"] = this.button.filter("[data-ur-carousel-button-type='prev']");
+        this.button["next"] = this.button.filter("[data-ur-carousel-button-type='next']");
+      }
 
       this.flag = {
         click: false,
@@ -838,6 +842,23 @@
 
       function initialize() {
         readAttributes();
+        
+        // test 3d
+        var test = $("<a>").css({
+          webkitTransform: "translate3d(0, 0, 0)",
+          MozTransform: "translate3d(0, 0, 0)",
+          msTransform: "translate3d(0, 0, 0)",
+          transform: "translate3d(0, 0, 0)"
+        });
+        var wt = test.css("webkitTransform");
+        var mt = test.css("MozTransform");
+        var it = test.css("msTransform");
+        var t = test.css("transform");
+        self.options.transform3d = self.options.transform3d &&
+        ((wt != "none" && wt) ||
+        (mt != "none" && mt) ||
+        (it != "none" && it) ||
+        (t != "none" && t));
 
         if (!self.options.transform3d) {
           translatePrefix = "translate(";
@@ -872,6 +893,8 @@
         updateIndex(self.itemIndex + self.options.cloneLength);
 
         self.update();
+
+        $(self.items).on("dragstart", function() { return false; }); // for Firefox
 
         if (self.options.touch) {
           var hasTouch = "ontouchstart" in window;
@@ -1182,9 +1205,11 @@
           return;
         // console.log("continueSwipe");
         // console.log("STARTINGOFFSET: " + startingOffset);
-        self.flag.click = false;
 
         var coords = getEventCoords(e);
+
+        if (Math.abs(preCoords.y - coords.y) + Math.abs(preCoords.x - coords.x) > 0)
+          self.flag.click = false;
 
         if (document.ontouchstart !== undefined && self.options.verticalScroll) {
           var slope = Math.abs((preCoords.y - coords.y)/(preCoords.x - coords.x));
@@ -1250,7 +1275,7 @@
 
       function getDisplacementIndex() {
         var swipeDistance = swipeDist();
-        var displacementIndex = zeroCeil(swipeDistance/$(self.items).find("[data-ur-carousel-component='item']")[0].offsetWidth);
+        var displacementIndex = zeroCeil(swipeDistance/$(self.items).find("[data-ur-carousel-component='item']").first().width());
         return displacementIndex;
       }
 
@@ -1443,9 +1468,8 @@
         self.translate = x;
         var items = self.items;
         $(items).css({webkitTransform: translatePrefix + x + "px, 0px" + translateSuffix,
-          msTransform: translatePrefix + x + "px, 0px" + translateSuffix,
-          OTransform: translatePrefix + x + "px, 0px" + translateSuffix,
           MozTransform: translatePrefix + x + "px, 0px" + translateSuffix,
+          msTransform: translatePrefix + x + "px, 0px" + translateSuffix,
           transform: translatePrefix + x + "px, 0px" + translateSuffix
          });
         // sanity check - make sure the active item has in fact determined the translation amount
@@ -1473,8 +1497,6 @@
       // Initialize the function here
       // console.log("Uranium init: " + options);
 
-      // console.log(this);
-      // console.log($(this));
       if (! initialized) {
 
         // Initialize the widgets
@@ -1537,6 +1559,6 @@
   };
 })( jQuery );
 
-$(document).ready(function() {
-  $("body").Uranium("init");
+jQuery(document).ready(function() {
+  jQuery("body").Uranium("init");
 });
