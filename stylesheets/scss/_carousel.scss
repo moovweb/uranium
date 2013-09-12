@@ -1,6 +1,6 @@
 body {
   [data-ur-carousel-component='view_container'] {
-    background: #FFD700 url('resources/largeshade.png') no-repeat left bottom;
+    background: $color2 url('resources/largeshade.png') no-repeat left bottom;
     border: 1px solid black;
     overflow: hidden;
     position: relative;

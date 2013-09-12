@@ -20,13 +20,13 @@ body{
     margin: 0;
   }
   #babutton[data-ur-state="disabled"] {
-    background: #ffd700;
+    background: $color2;
     color: #323232;
     opacity: 0.2;
   }
   #babutton[data-ur-state="enabled"] {
     color: #323232;
-    background: #ffd700;
+    background: $color2;
   }
   #babutton[data-ur-tab-id="advancedpage"] {
     margin-right: 100px;
@@ -56,13 +56,13 @@ body{
   }
   #tab_widget *[data-ur-set="tabs"] * {
     &[data-ur-tabs-component="button"] {
-      background: #ffd700;
+      background: $color2;
     }
     &[data-ur-tabs-component="button"][data-ur-state="enabled"] {
-      background: #ffd700;
-      border-bottom: 1px solid #ffd700; }
+      background: $color2;
+      border-bottom: 1px solid $color2; }
     &[data-ur-tabs-component="content"] {
-      background: #ffd700; } }
+      background: $color2; } }
   // Accordions w state
   div[name='accordions'] * {
     &[data-ur-tabs-component='button'] {
@@ -78,7 +78,7 @@ body{
       &[data-ur-tabs-component='button'] {
         color: black;
         opacity: 0.5;
-        background-color: #ffd700;
+        background-color: $color2;
         border: 1px solid black;
         border-top-left-radius: 5px 5px;
         border-top-right-radius: 5px 5px;
@@ -90,14 +90,14 @@ body{
       &[data-ur-tabs-component='content'] {
         color: black;
         display: none;
-        background-color: #ffd700;
+        background-color: $color2;
         border-radius: 5px; }
       &[data-ur-tabs-component='button'][data-ur-state='enabled'] {
         opacity: 1;
-        border-bottom: 1px solid #ffd700; }
+        border-bottom: 1px solid $color2; }
       &[data-ur-tabs-component='content'][data-ur-state='enabled'] {
         display: block;
-        background-color: #ffd700;
+        background-color: $color2;
         border: 1px solid black;
         padding: 20px; 
         margin: 0px;
@@ -106,16 +106,16 @@ body{
         text-align: left; } }
     #tab_widget *[data-ur-set="tabs"] * {
       &[data-ur-tabs-component="button"] {
-        background: #ffd700; }
+        background: $color2; }
       &[data-ur-tabs-component="content"] {
-        background: #ffd700; } }
+        background: $color2; } }
     // Accordions w state
     div[name='accordions'] * {
       &[data-ur-tabs-component='button'] {
         display: block;
         border: 1px solid black;
-        background-color: #ffd700;
+        background-color: $color2;
         border-radius: 5px; }
       &[data-ur-tabs-component='content'] {
-        background-color: #ffd700;
+        background-color: $color2;
         margin: 0px 20px; } } } }

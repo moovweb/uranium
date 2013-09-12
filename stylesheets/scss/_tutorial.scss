@@ -8,7 +8,7 @@ body#tutorial_page {
     border: none; }
   #end_product * {
     &[data-ur-toggler-component='button'] {
-      background: #ffd700;
+      background: $color2;
       &:hover {}
       cursor: hand;
       cursor: pointer;
@@ -16,7 +16,7 @@ body#tutorial_page {
     &[data-ur-toggler-component='content'] {
       &[data-ur-state='enabled'] {
         display: block;
-        background: #ffd700;
+        background: $color2;
         width: 200px; }
       &[data-ur-state="disabled"] {
         display: none; } } } }

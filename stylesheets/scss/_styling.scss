@@ -3,7 +3,7 @@ body#styling_page {
   * {
     &[data-ur-toggler-component='button'][data-ur-id='LazyPopup'] {
       border-radius: 5px;
-      background: #ffd700;
+      background: $color2;
       opacity: 0.5;
       padding: 5px;
       display: inline;
@@ -63,10 +63,10 @@ body#styling_page {
     &[data-ur-toggler-component='button'] {
       background: #64953d;
       &[data-ur-state='disabled'] {
-        background: #ffd700;
+        background: $color2;
         opacity: 0.5; }
       &[data-ur-state='enabled'] {
-        background: #ffd700;
+        background: $color2;
         opacity: 1; } }
     &[data-ur-toggler-component='content'] {
       &[data-ur-state='disabled'] {

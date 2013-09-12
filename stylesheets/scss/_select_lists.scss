@@ -34,7 +34,7 @@ body#select_list_page {
     -moz-border-radius: 5px;
     border-radius: 5px;
     [data-ur-state="enabled"] {
-      background-color: #ffd700 url("resources/largeshade.png") no-repeat left bottom; }
+      background-color: $color2 url("resources/largeshade.png") no-repeat left bottom; }
     span {
       margin: 10px;
       padding-left: 10px;

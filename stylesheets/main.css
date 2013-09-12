@@ -32,7 +32,7 @@ h1 {
 
 /* line 32, scss/_base.scss */
 h2 {
-  color: gold;
+  color: #a8bb19;
   font: italic 24px "Crete Round", serif;
   text-shadow: black 0px 1px;
   margin: 0 auto 10px; }
@@ -147,7 +147,7 @@ select {
   font-size: 18px;
   font-family: Rockwell;
   text-align: center;
-  background: #FFD700;
+  background: #a8bb19;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
@@ -198,7 +198,7 @@ select {
   font-size: 18px;
   font-family: Rockwell;
   text-align: center;
-  background: #FFD700;
+  background: #a8bb19;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -219,7 +219,7 @@ select {
   font-size: 18px;
   font-family: Rockwell;
   text-align: center;
-  background: #FFD700;
+  background: #a8bb19;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -275,7 +275,7 @@ select {
 
 /* line 208, scss/_base.scss */
 *[data-ur-select-list-component="content"] [data-ur-state="enabled"] {
-  background: #FFD700;
+  background: #a8bb19;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
@@ -292,7 +292,7 @@ select {
   /* It's children */ }
   /* line 5, scss/_header.scss */
   #menu #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1370626561') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1378929677') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -384,11 +384,11 @@ select {
       color: #fffafa; }
   /* line 77, scss/_header.scss */
   #menu .selected {
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd700), color-stop(100%, #e6c200));
-    background: -webkit-linear-gradient(#ffd700, #e6c200);
-    background: -moz-linear-gradient(#ffd700, #e6c200);
-    background: -o-linear-gradient(#ffd700, #e6c200);
-    background: linear-gradient(#ffd700, #e6c200);
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a8bb19), color-stop(100%, #94a516));
+    background: -webkit-linear-gradient(#a8bb19, #94a516);
+    background: -moz-linear-gradient(#a8bb19, #94a516);
+    background: -o-linear-gradient(#a8bb19, #94a516);
+    background: linear-gradient(#a8bb19, #94a516);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
@@ -415,7 +415,7 @@ select {
       margin: 0px 0px 10px 0px; }
       /* line 90, scss/_header.scss */
       #menu #uraniumlogo {
-        background: gold url('/images/uraniumlogo.png?1370626561') no-repeat 50% 50%;
+        background: #a8bb19 url('/images/uraniumlogo.png?1378929677') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
         -moz-background-size: 100px 30px;
         -o-background-size: 100px 30px;
@@ -512,7 +512,7 @@ select {
       /* line 164, scss/_header.scss */
       #github_ribbon:before {
         border: 10px solid;
-        border-color: transparent gold transparent transparent;
+        border-color: transparent #a8bb19 transparent transparent;
         top: 1px;
         right: 0;
         height: 0; }
@@ -526,7 +526,7 @@ select {
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 15px 15px -5px inset;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 15px 15px -5px inset;
   box-shadow: rgba(0, 0, 0, 0.3) 0 15px 15px -5px inset;
-  background: #ffd700;
+  background: #a8bb19;
   border-top: 1px solid black;
   color: black;
   font-size: 12px;
@@ -567,7 +567,7 @@ select {
   /* Top Header */ }
   /* line 3, scss/_index.scss */
   #home_page .top_wrapper {
-    background: gold;
+    background: #a8bb19;
     padding: 0 30px;
     text-align: center; }
   /* line 8, scss/_index.scss */
@@ -616,7 +616,7 @@ select {
         margin-left: 3px; }
     /* line 44, scss/_index.scss */
     #home_page #quote span {
-      color: gold;
+      color: #a8bb19;
       display: block;
       font: 300 18px "Open Sans", sans-serif;
       text-align: right; }
@@ -949,7 +949,7 @@ select {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background: gold url("resources/largeshade.png") no-repeat left bottom;
+    background: #a8bb19 url("resources/largeshade.png") no-repeat left bottom;
     color: black;
     margin: 5px;
     padding: 5px; }
@@ -964,7 +964,7 @@ select {
       display: block;
       margin: 5px;
       padding: 5px;
-      background: gold url("resources/largeshade.png") no-repeat left bottom;
+      background: #a8bb19 url("resources/largeshade.png") no-repeat left bottom;
       color: black; }
       /* line 48, scss/_intro.scss */
       [data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state='enabled'] li {
@@ -979,7 +979,7 @@ select {
   padding: 5px; }
   /* line 59, scss/_intro.scss */
   #exselectlist [data-ur-state='enabled'] {
-    background: gold url("resources/largeshade.png") no-repeat left bottom; }
+    background: #a8bb19 url("resources/largeshade.png") no-repeat left bottom; }
 
 /* line 65, scss/_intro.scss */
 #excarousel [data-ur-set="carousel"] [data-ur-carousel-component="view_container"] {
@@ -1048,14 +1048,14 @@ body#tutorial_page *[data-ur-set="toggler"] {
   border: none; }
 /* line 10, scss/_tutorial.scss */
 body#tutorial_page #end_product *[data-ur-toggler-component='button'] {
-  background: #ffd700;
+  background: #a8bb19;
   cursor: hand;
   cursor: pointer;
   width: 200px; }
 /* line 17, scss/_tutorial.scss */
 body#tutorial_page #end_product *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
   display: block;
-  background: #ffd700;
+  background: #a8bb19;
   width: 200px; }
 /* line 21, scss/_tutorial.scss */
 body#tutorial_page #end_product *[data-ur-toggler-component='content'][data-ur-state="disabled"] {
@@ -1222,7 +1222,7 @@ body#about_page [data-ur-set="toggler"] {
 /* line 4, scss/_styling.scss */
 body#styling_page *[data-ur-toggler-component='button'][data-ur-id='LazyPopup'] {
   border-radius: 5px;
-  background: #ffd700;
+  background: #a8bb19;
   opacity: 0.5;
   padding: 5px;
   display: inline;
@@ -1279,11 +1279,11 @@ body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='butto
   background: #64953d; }
   /* line 65, scss/_styling.scss */
   body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='button'][data-ur-state='disabled'] {
-    background: #ffd700;
+    background: #a8bb19;
     opacity: 0.5; }
   /* line 68, scss/_styling.scss */
   body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='button'][data-ur-state='enabled'] {
-    background: #ffd700;
+    background: #a8bb19;
     opacity: 1; }
 /* line 72, scss/_styling.scss */
 body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='content'][data-ur-state='disabled'] {
@@ -1399,7 +1399,7 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
   -ms-border-radius: 5px;
   -o-border-radius: 5px;
   border-radius: 5px;
-  background: #ffd700;
+  background: #a8bb19;
   color: #323232;
   width: 98px;
   height: 25px;
@@ -1518,7 +1518,7 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
 
 /* line 2, scss/_carousel.scss */
 body [data-ur-carousel-component='view_container'] {
-  background: gold url("resources/largeshade.png") no-repeat left bottom;
+  background: #a8bb19 url("resources/largeshade.png") no-repeat left bottom;
   border: 1px solid black;
   overflow: hidden;
   position: relative;
@@ -1752,7 +1752,7 @@ body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-compone
   border-radius: 5px; }
   /* line 36, scss/_select_lists.scss */
   body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] [data-ur-state="enabled"] {
-    background-color: gold url("resources/largeshade.png") no-repeat left bottom; }
+    background-color: #a8bb19 url("resources/largeshade.png") no-repeat left bottom; }
   /* line 38, scss/_select_lists.scss */
   body#select_list_page [data-ur-id="MyUIDSelectList"][data-ur-select-list-component="content"] span {
     margin: 10px;
@@ -1779,13 +1779,13 @@ body #babutton {
   margin: 0; }
 /* line 22, scss/_tabs.scss */
 body #babutton[data-ur-state="disabled"] {
-  background: #ffd700;
+  background: #a8bb19;
   color: #323232;
   opacity: 0.2; }
 /* line 27, scss/_tabs.scss */
 body #babutton[data-ur-state="enabled"] {
   color: #323232;
-  background: #ffd700; }
+  background: #a8bb19; }
 /* line 31, scss/_tabs.scss */
 body #babutton[data-ur-tab-id="advancedpage"] {
   margin-right: 100px;
@@ -1814,14 +1814,14 @@ body [data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
 /* line 58, scss/_tabs.scss */
 body #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
-  background: #ffd700; }
+  background: #a8bb19; }
 /* line 61, scss/_tabs.scss */
 body #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"][data-ur-state="enabled"] {
-  background: #ffd700;
-  border-bottom: 1px solid #ffd700; }
+  background: #a8bb19;
+  border-bottom: 1px solid #a8bb19; }
 /* line 64, scss/_tabs.scss */
 body #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
-  background: #ffd700; }
+  background: #a8bb19; }
 /* line 68, scss/_tabs.scss */
 body div[name='accordions'] *[data-ur-tabs-component='button'] {
   display: block;
@@ -1835,7 +1835,7 @@ body div[name='accordions'] *[data-ur-tabs-component='content'] {
 body #tabs_examples_page *[data-ur-tabs-component='button'] {
   color: black;
   opacity: 0.5;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   border: 1px solid black;
   border-top-left-radius: 5px 5px;
   border-top-right-radius: 5px 5px;
@@ -1848,16 +1848,16 @@ body #tabs_examples_page *[data-ur-tabs-component='button'] {
 body #tabs_examples_page *[data-ur-tabs-component='content'] {
   color: black;
   display: none;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   border-radius: 5px; }
 /* line 95, scss/_tabs.scss */
 body #tabs_examples_page *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1;
-  border-bottom: 1px solid #ffd700; }
+  border-bottom: 1px solid #a8bb19; }
 /* line 98, scss/_tabs.scss */
 body #tabs_examples_page *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
   display: block;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   border: 1px solid black;
   padding: 20px;
   margin: 0px; }
@@ -1866,19 +1866,19 @@ body #tabs_examples_page *[data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
 /* line 108, scss/_tabs.scss */
 body #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
-  background: #ffd700; }
+  background: #a8bb19; }
 /* line 110, scss/_tabs.scss */
 body #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
-  background: #ffd700; }
+  background: #a8bb19; }
 /* line 114, scss/_tabs.scss */
 body #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='button'] {
   display: block;
   border: 1px solid black;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   border-radius: 5px; }
 /* line 119, scss/_tabs.scss */
 body #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='content'] {
-  background-color: #ffd700;
+  background-color: #a8bb19;
   margin: 0px 20px; }
 
 /* line 3, scss/_toggler.scss */
@@ -1890,11 +1890,11 @@ body#toggler_page *[data-ur-set="toggler"] {
   background: silver; }
 /* line 11, scss/_toggler.scss */
 body#toggler_page *[data-ur-toggler-component='button'] {
-  background-color: #ffd700; }
+  background-color: #a8bb19; }
 /* line 13, scss/_toggler.scss */
 body#toggler_page *[data-ur-toggler-component='content'] {
   display: none;
-  background-color: #ffd700; }
+  background-color: #a8bb19; }
 /* line 16, scss/_toggler.scss */
 body#toggler_page *[data-ur-toggler-component='button'][data-ur-state='enabled'] {
   opacity: 1; }
@@ -1907,7 +1907,7 @@ body#toggler_page .components [data-ur-toggler-component='button'] {
 /* line 26, scss/_toggler.scss */
 body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='button'] {
   border-radius: 5px;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   opacity: 1;
   padding: 5px; }
 /* line 31, scss/_toggler.scss */
@@ -1928,7 +1928,7 @@ body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'] {
 /* line 45, scss/_toggler.scss */
 body#toggler_page .popup_button {
   border-radius: 5px;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   opacity: 1;
   padding: 5px;
   display: inline;
@@ -1936,7 +1936,7 @@ body#toggler_page .popup_button {
   /* line 52, scss/_toggler.scss */
   body#toggler_page .popup_button > span {
     border-radius: 5px;
-    background-color: #ffd700;
+    background-color: #a8bb19;
     opacity: 1;
     padding: 5px;
     display: inline;
@@ -1989,7 +1989,7 @@ body#toggler_page .wrapper [data-ur-set='toggler'] {
 body#toggler_page *[data-ur-toggler-component='button'] {
   opacity: 0.5;
   border-radius: 5px;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   opacity: 1;
   padding: 5px;
   width: 190px;
@@ -2007,7 +2007,7 @@ body#toggler_page *[data-ur-toggler-component='button'] {
 /* line 124, scss/_toggler.scss */
 body#toggler_page *[data-ur-toggler-component='content'] {
   display: none;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   border-radius: 5px;
   opacity: 1;
   padding: 5px;
@@ -2047,7 +2047,7 @@ body#toggler_page *[data-ur-toggler-component='content'][data-ur-state='enabled'
 /* line 160, scss/_toggler.scss */
 body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='button'] {
   border-radius: 5px;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   opacity: 1;
   padding: 5px;
   width: 190px;
@@ -2080,7 +2080,7 @@ body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'] {
 /* line 191, scss/_toggler.scss */
 body#toggler_page .popup_button {
   border-radius: 5px;
-  background-color: #ffd700;
+  background-color: #a8bb19;
   opacity: 1;
   padding: 5px;
   display: inline;
@@ -2088,7 +2088,7 @@ body#toggler_page .popup_button {
   /* line 198, scss/_toggler.scss */
   body#toggler_page .popup_button > span {
     border-radius: 5px;
-    background-color: #ffd700;
+    background-color: #a8bb19;
     opacity: 1;
     padding: 5px;
     display: inline;
@@ -2139,7 +2139,7 @@ body#toggler_page #disabled {
   border: none; }
 /* line 245, scss/_toggler.scss */
 body#toggler_page div[data-ur-id='MyToggler'].buttons {
-  background-color: #ffd700 !important; }
+  background-color: #a8bb19 !important; }
 
 /* line 2, scss/_zoom.scss */
 body#zoom_page [data-ur-set="zoom"] {

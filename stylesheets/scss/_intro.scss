@@ -30,7 +30,7 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
+    background: $color2 url("resources/largeshade.png") no-repeat left bottom;
     color: black;
     margin: 5px;
     padding: 5px; }
@@ -43,7 +43,7 @@
       display: block;
       margin: 5px;
       padding: 5px;
-      background: #ffd700 url("resources/largeshade.png") no-repeat left bottom;
+      background: $color2 url("resources/largeshade.png") no-repeat left bottom;
       color: black;
       li {
         color: black;
@@ -57,7 +57,7 @@
   color: black;
   padding: 5px;
   [data-ur-state='enabled'] {
-    background: #ffd700 url("resources/largeshade.png") no-repeat left bottom; } }
+    background: $color2 url("resources/largeshade.png") no-repeat left bottom; } }
 
 // Carousel Styling
 

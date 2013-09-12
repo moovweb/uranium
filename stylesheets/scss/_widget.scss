@@ -34,7 +34,7 @@ li[data-ur-set="toggler"] {
 
 #adv_btn, #basic_btn {
   @include border-radius(5px);
-  background: #ffd700;
+  background: $color2;
   color: #323232;
   width: 98px;
   height: 25px;

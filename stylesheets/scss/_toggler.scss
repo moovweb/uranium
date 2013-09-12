@@ -9,10 +9,10 @@ body#toggler_page {
       border: none;
       background: silver; }
     &[data-ur-toggler-component='button'] {
-      background-color: #ffd700; }
+      background-color: $color2; }
     &[data-ur-toggler-component='content'] {
       display: none;
-      background-color: #ffd700; }
+      background-color: $color2; }
     &[data-ur-toggler-component='button'][data-ur-state='enabled'] {
       opacity: 1; }
     &[data-ur-toggler-component='content'][data-ur-state='enabled'] {
@@ -25,7 +25,7 @@ body#toggler_page {
   div[name='Dialog'] * {
     &[data-ur-toggler-component='button'] {
       border-radius: 5px;
-      background-color: #ffd700;
+      background-color: $color2;
       opacity: 1;
       padding: 5px; }
     &[data-ur-toggler-component='content'] {
@@ -44,14 +44,14 @@ body#toggler_page {
   // Proper Styling
   .popup_button {
     border-radius: 5px;
-    background-color: #ffd700;
+    background-color: $color2;
     opacity: 1;
     padding: 5px;
     display: inline;
     margin: 0px 5px;
     > span {
       border-radius: 5px;
-      background-color: #ffd700;
+      background-color: $color2;
       opacity: 1;
       padding: 5px;
       display: inline;
@@ -106,7 +106,7 @@ body#toggler_page {
     &[data-ur-toggler-component='button'] {
       opacity: 0.5;
       border-radius: 5px;
-      background-color: #ffd700;
+      background-color: $color2;
       opacity: 1;
       padding: 5px;
       width: 190px;
@@ -123,7 +123,7 @@ body#toggler_page {
       border-radius: 5px; }
     &[data-ur-toggler-component='content'] {
       display: none;
-      background-color: #ffd700;
+      background-color: $color2;
       border-radius: 5px;
       opacity: 1;
       padding: 5px;
@@ -159,7 +159,7 @@ body#toggler_page {
   div[name='Dialog'] * {
     &[data-ur-toggler-component='button'] {
       border-radius: 5px;
-      background-color: #ffd700;
+      background-color: $color2;
       opacity: 1;
       padding: 5px;
       width: 190px;
@@ -190,14 +190,14 @@ body#toggler_page {
   // Proper Styling
   .popup_button {
     border-radius: 5px;
-    background-color: #ffd700;
+    background-color: $color2;
     opacity: 1;
     padding: 5px;
     display: inline;
     margin: 0px 5px;
     > span {
       border-radius: 5px;
-      background-color: #ffd700;
+      background-color: $color2;
       opacity: 1;
       padding: 5px;
       display: inline;
@@ -243,4 +243,4 @@ body#toggler_page {
     background: #323232;
     border: none; }
   div[data-ur-id='MyToggler'].buttons {
-    background-color: #ffd700 !important; } }
+    background-color: $color2 !important; } }
