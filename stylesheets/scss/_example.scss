@@ -24,7 +24,8 @@
     background-color: transparent;
     border: none;
   }
-  .widget_html{
+  .widget_html,
+  .interaction_html{
     padding: 0px;
   }
   .example {
@@ -47,7 +48,10 @@
 
 .ur_tabs {
   overflow: hidden;
-  #tabs_widget, .widget_html{
+  #tabs_widget,
+  .widget_html,
+  #tabs_interaction,
+  .interaction_html {
     &[data-ur-state="disabled"]{
       display: none;
     }
@@ -72,7 +76,8 @@
     background-color: transparent;
     border: none;
   }
-  .widget_html{
+  .widget_html,
+  .interaction_html {
     padding: 0px;
   }
   .example {

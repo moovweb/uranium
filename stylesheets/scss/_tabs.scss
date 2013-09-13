@@ -11,111 +11,109 @@ body{
     margin: 0px 5px;
     padding: 5px;
     position: relative;
-  }
+	}
   #babutton {
     padding-top: 6px;
     padding-bottom: 0px;
     padding-left: 0px;
     padding-right: 0px;
     margin: 0;
-  }
+	}
   #babutton[data-ur-state="disabled"] {
     background: $color2;
     color: #323232;
     opacity: 0.2;
-  }
+	}
   #babutton[data-ur-state="enabled"] {
     color: #323232;
     background: $color2;
-  }
+	}
   #babutton[data-ur-tab-id="advancedpage"] {
     margin-right: 100px;
     margin-left: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
-  }
+	}
   [data-ur-tabs-component='content'] {
     display: none;
     background-color: silver;
     padding: 10px;
-  }
+	}
   [data-ur-tabs-component='button'][data-ur-state='disabled'] {
-    opacity: 0.5;
-  }
+    opacity: 0.75;
+	}
   [data-ur-tabs-component='button'][data-ur-state='enabled'] {
     opacity: 1;
     border-bottom: 1px solid silver;
-  }
+	}
   [data-ur-tabs-component='content'][data-ur-state='enabled'] {
     display: block;
     background-color: silver;
     border: 1px solid black;
-  }
+	}
   [data-ur-set="tabs"][data-ur-tab-id="html"] {
     text-align: left;
-  }
-  #tab_widget *[data-ur-set="tabs"] * {
-    &[data-ur-tabs-component="button"] {
+	}
+  #tab_interaction [data-ur-set="tabs"] {
+    [data-ur-tabs-component="button"] {
       background: $color2;
     }
-    &[data-ur-tabs-component="button"][data-ur-state="enabled"] {
+    [data-ur-tabs-component="button"][data-ur-state="enabled"] {
       background: $color2;
-      border-bottom: 1px solid $color2; }
-    &[data-ur-tabs-component="content"] {
-      background: $color2; } }
-  // Accordions w state
-  div[name='accordions'] * {
-    &[data-ur-tabs-component='button'] {
-      display: block;
-      border: 1px solid blue;
-      background-color: white; }
-    &[data-ur-tabs-component='content'] {
-      background-color: white;
-      margin: 0px 20px; } }
+      border-bottom: 1px solid $color2;
+    }
+    [data-ur-tabs-component="content"] {
+      background: $color2;
+    }
+	}
   // Further examples
   #tabs_examples_page {
-    * {
-      &[data-ur-tabs-component='button'] {
-        color: black;
-        opacity: 0.5;
-        background-color: $color2;
-        border: 1px solid black;
-        border-top-left-radius: 5px 5px;
-        border-top-right-radius: 5px 5px;
-        bottom: -1px;
-        display: inline-block;
-        margin: 0px 5px;
-        padding: 5px;
-        position: relative; }
-      &[data-ur-tabs-component='content'] {
-        color: black;
-        display: none;
-        background-color: $color2;
-        border-radius: 5px; }
-      &[data-ur-tabs-component='button'][data-ur-state='enabled'] {
-        opacity: 1;
-        border-bottom: 1px solid $color2; }
-      &[data-ur-tabs-component='content'][data-ur-state='enabled'] {
-        display: block;
-        background-color: $color2;
-        border: 1px solid black;
-        padding: 20px; 
-        margin: 0px;
-      }
-      &[data-ur-set="tabs"][data-ur-tab-id="html"] {
-        text-align: left; } }
-    #tab_widget *[data-ur-set="tabs"] * {
-      &[data-ur-tabs-component="button"] {
-        background: $color2; }
-      &[data-ur-tabs-component="content"] {
-        background: $color2; } }
+    [data-ur-tabs-component='button'] {
+      color: black;
+      opacity: 0.75;
+      background-color: $color2;
+      border: 1px solid black;
+      border-top-left-radius: 5px 5px;
+      border-top-right-radius: 5px 5px;
+      bottom: -1px;
+      display: inline-block;
+      margin: 0px 5px;
+      padding: 5px;
+      position: relative;
+    }
+    [data-ur-tabs-component='content'] {
+      color: black;
+      display: none;
+      background-color: $color2;
+      border-radius: 5px;
+    }
+    [data-ur-tabs-component='button'][data-ur-state='enabled'] {
+      opacity: 1;
+      border-bottom: 1px solid $color2;
+    }
+    [data-ur-tabs-component='content'][data-ur-state='enabled'] {
+      display: block;
+      background-color: $color2;
+      border: 1px solid black;
+      padding: 20px; 
+      margin: 0px;
+    }
+    [data-ur-set="tabs"][data-ur-tab-id="html"] {
+      text-align: left;
+   
+    }
     // Accordions w state
-    div[name='accordions'] * {
-      &[data-ur-tabs-component='button'] {
+    div[name='accordions'] {
+      [data-ur-tabs-component='button'] {
         display: block;
         border: 1px solid black;
         background-color: $color2;
-        border-radius: 5px; }
-      &[data-ur-tabs-component='content'] {
+        border-radius: 5px;
+      }
+      [data-ur-tabs-component='content'] {
         background-color: $color2;
-        margin: 0px 20px; } } } }
+        margin: 0px 20px;
+      }
+    }
+  }
+}

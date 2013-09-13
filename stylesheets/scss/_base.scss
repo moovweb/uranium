@@ -218,5 +218,12 @@ border-radius: 5px;
 
 
 [data-ur-toggler-component="button"], [data-ur-tabs-component="button"], [data-ur-carousel-component="button"] {
-  cursor:pointer;
+  &:not([data-ur-state="enabled"]) {
+    cursor: pointer;
+  }
+}
+
+/* Overrides disabled button pointer for closeable tabs */
+[data-ur-closeable="true"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
+  cursor: pointer;
 }
