@@ -215,3 +215,8 @@ border-radius: 5px;
 .example#select_list {
   height: 225px;
 }
+
+
+[data-ur-toggler-component="button"], [data-ur-tabs-component="button"], [data-ur-carousel-component="button"] {
+  cursor:pointer;
+}

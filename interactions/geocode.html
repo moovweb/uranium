@@ -1,215 +1,57 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-<title>Uranium JS | Geolocation</title>
-<link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
-<link href="/stylesheets/main.css" rel="stylesheet" />
-<script src="/src/jquery-1.9.1.js"></script>
-<script src="/src/jquery.uranium.js"></script>
-
-    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
-  </head>
-  
-  <body id="reverse-geocode_page" class="widget_page">
-    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
-<nav id="menu">
-  
-  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/interaction_list.html" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></div><a href="/about.html" >About</a>
-</nav>
-
-    <div id="textbody">
-      <div data-ur-set="tabs">
-        <div class="wrapper">
-          <h1> Geolocation </h1>
-        </div>
-        <div class="description_wrapper">
-          <h2> Description </h2>
-          <div class="description">
-            <p>
-  This widget allows you to Geolocation a location. You can use this to populate forms using the user's location. This is a singleton widget. This means only a single geocoder can exist per page. The elements you can populate are:
-  <ul>
-    <li>Street Address (only line 1, floor level is not present in the api)</li>
-    <li>City</li>
-    <li>Zip</li>
-    <li>State</li>
-    <li>Country</li>
-  </ul>
-</p>
-<p>You can only have one of these widgets per page.</p>
-<p>
-  Some browsers (as for <a href="{{site.url}}maps.html">maps</a>) won't do this locally, so use dropbox
-  for testing. Also, it's important to ensure that location services are enabled on the device and/or browser.
-</p>
-
-          </div>
-        </div>
-        <div class="wrapper">
-          <div class="attributes" data-ur-set="tabs">
-            <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-            <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <h2 class="attr_title">Attributes</h2>
-            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-              <dl>
-                
-                  <dt><code>data-ur-set="reverse-geocode"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
-                
-                  <dt><code>data-ur-reverse-geocode-component="rg-street"</code></dt><dd>for the street field</dd>
-                
-                  <dt><code>data-ur-reverse-geocode-component="rg-city"</code></dt><dd>for the city field</dd>
-                
-                  <dt><code>data-ur-reverse-geocode-component="rg-zip"</code></dt><dd>for the zip code field</dd>
-                
-                  <dt><code>data-ur-reverse-geocode-component="rg-state"</code></dt><dd>for the state field</dd>
-                
-                  <dt><code>data-ur-reverse-geocode-component="rg-country"</code></dt><dd>for the country field</dd>
-                
-                  <dt><code>data-ur-reverse-geocode-component="rg-button"</code></dt><dd>to wrap a "use my location" button</dd>
-                
-              </dl>
-            </div><!-- basic -->
-            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-              <h3> data-ur-set= </h3>
-              <code class="set_name">"reverse-geocode"</code>
-              <br />
-              <h3> data-ur-reverse-geocode-component= </h3>
-              
-              <div class="components">
-                
-                  <h4>Required</h4>
-                  <ul>
-                    
-                      <code>"rg-button"</code>
-                      <ul>
-                      
-                        <li>
-                          
-                            multiple?: false
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            state: N/A
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            if not included, the widget will fire when the page is loaded
-                          
-                        </li>
-                      
-                      </ul>
-                    
-                      <code>"rg-street"</code>
-                      <ul>
-                      
-                        <li>
-                          
-                            multiple?: false
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            state: N/A
-                          
-                        </li>
-                      
-                      </ul>
-                    
-                      <code>"rg-city"</code>
-                      <ul>
-                      
-                        <li>
-                          
-                            multiple?: false
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            state: N/A
-                          
-                        </li>
-                      
-                      </ul>
-                    
-                      <code>"rg-state"</code>
-                      <ul>
-                      
-                        <li>
-                          
-                            multiple?: false
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            state: N/A
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            can use a select tag or a text-input field
-                          
-                        </li>
-                      
-                      </ul>
-                    
-                      <code>"g-zip"</code>
-                      <ul>
-                      
-                        <li>
-                          
-                            multiple?: false
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            state: N/A
-                          
-                        </li>
-                      
-                      </ul>
-                    
-                      <code>"rg-country"</code>
-                      <ul>
-                      
-                        <li>
-                          
-                            multiple?: false
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            state: N/A
-                          
-                        </li>
-                      
-                        <li>
-                          
-                            can use a select tag or a text-input field
-                          
-                        </li>
-                      
-                      </ul>
-                    
-                  </ul>
-                
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Geocode example -->
+---
+layout: widgets
+title: Geolocation
+name: reverse-geocode
+widget_selected: selected
+description: |
+    <p>
+      This widget allows you to Geolocation a location. You can use this to populate forms using the user's location. This is a singleton widget. This means only a single geocoder can exist per page. The elements you can populate are:
+      <ul>
+        <li>Street Address (only line 1, floor level is not present in the api)</li>
+        <li>City</li>
+        <li>Zip</li>
+        <li>State</li>
+        <li>Country</li>
+      </ul>
+    </p>
+    <p>You can only have one of these widgets per page.</p>
+    <p>
+      Some browsers (as for <a href="{{site.url}}maps.html">maps</a>) won't do this locally, so use dropbox
+      for testing. Also, it's important to ensure that location services are enabled on the device and/or browser.
+    </p>
+basic_tab:
+  data-ur-set="reverse-geocode": add this attribute to a div that wraps the whole widget
+  data-ur-reverse-geocode-component="rg-street": for the street field
+  data-ur-reverse-geocode-component="rg-city": for the city field
+  data-ur-reverse-geocode-component="rg-zip": for the zip code field
+  data-ur-reverse-geocode-component="rg-state": for the state field
+  data-ur-reverse-geocode-component="rg-country": for the country field
+  data-ur-reverse-geocode-component="rg-button": to wrap a "use my location" button
+advanced_tab:
+  Required:
+    rg-button:
+      - "multiple?: false"
+      - "state: N/A"
+      - if not included, the widget will fire when the page is loaded
+    rg-street:
+      - "multiple?: false"
+      - "state: N/A"
+    rg-city:
+      - "multiple?: false"
+      - "state: N/A"
+    rg-state:
+      - "multiple?: false"
+      - "state: N/A"
+      - can use a select tag or a text-input field
+    g-zip:
+      - "multiple?: false"
+      - "state: N/A"
+    rg-country:
+      - "multiple?: false"
+      - "state: N/A"
+      - can use a select tag or a text-input field
+---
+<!-- Geocode example -->
 <h2>Demonstration</h2>
 <p>The demonstration here activates on load.</p>
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
@@ -526,28 +368,29 @@
   </div>
 
   <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-tabs-component=</span><span class="s">&quot;content&quot;</span> <span class="na">data-ur-tab-id=</span><span class="s">&quot;widget&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span> <span class="na">class=</span><span class="s">&quot;example_widget&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;reverse-geocode&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;geocode_submit&quot;</span> <span class="na">method=</span><span class="s">&quot;get&quot;</span> <span class="na">accept-charset=</span><span class="s">&quot;utf-8&quot;</span> <span class="nt">&gt;</span>
-      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;addr_1&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;street_address&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;street address&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-street&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;city&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;city&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;city&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-city&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;zip&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">id=</span><span class="s">&quot;zip&quot;</span> <span class="na">placeholder=</span><span class="s">&quot;zip&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-zip&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">&quot;state&quot;</span> <span class="na">id=</span><span class="s">&quot;state&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-state&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>None<span class="nt">&lt;/option&gt;</span>
-        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;AL&quot;</span><span class="nt">&gt;</span>Alabama<span class="nt">&lt;/option&gt;</span>
-        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;AK&quot;</span><span class="nt">&gt;</span>Alaska<span class="nt">&lt;/option&gt;</span>
+{% highlight html %}
+<div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
+  <div data-ur-set="reverse-geocode">
+    <form action="geocode_submit" method="get" accept-charset="utf-8" >
+      <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
+      <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
+      <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
+      <select name="state" id="state" data-ur-reverse-geocode-component="rg-state">
+        <option value="">None</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
         ...
-      <span class="nt">&lt;/select&gt;</span>
-      <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">&quot;country&quot;</span> <span class="na">id=</span><span class="s">&quot;country&quot;</span> <span class="na">data-ur-reverse-geocode-component=</span><span class="s">&quot;rg-country&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="na">selected=</span><span class="s">&quot;selected&quot;</span><span class="nt">&gt;</span>Select Country<span class="nt">&lt;/option&gt;</span>
-        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;United States&quot;</span><span class="nt">&gt;</span>United States<span class="nt">&lt;/option&gt;</span>
-        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">&quot;United Kingdom&quot;</span><span class="nt">&gt;</span>United Kingdom<span class="nt">&lt;/option&gt;</span>
+      </select>
+      <select name="country" id="country" data-ur-reverse-geocode-component="rg-country">
+        <option value="" selected="selected">Select Country</option>
+        <option value="United States">United States</option>
+        <option value="United Kingdom">United Kingdom</option>
         ...
-      <span class="nt">&lt;/select&gt;</span>
-    <span class="nt">&lt;/form&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+      </select>
+    </form>
+  </div>
+</div>
+{% endhighlight %}
   </div>
   <hr />
 </div>
@@ -564,8 +407,8 @@
 <!-- More Examples -->
 <div class="wrapper">
 <h1>Geocode Examples</h1>
-<h2><a href="geocode/button.html">Activating the Geolocator with a Button > </a></h2>
-<h2><a href="geocode/text_inputs.html">Populate Text Inputs Instead of Select Elements > </a></h2>
+<h2><a href="{{site.url}}geocode/button.html">Activating the Geolocator with a Button > </a></h2>
+<h2><a href="{{site.url}}geocode/text_inputs.html">Populate Text Inputs Instead of Select Elements > </a></h2>
 </div>
 
 <hr />
@@ -578,20 +421,3 @@
 </div>
 
 </div>
-
-
-      
-    </div>
-    <footer id="footer">
-  <span>Brought to you by&hellip;</span>
-  <br />
-  <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
-  <nav>
-    Uranium &copy; 2012 |
-    <a href="https://github.com/moovweb/uranium">GitHub</a> |
-    <a href="mailto:uranium@moovweb.com">Contact</a>
-  </nav>
-</footer>
-
-  </body>
-</html>
