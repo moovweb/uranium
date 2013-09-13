@@ -285,8 +285,13 @@ select {
 .example#select_list {
   height: 225px; }
 
-/* line 221, scss/_base.scss */
-[data-ur-toggler-component="button"], [data-ur-tabs-component="button"], [data-ur-carousel-component="button"] {
+/* line 222, scss/_base.scss */
+[data-ur-toggler-component="button"]:not([data-ur-state="enabled"]), [data-ur-tabs-component="button"]:not([data-ur-state="enabled"]), [data-ur-carousel-component="button"]:not([data-ur-state="enabled"]) {
+  cursor: pointer; }
+
+/* Overrides disabled button pointer for closeable tabs */
+/* line 228, scss/_base.scss */
+[data-ur-closeable="true"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
   cursor: pointer; }
 
 /* line 1, scss/_header.scss */
@@ -713,10 +718,11 @@ select {
   .ur_ex [data-ur-tabs-component='content'][data-ur-state='enabled'] {
     background-color: transparent;
     border: none; }
-  /* line 27, scss/_example.scss */
-  .ur_ex .widget_html {
+  /* line 28, scss/_example.scss */
+  .ur_ex .widget_html,
+  .ur_ex .interaction_html {
     padding: 0px; }
-  /* line 30, scss/_example.scss */
+  /* line 31, scss/_example.scss */
   .ur_ex .example {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -727,47 +733,51 @@ select {
     border: 3px solid #3c3c3c !important;
     padding: 10px; }
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 37, scss/_example.scss */
+    /* line 38, scss/_example.scss */
     .ur_ex > div:first-of-type {
       float: none;
       margin: 0;
       width: auto; }
-    /* line 42, scss/_example.scss */
+    /* line 43, scss/_example.scss */
     .ur_ex [data-ur-tabs-component="content"][data-ur-state="disabled"] {
       display: none; } }
 
-/* line 48, scss/_example.scss */
+/* line 49, scss/_example.scss */
 .ur_tabs {
   overflow: hidden; }
-  /* line 51, scss/_example.scss */
-  .ur_tabs #tabs_widget[data-ur-state="disabled"], .ur_tabs .widget_html[data-ur-state="disabled"] {
-    display: none; }
   /* line 55, scss/_example.scss */
+  .ur_tabs #tabs_widget[data-ur-state="disabled"],
+  .ur_tabs .widget_html[data-ur-state="disabled"],
+  .ur_tabs #tabs_interaction[data-ur-state="disabled"],
+  .ur_tabs .interaction_html[data-ur-state="disabled"] {
+    display: none; }
+  /* line 59, scss/_example.scss */
   .ur_tabs h3, .ur_tabs > div {
     overflow: hidden; }
-    /* line 57, scss/_example.scss */
+    /* line 61, scss/_example.scss */
     .ur_tabs h3:first-of-type, .ur_tabs > div:first-of-type {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box; }
-  /* line 61, scss/_example.scss */
+  /* line 65, scss/_example.scss */
   .ur_tabs [data-ur-tabs-component='button'] {
     background-color: transparent;
     border: none !important; }
-  /* line 65, scss/_example.scss */
+  /* line 69, scss/_example.scss */
   .ur_tabs [data-ur-tabs-component='content'] {
     display: block;
     background-color: transparent;
     border: none;
     margin: 10px 0px; }
-  /* line 71, scss/_example.scss */
+  /* line 75, scss/_example.scss */
   .ur_tabs [data-ur-tabs-component='content'][data-ur-state='enabled'] {
     background-color: transparent;
     border: none; }
-  /* line 75, scss/_example.scss */
-  .ur_tabs .widget_html {
+  /* line 80, scss/_example.scss */
+  .ur_tabs .widget_html,
+  .ur_tabs .interaction_html {
     padding: 0px; }
-  /* line 78, scss/_example.scss */
+  /* line 83, scss/_example.scss */
   .ur_tabs .example {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -778,12 +788,12 @@ select {
     border: 3px solid #3c3c3c !important;
     padding: 10px; }
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 85, scss/_example.scss */
+    /* line 90, scss/_example.scss */
     .ur_tabs > div:first-of-type {
       float: none;
       margin: 0;
       width: auto; }
-    /* line 90, scss/_example.scss */
+    /* line 95, scss/_example.scss */
     .ur_tabs [data-ur-tabs-component="content"][data-ur-state="disabled"] {
       display: none; } }
 
@@ -1584,7 +1594,7 @@ li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
   height: 20px; }
   /* line 49, scss/_interaction.scss */
   #adv_btn[data-ur-state="disabled"], #basic_btn[data-ur-state="disabled"] {
-    opacity: 0.2; }
+    opacity: 0.5; }
 
 /* line 54, scss/_interaction.scss */
 .components li {
@@ -1956,7 +1966,7 @@ body [data-ur-tabs-component='content'] {
   padding: 10px; }
 /* line 42, scss/_tabs.scss */
 body [data-ur-tabs-component='button'][data-ur-state='disabled'] {
-  opacity: 0.5; }
+  opacity: 0.75; }
 /* line 45, scss/_tabs.scss */
 body [data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1;
@@ -1970,28 +1980,19 @@ body [data-ur-tabs-component='content'][data-ur-state='enabled'] {
 body [data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
 /* line 58, scss/_tabs.scss */
-body #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
+body #tab_interaction [data-ur-set="tabs"] [data-ur-tabs-component="button"] {
   background: gold; }
 /* line 61, scss/_tabs.scss */
-body #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"][data-ur-state="enabled"] {
+body #tab_interaction [data-ur-set="tabs"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
   background: gold;
   border-bottom: 1px solid gold; }
-/* line 64, scss/_tabs.scss */
-body #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
+/* line 65, scss/_tabs.scss */
+body #tab_interaction [data-ur-set="tabs"] [data-ur-tabs-component="content"] {
   background: gold; }
-/* line 68, scss/_tabs.scss */
-body div[name='accordions'] *[data-ur-tabs-component='button'] {
-  display: block;
-  border: 1px solid blue;
-  background-color: white; }
-/* line 72, scss/_tabs.scss */
-body div[name='accordions'] *[data-ur-tabs-component='content'] {
-  background-color: white;
-  margin: 0px 20px; }
-/* line 78, scss/_tabs.scss */
-body #tabs_examples_page *[data-ur-tabs-component='button'] {
+/* line 71, scss/_tabs.scss */
+body #tabs_examples_page [data-ur-tabs-component='button'] {
   color: black;
-  opacity: 0.5;
+  opacity: 0.75;
   background-color: gold;
   border: 1px solid black;
   border-top-left-radius: 5px 5px;
@@ -2001,40 +2002,34 @@ body #tabs_examples_page *[data-ur-tabs-component='button'] {
   margin: 0px 5px;
   padding: 5px;
   position: relative; }
-/* line 90, scss/_tabs.scss */
-body #tabs_examples_page *[data-ur-tabs-component='content'] {
+/* line 84, scss/_tabs.scss */
+body #tabs_examples_page [data-ur-tabs-component='content'] {
   color: black;
   display: none;
   background-color: gold;
   border-radius: 5px; }
-/* line 95, scss/_tabs.scss */
-body #tabs_examples_page *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+/* line 90, scss/_tabs.scss */
+body #tabs_examples_page [data-ur-tabs-component='button'][data-ur-state='enabled'] {
   opacity: 1;
   border-bottom: 1px solid gold; }
-/* line 98, scss/_tabs.scss */
-body #tabs_examples_page *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+/* line 94, scss/_tabs.scss */
+body #tabs_examples_page [data-ur-tabs-component='content'][data-ur-state='enabled'] {
   display: block;
   background-color: gold;
   border: 1px solid black;
   padding: 20px;
   margin: 0px; }
-/* line 105, scss/_tabs.scss */
-body #tabs_examples_page *[data-ur-set="tabs"][data-ur-tab-id="html"] {
+/* line 101, scss/_tabs.scss */
+body #tabs_examples_page [data-ur-set="tabs"][data-ur-tab-id="html"] {
   text-align: left; }
-/* line 108, scss/_tabs.scss */
-body #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
-  background: gold; }
-/* line 110, scss/_tabs.scss */
-body #tabs_examples_page #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
-  background: gold; }
-/* line 114, scss/_tabs.scss */
-body #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='button'] {
+/* line 107, scss/_tabs.scss */
+body #tabs_examples_page div[name='accordions'] [data-ur-tabs-component='button'] {
   display: block;
   border: 1px solid black;
   background-color: gold;
   border-radius: 5px; }
-/* line 119, scss/_tabs.scss */
-body #tabs_examples_page div[name='accordions'] *[data-ur-tabs-component='content'] {
+/* line 113, scss/_tabs.scss */
+body #tabs_examples_page div[name='accordions'] [data-ur-tabs-component='content'] {
   background-color: gold;
   margin: 0px 20px; }
 

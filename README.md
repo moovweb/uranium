@@ -6,10 +6,10 @@
 Start with installing [Jekyll](http://jekyllrb.com/) 
 			gem install jekyll
 
-Update the CSS
-			sass --watch stylesheets/scss:stylesheets --line-comments --compass on the stylesheets folder to compile your SASS files.
+Update the CSS       sass --watch stylesheets/scss:stylesheets --line-comments
+--compass on the stylesheets folder to compile your SASS files and keep them updated.
 			
-Run the server (This will listen for changes)
+In a separate terminal process, run the server (This will also listen for changes)
 			jekyll serve --watch
 
 Check it [out](http://localhost:4000/) after launching

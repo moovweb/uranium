@@ -47,7 +47,7 @@ li[data-ur-set="toggler"] {
   border-right: 1.5px solid rgb(0, 0, 0);
   height: 20px;
   &[data-ur-state="disabled"] {
-    opacity: 0.2;
+    opacity: 0.5;
   }
 }
 

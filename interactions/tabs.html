@@ -1,11 +1,11 @@
 ---
-layout: widgets
+layout: interactions
 title: Tab
 name: tab
-widget_selected: selected
+interaction_selected: selected
 description: <p>Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.</p>
 basic_tab:
-  data-ur-set="tabs": add this attribute to a div that wraps the whole widget
+  data-ur-set="tabs": add this attribute to a div that wraps the whole interaction
   data-ur-tabs-component="button": add this attribute to the button div
   data-ur-tabs-component="content": add this attribute to the content
   data-ur-tab-id="NAME": this attribute needs to link the button and the content (i.e. the button and content should have the same id)
@@ -16,20 +16,20 @@ advanced_tab:
       - "multiple?: true"
       - "state: enabled / disabled(default)"
       - attributes:
-        - "required: <code>data-ur-tab-id</code> is required and must match attribute on content element"
+        - "required: <code>data-ur-tab-id</code> is required and must match the attribute on the content element"
     content:
       - add this attribute to each content item
       - "multiple?: true"
       - "state: enabled / disabled(default)"
       - attributes:
-        - "required: <code>data-ur-tab-id</code> is required and must match attribute on button element"
+        - "required: <code>data-ur-tab-id</code> is required and must match the attribute on the button element"
 ---
 <!-- Example -->
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="example" data-ur-state="enabled"> Example</h3>
   <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-  <div id="tabs_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+  <div id="tabs_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
 
     <div data-ur-set="tabs" id="tabs_examples_page" data-ur-state="enabled">
       <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
@@ -37,20 +37,20 @@ advanced_tab:
       <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
-        <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+        <p class="tab-item">First tab content</p>
       </div>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="two">
-        <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+        <p class="tab-item">Second tab content</p>
       </div>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="three">
-        <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+        <p class="tab-item">Third tab content</p>
       </div>
     </div>
   </div>
 
-  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+  <div class="example_html" data-ur-tabs-component="content" data-ur-tab-id="html">
 {% highlight html %}
 <div data-ur-set="tabs">
   <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
@@ -58,15 +58,15 @@ advanced_tab:
   <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
 
   <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
-    <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+    <p class="tab-item">First tab content</p>
   </div>
 
   <div data-ur-tabs-component="content" data-ur-tab-id="two">
-    <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+    <p class="tab-item">Second tab content</p>
   </div>
 
   <div data-ur-tabs-component="content" data-ur-tab-id="three">
-    <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+    <p class="tab-item">Third tab content</p>
   </div>
 </div>
 {% endhighlight %}
@@ -76,38 +76,40 @@ advanced_tab:
 
 <!-- Required CSS -->
 <div class="wrapper">
-  <h2>Required Styles</h2>
+  <h2>Recommended Styles</h2>
   <div class='css'>
     {% highlight scss %}
-    /* Required SCSS Styling */
+    /* Recommended SCSS Styling */
 
-    *[data-ur-set="tabs"] {
-      *[data-ur-tabs-component='button'] {
-        opacity: 0.5;
+    [data-ur-set="tabs"] {
+      [data-ur-tabs-component='button'] {
+        opacity: 0.75;
       }
-      *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+      [data-ur-tabs-component='button'][data-ur-state='enabled'] {
+        cursor: pointer;
         opacity: 1.0;
       }
-      *[data-ur-tabs-component='content'] {
+      [data-ur-tabs-component='content'] {
         display:none;
       }
-      *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+      [data-ur-tabs-component='content'][data-ur-state='enabled'] {
         display: block;
       }
     }
 
-    /* Required CSS Styling */
+    /* Recommended CSS Styling */
 
-    *[data-ur-set="tabs"] *[data-ur-tabs-component='button'] {
-      opacity: 0.5;
+    [data-ur-set="tabs"] [data-ur-tabs-component='button'] {
+      opacity: 0.75;
     }
-    *[data-ur-set="tabs"] *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
+    [data-ur-set="tabs"] [data-ur-tabs-component='button'][data-ur-state='enabled'] {
+      cursor: pointer;
       opacity: 1.0;
     }
-    *[data-ur-set="tabs"] *[data-ur-tabs-component='content'] {
+    [data-ur-set="tabs"] [data-ur-tabs-component='content'] {
       display:none;
     }
-    *[data-ur-set="tabs"] *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+    [data-ur-set="tabs"] [data-ur-tabs-component='content'][data-ur-state='enabled'] {
       display: block;
     }
     {% endhighlight %}
@@ -132,15 +134,15 @@ advanced_tab:
       <span data-ur-tabs-component="button" data-ur-tab-id="third_sanity"> Third </span>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="first_sanity">
-        <img width="100px" height="100px" src="../images/sample1.png?some_attr=noway">
+        <p class="tab-item">First tab content</p>
       </div>
 
       <div data-ur-tabs-component="content" data-ur-state="enabled" data-ur-tab-id="second_sanity">
-        <img width="100px" height="100px" src="../images/sample2.png?some_attr=noway">
+        <p class="tab-item">Second tab content</p>
       </div>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="third_sanity">
-        <img width="100px" height="100px" src="../images/sample3.png?some_attr=noway">
+        <p class="tab-item">Third tab content</p>
       </div>
 
     </div>
@@ -159,17 +161,17 @@ advanced_tab:
         <p>The first one we click on will be the first one to be "enabled".</p>
     </div>
 
-    <div data-ur-set="tabs" data-ur-closeable="true" data-ur-id="5">
+    <div data-ur-set="tabs" data-ur-closeable="true">
       <div data-ur-tabs-component="button" data-ur-tab-id="first_accordions"> First </div>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="first_accordions">
-        Oh uranium.
+        Oh Uranium.
       </div>
 
       <div data-ur-tabs-component="button" data-ur-tab-id="second_accordions">Second </div>
 
       <div data-ur-tabs-component="content" data-ur-tab-id="second_accordions">
-        You do nifty widget things.
+        You do nifty interactions.
       </div>
 
       <div data-ur-tabs-component="button" data-ur-tab-id="third_accordions"> Third </div>
