@@ -12,11 +12,11 @@
     <link href="/stylesheets/jasmine.css" rel="stylesheet" />
   </head>
   
-  <body id="toggler_page" class="widget_page">
+  <body id="toggler_page" class="interaction_page">
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/interaction_list.html" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></div><a href="/about.html" >About</a>
+  <a href="/" id="uraniumlogo" ></a><div class='menu_widget'>	<a href="/interaction_list.html" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></div><a href="/about.html" >About</a>
 </nav>
 
     <div id="textbody">
@@ -27,8 +27,8 @@
         <div class="description_wrapper">
           <h2> Description </h2>
           <div class="description">
-            <p>A toggler is a widget that has two components - a button, and a set of contents.</p>
-<p>When you click the button, the states (of both the button and the contents) are toggled.</p>
+            <p>A toggler is an interaction that coordinates two components - a button, and a set of contents.</p>
+<p>When you click the button, the states of both the button and the contents are toggled.</p>
 
           </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
               <dl>
                 
-                  <dt><code>data-ur-set="toggler"</code></dt><dd>add this attribute to a div that wraps the whole widget</dd>
+                  <dt><code>data-ur-set="toggler"</code></dt><dd>add this attribute to a div that wraps the whole interaction</dd>
                 
                   <dt><code>data-ur-toggler-component="button"</code></dt><dd>add this attribute to the button</dd>
                 
@@ -117,17 +117,17 @@
       <!-- Demonstration -->
 <h2>Demonstration</h2>
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
   <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-  <div id="toggler_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+  <div id="toggler_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
     <div data-ur-set="toggler">
       <div data-ur-toggler-component="button">Click on the button</div>
       <div data-ur-toggler-component="content">And content appears</div>
     </div>
   </div>
 
-  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+  <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
     Click on the button
@@ -140,26 +140,26 @@
   <hr />
 </div>
 
-<!-- Required SCSS -->
+<!-- Recommended SCSS -->
 <div class='wrapper'>
-  <h2> Required Styles </h2>
+  <h2>   Styles </h2>
   <div class='css'>
-    <div class="highlight"><pre><code class="scss">      <span class="cm">/* Required SCSS Styling */</span>
-      <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <div class="highlight"><pre><code class="scss">      <span class="cm">/* Recommended SCSS Styling */</span>
+      <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="p">{</span>
         <span class="cm">/* By Default content is hidden*/</span>
-        <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
           <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
         <span class="p">}</span>
-        <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+        <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
           <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
         <span class="p">}</span>
       <span class="p">}</span>
-      <span class="cm">/* Required CSS Styling */</span>
+      <span class="cm">/* Recommended CSS Styling */</span>
 
-      <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
         <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
       <span class="p">}</span>
-      <span class="o">*[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">*[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+      <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">toggler&#39;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
         <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
       <span class="p">}</span>
     

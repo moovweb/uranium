@@ -2046,112 +2046,16 @@ body #tabs_examples_page div[name='accordions'] [data-ur-tabs-component='content
   background-color: gold;
   margin: 0px 20px; }
 
-/* line 3, scss/_toggler.scss */
-body#toggler_page .example [data-ur-set="toggler"] {
+/* line 4, scss/_toggler.scss */
+body#toggler_page .example [data-ur-set="toggler"],
+body#toggler_page .wrapper [data-ur-set="toggler"] {
   background-color: transparent; }
 /* line 8, scss/_toggler.scss */
-body#toggler_page *[data-ur-set="toggler"] {
+body#toggler_page [data-ur-set="toggler"] {
   border: none;
   background: silver; }
-/* line 11, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='button'] {
-  background-color: gold; }
-/* line 13, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='content'] {
-  display: none;
-  background-color: gold; }
-/* line 16, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='button'][data-ur-state='enabled'] {
-  opacity: 1; }
-/* line 18, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-  display: block; }
-/* line 21, scss/_toggler.scss */
-body#toggler_page .components [data-ur-toggler-component='button'] {
-  background: none; }
-/* line 26, scss/_toggler.scss */
-body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='button'] {
-  border-radius: 5px;
-  background-color: gold;
-  opacity: 1;
-  padding: 5px; }
-/* line 31, scss/_toggler.scss */
-body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'] {
-  display: none;
-  position: absolute;
-  border-radius: 5px;
-  background-color: #aaaaaa;
-  width: 500px;
-  height: 500px;
-  left: 200px;
-  bottom: 50px;
-  text-align: center;
-  padding-top: 30px; }
-  /* line 42, scss/_toggler.scss */
-  body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-    display: block; }
-/* line 45, scss/_toggler.scss */
-body#toggler_page .popup_button {
-  border-radius: 5px;
-  background-color: gold;
-  opacity: 1;
-  padding: 5px;
-  display: inline;
-  margin: 0px 5px; }
-  /* line 52, scss/_toggler.scss */
-  body#toggler_page .popup_button > span {
-    border-radius: 5px;
-    background-color: gold;
-    opacity: 1;
-    padding: 5px;
-    display: inline;
-    margin: 0px 5px; }
-/* line 59, scss/_toggler.scss */
-body#toggler_page .popup_content {
-  position: absolute;
-  border-radius: 5px;
-  background-color: #aaaaaa;
-  left: 200px;
-  text-align: center;
-  padding: 30px; }
-  /* line 69, scss/_toggler.scss */
-  body#toggler_page .popup_content[data-ur-state='disabled'] {
-    display: none;
-    opacity: 0.5; }
-  /* line 72, scss/_toggler.scss */
-  body#toggler_page .popup_content[data-ur-state='enabled'] {
-    display: inline-block;
-    opacity: 1; }
-    /* line 75, scss/_toggler.scss */
-    body#toggler_page .popup_content[data-ur-state='enabled'] img {
-      width: 200px;
-      height: 200px; }
-/* line 79, scss/_toggler.scss */
-body#toggler_page [name='MultipleContents'] .buttons {
-  background-color: white;
-  opacity: 1; }
-/* line 85, scss/_toggler.scss */
-body#toggler_page .buttons[data-ur-state="enabled"] span:last-child, body#toggler_page .buttons[data-ur-state="disabled"] span:first-child {
-  opacity: 0.5; }
-/* line 88, scss/_toggler.scss */
-body#toggler_page [name='MultipleContents'] .popup_content {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  padding: 20px; }
-  /* line 93, scss/_toggler.scss */
-  body#toggler_page [name='MultipleContents'] .popup_content img {
-    width: 200px;
-    height: 200px; }
-/* line 96, scss/_toggler.scss */
-body#toggler_page [name='MultipleContents'] [data-ur-toggler-component="content"] {
-  display: inline-block; }
-
-/* line 101, scss/_toggler.scss */
-body#toggler_page .wrapper [data-ur-set='toggler'] {
-  background-color: transparent; }
-/* line 106, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='button'] {
+/* line 12, scss/_toggler.scss */
+body#toggler_page [data-ur-toggler-component='button'] {
   opacity: 0.5;
   border-radius: 5px;
   background-color: gold;
@@ -2169,8 +2073,8 @@ body#toggler_page *[data-ur-toggler-component='button'] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-/* line 124, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='content'] {
+/* line 31, scss/_toggler.scss */
+body#toggler_page [data-ur-toggler-component='content'] {
   display: none;
   background-color: gold;
   border-radius: 5px;
@@ -2187,29 +2091,38 @@ body#toggler_page *[data-ur-toggler-component='content'] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-  /* line 141, scss/_toggler.scss */
-  body#toggler_page *[data-ur-toggler-component='content'] li {
+  /* line 48, scss/_toggler.scss */
+  body#toggler_page [data-ur-toggler-component='content'] li {
     color: black;
-    margin-left: 30px; }
-  /* line 144, scss/_toggler.scss */
-  body#toggler_page *[data-ur-toggler-component='content'] li[data-ur-set="toggler"] {
+    text-align: left;
+    margin-left: 30px;
+    list-style-type: none; }
+  /* line 54, scss/_toggler.scss */
+  body#toggler_page [data-ur-toggler-component='content'] li[data-ur-set="toggler"] {
     border: none;
-    background: #fafafa; }
-    /* line 147, scss/_toggler.scss */
-    body#toggler_page *[data-ur-toggler-component='content'] li[data-ur-set="toggler"] [data-ur-toggler-component="button"] {
-      background: #fafafa;
+    background: transparent; }
+    /* line 55, scss/_toggler.scss */
+    body#toggler_page [data-ur-toggler-component='content'] li[data-ur-set="toggler"] ul[data-ur-toggler-component="content"] {
+      margin: 0;
+      padding: 0; }
+    /* line 61, scss/_toggler.scss */
+    body#toggler_page [data-ur-toggler-component='content'] li[data-ur-set="toggler"] [data-ur-toggler-component="button"] {
+      background: transparent;
       padding-top: 0px; }
-    /* line 150, scss/_toggler.scss */
-    body#toggler_page *[data-ur-toggler-component='content'] li[data-ur-set="toggler"] [data-ur-toggler-component="content"][data-ur-state="enabled"] {
-      background: #fafafa;
+    /* line 65, scss/_toggler.scss */
+    body#toggler_page [data-ur-toggler-component='content'] li[data-ur-set="toggler"] [data-ur-toggler-component="content"][data-ur-state="enabled"] {
+      background: transparent;
       width: 100px; }
-/* line 153, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='button'][data-ur-state='enabled'] {
+/* line 71, scss/_toggler.scss */
+body#toggler_page [data-ur-toggler-component='button'][data-ur-state='enabled'] {
   opacity: 1; }
-/* line 155, scss/_toggler.scss */
-body#toggler_page *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+/* line 74, scss/_toggler.scss */
+body#toggler_page [data-ur-toggler-component='content'][data-ur-state='enabled'] {
   display: block; }
-/* line 160, scss/_toggler.scss */
+/* line 78, scss/_toggler.scss */
+body#toggler_page .components [data-ur-toggler-component='button'] {
+  background: none; }
+/* line 85, scss/_toggler.scss */
 body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='button'] {
   border-radius: 5px;
   background-color: gold;
@@ -2227,7 +2140,7 @@ body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='button'] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px; }
-/* line 177, scss/_toggler.scss */
+/* line 103, scss/_toggler.scss */
 body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'] {
   display: none;
   position: absolute;
@@ -2239,10 +2152,10 @@ body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'] {
   bottom: 50px;
   text-align: center;
   padding-top: 30px; }
-  /* line 188, scss/_toggler.scss */
+  /* line 114, scss/_toggler.scss */
   body#toggler_page div[name='Dialog'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
     display: block; }
-/* line 191, scss/_toggler.scss */
+/* line 120, scss/_toggler.scss */
 body#toggler_page .popup_button {
   border-radius: 5px;
   background-color: gold;
@@ -2250,7 +2163,7 @@ body#toggler_page .popup_button {
   padding: 5px;
   display: inline;
   margin: 0px 5px; }
-  /* line 198, scss/_toggler.scss */
+  /* line 127, scss/_toggler.scss */
   body#toggler_page .popup_button > span {
     border-radius: 5px;
     background-color: gold;
@@ -2258,7 +2171,7 @@ body#toggler_page .popup_button {
     padding: 5px;
     display: inline;
     margin: 0px 5px; }
-/* line 205, scss/_toggler.scss */
+/* line 136, scss/_toggler.scss */
 body#toggler_page .popup_content {
   position: absolute;
   border-radius: 5px;
@@ -2266,45 +2179,65 @@ body#toggler_page .popup_content {
   left: 270px;
   text-align: center;
   padding: 30px; }
-  /* line 212, scss/_toggler.scss */
+  /* line 143, scss/_toggler.scss */
   body#toggler_page .popup_content[data-ur-state='disabled'] {
     display: none;
     opacity: 0.5; }
-  /* line 215, scss/_toggler.scss */
+  /* line 147, scss/_toggler.scss */
   body#toggler_page .popup_content[data-ur-state='enabled'] {
     display: inline-block;
     opacity: 1;
     z-index: 10; }
-    /* line 219, scss/_toggler.scss */
+    /* line 151, scss/_toggler.scss */
     body#toggler_page .popup_content[data-ur-state='enabled'] img {
       width: 200px;
       height: 200px; }
-/* line 225, scss/_toggler.scss */
-body#toggler_page [name='MultipleContents'] .buttons[data-ur-state="enabled"] span:last-child, body#toggler_page [name='MultipleContents'] .buttons[data-ur-state="disabled"] span:first-child {
-  opacity: 0.5; }
-/* line 228, scss/_toggler.scss */
+/* line 159, scss/_toggler.scss */
+body#toggler_page [name='MultipleContents'] .buttons {
+  background-color: white;
+  opacity: 1; }
+  /* line 162, scss/_toggler.scss */
+  body#toggler_page [name='MultipleContents'] .buttons[data-ur-state="enabled"] span:last-child, body#toggler_page [name='MultipleContents'] .buttons[data-ur-state="disabled"] span:first-child {
+    opacity: 0.5; }
+/* line 168, scss/_toggler.scss */
 body#toggler_page [name='MultipleContents'] .popup_content {
   position: relative;
   width: 220px;
   height: 200px;
   padding: 20px; }
-  /* line 234, scss/_toggler.scss */
+  /* line 174, scss/_toggler.scss */
   body#toggler_page [name='MultipleContents'] .popup_content [data-ur-toggler-component="content"][data-ur-state="disabled"] img {
     display: none; }
-  /* line 237, scss/_toggler.scss */
+  /* line 179, scss/_toggler.scss */
   body#toggler_page [name='MultipleContents'] .popup_content [data-ur-toggler-component="content"][data-ur-state="enabled"] img {
     display: block; }
-  /* line 239, scss/_toggler.scss */
+  /* line 183, scss/_toggler.scss */
   body#toggler_page [name='MultipleContents'] .popup_content img {
     width: 200px;
     height: 200px; }
-/* line 242, scss/_toggler.scss */
+/* line 189, scss/_toggler.scss */
 body#toggler_page #disabled {
   background: #323232;
   border: none; }
-/* line 245, scss/_toggler.scss */
+/* line 193, scss/_toggler.scss */
 body#toggler_page div[data-ur-id='MyToggler'].buttons {
   background-color: gold !important; }
+/* line 197, scss/_toggler.scss */
+body#toggler_page .buttons[data-ur-state="enabled"] span:last-child, body#toggler_page .buttons[data-ur-state="disabled"] span:first-child {
+  opacity: 0.5; }
+/* line 202, scss/_toggler.scss */
+body#toggler_page [name='MultipleContents'] .popup_content {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  padding: 20px; }
+  /* line 207, scss/_toggler.scss */
+  body#toggler_page [name='MultipleContents'] .popup_content img {
+    width: 200px;
+    height: 200px; }
+/* line 212, scss/_toggler.scss */
+body#toggler_page [name='MultipleContents'] [data-ur-toggler-component="content"] {
+  display: inline-block; }
 
 /* line 2, scss/_zoom.scss */
 body#zoom_page [data-ur-set="zoom"] {
