@@ -279,138 +279,7 @@
         </div>
       </div>
 
-      <script>
-// if (dev_mode) {
-//   var carouselHtml;
-//   x$(document).on("DOMContentLoaded", function() {
-//     x$("#carousel_widget").setStyle("width", "750px");
-//     carouselHtml = x$("#carousel_widget")[0].innerHTML;
-//   });
-// }
-
-// describe("A plain carousel", function() {
-//   beforeEach(function() {
-//     x$("#carousel_widget").html(carouselHtml);
-//     Ur.setup("#carousel_widget");
-//   });
-//   it("slides to the right by 1 item", function() {
-//     runs(function() {
-//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-//     });
-//     waitsFor(function() {
-//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-250/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll right", 1200);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(1);
-//     });
-//   });
-//   it("slides to the right by 1 item and then left by 1 item", function() {
-//     var dragged = false;
-//     runs(function() {
-//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
-//       setTimeout(function() {
-//         Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
-//       }, 1200);
-//     });
-//     waitsFor(function() {
-//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll left", 2000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-//     });
-//   });
-//   it("slides back if it slid to the left when already at the very left", function() {
-//     var dragged = false;
-//     runs(function() {
-//       Syn.drag("+50 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"), function() {dragged = true;});
-//     });
-//     waitsFor(function() {
-//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll left", 1000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-//     });
-//   });
-//   it("slides to the very right", function() {
-//     runs(function() {
-//       Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='2.png']"));
-//       setTimeout(function() {
-//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='3.png']"));
-//       }, 1200);
-//       setTimeout(function() {
-//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='4.png']"));
-//       }, 2400);
-//       setTimeout(function() {
-//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"));
-//       }, 3600);
-//     });
-//     waitsFor(function() {
-//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll", 7000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
-//     });
-//   });
-// });
-
-// describe("An infinite carousel", function() {
-//   beforeEach(function() {
-//     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-infinite", "enabled").attr("data-ur-center", "enabled").attr("data-ur-clones", "3");
-//     Ur.setup("#carousel_widget");
-//   });
-//   it("loops around going left", function() {
-//     var dragged = false;
-//     runs(function() {
-//       Syn.drag("+100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='1.png']"), function() {dragged = true;});
-//     });
-//     waitsFor(function() {
-//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll left", 1000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(7);
-//     });
-//   });
-//   it("loops around going right", function() {
-//     var dragged = false;
-//     runs(function() {
-//       Ur.Widgets.carousel.MyFirstCarousel.jumpToIndex(7);
-//       setTimeout(function() {
-//         Syn.drag("-100 +0", $("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='item'][src$='5.png']"), function() {dragged = true;});
-//       }, 1000);
-//     });
-//     waitsFor(function() {
-//       return dragged && !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-500/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll right", 2000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(3);
-//     });
-//   });
-// });
-
-// describe("An auto-scrolling carousel", function() {
-//   beforeEach(function() {
-//     x$("#carousel_widget").html(carouselHtml).find("[data-ur-carousel-component='view_container']").attr("data-ur-autoscroll", "enabled").attr("data-ur-autoscroll-delay", "50");
-//     Ur.setup("#carousel_widget");
-//   });
-//   it("scrolls to the very right", function() {
-//     waitsFor(function() {
-//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(-1000/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel scroll right", 3000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(4);
-//     });
-//   });
-//   it("scrolls back to the beginning", function() {
-//     waitsFor(function() {
-//       return !Ur.Widgets.carousel.MyFirstCarousel.flag.increment && /\(0/.test(x$("[data-ur-id='MyFirstCarousel'] [data-ur-carousel-component='scroll_container']").attr("style")[0]);
-//     }, "carousel loop around", 3000);
-//     runs(function() {
-//       expect(Ur.Widgets.carousel.MyFirstCarousel.itemIndex).toBe(0);
-//     });
-//   });
-// });
-</script>
-  <div class="wrapper">
+        <div class="wrapper">
     <h2> Demonstration </h2>
     <div>
       <p> Touch-enabled Widget </p>
@@ -421,7 +290,7 @@
 
         <div id="carousel_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
 
-          <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
+          <div data-ur-set="carousel"  data-ur-infinite="disabled" data-ur-id="MyFirstCarousel">
             <span data-ur-carousel-component="count"> -- count -- </span>
             <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
               Prev
@@ -429,24 +298,22 @@
             <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
               Next
             </div>
-            <div data-ur-carousel-component="view_container" data-ur-infinite="disabled">
-              <div data-ur-carousel-component="scroll_container">
-                <img data-ur-carousel-component="item" src='../images/sample1.png' alt="1" />
-                <img data-ur-carousel-component="item" src='../images/sample2.png' alt="2" />
-                <img data-ur-carousel-component="item" src='../images/sample3.png' alt="3" />
-                <img data-ur-carousel-component="item" src='../images/sample4.png' alt="4" />
-                <img data-ur-carousel-component="item" src='../images/sample5.png' alt="5" />
-                <img data-ur-carousel-component="item" src='../images/sample6.png' alt="6" />
-                <img data-ur-carousel-component="item" src='../images/sample7.png' alt="7" />
-                <img data-ur-carousel-component="item" src='../images/sample8.png' alt="8" />
-              </div>
+            <div data-ur-carousel-component="scroll_container">
+              <img data-ur-carousel-component="item" src='../images/sample1.png' alt="1" />
+              <img data-ur-carousel-component="item" src='../images/sample2.png' alt="2" />
+              <img data-ur-carousel-component="item" src='../images/sample3.png' alt="3" />
+              <img data-ur-carousel-component="item" src='../images/sample4.png' alt="4" />
+              <img data-ur-carousel-component="item" src='../images/sample5.png' alt="5" />
+              <img data-ur-carousel-component="item" src='../images/sample6.png' alt="6" />
+              <img data-ur-carousel-component="item" src='../images/sample7.png' alt="7" />
+              <img data-ur-carousel-component="item" src='../images/sample8.png' alt="8" />
             </div>
           </div>
         </div>
 
         <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
           
-<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;view_container&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;MyFirstCarousel&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;MyFirstCarousel&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;span</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;count&quot;</span><span class="nt">&gt;</span> -- count -- <span class="nt">&lt;/span&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;prev&quot;</span><span class="nt">&gt;</span>Prev<span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;next&quot;</span><span class="nt">&gt;</span>Next<span class="nt">&lt;/div&gt;</span>
@@ -466,6 +333,18 @@
 
       </div>
       <hr />
+      <!-- Styles -->
+      <div class='wrapper'>
+        <h2>Required Styles</h2>
+        <div class='css'>
+<div class="highlight"><pre><code class="scss">  <span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;scroll_container&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
+    <span class="na">display</span><span class="o">:</span> <span class="no">inline</span><span class="o">-</span><span class="no">block</span><span class="p">;</span>
+    <span class="na">float</span><span class="o">:</span> <span class="no">left</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>
+        </div>
+      </div>
+      <hr />
     </div>
     <div>
       <p>More examples of the carousel can be found here, including:</p>
@@ -477,16 +356,16 @@
     </div>
   </div>
   <div class="wrapper">
-    <h1>Carousel Examples</h1>
+    <h2>Carousel Examples</h2>
     <div class="test">
       <a id="vertical"></a>
-      <h2>Vertical Scrolling</h2>
+      <h3>Vertical Scrolling</h3>
 
       <p>This carousel doesn't allow vertical scrolling on touch screens.</p>
       <ul>
         <li><span class="inline_code">data-ur-vertical-scroll="disabled"</span> - apply this to the view container</li>
       </ul>
-      <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-infinite="disabled" data-ur-vertical-scroll="disabled">
+      <div data-ur-set="carousel" data-ur-infinite="disabled" data-ur-vertical-scroll="disabled">
         <span data-ur-carousel-component="count"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
@@ -507,12 +386,12 @@
     
     <div class="test">
       <a id="infinite"></a>
-      <h2>Infinite scrolling example</h2>
+      <h2>Infinite Scrolling</h2>
 
       <p>
-        Here we have a carousel that loops from front to back.
+        Here we have a carousel that loops from front to back. (Default state for carousel.)
       </p>
-      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-center="enabled" data-ur-carousel-component="view_container" data-ur-clones="2">
+      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-center="enabled" data-ur-clones="2">
         <span data-ur-carousel-component="count"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
@@ -533,12 +412,12 @@
     
     <div class="test">
       <a id="autoscroll"></a>
-      <h2>Autoscroll example</h2>
+      <h2>Autoscroll</h2>
 
       <p>
-        Here we have a carousel that scrolls every five seconds with a "dot" indicator. Note that the current element is centered.
+        Here we have a carousel that scrolls every five seconds with a "dot" indicator.
       </p>
-      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-carousel-component="view_container" data-ur-clones="2" data-ur-autoscroll="enabled">
+      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-clones="2" data-ur-autoscroll="enabled">
         <div data-ur-carousel-component="dots"></div>
         <span data-ur-carousel-component="count"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
