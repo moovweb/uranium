@@ -1,39 +1,36 @@
 ---
-layout: widgets
+layout: interactions
 title: Carousel
 name: carousel
-widget_selected: selected
+interaction_selected: selected
 description: |
-    <p>The carousel is a widget that allows horizontal scrolling (with touch or buttons) between a set of items.</p>
-    <p>The CSS we need to use here is pretty picky, so make sure to check out the CSS tab below.</p>
-    <p>The compatibility of this with FireFox is adequate (vertical-scroll: enabled is not supported however). Check out our compatibility tables to see which devices and browsers will display the carousel.</p>
+    <p>The carousel is an interaction that allows horizontal scrolling (with touch or buttons) between a set of items.</p>
+    <p>The CSS we need to use here is pretty picky, so make sure to check out the "required styles" below.</p>
 basic_tab:
-  data-ur-set="carousel": add this attribute to a div that wraps the whole widget
-  data-ur-carousel-component="view_container": for wrapping the whole view container
-  data-ur-carousel-component="scroll_container": for wrapping the whole scrolling container
+  data-ur-set="carousel": add this attribute to a div that wraps the whole interaction
   data-ur-carousel-component="scroll_container": for wrapping the whole scrolling container
   data-ur-carousel-component="item": wrap each scrollable item in this
   data-ur-carousel-component="button": for the previous and next buttons
   data-ur-carousel-button-type="prev"/"next": to distinguish the previous and next buttons
 advanced_tab:
   Required:
-    view_container:
-      - this div should wrap the whole carousel; it must be set to no overflow. It or the scroll_container needs <code>position:relative</code>.
+    set:
+      - this div should wrap the whole carousel.
       - "multiple?: false"
       - "state: N/A"
-      - attributes:
-        - "optional: <code>data-ur-touch</code>: enabled/disabled</li>"
-        - "optional: <code>data-ur-vertical-scroll</code>: enabled/disabled (specify vertical scrolling behavior while touching carousel)</li>"
-        - "optional: <code>data-ur-maps</code>: enabled/disabled (allow images using maps in carousel)</li>"
-        - "optional: <code>data-ur-infinite</code>: enabled/disabled (specify front to back wrapping behavior)</li>"
-        - "optional: <code>data-ur-autoscroll</code>: enabled/disabled (automatically scroll with interval)</li>"
-        - "optional: <code>data-ur-autoscroll-delay</code>: integer (autoscroll delay in seconds)</li>"
-        - "optional: <code>data-ur-autoscroll-dir</code>: next/prev (specify autoscroll direction)</li>"
+      - the following attributes have default settings in italics.
+      - attributes :
+        - "optional: <code>data-ur-touch</code>: <em>enabled</em>/disabled</li>"
+        - "optional: <code>data-ur-vertical-scroll</code>: <em>enabled</em>/disabled (specify vertical scrolling behavior while touching carousel)</li>"
+        - "optional: <code>data-ur-infinite</code>: <em>enabled</em>/disabled (specify front to back wrapping behavior)</li>"
+        - "optional: <code>data-ur-autoscroll</code>: enabled/<em>disabled</em> (automatically scroll with interval)</li>"
+        - "optional: <code>data-ur-autoscroll-delay</code>: integer (autoscroll delay in milliseconds, default: <em>5000</em>)</li>"
+        - "optional: <code>data-ur-autoscroll-dir</code>: <em>next</em>/prev (specify autoscroll direction)</li>"
         - "optional: <code>data-ur-android3d</code>: enabled/disabled (specify translate3d use on Android 1.6-2.3)</li>"
         - "optional: <code>data-ur-fill (&beta;)</code>: integer (force n carousel items to fit in container width)</li>"
-        - "optional: <code>data-ur-center (&beta;)</code>: enabled/disabled (horizontally center current item)</li>"
+        - "optional: <code>data-ur-center (&beta;)</code>: enabled/<em>disabled</em> (horizontally center current item)</li>"
     scroll_container:
-      - this div should wrap the scrolling items on the carousel. It or the view_container needs <code>position:relative</code>.
+      - this div should wrap the scrolling items on the carousel. It needs <code>position:relative</code>.
       - "multiple?: false"
       - "state: N/A"
     item:
@@ -56,17 +53,17 @@ advanced_tab:
       - "gives a container that changes <code>data-ur-state</code> on the corresponding child"
       - "multiple?: false"
       - "state: N/A"
-instance:
+<!-- instance:
   jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
   onSlideCallbacks(callback): supplies a callback which is called when animation has completed
   '"slidestart"': event is fired on view_container when sliding begins (excluding touch input)
-  '"slideend"': event is fired on view_container when sliding ends
+  '"slideend"': event is fired on view_container when sliding ends -->
 ---
 
   <div class="wrapper">
     <h2> Demonstration </h2>
     <div>
-      <p> Touch-enabled Widget </p>
+      <p> Touch-enabled interaction </p>
       <div id="carousel_demonstration" data-ur-set="tabs" class="ur_ex">
         <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
 
@@ -149,7 +146,7 @@ instance:
 
       <p>This carousel doesn't allow vertical scrolling on touch screens.</p>
       <ul>
-        <li><span class="inline_code">data-ur-vertical-scroll="disabled"</span> - apply this to the view container</li>
+        <li><span class="inline_code">data-ur-vertical-scroll="disabled"</span> - apply this to the set</li>
       </ul>
       <div data-ur-set="carousel" data-ur-infinite="disabled" data-ur-vertical-scroll="disabled">
         <span data-ur-carousel-component="count"> -- count -- </span>
@@ -172,12 +169,16 @@ instance:
     
     <div class="test">
       <a id="infinite"></a>
-      <h2>Infinite Scrolling</h2>
+      <h3>Infinite Scrolling</h3>
 
       <p>
-        Here we have a carousel that loops from front to back. (Default state for carousel.)
+        Here we have a carousel that loops from front to back. (Default state for carousel.) The carousel also has indicator dots showing what item is currently selected. The indicator dots have a data-ur-state of "inactive" until the corresponding item is selected, when the data-ur-state changes to "active" – you can use this for styling the dots.
       </p>
-      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-center="enabled" data-ur-clones="2">
+      <ul>
+        <li><span class="inline_code">data-ur-carousel-component="dots"</span> - should be within the set</li>
+      </ul>
+      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-clones="2">
+        <div data-ur-carousel-component="dots"></div>
         <span data-ur-carousel-component="count"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
@@ -198,13 +199,17 @@ instance:
     
     <div class="test">
       <a id="autoscroll"></a>
-      <h2>Autoscroll</h2>
+      <h3>Autoscroll</h3>
 
       <p>
-        Here we have a carousel that scrolls every five seconds with a "dot" indicator.
+        Here we have a carousel that automatically scrolls to the next item. The default is every 5 seconds, but you can specify the time using the attribute listed below. 
       </p>
+      <ul>
+        <li><span class="inline_code">data-ur-autoscroll="enabled"</span> - apply this to the set</li>
+        <li><span class="inline_code">data-ur-autoscroll-delay="5000"</span> - apply this to the set (value is in milliseconds)</li>
+      </ul>
       <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-clones="2" data-ur-autoscroll="enabled">
-        <div data-ur-carousel-component="dots"></div>
+        
         <span data-ur-carousel-component="count"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
           Prev
