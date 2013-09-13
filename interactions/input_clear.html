@@ -3,9 +3,9 @@ layout: interactions
 title: Input Clear
 name: input-clear
 interaction_selected: selected
-description: <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field the x will appear without any typing.</p>
+description: <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing.</p>
 basic_tab:
-  data-ur-set="input-clear": add this attribute to a div that wraps the whole widget
+  data-ur-set="input-clear": add this attribute to a div that wraps the whole interaction
   data-ur-input-clear-component="input": add this attribute to the input that is wrapped by the set
 advanced_tab:
   Required:
@@ -52,12 +52,12 @@ advanced_tab:
 
 <!-- Styles -->
 <div class='wrapper'>
-  <h2>Required Styles</h2>
+  <h2>Recommended Styles</h2>
   <div class='css'>
 {% highlight scss %}
-/* Required SCSS Styling */
+/* Recommended SCSS Styling */
 
-*[data-ur-set='input-clear'] {
+[data-ur-set='input-clear'] {
   position: relative;
   input[data-ur-input-clear-component='input'] {
     width:100%;

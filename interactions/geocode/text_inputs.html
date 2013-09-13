@@ -1,8 +1,8 @@
 ---
-layout: geocode-widget-sub
+layout: geocode-interaction-sub
 title: Geocode Text Inputs
 name: geocode_text_inputs
-widget_selected: selected
+interaction_selected: selected
 ---
 <div class="wrapper">
   <h1> Geolocation with Text Inputs </h1>
@@ -15,15 +15,14 @@ widget_selected: selected
     </p>
 
   <h2>Demonstration</h2>
-  <p>The demonstration here activates on button click.</p>
+  <p>The demonstration activates on button click.</p>
   <div id="geocode_demonstration" data-ur-set="tabs" class="ur_ex">
     <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
     <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
     <div id="geocode_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
-      <div data-ur-set="reverse-geocode">
-        <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
-        <form action="geocode_submit" method="get" accept-charset="utf-8" >
+        <form data-ur-set="reverse-geocode" action="geocode_submit" method="get" accept-charset="utf-8" >
+          <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
           <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
           <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
           <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
@@ -31,26 +30,22 @@ widget_selected: selected
           <input type="text" name="state" value="" id="state" placeholder="state" data-ur-reverse-geocode-component="rg-state">
           <!-- Country works with both inputs and select elements -->
           <input type="text" name="country" value="" id="country" placeholder="country" data-ur-reverse-geocode-component="rg-country">
-            </form>
-      </div>
+        </form>
     </div>
 
     <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
 {% highlight html %}
-<div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
-  <div data-ur-set="reverse-geocode">
-    <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
-    <form action="geocode_submit" method="get" accept-charset="utf-8" >
-      <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
-      <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
-      <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
-      <!-- State works with both inputs and select elements -->
-      <input type="text" name="state" value="" id="state" placeholder="state" data-ur-reverse-geocode-component="rg-state">
-      <!-- Country works with both inputs and select elements -->
-      <input type="text" name="country" value="" id="country" placeholder="country" data-ur-reverse-geocode-component="rg-country">
-        </form>
-  </div>
-</div>
+
+<form data-ur-set="reverse-geocode" action="geocode_submit" method="get" accept-charset="utf-8" >
+  <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
+  <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
+  <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
+  <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
+  <!-- State works with both inputs and select elements -->
+  <input type="text" name="state" value="" id="state" placeholder="state" data-ur-reverse-geocode-component="rg-state">
+  <!-- Country works with both inputs and select elements -->
+  <input type="text" name="country" value="" id="country" placeholder="country" data-ur-reverse-geocode-component="rg-country">
+</form>
 {% endhighlight %}
     </div>
     <hr />
