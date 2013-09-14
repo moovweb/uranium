@@ -1117,7 +1117,7 @@ body#tutorial_page #end_product *[data-ur-toggler-component='content'][data-ur-s
   .demonstration *[data-ur-set="tabs"][data-ur-tab-id="html"] {
     text-align: left; }
   /* line 42, scss/_demonstration.scss */
-  .demonstration #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
+  .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
     background: silver; }
 
 /* line 2, scss/_download.scss */
