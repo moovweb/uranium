@@ -286,12 +286,16 @@ select {
   height: 225px; }
 
 /* line 222, scss/_base.scss */
-[data-ur-toggler-component="button"]:not([data-ur-state="enabled"]), [data-ur-tabs-component="button"]:not([data-ur-state="enabled"]), [data-ur-carousel-component="button"]:not([data-ur-state="enabled"]) {
+[data-ur-toggler-component="button"]:not([data-ur-state="enabled"]), [data-ur-tabs-component="button"]:not([data-ur-state="enabled"]) {
   cursor: pointer; }
 
 /* Overrides disabled button pointer for closeable tabs */
 /* line 228, scss/_base.scss */
 [data-ur-closeable="true"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
+  cursor: pointer; }
+
+/* line 232, scss/_base.scss */
+[data-ur-carousel-component="button"][data-ur-state="enabled"] {
   cursor: pointer; }
 
 /* line 1, scss/_header.scss */
@@ -1117,8 +1121,13 @@ body#tutorial_page #end_product *[data-ur-toggler-component='content'][data-ur-s
   .demonstration *[data-ur-set="tabs"][data-ur-tab-id="html"] {
     text-align: left; }
   /* line 42, scss/_demonstration.scss */
-  .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
-    background: silver; }
+  .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="button"][data-ur-state="enabled"] {
+    background: gold;
+    border-bottom: 1px solid gold; }
+  /* line 46, scss/_demonstration.scss */
+  .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="button"], .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
+    background: gold;
+    color: black; }
 
 /* line 2, scss/_download.scss */
 body#download_page #version {
