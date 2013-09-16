@@ -132,43 +132,36 @@
 
   // Input Clear
   var inputClear = function( fragment ) {
-    // console.log("inputClear");
-
-    var groups = findElements ( fragment, "input-clear" );
-    $.each(groups, function() {
-
-      var self = this;
-      var that = $(self['set']).find("input");
-
-      // Create the X div
-      var ex = $('<div class="data-ur-input-clear-ex"></div>')
-      // Hide it (even though this should be in CSS)
-      ex.hide();
+    var groups = findElements2(fragment, "input-clear");
+    $.each(groups, function(id, group) {
+      // Create the X div and hide it (even though this should be in CSS)
+      var ex = $("<div class='data-ur-input-clear-ex'></div>").hide();
       // Inject it
-      $(self['set']).append(ex);
+      $(group["set"]).append(ex);
 
       // Touch Events
       ex
         .bind("ontouchstart" in window ? "touchstart" : "click", function() {
           // remove text in the box
-          that[0].value='';
-          that[0].focus();
+          input[0].value='';
+          input[0].focus();
         })
-        .bind('touchend', function() {
+        .bind("touchend", function() {
           // make sure the keyboard doesn't disappear
-          that[0].blur();
+          input[0].blur();
         });
 
-      that
-        .bind('focus', function() {
-          if (that[0].value != '') {
+      var input = $(group["set"]).find("input");
+      input
+        .bind("focus", function() {
+          if (input[0].value != "") {
             ex.show();
           }
         })
-        .bind('keydown', function() {
+        .bind("keydown", function() {
           ex.show();
         })
-        .bind('blur', function() {
+        .bind("blur", function() {
           // Delay the hide so that the button can be clicked
           setTimeout(function() { ex.hide();}, 150);
         });
