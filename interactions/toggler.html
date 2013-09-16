@@ -1,13 +1,13 @@
 ---
-layout: widgets
+layout: interactions
 title: Toggler
 name: toggler
-widget_selected: selected
+interaction_selected: selected
 description: |
-    <p>A toggler is a widget that has two components - a button, and a set of contents.</p>
-    <p>When you click the button, the states (of both the button and the contents) are toggled.</p>
+    <p>A toggler is an interaction that coordinates two components - a button, and a set of contents.</p>
+    <p>When you click the button, the states of both the button and the contents are toggled.</p>
 basic_tab:
-  data-ur-set="toggler": add this attribute to a div that wraps the whole widget
+  data-ur-set="toggler": add this attribute to a div that wraps the whole interaction
   data-ur-toggler-component="button": add this attribute to the button
   data-ur-toggler-component="content": add this attribute to the content
 advanced_tab:
@@ -25,17 +25,17 @@ advanced_tab:
 <!-- Demonstration -->
 <h2>Demonstration</h2>
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
   <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-  <div id="toggler_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+  <div id="toggler_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
     <div data-ur-set="toggler">
       <div data-ur-toggler-component="button">Click on the button</div>
       <div data-ur-toggler-component="content">And content appears</div>
     </div>
   </div>
 
-  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+  <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
 {% highlight html %}
 <div data-ur-set="toggler">
   <div data-ur-toggler-component="button">
@@ -49,27 +49,27 @@ advanced_tab:
   <hr />
 </div>
 
-<!-- Required SCSS -->
+<!-- Recommended SCSS -->
 <div class='wrapper'>
-  <h2> Required Styles </h2>
+  <h2>   Styles </h2>
   <div class='css'>
     {% highlight scss %}
-      /* Required SCSS Styling */
-      *[data-ur-set='toggler'] {
+      /* Recommended SCSS Styling */
+      [data-ur-set='toggler'] {
         /* By Default content is hidden*/
-        *[data-ur-toggler-component='content'] {
+        [data-ur-toggler-component='content'] {
           display:none;
         }
-        *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+        [data-ur-toggler-component='content'][data-ur-state='enabled'] {
           display: block;
         }
       }
-      /* Required CSS Styling */
+      /* Recommended CSS Styling */
 
-      *[data-ur-set='toggler'] *[data-ur-toggler-component='content'] {
+      [data-ur-set='toggler'] [data-ur-toggler-component='content'] {
         display:none;
       }
-      *[data-ur-set='toggler'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+      [data-ur-set='toggler'] [data-ur-toggler-component='content'][data-ur-state='enabled'] {
         display: block;
       }
     {% endhighlight %}

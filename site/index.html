@@ -36,7 +36,7 @@
 
       <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="carousel_widget" data-ur-state="enabled">
 
-        <div data-ur-set="carousel" data-ur-id="MyFirstCarousel" data-ur-clones=5 data-ur-infinite="disabled">
+        <div data-ur-set="carousel" data-ur-id="MyFirstCarousel" data-ur-clones=5>
           <span data-ur-carousel-component="count"> -- count -- </span>
           <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
             Prev
@@ -44,15 +44,17 @@
           <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
             Next
           </div>
-          <div data-ur-carousel-component="scroll_container">
-            <img data-ur-carousel-component="item" src='../images/sample1.png' alt="1" />
-            <img data-ur-carousel-component="item" src='../images/sample2.png' alt="2" />
-            <img data-ur-carousel-component="item" src='../images/sample3.png' alt="3" />
-            <img data-ur-carousel-component="item" src='../images/sample4.png' alt="4" />
-            <img data-ur-carousel-component="item" src='../images/sample5.png' alt="5" />
-            <img data-ur-carousel-component="item" src='../images/sample6.png' alt="6" />
-            <img data-ur-carousel-component="item" src='../images/sample7.png' alt="7" />
-            <img data-ur-carousel-component="item" src='../images/sample8.png' alt="8" />
+          <div data-ur-carousel-component="view_container" data-ur-infinite="disabled">
+            <div data-ur-carousel-component="scroll_container">
+              <img data-ur-carousel-component="item" src='../images/sample1.png' alt="1" />
+              <img data-ur-carousel-component="item" src='../images/sample2.png' alt="2" />
+              <img data-ur-carousel-component="item" src='../images/sample3.png' alt="3" />
+              <img data-ur-carousel-component="item" src='../images/sample4.png' alt="4" />
+              <img data-ur-carousel-component="item" src='../images/sample5.png' alt="5" />
+              <img data-ur-carousel-component="item" src='../images/sample6.png' alt="6" />
+              <img data-ur-carousel-component="item" src='../images/sample7.png' alt="7" />
+              <img data-ur-carousel-component="item" src='../images/sample8.png' alt="8" />
+            </div>
           </div>
         </div>
       </div>
@@ -92,7 +94,7 @@
       </div>
     </div>
     <a href="/interactions/carousel.html" class="see_more_link">
-      More about carousel >
+      More about carousel
     </a>
     <hr />
   </div>
@@ -101,7 +103,7 @@
   <div class="demonstration">
     <h2> Tabs </h2>
     <div id="tab_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="widget_tabs" data-ur-state="enabled"> Interaction</h3>
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="widget_tabs" data-ur-state="enabled"> Widget</h3>
 
       <h3 data-ur-tabs-component="button" data-ur-tab-id="html_tabs"> HTML</h3>
 
@@ -146,7 +148,7 @@
       </div>
     </div>
     <a href="/interactions/tabs.html" class="see_more_link">
-      More about tabs >
+      More about Tabs
     </a>
     <hr />
   </div>
@@ -154,7 +156,7 @@
   <div class='demonstration' name='Simple'>
     <h2>Toggler</h2>
     <div id="accordion_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_widget"data-ur-state='enabled'>Interaction</h3>
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_widget"data-ur-state='enabled'>Widget</h3>
 
       <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_html"> HTML</h3>
 
@@ -188,7 +190,7 @@
       </div>
     </div>
     <a href="/interactions/toggler.html" class="see_more_link">
-      More about toggler >
+      More about Toggler
     </a>
     <hr />
   </div> 
@@ -212,7 +214,7 @@
   <br />
   <a id="moovweblogo" href="http://www.moovweb.com/"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
   <nav>
-    Uranium &copy; 2013 |
+    Uranium &copy; 2012 |
     <a href="https://github.com/moovweb/uranium">GitHub</a> |
     <a href="mailto:uranium@moovweb.com">Contact</a>
   </nav>
