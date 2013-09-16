@@ -44,6 +44,27 @@
     }
   }
 
+  var findElements2 = function( fragment, type ) {
+    var sets = {};
+    var setCss = "[data-ur-set='" + type + "']";
+    var compAttr = "data-ur-" + type + "-component";
+
+    $(fragment).find("[" +compAttr +"]").each(function() {
+      var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
+
+      if (set[0]) {
+        var setId = set.attr("data-ur-id");
+        if (!setId) {
+          setId = get_unique_uranium_id();
+          set.attr("data-ur-id", setId);
+        }
+        sets[setId] = sets[setId] || {};
+        sets[setId][$(this).attr(compAttr)] = this;
+      }
+    });
+    return sets;
+  }
+
   var findComponents = function( element, component ) {
     // console.log("findComponents");
     // console.log(element);
@@ -55,123 +76,58 @@
 
   // Toggler
   var toggler = function( fragment ) {
+    var groups = findElements2( fragment, "toggler" );
 
-    // console.log("Toggler");
-    var groups = findElements( fragment, "toggler" );
+    $.each(groups, function(id, self) {
+      if (!self["button"])
+        $.error("no button found for toggler with id=" + id);
+      if (!self["content"])
+        $.error("no content found for toggler with id=" + id);
 
-    if ( groups !== false ) {
-      for (group in groups) {
-        var tglr = groups[group];
-        var components = findComponents(tglr["set"], "toggler");
+      var toggler_state = $(self["button"]).attr("data-ur-state") || "disabled";
+      $([self["button"], self["content"]]).attr("data-ur-state", toggler_state);
 
-        components.each(function() {
-          groups[group][$(this).attr("data-ur-" + "toggler" + "-component")] = this;
-        });
-
-        if (tglr["button"] === undefined) {
-          $.error("no button found for toggler with id=" + tglr["toggler_id"]);
-          continue;
-        }
-
-        var toggler_state = $(tglr["button"]).attr("data-ur-state");
-        if(toggler_state === undefined) {
-          $(tglr["button"]).attr("data-ur-state", 'disabled');
-          toggler_state = "disabled";
-        }
-
-        if (tglr["content"] === undefined) {
-          $.error("no content found for toggler with id=" + tglr["toggler_id"]);
-          continue;
-        }
-
-        // Make the content state match the button state
-        if ($(tglr["content"]).attr("data-ur-state") === undefined ) {
-          $(tglr["content"]).attr("data-ur-state", toggler_state)
-        }
-
-      }
-
-      $.each(groups, function() {
-        var self = this;
-        $(self["button"]).click(function(event) {
-          event.stopPropagation();
-          var new_state = $(self["button"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
-          $(self["button"]).attr('data-ur-state', new_state);
-          $(self["content"]).attr("data-ur-state", new_state);
-        });
+      $(self["button"]).click(function(event) {
+        event.stopPropagation();
+        var new_state = $(self["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        $([self["button"], self["content"]]).attr("data-ur-state", new_state);
       });
-    }
+    });
   }
 
   // Tabs
   var tabs = function( fragment ) {
+    var groups = findElements2(fragment, "tabs", function(set, comp) {
+      var tabId = $(comp).attr("data-ur-tab-id");
+      set.tabs = set.tabs || {};
+      set.tabs[tabId] = set.tabs[tabId] || {};
+      set.tabs[tabId][$(comp).attr("data-ur-tabs-component")] = comp;
+    });
 
-    // console.log("Tabs");
-    var groups = findElements(fragment, "tabs");
+    $.each(groups, function(id, group) {
+      group["closeable"] = $(group["set"]).attr("data-ur-closeable") == "true";
 
-    if ( groups !== false ) {
-      for (var group in groups ) {
-        var tab_set = groups[group];
+      // Set the state of the tabs
+      $.each(group["tabs"], function() {
+        var tabState = $(this["button"]).attr("data-ur-state") || "disabled";
+        $([this["button"], this["content"]]).attr("data-ur-state", tabState);
+      });
 
-        var closeable = $(tab_set["set"]).attr("data-ur-closeable") === "true";
-        tab_set["closeable"] = closeable;
-
-        tab_set["tabs"] = {};
-        var allTabs = tab_set["tabs"];
-
-        var components = findComponents(tab_set["set"], "tabs");
-
-        var set_id = tab_set["tabs_id"];
-        components.each(function() {
-            var tabId = $(this).attr("data-ur-" + "tab" + "-id");
-            if (allTabs[tabId] === undefined) {
-              allTabs[tabId] = {};
-            }
-            allTabs[tabId][$(this).attr("data-ur-tabs-component")] = this;
-            allTabs[tabId]["tabs_id"]=set_id;
-        });
-
-        for ( singleTab in allTabs ) {
-          var currentTab = allTabs[singleTab];
-
-          // Set the state of the tabs
-          var tabState = $(currentTab["button"]).attr("data-ur-state");
-          if ( tabState === undefined ) {
-            tabState = "disabled"
-            $(currentTab["button"]).attr("data-ur-state", tabState);
-            $(currentTab["content"]).attr("data-ur-state", tabState);
-          } else if( tabState === "disabled" ) {
-            $(currentTab["button"]).attr("data-ur-state", tabState);
-            $(currentTab["content"]).attr("data-ur-state", tabState);
-          } else {
-            tabState = "enabled";
-            $(currentTab["button"]).attr("data-ur-state", tabState);
-            $(currentTab["content"]).attr("data-ur-state", tabState);
-          }
-        }
-
-        // Set up the button call backs
-        $.each(allTabs, function() {
-          var self = this;
-          $(self["button"]).click(function(evt) {
-            // Is the tab open already?
-            var open = $(this).attr("data-ur-state") === "enabled";
-            $.each(groups[self["tabs_id"]]["tabs"], function() {
-              $(this["button"]).attr("data-ur-state", "disabled");
-              $(this["content"]).attr("data-ur-state", "disabled");
-            });
-            // If closeable (active tab can be toggled) then make sure it happens.
-            if (open &&
-                groups[self["tabs_id"]]["closeable"]) {
-              console.info("Closeable, allowing state to toggle.");
-            } else {
-              $(this).attr("data-ur-state", "enabled");
-              $(self["content"]).attr("data-ur-state", "enabled");
-            }
+      // Set up the button call backs
+      $.each(group["tabs"], function(_, tab) {
+        $(tab["button"]).click(function() {
+          // Is the tab open already?
+          var open = $(this).attr("data-ur-state") == "enabled";
+          $.each(group["tabs"], function() {
+            $([this["button"], this["content"]]).attr("data-ur-state", "disabled");
           });
+          // If closeable (active tab can be toggled) then make sure it happens.
+          if (!open || !groups["closeable"]) {
+            $(this).add(tab["content"]).attr("data-ur-state", "enabled");
+          }
         });
-      }
-    }
+      });
+    });
   }
 
   // Input Clear
