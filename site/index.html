@@ -9,13 +9,27 @@
 <script src="/src/jquery-1.9.1.min.js"></script>
 <script src="/src/jquery.uranium.js"></script>
 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26739163-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
   </head>
   
   <body id="home_page">
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" class="selected"></a><section class='menu_widget'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" > Tutorials </a><ul><li><a href="/tutorials/getting_started.html">Getting Started</a></li><li><a href="/tutorials/intermediate.html">Intermediate</a></li><li><a href="/tutorials/advanced.html">Advanced</a></li></ul></section><a href="/download.html">Download</a>
+  <a href="/" id="uraniumlogo" class="selected"></a><section class='menu_widget'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" > Documentation </a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Getting Started</a></li><li><a href="/documentation/advanced.html">Advanced</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
     <div class="top_wrapper desktop">
@@ -50,7 +64,7 @@
         We define interactions as behaviors that enhance the functionality of an HTML element. Uranium defines a group of <i>attributes</i> you can give to your HTML elements, allowing your users to interact with them in a new way.
       </p>
       <p>
-        We've created pages to describe each interaction provided by Uranium, accessible from the menu above. As well as those pages, you might want to check out the <a href="tutorials/getting_started.html">getting started tutorial</a>, which takes you step-by-step through implementing a toggler interaction.
+        We've created pages to describe each interaction provided by Uranium, accessible from the menu above. As well as those pages, you might want to check out the <a href="documentation/getting_started.html">getting started tutorial</a>, which takes you step-by-step through implementing a toggler interaction.
       </p>
     </div>
   </div>
