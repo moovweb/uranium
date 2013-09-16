@@ -285,7 +285,6 @@ select {
 .example#select_list {
   height: 225px; }
 
-
 /* line 223, scss/_base.scss */
 [data-ur-toggler-component="button"],
 [data-ur-zoom-component="button"],
@@ -298,17 +297,12 @@ select {
 [data-ur-closeable="true"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
   cursor: pointer; }
 
-/* line 232, scss/_base.scss */
-[data-ur-carousel-component="button"][data-ur-state="enabled"] {
-  cursor: pointer; }
-
 /* line 1, scss/_header.scss */
 #menu {
-  overflow: hidden;
   margin: 10px 0;
   text-align: center;
-  /* It's children */ }
-  /* line 5, scss/_header.scss */
+  /* Its direct children */ }
+  /* line 4, scss/_header.scss */
   #menu #uraniumlogo {
     background: url('/images/uraniumlogo.png?1379098432') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
@@ -320,52 +314,70 @@ select {
     vertical-align: middle;
     width: 200px;
     height: 60px; }
-  /* line 14, scss/_header.scss */
+  /* line 13, scss/_header.scss */
   #menu .menu_widget {
-    display: inline-block;
-    text-align: center; }
-    /* line 17, scss/_header.scss */
-    #menu .menu_widget a {
-      display: block;
-      line-height: 2.4; }
-    /* line 21, scss/_header.scss */
+    text-align: center;
+    position: relative; }
+    /* line 16, scss/_header.scss */
+    #menu .menu_widget > a {
+      color: inherit;
+      display: block; }
+    /* line 20, scss/_header.scss */
     #menu .menu_widget > ul {
       display: none;
       position: absolute;
       list-style: none;
-      width: 113px;
+      width: 133px;
       padding: 0px 3px;
       margin: 0px;
       z-index: 1; }
-      /* line 29, scss/_header.scss */
+      /* line 28, scss/_header.scss */
       #menu .menu_widget > ul li {
-        background-color: #323232;
+        background-color: gold;
         border: 1px solid #505050;
         color: #fffafa;
         padding: 3px 0px; }
-        /* line 34, scss/_header.scss */
+        /* line 33, scss/_header.scss */
         #menu .menu_widget > ul li a {
-          color: inherit;
+          color: #323232;
           display: block;
           font: 300 14px "Open Sans", Arial, sans-serif; }
-      /* line 40, scss/_header.scss */
+          /* line 37, scss/_header.scss */
+          #menu .menu_widget > ul li a:hover {
+            color: gold; }
+      /* line 42, scss/_header.scss */
       #menu .menu_widget > ul li:hover {
         background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #252525));
         background: -webkit-linear-gradient(#323232, #252525);
         background: -moz-linear-gradient(#323232, #252525);
         background: -o-linear-gradient(#323232, #252525);
         background: linear-gradient(#323232, #252525); }
-    /* line 44, scss/_header.scss */
+    /* line 46, scss/_header.scss */
     #menu .menu_widget:hover {
       background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #252525));
       background: -webkit-linear-gradient(#323232, #252525);
       background: -moz-linear-gradient(#323232, #252525);
       background: -o-linear-gradient(#323232, #252525);
       background: linear-gradient(#323232, #252525); }
-      /* line 46, scss/_header.scss */
+      /* line 48, scss/_header.scss */
       #menu .menu_widget:hover > ul {
         display: block; }
-  /* line 52, scss/_header.scss */
+    /* line 52, scss/_header.scss */
+    #menu .menu_widget::after {
+      content: "choose";
+      position: absolute;
+      bottom: 2px;
+      left: 48%;
+      width: 0;
+      height: 5px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-indent: 100%;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #fff; }
+  /* line 69, scss/_header.scss */
   #menu > * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -377,17 +389,17 @@ select {
     font: 13px "Ultra", sans-serif;
     text-align: center;
     text-decoration: none;
-    width: 120px;
-    height: 32px;
+    width: 140px;
+    min-height: 32px;
     letter-spacing: 1px;
-    line-height: 2.4; }
-    /* line 65, scss/_header.scss */
+    line-height: 40px; }
+    /* line 82, scss/_header.scss */
     #menu > *:first-child {
       border: none; }
-    /* line 68, scss/_header.scss */
+    /* line 85, scss/_header.scss */
     #menu > *:last-child {
       border-right: none; }
-    /* line 71, scss/_header.scss */
+    /* line 88, scss/_header.scss */
     #menu > *:hover {
       background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #252525));
       background: -webkit-linear-gradient(#323232, #252525);
@@ -400,38 +412,11 @@ select {
       -o-border-radius: 5px;
       border-radius: 5px;
       color: #fffafa; }
-  /* line 77, scss/_header.scss */
-  #menu .selected {
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffd700), color-stop(100%, #e6c200));
-    background: -webkit-linear-gradient(#ffd700, #e6c200);
-    background: -moz-linear-gradient(#ffd700, #e6c200);
-    background: -o-linear-gradient(#ffd700, #e6c200);
-    background: linear-gradient(#ffd700, #e6c200);
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-    border-radius: 5px;
-    border-color: transparent;
-    color: #323232; }
-    /* line 82, scss/_header.scss */
-    #menu .selected:hover {
-      background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #323232), color-stop(100%, #252525));
-      background: -webkit-linear-gradient(#323232, #252525);
-      background: -moz-linear-gradient(#323232, #252525);
-      background: -o-linear-gradient(#323232, #252525);
-      background: linear-gradient(#323232, #252525);
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      -ms-border-radius: 5px;
-      -o-border-radius: 5px;
-      border-radius: 5px;
-      color: #fffafa; }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+  @media screen and (max-width: 640px), screen and (max-height: 479px) {
     /* line 1, scss/_header.scss */
     #menu {
       margin: 0px 0px 10px 0px; }
-      /* line 90, scss/_header.scss */
+      /* line 96, scss/_header.scss */
       #menu #uraniumlogo {
         background: gold url('/images/uraniumlogo.png?1379098432') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
@@ -443,39 +428,36 @@ select {
         display: block;
         float: none;
         width: auto;
+        min-height: 22px;
         height: 22px;
         margin: 5px 0px 0px 0px; }
-      /* line 101, scss/_header.scss */
+      /* line 108, scss/_header.scss */
       #menu > * {
         border-left: none; }
-      /* line 104, scss/_header.scss */
+      /* line 111, scss/_header.scss */
       #menu .menu_widget, #menu > a {
+        width: 33%;
+        font-size: 10px;
         border-top: 1px solid #505050;
         border-bottom: 1px solid black;
         float: left;
-        width: 50%; }
-        /* line 109, scss/_header.scss */
-        #menu .menu_widget:nth-of-type(odd), #menu > a:nth-of-type(odd) {
-          border-right: none; }
-        /* line 112, scss/_header.scss */
-        #menu .menu_widget:nth-of-type(even), #menu > a:nth-of-type(even) {
-          border-left: none; }
-      /* line 117, scss/_header.scss */
+        line-height: 40px;
+        border-right: none; }
+      /* line 121, scss/_header.scss */
       #menu .menu_widget > ul {
-        width: 50%;
         padding: 0px; }
-      /* line 122, scss/_header.scss */
+      /* line 125, scss/_header.scss */
       #menu .selected {
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         -ms-border-radius: 0;
         -o-border-radius: 0;
         border-radius: 0; }
-      /* line 125, scss/_header.scss */
+      /* line 128, scss/_header.scss */
       #menu span {
         display: none; } }
 
-/* line 131, scss/_header.scss */
+/* line 134, scss/_header.scss */
 #github_ribbon {
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px 2px;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px 2px;
@@ -495,7 +477,7 @@ select {
   text-align: center;
   width: 170px;
   height: 28px; }
-  /* line 144, scss/_header.scss */
+  /* line 147, scss/_header.scss */
   #github_ribbon:before {
     border: 1px solid #ccc;
     border-width: 1px 0;
@@ -506,8 +488,8 @@ select {
     top: 2px;
     width: 100%;
     height: 22px; }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 131, scss/_header.scss */
+  @media screen and (max-width: 640px), screen and (max-height: 479px) {
+    /* line 134, scss/_header.scss */
     #github_ribbon {
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -527,14 +509,14 @@ select {
       top: 5px;
       width: 60px;
       height: 22px; }
-      /* line 164, scss/_header.scss */
+      /* line 167, scss/_header.scss */
       #github_ribbon:before {
         border: 10px solid;
         border-color: transparent gold transparent transparent;
         top: 1px;
         right: 0;
         height: 0; }
-      /* line 171, scss/_header.scss */
+      /* line 174, scss/_header.scss */
       #github_ribbon .desktop {
         display: none; } }
 
