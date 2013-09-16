@@ -1,5 +1,4 @@
 #menu {
-  overflow: hidden;
   margin: 10px 0;
   text-align: center;
   #uraniumlogo {
@@ -12,29 +11,32 @@
     height: image-height("uraniumlogo.png")/2;
   }
   .menu_widget{
-    display: inline-block;
     text-align: center;
-    a{
+    position: relative;
+    >a{
+      color: inherit;
       display: block;
-      line-height: 2.4;
     }
     >ul{
       display: none;
       position: absolute;
       list-style: none;
-      width: 113px;
+      width: 133px;
       padding: 0px 3px;
       margin: 0px;
       z-index: 1;
       li {
-        background-color:$color1;
+        background-color:$color2;
         border: 1px solid #505050;
         color: #fffafa;
         padding: 3px 0px;
         a{
-          color: inherit;
+          color: $color1;
           display: block;
           font: 300 14px "Open Sans", Arial, sans-serif;
+          &:hover {
+            color: $color2;
+          }
         }
       }
       li:hover {
@@ -47,8 +49,23 @@
         display:block;
       }
     }
+    &::after {
+      content: "choose";
+      position: absolute;
+      bottom: 2px;
+      left: 48%;
+      width: 0;
+      height: 5px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-indent: 100%;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #fff;
+    }
   }
-  /* It's children */
+  /* Its direct children */
   > * {
     @include box-sizing(border-box);
     color: #fffafa;
@@ -58,10 +75,10 @@
     font: 13px "Ultra", sans-serif;
     text-align: center;
     text-decoration: none;
-    width: 120px;
-    height: 32px;
+    width: 140px;
+    min-height: 32px;
     letter-spacing: 1px;
-    line-height: 2.4;
+    line-height: 40px;
     &:first-child {
       border: none;
     }
@@ -74,18 +91,7 @@
       color: #fffafa;
     }
   }
-  .selected {
-    @include background(linear-gradient($color2, darken($color2, 5%)));
-    @include border-radius(5px);
-    border-color: transparent;
-    color: #323232;
-    &:hover{
-      @include background(linear-gradient($color1, darken($color1, 5%)));
-      @include border-radius(5px);
-      color: #fffafa;
-    }
-  }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+  @media screen and (max-width: 640px), screen and (max-height: 479px) {
     margin: 0px 0px 10px 0px;
     #uraniumlogo{
       background: $color2 image-url("uraniumlogo.png") no-repeat 50% 50%;
@@ -95,6 +101,7 @@
       display: block;
       float: none;
       width: auto;
+      min-height: 22px;
       height: 22px;
       margin: 5px 0px 0px 0px;
     }
@@ -102,20 +109,16 @@
       border-left: none;
     }
     .menu_widget, >a{
+      width: 33%;
+      font-size: 10px;
       border-top: 1px solid #505050;
       border-bottom: 1px solid black;
       float: left;
-      width: 50%;
-      &:nth-of-type(odd) {
-        border-right: none;
-      }
-      &:nth-of-type(even) {
-        border-left: none;
-      }
+      line-height: 40px;
+      border-right: none;
     }
     .menu_widget{
       >ul{
-        width: 50%;
         padding: 0px;
       }
     }
@@ -152,7 +155,7 @@
     width: 100%;
     height: 22px;
   }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
+  @media screen and (max-width: 640px), screen and (max-height: 479px) {
     @include box-shadow(none);
     @include background(linear-gradient(left, #aaa, gray));
     @include transform(none);

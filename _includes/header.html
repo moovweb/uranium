@@ -2,8 +2,8 @@
 <nav id="menu">
   {% capture tmp %}
   <a href="/" id="uraniumlogo" {% if page.home_selected %}class="selected"{% endif %}></a>
-  <div class='menu_widget'>
-  	<a href="/interaction_list.html" {% if page.interaction_selected %}class="selected"{% endif %}>Interactions</a>
+  <section class='menu_widget'>
+  	<a href="#" {% if page.interaction_selected %}class="selected"{% endif %}>Interactions</a>
   	<ul>
   		<li><a href="/interactions/carousel.html">Carousel</a></li>
       <li><a href="/interactions/geocode.html">Geolocation</a></li>
@@ -12,17 +12,17 @@
   		<li><a href="/interactions/toggler.html">Toggler</a></li>
   		<li><a href="/interactions/zoom.html">Zoom</a></li>
   	</ul>
-  </div>
-  <div class="menu_widget">
-    <a {% if page.tutorial_selected %}class="selected"{% endif %}> Tutorials </a>
+  </section>
+  <section class="menu_widget">
+    <a href="#" {% if page.tutorial_selected %}class="selected"{% endif %}> Tutorials </a>
     <ul>
       <li><a href="/tutorials/getting_started.html">Getting Started</a></li>
       <li><a href="/tutorials/intermediate.html">Intermediate</a></li>
       <li><a href="/tutorials/advanced.html">Advanced</a></li>
 
     </ul>
-  </div>
-  <a href="/about.html" {% if page.about_selected %}class="selected"{% endif %}>About</a>
+  </section>
+  <a href="/download.html">Download</a>
   {% endcapture %}
   {{ tmp | strip_newlines | remove: "  " }}
 </nav>
