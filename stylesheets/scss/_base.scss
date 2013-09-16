@@ -217,11 +217,11 @@ border-radius: 5px;
   height: 225px;
 }
 
-
-[data-ur-toggler-component="button"], [data-ur-tabs-component="button"], [data-ur-carousel-component="button"] {
-  &:not([data-ur-state="enabled"]) {
-    cursor: pointer;
-  }
+[data-ur-toggler-component="button"],
+[data-ur-zoom-component="button"],
+[data-ur-tabs-component="button"]:not([data-ur-state="enabled"]),
+[data-ur-carousel-component="button"]:not([data-ur-state="disabled"]) {
+  cursor: pointer;
 }
 
 /* Overrides disabled button pointer for closeable tabs */

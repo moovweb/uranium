@@ -285,8 +285,11 @@ select {
 .example#select_list {
   height: 225px; }
 
-/* line 222, scss/_base.scss */
-[data-ur-toggler-component="button"]:not([data-ur-state="enabled"]), [data-ur-tabs-component="button"]:not([data-ur-state="enabled"]), [data-ur-carousel-component="button"]:not([data-ur-state="enabled"]) {
+/* line 223, scss/_base.scss */
+[data-ur-toggler-component="button"],
+[data-ur-zoom-component="button"],
+[data-ur-tabs-component="button"]:not([data-ur-state="enabled"]),
+[data-ur-carousel-component="button"]:not([data-ur-state="disabled"]) {
   cursor: pointer; }
 
 /* Overrides disabled button pointer for closeable tabs */
@@ -302,7 +305,7 @@ select {
   /* It's children */ }
   /* line 5, scss/_header.scss */
   #menu #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1378929677') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1379098432') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -425,7 +428,7 @@ select {
       margin: 0px 0px 10px 0px; }
       /* line 90, scss/_header.scss */
       #menu #uraniumlogo {
-        background: gold url('/images/uraniumlogo.png?1378929677') no-repeat 50% 50%;
+        background: gold url('/images/uraniumlogo.png?1379098432') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
         -moz-background-size: 100px 30px;
         -o-background-size: 100px 30px;
@@ -2233,30 +2236,25 @@ body#zoom_page [data-ur-set="zoom"] {
   overflow: hidden;
   position: relative;
   text-align: center; }
-/* line 9, scss/_zoom.scss */
+  /* line 8, scss/_zoom.scss */
+  body#zoom_page [data-ur-set="zoom"][data-ur-state="enabled"] [data-ur-zoom-component="img"] {
+    cursor: move; }
+/* line 12, scss/_zoom.scss */
 body#zoom_page [data-ur-set="zoom"]::before {
   content: "";
   display: inline-block;
   vertical-align: middle;
   height: 100%; }
-/* line 17, scss/_zoom.scss */
+/* line 20, scss/_zoom.scss */
 body#zoom_page [data-ur-state="enabled-in"] [data-ur-zoom-component], body#zoom_page [data-ur-state="enabled-out"] [data-ur-zoom-component] {
-  -webkit-transition-duration: 0.4s;
-  -moz-transition-duration: 0.4s;
-  -o-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  transition-property: transform;
-  -webkit-transition-timing-function: ease-in-out;
-  -moz-transition-timing-function: ease-in-out;
-  -o-transition-timing-function: ease-in-out;
-  transition-timing-function: ease-in-out; }
-/* line 24, scss/_zoom.scss */
+  -webkit-transition: -webkit-transform 0.4s ease-in-out;
+  -moz-transition: -moz-transform 0.4s ease-in-out;
+  -o-transition: -o-transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out; }
+/* line 25, scss/_zoom.scss */
 body#zoom_page [data-ur-set="zoom"] img {
   vertical-align: middle; }
-/* line 28, scss/_zoom.scss */
+/* line 29, scss/_zoom.scss */
 body#zoom_page [data-ur-zoom-component="button"] {
   background: rgba(255, 255, 255, 0.6);
   border-radius: 15px;
@@ -2264,11 +2262,11 @@ body#zoom_page [data-ur-zoom-component="button"] {
   line-height: 30px;
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  left: 5px;
   text-align: center;
   width: 30px;
   height: 30px; }
-/* line 41, scss/_zoom.scss */
+/* line 42, scss/_zoom.scss */
 body#zoom_page [data-ur-zoom-component="loading"] {
   background: white;
   border: 1px solid #ccc;
@@ -2284,16 +2282,16 @@ body#zoom_page [data-ur-zoom-component="loading"] {
   width: 160px;
   height: 50px;
   text-align: center; }
-/* line 59, scss/_zoom.scss */
+/* line 60, scss/_zoom.scss */
 body#zoom_page [data-ur-zoom-component="button"] span:last-child {
   display: none; }
-/* line 63, scss/_zoom.scss */
+/* line 64, scss/_zoom.scss */
 body#zoom_page [data-ur-zoom-component="button"][data-ur-state="enabled"] span:first-child {
   display: none; }
-/* line 66, scss/_zoom.scss */
+/* line 67, scss/_zoom.scss */
 body#zoom_page [data-ur-zoom-component="button"][data-ur-state="enabled"] span:last-child {
   display: inline; }
-/* line 72, scss/_zoom.scss */
+/* line 73, scss/_zoom.scss */
 body#zoom_page [data-ur-zoom-component="loading"][data-ur-state="disabled"] {
   display: none; }
 
