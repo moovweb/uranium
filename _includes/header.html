@@ -13,6 +13,15 @@
   		<li><a href="/interactions/zoom.html">Zoom</a></li>
   	</ul>
   </div>
+  <div class="menu_widget">
+    <a {% if page.tutorial_selected %}class="selected"{% endif %}> Tutorials </a>
+    <ul>
+      <li><a href="/tutorials/getting_started.html">Getting Started</a></li>
+      <li><a href="/tutorials/intermediate.html">Intermediate</a></li>
+      <li><a href="/tutorials/advanced.html">Advanced</a></li>
+
+    </ul>
+  </div>
   <a href="/about.html" {% if page.about_selected %}class="selected"{% endif %}>About</a>
   {% endcapture %}
   {{ tmp | strip_newlines | remove: "  " }}
