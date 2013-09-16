@@ -22,19 +22,51 @@
   <div id="small_desc">Fast, Lean Web Interaction Library.<small>*for mobile too!</small></div>
 </div><!-- top_wrapper-->
 <div id="textbody">
- 
-  <h1>Top ways to use Uranium</h1>
+  <div>
+    <h1>What is Uranium?</h1>
+    <p>
+      Uranium is a set of interactions &ndash; self-contained bits of code that allow you to do neat, interactive things on your website.
+    </p>
+    <div id="how_to_use">
+      <h4>How to Use:</h4>
+      <ol>
+        <li>Include the Uranium library</li>
+        <li>Give HTML pre-defined attributes</li>
+        <li>&hellip; that's it!</li>
+      </ol>
+    </div>
+    <p>
+      It's seriously that easy. We've put in all the hard work to make awesome interactions that are
+      really easy to use.
+    </p>
+    <p>
+      Uranium is perfect for mobile development; lots of the interactions were made with that in mind. But, as you can see by the examples below, they're great on a desktop site too.
+    </p>
+  </div>
+  <div>
+    <h2>What is an Interaction?</h2>
+    <div>
+      <p>
+        We define interactions as behaviors that enhance the functionality of an HTML element. Uranium defines a group of <i>attributes</i> you can give to your HTML elements, allowing your users to interact with them in a new way.
+      </p>
+      <p>
+        We've created pages to describe each interaction provided by Uranium, accessible from the menu above. As well as those pages, you might want to check out the <a href="tutorials/getting_started.html">getting started tutorial</a>, which takes you step-by-step through implementing a toggler interaction.
+      </p>
+    </div>
+  </div>
+  
+  <h1>Top Ways to Use Uranium</h1>
   <!-- Test -->
   <div class="demonstration">
     <h2> Carousel </h2>
     <div id="carousel_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_widget" data-ur-state="enabled"> Interaction</h3>
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_interaction" data-ur-state="enabled"> Interaction</h3>
 
       <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_html">HTML</h3>
 
       <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_CSS">CSS</h3>
 
-      <div id="carousel_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="carousel_widget" data-ur-state="enabled">
+      <div id="carousel_interaction" class="example_interaction"  data-ur-tabs-component="content" data-ur-tab-id="carousel_interaction" data-ur-state="enabled">
 
         <div data-ur-set="carousel" data-ur-id="MyFirstCarousel" data-ur-clones=5 data-ur-infinite="disabled">
           <span data-ur-carousel-component="count"> -- count -- </span>
@@ -57,7 +89,7 @@
         </div>
       </div>
 
-      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_html">
+      <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_html">
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;MyFirstCarousel&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;span</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;count&quot;</span><span class="nt">&gt;</span> -- count -- <span class="nt">&lt;/span&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;prev&quot;</span><span class="nt">&gt;</span>Prev<span class="nt">&lt;/div&gt;</span>
@@ -76,7 +108,7 @@
 </code></pre></div>
       </div>
 
-      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_CSS">
+      <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="carousel_CSS">
 <div class="highlight"><pre><code class="css"><span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;scroll_container&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
   <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
   <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
@@ -94,11 +126,13 @@
   <div class="demonstration">
     <h2> Tabs </h2>
     <div id="tab_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="widget_tabs" data-ur-state="enabled"> Interaction</h3>
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_interaction" data-ur-state="enabled"> Interaction</h3>
 
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="html_tabs"> HTML</h3>
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_html"> HTML</h3>
 
-      <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="widget_tabs" data-ur-state="enabled">
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_CSS">CSS</h3>
+
+      <div id="tab_widget" class="example_widget" data-ur-tabs-component="content" data-ur-tab-id="tabs_interaction" data-ur-state="enabled">
         <div data-ur-set="tabs" data-ur-id="tabs_example">
           <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
           <span data-ur-tabs-component="button" data-ur-tab-id="two"> Second </span>
@@ -117,7 +151,7 @@
           </div>
         </div>
       </div>
-      <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html_tabs">
+      <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="tabs_html">
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;tabs&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;first&#39;</span> <span class="na">data-ur-state=</span><span class="s">&#39;enabled&#39;</span><span class="nt">&gt;</span> First <span class="nt">&lt;/span&gt;</span>
   <span class="nt">&lt;span</span> <span class="na">data-ur-tabs-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-tab-id=</span><span class="s">&#39;second&#39;</span><span class="nt">&gt;</span> Second <span class="nt">&lt;/span&gt;</span>
@@ -137,6 +171,13 @@
 <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
       </div>
+      <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="tabs_CSS">
+<div class="highlight"><pre><code class="css"><span class="c">/* Recommended CSS */</span>
+<span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+      </div>
     </div>
     <a href="/interactions/tabs.html" class="see_more_link">
       More about tabs >
@@ -147,11 +188,13 @@
   <div class='demonstration' name='Simple'>
     <h2>Toggler</h2>
     <div id="accordion_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_widget"data-ur-state='enabled'>Interaction</h3>
+      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_interaction"data-ur-state='enabled'>Interaction</h3>
 
       <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_html"> HTML</h3>
 
-      <div id="tab_widget" class="example_widget"  data-ur-tabs-component="content" data-ur-tab-id="toggler_widget" data-ur-state='enabled'>
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="toggler_CSS">CSS</h3>
+
+      <div id="toggler_interaction" class="example_interaction"  data-ur-tabs-component="content" data-ur-tab-id="toggler_interaction" data-ur-state='enabled'>
         <div data-ur-set='toggler'>
           <div data-ur-toggler-component='button'>
             Click Here!
@@ -166,7 +209,7 @@
           </ul>
         </div> 
       </div>
-    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="toggler_html">
+    <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="toggler_html">
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;toggler&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>Click Here!<span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
@@ -177,6 +220,13 @@
     <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
   <span class="nt">&lt;/ul&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+      </div>
+      <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="toggler_CSS">
+<div class="highlight"><pre><code class="css"><span class="c">/* Recommended CSS */</span>
+<span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
       </div>
     </div>
