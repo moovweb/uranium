@@ -218,7 +218,7 @@ border-radius: 5px;
 }
 
 
-[data-ur-toggler-component="button"], [data-ur-tabs-component="button"], [data-ur-carousel-component="button"] {
+[data-ur-toggler-component="button"], [data-ur-tabs-component="button"] {
   &:not([data-ur-state="enabled"]) {
     cursor: pointer;
   }
@@ -226,5 +226,9 @@ border-radius: 5px;
 
 /* Overrides disabled button pointer for closeable tabs */
 [data-ur-closeable="true"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
+  cursor: pointer;
+}
+
+[data-ur-carousel-component="button"][data-ur-state="enabled"] {
   cursor: pointer;
 }

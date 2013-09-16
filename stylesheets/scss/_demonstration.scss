@@ -39,10 +39,13 @@
     } 
   }
   #tab_widget [data-ur-set="tabs"] * {
-    &[data-ur-tabs-component="button"] {
-      background: silver; 
+    &[data-ur-tabs-component="button"][data-ur-state="enabled"] {
+      background: $color2;
+      border-bottom: 1px solid $color2;
     }
-    &[data-ur-tabs-component="content"] {
+    &[data-ur-tabs-component="button"], &[data-ur-tabs-component="content"] {
+      background: $color2;
+      color: black;
     } 
   } 
 }
