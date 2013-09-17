@@ -150,7 +150,7 @@
       // Create the X div and hide it (even though this should be in CSS)
       var ex = $("<div class='data-ur-input-clear-ex'></div>").hide();
       // Inject it
-      $(group["set"]).append(ex);
+      $(group['set']).append(ex);
 
       // Touch Events
       ex
@@ -166,8 +166,8 @@
 
       var input = $(group["set"]).find("input");
       input
-        .bind("focus", function() {
-          if (input[0].value != "") {
+        .bind('focus', function() {
+          if (input[0].value != '') {
             ex.show();
           }
         })
@@ -183,13 +183,13 @@
 
   // Geocode
   var geoCode = function ( fragment ) {
-    var groups = findElements2(fragment, "reverse-geocode", function() {
+    var groups = findElements2(fragment, "reverse-geocode", function(set, comp) {
       set["elements"] = set["elements"] || {};
       set["elements"][$(comp).attr("data-ur-reverse-geocode-component")] = comp;
     });
 
-    $.each(groups, function(_, group) {
-      var set = group["set"];
+    $.each(groups, function() {
+      var set = this['set'];
 
       var callback = $(set).attr("data-ur-callback");
       var errorCallback = $(set).attr("data-ur-error-callback");
@@ -387,10 +387,7 @@
 
   // Zoom
   var zoom = function ( fragment ) {
-    var groups = findElements2(fragment, "zoom", function(set, comp) {
-      set["components"] = set["components"] || [];
-      set["components"].push(comp);
-    });
+    var groups = findElements2(fragment, "zoom");
 
     // Private shared variables
 
@@ -425,9 +422,8 @@
 
     function Zoom(set) {
       var self = this;
-      var components = set.components;
       this.container = set["set"];
-      this.img = $(components).filter("[data-ur-zoom-component='img']")[0];
+      this.img = set["img"];
       this.prescale = false;
       this.width = this.height = 0;
       this.bigWidth = this.bigHeight = 0;
@@ -436,8 +432,8 @@
       this.state = "disabled";
 
       // Optionally:
-      this.button = $(components).filter("[data-ur-zoom-component='button']")[0];
-      this.idler = $(components).filter("[data-ur-zoom-component='loading']")[0];
+      this.button = set["button"];
+      this.idler = set["loading"];
 
       var $img = $(this.img);
       var $idler = $(this.idler);
@@ -698,10 +694,7 @@
 
   // Carousel
   var carousel = function ( fragment ) {
-    var groups = findElements2(fragment, "carousel", function(set, comp) {
-      set["components"] = set["components"] || [];
-      set["components"].push(comp);
-    });
+    var groups = findElements2(fragment, "carousel");
 
      // private methods
 
@@ -721,40 +714,32 @@
     // for each carousel
      $.each(groups, function(id, group) {
       var set = group['set'];
-      $(group["components"]).each(function() {
-        if($(this).attr("data-ur-carousel-component") == "button") {
-          var type  = $(this).attr("data-ur-carousel-button-type");
-          if(type === undefined) {
-            $.error("malformed carousel button type for carousel with id: " + id + ".");
-          }
-          $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
+      $(group["buttons"]).each(function() {
+        var type = $(this).attr("data-ur-carousel-button-type");
+        if(!type) {
+          $.error("malformed carousel button type for carousel with id: " + id + ".");
         }
+        $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
       });
-      group["crsl_object"] = new Carousel(this);
+      group["crsl_object"] = new Carousel(group);
       $(group["set"]).attr("data-ur-state", "enabled");
      });
 
      function Carousel(set) {
       var self = this;
-      var components = set.components;
       this.container = set["set"];
-      this.items = $(components).filter("[data-ur-carousel-component='scroll_container']")[0];
-      if (this.items.length == 0) {
+      this.items = set["scroll_container"];
+      if (!this.items) {
         $.error("carousel missing item components");
-        return false;
       }
 
       // Optionally:
-      this.button = $(components).filter("[data-ur-carousel-component='button']");
-      this.count = $(components).filter("[data-ur-carousel-component='count']")[0];
-      this.dots = $(components).filter("[data-ur-carousel-component='dots']")[0];
-
-      if (this.button.length == 0) {
-        this.button = {};
-      } else {
-        this.button["prev"] = this.button.filter("[data-ur-carousel-button-type='prev']");
-        this.button["next"] = this.button.filter("[data-ur-carousel-button-type='next']");
-      }
+      this.button = {
+        prev: $(set["button"]).filter("[data-ur-carousel-button-type='prev']"),
+        next: $(set["button"]).filter("[data-ur-carousel-button-type='next']")
+      };
+      this.count = set["count"];
+      this.dots = set["dots"];
 
       this.flag = {
         click: false,
@@ -1100,8 +1085,7 @@
         var realIndex = self.itemIndex;
         if (self.options.infinite)
           realIndex = (self.realItemCount + self.itemIndex - self.options.cloneLength) % self.realItemCount;
-        if (self.count !== undefined)
-          self.count.innerHTML = realIndex + 1 + " of " + self.realItemCount;
+        $(self.count).html(realIndex + 1 + " of " + self.realItemCount);
 
         $(self.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
         $($(self.items).find("[data-ur-carousel-component='item']")[self.itemIndex]).attr("data-ur-state", "active");
