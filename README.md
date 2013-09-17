@@ -1,27 +1,19 @@
 # Overview
 
-Uranium is meant to be :
+Uranium is a simple Javascript widget library written in jQuery. It's meant to be...
 
 -  Lightweight
--  Easy to use
+-  Declarative
+-  Interface Focused
 
 That's it!
 
-If given the choice between easy to use and powerful, ease of use is the greater goal. If you find yourself wanting something that a given widget will not do, you're encouraged to extend the widget yourself.
-
-It should be noted that since Uranium extends xui -- this library is geared for widgets that are useful on mobile devices. It also is designed to support mobile browsers (for now just webkit, but you can build it for blackberry/mobile IE as well).
+If given the choice between easy to use and powerful, ease of use is the greater goal. 
+If you find yourself wanting something that a given widget will not do, you're encouraged 
+to extend the widget yourself.
 
 View the [website](http://uraniumjs.com/) for more details and demos.
 
----
-
-# Lightweight
-
-**The whole library is 15 KB gzipped (including all widgets and xui) !**
-
--  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
--  Uranium is bundled with xui to make just one javascript file(uranium/raw/master/build/src/uranium.js).
--  If you want it even lighter, you can make a custom [build](uranium/blob/master/doc/dev/build.md) yourself. Follow the instructions below.
 
 ---
 
@@ -37,19 +29,6 @@ Declarative javascript is a model that looks for how html elements are formatted
 
 ---
 
-# Get Started
-
-There are two primary steps to make a widget:
-
--  Add special attributes to the html element you wish to make a widget
--  Include [uranium.js](uranium/raw/master/build/src/uranium.js)
-
-View the [website](http://uraniumjs.com/) for a [tutorial](http://uraniumjs.com/tutorials.html) (we have videos!), more details, and awesome [demos](http://uraniumjs.com/widget_list.html).
-
--  Read our [philosophy](http://uraniumjs.com/more.html) to understand our design goals and see how to implement a widget.
--  Admire all the [widgets](http://uraniumjs.com/widget_list.html) available.
-
----
 
 # Uranium is not ...
 
@@ -112,13 +91,14 @@ You'll need to generate an .html file that goes in the _site/widgets folder that
 
 **Important Note**
 
-If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery, if that is not possible, you would need to use jQuery.noConflict() on both instances.
+If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery, 
+if that is not possible, you would need to use jQuery.noConflict() on both instances.
 
 ---
 
 # MIT License
 
-Copyright (C) 2011 by Moov Corporation (aka Moovweb)
+Copyright (C) 2011-2013 by Moov Corporation (aka Moovweb)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
