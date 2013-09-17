@@ -44,7 +44,8 @@
     }
   }
 
-  var findElements2 = function( fragment, type ) {
+  // optional customFn(set, component) for custom creating widget object
+  var findElements2 = function( fragment, type, customFn ) {
     var sets = {};
     var setCss = "[data-ur-set='" + type + "']";
     var compAttr = "data-ur-" + type + "-component";
@@ -59,7 +60,17 @@
           set.attr("data-ur-id", setId);
         }
         sets[setId] = sets[setId] || {};
-        sets[setId][$(this).attr(compAttr)] = this;
+
+        if (set.is(setCss))
+          sets[setId].set = set[0];
+
+        if (customFn)
+          customFn(sets[setId], this);
+        else {
+          var comp = $(this).attr(compAttr);
+          sets[setId][comp] = sets[setId][comp] || [];
+          sets[setId][comp].push(this);
+        }
       }
     });
     return sets;
@@ -76,7 +87,7 @@
 
   // Toggler
   var toggler = function( fragment ) {
-    var groups = findElements2( fragment, "toggler" );
+    var groups = findElements2(fragment, "toggler");
 
     $.each(groups, function(id, self) {
       if (!self["button"])
@@ -85,12 +96,12 @@
         $.error("no content found for toggler with id=" + id);
 
       var toggler_state = $(self["button"]).attr("data-ur-state") || "disabled";
-      $([self["button"], self["content"]]).attr("data-ur-state", toggler_state);
+      $(self["button"]).add(self["content"]).attr("data-ur-state", toggler_state);
 
       $(self["button"]).click(function(event) {
         event.stopPropagation();
         var new_state = $(self["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
-        $([self["button"], self["content"]]).attr("data-ur-state", new_state);
+        $(self["button"]).add(self["content"]).attr("data-ur-state", new_state);
       });
     });
   }
@@ -101,7 +112,9 @@
       var tabId = $(comp).attr("data-ur-tab-id");
       set.tabs = set.tabs || {};
       set.tabs[tabId] = set.tabs[tabId] || {};
-      set.tabs[tabId][$(comp).attr("data-ur-tabs-component")] = comp;
+      var comp = $(comp).attr("data-ur-tabs-component");
+      set.tabs[tabId][comp] = set.tabs[tabId][comp] || [];
+      set.tabs[tabId][comp].push(comp);
     });
 
     $.each(groups, function(id, group) {
@@ -110,7 +123,7 @@
       // Set the state of the tabs
       $.each(group["tabs"], function() {
         var tabState = $(this["button"]).attr("data-ur-state") || "disabled";
-        $([this["button"], this["content"]]).attr("data-ur-state", tabState);
+        $(this["button"]).add(this["content"]).attr("data-ur-state", tabState);
       });
 
       // Set up the button call backs
@@ -119,11 +132,11 @@
           // Is the tab open already?
           var open = $(this).attr("data-ur-state") == "enabled";
           $.each(group["tabs"], function() {
-            $([this["button"], this["content"]]).attr("data-ur-state", "disabled");
+            $(this["button"]).add(this["content"]).attr("data-ur-state", "disabled");
           });
           // If closeable (active tab can be toggled) then make sure it happens.
           if (!open || !groups["closeable"]) {
-            $(this).add(tab["content"]).attr("data-ur-state", "enabled");
+            $(tab["button"]).add(tab["content"]).attr("data-ur-state", "enabled");
           }
         });
       });
@@ -146,7 +159,7 @@
           input[0].value='';
           input[0].focus();
         })
-        .bind("touchend", function() {
+        .bind('touchend', function() {
           // make sure the keyboard doesn't disappear
           input[0].blur();
         });
@@ -158,10 +171,10 @@
             ex.show();
           }
         })
-        .bind("keydown", function() {
+        .bind('keydown', function() {
           ex.show();
         })
-        .bind("blur", function() {
+        .bind('blur', function() {
           // Delay the hide so that the button can be clicked
           setTimeout(function() { ex.hide();}, 150);
         });
@@ -171,8 +184,8 @@
   // Geocode
   var geoCode = function ( fragment ) {
     var groups = findElements2(fragment, "reverse-geocode", function() {
-      set.elements = set.elements || {};
-      set.elements[$(comp).attr("data-ur-reverse-geocode-component")] = comp;
+      set["elements"] = set["elements"] || {};
+      set["elements"][$(comp).attr("data-ur-reverse-geocode-component")] = comp;
     });
 
     $.each(groups, function(_, group) {
@@ -374,10 +387,10 @@
 
   // Zoom
   var zoom = function ( fragment ) {
-    // console.log("zoom");
-
-    var wgType = "zoom"
-    var groups = findElements( fragment, wgType );
+    var groups = findElements2(fragment, "zoom", function(set, comp) {
+      set["components"] = set["components"] || [];
+      set["components"].push(comp);
+    });
 
     // Private shared variables
 
@@ -407,11 +420,7 @@
     }
 
     $.each(groups, function() {
-      var self = this;
-      var set = self['set'];
-      var components = findComponents(set, wgType);
-      this["components"] = components;
-      self["zoom_object"] = new Zoom(this);
+      this["zoom_object"] = new Zoom(this);
     });
 
     function Zoom(set) {
@@ -689,8 +698,10 @@
 
   // Carousel
   var carousel = function ( fragment ) {
-    // console.log("carousel");
-    var groups = findElements(fragment, "carousel");
+    var groups = findElements2(fragment, "carousel", function(set, comp) {
+      set["components"] = set["components"] || [];
+      set["components"].push(comp);
+    });
 
      // private methods
 
@@ -708,23 +719,19 @@
      }
 
     // for each carousel
-     $.each(groups, function() {
-      var self = this;
-      var set = self['set'];
-      var set_id = self['carousel_id'];
-      var components = findComponents(set, "carousel");
-      components.each(function() {
+     $.each(groups, function(id, group) {
+      var set = group['set'];
+      $(group["components"]).each(function() {
         if($(this).attr("data-ur-carousel-component") == "button") {
           var type  = $(this).attr("data-ur-carousel-button-type");
           if(type === undefined) {
-            $.error("malformed carousel button type for carousel with id: " + set_id + ".");
+            $.error("malformed carousel button type for carousel with id: " + id + ".");
           }
           $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
         }
       });
-      this["components"] = components;
-      self["crsl_object"] = new Carousel(this);
-      $(self["set"]).attr("data-ur-state", "enabled");
+      group["crsl_object"] = new Carousel(this);
+      $(group["set"]).attr("data-ur-state", "enabled");
      });
 
      function Carousel(set) {
