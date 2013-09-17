@@ -89,19 +89,19 @@
   var toggler = function( fragment ) {
     var groups = findElements2(fragment, "toggler");
 
-    $.each(groups, function(id, self) {
-      if (!self["button"])
+    $.each(groups, function(id, group) {
+      if (!group["button"])
         $.error("no button found for toggler with id=" + id);
-      if (!self["content"])
+      if (!group["content"])
         $.error("no content found for toggler with id=" + id);
 
-      var toggler_state = $(self["button"]).attr("data-ur-state") || "disabled";
-      $(self["button"]).add(self["content"]).attr("data-ur-state", toggler_state);
+      var toggler_state = $(group["button"]).attr("data-ur-state") || "disabled";
+      $(group["button"]).add(group["content"]).attr("data-ur-state", toggler_state);
 
-      $(self["button"]).click(function(event) {
+      $(group["button"]).click(function(event) {
         event.stopPropagation();
-        var new_state = $(self["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
-        $(self["button"]).add(self["content"]).attr("data-ur-state", new_state);
+        var new_state = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        $(group["button"]).add(group["content"]).attr("data-ur-state", new_state);
       });
     });
   }
