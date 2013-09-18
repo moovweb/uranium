@@ -305,7 +305,7 @@ select {
   /* Its direct children */ }
   /* line 4, scss/_header.scss */
   #menu #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1378929677') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1379098432') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -419,7 +419,7 @@ select {
       margin: 0px 0px 10px 0px; }
       /* line 96, scss/_header.scss */
       #menu #uraniumlogo {
-        background: gold url('/images/uraniumlogo.png?1378929677') no-repeat 50% 50%;
+        background: gold url('/images/uraniumlogo.png?1379098432') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
         -moz-background-size: 100px 30px;
         -o-background-size: 100px 30px;
@@ -1140,29 +1140,30 @@ body#documentation_page #carousel_tutorial .final {
     color: black; }
 
 /* line 2, scss/_download.scss */
+body#download_page #textbody {
+  position: relative; }
+  /* line 4, scss/_download.scss */
+  body#download_page #textbody > h1 {
+    margin-bottom: 0; }
+/* line 8, scss/_download.scss */
 body#download_page #version {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  background: #fafafa url("resources/largeshade.png") no-repeat left bottom;
-  color: #323232;
-  float: right;
-  padding: 0 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
   font: italic 16px "Crete Round", serif;
   text-shadow: none;
   vertical-align: middle; }
-  /* line 11, scss/_download.scss */
+  /* line 15, scss/_download.scss */
   body#download_page #version:before {
     content: "";
     font: 30px "Ultra", sans-serif;
     vertical-align: middle; }
-/* line 18, scss/_download.scss */
+/* line 22, scss/_download.scss */
 body#download_page #links {
   margin: 20px auto;
-  width: 90%; }
-  /* line 21, scss/_download.scss */
+  width: 90%;
+  overflow: auto; }
+  /* line 26, scss/_download.scss */
   body#download_page #links a {
     background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #e5e5e5));
     background: -webkit-linear-gradient(#ffffff, #e5e5e5);
@@ -1178,43 +1179,36 @@ body#download_page #links {
     -moz-box-align: center;
     -ms-box-align: center;
     box-align: center;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-box;
-    display: box;
     color: #323232;
     float: left;
     margin-right: 5%;
     min-height: 38px;
     padding: 2% 0;
     text-align: center;
-    width: 30%; }
-    /* line 33, scss/_download.scss */
+    width: 45%; }
+    /* line 37, scss/_download.scss */
     body#download_page #links a:last-child {
-      float: none;
-      margin: 0;
-      overflow: hidden;
-      width: auto; }
-  /* line 40, scss/_download.scss */
-  body#download_page #links div {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    -ms-box-flex: 1;
-    box-flex: 1; }
-  /* line 43, scss/_download.scss */
+      margin: 0; }
+    /* line 40, scss/_download.scss */
+    body#download_page #links a:hover {
+      background: gold; }
+  /* line 44, scss/_download.scss */
   body#download_page #links h4 {
     font-size: 1.9em; }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    /* line 47, scss/_download.scss */
-    body#download_page #links h4 {
-      display: none; } }
-/* line 52, scss/_download.scss */
+@media screen and (max-width: 650px), screen and (max-height: 479px) {
+  /* line 49, scss/_download.scss */
+  body#download_page #version {
+    position: static; }
+  /* line 52, scss/_download.scss */
+  body#download_page .link-header {
+    display: none; } }
+/* line 56, scss/_download.scss */
 body#download_page #custom_ur {
   display: none; }
-/* line 55, scss/_download.scss */
+/* line 59, scss/_download.scss */
 body#download_page #init {
   margin: 10px 0; }
-/* line 58, scss/_download.scss */
+/* line 62, scss/_download.scss */
 body#download_page #result span {
   display: none; }
 
