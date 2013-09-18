@@ -305,7 +305,7 @@ select {
   /* Its direct children */ }
   /* line 4, scss/_header.scss */
   #menu #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1379098432') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1378929677') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -419,7 +419,7 @@ select {
       margin: 0px 0px 10px 0px; }
       /* line 96, scss/_header.scss */
       #menu #uraniumlogo {
-        background: gold url('/images/uraniumlogo.png?1379098432') no-repeat 50% 50%;
+        background: gold url('/images/uraniumlogo.png?1378929677') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
         -moz-background-size: 100px 30px;
         -o-background-size: 100px 30px;
@@ -1043,29 +1043,52 @@ body#compatibility_page li.mixed {
   background: #fbf6bb; }
 
 /* line 2, scss/_tutorial.scss */
-body#tutorial_page *[data-ur-tabs-component='content'] {
+body#documentation_page [data-ur-tabs-component='content'], body#documentation_page [data-ur-toggler-component="content"] {
   display: none; }
   /* line 3, scss/_tutorial.scss */
-  body#tutorial_page *[data-ur-tabs-component='content'][data-ur-state='enabled'] {
+  body#documentation_page [data-ur-tabs-component='content'][data-ur-state='enabled'], body#documentation_page [data-ur-toggler-component="content"][data-ur-state='enabled'] {
     display: block; }
-/* line 6, scss/_tutorial.scss */
-body#tutorial_page *[data-ur-set="toggler"] {
+/* line 8, scss/_tutorial.scss */
+body#documentation_page [data-ur-set="toggler"] {
   background: #323232;
   border: none; }
-/* line 10, scss/_tutorial.scss */
-body#tutorial_page #end_product *[data-ur-toggler-component='button'] {
+/* line 13, scss/_tutorial.scss */
+body#documentation_page #end_product *[data-ur-toggler-component='button'] {
   background: gold;
   cursor: hand;
   cursor: pointer;
   width: 200px; }
-/* line 17, scss/_tutorial.scss */
-body#tutorial_page #end_product *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
+/* line 21, scss/_tutorial.scss */
+body#documentation_page #end_product *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
   display: block;
   background: gold;
   width: 200px; }
-/* line 21, scss/_tutorial.scss */
-body#tutorial_page #end_product *[data-ur-toggler-component='content'][data-ur-state="disabled"] {
+/* line 26, scss/_tutorial.scss */
+body#documentation_page #end_product *[data-ur-toggler-component='content'][data-ur-state="disabled"] {
   display: none; }
+/* line 33, scss/_tutorial.scss */
+body#documentation_page #carousel_tutorial .final {
+  margin: auto;
+  width: 400px; }
+  /* line 36, scss/_tutorial.scss */
+  body#documentation_page #carousel_tutorial .final [data-ur-set="carousel"] {
+    height: 140px; }
+  /* line 39, scss/_tutorial.scss */
+  body#documentation_page #carousel_tutorial .final [data-ur-carousel-component="dots"] {
+    float: none; }
+  /* line 42, scss/_tutorial.scss */
+  body#documentation_page #carousel_tutorial .final [data-ur-carousel-component="item"] {
+    padding: 10px;
+    border-radius: 5px; }
+  /* line 46, scss/_tutorial.scss */
+  body#documentation_page #carousel_tutorial .final [data-ur-carousel-component="button"] {
+    background: gold;
+    text-align: center;
+    width: 48%;
+    margin-top: 5px; }
+    /* line 51, scss/_tutorial.scss */
+    body#documentation_page #carousel_tutorial .final [data-ur-carousel-component="button"][data-ur-carousel-button-type="next"] {
+      float: right; }
 
 /* line 1, scss/_demonstration.scss */
 .demonstration {

@@ -32,7 +32,188 @@
   <a href="/" id="uraniumlogo" ></a><section class='menu_widget'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" class="selected">Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Getting Started</a></li><li><a href="/documentation/advanced.html">Advanced</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
-    
+    <div id="textbody">
+  <div class="wrapper">
+    <h1>Advanced Implementation of Uranium</h1>
+    <div id="tutorial_introduction">
+      <h2>Introduction</h2>
+      <div class="tutorial_para">
+      	<p>In the <a href="getting_started.html">getting started tutorial</a>, we introduced how to implement a pretty simple Uranium interaction: the toggler. We came across the basics - adding attributes to our HTML elements to confer interactivity on them.</p>
+      	<p>The toggler interaction was pretty simple - we only had three elements to add attributes to. The carousel has a few more components, which is why this is a slightly more advanced tutorial. We'll also cover some optional features of carousels, plus introduce the concept of a Uranium id.</p>
+      </div>
+    </div>
+  </div> <!-- wrapper -->
+
+  <div class="wrapper">
+    <div class="tutorial" id="carousel_tutorial">
+      <h2>Tutorial: How to Implement a Carousel</h2>
+      <div>
+        <div class="tutorial_para">
+          <p>We're going to start by making a carousel. Carousels are very prominent in the web today - they allow the user to swipe through a number of images - or use buttons if necessary.</p>
+          <p>Below is the carousel we are going to implement through this tutorial. Some prominent features are the autoscroll feature that advances images, the 'dot' indicators showing the index of the image, and the "Previous" and "Next" buttons for navigating through the images.</p>
+          <div class="final">
+	          <div data-ur-set="carousel" data-ur-id="first_carousel" data-ur-autoscroll="enabled">
+			        <div data-ur-carousel-component="dots"></div>
+			        <div data-ur-carousel-component="scroll_container">
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="1" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="2" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="3" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="4" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="5" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="6" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="7" />
+			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="8" />
+			        </div>
+			      </div>
+			      <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-id="first_carousel">« Prev</div>
+			      <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-id="first_carousel">Next »</div>
+		      </div><!--end of carousel example-->
+          <p>
+            You can swipe through the images (it's probably best to enable touch events on Chrome to do this), use the "Prev" and "Next" buttons to navigate through them, or just let them scroll automatically. Let's get started.
+          </p>
+        </div>
+        <h3>First Step: Setting up the Elements</h3>
+        <div class="tutorial_para">
+        	<p>Like other Uranium interactions, when building the carousel we start by wrapping div with the carousel set.</p>
+          <p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel"<span id="brown">><br/>
+            <span id="brown">&lt;/div>
+          </p>
+          <p>Once we have that set up, we can add our next container - the scroll container. The scroll container should be nested within the set, and will contain all the images through which you want to scroll.</p>
+          <p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div>
+          </p>
+          <p>In the example above, we have five images. You'll notice that we're using <a href="http://placekitten.com">PlaceKitten</a> for the src attributes - this is so you can easily copy the code in our example. Of course, you can use any image src if you want.</p>
+          <p>Each image (or other item that is being scrolled) must have a component of "item" associated with it:</p>
+          <p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div>
+          </p>
+          <p>All the elements for the most basic carousel are there. However, there's one small bit of CSS we must add in order for the carousel to work. Add the following to your stylesheet.</p>
+          <p class="code">
+            <span id="brown">[<span id="green">data-ur-carousel-component='scroll_container'<span id="brown">] > * {<br/>
+            <span id="brown">&emsp;&emsp;display: inline-block;<br/>
+            <span id="brown">&emsp;&emsp;float: left;<br/>
+            <span id="brown">}
+          </p>
+        </div>
+        <h3>Second Step: Adding Features</h3>
+        <div class="tutorial_para">
+        	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for your use case, but let's have a look at some other features we can add to the carousel to make it more functional. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
+        	<p>All we need to do is add another attribute to our set: <code id="green">data-ur-autoscroll="enabled"</code>. </p> 
+        	<p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div>
+          </p>
+          <p>If you want to customize the autoscroll, you can use the extra attribute <code id="green">data-ur-autoscroll-delay=""</code>, where the value is in milliseconds. For example, if you wanted the carousel to advanced every 3s, you would use <code id="green">data-ur-autoscroll-delay="3000"</code>. We'll keep ours at the default for now.</p>        	
+        	<p>The next item we will set up is a set of "dot" indicators, showing which item of the carousel we are on. These are incredibly easy to set up in Uranium. All we need to do is use the attribute <code id="green">data-ur-carousel-component="dots"</code>. </p>
+        	<p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="dots"<span id="brown">> &lt;/div><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div>
+          </p>
+          <p>If you refresh straight away, you'll notice that nothing is obviously there. That's because Uranium allows you to style the dots as you want. Within the "dots" element, Uranium added the following HTML:</p>
+          <samp>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dots&quot;</span><span class="nt">&gt;</span> 
+  <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dot&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;inactive&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dot&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;inactive&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dot&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;inactive&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dot&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;active&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dot&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;inactive&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+          </samp>
+          <p>The data-ur-state of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. However, the dots have no style associated with them, so you won't be able to see them.</p>
+          <p>If you want some sample styles similar to the ones we use in our original example, <a data-ur-toggler-component="button" data-ur-id="dot-styles">see them by tapping here</a>.</p>
+          <div data-ur-toggler-component="content" data-ur-id="dot-styles">
+	          <samp>
+<div class="highlight"><pre><code class="css"><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">7px</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">5px</span><span class="p">;</span>
+  <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">8</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;inactive&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+						</samp>
+				  </div>
+				  <p>Now we have our dot indicators and auto-scrolling feature enabled, time to move onto implementing our final carousel feature: the previous and next buttons.</p>
+				</div>
+        <h3>Final Step: Buttons and Items External to Sets</h3>
+        <div class="tutorial_para">
+        	<p>Say we have some buttons that we want to add to our carousel. These buttons would allow people to scroll to the previous and next items in the carousel. That's pretty simple - we can just add some attributes to some divs to create buttons. However, in our case we have some HTML constraints that mean the buttons must be <em>outside</em> of the set. This is where we introduce the concept of an id in Uranium.</p>
+        	<p>Firstly, let's ignore the ids and just add our buttons outside of the set. They will be non-functional for now, but if the same code was inside the set, they would work fine(this is how we would normally create buttons for a carousel). Each button needs an attribute of <code id="green">data-ur-carousel-component="button"</code>.</p>
+        	<p>As well as the button attribute, they each need an attribute to distinguish the "previous" and "next" buttons. The attribute for this is <code id="green">data-ur-carousel-button-type</code>. Check the button syntax out below.</p>
+        	<p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="dots"<span id="brown">> &lt;/div><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div><br/>
+            <span id="brown">&lt;div <span id="green">data-ur-carousel-component="button" data-ur-carousel-button-type="prev"<span id="brown">> Prev &lt;/div><br/>
+            <span id="brown">&lt;div <span id="green">data-ur-carousel-component="button" data-ur-carousel-button-type="next"<span id="brown">> Next &lt;/div><br/>
+          </p>
+          <p>As mentioned previously, the buttons will not work at the moment as they are outside the carousel set. However, we can make them work by using a Uranium id. We give the same id to the set and both of the buttons. This allows Uranium to match up the buttons with the appropriate carousel. The syntax is <code id="green">data-ur-id="my_carousel"</code>.</p>
+        	<p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled" data-ur-id="first_carousel"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="dots"<span id="brown">> &lt;/div><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div><br/>
+            <span id="brown">&lt;div <span id="green">data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-id="first_carousel"<span id="brown">> « Prev &lt;/div><br/>
+            <span id="brown">&lt;div <span id="green">data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-id="first_carousel"<span id="brown">> Next » &lt;/div><br/>
+          </p>
+          <p>Uranium ids can also be used for both tabs and togglers. If the button and the content cannot be placed in the same HTML element set, they can be separated physically and joined via the same Uranium id.</p>
+          <p>Now that you have gone through the advanced Uranium tutorial, you should feel confident playing around with all the interactions and using their optional and advanced features. For example, with the carousel you can add a counter as a numerical indicator of the index of the item you are on. You can also disable the infinite scrolling-style we have on our current carousel. These options and more are available on the <a href="../interactions/carousel.html">carousel widget page</a>.</p>
+        </div>
+      </div>
+    </div>  <!-- closing tutorial --> 
+  </div> <!-- closing wrapper -->
+</div> <!-- closing textbody -->
     <footer id="footer">
   <span>Brought to you by&hellip;</span>
   <br />
