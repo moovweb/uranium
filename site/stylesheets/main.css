@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Collegiate";
   font-style: normal;
@@ -1229,86 +1230,31 @@ body#about_page [data-ur-set="toggler"] {
     margin-left: auto;
     margin-right: auto; }
 
-/* line 4, scss/_styling.scss */
-body#styling_page *[data-ur-toggler-component='button'][data-ur-id='LazyPopup'] {
-  border-radius: 5px;
-  background: gold;
-  opacity: 0.5;
-  padding: 5px;
-  display: inline;
-  margin: 0px 5px; }
-  /* line 11, scss/_styling.scss */
-  body#styling_page *[data-ur-toggler-component='button'][data-ur-id='LazyPopup'][data-ur-state='enabled'] {
-    opacity: 1; }
-/* line 13, scss/_styling.scss */
-body#styling_page *[data-ur-toggler-component='content'][data-ur-id='LazyPopup'] {
-  display: none;
-  position: absolute;
-  border-radius: 5px;
-  background-color: #aaaaaa;
-  width: 300px;
-  height: 350px;
-  left: 200px;
-  bottom: -50px;
-  text-align: center;
-  padding-top: 30px; }
-  /* line 24, scss/_styling.scss */
-  body#styling_page *[data-ur-toggler-component='content'][data-ur-id='LazyPopup'][data-ur-state='enabled'] {
-    display: block; }
-/* line 35, scss/_styling.scss */
-body#styling_page .popup_content {
-  position: absolute;
-  border-radius: 5px;
-  background-color: #aaaaaa;
-  bottom: -600px;
-  text-align: center;
-  padding: 30px;
-  z-index: +1; }
-/* line 45, scss/_styling.scss */
-body#styling_page .popup_button {
-  border-radius: 5px;
-  background: blue;
-  opacity: 1;
-  padding: 5px;
-  display: inline;
-  margin: 0px 5px; }
-  /* line 52, scss/_styling.scss */
-  body#styling_page .popup_button > span {
-    border-radius: 5px;
-    background: blue;
-    opacity: 1;
-    padding: 5px;
-    display: inline;
-    margin: 0px 5px; }
-/* line 59, scss/_styling.scss */
-body#styling_page *[data-ur-id="ProperPopup"] {
-  background: #323232;
-  border: none; }
-/* line 63, scss/_styling.scss */
-body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='button'] {
-  background: #64953d; }
-  /* line 65, scss/_styling.scss */
-  body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='button'][data-ur-state='disabled'] {
-    background: gold;
-    opacity: 0.5; }
-  /* line 68, scss/_styling.scss */
-  body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='button'][data-ur-state='enabled'] {
-    background: gold;
-    opacity: 1; }
-/* line 72, scss/_styling.scss */
-body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='content'][data-ur-state='disabled'] {
-  display: none;
-  opacity: 0.5; }
-/* line 75, scss/_styling.scss */
-body#styling_page *[data-ur-id='ProperPopup'] *[data-ur-toggler-component='content'][data-ur-state='enabled'] {
-  display: inline-block;
-  opacity: 1; }
+/* line 2, scss/_styling.scss */
+body#styling_page_example [data-ur-set="toggler"] [data-ur-toggler-component] {
+  background: transparent; }
+/* line 5, scss/_styling.scss */
+body#styling_page_example [data-ur-set="toggler"][data-ur-set="toggler"][data-ur-id="LazyPopup"] [data-ur-toggler-component="button"] {
+    background: gold;
+    opacity: 0.5; }
+/* line 10, scss/_styling.scss */
+body#styling_page_example [data-ur-set="toggler"][data-ur-id="LazyPopup"] [data-ur-toggler-component="button"][data-ur-state="enabled"] {
+    opacity: 1.0; }
+/* line 14, scss/_styling.scss */
+body#styling_page_example [data-ur-set="toggler"][data-ur-id="ExplicitPopup"] [data-ur-toggler-component="button"] {
+    background: gold; }
+/* line 18, scss/_styling.scss */
+body#styling_page_example [data-ur-set="toggler"][data-ur-id="ExplicitPopup"] [data-ur-toggler-component="button"][data-ur-state="disabled"] {
+    opacity: 0.5; }
+/* line 22, scss/_styling.scss */
+body#styling_page_example [data-ur-set="toggler"][data-ur-id="ExplicitPopup"] [data-ur-toggler-component="button"][data-ur-state="enabled"] {
+    opacity: 1.0; }
 
-/* line 85, scss/_styling.scss */
+/* line 29, scss/_styling.scss */
 body#grouping_page [data-ur-set="toggler"] {
   background: none;
   border: none; }
-/* line 88, scss/_styling.scss */
+/* line 33, scss/_styling.scss */
 body#grouping_page [data-ur-toggler-component="button"] {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1319,10 +1265,10 @@ body#grouping_page [data-ur-toggler-component="button"] {
   padding: 5px;
   width: 300px;
   border: none; }
-/* line 98, scss/_styling.scss */
+/* line 44, scss/_styling.scss */
 body#grouping_page [data-ur-toggler-component="content"] {
   display: none; }
-/* line 100, scss/_styling.scss */
+/* line 47, scss/_styling.scss */
 body#grouping_page [data-ur-toggler-component="content"][data-ur-state="enabled"] {
   webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1333,30 +1279,35 @@ body#grouping_page [data-ur-toggler-component="content"][data-ur-state="enabled"
   background: gold url("{{site.url}}resources/largeshade.png") no-repeat left bottom;
   color: black;
   width: 300px; }
-  /* line 110, scss/_styling.scss */
+  /* line 57, scss/_styling.scss */
   body#grouping_page [data-ur-toggler-component="content"][data-ur-state="enabled"] li {
     margin-left: 50px;
     color: black; }
-/* line 113, scss/_styling.scss */
-body#grouping_page img {
+/* line 62, scss/_styling.scss */
+body#grouping_page img#flowchart {
   border: 3px dashed #3c3c3c;
   padding: 5px;
   display: block;
   margin-left: auto;
   margin-right: auto; }
+@media screen and (max-width: 479px), screen and (max-height: 479px) {
+  /* line 70, scss/_styling.scss */
+  body#grouping_page img#flowchart {
+    width: 100%;
+    height: auto; } }
 
-/* line 121, scss/_styling.scss */
+/* line 78, scss/_styling.scss */
 body#who_page [data-ur-set="toggler"] {
   background: none;
   border: none; }
-  /* line 124, scss/_styling.scss */
+  /* line 81, scss/_styling.scss */
   body#who_page [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
     width: 250px; }
-  /* line 126, scss/_styling.scss */
+  /* line 84, scss/_styling.scss */
   body#who_page [data-ur-set="toggler"] [data-ur-toggler-component="content"] {
     display: none;
     width: 250px; }
-  /* line 129, scss/_styling.scss */
+  /* line 88, scss/_styling.scss */
   body#who_page [data-ur-set="toggler"] [data-ur-toggler-component="content"][data-ur-state="enabled"] {
     display: block; }
 

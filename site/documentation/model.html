@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-<title>Uranium JS | Swipe Toggle</title>
+<title>Uranium JS | Model</title>
 <link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
 <link href="/stylesheets/main.css" rel="stylesheet" />
 <script src="/src/jquery-1.9.1.min.js"></script>
@@ -23,10 +23,9 @@
 
 </script>
 
-    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
   </head>
   
-  <body id="swipe_toggle_page" class="widget_page">
+  <body id="model_page">
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
@@ -34,45 +33,26 @@
 </nav>
 
     <div id="textbody">
-      <div data-ur-set="tabs">
-        <div class="wrapper">
-          <h1> Swipe Toggle </h1>
-        </div>
-        <div class="description_wrapper">
-          <h2> Description </h2>
-          <div class="description">
-            <p>Coming Soon</p>
-          </div>
-        </div>
-        <div class="wrapper">
-          <div class="attributes" data-ur-set="tabs">
-            <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-            <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <h2 class="attr_title">Attributes</h2>
-            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-              <dl>
-                
-              </dl>
-            </div><!-- basic -->
-            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-              <h3> data-ur-set= </h3>
-              <code class="set_name">"swipe_toggle"</code>
-              <br />
-              <h3> data-ur-swipe_toggle-component= </h3>
-              
-              <div class="components">
-                
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
-
-      
+  <article class="wrapper">
+    <h1>Model</h1>
+    <h2 name="naming">Naming</h2>
+    <div class="model_para">
+      <p>The attributes in Uranium are fairly lengthy. This is because we have chosen to follow the conventions of HTML5.</p>
+      <p>In HTML4, we weren't allowed to create our own attributes for HTML elements, beyond those defined in the specifications. In HTML5, we can create new attributes by extending the data attribute &mdash; but we have to start every attribute with "data". That's why all of Uranium's custom attributes use "data-" at the beginning. After that, we include "ur-" to signify that the attribute we are creating is for Uranium.</p>
+      <p>After those two, the names of the attributes are defined consistently depending on what type of set or component we are defining. For example, a "data-ur-set" element helps define the enclosed set of HTML elements as a unified interaction by grouping them into a set (giving the name of the interaction as a value).</p>
     </div>
+    <h2 name="declarative_javascript">Declarative Javascript</h2>
+    <div class="model_para">
+      <p>Uranium works with declarative Javascript. What this means is that we give elements in the HTML specific attributes. These attributes tell the javascript what to do.</p>
+      <p>Here are a couple of simple examples:</p>
+      <p class="code"> &lt;div data-ur-set='toggler'>&emsp;&emsp;&emsp;&emsp;&lt;/div> </p>
+      <p>This attribute tells javascript to treat this div tag as a toggler set.</p>
+      <p>And this:</p>
+      <p class="code"> &lt;span data-ur-toggler-component='button' data-ur-state='enabled'>&emsp;&emsp;&emsp;&emsp;&lt;/span> </p>
+      <p>tells Uranium to treat the span as a toggler button in its enabled state.</p>
+    </div>
+  </article>
+</div>
     <footer id="footer">
   <span>Brought to you by&hellip;</span>
   <br />
