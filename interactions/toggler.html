@@ -52,28 +52,26 @@ advanced_tab:
 <!-- Recommended SCSS -->
 <div class='wrapper'>
   <h2>   Styles </h2>
-  <div class='css'>
-    {% highlight scss %}
-      /* Recommended SCSS Styling */
-      [data-ur-set='toggler'] {
-        /* By Default content is hidden*/
-        [data-ur-toggler-component='content'] {
-          display:none;
-        }
-        [data-ur-toggler-component='content'][data-ur-state='enabled'] {
-          display: block;
-        }
-      }
-      /* Recommended CSS Styling */
+{% highlight scss %}
+/* Recommended SCSS Styling */
+[data-ur-set='toggler'] {
+  /* By Default content is hidden*/
+  [data-ur-toggler-component='content'] {
+    display:none;
+  }
+  [data-ur-toggler-component='content'][data-ur-state='enabled'] {
+    display: block;
+  }
+}
+/* Recommended CSS Styling */
 
-      [data-ur-set='toggler'] [data-ur-toggler-component='content'] {
-        display:none;
-      }
-      [data-ur-set='toggler'] [data-ur-toggler-component='content'][data-ur-state='enabled'] {
-        display: block;
-      }
-    {% endhighlight %}
-  </div>
+[data-ur-set='toggler'] [data-ur-toggler-component='content'] {
+  display:none;
+}
+[data-ur-set='toggler'] [data-ur-toggler-component='content'][data-ur-state='enabled'] {
+  display: block;
+}
+{% endhighlight %}
   <hr/>
 </div>
 
@@ -87,43 +85,65 @@ advanced_tab:
   
     <div class='description'>
       <p>
-        In this style, we want an image to appear when we click on the button.
+        And if we want something to start out visible, and then disappear when we click on the button, we can just add the <code>data-ur-state="enabled"</code> attribute to the button and its content.
       </p>
+{% highlight html %}
+<div data-ur-set="toggler">
+  <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
+    Toggle This Picture!
+  </div>
 
+  <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
+     <img src='/images/popup.jpeg'>
+  </div>
+</div>
+{% endhighlight %}
     </div>
     <div data-ur-set="toggler">
-      <div data-ur-toggler-component='button' data-ur-id='MyProperPopup'
-        data-ur-state='enabled' class='popup_button'>
-        Click Here !
+      <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
+        Toggle This Picture!
       </div>
 
-      <div data-ur-toggler-component='content' data-ur-id='MyProperPopup'
-        data-ur-state='disabled' class='popup_content'>
+      <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
          <img src='{{site.url}}../../images/popup.jpeg'>
       </div>
     </div>
   </div>
-
   <hr />
-
   <div class='test' name='Nested' >
-    <a  name='Nested'></a>
-
+    <a name='Nested'></a>
     <h2> Nested Togglers</h2>
-
     <div class='description'>
-
-      <p>It's super-easy to nest togglers as well. You'll have to use <a href="{{site.url}}grouping.html">ids</a>.
-        Give the button component and the content component the same attribute:
-        <span class="inline_code">data-ur-id="ID"</span>.</p>
+      <p>It's super-easy to nest togglers as well:</p>
+{% highlight html %}
+<div data-ur-toggler-component='button'>
+  Foods
+</div>
+<ul data-ur-toggler-component='content'>
+  <li data-ur-set="toggler">
+    <span data-ur-toggler-component='button'> Veggies </span>
+    <ul data-ur-toggler-component='content'>
+      <li> Beets </li>
+      <li> Carrots </li>
+    </ul>
+  </li>
+  <li data-ur-set="toggler">
+    <span data-ur-toggler-component='button'> Meats </span>
+    <ul data-ur-toggler-component='content'>
+      <li> Beef </li>
+      <li> Fish </li>
+    </ul>
+  </li>
+</ul>
+{% endhighlight %}
+      <p>Click on the button, and then click on the text that shows up below. (Notice how the sub-togglers even remember what state they were in when you toggle the main button.)</a>
     </div>
-
-    <div data-ur-set="toggler" data-ur-id='FoodAccordion'>
-      <div data-ur-toggler-component='button' data-ur-id='FoodAccordion'>
+    <div data-ur-set="toggler">
+      <div data-ur-toggler-component='button'>
         Foods
       </div>
-      <ul data-ur-toggler-component='content' data-ur-id='FoodAccordion'>
-        <li  data-ur-set="toggler">
+      <ul data-ur-toggler-component='content'>
+        <li data-ur-set="toggler">
           <span data-ur-toggler-component='button'> Veggies </span>
           <ul data-ur-toggler-component='content'>
             <li> Beets </li>

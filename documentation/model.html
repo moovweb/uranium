@@ -17,10 +17,14 @@ more_selected: selected
     <div class="model_para">
       <p>Uranium works with declarative Javascript. What this means is that we give elements in the HTML specific attributes. These attributes tell the javascript what to do.</p>
       <p>Here are a couple of simple examples:</p>
-      <p class="code"> &lt;div data-ur-set='toggler'>&emsp;&emsp;&emsp;&emsp;&lt;/div> </p>
+{% highlight html %}
+<div data-ur-set='toggler'>    </div>
+{% endhighlight %}
       <p>This attribute tells javascript to treat this div tag as a toggler set.</p>
       <p>And this:</p>
-      <p class="code"> &lt;span data-ur-toggler-component='button' data-ur-state='enabled'>&emsp;&emsp;&emsp;&emsp;&lt;/span> </p>
+{% highlight html %}
+<span data-ur-toggler-component='button' data-ur-state='enabled'>    </span>
+{% endhighlight %}
       <p>tells Uranium to treat the span as a toggler button in its enabled state.</p>
     </div>
   </article>

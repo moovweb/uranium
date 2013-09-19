@@ -43,7 +43,15 @@
         <div class="styling_para">
           <p>As its name implies, lazy styling is simpler and faster to do. You only really need to write out two declaration blocks. The first covers the element in its non-enabled state, and the other when the element is enabled.</p>
           <p>Say we're styling a toggler button. When <span class="inline_code">"enabled"</span>, we want it to be full opacity. However, when disabled we want it to be at 50% opacity. Pretty simple using the following CSS:</p>
-          <p class="code"> [data-ur-toggler-component='button'] {</br> &emsp;&emsp;background: gold;</br> &emsp;&emsp;opacity: 0.5;</br> }</br></br> [data-ur-toggler-component='button'][data-ur-state='enabled'] {</br> &emsp;&emsp;opacity: 1.0;</br> } </p>
+<div class="highlight"><pre><code class="css"><span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;button&#39;</span><span class="o">]</span> <span class="p">{</span>
+<span class="err">  </span><span class="k">background</span><span class="o">:</span> <span class="nb">gold</span><span class="p">;</span>
+<span class="err">  </span><span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+<span class="err">  </span><span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
           <p>Its default state (the first block) describes its color and that it should be at 50% opacity. The second block says that when the button is enabled, it will be at 100% opacity. Simple.</p>
           <p>However, lazy styling can cause problems. Let's take a look at a better way to style interactions.</p>
         </div>
@@ -55,7 +63,18 @@
           <p>But this isn't actually the case. What actually happens is that the element goes through a brief period without any <span class="inline_code">data-ur-state</span> before Uranium assigns the default (which is usually disabled). (Of course, this doesn't apply if you specify in your HTML that the element has a <span class="inline_code">data-ur-set</span>.)</p>
           <p>So when we style the non-enabled state in lazy styling, we're actually styling <i>two</i> states - the one before any state has been assigned AND the "disabled" state.</p>
           <p>We should instead style these states separately, as shown.</p>
-          <p class="code"> [data-ur-toggler-component='button'] {</br> &emsp;&emsp;background: gold;</br> }</br></br> [data-ur-toggler-component='button'][data-ur-state='disabled'] {</br> &emsp;&emsp;opacity: 0.5;</br> }</br></br> [data-ur-toggler-component='button'][data-ur-state='enabled'] {</br> &emsp;&emsp;opacity: 1.0;</br> } </p>
+<div class="highlight"><pre><code class="css"><span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;button&#39;</span><span class="o">]</span> <span class="p">{</span>
+<span class="err">  </span><span class="k">background</span><span class="o">:</span> <span class="nb">gold</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+<span class="err">  </span><span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+<span class="err">  </span><span class="k">opacity</span><span class="o">:</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
           <p>On a modern desktop computer, Uranium works too fast to notice the non-assigned state. However, on mobile devices you can sometimes see a delay. You can sometimes see the delay if you refresh the <a href="/interactions/carousel.html#vertical">carousel examples</a> page.</p>
           <p>And that's how we style things explicitly, rather than lazily.</p>
         </div>
