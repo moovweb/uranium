@@ -383,7 +383,7 @@
     function Zoom(set) {
       var self = this;
       this.container = set["set"];
-      this.img = set["img"];
+      this.img = set["img"][0];
       this.prescale = false;
       this.width = this.height = 0;
       this.bigWidth = this.bigHeight = 0;
