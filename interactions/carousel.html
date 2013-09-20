@@ -65,11 +65,11 @@ advanced_tab:
     <div>
       <p> Touch-enabled interaction </p>
       <div id="carousel_demonstration" data-ur-set="tabs" class="ur_ex">
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+        <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
 
         <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-        <div id="carousel_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+        <div id="carousel_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
 
           <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
             <span data-ur-carousel-component="count"> -- count -- </span>
@@ -92,7 +92,7 @@ advanced_tab:
           </div>
         </div>
 
-        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+        <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
           
 {% highlight html %}
 <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
@@ -117,7 +117,7 @@ advanced_tab:
       <hr />
       <!-- Styles -->
       <div class='wrapper'>
-        <h2>Required Styles</h2>
+        <h2>Recommended Styles</h2>
         <div class='css'>
 {% highlight scss %}
   div[data-ur-carousel-component="scroll_container"] > * {
@@ -128,14 +128,6 @@ advanced_tab:
         </div>
       </div>
       <hr />
-    </div>
-    <div>
-      <p>More examples of the carousel can be found here, including:</p>
-      <ul>
-        <li><a href="#vertical">vertical scrolling</a></li>
-        <li><a href="#infinite">infinite scrolling</a></li>
-        <li><a href="#autoscroll">autoscroll</a></li>
-      </ul>
     </div>
   </div>
   <div class="wrapper">

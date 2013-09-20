@@ -47,10 +47,10 @@
           </div>
         </div>
         <div class="wrapper">
+          <h2 class="attr_title">Attributes</h2>
           <div class="attributes" data-ur-set="tabs">
             <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
             <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <h2 class="attr_title">Attributes</h2>
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
               <dl>
                 
@@ -284,11 +284,11 @@
     <div>
       <p> Touch-enabled interaction </p>
       <div id="carousel_demonstration" data-ur-set="tabs" class="ur_ex">
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+        <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
 
         <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-        <div id="carousel_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+        <div id="carousel_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
 
           <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
             <span data-ur-carousel-component="count"> -- count -- </span>
@@ -311,7 +311,7 @@
           </div>
         </div>
 
-        <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+        <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
           
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;MyFirstCarousel&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;span</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;count&quot;</span><span class="nt">&gt;</span> -- count -- <span class="nt">&lt;/span&gt;</span>
@@ -335,7 +335,7 @@
       <hr />
       <!-- Styles -->
       <div class='wrapper'>
-        <h2>Required Styles</h2>
+        <h2>Recommended Styles</h2>
         <div class='css'>
 <div class="highlight"><pre><code class="scss">  <span class="nt">div</span><span class="o">[</span><span class="nt">data-ur-carousel-component</span><span class="o">=</span><span class="s2">&quot;scroll_container&quot;</span><span class="o">]</span> <span class="o">&gt;</span> <span class="o">*</span> <span class="p">{</span>
     <span class="na">display</span><span class="o">:</span> <span class="no">inline</span><span class="o">-</span><span class="no">block</span><span class="p">;</span>
@@ -345,14 +345,6 @@
         </div>
       </div>
       <hr />
-    </div>
-    <div>
-      <p>More examples of the carousel can be found here, including:</p>
-      <ul>
-        <li><a href="#vertical">vertical scrolling</a></li>
-        <li><a href="#infinite">infinite scrolling</a></li>
-        <li><a href="#autoscroll">autoscroll</a></li>
-      </ul>
     </div>
   </div>
   <div class="wrapper">

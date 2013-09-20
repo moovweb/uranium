@@ -3,7 +3,7 @@ layout: interactions
 title: Input Clear
 name: input-clear
 interaction_selected: selected
-description: <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing.</p>
+description: <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing when the field receives focus.</p>
 basic_tab:
   data-ur-set="input-clear": add this attribute to a div that wraps the whole interaction
   data-ur-input-clear-component="input": add this attribute to the input that is wrapped by the set
@@ -24,12 +24,9 @@ advanced_tab:
     </div>
 
     <div data-ur-set='input-clear'>
-      <input data-ur-input-clear-component='input' type='text'/>
+      <input data-ur-input-clear-component='input' type='text' value="inital value" />
     </div>
 
-    <div data-ur-set='input-clear'>
-      <input data-ur-input-clear-component='input' type='text'/>
-    </div>
   </div>
 
   <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
@@ -39,12 +36,9 @@ advanced_tab:
 </div>
 
 <div data-ur-set='input-clear'>
-  <input data-ur-input-clear-component='input' type='text'/>
+  <input data-ur-input-clear-component='input' type='text' value="inital value" />
 </div>
 
-<div data-ur-set='input-clear'>
-  <input data-ur-input-clear-component='input' type='text'/>
-</div>
 {% endhighlight %}
   </div>
   <hr />
