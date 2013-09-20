@@ -13,199 +13,121 @@
   }();
 
   // Find elements for the widgets
-  var findElements = function(fragment, type) {
-    // console.log("findElements");
-    var groups = {};
-    // console.log(groups);
-    // console.log(fragment);
-    var set_elements = $(fragment).find("*[data-ur-set='" + type + "']");
-    set_elements.each(function( index ) {
-      // console.log("set_elements");
-      // console.log(this);
-      // console.log(index);
-      var my_set_id = $(this).attr('data-ur-id');
-      // console.log(my_set_id);
+  // optional customFn(set, component) for custom creating widget object
+  var findElements = function( fragment, type, customFn ) {
+    var sets = {};
+    var setCss = "[data-ur-set='" + type + "']";
+    var compAttr = "data-ur-" + type + "-component";
 
-      if ( my_set_id === undefined ) {
-        // No explict ID set
-        // console.log($(this).find("*[data-ur-" + type + "-component]"));
-        my_set_id = get_unique_uranium_id();
+    $(fragment).find("[" +compAttr +"]").each(function() {
+      var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
+
+      if (set[0]) {
+        var setId = set.attr("data-ur-id");
+        if (!setId) {
+          setId = get_unique_uranium_id();
+          set.attr("data-ur-id", setId);
+        }
+        sets[setId] = sets[setId] || {};
+
+        if (set.is(setCss))
+          sets[setId].set = set[0];
+
+        if (customFn)
+          customFn(sets[setId], this);
+        else {
+          var compName = $(this).attr(compAttr);
+          sets[setId][compName] = sets[setId][compName] || [];
+          sets[setId][compName].push(this);
+        }
       }
-
-      $(this).attr('data-ur-id', my_set_id);
-      groups[my_set_id] = {};
-      groups[my_set_id]["set"] = this;
-      groups[my_set_id][type + "_id"] = my_set_id;
     });
-    if ( !jQuery.isEmptyObject(groups) ) {
-      return groups;
-    } else {
-      return false;
-    }
-  }
-
-  var findComponents = function( element, component ) {
-    // console.log("findComponents");
-    // console.log(element);
-    // console.log(component);
-    var components = $(element).children("*[data-ur-" + component + "-component]");
-    // console.log(components);
-    return components;
+    return sets;
   }
 
   // Toggler
   var toggler = function( fragment ) {
+    var groups = findElements(fragment, "toggler");
 
-    // console.log("Toggler");
-    var groups = findElements( fragment, "toggler" );
+    $.each(groups, function(id, group) {
+      if (!group["button"])
+        $.error("no button found for toggler with id=" + id);
+      if (!group["content"])
+        $.error("no content found for toggler with id=" + id);
 
-    if ( groups !== false ) {
-      for (group in groups) {
-        var tglr = groups[group];
-        var components = findComponents(tglr["set"], "toggler");
+      var toggler_state = $(group["button"]).attr("data-ur-state") || "disabled";
+      $(group["button"]).add(group["content"]).attr("data-ur-state", toggler_state);
 
-        components.each(function() {
-          groups[group][$(this).attr("data-ur-" + "toggler" + "-component")] = this;
-        });
-
-        if (tglr["button"] === undefined) {
-          $.error("no button found for toggler with id=" + tglr["toggler_id"]);
-          continue;
-        }
-
-        var toggler_state = $(tglr["button"]).attr("data-ur-state");
-        if(toggler_state === undefined) {
-          $(tglr["button"]).attr("data-ur-state", 'disabled');
-          toggler_state = "disabled";
-        }
-
-        if (tglr["content"] === undefined) {
-          $.error("no content found for toggler with id=" + tglr["toggler_id"]);
-          continue;
-        }
-
-        // Make the content state match the button state
-        if ($(tglr["content"]).attr("data-ur-state") === undefined ) {
-          $(tglr["content"]).attr("data-ur-state", toggler_state)
-        }
-
-      }
-
-      $.each(groups, function() {
-        var self = this;
-        $(self["button"]).click(function(event) {
-          event.stopPropagation();
-          var new_state = $(self["button"]).attr('data-ur-state') === "enabled" ? "disabled" : "enabled";
-          $(self["button"]).attr('data-ur-state', new_state);
-          $(self["content"]).attr("data-ur-state", new_state);
-        });
+      $(group["button"]).click(function(event) {
+        event.stopPropagation();
+        var new_state = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        $(group["button"]).add(group["content"]).attr("data-ur-state", new_state);
       });
-    }
+    });
   }
 
   // Tabs
   var tabs = function( fragment ) {
+    var groups = findElements(fragment, "tabs", function(set, comp) {
+      var tabId = $(comp).attr("data-ur-tab-id");
+      set.tabs = set.tabs || {};
+      set.tabs[tabId] = set.tabs[tabId] || {};
+      var compName = $(comp).attr("data-ur-tabs-component");
+      set.tabs[tabId][compName] = set.tabs[tabId][compName] || [];
+      set.tabs[tabId][compName].push(comp);
+    });
 
-    // console.log("Tabs");
-    var groups = findElements(fragment, "tabs");
+    $.each(groups, function(id, group) {
+      group["closeable"] = $(group["set"]).attr("data-ur-closeable") == "true";
 
-    if ( groups !== false ) {
-      for (var group in groups ) {
-        var tab_set = groups[group];
+      // Set the state of the tabs
+      $.each(group["tabs"], function() {
+        var tabState = $(this["button"]).attr("data-ur-state") || "disabled";
+        $(this["button"]).add(this["content"]).attr("data-ur-state", tabState);
+      });
 
-        var closeable = $(tab_set["set"]).attr("data-ur-closeable") === "true";
-        tab_set["closeable"] = closeable;
-
-        tab_set["tabs"] = {};
-        var allTabs = tab_set["tabs"];
-
-        var components = findComponents(tab_set["set"], "tabs");
-
-        var set_id = tab_set["tabs_id"];
-        components.each(function() {
-            var tabId = $(this).attr("data-ur-" + "tab" + "-id");
-            if (allTabs[tabId] === undefined) {
-              allTabs[tabId] = {};
-            }
-            allTabs[tabId][$(this).attr("data-ur-tabs-component")] = this;
-            allTabs[tabId]["tabs_id"]=set_id;
-        });
-
-        for ( singleTab in allTabs ) {
-          var currentTab = allTabs[singleTab];
-
-          // Set the state of the tabs
-          var tabState = $(currentTab["button"]).attr("data-ur-state");
-          if ( tabState === undefined ) {
-            tabState = "disabled"
-            $(currentTab["button"]).attr("data-ur-state", tabState);
-            $(currentTab["content"]).attr("data-ur-state", tabState);
-          } else if( tabState === "disabled" ) {
-            $(currentTab["button"]).attr("data-ur-state", tabState);
-            $(currentTab["content"]).attr("data-ur-state", tabState);
-          } else {
-            tabState = "enabled";
-            $(currentTab["button"]).attr("data-ur-state", tabState);
-            $(currentTab["content"]).attr("data-ur-state", tabState);
-          }
-        }
-
-        // Set up the button call backs
-        $.each(allTabs, function() {
-          var self = this;
-          $(self["button"]).click(function(evt) {
-            // Is the tab open already?
-            var open = $(this).attr("data-ur-state") === "enabled";
-            $.each(groups[self["tabs_id"]]["tabs"], function() {
-              $(this["button"]).attr("data-ur-state", "disabled");
-              $(this["content"]).attr("data-ur-state", "disabled");
-            });
-            // If closeable (active tab can be toggled) then make sure it happens.
-            if (open &&
-                groups[self["tabs_id"]]["closeable"]) {
-              console.info("Closeable, allowing state to toggle.");
-            } else {
-              $(this).attr("data-ur-state", "enabled");
-              $(self["content"]).attr("data-ur-state", "enabled");
-            }
+      // Set up the button call backs
+      $.each(group["tabs"], function(_, tab) {
+        $(tab["button"]).click(function() {
+          // Is the tab open already?
+          var open = $(this).attr("data-ur-state") == "enabled";
+          $.each(group["tabs"], function() {
+            $(this["button"]).add(this["content"]).attr("data-ur-state", "disabled");
           });
+          // If closeable (active tab can be toggled) then make sure it happens.
+          if (!open || !groups["closeable"]) {
+            $(tab["button"]).add(tab["content"]).attr("data-ur-state", "enabled");
+          }
         });
-      }
-    }
+      });
+    });
   }
 
   // Input Clear
   var inputClear = function( fragment ) {
-    // console.log("inputClear");
-
-    var groups = findElements ( fragment, "input-clear" );
-    $.each(groups, function() {
-
-      var self = this;
-      var that = $(self['set']).find("input");
-
-      // Create the X div
-      var ex = $('<div class="data-ur-input-clear-ex"></div>')
-      // Hide it (even though this should be in CSS)
-      ex.hide();
+    var groups = findElements(fragment, "input-clear");
+    $.each(groups, function(id, group) {
+      // Create the X div and hide it (even though this should be in CSS)
+      var ex = $("<div class='data-ur-input-clear-ex'></div>").hide();
       // Inject it
-      $(self['set']).append(ex);
+      $(group['set']).append(ex);
 
       // Touch Events
       ex
         .bind("ontouchstart" in window ? "touchstart" : "click", function() {
           // remove text in the box
-          that[0].value='';
-          that[0].focus();
+          input[0].value='';
+          input[0].focus();
         })
         .bind('touchend', function() {
           // make sure the keyboard doesn't disappear
-          that[0].blur();
+          input[0].blur();
         });
 
-      that
+      var input = $(group["set"]).find("input");
+      input
         .bind('focus', function() {
-          if (that[0].value != '') {
+          if (input[0].value != '') {
             ex.show();
           }
         })
@@ -221,16 +143,13 @@
 
   // Geocode
   var geoCode = function ( fragment ) {
-    // console.log("geoCode");
-    var wgType = "reverse-geocode";
-    var groups = findElements ( fragment, wgType )
+    var groups = findElements(fragment, "reverse-geocode", function(set, comp) {
+      set["elements"] = set["elements"] || {};
+      set["elements"][$(comp).attr("data-ur-reverse-geocode-component")] = comp;
+    });
 
     $.each(groups, function() {
-      var self = this;
-      var set = self['set'];
-      var components = findComponents(set, wgType);
-
-      this['elements'] = components;
+      var set = this['set'];
 
       var callback = $(set).attr("data-ur-callback");
       var errorCallback = $(set).attr("data-ur-error-callback");
@@ -428,10 +347,7 @@
 
   // Zoom
   var zoom = function ( fragment ) {
-    // console.log("zoom");
-
-    var wgType = "zoom"
-    var groups = findElements( fragment, wgType );
+    var groups = findElements(fragment, "zoom");
 
     // Private shared variables
 
@@ -461,18 +377,13 @@
     }
 
     $.each(groups, function() {
-      var self = this;
-      var set = self['set'];
-      var components = findComponents(set, wgType);
-      this["components"] = components;
-      self["zoom_object"] = new Zoom(this);
+      this["zoom_object"] = new Zoom(this);
     });
 
     function Zoom(set) {
       var self = this;
-      var components = set.components;
       this.container = set["set"];
-      this.img = $(components).filter("[data-ur-zoom-component='img']")[0];
+      this.img = set["img"][0];
       this.prescale = false;
       this.width = this.height = 0;
       this.bigWidth = this.bigHeight = 0;
@@ -481,8 +392,8 @@
       this.state = "disabled";
 
       // Optionally:
-      this.button = $(components).filter("[data-ur-zoom-component='button']")[0];
-      this.idler = $(components).filter("[data-ur-zoom-component='loading']")[0];
+      this.button = set["button"];
+      this.idler = set["loading"];
 
       var $img = $(this.img);
       var $idler = $(this.idler);
@@ -743,7 +654,6 @@
 
   // Carousel
   var carousel = function ( fragment ) {
-    // console.log("carousel");
     var groups = findElements(fragment, "carousel");
 
      // private methods
@@ -762,46 +672,34 @@
      }
 
     // for each carousel
-     $.each(groups, function() {
-      var self = this;
-      var set = self['set'];
-      var set_id = self['carousel_id'];
-      var components = findComponents(set, "carousel");
-      components.each(function() {
-        if($(this).attr("data-ur-carousel-component") == "button") {
-          var type  = $(this).attr("data-ur-carousel-button-type");
-          if(type === undefined) {
-            $.error("malformed carousel button type for carousel with id: " + set_id + ".");
-          }
-          $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
+     $.each(groups, function(id, group) {
+      var set = group['set'];
+      $(group["buttons"]).each(function() {
+        var type = $(this).attr("data-ur-carousel-button-type");
+        if(!type) {
+          $.error("malformed carousel button type for carousel with id: " + id + ".");
         }
+        $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
       });
-      this["components"] = components;
-      self["crsl_object"] = new Carousel(this);
-      $(self["set"]).attr("data-ur-state", "enabled");
+      group["crsl_object"] = new Carousel(group);
+      $(group["set"]).attr("data-ur-state", "enabled");
      });
 
      function Carousel(set) {
       var self = this;
-      var components = set.components;
       this.container = set["set"];
-      this.items = $(components).filter("[data-ur-carousel-component='scroll_container']")[0];
-      if (this.items.length == 0) {
+      this.items = set["scroll_container"];
+      if (!this.items) {
         $.error("carousel missing item components");
-        return false;
       }
 
       // Optionally:
-      this.button = $(components).filter("[data-ur-carousel-component='button']");
-      this.count = $(components).filter("[data-ur-carousel-component='count']")[0];
-      this.dots = $(components).filter("[data-ur-carousel-component='dots']")[0];
-
-      if (this.button.length == 0) {
-        this.button = {};
-      } else {
-        this.button["prev"] = this.button.filter("[data-ur-carousel-button-type='prev']");
-        this.button["next"] = this.button.filter("[data-ur-carousel-button-type='next']");
-      }
+      this.button = {
+        prev: $(set["button"]).filter("[data-ur-carousel-button-type='prev']"),
+        next: $(set["button"]).filter("[data-ur-carousel-button-type='next']")
+      };
+      this.count = set["count"];
+      this.dots = set["dots"];
 
       this.flag = {
         click: false,
@@ -1147,8 +1045,7 @@
         var realIndex = self.itemIndex;
         if (self.options.infinite)
           realIndex = (self.realItemCount + self.itemIndex - self.options.cloneLength) % self.realItemCount;
-        if (self.count !== undefined)
-          self.count.innerHTML = realIndex + 1 + " of " + self.realItemCount;
+        $(self.count).html(realIndex + 1 + " of " + self.realItemCount);
 
         $(self.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
         $($(self.items).find("[data-ur-carousel-component='item']")[self.itemIndex]).attr("data-ur-state", "active");
