@@ -305,7 +305,7 @@ select {
   /* Its direct children */ }
   /* line 4, scss/_header.scss */
   #menu #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1379098432') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1379625486') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -328,7 +328,7 @@ select {
       display: none;
       position: absolute;
       list-style: none;
-      width: 133px;
+      width: 100%;
       padding: 0px 3px;
       margin: 0px;
       z-index: 1; }
@@ -419,7 +419,7 @@ select {
       margin: 0px 0px 10px 0px; }
       /* line 96, scss/_header.scss */
       #menu #uraniumlogo {
-        background: gold url('/images/uraniumlogo.png?1379098432') no-repeat 50% 50%;
+        background: gold url('/images/uraniumlogo.png?1379625486') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
         -moz-background-size: 100px 30px;
         -o-background-size: 100px 30px;
