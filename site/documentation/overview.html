@@ -70,8 +70,8 @@
 
     <section id="data_attributes">
       <h2>Data Attributes</h2>
-      <p>Data attributes are extra properties that can be added to any HTML element. We use data attributes instead of id or class properties of HTML elements so that Uranium can be injected into existing pages as easily as it can be added to new pages, without affecting existing styles and Javascript.</p>
-      <p>They syntax is simple. Just add the data attributes the same way you would add any other properties to an HTML element. For example, to tell Uranium that a specific H2 element should be used as a toggle button to show and hide the following paragraph, you might start with something like this:</p>
+      <p>Data attributes can be added to any HTML element. We use data attributes instead of modifying the id or class attributes of HTML elements so that Uranium can be injected into existing pages as easily as it can be added to new pages, without affecting existing styles and Javascript.</p>
+      <p>The syntax is simple. Just add the data attributes the same way you would add any other attributes to an HTML element. For example, to tell Uranium that a specific H2 element should be used as a toggle button to show and hide the following paragraph, you might start with something like this:</p>
       <div class="highlight"><pre><code class="html"><span class="nt">&lt;div&gt;</span>
   <span class="nt">&lt;h2&gt;</span>Information<span class="nt">&lt;/h2&gt;</span>
   <span class="nt">&lt;p&gt;</span>This is content we want to hide and show<span class="nt">&lt;/h2&gt;</span>
@@ -90,7 +90,7 @@
       <h2 name="sets">Interaction Sets and Components</h2>
       <p>Every interaction has at its core a set and a series of components. The set is unique for every interaction: <span class="inline_code">data-ur-set="toggler"</span> for the <a href="/interactions/toggler.html">toggler</a> interaction, etc. The set attribute should be used to wrap the whole interaction.</p>
       <p>There are usually a few components per interaction. Some may be required to get the interaction to work, but most are usually optional. For example, a toggler has a button and content, and at least one of each is required if you want the interaction to work. Components are designated in the following way: they'll have <span class="inline_code">data-ur-{interaction}-component="thing"</span>.</p>
-      <p>Most of the interactions also have some extra properties. For example, <a href="/interactions/carousel.html"> carousel</a> has an optional <span class="inline_code">data-ur-carousel-component="count"</span>, which is used to display the count of the currently selected item in a carousel.</p>
+      <p>Most of the interactions also have some extra options. For example, <a href="/interactions/carousel.html"> carousel</a> has an optional <span class="inline_code">data-ur-carousel-component="count"</span>, which is used to display the count of the currently selected item in a carousel.</p>
     </section>
 
     <section id="recommended_styles">
