@@ -1,6 +1,6 @@
 # Overview
 
-Uranium is a simple Javascript widget library written in jQuery. It's meant to be...
+Uranium is a simple Javascript interaction library written in jQuery. It's meant to be...
 
 -  Lightweight
 -  Declarative
@@ -9,8 +9,6 @@ Uranium is a simple Javascript widget library written in jQuery. It's meant to b
 That's it!
 
 If given the choice between easy to use and powerful, ease of use is the greater goal. 
-If you find yourself wanting something that a given widget will not do, you're encouraged 
-to extend the widget yourself.
 
 View the [website](http://uraniumjs.com/) for more details and demos.
 
@@ -21,7 +19,7 @@ View the [website](http://uraniumjs.com/) for more details and demos.
 
 **Uranium requires ZERO programming on your part.**
 
-Uranium adopts the 'declarative' javascript style. Because of this, you can use the widgets without touching a single line of javascript.
+Uranium adopts the 'declarative' javascript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of javascript.
 
 **What is declarative javascript?**
 
@@ -32,13 +30,13 @@ Declarative javascript is a model that looks for how html elements are formatted
 
 # Uranium is not ...
 
-**... designed for executing logic or site functions**
+**...designed for executing logic or site functions**
 
-Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarative aspect is not designed for performing functions. You wouldn't want to add attributes to an element to perform some js logic (this is exactly why onclicks should be avoided) -- thats what events / listeners / callbacks are for.
+The declarative Javascript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some js logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, thats what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
-You're in luck! Uranium bundles with xui -- which (we think) provides a great minimal set of convenient javascript functions (query, add-listeners, ajax, iterate, etc). With this in mind, Uranium is the best of both worlds -- its primary purpose is to make it easy to create great widgets UI/UX -- but if you need to do something fancy, it gives you the tools you need to do so concisely.
+You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
 
 
 ---
@@ -49,28 +47,26 @@ If you're contributing to the code base, you need to test your changes and updat
 
 **Bundling**
 
-Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build, just do:
+Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
 
     cd build
     rake
 
-This will compile all the widgets with each flavor (BB/IE/webkit) of xui.
+This will read in the full Javascript source in the lib/jquery.uranium.js file, and place both full-source and minified copies of Uranium in build/src/.
 
 **Custom Bundling**
 
-The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the javascript. The different versions also have different widget lists to reflect those widgets compatible with that browser flavor.
-
-If you want to omit certain widgets or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). This is a great way to only build a smaller version of the specific widgets that you'll need.
+The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the javascript.If you want to omit certain interactions or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). Uranium is already very small, but this is a great way to build a smaller version with only the specific interactions that you know you need.
 
 **Testing**
 
-You need to go through all of the test cases under /examples and make sure that all the widgets still work. Of course, if you've added functionality or a new widget, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
+You need to go through all of the test cases under /examples and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
 
 ---
 
-# Building a Widget
+# Building an Interaction
 
-Fork Uranium. Build your widget. Issue a Pull Request. Revel in glory.
+Fork Uranium. Build your interaction. Issue a Pull Request. Revel in glory.
 
 If you're contributing to the code base, you need to test your changes and update the bundled javascript.
 
@@ -78,21 +74,29 @@ If you're contributing to the code base, you need to test your changes and updat
 
 TODO: Information on how the code base should be structured, conventions, etc...
 
-Start the jekyll server with `jekyll --server`
+Start the jekyll server with:
 
-Run `sass --watch stylesheets/scss:stylesheets --line-comments --compass` on the stylesheets folder to compile your SASS files.
+`jekyll serve --watch`
+
+In a separate terminal process, run  
+
+`sass --watch stylesheets/scss:stylesheets --line-comments --compass`
+
+on the stylesheets folder to compile your SASS files.
+
+You will be able to navigate to localhost:4000 to see the examples running in your browser.
 
 **Documentation**
 
-You'll need to generate an .html file that goes in the _site/widgets folder that should do the following things
+You'll need to generate a .html file demonstrating the use of your new interaction. It goes in the examples folder, and should do the following things
 
-* Provide documentation of all the attributes, CSS, and JS required to make the widget go.
-* At least one example of how the widget can be used.
+* Provide documentation of all the attributes, CSS, and JS required to make the interaction go.
+* At least one example of how the interaction can be used.
 
 **Important Note**
 
-If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery, 
-if that is not possible, you would need to use jQuery.noConflict() on both instances.
+If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery.
+if that is not possible, you will need to use jQuery.noConflict() on both instances.
 
 ---
 

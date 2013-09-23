@@ -1,35 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Migration Index</title>
+    <title>Uranium Examples</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-    <!-- Final Build for Testing -->
-    <!-- <script src="../build/src/uranium-pretty.js"></script> -->
-
-    <!-- Dev Links to Javascript Files -->
-    <script src="../lib/external/jquery-1.9.1.js"></script>
-    <!-- <script src="../lib/external/showhide.js"></script> -->
-    <!-- <script src="../lib/external/fade.js"></script> -->
-    <!-- <script src="../lib/uranium_mixins.js"></script> -->
-    <!-- The one below is to the widget you're working on -->
-    <!-- <script src="../lib/toggler.js"></script>
-    <script src="../lib/tabs.js"></script> -->
-    <!-- // <script src="../build/src/uranium.js"></script>  -->
-    <script src='../lib/jquery.uranium.js'></script>
-
-
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type='text/css' href='css/test.css' />
   </head>
   <body>
-    <h1>Migration Index</h1>
-    <div>Just getting it working for now.</div>
-
-    <hr>
-
-    <h1>Togglers</h1>
+    <h1>Uranium Togglers</h1>
     <div data-ur-set='toggler'>
       <div data-ur-toggler-component='button'>Click Here1!</div>
       <ul data-ur-toggler-component='content'>
@@ -72,7 +51,7 @@
 
     <hr>
 
-    <h1>Tabs</h1>
+    <h1>Uranium Tabs</h1>
     <div data-ur-set='tabs' data-ur-id="tabs-test">
       <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
       <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
@@ -83,8 +62,8 @@
     </div>
 
     <div data-ur-set='tabs'>
-      <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
-      <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='first'> First </span>
+      <span data-ur-tabs-component='button' data-ur-tab-id='second' data-ur-state='enabled'> Second </span>
       <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
       <div data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
       <div data-ur-tabs-component='content' data-ur-tab-id='second'>
@@ -122,22 +101,18 @@
 
     <hr>
 
-    <h1>Input Clear</h1>
+    <h1>Uranium Input Clear</h1>
     <div data-ur-set='input-clear'>
       <input data-ur-input-clear-component='input' type='text'/>
     </div>
 
     <div data-ur-set='input-clear'>
-      <input data-ur-input-clear-component='input' type='text'/>
-    </div>
-
-    <div data-ur-set='input-clear'>
-      <input data-ur-input-clear-component='input' type='text'/>
+      <input data-ur-input-clear-component='input' type='text' value="Sample Content"/>
     </div>
 
     <hr>
 
-    <h1>Geocode</h1>
+    <h1>Uranium Geocode</h1>
     <div class='test' data-ur-set="reverse-geocode" data-ur-callback="foo()" data-ur-error-callback="bar()">
       <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
       <form action="geocode_submit" method="get" accept-charset="utf-8" >
@@ -448,7 +423,7 @@
 
     <hr>
 
-    <h1>Zoom</h1>
+    <h1>Uranium Zoom</h1>
     <div data-ur-set="zoom" data-ur-zoom-component="view_container">
       <img data-ur-zoom-component="img" width="500" height="287" src="images/pic-normal.jpeg" data-ur-src="images/pic-large.jpeg">
       <span data-ur-zoom-component="button">
@@ -460,7 +435,7 @@
 
     <hr>
 
-    <h1>Carousel</h1>
+    <h1>Uranium Carousel</h1>
 
     <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel" data-ur-clones="2">
          <div data-ur-carousel-component="dots"></div>
@@ -478,135 +453,9 @@
            <img data-ur-carousel-component='item' src='images/sample8.png' alt="8" />
          </div>
        </div>
-    <!--<p id="jump" onclick="Ur.Widgets.carousel.JumpCarousel.jumpToIndex(4)">Jump to 5th item</p>-->
-    <!--     <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel" data-ur-clones="1" data-ur-autoscroll="enabled" data-ur-autoscroll-dir="prev" data-ur-autoscroll-delay="1000" data-ur-vertical-scroll="disabled" data-ur-center="disabled" data-ur-infinite="enabled" data-ur-fill="5"> -->
 
-<!--     <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel2" data-ur-clones="2">
-      <div data-ur-carousel-component="dots"></div>
-      <span data-ur-carousel-component="count"> -- count -- </span>
-      <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-      <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-
-        <ul data-ur-carousel-component='scroll_container'>
-          <li data-ur-carousel-component='item' >
-            <img src='images/sample1.png' alt="1" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-          <li data-ur-carousel-component='item' >
-            <img src='images/sample2.png' alt="2" />
-              <p> blahblahblah </p> <a href="#">check it</a>
-              more blah
-            </li>
-            <li data-ur-carousel-component='item' >
-          <img src='images/sample3.png' alt="3" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-          <li data-ur-carousel-component='item' >
-          <img src='images/sample4.png' alt="4" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-          <li data-ur-carousel-component='item' >
-          <img src='images/sample5.png' alt="5" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-          <li data-ur-carousel-component='item' >
-          <img src='images/sample6.png' alt="6" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-          <li data-ur-carousel-component='item' >
-          <img src='images/sample7.png' alt="7" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-          <li data-ur-carousel-component='item' >
-          <img src='images/sample8.png' alt="8" />
-            <p> blahblahblah </p> <a href="#">check it</a>
-            more blah
-          </li>
-        </ul>
-
-    </div>
-
-    <div class="BlockContent" data-ur-set="carousel" data-role="none" data-ur-carousel-component="view_container" data-ur-fill="0" data-ur-clones="1" data-ur-vertical-scroll="disabled" data-ur-id="1" data-ur-speed="1.1" data-ur-touch="enabled" data-ur-infinite="enabled" data-ur-center="disabled" data-ur-autoscroll="disabled" data-ur-autoscroll-delay="5000" data-ur-autoscroll-dir="next" data-ur-state="enabled">
-    <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-role="none" >Next</div>
-    <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-role="none" >Prev</div>
-                <ul class="ProductList" data-ur-carousel-component="scroll_container" data-role="none" >
-
-    <li class="Odd" data-ur-carousel-component="item" alt="1" data-role="none" >
-                    <div class="_flex_box">
-    <div class="ProductImage QuickView _flex_box_item_1" data-product="18" style="height: 120px; width: 120px;">
-                      <a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/sample-product-crumpler-considerable-embarrassment-bag/" data-role="none" data-transition="slide"><img src="http://cdn1.bigcommerce.com/server1200/8hs29h5u/products/18/images/41/crumpler1__37065.1359937746.120.120.jpg" alt="Crumpler Considerable Embarrassment Bag" data-role="none"></a>
-                    </div>
-    <div class="_flex_box_item_1">
-    <div class="ProductDetails">
-                      <strong data-role="none"><a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/sample-product-crumpler-considerable-embarrassment-bag/" data-role="none" data-transition="slide">Crumpler Considerable Embarrassment Bag</a></strong>
-                    </div>
-    <div class="ProductPriceRating">
-                      <em>$89.95</em>
-                      <span class="Rating Rating2"><img src="http://cdn1.bigcommerce.com/v7527/templates/SmartShop/images/IcoRating2.gif" alt="" style=""></span>
-                    </div>
-    <div class="ProductActionAdd" style="display:;">
-                      <a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/cart.php?action=add&amp;product_id=18" data-transition="slide" class="ui-link">Add To Cart</a>
-                    </div>
-    </div>
-    </div>
-
-
-
-                  </li>
-                  <li class="Even" data-ur-carousel-component="item" alt="2" data-role="none">
-                    <div class="_flex_box">
-    <div class="ProductImage QuickView _flex_box_item_1" data-product="6" style="height: 120px; width: 120px;">
-                      <a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/sample-product-macbook-pro/" data-role="none" data-transition="slide"><img src="http://cdn1.bigcommerce.com/server1200/8hs29h5u/products/6/images/77/mbp1__99760.1359937746.120.120.jpg" alt="MacBook Pro" data-role="none"></a>
-                    </div>
-    <div class="_flex_box_item_1">
-    <div class="ProductDetails">
-                      <strong data-role="none"><a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/sample-product-macbook-pro/" data-role="none" data-transition="slide">MacBook Pro</a></strong>
-                    </div>
-    <div class="ProductPriceRating">
-                      <em>$1,999.00</em>
-                      <span class="Rating Rating4"><img src="http://cdn1.bigcommerce.com/v7527/templates/SmartShop/images/IcoRating4.gif" alt="" style=""></span>
-                    </div>
-    <div class="ProductActionAdd" style="display:;">
-                      <a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/sample-product-macbook-pro/" data-transition="slide" class="ui-link">Choose Options</a>
-                    </div>
-    </div>
-    </div>
-
-
-
-                  </li>
-
-                  <li class="Odd" data-ur-carousel-component="item" alt="3" data-role="none" >
-                    <div class="_flex_box">
-    <div class="ProductImage QuickView _flex_box_item_1" data-product="24" style="height: 120px; width: 120px;">
-                      <a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/apple-ipod-socks/" data-role="none" data-transition="slide"><img src="http://cdn1.bigcommerce.com/server1200/8hs29h5u/products/24/images/19/ipodsocks__25675.1359937746.120.120.jpg" alt="Apple iPod Socks" data-role="none"></a>
-                    </div>
-    <div class="_flex_box_item_1">
-    <div class="ProductDetails">
-                      <strong data-role="none"><a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/apple-ipod-socks/" data-role="none" data-transition="slide">Apple iPod Socks</a></strong>
-                    </div>
-    <div class="ProductPriceRating">
-                      <em>$29.00</em>
-                      <span class="Rating Rating0"><img src="http://cdn1.bigcommerce.com/v7527/templates/SmartShop/images/IcoRating0.gif" alt="" style=""></span>
-                    </div>
-    <div class="ProductActionAdd" style="display:;">
-                      <a href="http://mnmakiya7767.igadgetcommerce.com.moovapp.com/cart.php?action=add&amp;product_id=24" data-transition="slide" class="ui-link">Add To Cart</a>
-                    </div>
-    </div>
-    </div>
-
-
-
-                  </li>
-</ul>
-    <div data-ur-carousel-component="dots" data-role="none"></div>
-    </div> -->
-
+    <!-- Dev Links to Javascript Files (reference the version being tested) -->
+    <script src="scripts/jquery-1.9.1.js"></script>
+    <script src='scripts/jquery.uranium.js'></script>
   </body>
 </html>
