@@ -74,13 +74,13 @@ If you're contributing to the code base, you need to test your changes and updat
 
 TODO: Information on how the code base should be structured, conventions, etc...
 
-Start the jekyll server with:
+To get the examples running locally, start the jekyll server with:
 
 `jekyll serve --watch`
 
 In a separate terminal process, run  
 
-`sass --watch stylesheets/scss:stylesheets --line-comments --compass`
+`sass --watch examples/scss:_examples/css --line-comments --compass`
 
 on the stylesheets folder to compile your SASS files.
 

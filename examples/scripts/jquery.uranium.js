@@ -383,7 +383,7 @@
     function Zoom(set) {
       var self = this;
       this.container = set["set"];
-      this.img = set["img"];
+      this.img = set["img"][0];
       this.prescale = false;
       this.width = this.height = 0;
       this.bigWidth = this.bigHeight = 0;
@@ -432,9 +432,10 @@
         touchX = event.pageX;
         touchY = event.pageY;
         mouseDown = true;
-        if (event.touches) {
-          touchX = event.touches[0].pageX;
-          touchY = event.touches[0].pageY;
+        var touches = event.originalEvent.touches;
+        if (touches) {
+          touchX = touches[0].pageX;
+          touchY = touches[0].pageY;
         }
 
         var style = self.img.style;
@@ -461,9 +462,10 @@
         stifle(event);
         var x = event.pageX;
         var y = event.pageY;
-        if (event.touches) {
-          x = event.touches[0].pageX;
-          y = event.touches[0].pageY;
+        var touches = event.originalEvent.touches;
+        if (touches) {
+          x = touches[0].pageX;
+          y = touches[0].pageY;
         }
         var dx = x - touchX;
         var dy = y - touchY;
