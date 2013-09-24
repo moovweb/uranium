@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-<title>Uranium JS | Swipe Toggle</title>
+<title>Uranium JS | More</title>
 <link href="http://fonts.googleapis.com/css?family=Crete+Round:400italic|Open+Sans:300,300italic,400|Ultra|Yellowtail" rel="stylesheet" />
 <link href="/stylesheets/main.css" rel="stylesheet" />
 <script src="/src/jquery-1.9.1.min.js"></script>
@@ -23,10 +23,9 @@
 
 </script>
 
-    <link href="/stylesheets/jasmine.css" rel="stylesheet" />
   </head>
   
-  <body id="swipe_toggle_page" class="widget_page">
+  <body id="more_page">
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
@@ -34,45 +33,20 @@
 </nav>
 
     <div id="textbody">
-      <div data-ur-set="tabs">
-        <div class="wrapper">
-          <h1> Swipe Toggle </h1>
-        </div>
-        <div class="description_wrapper">
-          <h2> Description </h2>
-          <div class="description">
-            <p>Coming Soon</p>
-          </div>
-        </div>
-        <div class="wrapper">
-          <div class="attributes" data-ur-set="tabs">
-            <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-            <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <h2 class="attr_title">Attributes</h2>
-            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-              <dl>
-                
-              </dl>
-            </div><!-- basic -->
-            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-              <h3> data-ur-set= </h3>
-              <code class="set_name">"swipe_toggle"</code>
-              <br />
-              <h3> data-ur-swipe_toggle-component= </h3>
-              
-              <div class="components">
-                
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
-
-      
+  <article class="wrapper">
+    <h1>The Uranium Philosophy</h1>
+    <div id="philosophy">
+      <h2>Uranium is lightweight</h2>
+      <p>Uranium is less than 7KB when zipped. This makes it perfect for mobile devices, where minimizing KB is essential. It's also possible to make a custom build if you need it to be even lighter. </p>
+      <p>Uranium was made to work with <a href="http://jquery.com/" target="_blank">jQuery</a>, which is a very popular javascript library. Many sites already use jQuery, allowing Uranium to integrate easily without adding a lot of extra weight. Uranium endorses the use of jQuery to add robust functionality, and improve cross-browser compatability.</p>
+      <h2>Uranium is easy to use</h2>
+      <p>No javascript knowledge is necessary to use Uranium. (Of course, if you do know javascript, it allows you to play around with the interactions.) </p>
+      <p>That's right: you don't need to touch a single line of javascript. Uranium uses the 'declarative' javascript style, a model that looks for how HTML elements are formatted. Then, it constructs all the necessary javascript magic to make those elements come to life.</p>
+      <h2>Uranium is not designed for executing logic or site functions</h2>
+      <p>Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarative aspect is not designed for performing functions. You wouldn't want to add attributes to an element to perform some js logic (this is exactly why 'onclicks' should be avoided) - thats what events/listeners/callbacks are for.</p>
     </div>
+  </article>
+</div>
     <footer id="footer">
   <span>Brought to you by&hellip;</span>
   <br />

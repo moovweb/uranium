@@ -30,7 +30,7 @@
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" ></a><section class='menu_widget'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" > Documentation </a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Getting Started</a></li><li><a href="/documentation/advanced.html">Advanced</a></li></ul></section><a href="/download.html">Download</a>
+  <a href="/" id="uraniumlogo" ></a><section class='menu_widget'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" >Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
     <div id="textbody">
@@ -41,14 +41,14 @@
         <div class="description_wrapper">
           <h2> Description </h2>
           <div class="description">
-            <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing.</p>
+            <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing when the field receives focus.</p>
           </div>
         </div>
         <div class="wrapper">
+          <h2 class="attr_title">Attributes</h2>
           <div class="attributes" data-ur-set="tabs">
             <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
             <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <h2 class="attr_title">Attributes</h2>
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
               <dl>
                 
@@ -100,12 +100,9 @@
     </div>
 
     <div data-ur-set='input-clear'>
-      <input data-ur-input-clear-component='input' type='text'/>
+      <input data-ur-input-clear-component='input' type='text' value="inital value" />
     </div>
 
-    <div data-ur-set='input-clear'>
-      <input data-ur-input-clear-component='input' type='text'/>
-    </div>
   </div>
 
   <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
@@ -114,11 +111,7 @@
 <span class="nt">&lt;/div&gt;</span>
 
 <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;input-clear&#39;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;input</span> <span class="na">data-ur-input-clear-component=</span><span class="s">&#39;input&#39;</span> <span class="na">type=</span><span class="s">&#39;text&#39;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;input-clear&#39;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;input</span> <span class="na">data-ur-input-clear-component=</span><span class="s">&#39;input&#39;</span> <span class="na">type=</span><span class="s">&#39;text&#39;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">data-ur-input-clear-component=</span><span class="s">&#39;input&#39;</span> <span class="na">type=</span><span class="s">&#39;text&#39;</span> <span class="na">value=</span><span class="s">&quot;inital value&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
   </div>

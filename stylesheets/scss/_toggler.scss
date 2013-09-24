@@ -17,9 +17,7 @@ body#toggler_page {
     padding: 5px;
     width: 190px;
     height: 30px;
-    margin: auto;
-    margin-top: 15px;
-    padding-top: 10px;
+    line-height: 30px;
     color: rgb(50, 50, 50);
     font-size: 18px;
     font-family: Rockwell;
@@ -30,23 +28,16 @@ body#toggler_page {
   }
   [data-ur-toggler-component='content'] {
     display: none;
-    background-color: $color2;
-    border-radius: 5px;
+    background: transparent;
     opacity: 1;
     padding: 5px;
-    width: 190px;
     margin: auto;
-    margin-top: 15px;
-    padding-top: 10px;
-    color: black;
+    color: $color2;
     font-size: 18px;
     font-family: Rockwell;
     text-align: center;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
     li {
-      color: black;
+      color: white;
       text-align: left;
       margin-left: 30px;
       list-style-type: none;
@@ -58,8 +49,10 @@ body#toggler_page {
       }
       border: none;
       background: transparent;
+      color: $color2;
       [data-ur-toggler-component="button"] {
         background: transparent;
+        color: $color2;
         padding-top: 0px;
       }
       [data-ur-toggler-component="content"][data-ur-state="enabled"] {
@@ -77,140 +70,6 @@ body#toggler_page {
   .components {
     [data-ur-toggler-component='button'] {
       background: none;
-    }
-  }
-  // Popup examples
-  // Lazy styling
-  div[name='Dialog'] * {
-    &[data-ur-toggler-component='button'] {
-      border-radius: 5px;
-      background-color: $color2;
-      opacity: 1;
-      padding: 5px;
-      width: 190px;
-      height: 30px;
-      margin: auto;
-      margin-top: 15px;
-      padding-top: 10px;
-      color: rgb(50, 50, 50);
-      font-size: 18px;
-      font-family: Rockwell;
-      text-align: center;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
-    }
-    &[data-ur-toggler-component='content'] {
-      display: none;
-      position: absolute;
-      border-radius: 5px;
-      background-color: #aaaaaa;
-      width: 500px;
-      height: 500px;
-      left: 200px;
-      bottom: 50px;
-      text-align: center;
-      padding-top: 30px;
-      &[data-ur-state='enabled'] {
-        display: block;
-      }
-    }
-	}
-  // Proper Styling
-  .popup_button {
-    border-radius: 5px;
-    background-color: $color2;
-    opacity: 1;
-    padding: 5px;
-    display: inline;
-    margin: 0px 5px;
-    > span {
-      border-radius: 5px;
-      background-color: $color2;
-      opacity: 1;
-      padding: 5px;
-      display: inline;
-      margin: 0px 5px;
-    }
-	}
-  .popup_content {
-    position: absolute;
-    border-radius: 5px;
-    background-color: #aaaaaa;
-    left: 270px;
-    text-align: center;
-    padding: 30px;
-    &[data-ur-state='disabled'] {
-      display: none;
-      opacity: 0.5;
-    }
-    &[data-ur-state='enabled'] {
-      display: inline-block;
-      opacity: 1;
-      z-index: 10;
-      img {
-        width: 200px;
-        height: 200px;
-      }
-    }
-	}
-  // multiple example
-  [name='MultipleContents'] {
-    .buttons {
-      background-color: white;
-      opacity: 1;
-      &[data-ur-state="enabled"] span:last-child, &[data-ur-state="disabled"] span:first-child {
-        opacity: 0.5;
-      }
-    }
-	}
-  [name='MultipleContents'] {
-    .popup_content {
-      position: relative;
-      width: 220px;
-      height: 200px;
-      padding: 20px;
-      [data-ur-toggler-component="content"][data-ur-state="disabled"] {
-        img {
-          display: none;
-        }
-      }
-      [data-ur-toggler-component="content"][data-ur-state="enabled"] {
-        img {
-          display: block;
-        }
-      }
-      img {
-        width: 200px;
-        height: 200px;
-      }
-    }
-	}
-  #disabled {
-    background: #323232;
-    border: none;
-	}
-  div[data-ur-id='MyToggler'].buttons {
-    background-color: $color2 !important;
-  }
-  .buttons {
-    &[data-ur-state="enabled"] span:last-child, &[data-ur-state="disabled"] span:first-child {
-      opacity: 0.5;
-    }
-  }
-  [name='MultipleContents'] {
-    .popup_content {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      padding: 20px;
-      img {
-        width: 200px;
-        height: 200px;
-      }
-    }
-    [data-ur-toggler-component="content"] {
-      display: inline-block;
     }
   }
 }

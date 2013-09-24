@@ -1,9 +1,6 @@
 .interaction_page {
   .attributes {
     text-align:right;
-    .attr_title{
-      float: left;
-    }
     [data-ur-tabs-component="content"] {
       @include border-radius(5px);
       background: #c1c1c1;
@@ -21,7 +18,13 @@
       margin-bottom: 10px;
     }
   }
+  @media screen and (min-width: 480px) {
+    .attr_title{
+      margin-bottom: -30px;
+    }
+  }
 }
+
 
 li[data-ur-set="toggler"] {
   [data-ur-toggler-component='button'] {
@@ -47,7 +50,7 @@ li[data-ur-set="toggler"] {
   border-right: 1.5px solid rgb(0, 0, 0);
   height: 20px;
   &[data-ur-state="disabled"] {
-    opacity: 0.5;
+    opacity: 0.75;
   }
 }
 
@@ -93,48 +96,13 @@ li[data-ur-set="toggler"] {
   padding: 5px;
   position: relative; }
 
-
-
-.attributes *[data-ur-tabs-component='button'][data-ur-state='enabled'] {
-  opacity: 1;
-  background: #fafafa;
-  border-bottom: 1px solid #fafafa; }
-
-
-.attributes *[data-ur-set="tabs"][data-ur-tab-id="html"] {
-  text-align: left; }
-
-.attributes #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="button"] {
-  background: silver; }
-
-.attributes #tab_widget *[data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
-  background: silver; }
-
-.attributes .advanced_tab ul {
-  list-style-type: none;
-  margin-bottom: 10px; }
-
-.attributes li[data-ur-set="toggler"] {
-  padding: 10px; }
-
-.attributes li[data-ur-set="toggler"] [data-ur-toggler-component='button'] {
-  background: none;
-  color: #323232;
-  padding: none;
-  border: 1px dashed #fafafa;
-  border-raduis: none; }
-
-.attributes li[data-ur-set="toggler"] [data-ur-toggler-component='content'] {
-  display: none; }
-
-.attributes li[data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state="enabled"] {
-  display: block;
-  background: none;
-  width: 100%;
-  color: #323232; }
-
-.attributes li[data-ur-set="toggler"] [data-ur-toggler-component='content'][data-ur-state="enabled"] li {
-  color: #323232; }
-
-.attributes p.instance {
-  color: #323232; }
+.attributes .advanced_tab{
+  h4 {
+    margin-bottom: 5px;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0 0 10px 0;
+    padding-left: 15px; 
+  }
+}

@@ -30,7 +30,7 @@
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" ></a><section class='menu_widget'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" > Documentation </a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Getting Started</a></li><li><a href="/documentation/advanced.html">Advanced</a></li></ul></section><a href="/download.html">Download</a>
+  <a href="/" id="uraniumlogo" ></a><section class='menu_widget'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_widget"><a href="#" >Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
     <div id="textbody">
@@ -45,10 +45,10 @@
           </div>
         </div>
         <div class="wrapper">
+          <h2 class="attr_title">Attributes</h2>
           <div class="attributes" data-ur-set="tabs">
             <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
             <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <h2 class="attr_title">Attributes</h2>
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
               <dl>
                 
@@ -203,40 +203,39 @@
 <div class="wrapper">
   <h2>Recommended Styles</h2>
   <div class='css'>
-    <div class="highlight"><pre><code class="scss">    <span class="cm">/* Recommended SCSS Styling */</span>
+<div class="highlight"><pre><code class="scss"><span class="cm">/* Recommended SCSS Styling */</span>
 
-    <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="p">{</span>
-      <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">]</span> <span class="p">{</span>
-        <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.75</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-        <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
-        <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.0</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
-        <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
-      <span class="p">}</span>
-      <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-        <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+<span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.75</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
+    <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+  <span class="p">}</span>
+  <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+    <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-    <span class="cm">/* Recommended CSS Styling */</span>
+<span class="cm">/* Recommended CSS Styling */</span>
 
-    <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">]</span> <span class="p">{</span>
-      <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.75</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-      <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
-      <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.0</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
-      <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
-    <span class="p">}</span>
-    <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-      <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
-    <span class="p">}</span>
-    
+<span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="na">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="mf">.75</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">button&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="na">cursor</span><span class="o">:</span> <span class="no">pointer</span><span class="p">;</span>
+  <span class="na">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="mf">.0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="nt">display</span><span class="nd">:none</span><span class="o">;</span>
+<span class="p">}</span>
+<span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;tabs&quot;</span><span class="o">]</span> <span class="o">[</span><span class="nt">data-ur-tabs-component</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;</span><span class="s2">enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="na">display</span><span class="o">:</span> <span class="no">block</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
   </div>
   <hr />
