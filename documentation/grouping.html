@@ -13,10 +13,10 @@ more_selected: selected
     <p>An ur-id is defined when every component of a single interaction is given a unique ur-id attribute. For example, giving each component of an interaction the attribute <span class="inline_code">data-ur-id="unique_id"</span>. This is an alternative way to group a ur-set of HTML elements that may not be convenient to place together in the structure of your HTML document.</p>
     <p>It's generally a better practice to use <span class="inline_code">data-ur-set</span> to group interactions structurally as well as functionally. This allows for cleaner, well-structured, and more obviously hierarchical HTML. However, it isn't possible in all cases to wrap every interaction in an element with this attribute. It's in these instances we use <span class="inline_code">data-ur-id</span> attributes. They are functionally the same - as seen below.</p>
 {% highlight html %}
-<p data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'>
+<p data-ur-toggler-component='button' data-ur-id='MyIDAccordion'>
   This Toggler Uses ur-ids
 </p>
-<ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'>
+<ul data-ur-toggler-component='content' data-ur-id='MyIDAccordion'>
   <li>Thom</li>
   <li>Jonny</li>
   <li>Ed</li>
@@ -24,10 +24,10 @@ more_selected: selected
 </ul>
 {% endhighlight %}
     <div class="test" id='UniqueIDs'>
-      <p data-ur-toggler-component='button' data-ur-id='MyFlatAccordionSocks'>
+      <p data-ur-toggler-component='button' data-ur-id='MyIDAccordion'>
         This Toggler Uses ur-ids
       </p>
-      <ul data-ur-toggler-component='content' data-ur-id='MyFlatAccordionSocks'>
+      <ul data-ur-toggler-component='content' data-ur-id='MyIDAccordion'>
         <li>Thom</li>
         <li>Jonny</li>
         <li>Ed</li>
@@ -61,8 +61,8 @@ more_selected: selected
     </div>
 
     <h2>How Uranium Recognizes Ur-Sets and Ur-Ids</h2>
-    <p>When the page is first loaded, Uranium automatically creates a unique ur-id for every ur-set element it finds on a page. These are nuumerical values, starting with one, and incrementing by one for each ur-set encountered.</p>
-    <p>(Note: For that reason, we recommend that if you are creating a ur-id of your own, you use letters rather than numbers, to avoid conflicts with the automatically generated ur-id values.)</p>
+    <p>When the page is first loaded, Uranium automatically creates a unique ur-id for every ur-set element it finds on a page. These are numerical values, starting with one, and incrementing by one for each ur-set encountered.</p>
+    <p>(Note: For that reason, we recommend that if you are creating an ur-id of your own, you use letters rather than numbers, to avoid conflicts with the automatically generated ur-id values.)</p>
     <p>Uranium then searches through the HTML document for the special data attributes we use to add functionality to HTML elements. Once it sees an attribute that begins with <span class="inline_code">data-ur</span>, it looks for groups of components. The ur-set allows it to determine what interaction we're defining.</p>
     <p>Next, the javascript looks for ur-ids on a component. If it finds a ur-id, it uses this to determine which other compoments on the page it should treat as part of the same Uranium interaction.</p>
     <p>This is explained visually in the flowchart below.</p>
