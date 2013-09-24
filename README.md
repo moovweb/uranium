@@ -10,7 +10,7 @@ That's it!
 
 If given the choice between easy to use and powerful, ease of use is the greater goal. 
 
-View the [website](http://uraniumjs.com/) for more details and demos.
+View the [website](http://uranium.io/) for more details and demos.
 
 
 ---
@@ -19,11 +19,11 @@ View the [website](http://uraniumjs.com/) for more details and demos.
 
 **Uranium requires ZERO programming on your part.**
 
-Uranium adopts the 'declarative' javascript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of javascript.
+Uranium adopts the 'declarative' Javascript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of Javascript.
 
-**What is declarative javascript?**
+**What is declarative Javascript?**
 
-Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
+Declarative Javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
 
 ---
 
@@ -36,18 +36,18 @@ The declarative Javascript in Uranium is not designed for performing functions, 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
-You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
+You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient Javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
 
 
 ---
 
 # Building Uranium
 
-If you're contributing to the code base, you need to test your changes and update the bundled javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Bundling**
 
-Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
+Bundling uses the Google Closure Compiler to bundle the Javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
 
     cd build
     rake
@@ -56,7 +56,7 @@ This will read in the full Javascript source in the lib/jquery.uranium.js file, 
 
 **Custom Bundling**
 
-The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the javascript.If you want to omit certain interactions or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). Uranium is already very small, but this is a great way to build a smaller version with only the specific interactions that you know you need.
+The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the Javascript.If you want to omit certain interactions or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). Uranium is already very small, but this is a great way to build a smaller version with only the specific interactions that you know you need.
 
 **Testing**
 
@@ -68,7 +68,7 @@ You need to go through all of the test cases under /examples and make sure that 
 
 Fork Uranium. Build your interaction. Issue a Pull Request. Revel in glory.
 
-If you're contributing to the code base, you need to test your changes and update the bundled javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Technical**
 
@@ -82,9 +82,9 @@ In a separate terminal process, run
 
 `sass --watch examples/scss:_examples/css --line-comments --compass`
 
-on the stylesheets folder to compile your SASS files.
+on the stylesheets folder to compile your Sass files.
 
-You will be able to navigate to localhost:4000 to see the examples running in your browser.
+You will be able to navigate to [localhost:4000](localhost:4000) to see the examples running in your browser.
 
 **Documentation**
 
@@ -95,8 +95,7 @@ You'll need to generate a .html file demonstrating the use of your new interacti
 
 **Important Note**
 
-If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery.
-if that is not possible, you will need to use jQuery.noConflict() on both instances.
+If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery. If that is not possible, you will need to use jQuery.noConflict() on both instances.
 
 ---
 
@@ -104,19 +103,8 @@ if that is not possible, you will need to use jQuery.noConflict() on both instan
 
 Copyright (C) 2011-2013 by Moov Corporation (aka Moovweb)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
