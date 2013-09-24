@@ -77,7 +77,7 @@ documentation_selected: selected
             <span id="brown">&emsp;&emsp;&lt;/div><br/>
             <span id="brown">&lt;/div>
           </p>
-          <p>All the elements for the most basic carousel are there. However, there's one small bit of CSS we must add in order for the carousel to work. Add the following to your stylesheet.</p>
+          <p>All the elements for the most basic carousel are there (if you want to test it out, try using a simulator or swiping using Chrome's "enable touch events" option from the inspector settings). However, the carousel looks a little funny. There's one small bit of CSS we must add in order for the carousel to work. Add the following to your stylesheet.</p>
           <p class="code">
             <span id="brown">[<span id="green">data-ur-carousel-component='scroll_container'<span id="brown">] > * {<br/>
             <span id="brown">&emsp;&emsp;display: inline-block;<br/>
@@ -87,7 +87,7 @@ documentation_selected: selected
         </div>
         <h3>Second Step: Adding Features</h3>
         <div class="tutorial_para">
-        	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for your use case, but let's have a look at some other features we can add to the carousel to make it more functional. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
+        	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for a simple use case, but let's have a look at some other features we can add to the carousel to make it more interactive. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
         	<p>All we need to do is add another attribute to our set: <code id="green">data-ur-autoscroll="enabled"</code>. </p> 
         	<p class="code">
             <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
@@ -101,7 +101,7 @@ documentation_selected: selected
             <span id="brown">&lt;/div>
           </p>
           <p>If you want to customize the autoscroll, you can use the extra attribute <code id="green">data-ur-autoscroll-delay=""</code>, where the value is in milliseconds. For example, if you wanted the carousel to advanced every 3s, you would use <code id="green">data-ur-autoscroll-delay="3000"</code>. We'll keep ours at the default for now.</p>        	
-        	<p>The next item we will set up is a set of "dot" indicators, showing which item of the carousel we are on. These are incredibly easy to set up in Uranium. All we need to do is use the attribute <code id="green">data-ur-carousel-component="dots"</code>. </p>
+        	<p>The next item we will set up is a set of "dot" indicators, showing which item of the carousel we are on. These are incredibly easy to set up in Uranium. All we need to do is create a div with the attribute <code id="green">data-ur-carousel-component="dots"</code>. </p>
         	<p class="code">
             <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
             <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="dots"<span id="brown">> &lt;/div><br/>
@@ -114,7 +114,7 @@ documentation_selected: selected
             <span id="brown">&emsp;&emsp;&lt;/div><br/>
             <span id="brown">&lt;/div>
           </p>
-          <p>If you refresh straight away, you'll notice that nothing is obviously there. That's because Uranium allows you to style the dots as you want. Within the "dots" element, Uranium added the following HTML:</p>
+          <p>If you refresh straight away, you'll notice that nothing obvious is there. That's because Uranium allows you to style the dots as you want. Within the "dots" element, Uranium added the following HTML:</p>
           <samp>
 {% highlight html %}
 <div data-ur-carousel-component="dots"> 
@@ -126,7 +126,7 @@ documentation_selected: selected
 </div>
 {% endhighlight %}
           </samp>
-          <p>The data-ur-state of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. However, the dots have no style associated with them, so you won't be able to see them.</p>
+          <p>Within the "dots" div, we have a number of div children with two attributes - one specifying it as a "dot" and one showing the state. The data-ur-state of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. Currently the dots have no style associated with them, so you won't be able to see them. Feel free to style them as you like!</p>
           <p>If you want some sample styles similar to the ones we use in our original example, <a data-ur-toggler-component="button" data-ur-id="dot-styles">see them by tapping here</a>.</p>
           <div data-ur-toggler-component="content" data-ur-id="dot-styles">
 	          <samp>
@@ -150,9 +150,24 @@ data-ur-carousel-component="dot"][data-ur-state="inactive"] {
 				</div>
         <h3>Final Step: Buttons and Items External to Sets</h3>
         <div class="tutorial_para">
-        	<p>Say we have some buttons that we want to add to our carousel. These buttons would allow people to scroll to the previous and next items in the carousel. That's pretty simple - we can just add some attributes to some divs to create buttons. However, in our case we have some HTML constraints that mean the buttons must be <em>outside</em> of the set. This is where we introduce the concept of an id in Uranium.</p>
-        	<p>Firstly, let's ignore the ids and just add our buttons outside of the set. They will be non-functional for now, but if the same code was inside the set, they would work fine(this is how we would normally create buttons for a carousel). Each button needs an attribute of <code id="green">data-ur-carousel-component="button"</code>.</p>
-        	<p>As well as the button attribute, they each need an attribute to distinguish the "previous" and "next" buttons. The attribute for this is <code id="green">data-ur-carousel-button-type</code>. Check the button syntax out below.</p>
+        	<p>Say we have some buttons that we want to add to our carousel. These buttons would allow people to scroll to the previous and next items in the carousel. That's pretty simple - we can just add some attributes to some divs to create buttons. Let's take a look at how to do that first.</p>
+        	<p>Each button needs an attribute of <code id="green">data-ur-carousel-component="button"</code>. As well as the button attribute, they each need an attribute to distinguish the "previous" and "next" buttons. The attribute for this is <code id="green">data-ur-carousel-button-type</code>. Check the button syntax out below. You can click on the "Prev" and "Next" buttons to navigate through the carousel.</p>
+        	<p class="code">
+            <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="dots"<span id="brown">> &lt;/div><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="button" data-ur-carousel-button-type="prev"<span id="brown">> Prev &lt;/div><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="button" data-ur-carousel-button-type="next"<span id="brown">> Next &lt;/div><br/>
+            <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="scroll_container"<span id="brown">><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="1"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="2"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="3"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="4"/><br/>
+            <span id="brown">&emsp;&emsp;&emsp;&emsp;&lt;img <span id="green">data-ur-carousel-component="item"<span id="brown"> src="http://placekitten.com/g/200/200" alt="5"/><br/>
+            <span id="brown">&emsp;&emsp;&lt;/div><br/>
+            <span id="brown">&lt;/div><br/>
+          </p>
+        	<p>Note that in the above example, our buttons are within the carousel set. However, let's say that in our case we have some HTML constraints that mean the buttons must be <em>outside</em> of the set. This is where we can use Uranium ids.</p>
+        	<p>Firstly, let's just move our buttons outside of the set. They will be non-functional for now. </p> 
         	<p class="code">
             <span id="brown">&lt;div <span id="green">data-ur-set="carousel" data-ur-autoscroll="enabled"<span id="brown">><br/>
             <span id="brown">&emsp;&emsp;&lt;div <span id="green">data-ur-carousel-component="dots"<span id="brown">> &lt;/div><br/>
