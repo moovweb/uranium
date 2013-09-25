@@ -38,7 +38,7 @@
       text-align: left; 
     } 
   }
-  #tab_widget [data-ur-set="tabs"] * {
+  #tab_interaction [data-ur-set="tabs"] * {
     &[data-ur-tabs-component="button"][data-ur-state="enabled"] {
       background: $color2;
       border-bottom: 1px solid $color2;

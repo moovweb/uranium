@@ -900,10 +900,10 @@ body#documentation_page #carousel_tutorial .final {
     border-radius: 5px; }
   .demonstration *[data-ur-set="tabs"][data-ur-tab-id="html"] {
     text-align: left; }
-  .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="button"][data-ur-state="enabled"] {
+  .demonstration #tab_interaction [data-ur-set="tabs"] *[data-ur-tabs-component="button"][data-ur-state="enabled"] {
     background: gold;
     border-bottom: 1px solid gold; }
-  .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="button"], .demonstration #tab_widget [data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
+  .demonstration #tab_interaction [data-ur-set="tabs"] *[data-ur-tabs-component="button"], .demonstration #tab_interaction [data-ur-set="tabs"] *[data-ur-tabs-component="content"] {
     background: gold;
     color: black; }
 
