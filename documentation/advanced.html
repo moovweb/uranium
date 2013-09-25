@@ -86,7 +86,7 @@ documentation_selected: selected
 {% endhighlight %}
         <h3>Second Step: Adding Features</h3>
         <div class="tutorial_para">
-        	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for your use case, but let's have a look at some other features we can add to the carousel to make it more functional. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
+        	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for a simple use case, but let's have a look at some other features we can add to the carousel to make it more interactive. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
         	<p>All we need to do is add another attribute to our set: <code id="green">data-ur-autoscroll="enabled"</code>. </p> 
 {% highlight html %}
 <div data-ur-set="carousel" data-ur-autoscroll="enabled">
@@ -125,7 +125,7 @@ documentation_selected: selected
 </div>
 {% endhighlight %}
           </samp>
-          <p>The data-ur-state of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. However, the dots have no style associated with them, so you won't be able to see them.</p>
+          <p>Within the "dots" div, we have a number of div children with two attributes - one specifying it as a "dot" and one showing the state. The data-ur-state of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. Currently the dots have no style associated with them, so you won't be able to see them. Feel free to style them as you like!</p>
           <p>If you want some sample styles similar to the ones we use in our original example, <a data-ur-toggler-component="button" data-ur-id="dot-styles">see them by tapping here</a>.</p>
           <div data-ur-toggler-component="content" data-ur-id="dot-styles">
 	          <samp>
@@ -166,9 +166,10 @@ data-ur-carousel-component="dot"][data-ur-state="inactive"] {
 <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev"> Prev </div>
 <div data-ur-carousel-component="button" data-ur-carousel-button-type="next"> Next </div>
 {% endhighlight %}
+
           <p>As mentioned previously, the buttons will not work at the moment as they are outside the carousel set. However, we can make them work by using a Uranium id. We give the same id to the set and both of the buttons. This allows Uranium to match up the buttons with the appropriate carousel. The syntax is <code id="green">data-ur-id="my_carousel"</code>.</p>
-<{% highlight html %}
-div data-ur-set="carousel" data-ur-autoscroll="enabled" data-ur-id="first_carousel">
+{% highlight html %}
+<div data-ur-set="carousel" data-ur-autoscroll="enabled" data-ur-id="first_carousel">
   <div data-ur-carousel-component="dots"> </div>
   <div data-ur-carousel-component="scroll_container">
     <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1"/>

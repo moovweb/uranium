@@ -39,8 +39,9 @@
       <h2>Introduction</h2>
       <div class="tutorial_para">
         <p>We've worked hard to make Uranium as streamlined as possible, requiring the least possible effort from the user.</p>
-        <p>Part of this is ensuring that the interactions are easy to use and once you've learnt how to implement one, the same methods are easily applied to other interactions.</p>
-        <p>As such, here we're going to go over an example of how to use interactions. We'll use the <a href="interactions/toggler.html">toggler</a> as a model.</p>
+        <p>Part of this is ensuring that the widgets are easy to use and once you've learnt how to implement one, the same methods are easily applied to other widgets.</p>
+        <p>As such, here we're going to go over an example of how to use widgets. We'll use the <a href="interactions/toggler.html">toggler</a> as a model.</p>
+        <p><em>Prerequisities:</em> make sure you have a simple HTML page set up with a script tag for <a href="https://developers.google.com/speed/libraries/devguide#jquery">jQuery v1.9.1</a> and <a href="/download.html">Uranium</a>.</p>
       </div>
     </div>
   </div> <!-- wrapper -->
@@ -174,10 +175,10 @@
             What we need to do is change the styling of the page. It needs to be set so that the content does not display when <span class="inline_code">data-ur-state="disabled"</span>, but to display when <span class="inline_code">data-ur-state="enabled"</span>.
           </p>
 <div class="highlight"><pre><code class="css"><span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-<span class="err">  </span><span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
-<span class="err">  </span><span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
           <p>
