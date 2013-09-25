@@ -29,7 +29,8 @@ body {
     }
   }
   .test [data-ur-set="carousel"] {
-    width: 50%;
+    width: 100%;
+    max-width: 470px;
   }
   [data-ur-carousel-component="dots"] {
     float: right;
@@ -56,5 +57,14 @@ body {
 body#carousel_page{
   [data-ur-carousel-component='view_container'] {
     height: 125px;
+  }
+}
+
+// On mobile devices, the carousel test examples should fit the entire screen
+// I guess we don't have the latest version of Sass, because I couldn't nest
+// these
+@media screen and (max-width: 640px), screen and (max-height: 479px) {
+  .test [data-ur-set="carousel"] {
+    width: 100%;
   }
 }
