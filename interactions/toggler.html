@@ -4,8 +4,8 @@ title: Toggler
 name: toggler
 interaction_selected: selected
 description: |
-    <p>A toggler is an interaction that coordinates two components - a button, and a set of contents.</p>
-    <p>When you click the button, the states of both the button and the contents are toggled.</p>
+   <p>A toggler is an interaction that coordinates two components - a button, and a set of contents.</p>
+   <p>When you click the button, the states of both the button and the contents are toggled.</p>
 basic_tab:
   data-ur-set="toggler": add this attribute to a div that wraps the whole interaction
   data-ur-toggler-component="button": add this attribute to the button
@@ -25,33 +25,33 @@ advanced_tab:
 <!-- Demonstration -->
 <h2>Demonstration</h2>
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+ <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled">Example</h3>
+ <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
-  <div id="toggler_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
-    <div data-ur-set="toggler">
-      <div data-ur-toggler-component="button">Click on the button</div>
-      <div data-ur-toggler-component="content">And content appears</div>
-    </div>
-  </div>
+ <div id="toggler_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
+   <div data-ur-set="toggler">
+     <div data-ur-toggler-component="button">Click on the button</div>
+     <div data-ur-toggler-component="content">And content appears</div>
+   </div>
+ </div>
 
-  <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+ <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
 {% highlight html %}
 <div data-ur-set="toggler">
-  <div data-ur-toggler-component="button">
+ <div data-ur-toggler-component="button">
     Click on the button
-  </div>
-  <div data-ur-toggler-component="content">
+ </div>
+ <div data-ur-toggler-component="content">
     And content appears</div>
 </div>
 {% endhighlight %}
-  </div>
-  <hr />
+ </div>
+ <hr />
 </div>
 
 <!-- Recommended SCSS -->
 <div class='wrapper'>
-  <h2>   Styles </h2>
+ <h2>  Styles</h2>
 {% highlight scss %}
 /* Recommended SCSS Styling */
 [data-ur-set='toggler'] {
@@ -72,95 +72,95 @@ advanced_tab:
   display: block;
 }
 {% endhighlight %}
-  <hr/>
+ <hr/>
 </div>
 
 <!-- Further Examples -->
 <div class="wrapper">
-  <h1>Toggler Examples</h1>
+ <h1>Toggler Examples</h1>
   
-  <div class='test' name='DialogProper'>
-    <a  name='DialogProper'></a>
-    <h2>Popup</h2>
+ <div class='test' name='DialogProper'>
+   <a  name='DialogProper'></a>
+   <h2>Enabled</h2>
   
-    <div class='description'>
-      <p>
-        And if we want something to start out visible, and then disappear when we click on the button, we can just add the <code>data-ur-state="enabled"</code> attribute to the button and its content.
-      </p>
+   <div class='description'>
+     <p>
+        And if we want something to start out visible, and then disappear when we click on the button, we can just add the<code>data-ur-state="enabled"</code>attribute to the button and its content.
+     </p>
 {% highlight html %}
 <div data-ur-set="toggler">
-  <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
+ <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
     Toggle This Picture!
-  </div>
+ </div>
 
-  <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
-     <img src='/images/popup.jpeg'>
-  </div>
+ <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
+    <img src='/images/popup.jpeg'>
+ </div>
 </div>
 {% endhighlight %}
-    </div>
-    <div data-ur-set="toggler">
-      <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
+   </div>
+   <div data-ur-set="toggler">
+     <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
         Toggle This Picture!
-      </div>
+     </div>
 
-      <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
-         <img src='{{site.url}}../../images/popup.jpeg'>
-      </div>
-    </div>
-  </div>
-  <hr />
-  <div class='test' name='Nested' >
-    <a name='Nested'></a>
-    <h2> Nested Togglers</h2>
-    <div class='description'>
-      <p>It's super-easy to nest togglers as well:</p>
+     <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
+        <img src='{{site.url}}../../images/popup.jpeg'>
+     </div>
+   </div>
+ </div>
+ <hr />
+ <div class='test' name='Nested' >
+   <a name='Nested'></a>
+   <h2>Nested Togglers</h2>
+   <div class='description'>
+     <p>It's super-easy to nest togglers as well:</p>
 {% highlight html %}
 <div data-ur-toggler-component='button'>
   Foods
 </div>
 <ul data-ur-toggler-component='content'>
-  <li data-ur-set="toggler">
-    <span data-ur-toggler-component='button'> Veggies </span>
-    <ul data-ur-toggler-component='content'>
-      <li> Beets </li>
-      <li> Carrots </li>
-    </ul>
-  </li>
-  <li data-ur-set="toggler">
-    <span data-ur-toggler-component='button'> Meats </span>
-    <ul data-ur-toggler-component='content'>
-      <li> Beef </li>
-      <li> Fish </li>
-    </ul>
-  </li>
+ <li data-ur-set="toggler">
+   <span data-ur-toggler-component='button'>Veggies</span>
+   <ul data-ur-toggler-component='content'>
+     <li>Beets</li>
+     <li>Carrots</li>
+   </ul>
+ </li>
+ <li data-ur-set="toggler">
+   <span data-ur-toggler-component='button'>Meats</span>
+   <ul data-ur-toggler-component='content'>
+     <li>Beef</li>
+     <li>Fish</li>
+   </ul>
+ </li>
 </ul>
 {% endhighlight %}
-      <p>Click on the button, and then click on the text that shows up below. (Notice how the sub-togglers even remember what state they were in when you toggle the main button.)</a>
-    </div>
-    <div data-ur-set="toggler">
-      <div data-ur-toggler-component='button'>
+     <p>Click on the button, and then click on the text that shows up below. (Notice how the sub-togglers even remember what state they were in when you toggle the main button.)</a>
+   </div>
+   <div data-ur-set="toggler">
+     <div data-ur-toggler-component='button'>
         Foods
-      </div>
-      <ul data-ur-toggler-component='content'>
-        <li data-ur-set="toggler">
-          <span data-ur-toggler-component='button'> Veggies </span>
-          <ul data-ur-toggler-component='content'>
-            <li> Beets </li>
-            <li> Carrots </li>
-          </ul>
-        </li>
-        <li data-ur-set="toggler">
-          <span data-ur-toggler-component='button'> Meats </span>
-          <ul data-ur-toggler-component='content'>
-            <li> Beef </li>
-            <li> Fish </li>
-          </ul>
-        </li>
-      </ul>
+     </div>
+     <ul data-ur-toggler-component='content'>
+       <li data-ur-set="toggler">
+         <span data-ur-toggler-component='button'>Veggies</span>
+         <ul data-ur-toggler-component='content'>
+           <li>Beets</li>
+           <li>Carrots</li>
+         </ul>
+       </li>
+       <li data-ur-set="toggler">
+         <span data-ur-toggler-component='button'>Meats</span>
+         <ul data-ur-toggler-component='content'>
+           <li>Beef</li>
+           <li>Fish</li>
+         </ul>
+       </li>
+     </ul>
 
-    </div> <!-- end of nesting -->
-  </div>
+   </div><!-- end of nesting -->
+ </div>
 
 
 </div>
