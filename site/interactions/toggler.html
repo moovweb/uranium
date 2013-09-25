@@ -131,7 +131,7 @@
       <!-- Demonstration -->
 <h2>Demonstration</h2>
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled">Example</h3>
   <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
 
   <div id="toggler_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
@@ -185,11 +185,15 @@
   
   <div class='test' name='DialogProper'>
     <a  name='DialogProper'></a>
-    <h2>Popup</h2>
+    <h2>Enabled</h2>
   
     <div class='description'>
       <p>
+<<<<<<< HEAD
         If we want something to start out visible, and then disappear when we click on the button, we can just add the <code>data-ur-state="enabled"</code> attribute to the button and its content.
+=======
+        And if we want something to start out visible, and then disappear when we click on the button, we can just add the <code>data-ur-state="enabled"</code>attribute to the button and its content.
+>>>>>>> d596adfd490cc14a1538d830bbba4181d9570082
       </p>
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span> <span class="na">class=</span><span class="s">&#39;popup_button&#39;</span><span class="nt">&gt;</span>
@@ -215,7 +219,7 @@
   <hr />
   <div class='test' name='Nested' >
     <a name='Nested'></a>
-    <h2> Nested Togglers</h2>
+    <h2>Nested Togglers</h2>
     <div class='description'>
       <p>It's super-easy to nest togglers as well:</p>
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>
@@ -223,17 +227,17 @@
 <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;li</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;span</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span> Veggies <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>Veggies<span class="nt">&lt;/span&gt;</span>
     <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;li&gt;</span> Beets <span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;li&gt;</span> Carrots <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Beets<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Carrots<span class="nt">&lt;/li&gt;</span>
     <span class="nt">&lt;/ul&gt;</span>
   <span class="nt">&lt;/li&gt;</span>
   <span class="nt">&lt;li</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;span</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span> Meats <span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span><span class="nt">&gt;</span>Meats<span class="nt">&lt;/span&gt;</span>
     <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;li&gt;</span> Beef <span class="nt">&lt;/li&gt;</span>
-      <span class="nt">&lt;li&gt;</span> Fish <span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Beef<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Fish<span class="nt">&lt;/li&gt;</span>
     <span class="nt">&lt;/ul&gt;</span>
   <span class="nt">&lt;/li&gt;</span>
 <span class="nt">&lt;/ul&gt;</span>
@@ -246,22 +250,22 @@
       </div>
       <ul data-ur-toggler-component='content'>
         <li data-ur-set="toggler">
-          <span data-ur-toggler-component='button'> Veggies </span>
+          <span data-ur-toggler-component='button'>Veggies</span>
           <ul data-ur-toggler-component='content'>
-            <li> Beets </li>
-            <li> Carrots </li>
+            <li>Beets</li>
+            <li>Carrots</li>
           </ul>
         </li>
         <li data-ur-set="toggler">
-          <span data-ur-toggler-component='button'> Meats </span>
+          <span data-ur-toggler-component='button'>Meats</span>
           <ul data-ur-toggler-component='content'>
-            <li> Beef </li>
-            <li> Fish </li>
+            <li>Beef</li>
+            <li>Fish</li>
           </ul>
         </li>
       </ul>
 
-    </div> <!-- end of nesting -->
+    </div><!-- end of nesting -->
   </div>
 
 
