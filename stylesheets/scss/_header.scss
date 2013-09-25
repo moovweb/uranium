@@ -10,7 +10,7 @@
     width: image-width("uraniumlogo.png")/2;
     height: image-height("uraniumlogo.png")/2;
   }
-  .menu_widget{
+  .menu_interaction{
     text-align: center;
     position: relative;
     >a{
@@ -108,14 +108,14 @@
     > * {
       border-left: none;
     }
-    .menu_widget, >a{
+    .menu_interaction, > a {
       width: 33%;
       font-size: 10px;
       border-top: 1px solid #505050;
       line-height: 40px;
       border-right: none;
     }
-    .menu_widget{
+    .menu_interaction {
       >ul{
         padding: 0px;
       }
