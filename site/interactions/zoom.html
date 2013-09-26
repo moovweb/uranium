@@ -255,8 +255,11 @@
 <span class="o">[</span><span class="nt">data-ur-set</span><span class="o">=</span><span class="s2">&quot;zoom&quot;</span><span class="o">]</span> <span class="p">{</span>
   <span class="k">&amp;</span><span class="o">[</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;enabled-in&quot;</span><span class="o">],</span> <span class="k">&amp;</span><span class="o">[</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;enabled-out&quot;</span><span class="o">]</span> <span class="p">{</span>
     <span class="o">[</span><span class="nt">data-ur-zoom-component</span><span class="o">=</span><span class="s2">&quot;img&quot;</span><span class="o">]</span> <span class="p">{</span>
-      <span class="k">@include</span><span class="nd"> transition</span><span class="p">(</span><span class="n">transform</span> <span class="mi">0</span><span class="mf">.4</span><span class="kt">s</span> <span class="n">ease-in-out</span><span class="p">);</span>
+      <span class="k">@include</span><span class="nd"> transition-duration</span><span class="p">(</span><span class="mi">0</span><span class="mf">.4</span><span class="kt">s</span><span class="p">);</span>
+      <span class="k">@include</span><span class="nd"> transition-property</span><span class="p">(</span><span class="n">transform</span><span class="p">);</span>
+      <span class="k">@include</span><span class="nd"> transition-timing-function</span><span class="p">(</span><span class="n">ease-in-out</span><span class="p">);</span>
     <span class="p">}</span>
+  <span class="p">}</span>
   <span class="k">&amp;</span><span class="o">[</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;enabled&quot;</span><span class="o">]</span> <span class="p">{</span>
     <span class="o">[</span><span class="nt">data-ur-zoom-component</span><span class="o">=</span><span class="s2">&quot;img&quot;</span><span class="o">]</span> <span class="p">{</span>
       <span class="na">cursor</span><span class="o">:</span> <span class="n">move</span><span class="p">;</span>

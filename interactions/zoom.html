@@ -89,8 +89,11 @@ advanced_tab:
 [data-ur-set="zoom"] {
   &[data-ur-state="enabled-in"], &[data-ur-state="enabled-out"] {
     [data-ur-zoom-component="img"] {
-      @include transition(transform 0.4s ease-in-out);
+      @include transition-duration(0.4s);
+      @include transition-property(transform);
+      @include transition-timing-function(ease-in-out);
     }
+  }
   &[data-ur-state="enabled"] {
     [data-ur-zoom-component="img"] {
       cursor: move;
