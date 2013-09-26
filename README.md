@@ -32,7 +32,7 @@ Declarative Javascript is a model that looks for how html elements are formatted
 
 **...designed for executing logic or site functions**
 
-The declarative Javascript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some js logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, thats what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
+The declarative Javascript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some Javascript logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, that's what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
