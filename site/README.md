@@ -1,21 +1,28 @@
-# Overview for the Github Page
+# Overview for Uranium's GitHub Page
 
----
-# Getting started 
+Found at [uranium.io](http://uranium.io).
+
+## Getting started 
 
 Start with installing [Jekyll](http://jekyllrb.com/) 
-			gem install jekyll
 
-Update the CSS       sass --watch stylesheets/scss:stylesheets --line-comments
---compass on the stylesheets folder to compile your SASS files and keep them updated.
+		gem install jekyll
+
+Update the CSS:
+		
+		sass --watch stylesheets/scss:stylesheets --line-comments --compass 
+
+on the stylesheets folder to compile your Sass files and keep them updated.
 			
 In a separate terminal process, run the server (This will also listen for changes)
+
 			jekyll serve --watch
 
-Check it [out](http://localhost:4000/) after launching
+Check it [out](http://localhost:4000/) after launching.
 
 ---
-# Widgets Available
+## Widgets Available
+
 Carousel
 
 - The carousel is a widget that allows horizontal scrolling (with touch or buttons) between a set of items.
@@ -44,120 +51,122 @@ Input Clear
 - When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. 
 - If there is already text in the input field the x will appear without any typing.
 
+---
 
-# Uranium Overview
+## Uranium Overview
 
-Uranium is meant to be :
+Uranium is a simple Javascript interaction library written in jQuery. It's meant to be...
 
 -  Lightweight
--  Easy to use
+-  Declarative
+-  Interface Focused
 
 That's it!
 
-If given the choice between easy to use and powerful, ease of use is the greater goal. If you find yourself wanting something that a given widget will not do, you're encouraged to extend the widget yourself.
+If given the choice between easy to use and powerful, ease of use is the greater goal. 
 
-It should be noted that since Uranium extends xui -- this library is geared for widgets that are useful on mobile devices. It also is designed to support mobile browsers (for now just webkit, but you can build it for blackberry/mobile IE as well).
+View the [website](http://uranium.io/) for more details and demos.
 
-View the [website](http://uraniumjs.com/) for more details and demos.
-
----
-
-# Lightweight
-
-**The whole library is 15 KB gzipped (including all widgets and xui) !**
-
--  Uranium is based on [xui](http://xuijs.com/) -- the featherweight mobile js library
--  Uranium is bundled with xui to make just one javascript file(uranium/raw/master/build/src/uranium.js).
--  If you want it even lighter, you can make a custom [build](uranium/blob/master/doc/dev/build.md) yourself. Follow the instructions below.
 
 ---
 
-# Easy to Use
+## Easy to Use
 
 **Uranium requires ZERO programming on your part.**
 
-Uranium adopts the 'declarative' javascript style. Because of this, you can use the widgets without touching a single line of javascript.
+Uranium adopts the 'declarative' Javascript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of Javascript.
 
-**What is declarative javascript?**
+**What is declarative Javascript?**
 
-Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
-
----
-
-# Get Started
-
-There are two primary steps to make a widget:
-
--  Add special attributes to the html element you wish to make a widget
--  Include [uranium.js](uranium/raw/master/build/src/uranium.js)
-
-View the [website](http://uraniumjs.com/) for a [tutorial](http://uraniumjs.com/tutorials.html) (we have videos!), more details, and awesome [demos](http://uraniumjs.com/widget_list.html).
-
--  Read our [philosophy](http://uraniumjs.com/more.html) to understand our design goals and see how to implement a widget.
--  Admire all the [widgets](http://uraniumjs.com/widget_list.html) available.
+Declarative Javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
 
 ---
 
-# Uranium is not ...
 
-**... designed for executing logic or site functions**
+## Uranium is not ...
 
-Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarative aspect is not designed for performing functions. You wouldn't want to add attributes to an element to perform some js logic (this is exactly why onclicks should be avoided) -- thats what events / listeners / callbacks are for.
+**...designed for executing logic or site functions**
+
+The declarative Javascript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some Javascript logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, that's what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
-You're in luck! Uranium bundles with xui -- which (we think) provides a great minimal set of convenient javascript functions (query, add-listeners, ajax, iterate, etc). With this in mind, Uranium is the best of both worlds -- its primary purpose is to make it easy to create great widgets UI/UX -- but if you need to do something fancy, it gives you the tools you need to do so concisely.
+You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient Javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
 
 
 ---
 
-# Building Uranium
+## Building Uranium
 
-If you're contributing to the code base, you need to test your changes and update the bundled javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Bundling**
 
-Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build, just do:
+Bundling uses the Google Closure Compiler to bundle the Javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
 
     cd build
     rake
 
-This will compile all the widgets with each flavor (BB/IE/webkit) of xui.
-
-**Custom Bundling**
-
-The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the javascript. The different versions also have different widget lists to reflect those widgets compatible with that browser flavor.
-
-If you want to omit certain widgets or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). This is a great way to only build a smaller version of the specific widgets that you'll need.
+This will read in the full Javascript source in the lib/jquery.uranium.js file, and place both full-source and minified copies of Uranium in build/src/.
 
 **Testing**
 
-You need to go through all of the test cases under /examples and make sure that all the widgets still work. Of course, if you've added functionality or a new widget, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
+You need to go through all of the test cases under /examples and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
 
 ---
 
-# Building a Widget
+## Building an Interaction
 
-Fork Uranium. Build your widget. Issue a Pull Request. Revel in glory.
+Fork Uranium. Build your interaction. Issue a Pull Request. Revel in glory.
 
-If you're contributing to the code base, you need to test your changes and update the bundled javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Technical**
 
 TODO: Information on how the code base should be structured, conventions, etc...
 
-Start the jekyll server with `jekyll --server`
+To get the examples running locally, start the jekyll server with:
 
-Run `sass --watch stylesheets/scss:stylesheets --line-comments --compass` on the stylesheets folder to compile your SASS files.
+`jekyll serve --watch`
+
+In a separate terminal process, run  
+
+`sass --watch examples/scss:_examples/css --line-comments --compass`
+
+on the stylesheets folder to compile your Sass files.
+
+You will be able to navigate to [localhost:4000](localhost:4000) to see the examples running in your browser.
 
 **Documentation**
 
-You'll need to generate an .html file that goes in the _site/widgets folder that should do the following things
+You'll need to generate a .html file demonstrating the use of your new interaction. It goes in the examples folder, and should do the following things
 
-* Provide documentation of all the attributes, CSS, and JS required to make the widget go.
-* At least one example of how the widget can be used.
+* Provide documentation of all the attributes, CSS, and JS required to make the interaction go.
+* At least one example of how the interaction can be used.
+
+**Important Note**
+
+If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery. If that is not possible, you will need to use jQuery.noConflict() on both instances.
 
 ---
+
+## Future Wishlist
+
+Uranium is an ongoing project and we're constantly looking to add useful features (that are within the scope of the ideals above).
+
+Additional features to current interactions:
+
+  - *Carousel*: "Stop autoscroll" button 
+  - *Carousel*: Auto-populate clones on infinite scroll when container is larger than actual items
+  - *Geocode*: Entering zipcode should find address
+  - *Toggler*: Pass height for CSS animation tie-ins
+
+New interactions:
+
+  - Validation interaction for form inputs
+
+---
+
 
 # MIT License
 
@@ -178,4 +187,4 @@ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
