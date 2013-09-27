@@ -59,7 +59,7 @@ This will read in the full Javascript source in the lib/jquery.uranium.js file, 
 
 **Testing**
 
-You need to go through all of the test cases under the /examples directory and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
+You need to go through all of the test cases in the /examples/index.html file and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
 
 ---
 
