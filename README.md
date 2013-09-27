@@ -1,4 +1,6 @@
-# Overview
+# Uranium
+
+## Overview
 
 Uranium is a simple Javascript interaction library written in jQuery. It's meant to be...
 
@@ -15,7 +17,7 @@ View the [website](http://uranium.io/) for more details and demos.
 
 ---
 
-# Easy to Use
+## Easy to Use
 
 **Uranium requires ZERO programming on your part.**
 
@@ -28,7 +30,7 @@ Declarative Javascript is a model that looks for how html elements are formatted
 ---
 
 
-# Uranium is not ...
+## Uranium is not ...
 
 **...designed for executing logic or site functions**
 
@@ -36,35 +38,32 @@ The declarative Javascript in Uranium is not designed for performing functions, 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
-You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient Javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
+You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) – which (we think) provides a great set of convenient Javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds – its primary purpose is to make it easy to add great interaction – but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
 
 
 ---
 
-# Building Uranium
+## Building Uranium
 
 If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Bundling**
 
-Bundling uses the Google Closure Compiler to bundle the Javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
-
+Bundling uses [fusion](http://rubygems.org/gems/fusion) to bundle the Javascript. This means you have to install the fusion ruby gem before you can run the build process. To perform the default build from inside your local copy of the Uranium repository, just do:
+		
+		gem install fusion
     cd build
     rake
 
 This will read in the full Javascript source in the lib/jquery.uranium.js file, and place both full-source and minified copies of Uranium in build/src/.
 
-**Custom Bundling**
-
-The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the Javascript.If you want to omit certain interactions or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). Uranium is already very small, but this is a great way to build a smaller version with only the specific interactions that you know you need.
-
 **Testing**
 
-You need to go through all of the test cases under /examples and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
+You need to go through all of the test cases under the /examples directory and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
 
 ---
 
-# Building an Interaction
+## Building an Interaction
 
 Fork Uranium. Build your interaction. Issue a Pull Request. Revel in glory.
 
@@ -99,7 +98,24 @@ If there are two versions of jQuery on a page, Uranium will break.  To avoid thi
 
 ---
 
-# MIT License
+## Future Wishlist
+
+Uranium is an ongoing project and we're constantly looking to add useful features (that are within the scope of the ideals above).
+
+Additional features to current interactions:
+
+  - *Carousel*: "Stop autoscroll" button 
+  - *Carousel*: Auto-populate clones on infinite scroll when container is larger than actual items
+  - *Geocode*: Entering zipcode should find address
+  - *Toggler*: Pass height for CSS animation tie-ins
+
+New interactions:
+
+  - Validation interaction for form inputs
+
+---
+
+## MIT License
 
 Copyright (C) 2011-2013 by Moov Corporation (aka Moovweb)
 
@@ -107,4 +123,4 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
