@@ -40,11 +40,15 @@
   }
   #tab_interaction [data-ur-set="tabs"] * {
     &[data-ur-tabs-component="button"][data-ur-state="enabled"] {
-      background: $color2;
-      border-bottom: 1px solid $color2;
+      background: $color3;
+      border-bottom: 1px solid $color3;
     }
-    &[data-ur-tabs-component="button"], &[data-ur-tabs-component="content"] {
-      background: $color2;
+    &[data-ur-tabs-component="button"] {
+      background: $color5;
+      color: black;
+    }
+    &[data-ur-tabs-component="content"] {
+      background: $color3;
       color: black;
     } 
   } 

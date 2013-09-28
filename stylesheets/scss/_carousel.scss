@@ -1,10 +1,13 @@
 body {
   [data-ur-set='carousel'] {
-    background: $color2 url('resources/largeshade.png') no-repeat left bottom;
+    background: $color5;
     border: 1px solid black;
     overflow: hidden;
     position: relative;
-    height: 120px;
+    height: 135px;
+    img {
+      padding-left: 8px;
+    }
   }
   [data-ur-infinite="enabled"] [data-ur-carousel-component="scroll_container"] {
     margin: auto;
@@ -24,6 +27,9 @@ body {
   }
   [data-ur-carousel-component="button"] {
     display: inline-block;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 4px;
     &[data-ur-state="disabled"] {
       opacity: 0.3;
     }
