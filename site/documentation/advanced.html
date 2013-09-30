@@ -52,7 +52,7 @@
           <p>We're going to start by making a carousel. Carousels are very prominent in the web today &mdash; they allow the user to swipe through a number of images &mdash; or use buttons if necessary.</p>
           <p>Below is the carousel we are going to implement through this tutorial. Some prominent features are the autoscroll feature that advances images, the 'dot' indicators showing the index of the image, and the "Previous" and "Next" buttons for navigating through the images.</p>
           <div class="final">
-	          <div data-ur-set="carousel" data-ur-id="first_carousel" data-ur-autoscroll="enabled">
+	          <div data-ur-set="carousel" data-ur-id="first_carousel" data-ur-autoscroll="enabled" data-ur-clones="4">
 			        <div data-ur-carousel-component="dots"></div>
 			        <div data-ur-carousel-component="scroll_container">
 			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="1" /> </span>
@@ -121,8 +121,9 @@
   <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
-          <p>If you want to customize the autoscroll, you can use the extra attribute <code id="green">data-ur-autoscroll-delay=""</code>, where the value is in milliseconds. For example, if you wanted the carousel to advanced every 3s, you would use <code id="green">data-ur-autoscroll-delay="3000"</code>. We'll keep ours at the default for now.</p>        	
-        	<p>The next item we will set up is a set of "dot" indicators, showing which item of the carousel we are on. These are incredibly easy to set up in Uranium. All we need to do is use the attribute <code id="green">data-ur-carousel-component="dots"</code>. </p>
+          <p>If you want to customize the autoscroll, you can use the extra attribute <code id="green">data-ur-autoscroll-delay=""</code>, where the value is in milliseconds. For example, if you wanted the carousel to advanced every 3s, you would use <code id="green">data-ur-autoscroll-delay="3000"</code>. We'll keep ours at the default for now.</p>
+          <p>ASIDE: After image 7, there is a gap in the carousel. It jumps back to the 8th image. This "sliding back" illustrates to the user that the end has been reached and the carousel is cycling back. If the carousel is in a container with a small enough width (to e.g. show only one item at a time), the blank space will not be a problem. However, if you want a more smooth cycling experience, you can add an extra attribute called <code id="green">data-ur-clones=""</code>. Its value should be an integer larger than the number of items in the carousel - e.g. in this case, 4.</p>
+        	<p>Back to our carousel, the next item we will set up is a set of "dot" indicators, which will show which item of the carousel we are on. These are incredibly easy to set up in Uranium. All we need to do is use the attribute <code id="green">data-ur-carousel-component="dots"</code>. </p>
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-autoscroll=</span><span class="s">&quot;enabled&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dots&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/div&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;scroll_container&quot;</span><span class="nt">&gt;</span>
