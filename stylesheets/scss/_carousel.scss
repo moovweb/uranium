@@ -13,11 +13,13 @@ body {
     margin: auto;
     width: 250px;
   }
-  [data-ur-carousel-component="scroll_container"] img {
+  [data-ur-carousel-component="scroll_container"] > [data-ur-carousel-component="item"] {
     -webkit-user-drag: none;
     float: left;
-    width: 100px;
-    height: 100px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
   }
   [data-ur-carousel-component="button"], [data-ur-carousel-component="count"] {
     color: $color1;

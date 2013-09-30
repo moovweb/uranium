@@ -28,14 +28,14 @@ documentation_selected: selected
 	          <div data-ur-set="carousel" data-ur-id="first_carousel" data-ur-autoscroll="enabled">
 			        <div data-ur-carousel-component="dots"></div>
 			        <div data-ur-carousel-component="scroll_container">
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="1" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="2" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="3" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="4" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="5" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="6" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="7" />
-			          <img data-ur-carousel-component="item" src='http://placekitten.com/g/200/200' alt="8" />
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="1" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="2" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="3" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="4" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="5" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="6" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="7" /> </span>
+			          <span data-ur-carousel-component="item"> <img src='http://placekitten.com/g/200/200' alt="8" /> </span>
 			        </div>
 			      </div>
 			      <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-id="first_carousel">« Prev</div>
@@ -56,24 +56,24 @@ documentation_selected: selected
 {% highlight html %}
 <div data-ur-set="carousel">
   <div data-ur-carousel-component="scroll_container">
-    <img src="http://placekitten.com/g/200/200" alt="1"/>
-    <img src="http://placekitten.com/g/200/200" alt="2"/>
-    <img src="http://placekitten.com/g/200/200" alt="3"/>
-    <img src="http://placekitten.com/g/200/200" alt="4"/>
-    <img src="http://placekitten.com/g/200/200" alt="5"/>
+    <span> <img src="http://placekitten.com/g/200/200" alt="1"/> </span>
+    <span> <img src="http://placekitten.com/g/200/200" alt="2"/> </span>
+    <span> <img src="http://placekitten.com/g/200/200" alt="3"/> </span>
+    <span> <img src="http://placekitten.com/g/200/200" alt="4"/> </span>
+    <span> <img src="http://placekitten.com/g/200/200" alt="5"/> </span>
   </div>
 </div>
 {% endhighlight %}
           <p>In the example above, we have five images. You'll notice that we're using <a href="http://placekitten.com">PlaceKitten</a> for the src attributes &mdash; this is so you can easily copy the code in our example. Of course, you can use any image src if you want.</p>
-          <p>Each image (or other item that is being scrolled) must have a component of "item" associated with it:</p>
+          <p>Each image (or other item that is being scrolled) must have a component of "item" associated with it. We are adding the attribute to the span that wraps the images.</p>
 {% highlight html %}
 <div data-ur-set="carousel">
   <div data-ur-carousel-component="scroll_container">
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="2"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="3"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="4"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="5"/>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="1"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="2"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="3"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="4"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="5"/> </span>
   </div>
 </div>
 {% endhighlight %}
@@ -91,11 +91,11 @@ documentation_selected: selected
 {% highlight html %}
 <div data-ur-set="carousel" data-ur-autoscroll="enabled">
   <div data-ur-carousel-component="scroll_container">
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="2"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="3"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="4"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="5"/>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="1"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="2"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="3"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="4"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="5"/> </span>
   </div>
 </div>
 {% endhighlight %}
@@ -105,11 +105,11 @@ documentation_selected: selected
 <div data-ur-set="carousel" data-ur-autoscroll="enabled">
   <div data-ur-carousel-component="dots"> </div>
   <div data-ur-carousel-component="scroll_container">
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="2"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="3"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="4"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="5"/>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="1"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="2"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="3"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="4"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="5"/> </span>
   </div>
 </div>
 {% endhighlight %}
@@ -156,11 +156,11 @@ data-ur-carousel-component="dot"][data-ur-state="inactive"] {
 <div data-ur-set="carousel" data-ur-autoscroll="enabled">
   <div data-ur-carousel-component="dots"> </div>
   <div data-ur-carousel-component="scroll_container">
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="2"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="3"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="4"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="5"/>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="1"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="2"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="3"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="4"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="5"/> </span>
   </div>
 </div>
 <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev"> Prev </div>
@@ -172,11 +172,11 @@ data-ur-carousel-component="dot"][data-ur-state="inactive"] {
 <div data-ur-set="carousel" data-ur-autoscroll="enabled" data-ur-id="first_carousel">
   <div data-ur-carousel-component="dots"> </div>
   <div data-ur-carousel-component="scroll_container">
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="2"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="3"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="4"/>
-    <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="5"/>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="1"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="2"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="3"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="4"/> </span>
+    <span data-ur-carousel-component="item"> <img src="http://placekitten.com/g/200/200" alt="5"/> </span>
   </div>
 </div>
 <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" data-ur-id="first_carousel"> « Prev </div>
