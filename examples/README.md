@@ -1,16 +1,25 @@
-# Uranium upgrade from XUI to jQuery
+The examples directory may be downloaded to your local machine and viewed directly in a browser by navigating to examples/index.html.
 
-Moving this framework from XUI to jQuery
+To edit the examples locally, you need to install the command-line utilites jekyll and Sass, along with their dependencies. Then start the jekyll server with:
 
-## TODO
+`jekyll serve --watch`
+
+In a separate terminal process, run  
+
+`sass --watch examples/scss:_examples/css --line-comments --compass`
+
+on the stylesheets folder to compile your SASS files.
+
+A local `_examples` directory will be created for the local live preview, and it will be updated as you make changes to the source files in the `examples` directory. (Please do not commit the `_examples` directory when committing your changes.)
+
+You will be able to navigate to localhost:4000 to see the examples running in your browser.
+
+# Uranium examples included:
 
 * [DONE] Toggler
 * [DONE] Tabs
 * [DONE] Input Clear
 * [DONE] Geolocation
 * [DONE] Zoom
-* Carousel
-	* Wish List:
-		* stop autoscroll button
-		* active item animate to larger then inactive items
-		* auto populate clones on infinite scroll when container is way larger than actual items
+* [DONE] Carousel
+

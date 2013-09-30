@@ -1,6 +1,8 @@
-# Overview
+# Uranium
 
-Uranium is a simple Javascript widget library written in jQuery. It's meant to be...
+## Overview
+
+Uranium is a simple Javascript interaction library written in jQuery. It's meant to be...
 
 -  Lightweight
 -  Declarative
@@ -9,110 +11,116 @@ Uranium is a simple Javascript widget library written in jQuery. It's meant to b
 That's it!
 
 If given the choice between easy to use and powerful, ease of use is the greater goal. 
-If you find yourself wanting something that a given widget will not do, you're encouraged 
-to extend the widget yourself.
 
-View the [website](http://uraniumjs.com/) for more details and demos.
+View the [website](http://uranium.io/) for more details and demos.
 
 
 ---
 
-# Easy to Use
+## Easy to Use
 
 **Uranium requires ZERO programming on your part.**
 
-Uranium adopts the 'declarative' javascript style. Because of this, you can use the widgets without touching a single line of javascript.
+Uranium adopts the 'declarative' Javascript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of Javascript.
 
-**What is declarative javascript?**
+**What is declarative Javascript?**
 
-Declarative javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
+Declarative Javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
 
 ---
 
 
-# Uranium is not ...
+## Uranium is not ...
 
-**... designed for executing logic or site functions**
+**...designed for executing logic or site functions**
 
-Uranium makes the view (your UI/UX) rely on the model (your HTML). The declarative aspect is not designed for performing functions. You wouldn't want to add attributes to an element to perform some js logic (this is exactly why onclicks should be avoided) -- thats what events / listeners / callbacks are for.
+The declarative Javascript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some Javascript logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, that's what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
-You're in luck! Uranium bundles with xui -- which (we think) provides a great minimal set of convenient javascript functions (query, add-listeners, ajax, iterate, etc). With this in mind, Uranium is the best of both worlds -- its primary purpose is to make it easy to create great widgets UI/UX -- but if you need to do something fancy, it gives you the tools you need to do so concisely.
+You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) – which (we think) provides a great set of convenient Javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds – its primary purpose is to make it easy to add great interaction – but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
 
 
 ---
 
-# Building Uranium
+## Building Uranium
 
-If you're contributing to the code base, you need to test your changes and update the bundled javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Bundling**
 
-Bundling uses the Google Closure Compiler to bundle the javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build, just do:
-
+Bundling uses [fusion](http://rubygems.org/gems/fusion) to bundle the Javascript. This means you have to install the fusion ruby gem before you can run the build process. To perform the default build from inside your local copy of the Uranium repository, just do:
+		
+		gem install fusion
     cd build
     rake
 
-This will compile all the widgets with each flavor (BB/IE/webkit) of xui.
-
-**Custom Bundling**
-
-The rake task really just reads the config files (e.g. webkit.yaml) to know how to bundle the javascript. The different versions also have different widget lists to reflect those widgets compatible with that browser flavor.
-
-If you want to omit certain widgets or make a custom build, you're welcome to do so locally (and can do so by making your own custom yaml file / build task). This is a great way to only build a smaller version of the specific widgets that you'll need.
+This will read in the full Javascript source in the lib/jquery.uranium.js file, and place both full-source and minified copies of Uranium in build/src/.
 
 **Testing**
 
-You need to go through all of the test cases under /examples and make sure that all the widgets still work. Of course, if you've added functionality or a new widget, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
+You need to go through all of the test cases in the /examples/index.html file and make sure that all the interactions still work. Of course, if you've added functionality, or a new interaction, you need to make a test example for your new cases as well and make sure those pass. It should be an example file that can be shown on the website.
 
 ---
 
-# Building a Widget
+## Building an Interaction
 
-Fork Uranium. Build your widget. Issue a Pull Request. Revel in glory.
+Fork Uranium. Build your interaction. Issue a Pull Request. Revel in glory.
 
-If you're contributing to the code base, you need to test your changes and update the bundled javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
 
 **Technical**
 
 TODO: Information on how the code base should be structured, conventions, etc...
 
-Start the jekyll server with `jekyll --server`
+To get the examples running locally, start the jekyll server with:
 
-Run `sass --watch stylesheets/scss:stylesheets --line-comments --compass` on the stylesheets folder to compile your SASS files.
+`jekyll serve --watch`
+
+In a separate terminal process, run  
+
+`sass --watch examples/scss:_examples/css --line-comments --compass`
+
+on the stylesheets folder to compile your Sass files.
+
+You will be able to navigate to [localhost:4000](localhost:4000) to see the examples running in your browser.
 
 **Documentation**
 
-You'll need to generate an .html file that goes in the _site/widgets folder that should do the following things
+You'll need to generate a .html file demonstrating the use of your new interaction. It goes in the examples folder, and should do the following things
 
-* Provide documentation of all the attributes, CSS, and JS required to make the widget go.
-* At least one example of how the widget can be used.
+* Provide documentation of all the attributes, CSS, and JS required to make the interaction go.
+* At least one example of how the interaction can be used.
 
 **Important Note**
 
-If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery, 
-if that is not possible, you would need to use jQuery.noConflict() on both instances.
+If there are two versions of jQuery on a page, Uranium will break.  To avoid this, try to only use 1 instance of jQuery. If that is not possible, you will need to use jQuery.noConflict() on both instances.
 
 ---
 
-# MIT License
+## Future Wishlist
+
+Uranium is an ongoing project and we're constantly looking to add useful features (that are within the scope of the ideals above).
+
+Additional features to current interactions:
+
+  - *Carousel*: "Stop autoscroll" button 
+  - *Carousel*: Auto-populate clones on infinite scroll when container is larger than actual items
+  - *Geocode*: Entering zipcode should find address
+  - *Toggler*: Pass height for CSS animation tie-ins
+
+New interactions:
+
+  - Validation interaction for form inputs
+
+---
+
+## MIT License
 
 Copyright (C) 2011-2013 by Moov Corporation (aka Moovweb)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
