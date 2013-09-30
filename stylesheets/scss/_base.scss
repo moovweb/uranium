@@ -64,7 +64,9 @@ select{
 
 /* Body Text */
 #textbody {
-  margin: 10px 10%;
+  margin: 10px auto;
+  padding: 0 10px;
+  max-width: 820px;
   @media screen and (max-width: 479px), screen and (max-height: 479px) {
     margin: 10px;
   }

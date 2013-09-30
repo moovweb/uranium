@@ -97,6 +97,10 @@
       max-width: 28%;
     }
   }
+  [data-ur-toggler-component="button"] {
+    width: 200px;
+    text-align: center;
+  }
 }
 
 /* Responsive*/
