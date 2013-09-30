@@ -84,6 +84,7 @@ documentation_selected: selected
   float: left;
 }
 {% endhighlight %}
+        </div>
         <h3>Second Step: Adding Features</h3>
         <div class="tutorial_para">
         	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for a simple use case, but let's have a look at some other features we can add to the carousel to make it more interactive. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
@@ -167,7 +168,6 @@ data-ur-carousel-component="dot"][data-ur-state="inactive"] {
 <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev"> Prev </div>
 <div data-ur-carousel-component="button" data-ur-carousel-button-type="next"> Next </div>
 {% endhighlight %}
-
           <p>As mentioned previously, the buttons will not work at the moment as they are outside the carousel set. However, we can make them work by using a Uranium id. We give the same id to the set and both of the buttons. This allows Uranium to match up the buttons with the appropriate carousel. The syntax is <code id="green">data-ur-id="my_carousel"</code>.</p>
 {% highlight html %}
 <div data-ur-set="carousel" data-ur-autoscroll="enabled" data-ur-id="first_carousel">

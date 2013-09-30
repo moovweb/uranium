@@ -107,6 +107,7 @@
   <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+        </div>
         <h3>Second Step: Adding Features</h3>
         <div class="tutorial_para">
         	<p>We have a working carousel, but at the moment all that anyone can do is swipe back and forth. This may be great for a simple use case, but let's have a look at some other features we can add to the carousel to make it more interactive. Let's start with the autoscroll, which will automatically move items forward every 5 seconds.</p>
@@ -185,7 +186,6 @@
 <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;prev&quot;</span><span class="nt">&gt;</span> Prev <span class="nt">&lt;/div&gt;</span>
 <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-carousel-button-type=</span><span class="s">&quot;next&quot;</span><span class="nt">&gt;</span> Next <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
-
           <p>As mentioned previously, the buttons will not work at the moment as they are outside the carousel set. However, we can make them work by using a Uranium id. We give the same id to the set and both of the buttons. This allows Uranium to match up the buttons with the appropriate carousel. The syntax is <code id="green">data-ur-id="my_carousel"</code>.</p>
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;carousel&quot;</span> <span class="na">data-ur-autoscroll=</span><span class="s">&quot;enabled&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;first_carousel&quot;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;div</span> <span class="na">data-ur-carousel-component=</span><span class="s">&quot;dots&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/div&gt;</span>
