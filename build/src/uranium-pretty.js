@@ -713,7 +713,6 @@
       self.flag = {
         click: false,
         snapping: false,
-        loop: false,
         lock: null,
         timeoutId: null,
         touched: false
@@ -747,7 +746,7 @@
       var destinationOffset; // translate value of destination
       var lastIndex = self.count - 1; // index of last item
 
-      var viewport = 0;
+      var viewport = $container.outerWidth();
 
       var startingOffset = null;
 
@@ -795,8 +794,11 @@
           var move = hasTouch ? "touchmove" : "mousemove";
           var end = hasTouch ? "touchend" : "mouseup";
 
-          $(self.scroller).on(start, startSwipe).on(move, continueSwipe).on(end, finishSwipe);
-          $(self.scroller).click(function(e) {if (!self.flag.click) stifle(e);});
+          $(self.scroller)
+            .on(start, startSwipe)
+            .on(move, continueSwipe)
+            .on(end, finishSwipe)
+            .click(function(e) {if (!self.flag.click) stifle(e);});
         }
 
         self.button.prev.click(function(){moveTo(1);});
@@ -1026,11 +1028,8 @@
 
       function getEventCoords(event) {
         var touches = event.originalEvent.touches;
-        // event = (touches && touches[0]) || event; return {x: event.clientX, y: event.clientY};
-        if (touches && touches.length > 0)
-          return {x: touches[0].clientX, y: touches[0].clientY};
-        else
-          return {x: event.clientX, y: event.clientY};
+        event = (touches && touches[0]) || event;
+        return {x: event.clientX, y: event.clientY};
       }
 
       function updateButtons() {
@@ -1075,7 +1074,6 @@
 
         self.flag.touched = true;
         self.flag.lock = null;
-        self.flag.loop = false;
         self.flag.click = true;
 
         coords = getEventCoords(e);
@@ -1117,34 +1115,32 @@
           var dist = startingOffset + swipeDist(); // new translate() value, usually negative
           
           $items.each(function(i, item) {
-            var boundStart = item.offsetLeft;
+            var boundStart = offsetFront(item);
             if (self.options.center)
-              boundStart -= (viewport - item.offsetWidth)/2;
-            var boundEnd = boundStart + item.offsetWidth;
+              boundStart -= centerOffset(item);
+            var boundEnd = boundStart + $(item).outerWidth(true);
             if (boundEnd > -dist) {
               self.itemIndex = i;
-              shift = -(boundStart + dist)/item.offsetWidth;
+              shift = -(boundStart + dist)/$(item).outerWidth(true);
               
               return false;
             }
           });
 
           if (self.options.infinite) {
-            var endLimit = $items[lastIndex].offsetLeft + $items[lastIndex].offsetWidth - viewport;
+            var endLimit = offsetFront($items[lastIndex]) + $items.eq(lastIndex).outerWidth(true) - viewport;
 
             if (dist > 0) { // at the start of carousel so loop to end
               var srcNode = $items[self.count]; // original version of clone at start
-              var offset = srcNode.offsetLeft - $items[0].offsetLeft;
+              var offset = offsetFront(srcNode) - offsetFront($items[0]);
               startingOffset -= offset;
               dist -= offset;
-              self.flag.loop = !self.flag.loop;
             }
             else if (endLimit < -dist) { // at the end of carousel so loop to start
               var srcNode = $items[lastIndex - self.count]; // original version of clone at end
-              var offset = srcNode.offsetLeft - $items[lastIndex].offsetLeft;
+              var offset = offsetFront(srcNode) - offsetFront($items[lastIndex]);
               startingOffset -= offset;
               dist -= offset;
-              self.flag.loop = !self.flag.loop;
             }
           }
           translateX(dist);
@@ -1163,8 +1159,8 @@
 
         self.flag.touched = false;
 
-        self.flag.forwardDir = coords.x - lastCoords.x < 0;
-        moveTo(self.flag.forwardDir ? -1: 0);
+        var forwardDir = coords.x - lastCoords.x < 0;
+        moveTo(forwardDir ? -1: 0);
       }
 
       function moveTo(direction) {
@@ -1181,7 +1177,7 @@
         if (self.options.infinite) {
           var oldTransform = getTranslateX();
           // -1 * length of all original items (except clones)
-          var offset = $items[self.options.cloneLength].offsetLeft - $items[self.count + self.options.cloneLength].offsetLeft;
+          var offset = offsetFront($items[self.options.cloneLength]) - offsetFront($items[self.count + self.options.cloneLength]);
           if (newIndex < self.options.cloneLength) { // clone at start of carousel
             translateX(oldTransform + offset);
             newIndex += self.count;
