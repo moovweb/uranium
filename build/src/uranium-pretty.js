@@ -1,16 +1,16 @@
 // jQuery.Uranium.js
-// Build out Uranium widgets in jQuery
+// Build out Uranium interactions in jQuery
 
 (function ( $ ) {
 
   // Keep a unique value for ID initialization
-  var urGuid = function() {
+  var uniqueUraniumId = function() {
     var count = 0;
     return function() { return ++count; }
   }();
 
-  // Find elements for the widgets
-  // optional customFn(set, component) for custom creating widget object
+  // Find elements for the interactions
+  // optional customFn(set, component) for custom creation of object
   function findElements( fragment, type, customFn ) {
     var sets = {};
     var setCss = "[data-ur-set='" + type + "']";
@@ -24,7 +24,7 @@
         $(this).data("urCompInit", true);
         var setId = set.attr("data-ur-id");
         if (!setId) {
-          setId = urGuid();
+          setId = uniqueUraniumId();
           set.attr("data-ur-id", setId);
         }
         sets[setId] = sets[setId] || {};
@@ -44,10 +44,10 @@
     return sets;
   }
 
-  var widgets = {};
+  var interactions = {};
 
   // Toggler
-  widgets.toggler = function( fragment ) {
+  interactions.toggler = function( fragment ) {
     var groups = findElements(fragment, "toggler");
 
     $.each(groups, function(id, group) {
@@ -70,7 +70,7 @@
   }
 
   // Tabs
-  widgets.tabs = function( fragment ) {
+  interactions.tabs = function( fragment ) {
     var groups = findElements(fragment, "tabs", function(set, comp) {
       var tabId = $(comp).attr("data-ur-tab-id");
       set.tabs = set.tabs || {};
@@ -109,7 +109,7 @@
   }
 
   // Input Clear
-  widgets.inputClear = function( fragment ) {
+  interactions.inputClear = function( fragment ) {
     var groups = findElements(fragment, "input-clear");
     $.each(groups, function(id, group) {
       // Create the X div and hide it (even though this should be in CSS)
@@ -149,7 +149,7 @@
   }
 
   // Geocode
-  widgets.geoCode = function ( fragment ) {
+  interactions.geoCode = function ( fragment ) {
     var groups = findElements(fragment, "reverse-geocode", function(set, comp) {
       set["elements"] = set["elements"] || {};
       set["elements"][$(comp).attr("data-ur-reverse-geocode-component")] = comp;
@@ -355,7 +355,7 @@
   }
 
   // Zoom
-  widgets.zoom = function ( fragment ) {
+  interactions.zoom = function ( fragment ) {
     var groups = findElements(fragment, "zoom");
 
     // Private shared variables
@@ -665,7 +665,7 @@
   }
 
   // Carousel
-  widgets.carousel = function ( fragment ) {
+  interactions.carousel = function ( fragment ) {
     var groups = findElements(fragment, "carousel");
 
     // for each carousel
@@ -1270,13 +1270,13 @@
   }
 
   Uranium = {};
-  $.each(widgets, function(name) {
+  $.each(interactions, function(name) {
     Uranium[name] = {};
   });
 
   $.fn.Uranium = function() {
     var jqObj = this;
-    $.each(widgets, function() {
+    $.each(interactions, function() {
       this(jqObj);
     });
     return this;
