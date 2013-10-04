@@ -46,6 +46,11 @@
 
   var interactions = {};
 
+  var touchscreen = "ontouchstart" in window;
+  var downEvent = touchscreen ? "touchstart" : "mousedown";
+  var moveEvent = touchscreen ? "touchmove" : "mousemove";
+  var upEvent = touchscreen ? "touchend" : "mouseup";
+
   // Toggler
   interactions.toggler = function( fragment ) {
     var groups = findElements(fragment, "toggler");
@@ -119,7 +124,7 @@
 
       // Touch Events
       ex
-        .bind("ontouchstart" in window ? "touchstart" : "click", function() {
+        .bind(touchscreen ? "touchstart" : "click", function() {
           // remove text in the box
           input[0].value='';
           input[0].focus();
@@ -508,21 +513,19 @@
           self.state = "enabled";
           self.container.setAttribute("data-ur-state", self.state);
 
-          var touch = "ontouchstart" in window;
-          var $container = $(self.container);
-          $container.on(touch ? "touchstart" : "mousedown", panStart);
-          $container.on(touch ? "touchmove" : "mousemove", panMove);
-          $container.on(touch ? "touchend" : "mouseup", panEnd);
+          $(self.container)
+            .on(downEvent, panStart)
+            .on(moveEvent, panMove)
+            .on(upEvent, panEnd);
         }
         else if (self.state == "enabled-out") {
           self.state = "disabled";
           self.container.setAttribute("data-ur-state", self.state);
 
-          var touch = "ontouchstart" in window;
-          var $container = $(self.container);
-          $container.unbind(touch ? "touchstart" : "mousedown", panStart);
-          $container.unbind(touch ? "touchmove" : "mousemove", panMove);
-          $container.unbind(touch ? "touchend" : "mouseup", panEnd);
+          $(self.container)
+            .unbind(downEvent, panStart)
+            .unbind(moveEvent, panMove)
+            .unbind(upEvent, panEnd);
         }
       }
 
@@ -739,8 +742,8 @@
       var $container = $(self.container);
       var $items = $(self.items); // all carousel items (including clones)
       var coords = null;
-      var lastCoords; // stores previous coords, used for determining swipe direction
-      var startPos = {x: 0, y: 0}, endPos = {x: 0, y: 0};
+      var prevCoords; // stores previous coords, used for determining swipe direction
+      var startPos = {x: 0, y: 0};
       var shift = 0; // in range [0, 1) showing translate percentage past top/left side of active item
       var dest = $items[0]; // snap destination element
       var destinationOffset; // translate value of destination
@@ -787,15 +790,10 @@
         $(self.scroller).on("dragstart", function() { return false; }); // for Firefox
 
         if (self.options.touch) {
-          var hasTouch = "ontouchstart" in window;
-          var start = hasTouch ? "touchstart" : "mousedown";
-          var move = hasTouch ? "touchmove" : "mousemove";
-          var end = hasTouch ? "touchend" : "mouseup";
-
           $(self.scroller)
-            .on(start, startSwipe)
-            .on(move, continueSwipe)
-            .on(end, finishSwipe)
+            .on(downEvent, startSwipe)
+            .on(moveEvent, continueSwipe)
+            .on(upEvent, finishSwipe)
             .click(function(e) {if (!self.flag.click) stifle(e);});
         }
 
@@ -1062,7 +1060,7 @@
 
         coords = getEventCoords(e);
         
-        startPos = endPos = lastCoords = coords;
+        startPos = prevCoords = coords;
         startingOffset = getTranslateX();
       }
 
@@ -1070,13 +1068,13 @@
         if (!self.flag.touched) // For non-touch environments since mousemove fires without mousedown
           return;
 
-        lastCoords = coords;
+        prevCoords = coords;
         coords = getEventCoords(e);
 
         if (Math.abs(startPos.y - coords.y) + Math.abs(startPos.x - coords.x) > 0)
           self.flag.click = false;
 
-        if ("ontouchstart" in window && self.options.verticalScroll) {
+        if (touchscreen && self.options.verticalScroll) {
           var slope = Math.abs((startPos.y - coords.y)/(startPos.x - coords.x));
           if (self.flag.lock) {
             if (self.flag.lock == "y")
@@ -1095,8 +1093,7 @@
         stifle(e);
 
         if (coords !== null) {
-          endPos = coords;
-          var dist = startingOffset + swipeDist(); // new translate() value, usually negative
+          var dist = startingOffset + swipeDist(startPos, coords); // new translate() value, usually negative
           
           var threshold = -dist;
           if (self.options.center)
@@ -1143,17 +1140,17 @@
 
         self.flag.touched = false;
 
-        var forwardDir = coords.x - lastCoords.x < 0;
+        var dir = coords.x - prevCoords.x;
         if (self.options.center) {
-          if (forwardDir && shift > 0.5)
+          if (dir < 0 && shift > 0.5)
             moveTo(-1)
-          else if (!forwardDir && shift < 0.5)
+          else if (dir > 0 && shift < 0.5)
             moveTo(1);
           else
             moveTo(0);
         }
         else
-          moveTo(forwardDir ? -1: 0);
+          moveTo(dir < 0 ? -1: 0);
       }
 
       function moveTo(direction) {
@@ -1231,8 +1228,9 @@
         moveTo(self.itemIndex - index);
       };
 
-      function swipeDist() {
-        return endPos === undefined ? 0 : endPos.x - startPos.x;
+      // could be end.y - start.y if vertical option implemented
+      function swipeDist(start, end) {
+        return end.x - start.x;
       }
 
       function translateX(x) {
@@ -1263,7 +1261,7 @@
 
       readAttributes();
 
-      // delay initialization until we can determine appropriate number of clones
+      // delay initialization until we can figure out number of clones
       var zeroWidth = false;
       if (self.options.infinite && !self.options.fill && self.options.cloneLength == 0) {
         $items.width(function(i, width) {
@@ -1272,7 +1270,7 @@
         });
       }
       if (zeroWidth) {
-        // wait until (late-loaded) images are loaded or page load
+        // wait until (late-loaded) images are loaded or other content inserted
         var imgs = $items.find("img").addBack("img");
         var numImgs = imgs.length;
         if (numImgs > 0)
