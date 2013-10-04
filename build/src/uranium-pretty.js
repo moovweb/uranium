@@ -723,7 +723,7 @@
         autoscrollDelay: 5000,
         autoscrollForward: true,
         center: true,
-        cloneLength: 1,
+        cloneLength: 0,
         fill: 0,
         infinite: true,
         speed: 1.1,
@@ -875,30 +875,31 @@
           return;
         }
 
-        if (self.options.fill)
-          self.options.cloneLength = self.options.fill;
-        else {
-          // make sure to insert enough clones in order to never see a blank space
-          // make this more efficient
-          var space = viewport;
-          var cloneLength1 = 0, cloneLength2 = 0;
-          var i = 0;
-          while (space > 0) {
-            space -= $items.eq(i).outerWidth(true);
-            cloneLength1++;
-            i = (i + 1) % $items.length;
+        if (self.options.cloneLength < 1) {
+          if (self.options.fill)
+            self.options.cloneLength = self.options.fill;
+          else {
+            // make sure to insert enough clones in order to never see a blank space
+            // number of clones needed in front is always at least number of clones needed at back
+            var space = viewport;
+            var cloneLength1 = 0, cloneLength2 = 0;
+            var i = 0;
+            while (space > 0) {
+              space -= $items.eq(i).outerWidth(true);
+              cloneLength1++;
+              i = (i + 1) % $items.length;
+            }
+            // make sure enough clones after last item when last item is at very left/top
+            space = viewport - $items.eq(lastIndex).outerWidth(true);
+            i = 0;
+            while (space > 0) {
+              space -= $items.eq(i).outerWidth(true);
+              cloneLength2++;
+              i++;
+              i = (i + 1) % $items.length;
+            }
+            self.options.cloneLength = Math.max(cloneLength1, cloneLength2);
           }
-
-          space = viewport;
-          i = $items.length - 1;
-          while (space > 0) {
-            space -= $items.eq(i).outerWidth(true);
-            cloneLength2++;
-            i--;
-            if (i == -1)
-              i = $items.length - 1;
-          }
-          self.options.cloneLength = Math.max(self.options.cloneLength, cloneLength1, cloneLength2);
         }
         
         $container.attr("data-ur-clones", self.options.cloneLength);
@@ -1114,15 +1115,15 @@
           endPos = coords;
           var dist = startingOffset + swipeDist(); // new translate() value, usually negative
           
+          var threshold = -dist;
+          if (self.options.center)
+            threshold += viewport/2;
           $items.each(function(i, item) {
             var boundStart = offsetFront(item);
-            if (self.options.center)
-              boundStart -= centerOffset(item);
             var boundEnd = boundStart + $(item).outerWidth(true);
-            if (boundEnd > -dist) {
+            if (boundEnd > threshold) {
               self.itemIndex = i;
-              shift = -(boundStart + dist)/$(item).outerWidth(true);
-              
+              shift = (threshold - boundStart)/$(item).outerWidth(true);
               return false;
             }
           });
@@ -1160,7 +1161,16 @@
         self.flag.touched = false;
 
         var forwardDir = coords.x - lastCoords.x < 0;
-        moveTo(forwardDir ? -1: 0);
+        if (self.options.center) {
+          if (forwardDir && shift > 0.5)
+            moveTo(-1)
+          else if (!forwardDir && shift < 0.5)
+            moveTo(1);
+          else
+            moveTo(0);
+        }
+        else
+          moveTo(forwardDir ? -1: 0);
       }
 
       function moveTo(direction) {
@@ -1193,10 +1203,8 @@
         dest = $items[newIndex];
         $container.trigger("slidestart.ur.carousel", {index: newIndex});
 
-        setTimeout(function() {
-          snapTo();
-          updateIndex(newIndex);
-        }, 0);
+        snapTo();
+        updateIndex(newIndex);
       }
 
       function snapTo() {
