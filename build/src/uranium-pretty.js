@@ -729,7 +729,7 @@
         fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
         infinite: true,         // loops the last item back to first and vice versa
         speed: 1.1,             // determines how "fast" carousel snaps, should probably be deprecated
-        transform3d: true,      // determines if translate3d() or translate() is used
+        translate3d: true,      // determines if translate3d() or translate() is used
         touch: true,            // determines if carousel can be dragged e.g. when user only wants buttons to be used
         verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
       };
@@ -768,8 +768,8 @@
       }
 
       function initialize() {
-        self.options.transform3d = self.options.transform3d && test3d();
-        if (!self.options.transform3d) {
+        self.options.translate3d = self.options.translate3d && test3d();
+        if (!self.options.translate3d) {
           translatePrefix = "translate(";
           translateSuffix = ")";
         }
@@ -820,14 +820,14 @@
         var oldAndroid = /Android [12]/.test(navigator.userAgent);
         if (oldAndroid) {
           if (($container.attr("data-ur-android3d") || $container.attr("data-ur-translate3d")) != "enabled") {
-            self.options.transform3d = false;
+            self.options.translate3d = false;
             var speed = parseFloat($container.attr("data-ur-speed"));
             self.options.speed = speed > 1 ? speed : 1.3;
           }
         }
         else
-          self.options.transform3d = $container.attr("data-ur-translate3d") != "disabled";
-        $container.attr("data-ur-translate3d", self.options.transform3d ? "enabled" : "disabled");
+          self.options.translate3d = $container.attr("data-ur-translate3d") != "disabled";
+        $container.attr("data-ur-translate3d", self.options.translate3d ? "enabled" : "disabled");
 
         $container.attr("data-ur-speed", self.options.speed);
         self.options.verticalScroll = $container.attr("data-ur-vertical-scroll") != "disabled";
@@ -836,7 +836,7 @@
         self.options.touch = $container.attr("data-ur-touch") != "disabled";
         $container.attr("data-ur-touch", self.options.touch ? "enabled" : "disabled");
 
-        self.options.infinite = $container.attr("data-ur-infinite") != "disabled" && self.items.length > 1;
+        self.options.infinite = $container.attr("data-ur-infinite") != "disabled";
         $container.attr("data-ur-infinite", self.options.infinite ? "enabled" : "disabled");
 
         self.options.center = $container.attr("data-ur-center") == "enabled";
@@ -996,9 +996,9 @@
             item.outerWidth(length); // could add true param if margins allowed
             totalWidth += length;
           }
-          else {
+          else
             totalWidth += width($items[i]);
-          }
+
           if (i <= lastIndex - self.options.cloneLength && i >= (self.options.center ? self.options.cloneLength : 0))
             allItemsWidth += width($items[i]);
         }
@@ -1006,8 +1006,7 @@
         $(self.scroller).width(totalWidth);
 
         var currentItem = $items[self.itemIndex];
-        var itemWidth = width(currentItem);
-        var newTranslate = -(offsetFront(currentItem) + shift * itemWidth);
+        var newTranslate = -(offsetFront(currentItem) + shift * width(currentItem));
         destinationOffset = -offsetFront(dest);
         if (self.options.center) {
           newTranslate += centerOffset(currentItem);
@@ -1020,7 +1019,7 @@
         if (!self.options.autoscroll)
           return;
 
-          timeoutId = setTimeout(function() {
+        timeoutId = setTimeout(function() {
           if (viewport != 0) {
             if (!self.options.infinite && self.itemIndex == lastIndex && self.options.autoscrollForward)
               self.jumpToIndex(0);
@@ -1227,12 +1226,12 @@
             
           }
           else {
-            if (newIndex < 0) { // clone at start of carousel so loop to back
+            if (newIndex < 0) { // at start of carousel so loop to back
               translateX(transform - allItemsWidth);
               newIndex += self.count;
               self.itemIndex = newIndex + direction;
             }
-            else if (newIndex > self.count) { // at the end of carousel so loop to start
+            else if (newIndex > self.count) { // clone at end of carousel so loop to start
               translateX(transform + allItemsWidth);
               newIndex -= self.count;
               self.itemIndex = newIndex + direction;
