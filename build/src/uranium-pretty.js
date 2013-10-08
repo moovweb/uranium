@@ -724,7 +724,7 @@
         autoscroll: false,
         autoscrollDelay: 5000,
         autoscrollForward: true,
-        center: true,           // position active item in the middle of the carousel
+        center: false,          // position active item in the middle of the carousel
         cloneLength: 0,         // number of clones at back of carousel (or front and back for centered carousels)
         fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
         infinite: true,         // loops the last item back to first and vice versa
@@ -1225,8 +1225,11 @@
         dest = $items[newIndex];
         $container.trigger("slidestart.ur.carousel", {index: newIndex});
 
-        snapTo();
-        updateIndex(newIndex);
+        // timeout needed for mobile safari
+        setTimeout(function() {
+          snapTo();
+          updateIndex(newIndex);
+        }, 0);
       }
 
       function snapTo() {
