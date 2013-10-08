@@ -742,13 +742,13 @@
       var $items = $(self.items);         // all carousel items (including clones)
       var coords = null;
       var prevCoords;                     // stores previous coords, used for determining swipe direction
-      var startPos = {x: 0, y: 0};
+      var startCoords = {x: 0, y: 0};
       var shift = 0;                      // in range [0, 1) showing translate percentage past top/left side of active item
       var dest = $items[0];               // snap destination element
       var destinationOffset;              // translate value of destination
       var lastIndex = self.count - 1;     // index of last item
       var allItemsWidth;                  // sum of all items' widths (excluding clones)
-      var timeoutId;                      // used for autoscrolling timeout
+      var autoscrollId;                   // used for autoscrolling timeout
       var momentumId;                     // used for snapping timeout
 
       var viewport = $container.outerWidth();
@@ -756,16 +756,6 @@
       var startingOffset = null;
 
       var translatePrefix = "translate3d(", translateSuffix = ", 0px)";
-
-      function test3d() {
-        var css3d = "translate3d(0, 0, 0)";
-        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
-        var wt = test.css("webkitTransform");
-        var mt = test.css("MozTransform");
-        var it = test.css("msTransform");
-        var t = test.css("transform");
-        return (wt + mt + it + t).indexOf("(") != -1;
-      }
 
       function initialize() {
         self.options.translate3d = self.options.translate3d && test3d();
@@ -942,7 +932,7 @@
         }
       }
 
-      this.update = function() {
+      self.update = function() {
         var oldCount = $items.length;
         $items = $(self.scroller).find("[data-ur-carousel-component='item']");
         if (oldCount != $items.length) {
@@ -1013,11 +1003,11 @@
         translateX(newTranslate);
       };
 
-      this.autoscrollStart = function() {
+      self.autoscrollStart = function() {
         if (!self.options.autoscroll)
           return;
 
-        timeoutId = setTimeout(function() {
+        autoscrollId = setTimeout(function() {
           if (viewport != 0) {
             if (!self.options.infinite && self.itemIndex == lastIndex && self.options.autoscrollForward)
               self.jumpToIndex(0);
@@ -1031,15 +1021,9 @@
         }, self.options.autoscrollDelay);
       };
 
-      this.autoscrollStop = function() {
-        clearTimeout(timeoutId);
+      self.autoscrollStop = function() {
+        clearTimeout(autoscrollId);
       };
-
-      function getEventCoords(event) {
-        var touches = event.originalEvent.touches;
-        event = (touches && touches[0]) || event;
-        return {x: event.clientX, y: event.clientY};
-      }
 
       function updateButtons() {
         if (self.options.infinite)
@@ -1086,7 +1070,7 @@
 
         coords = getEventCoords(e);
         
-        startPos = prevCoords = coords;
+        startCoords = prevCoords = coords;
         startingOffset = getTranslateX();
       }
 
@@ -1097,11 +1081,11 @@
         prevCoords = coords;
         coords = getEventCoords(e);
 
-        if (Math.abs(startPos.y - coords.y) + Math.abs(startPos.x - coords.x) > 0)
+        if (Math.abs(startCoords.y - coords.y) + Math.abs(startCoords.x - coords.x) > 0)
           self.flag.click = false;
 
         if (touchscreen && self.options.verticalScroll) {
-          var slope = Math.abs((startPos.y - coords.y)/(startPos.x - coords.x));
+          var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
           if (self.flag.lock) {
             if (self.flag.lock == "y")
               return;
@@ -1119,7 +1103,7 @@
         stifle(e);
 
         if (coords !== null) {
-          var dist = startingOffset + swipeDist(startPos, coords); // new translate() value, usually negative
+          var dist = startingOffset + swipeDist(startCoords, coords); // new translate() value, usually negative
           
           var threshold = -dist;
           if (self.options.center)
@@ -1288,7 +1272,7 @@
         $container.trigger("slideend.ur.carousel", {index: self.itemIndex});
       }
 
-      this.jumpToIndex = function(index) {
+      self.jumpToIndex = function(index) {
         moveTo(self.itemIndex - index);
       };
 
@@ -1305,6 +1289,12 @@
 
       function getTranslateX() {
         return self.translate;
+      }
+
+      function getEventCoords(event) {
+        var touches = event.originalEvent.touches;
+        event = (touches && touches[0]) || event;
+        return {x: event.clientX, y: event.clientY};
       }
 
       // could possibly be $(item).outerWidth(true) if margins are allowed
@@ -1324,6 +1314,16 @@
 
       function bound(num, range) {
         return Math.min(Math.max(range[0], num), range[1]);
+      }
+
+      function test3d() {
+        var css3d = "translate3d(0, 0, 0)";
+        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
+        var wt = test.css("webkitTransform");
+        var mt = test.css("MozTransform");
+        var it = test.css("msTransform");
+        var t = test.css("transform");
+        return (wt + mt + it + t).indexOf("(") != -1;
       }
 
       readAttributes();
