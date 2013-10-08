@@ -793,12 +793,15 @@
           moveTo(-1);
         });
 
-        $(window).on("orientationchange", self.update);
-        // orientationchange isn't supported on old Android
-        $(window).on("resize", function() {
-          self.update();
-          setTimeout(self.update, 100); // sometimes styles haven't updated yet
-        });
+        if ("onorientationchange" in window)
+          $(window).on("orientationchange", self.update);
+        else
+          $(window).on("resize", function() {
+            if (viewport != $container.outerWidth()) {
+              self.update();
+              setTimeout(self.update, 100); // sometimes styles haven't updated yet
+            }
+          });
 
         $items.find("img").addBack("img").load(self.update); // after any (late-loaded) images are loaded
 
