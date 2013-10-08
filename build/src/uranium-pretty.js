@@ -717,7 +717,6 @@
         click: false,           // used for determining if item is clicked on touchscreens
         snapping: false,        // true if carousel is currently snapping, flag for users' convenience
         lock: null,             // used for determining horizontal/vertical dragging motion on touchscreens
-        timeoutId: null,        // used for autoscrolling
         touched: false          // true when user is currently touching/dragging
       };
 
@@ -735,20 +734,22 @@
         verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
       };
 
-      self.count = self.items.length; // number of items (excluding clones)
-      self.itemIndex = 0; // index of active item (including clones)
-      self.translate = 0; // current numerical css translate value
+      self.count = self.items.length;     // number of items (excluding clones)
+      self.itemIndex = 0;                 // index of active item (including clones)
+      self.translate = 0;                 // current numerical css translate value
       
       var $container = $(self.container);
-      var $items = $(self.items); // all carousel items (including clones)
+      var $items = $(self.items);         // all carousel items (including clones)
       var coords = null;
-      var prevCoords; // stores previous coords, used for determining swipe direction
+      var prevCoords;                     // stores previous coords, used for determining swipe direction
       var startPos = {x: 0, y: 0};
-      var shift = 0; // in range [0, 1) showing translate percentage past top/left side of active item
-      var dest = $items[0]; // snap destination element
-      var destinationOffset; // translate value of destination
-      var lastIndex = self.count - 1; // index of last item
-      var allItemsWidth; // sum of all items' widths (excluding clones)
+      var shift = 0;                      // in range [0, 1) showing translate percentage past top/left side of active item
+      var dest = $items[0];               // snap destination element
+      var destinationOffset;              // translate value of destination
+      var lastIndex = self.count - 1;     // index of last item
+      var allItemsWidth;                  // sum of all items' widths (excluding clones)
+      var timeoutId;                      // used for autoscrolling timeout
+      var momentumId;                     // used for snapping timeout
 
       var viewport = $container.outerWidth();
 
@@ -796,12 +797,10 @@
         }
 
         self.button.prev.click(function() {
-          if (!self.flag.snapping)
-            moveTo(1);
+          moveTo(1);
         });
         self.button.next.click(function() {
-          if (!self.flag.snapping)
-            moveTo(-1);
+          moveTo(-1);
         });
 
         $(window).on("orientationchange", self.update);
@@ -1021,7 +1020,7 @@
         if (!self.options.autoscroll)
           return;
 
-          self.flag.timeoutId = setTimeout(function() {
+          timeoutId = setTimeout(function() {
           if (viewport != 0) {
             if (!self.options.infinite && self.itemIndex == lastIndex && self.options.autoscrollForward)
               self.jumpToIndex(0);
@@ -1036,7 +1035,7 @@
       };
 
       this.autoscrollStop = function() {
-        clearTimeout(self.flag.timeoutId);
+        clearTimeout(timeoutId);
       };
 
       function getEventCoords(event) {
@@ -1200,6 +1199,9 @@
       function moveTo(direction) {
         self.autoscrollStop();
 
+        // in case prev/next buttons are being spammed
+        clearTimeout(momentumId);
+
         var newIndex = self.itemIndex - direction;
         if (!self.options.infinite) {
           if (self.options.fill > 0)
@@ -1224,10 +1226,18 @@
             }
             
           }
-          else if (newIndex < 0) { // clone at start of carousel so loop to back
-            translateX(transform - allItemsWidth);
-            newIndex += self.count;
-            self.itemIndex = newIndex + direction;
+          else {
+            if (newIndex < 0) { // clone at start of carousel so loop to back
+              translateX(transform - allItemsWidth);
+              newIndex += self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            else if (newIndex > self.count) { // at the end of carousel so loop to start
+              translateX(transform + allItemsWidth);
+              newIndex -= self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            
           }
         }
         
@@ -1262,7 +1272,7 @@
 
           self.flag.snapping = delta != 0;
           if (self.flag.snapping)
-            setTimeout(momentum, 16);
+            momentumId = setTimeout(momentum, 16);
           else
             endSnap();
         }
