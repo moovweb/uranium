@@ -748,6 +748,7 @@
       var dest = $items[0]; // snap destination element
       var destinationOffset; // translate value of destination
       var lastIndex = self.count - 1; // index of last item
+      var allItemsWidth; // sum of all items' widths (excluding clones)
 
       var viewport = $container.outerWidth();
 
@@ -957,8 +958,8 @@
           });
 
           // in case the previous active item was removed
-           if (self.itemIndex >= $items.length) {
-            self.itemIndex = lastIndex;
+           if (self.itemIndex >= $items.length - self.options.cloneLength) {
+            self.itemIndex = lastIndex - self.options.cloneLength;
             $items.eq(self.itemIndex).attr("data-ur-state", "active");
           }
 
@@ -967,6 +968,7 @@
             dest = $items[self.itemIndex];
 
           updateDots();
+          updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
         }
 
         viewport = $container.outerWidth();
@@ -984,16 +986,19 @@
           }
         }
 
+        allItemsWidth = 0;
         for (var i = 0; i < $items.length; i++) {
           if (self.options.fill > 0) {
             var length = divisions[i % self.options.fill];
             var item = $items.eq(i);
-            item.outerWidth(length); // could also subtract margins if margins allowed
+            item.outerWidth(length); // could add true param if margins allowed
             totalWidth += length;
           }
           else {
             totalWidth += width($items[i]);
           }
+          if (i <= lastIndex - self.options.cloneLength && i >= (self.options.center ? self.options.cloneLength : 0))
+            allItemsWidth += width($items[i]);
         }
 
         $(self.scroller).width(totalWidth);
@@ -1117,36 +1122,6 @@
         if (coords !== null) {
           var dist = startingOffset + swipeDist(startPos, coords); // new translate() value, usually negative
           
-          if (self.options.infinite) {
-            if (self.options.center) {
-              var beginLimit = Math.floor(offsetFront($items[self.options.cloneLength]) - viewport/2);
-              var endLimit = Math.ceil(offsetFront($items[self.count + self.options.cloneLength]) - viewport/2);
-              var offset = offsetFront($items[self.count + self.options.cloneLength]) - offsetFront($items[self.options.cloneLength]); // length of all original items
-
-              if (-dist < beginLimit) { // at the start of carousel so loop to end
-                startingOffset -= offset;
-                dist -= offset;
-              }
-              else if (-dist > endLimit) { // at the end of carousel so loop to start
-                startingOffset += offset;
-                dist += offset;
-              }
-            }
-            else {
-              var endLimit = offsetFront($items[self.count]);
-              var offset = offsetFront($items[self.count]) - offsetFront($items[0]); // length of all original items
-
-              if (dist > 0) { // at the start of carousel so loop to end
-                startingOffset -= offset;
-                dist -= offset;
-              }
-              else if (-dist >= endLimit) { // at the end of carousel so loop to start
-                startingOffset += offset;
-                dist += offset;
-              }
-            }
-          }
-          
           var threshold = -dist;
           if (self.options.center)
             threshold += viewport/2;
@@ -1160,6 +1135,36 @@
             }
           });
           
+          if (self.options.infinite) {
+            if (self.options.center) {
+              if (self.itemIndex < self.options.cloneLength) { // at the start of carousel so loop to end
+                startingOffset -= allItemsWidth;
+                dist -= allItemsWidth;
+                self.itemIndex += self.count;
+              }
+              else if (self.itemIndex >= self.count + self.options.cloneLength) { // at the end of carousel so loop to start
+                startingOffset += allItemsWidth;
+                dist += allItemsWidth;
+                self.itemIndex -= self.count;
+              }
+            }
+            else {
+              if (shift < 0) { // at the start of carousel so loop to end
+                startingOffset -= allItemsWidth;
+                dist -= allItemsWidth;
+                self.itemIndex += self.count;
+                var item = $items[self.itemIndex];
+                shift = (-dist - offsetFront(item))/width(item);
+              }
+              else if (self.itemIndex >= self.count) { // at the end of carousel so loop to start
+                var offset = offsetFront($items[self.count]) - offsetFront($items[0]); // length of all original items
+                startingOffset += offset;
+                dist += offset;
+                self.itemIndex -= self.count;
+              }
+            }
+          }
+
           translateX(dist);
         }
 
@@ -1204,22 +1209,20 @@
         if (self.options.infinite) {
           var transform = getTranslateX();
           if (self.options.center) {
-            var offset = offsetFront($items[self.count + self.options.cloneLength]) - offsetFront($items[self.options.cloneLength]);
-            if (newIndex < self.options.cloneLength) { // clone at start of carousel
-              translateX(transform - offset);
+            if (newIndex < self.options.cloneLength) { // clone at start of carousel so loop to back
+              translateX(transform - allItemsWidth);
               newIndex += self.count;
               self.itemIndex = newIndex + direction;
             }
-            else if (newIndex >= self.count + self.options.cloneLength) { // clone at end of carousel
-              translateX(transform + offset);
+            else if (newIndex >= self.count + self.options.cloneLength) { // clone at end of carousel so loop to front
+              translateX(transform + allItemsWidth);
               newIndex -= self.count;
               self.itemIndex = newIndex + direction;
             }
             
           }
-          else if (newIndex < 0) { // clone at start of carousel
-            var offset = offsetFront($items[self.count]) - offsetFront($items[0]); // length of all original items
-            translateX(transform - offset);
+          else if (newIndex < 0) { // clone at start of carousel so loop to back
+            translateX(transform - allItemsWidth);
             newIndex += self.count;
             self.itemIndex = newIndex + direction;
           }
@@ -1267,8 +1270,7 @@
       function endSnap() {
         // infinite, non-centered carousels when swiping from last item back to first can't switch early in moveTo() since no clones at front
         if (self.options.infinite && !self.options.center && self.itemIndex >= self.count) {
-          var offset = offsetFront($items[self.count]) - offsetFront($items[0]); // length of all original items (except clones)
-          translateX(getTranslateX() + offset);
+          translateX(getTranslateX() + allItemsWidth);
           self.itemIndex -= self.count;
         }
         
