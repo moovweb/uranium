@@ -649,7 +649,7 @@
       };
 
       // zoom in/out button, zooms in to the center of the image
-      $(self.button).click(self.zoom);
+      $(self.button).on("ontouchstart" in window ? "touchstart" : "click", self.zoom);
 
       $.each(["webkitTransitionEnd", "transitionend", "oTransitionEnd"], function(index, eventName) {
         $img.on(eventName, transitionEnd);
