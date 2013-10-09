@@ -2,6 +2,7 @@
 // Build out Uranium interactions in jQuery
 
 (function ( $ ) {
+  "use strict";
 
   // Keep a unique value for ID initialization
   var uniqueUraniumId = function() {
@@ -649,7 +650,7 @@
       };
 
       // zoom in/out button, zooms in to the center of the image
-      $(self.button).on("ontouchstart" in window ? "touchstart" : "click", self.zoom);
+      $(self.button).on(touchscreen ? "touchstart" : "click", self.zoom);
 
       $.each(["webkitTransitionEnd", "transitionend", "oTransitionEnd"], function(index, eventName) {
         $img.on(eventName, transitionEnd);
@@ -1362,7 +1363,7 @@
     }
   }
 
-  Uranium = {};
+  window.Uranium = {};
   $.each(interactions, function(name) {
     Uranium[name] = {};
   });
