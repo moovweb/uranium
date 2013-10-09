@@ -1,31 +1,31 @@
 // jQuery.Uranium.js
-// Build out Uranium widgets in jQuery
+// Build out Uranium interactions in jQuery
 
 (function ( $ ) {
+  "use strict";
 
   // Keep a unique value for ID initialization
-  var get_unique_uranium_id = function() {
+  var uniqueUraniumId = function() {
     var count = 0;
-    return function get_id() {
-      count += 1;
-      return count;
-    }
+    return function() { return ++count; }
   }();
 
-  // Find elements for the widgets
-  // optional customFn(set, component) for custom creating widget object
-  var findElements = function( fragment, type, customFn ) {
+  // Find elements for the interactions
+  // optional customFn(set, component) for custom creation of object
+  function findElements( fragment, type, customFn ) {
     var sets = {};
     var setCss = "[data-ur-set='" + type + "']";
     var compAttr = "data-ur-" + type + "-component";
 
     $(fragment).find("[" +compAttr +"]").each(function() {
+      if ($(this).data("urCompInit"))
+        return;
       var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
-
-      if (set[0]) {
+      if (set[0] && !set.data("urInit")) {
+        $(this).data("urCompInit", true);
         var setId = set.attr("data-ur-id");
         if (!setId) {
-          setId = get_unique_uranium_id();
+          setId = uniqueUraniumId();
           set.attr("data-ur-id", setId);
         }
         sets[setId] = sets[setId] || {};
@@ -45,8 +45,15 @@
     return sets;
   }
 
+  var interactions = {};
+
+  var touchscreen = "ontouchstart" in window;
+  var downEvent = touchscreen ? "touchstart" : "mousedown";
+  var moveEvent = touchscreen ? "touchmove" : "mousemove";
+  var upEvent = touchscreen ? "touchend" : "mouseup";
+
   // Toggler
-  var toggler = function( fragment ) {
+  interactions.toggler = function( fragment ) {
     var groups = findElements(fragment, "toggler");
 
     $.each(groups, function(id, group) {
@@ -55,19 +62,21 @@
       if (!group["content"])
         $.error("no content found for toggler with id=" + id);
 
-      var toggler_state = $(group["button"]).attr("data-ur-state") || "disabled";
-      $(group["button"]).add(group["content"]).attr("data-ur-state", toggler_state);
+      var togglerState = $(group["button"]).attr("data-ur-state") || "disabled";
+      $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
 
       $(group["button"]).click(function(event) {
         event.stopPropagation();
-        var new_state = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
-        $(group["button"]).add(group["content"]).attr("data-ur-state", new_state);
+        var newState = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
       });
+
+      $(group["set"]).data("urInit", true);
     });
   }
 
   // Tabs
-  var tabs = function( fragment ) {
+  interactions.tabs = function( fragment ) {
     var groups = findElements(fragment, "tabs", function(set, comp) {
       var tabId = $(comp).attr("data-ur-tab-id");
       set.tabs = set.tabs || {};
@@ -100,11 +109,13 @@
           }
         });
       });
+
+      $(group["set"]).data("urInit", true);
     });
   }
 
   // Input Clear
-  var inputClear = function( fragment ) {
+  interactions.inputClear = function( fragment ) {
     var groups = findElements(fragment, "input-clear");
     $.each(groups, function(id, group) {
       // Create the X div and hide it (even though this should be in CSS)
@@ -114,7 +125,7 @@
 
       // Touch Events
       ex
-        .bind("ontouchstart" in window ? "touchstart" : "click", function() {
+        .bind(touchscreen ? "touchstart" : "click", function() {
           // remove text in the box
           input[0].value='';
           input[0].focus();
@@ -138,17 +149,19 @@
           // Delay the hide so that the button can be clicked
           setTimeout(function() { ex.hide();}, 150);
         });
+      
+      $(group["set"]).data("urInit", true);
     });
   }
 
   // Geocode
-  var geoCode = function ( fragment ) {
+  interactions.geoCode = function ( fragment ) {
     var groups = findElements(fragment, "reverse-geocode", function(set, comp) {
       set["elements"] = set["elements"] || {};
       set["elements"][$(comp).attr("data-ur-reverse-geocode-component")] = comp;
     });
 
-    $.each(groups, function() {
+    $.each(groups, function(id, group) {
       var set = this['set'];
 
       var callback = $(set).attr("data-ur-callback");
@@ -238,7 +251,7 @@
         }
       }
 
-      this.setup_callbacks = function () {
+      this.setupCallbacks = function () {
         currentObj = this;
         // Set up call back for button to trigger geocoding
         var btn = $(this["elements"]).filter("[data-ur-reverse-geocode-component='rg-button']")
@@ -333,25 +346,27 @@
         }
       }
 
-      UrGeocode = function( obj ){
-          return function(){
-            obj.setup_callbacks();
-          };
-        }(this);
+      UrGeocode = function( obj ) {
+        return function() {
+          obj.setupCallbacks();
+        };
+      }(this);
       var s = document.createElement('script');
       s.type = "text/javascript";
       s.src = "https://maps.googleapis.com/maps/api/js?sensor=true&callback=UrGeocode";
       $('head').append(s);
+      
+      $(group["set"]).data("urInit", true);
     });
   }
 
   // Zoom
-  var zoom = function ( fragment ) {
+  interactions.zoom = function ( fragment ) {
     var groups = findElements(fragment, "zoom");
 
     // Private shared variables
 
-    var loaded_imgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
+    var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
 
     var no3d = /Android [12]|Opera/.test(navigator.userAgent);
 
@@ -367,6 +382,7 @@
 
     // Private shared methods
 
+    // note that this accepts a reversed range
     function bound(num, range) {
       return Math.max(Math.min(range[0], num), range[1]);
     }
@@ -376,8 +392,9 @@
       e.stopPropagation();
     }
 
-    $.each(groups, function() {
-      this["zoom_object"] = new Zoom(this);
+    $.each(groups, function(id, group) {
+      Uranium.zoom[id] = new Zoom(this);
+      $(group["set"]).data("urInit", true);
     });
 
     function Zoom(set) {
@@ -406,7 +423,7 @@
       var mouseDown = false; // only used on non-touch browsers
       var mouseDrag = true;
 
-      loaded_imgs.push($img.attr("src"));
+      loadedImgs.push($img.attr("src"));
 
       function initialize() {
         self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
@@ -471,9 +488,9 @@
         var dy = y - touchY;
         if (Math.abs(dx) > 5 || Math.abs(dy) > 5)
           mouseDrag = true;
-        var new_offsetX = bound(offsetX + dx, [-boundX, boundX]);
-        var new_offsetY = bound(offsetY + dy, [-boundY, boundY]);
-        transform(new_offsetX, new_offsetY, self.ratio);
+        var newOffsetX = bound(offsetX + dx, [-boundX, boundX]);
+        var newOffsetY = bound(offsetY + dy, [-boundY, boundY]);
+        transform(newOffsetX, newOffsetY, self.ratio);
       }
 
       function panEnd(event) {
@@ -489,30 +506,28 @@
           $img.css({ webkitTransitionDelay: "", MozTransitionDelay: "", OTransitionDelay: "", transitionDelay: "" });
 
           self.img.src = $img.attr("data-ur-src");
-          if (loaded_imgs.indexOf(self.img.getAttribute("data-ur-src")) == -1) {
+          if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1) {
             setTimeout(function() {
-              if (loaded_imgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
+              if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
                 $idler.attr("data-ur-state", "enabled");
             }, 16);
           }
           self.state = "enabled";
           self.container.setAttribute("data-ur-state", self.state);
 
-          var touch = "ontouchstart" in window;
-          var $container = $(self.container);
-          $container.on(touch ? "touchstart" : "mousedown", panStart);
-          $container.on(touch ? "touchmove" : "mousemove", panMove);
-          $container.on(touch ? "touchend" : "mouseup", panEnd);
+          $(self.container)
+            .on(downEvent, panStart)
+            .on(moveEvent, panMove)
+            .on(upEvent, panEnd);
         }
         else if (self.state == "enabled-out") {
           self.state = "disabled";
           self.container.setAttribute("data-ur-state", self.state);
 
-          var touch = "ontouchstart" in window;
-          var $container = $(self.container);
-          $container.unbind(touch ? "touchstart" : "mousedown", panStart);
-          $container.unbind(touch ? "touchmove" : "mousemove", panMove);
-          $container.unbind(touch ? "touchend" : "mouseup", panEnd);
+          $(self.container)
+            .unbind(downEvent, panStart)
+            .unbind(moveEvent, panMove)
+            .unbind(upEvent, panEnd);
         }
       }
 
@@ -594,7 +609,7 @@
 
       $img.load(function() {
         if ($img.attr("src") == $img.attr("data-ur-src"))
-          loaded_imgs.push($img.attr("src"));
+          loadedImgs.push($img.attr("src"));
         $idler.attr("data-ur-state", "disabled");
         if (!self.prescale && self.state == "enabled-in") {
           self.prescale = true;
@@ -625,7 +640,7 @@
             self.img.src = $img.attr("data-ur-src");
             setTimeout(function() {
               // if prescale ?
-              if (loaded_imgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
+              if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
                 $idler.attr("data-ur-state", "enabled");
             }, 0);
           }
@@ -635,7 +650,7 @@
       };
 
       // zoom in/out button, zooms in to the center of the image
-      $(self.button).click(self.zoom);
+      $(self.button).on(touchscreen ? "touchstart" : "click", self.zoom);
 
       $.each(["webkitTransitionEnd", "transitionend", "oTransitionEnd"], function(index, eventName) {
         $img.on(eventName, transitionEnd);
@@ -655,27 +670,11 @@
   }
 
   // Carousel
-  var carousel = function ( fragment ) {
+  interactions.carousel = function ( fragment ) {
     var groups = findElements(fragment, "carousel");
 
-     // private methods
-
-     function zeroCeil(num) {
-       return num <= 0 ? Math.floor(num) : Math.ceil(num);
-     }
-
-     function zeroFloor(num) {
-       return num >= 0 ? Math.floor(num) : Math.ceil(num);
-     }
-
-     function stifle(e) {
-       e.preventDefault();
-       e.stopPropagation();
-     }
-
     // for each carousel
-     $.each(groups, function(id, group) {
-      var set = group['set'];
+    $.each(groups, function(id, group) {
       $(group["buttons"]).each(function() {
         var type = $(this).attr("data-ur-carousel-button-type");
         if(!type) {
@@ -683,192 +682,158 @@
         }
         $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
       });
-      group["crsl_object"] = new Carousel(group);
-      $(group["set"]).attr("data-ur-state", "enabled");
-     });
+      Uranium.carousel[id] = new Carousel(group);
+      $(group["set"]).data("urInit", true);
+      $(group["set"]).attr("data-ur-state", "enabled"); // should be data-ur-init or fire event
+    });
 
-     function Carousel(set) {
+    // private methods
+    
+    function zeroFloor(num) {
+      return num >= 0 ? Math.floor(num) : Math.ceil(num);
+    }
+    
+    function stifle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function Carousel(set) {
       var self = this;
-      this.container = set["set"];
-      this.items = set["scroll_container"];
-      if (!this.items) {
+      self.container = set["set"];
+      self.scroller = set["scroll_container"];
+      if (!self.scroller)
         $.error("carousel missing item components");
-      }
+      self.items = set["item"] || [];
 
       // Optionally:
-      this.button = {
+      self.button = {
         prev: $(set["button"]).filter("[data-ur-carousel-button-type='prev']"),
         next: $(set["button"]).filter("[data-ur-carousel-button-type='next']")
       };
-      this.count = set["count"];
-      this.dots = set["dots"];
+      self.counter = set["count"];
+      self.dots = set["dots"];
 
-      this.flag = {
-        click: false,
-        increment: false,
-        loop: false,
-        lock: null,
-        timeoutId: null,
-        touched: false
+      self.flag = {
+        click: false,           // used for determining if item is clicked on touchscreens
+        snapping: false,        // true if carousel is currently snapping, flag for users' convenience
+        lock: null,             // used for determining horizontal/vertical dragging motion on touchscreens
+        touched: false          // true when user is currently touching/dragging
       };
 
-      this.options = {
-        autoscroll: true,
+      self.options = {
+        autoscroll: false,
         autoscrollDelay: 5000,
         autoscrollForward: true,
-        center: true,
-        cloneLength: 1,
-        fill: 0,
-        infinite: true,
-        speed: 1.1,
-        transform3d: true,
-        touch: true,
-        verticalScroll: true
+        center: false,          // position active item in the middle of the carousel
+        cloneLength: 0,         // number of clones at back of carousel (or front and back for centered carousels)
+        fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
+        infinite: true,         // loops the last item back to first and vice versa
+        speed: 1.1,             // determines how "fast" carousel snaps, should probably be deprecated
+        translate3d: true,      // determines if translate3d() or translate() is used
+        touch: true,            // determines if carousel can be dragged e.g. when user only wants buttons to be used
+        verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
       };
 
-      this.itemIndex = 0;
-      this.translate = 0;
+      self.count = self.items.length;     // number of items (excluding clones)
+      self.itemIndex = 0;                 // index of active item (including clones)
+      self.translate = 0;                 // current numerical css translate value
+      
+      var $container = $(self.container);
+      var $items = $(self.items);         // all carousel items (including clones)
+      var coords = null;
+      var prevCoords;                     // stores previous coords, used for determining swipe direction
+      var startCoords = {x: 0, y: 0};
+      var shift = 0;                      // in range [0, 1) or [-0.5, 0.5) for centered carousels showing translate percentage past top/left side of active item
+      var dest = $items[0];               // snap destination element
+      var destinationOffset;              // translate value of destination
+      var lastIndex = self.count - 1;     // index of last item
+      var allItemsWidth;                  // sum of all items' widths (excluding clones)
+      var autoscrollId;                   // used for autoscrolling timeout
+      var momentumId;                     // used for snapping timeout
 
-      var $container = $(this.container);
-      var preCoords = {x: 0, y: 0};
-      var startPos = {x: 0, y: 0}, endPos = {x: 0, y: 0};
-
-      var snapWidth = 0;
+      var viewport = $container.outerWidth();
 
       var startingOffset = null;
 
       var translatePrefix = "translate3d(", translateSuffix = ", 0px)";
 
-
       function initialize() {
-        readAttributes();
-        
-        // test 3d
-        var test = $("<a>").css({
-          webkitTransform: "translate3d(0, 0, 0)",
-          MozTransform: "translate3d(0, 0, 0)",
-          msTransform: "translate3d(0, 0, 0)",
-          transform: "translate3d(0, 0, 0)"
-        });
-        var wt = test.css("webkitTransform");
-        var mt = test.css("MozTransform");
-        var it = test.css("msTransform");
-        var t = test.css("transform");
-        self.options.transform3d = self.options.transform3d &&
-        ((wt != "none" && wt) ||
-        (mt != "none" && mt) ||
-        (it != "none" && it) ||
-        (t != "none" && t));
-
-        if (!self.options.transform3d) {
+        self.options.translate3d = self.options.translate3d && test3d();
+        if (!self.options.translate3d) {
           translatePrefix = "translate(";
           translateSuffix = ")";
         }
 
-        $(self.items).filter("[data-ur-carousel-component='item']").each(function(obj, i) {
-          if ($(obj).attr("data-ur-state") == "active")
+        $items.each(function(i, obj) {
+          if ($(obj).attr("data-ur-state") == "active") {
             self.itemIndex = i;
+            return false;
+          }
         });
-
-        if (self.options.infinite) {
-          var items = $(self.items).find("[data-ur-carousel-component='item']");
-          self.realItemCount = items.length;
-
-          for (var i = 0; i < self.options.cloneLength; i++) {
-            var clone = $(items[i]).clone(true);
-            $(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
-            items.parent().append(clone);
-          }
-
-          for (var i = items.length -1; i > items.length - self.options.cloneLength -1; i--) {
-            var clone = $(items[i]).clone(true);
-            $(clone).attr("data-ur-clone", i).attr("data-ur-state", "inactive");
-            items.parent().prepend(clone);
-          }
-        }
-        else {
-          var items = $(self.items).find("[data-ur-carousel-component='item']");
-          self.realItemCount = items.length;
-        }
-        updateIndex(self.itemIndex + self.options.cloneLength);
-
+        
+        insertClones();
+        updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
+        updateDots();
         self.update();
 
-        $(self.items).on("dragstart", function() { return false; }); // for Firefox
+        $(self.scroller).on("dragstart", function() { return false; }); // for Firefox
 
         if (self.options.touch) {
-          var hasTouch = "ontouchstart" in window;
-          var start = hasTouch ? "touchstart" : "mousedown";
-          var move = hasTouch ? "touchmove" : "mousemove";
-          var end = hasTouch ? "touchend" : "mouseup";
-
-          $(self.items).on(start, startSwipe);
-          $(self.items).on(move, continueSwipe);
-          $(self.items).on(end, finishSwipe);
-          $(self.items).on('click', function(e) {if (!self.flag.click) stifle(e);});
+          $(self.scroller)
+            .on(downEvent, startSwipe)
+            .on(moveEvent, continueSwipe)
+            .on(upEvent, finishSwipe)
+            .click(function(e) {if (!self.flag.click) stifle(e);});
         }
 
-        $(self.button["prev"]).on('click', function(){self.moveTo(1);});
-        $(self.button["next"]).on('click', function(){self.moveTo(-1);});
-
-        if($(window).orientationchange != undefined) {
-          $(window).orientationchange(resize);
-        }
-
-        // orientationchange isn't supported on some androids
-        $(window).on("resize", function() {
-          resize();
-          setTimeout(resize, 100);
+        self.button.prev.click(function() {
+          moveTo(1);
         });
-        // for initial translateX (calculate after clone image width fully loaded)
-        $(window).load(function() {
-          self.update();
+        self.button.next.click(function() {
+          moveTo(-1);
         });
+
+        if ("onorientationchange" in window)
+          $(window).on("orientationchange", self.update);
+        else
+          $(window).on("resize", function() {
+            if (viewport != $container.outerWidth()) {
+              self.update();
+              setTimeout(self.update, 100); // sometimes styles haven't updated yet
+            }
+          });
+
+        $items.find("img").addBack("img").load(self.update); // after any (late-loaded) images are loaded
 
         self.autoscrollStart();
 
       }
 
       function readAttributes() {
-
         var oldAndroid = /Android [12]/.test(navigator.userAgent);
-        var ios6Device = /iP(hone|od) OS 6/.test(navigator.userAgent);
-        if ((oldAndroid && $container.attr("data-ur-android3d")[0] != "enabled") || ios6Device ) {
-          self.options.transform3d = false;
-          var speed = parseFloat($container.attr("data-ur-speed"));
-          self.options.speed = speed > 1 ? speed : 1.3;
+        if (oldAndroid) {
+          if (($container.attr("data-ur-android3d") || $container.attr("data-ur-translate3d")) != "enabled") {
+            self.options.translate3d = false;
+            var speed = parseFloat($container.attr("data-ur-speed"));
+            self.options.speed = speed > 1 ? speed : 1.3;
+          }
         }
+        else
+          self.options.translate3d = $container.attr("data-ur-translate3d") != "disabled";
+        $container.attr("data-ur-translate3d", self.options.translate3d ? "enabled" : "disabled");
 
         $container.attr("data-ur-speed", self.options.speed);
-        self.options.verticalScroll = $container.attr("data-ur-vertical-scroll") != "disabled";
-        $container.attr("data-ur-vertical-scroll", self.options.verticalScroll ? "enabled" : "disabled");
-
-        self.options.touch = $container.attr("data-ur-touch") != "disabled";
-        $container.attr("data-ur-touch", self.options.touch ? "enabled" : "disabled");
-
-        self.options.infinite = $container.attr("data-ur-infinite") != "disabled";
-        if ($container.find("[data-ur-carousel-component='item']").length == 1)
-          self.options.infinite = false;
-        $container.attr("data-ur-infinite", self.options.infinite ? "enabled" : "disabled");
-
-        self.options.center = $container.attr("data-ur-center") == "enabled";
-        $container.attr("data-ur-center", self.options.center ? "enabled" : "disabled");
 
         var fill = parseInt($container.attr("data-ur-fill"));
         if (fill > 0)
           self.options.fill = fill;
         $container.attr("data-ur-fill", self.options.fill);
 
-        var cloneLength = parseInt($container.attr("data-ur-clones"));
-        if (!self.options.infinite)
-          cloneLength = 0;
-        else if (isNaN(cloneLength) || cloneLength < self.options.fill)
-          cloneLength = Math.max(1, self.options.fill);
-        self.options.cloneLength = cloneLength;
+        var cloneLength = $container.attr("data-ur-clones");
+        if (cloneLength)
+          self.options.cloneLength = parseInt(cloneLength);
         $container.attr("data-ur-clones", self.options.cloneLength);
-
-        self.options.autoscroll = $container.attr("data-ur-autoscroll") == "enabled";
-        $container.attr("data-ur-autoscroll", self.options.autoscroll ? "enabled" : "disabled");
 
         var autoscrollDelay = parseInt($container.attr("data-ur-autoscroll-delay"));
         if (autoscrollDelay >= 0)
@@ -878,59 +843,136 @@
         self.options.autoscrollForward = $container.attr("data-ur-autoscroll-dir") != "prev";
         $container.attr("data-ur-autoscroll-dir", self.options.autoscrollForward ? "next" : "prev");
 
+        // read boolean attributes
+        $.each(["autoscroll", "center", "infinite", "touch", "verticalScroll"], function(_, name) {
+          var dashName = "data-ur-" + name.replace(/[A-Z]/g, function(i) { return "-" + i.toLowerCase()});
+          var value = $container.attr(dashName);
+          if (value == "enabled")
+            self.options[name] = true;
+          else if (value == "disabled")
+            self.options[name] = false;
+
+          $container.attr(dashName, self.options[name] ? "enabled" : "disabled");
+        });
       }
 
+      function insertClones() {
+        if (!self.options.infinite) {
+          self.options.cloneLength = 0;
+          $container.attr("data-ur-clones", 0);
+          return;
+        }
 
-      function updateDots() {
-        if (self.dots) {
-          var existing = $(self.dots).find("[data-ur-carousel-component='dot']");
-          if (existing.length != self.realItemCount) {
-            existing.remove();
-            var dot = $("<div data-ur-carousel-component='dot'></div>");
-            var realItemIndex = self.itemIndex - self.options.cloneLength;
-            for (var i = 0; i < self.realItemCount; i++) {
-              var new_dot = dot.clone();
-              if (i == realItemIndex)
-                $(new_dot).attr("data-ur-state", "active");
-              else
-                $(new_dot).attr("data-ur-state", "inactive");
-              $(self.dots).append(new_dot);
+        if (self.options.cloneLength == 0) {
+          if (self.options.fill)
+            self.options.cloneLength = self.options.center ? self.options.fill - 1 : self.options.fill;
+          else if (self.options.center) {
+            // insert enough clones at front and back to never see a blank space
+            var cloneLengths = [0, 0];
+            var space = viewport/2 + width($items[lastIndex])/2;
+            for (var i = lastIndex; space > 0; i = (i - 1 + self.count) % self.count) {
+              space -= width($items[i]);
+              cloneLengths[0]++;
+            }
+
+            space = viewport/2 + width($items[0])/2;
+            for (var i = 0; space > 0; i = (i + 1) % self.count) {
+              space -= width($items[i]);
+              cloneLengths[1]++;
+            }
+
+            self.options.cloneLength = Math.max(cloneLengths[0], cloneLengths[1]);
+          }
+          else {
+            // insert enough clones at the back to never see a blank space
+            var space = viewport;
+            var i = 0;
+            while (space > 0) {
+              space -= width($items[i]);
+              self.options.cloneLength++;
+              i = (i + 1) % $items.length;
             }
           }
         }
 
+        $container.attr("data-ur-clones", self.options.cloneLength);
+
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < self.options.cloneLength; i++) {
+          var srcIndex = i % self.count;
+          var clone = $items.eq(srcIndex).clone(true).attr("data-ur-clone", srcIndex).attr("data-ur-state", "inactive");
+          frag.appendChild(clone[0]);
+        }
+        $items.parent().append(frag);
+        
+        if (self.options.center) {
+          frag = document.createDocumentFragment()
+          var offset =  self.count - (self.options.cloneLength % self.count);
+          for (var i = offset; i < offset + self.options.cloneLength; i++) {
+            var srcIndex = i % self.count;
+            var clone = $items.eq(srcIndex).clone(true).attr("data-ur-clone", srcIndex).attr("data-ur-state", "inactive");
+            frag.appendChild(clone[0]);
+          }
+          $items.parent().prepend(frag);
+        }
+        
+        $items = $(self.scroller).find("[data-ur-carousel-component='item']");
+        lastIndex = $items.length - 1;
       }
 
-      function resize() {
-        var offsetWidth = self.container.offsetWidth;
-        if (snapWidth != offsetWidth && offsetWidth != 0)
-          self.update();
-
+      function updateDots() {
+        if (self.dots) {
+          var existing = $(self.dots).find("[data-ur-carousel-component='dot']");
+          if (existing.length != self.count) {
+            existing.remove();
+            var dot = $("<div data-ur-carousel-component='dot'>");
+            var storage = document.createDocumentFragment();
+            for (var i = 0; i < self.count; i++) {
+              var newdot = dot.clone().attr("data-ur-state", i == self.itemIndex ? "active" : "inactive");
+              storage.appendChild(newdot[0]);
+            }
+            $(self.dots).append(storage);
+          }
+        }
       }
 
-      this.update = function() {
-        var oldWidth = snapWidth;
-        snapWidth = self.container.offsetWidth;
+      self.update = function() {
+        var oldCount = $items.length;
+        $items = $(self.scroller).find("[data-ur-carousel-component='item']");
+        if (oldCount != $items.length) {
+          self.items = $items.filter(":not([data-ur-clone])").toArray();
+          self.count = self.items.length;
+          lastIndex = $items.length - 1;
 
-        var oldCount = self.itemCount;
-        var items = $(self.items).find("[data-ur-carousel-component='item']");
-        self.itemCount = items.length;
+          $items.each(function(i, obj) {
+            if ($(obj).attr("data-ur-state") == "active") {
+              self.itemIndex = i;
+              return false;
+            }
+          });
 
-        if (oldCount != self.itemCount) {
-          self.realItemCount = items.filter(":not([data-ur-clone])").length;
-          x = items;
-          self.lastIndex = self.itemCount - 1;
-          if (self.itemIndex > self.lastIndex)
-            self.itemIndex = self.lastIndex;
+          // in case the previous active item was removed
+           if (self.itemIndex >= $items.length - self.options.cloneLength) {
+            self.itemIndex = lastIndex - self.options.cloneLength;
+            $items.eq(self.itemIndex).attr("data-ur-state", "active");
+          }
+
+          // in the rare case the destination element was (re)moved
+          if (!$.contains(self.scroller, dest))
+            dest = $items[self.itemIndex];
+
           updateDots();
+          updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
         }
 
+        viewport = $container.outerWidth();
         // Adjust the container to be the necessary width.
         var totalWidth = 0;
 
+        // pixel-perfect division, slightly inefficient?
         var divisions = [];
         if (self.options.fill > 0) {
-          var remainder = snapWidth;
+          var remainder = viewport;
           for (var i = self.options.fill; i > 0; i--) {
             var length = Math.round(remainder/i);
             divisions.push(length);
@@ -938,102 +980,65 @@
           }
         }
 
-        for (var i = 0; i < items.length; i++) {
+        allItemsWidth = 0;
+        for (var i = 0; i < $items.length; i++) {
           if (self.options.fill > 0) {
             var length = divisions[i % self.options.fill];
-            $(items[i]).width(length + "px");
+            var item = $items.eq(i);
+            item.outerWidth(length); // could add true param if margins allowed
             totalWidth += length;
           }
-          else if (self.options.fill == 0) {
-            //hacky - fix this
-            if($(items[i]).width() > 0) {
-                totalWidth += $(items[i]).width();
-              }
-              else {
-                $(items[i]).on('load',function() {
-                  totalWidth += $(this).width();
-                });
-              }
-           }
-      }
+          else
+            totalWidth += width($items[i]);
 
-        // $(window).load(function() {
-        //   $(self.items).width(totalWidth + "px");
-        // });
-
-        $(self.items).width(totalWidth + "px");
-
-
-        var cumulativeOffset = -items[self.itemIndex].offsetLeft; // initial offset
-        if (self.options.center) {
-          var centerOffset = parseInt((snapWidth - items[self.itemIndex].offsetWidth)/2);
-          cumulativeOffset += centerOffset; // CHECK
+          if (i <= lastIndex - self.options.cloneLength && i >= (self.options.center ? self.options.cloneLength : 0))
+            allItemsWidth += width($items[i]);
         }
-        if (oldWidth)
-          self.destinationOffset = cumulativeOffset;
 
-        translateX(cumulativeOffset);
+        $(self.scroller).width(totalWidth);
 
+        var currentItem = $items[self.itemIndex];
+        var newTranslate = -(offsetFront(currentItem) + shift * width(currentItem));
+        destinationOffset = -offsetFront(dest);
+        if (self.options.center) {
+          newTranslate += centerOffset(currentItem);
+          destinationOffset += centerOffset(dest);
+        }
+        translateX(newTranslate);
       };
 
-
-      this.autoscrollStart = function() {
+      self.autoscrollStart = function() {
         if (!self.options.autoscroll)
           return;
 
-        self.flag.timeoutId = setTimeout(function() {
-          if (self.container.offsetWidth != 0) {
-            if (!self.options.infinite && self.itemIndex == self.lastIndex && self.options.autoscrollForward)
+        autoscrollId = setTimeout(function() {
+          if (viewport != 0) {
+            if (!self.options.infinite && self.itemIndex == lastIndex && self.options.autoscrollForward)
               self.jumpToIndex(0);
             else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
-              self.jumpToIndex(self.lastIndex);
+              self.jumpToIndex(lastIndex);
             else
-              self.moveTo(self.options.autoscrollForward ? -1 : 1);
+              moveTo(self.options.autoscrollForward ? -1 : 1);
           }
           else
             self.autoscrollStart();
         }, self.options.autoscrollDelay);
       };
 
-      this.autoscrollStop = function() {
-        clearTimeout(self.flag.timeoutId);
+      self.autoscrollStop = function() {
+        clearTimeout(autoscrollId);
       };
 
-      function getEventCoords(event) {
-        if (event.originalEvent.touches && event.originalEvent.touches.length > 0)
-          return {x: event.originalEvent.touches[0].clientX, y: event.originalEvent.touches[0].clientY};
-        else if (event.clientX != undefined)
-          return {x: event.clientX, y: event.clientY};
-        return null;
-      }
-
       function updateButtons() {
-        // if not infinite...
-        if(!self.options.infinite) {
-          $(self.button["prev"]).attr("data-ur-state", self.itemIndex == 0 ? "disabled" : "enabled");
-          $(self.button["next"]).attr("data-ur-state", self.itemIndex == self.itemCount - Math.max(self.options.fill, 1) ? "disabled" : "enabled");
-        }
+        if (self.options.infinite)
+          $([self.button.prev, self.button.next]).attr("data-ur-state", "enabled");
         else {
-          $(self.button["prev"]).attr("data-ur-state", "enabled");
-          $(self.button["next"]).attr("data-ur-state", "enabled");
+          $(self.button.prev).attr("data-ur-state", self.itemIndex == 0 ? "disabled" : "enabled");
+          $(self.button.next).attr("data-ur-state", self.itemIndex == self.count - Math.max(self.options.fill, 1) ? "disabled" : "enabled");
         }
       }
 
-      function getNewIndex(direction) {
-        var newIndex = self.itemIndex - direction;
-        if (!self.options.infinite) {
-          //if (self.options.fill > 1 && newIndex > (self.lastIndex - self.options.fill + 1)) //what is this trying to accomplish
-            //newIndex = self.lastIndex - self.options.fill + 1;
-         if (newIndex > self.lastIndex)
-            newIndex = self.lastIndex;
-          else if (newIndex < 0)
-            newIndex = 0;
-        }
-
-        return newIndex;
-
-      }
-
+      // execute side effects of new index
       function updateIndex(newIndex) {
         if (newIndex === undefined)
           return;
@@ -1041,77 +1046,50 @@
         self.itemIndex = newIndex;
         if (self.itemIndex < 0)
           self.itemIndex = 0;
-        else if (self.itemIndex > self.lastIndex)
-          self.itemIndex = self.lastIndex - 1;
+        else if (self.itemIndex > lastIndex)
+          self.itemIndex = lastIndex;
 
         var realIndex = self.itemIndex;
-        if (self.options.infinite)
-          realIndex = (self.realItemCount + self.itemIndex - self.options.cloneLength) % self.realItemCount;
-        $(self.count).html(realIndex + 1 + " of " + self.realItemCount);
+        if (self.options.infinite && self.options.center)
+          realIndex = self.itemIndex - self.options.cloneLength;
+        realIndex = realIndex % self.count;
+        $(self.counter).html(realIndex + 1 + " of " + self.count);
 
-        $(self.items).find("[data-ur-carousel-component='item'][data-ur-state='active']").attr("data-ur-state", "inactive");
-        $($(self.items).find("[data-ur-carousel-component='item']")[self.itemIndex]).attr("data-ur-state", "active");
+        $items.attr("data-ur-state", "inactive");
+        $items.eq(self.itemIndex).attr("data-ur-state", "active");
 
-        if (self.dots)
-          $($(self.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive")[realIndex]).attr("data-ur-state", "active");
+        $(self.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive").eq(realIndex).attr("data-ur-state", "active");
 
         updateButtons();
-
-        $($container).trigger("slidestart", {index: realIndex});
-
       }
 
       function startSwipe(e) {
-        // console.log("startSwipe");
-        // console.log("STARTINGOFFSET: " + startingOffset);
         if (!self.options.verticalScroll)
           stifle(e);
         self.autoscrollStop();
 
-        self.flag.touched = true; // For non-touch environments
+        self.flag.touched = true;
         self.flag.lock = null;
-        self.flag.loop = false;
         self.flag.click = true;
-        var coords = getEventCoords(e);
-        preCoords.x = coords.x;
-        preCoords.y = coords.y;
 
-        if (coords !== null) {
-          var translate = getTranslateX();
-
-          var items = $(self.items).find("[data-ur-carousel-component='item']");
-          var realWidth = items[self.realItemCount].offsetLeft - items[self.options.cloneLength - 1].offsetLeft;
-
-          if (startingOffset == null || self.destinationOffset == undefined)
-            startingOffset = translate;
-          //prevent positive translate value
-            if(Math.abs(startingOffset) > realWidth ) {
-              startingOffset = 0;
-            }
-            if(Math.abs(startingOffset + translate) > $(self.items).width()) {
-              //startingOffset += (translate + realWidth);
-            }
-          else
-            // Fast swipe // CHECK THIS
-            startingOffset = self.destinationOffset; //Factor incomplete previous swipe
-
-          startPos = endPos = coords;
-        }
+        coords = getEventCoords(e);
+        
+        startCoords = prevCoords = coords;
+        startingOffset = getTranslateX();
       }
 
       function continueSwipe(e) {
-        if (!self.flag.touched) // For non-touch environments
+        if (!self.flag.touched) // for non-touch environments since mousemove fires without mousedown
           return;
-        // console.log("continueSwipe");
-        // console.log("STARTINGOFFSET: " + startingOffset);
 
-        var coords = getEventCoords(e);
+        prevCoords = coords;
+        coords = getEventCoords(e);
 
-        if (Math.abs(preCoords.y - coords.y) + Math.abs(preCoords.x - coords.x) > 0)
+        if (Math.abs(startCoords.y - coords.y) + Math.abs(startCoords.x - coords.x) > 0)
           self.flag.click = false;
 
-        if (document.ontouchstart !== undefined && self.options.verticalScroll) {
-          var slope = Math.abs((preCoords.y - coords.y)/(preCoords.x - coords.x));
+        if (touchscreen && self.options.verticalScroll) {
+          var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
           if (self.flag.lock) {
             if (self.flag.lock == "y")
               return;
@@ -1125,339 +1103,280 @@
           else
             return;
         }
+        
         stifle(e);
 
         if (coords !== null) {
-          endPos = coords;
-          var dist = swipeDist() + startingOffset;
-
-          if (self.options.infinite) {
-            var items = $(self.items).find("[data-ur-carousel-component='item']");
-            if(self.options.center)
-              var endLimit = items[self.lastIndex].offsetLeft + items[self.lastIndex].offsetWidth - self.container.offsetWidth;
-            else
-              var endLimit = items[self.lastIndex].offsetLeft + items[self.lastIndex].offsetWidth;
-            // ^changed this because it was prematurely detecting end of carousel when not centered
-
-            if (dist > 0) { // at the beginning of carousel
-              var srcNode = items[self.realItemCount];
-              var offset = srcNode.offsetLeft - items[0].offsetLeft;
-              startingOffset -= offset;
-              dist -= offset;
-              self.flag.loop = !self.flag.loop;
+          var dist = startingOffset + swipeDist(startCoords, coords); // new translate() value, usually negative
+          
+          var threshold = -dist;
+          if (self.options.center)
+            threshold += viewport/2;
+          $items.each(function(i, item) {
+            var boundStart = offsetFront(item);
+            var boundEnd = boundStart + width(item);
+            if (boundEnd > threshold) {
+              self.itemIndex = i;
+              shift = (threshold - boundStart)/width(item);
+              if (self.options.center)
+                shift -= 0.5;
+              return false;
             }
-            else if (dist < -endLimit) {  // at the end of carousel
-              var srcNode = items[self.lastIndex - self.realItemCount];
-              var offset = srcNode.offsetLeft - items[self.lastIndex].offsetLeft;
-              startingOffset -= offset;
-              dist -= offset;
-              self.flag.loop = !self.flag.loop;
+          });
+          
+          if (self.options.infinite) {
+            if (self.options.center) {
+              if (self.itemIndex < self.options.cloneLength) { // at the start of carousel so loop to end
+                startingOffset -= allItemsWidth;
+                dist -= allItemsWidth;
+                self.itemIndex += self.count;
+              }
+              else if (self.itemIndex >= self.count + self.options.cloneLength) { // at the end of carousel so loop to start
+                startingOffset += allItemsWidth;
+                dist += allItemsWidth;
+                self.itemIndex -= self.count;
+              }
+            }
+            else {
+              if (shift < 0) { // at the start of carousel so loop to end
+                startingOffset -= allItemsWidth;
+                dist -= allItemsWidth;
+                self.itemIndex += self.count;
+                var item = $items[self.itemIndex];
+                shift = (-dist - offsetFront(item))/width(item);
+              }
+              else if (self.itemIndex >= self.count) { // at the end of carousel so loop to start
+                var offset = offsetFront($items[self.count]) - offsetFront($items[0]); // length of all original items
+                startingOffset += offset;
+                dist += offset;
+                self.itemIndex -= self.count;
+              }
             }
           }
+
           translateX(dist);
         }
 
       }
 
       function finishSwipe(e) {
-        // log("finishSwipe");
-        // log("STARTINGOFFSET: " + startingOffset);
+        if (!self.flag.touched) // for non-touch environments since mouseup fires without mousedown
+          return;
+
         if (!self.flag.click || self.flag.lock)
           stifle(e);
         else if (e.target.tagName == "AREA")
           location.href = e.target.href;
 
-        self.flag.touched = false; // For non-touch environments
+        self.flag.touched = false;
 
-        moveHelper(getDisplacementIndex());
-      }
-
-      function getDisplacementIndex() {
-        var swipeDistance = swipeDist();
-        var displacementIndex = zeroCeil(swipeDistance/$(self.items).find("[data-ur-carousel-component='item']").first().width());
-        return displacementIndex;
-      }
-
-      function snapTo(displacement) {
-        self.destinationOffset = displacement + startingOffset;
-        // console.log("in snapTo(displacement): ")
-        // console.log("  displacement! " + displacement);
-        // console.log("  STARTINGOFFSET: " + startingOffset);
-        if(self.destinationOffset > 0 && self.options.infinite) {
-          self.destinationOffset = -Math.abs(displacement);
+        var dir = coords.x - prevCoords.x;
+        if (self.options.center) {
+          if (dir < 0 && shift > 0)
+            moveTo(-1)
+          else if (dir > 0 && shift < 0)
+            moveTo(1);
+          else
+            moveTo(0);
         }
-        //do something here if infinit scroll and destinationOffset is too close to the end of the width of the container
-        // console.log("  self.destinationOffset: " + self.destinationOffset);
-        var maxOffset = -1*self.lastIndex*snapWidth;
-        var minOffset = parseInt(snapWidth - $(self.items).find("[data-ur-carousel-component='item']")[0].width/2);
+        else
+          moveTo(dir < 0 ? -1: 0);
+      }
 
-        if (self.options.infinite)
-          maxOffset = -$(self.items).find("[data-ur-carousel-component='item']").parent().width();
-          //maxOffset = -$(self.items).width();
-        if (self.destinationOffset < maxOffset || self.destinationOffset > minOffset) {
-          if (Math.abs(self.destinationOffset - maxOffset) < 1) {
-            // Hacky -- but there are rounding errors
-            // I see this when I'm in multi-mode and using the buttons
-            // This only seems to happen on the desktop browser -- ideally its removed at compile time
-            self.destinationOffset = maxOffset;
-          } else
-            self.destinationOffset = minOffset;
+      function moveTo(direction) {
+        self.autoscrollStop();
+
+        // in case prev/next buttons are being spammed
+        clearTimeout(momentumId);
+
+        var newIndex = self.itemIndex - direction;
+        if (!self.options.infinite) {
+          if (self.options.fill > 0)
+            newIndex = bound(newIndex, [0, self.count - self.options.fill]);
+          else
+            newIndex = bound(newIndex, [0, lastIndex]);
+        }
+
+        // when snapping to clone, prepare to snap back to original element
+        if (self.options.infinite) {
+          var transform = getTranslateX();
+          if (self.options.center) {
+            if (newIndex < self.options.cloneLength) { // clone at start of carousel so loop to back
+              translateX(transform - allItemsWidth);
+              newIndex += self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            else if (newIndex >= self.count + self.options.cloneLength) { // clone at end of carousel so loop to front
+              translateX(transform + allItemsWidth);
+              newIndex -= self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            
+          }
+          else {
+            if (newIndex < 0) { // at start of carousel so loop to back
+              translateX(transform - allItemsWidth);
+              newIndex += self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            else if (newIndex > self.count) { // clone at end of carousel so loop to start
+              translateX(transform + allItemsWidth);
+              newIndex -= self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            
+          }
+        }
+        
+        dest = $items[newIndex];
+        $container.trigger("slidestart.ur.carousel", {index: newIndex});
+
+        // timeout needed for mobile safari
+        setTimeout(function() {
+          snapTo();
+          updateIndex(newIndex);
+        }, 0);
+      }
+
+      function snapTo() {
+        destinationOffset = -offsetFront(dest);
+        if (self.options.center)
+          destinationOffset += centerOffset(dest);
+        
+        function momentum() {
+          // in case user touched in the middle of snapping
+          if (self.flag.touched)
+            return;
+
+          var translate = getTranslateX();
+          var distance = destinationOffset - translate;
+          var delta = distance - zeroFloor(distance / self.options.speed);
+
+          // Hacky -- this is for the desktop browser only -- to fix rounding errors
+          // Ideally, this is removed at compile time
+          if(Math.abs(delta) < 0.01)
+            delta = 0;
+
+          var newTransform = translate + delta;
+          translateX(newTransform);
+
+          self.flag.snapping = delta != 0;
+          if (self.flag.snapping)
+            momentumId = setTimeout(momentum, 16);
+          else
+            endSnap();
         }
 
         momentum();
       }
 
-      this.moveTo = function(direction) {
-        // The animation isnt done yet
-        if (self.flag.increment)
-          return;
-
-        startingOffset = getTranslateX();
-        moveHelper(direction);
+      function endSnap() {
+        // infinite, non-centered carousels when swiping from last item back to first can't switch early in moveTo() since no clones at front
+        if (self.options.infinite && !self.options.center && self.itemIndex >= self.count) {
+          translateX(getTranslateX() + allItemsWidth);
+          self.itemIndex -= self.count;
+        }
+        shift = 0;
+        self.autoscrollStart();
+        $container.trigger("slideend.ur.carousel", {index: self.itemIndex});
       }
 
-      function moveHelper(direction) {
-        self.autoscrollStop();
-
-        var newIndex = getNewIndex(direction);
-
-        var items = $(self.items).find("[data-ur-carousel-component='item']");
-        // console.log("direction: " + direction);
-
-        if (self.options.infinite) {
-          var oldTransform = getTranslateX();
-          var altTransform = oldTransform;
-
-          // console.log("self.itemIndex: " + self.itemIndex);
-          // console.log("direction: " + direction);
-          // console.log("newIndex: " + newIndex);
-          // console.log("startingOffset: " + startingOffset);
-
-          if (newIndex < 0) { //self.options.cloneLength) { // at the beginning of carousel
-            var offset = items[self.options.cloneLength].offsetLeft - items[self.itemCount - self.options.cloneLength].offsetLeft;
-            if(Math.abs(direction) > self.options.cloneLength) {
-              var excess = (Math.abs(direction) - self.options.cloneLength)*$(items[1]).width();
-              startingOffset += excess;
-              newIndex -= Math.abs(direction) - self.options.cloneLength;
-            }
-            // console.log("BEGINNING OF CAROUSEL");
-            //console.log("startingOffset: " + startingOffset);
-            if (!self.flag.loop) {
-              altTransform += offset;
-              translateX(altTransform);
-              startingOffset += offset;
-            }
-            //console.log("startingOffset: " + startingOffset);
-            //make sure the new index is position (if the items are really tiny and the swipe distance is huge and there aren't enough clones to cover the distance)
-            newIndex += Math.ceil(Math.abs(newIndex) / self.realItemCount)*self.realItemCount;
-            self.itemIndex = newIndex + direction;
-            if(self.itemIndex > self.realItemCount + self.options.cloneLength) {
-              self.itemIndex = self.realItemCount + self.options.cloneLength;
-            }
-          }
-          else if (newIndex >= self.lastIndex - self.options.cloneLength) { // at the end of carousel
-            // console.log("END OF CAROUSEL");
-            // console.log("  newIndex: " + newIndex);
-            // console.log("  self.lastIndex - self.options.cloneLength: " + (self.lastIndex - self.options.cloneLength));
-            var offset = items[self.itemCount - self.options.cloneLength].offsetLeft - items[self.options.cloneLength].offsetLeft;
-            // if(Math.abs(direction) > self.options.cloneLength) {
-            //   var excess = (Math.abs(direction) - self.options.cloneLength)*$(items[0]).width();
-            //   startingOffset -= excess;
-            //   newIndex -= Math.abs(direction) - self.options.cloneLength;
-            // }
-            //console.log("END OF CAROUSEL");
-            // console.log(startingOffset);
-            // console.log("offset: " + offset);
-            if (!self.flag.loop) {
-              altTransform += offset;
-              translateX(altTransform);
-              startingOffset += offset;
-            }
-            //make sure the new index is position (if the items are really tiny and the swipe distance is huge and there aren't enough clones to cover the distance)
-            newIndex -= Math.floor(Math.abs(newIndex) / self.realItemCount)*self.realItemCount;
-            self.itemIndex = newIndex + direction;
-            // console.log("  newIndex: " + newIndex);
-            // console.log("  direction: " + direction);
-            // console.log("  self.itemIndex: " + self.itemIndex);
-            if(Math.abs(direction) > self.options.cloneLength) {
-              //if the swipe amount is greater than clone length
-              self.itemIndex += (Math.abs(direction) - self.options.cloneLength);
-            }
-            // console.log("  self.itemIndex: " + self.itemIndex);
-            if(self.itemIndex < 0) {
-              self.itemIndex = self.realItemCount + self.itemIndex - 1;
-            }
-            // console.log("  newIndex: " + newIndex);
-            // console.log("  direction: " + direction);
-            // console.log("  self.itemIndex: " + self.itemIndex);
-
-          }
-        }
-        var newItem = items[newIndex];
-        var currentItem = items[self.itemIndex];
-        // console.log("self.itemIndex: " + self.itemIndex);
-        var displacement = currentItem.offsetLeft - newItem.offsetLeft; // CHECK
-        startingOffset = -currentItem.offsetLeft;
-        if(self.options.center) {
-          var centerOffset = parseInt((snapWidth - items[self.itemIndex].offsetWidth)/2);
-          startingOffset += centerOffset; // CHECK
-        }
-        // console.log(self.itemIndex + " (0-based currentindex) item's offsetleft: " + currentItem.offsetLeft);
-        // console.log(newIndex + " (0-based newindex) item's offsetleft: " + newItem.offsetLeft);
-        // console.log("startingOffset: " + startingOffset);
-        //for the bouncing backwards thing
-        if(newIndex == self.itemIndex) {
-          startingOffset = self.destinationOffset;
-        }
-
-        if (self.options.center)
-          displacement += (currentItem.offsetWidth - newItem.offsetWidth) / 2;
-        if(self.itemIndex == newIndex) {
-          displacement = 0;
-        }
-        // console.log("displacement: " + displacement);
-        setTimeout(function() {
-          snapTo(displacement);
-          updateIndex(newIndex);
-        }, 0);
-      }
-
-      this.jumpToIndex = function(index) {
-        self.moveTo(self.itemIndex - index);
+      self.jumpToIndex = function(index) {
+        moveTo(self.itemIndex - index);
       };
 
-      function momentum() {
-        if (self.flag.touched)
-          return;
-
-        self.flag.increment = false;
-
-        var translate = getTranslateX();
-        var distance = self.destinationOffset - translate;
-        var increment = distance - zeroFloor(distance / self.options.speed);
-
-        // Hacky -- this is for the desktop browser only -- to fix rounding errors
-        // Ideally, this is removed at compile time
-        if(Math.abs(increment) < 0.01)
-          increment = 0;
-
-        var newTransform = increment + translate;
-
-        translateX(newTransform);
-
-        if (increment != 0)
-          self.flag.increment = true;
-
-        if (self.flag.increment)
-          setTimeout(momentum, 16);
-        else {
-          startingOffset = null;
-          self.autoscrollStart();
-
-          var itemIndex = self.itemIndex;
-          $(self.container).trigger("slideend", {index: itemIndex});
-        }
-      }
-
-      function swipeDist() {
-        return endPos === undefined ? 0 : endPos.x - startPos.x;
+      // could be end.y - start.y if vertical option implemented
+      function swipeDist(start, end) {
+        return end.x - start.x;
       }
 
       function translateX(x) {
         self.translate = x;
-        var items = self.items;
-        $(items).css({webkitTransform: translatePrefix + x + "px, 0px" + translateSuffix,
-          MozTransform: translatePrefix + x + "px, 0px" + translateSuffix,
-          msTransform: translatePrefix + x + "px, 0px" + translateSuffix,
-          transform: translatePrefix + x + "px, 0px" + translateSuffix
-         });
-        // sanity check - make sure the active item has in fact determined the translation amount
-
+        var css = translatePrefix + x + "px, 0px" + translateSuffix;
+        $(self.scroller).css({webkitTransform: css, MozTransform: css, msTransform: css, transform: css});
       }
 
       function getTranslateX() {
         return self.translate;
       }
 
-      initialize();
-
-
-     }
-
-
-  }
-
-  var initialized = false;
-  var widgets = [toggler, tabs, inputClear, geoCode, zoom, carousel];
-
-  // Have methods here to make private
-  var methods = {
-    init : function( options ) {
-      // Initialize the function here
-      // console.log("Uranium init: " + options);
-
-      if (! initialized) {
-
-        // Initialize the widgets
-        var self = this;
-        $.each(widgets, function() {
-          this(self);
-        });
-
+      function getEventCoords(event) {
+        var touches = event.originalEvent.touches;
+        event = (touches && touches[0]) || event;
+        return {x: event.clientX, y: event.clientY};
       }
 
-      initialized = true;
-    },
-    lateInit : function( options ) {
-      // Initialize the function here
-      console.log("Uranium lateInit: " + options);
+      // could possibly be $(item).outerWidth(true) if margins are allowed
+      function width(item) {
+        return item.offsetWidth;
+      }
 
-      // Initialize the widgets
-      $.each(widgets, function() {
-        this(options);
-      });
-    },
-    // Error not needed, just call $.error
-    warn : function( msg ) {
-      console.warn("Uranium Warning: " + msg);
-    },
-    initialized : function() {
-      // console.log("initialized " + initialized);
-      return initialized;
+      // .offsetLeft/Top, could includ margin as "part" of the element with - parseInt($(item).css("marginLeft"))
+      function offsetFront(item) {
+        return item.offsetLeft;
+      }
+
+      // offset needed to center element, round since subpixel translation makes images blurry
+      function centerOffset(item) {
+        return Math.floor((viewport - width(item))/2);
+      }
+
+      function bound(num, range) {
+        return Math.min(Math.max(range[0], num), range[1]);
+      }
+
+      function test3d() {
+        var css3d = "translate3d(0, 0, 0)";
+        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
+        var wt = test.css("webkitTransform");
+        var mt = test.css("MozTransform");
+        var it = test.css("msTransform");
+        var t = test.css("transform");
+        return (wt + mt + it + t).indexOf("(") != -1;
+      }
+
+      readAttributes();
+
+      // delay initialization until we can figure out number of clones
+      var zeroWidth = false;
+      if (self.options.infinite && !self.options.fill && self.options.cloneLength == 0) {
+        $items.width(function(i, width) {
+          if (width == 0)
+            zeroWidth = true;
+        });
+      }
+      if (zeroWidth) {
+        // wait until (late-loaded) images are loaded or other content inserted
+        var imgs = $items.find("img").addBack("img");
+        var numImgs = imgs.length;
+        if (numImgs > 0)
+          imgs.load(function() {
+            if (--numImgs == 0)
+              initialize();
+          });
+        else
+          $(window).load(initialize);
+      }
+      else
+        initialize();
+
     }
   }
 
-  $.fn.Uranium = function( method, debug ) {
+  window.Uranium = {};
+  $.each(interactions, function(name) {
+    Uranium[name] = {};
+  });
 
-    return this.each(function() {
-
-      // Call functions to prove they are working as we build out the framework
-
-      // warn
-      // methods.warn.apply( this, Array.prototype.slice.call( arguments, 1 ));
-      // methods.warn.apply( this, arguments );
-
-      // initialized?
-      // methods.initialized.apply( this );
-
-      // init
-      // methods.init.apply( this, arguments );
-
-      // initialized?
-      // methods.initialized.apply( this );
-
-      if ( methods[method] ) {
-        return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-      } else if ( typeof method === 'object' || ! method ) {
-        return methods.init.apply( this, arguments );
-      } else {
-        $.error( 'Method ' + method + ' does not exist on jQuery.Uranium');
-      }
-
+  $.fn.Uranium = function() {
+    var jqObj = this;
+    $.each(interactions, function() {
+      this(jqObj);
     });
+    return this;
   };
-})( jQuery );
 
-jQuery(document).ready(function() {
-  jQuery("body").Uranium("init");
-});
+  $(document).ready(function() {
+    $("body").Uranium();
+  });
+})(jQuery);
