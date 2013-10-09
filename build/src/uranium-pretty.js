@@ -2,7 +2,6 @@
 // Build out Uranium interactions in jQuery
 
 (function ( $ ) {
-  "use strict";
 
   // Keep a unique value for ID initialization
   var uniqueUraniumId = function() {
