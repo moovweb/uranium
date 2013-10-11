@@ -12,6 +12,7 @@ html {
 }
 body {
   -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
   background: $color1;
   color: $color3;
   font: 300 $text_size "Open Sans", Arial, sans-serif;
