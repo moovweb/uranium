@@ -1,0 +1,31 @@
+---
+layout: default
+title: Model
+name: model
+more_selected: selected
+---
+<div id="textbody">
+  <article class="wrapper">
+    <h1>Model</h1>
+    <h2 name="naming">Naming</h2>
+    <div class="model_para">
+      <p>The attributes in Uranium are fairly lengthy. This is because we have chosen to follow the conventions of HTML5.</p>
+      <p>In HTML4, we weren't allowed to create our own attributes for HTML elements, beyond those defined in the specifications. In HTML5, we can create new attributes by extending the data attribute &mdash; but we have to start every attribute with "data". That's why all of Uranium's custom attributes use "data-" at the beginning. After that, we include "ur-" to signify that the attribute we are creating is for Uranium.</p>
+      <p>After those two, the names of the attributes are defined consistently depending on what type of set or component we are defining. For example, a "data-ur-set" element helps define the enclosed set of HTML elements as a unified interaction by grouping them into a set (giving the name of the interaction as a value).</p>
+    </div>
+    <h2 name="declarative_javascript">Declarative Javascript</h2>
+    <div class="model_para">
+      <p>Uranium works with declarative Javascript. What this means is that we give elements in the HTML specific attributes. These attributes tell the Javascript what to do.</p>
+      <p>Here are a couple of simple examples:</p>
+{% highlight html %}
+<div data-ur-set='toggler'>    </div>
+{% endhighlight %}
+      <p>This attribute tells Javascript to treat this div tag as a toggler set.</p>
+      <p>And this:</p>
+{% highlight html %}
+<span data-ur-toggler-component='button' data-ur-state='enabled'>    </span>
+{% endhighlight %}
+      <p>tells Uranium to treat the span as a toggler button in its enabled state.</p>
+    </div>
+  </article>
+</div>

@@ -1,5 +1,5 @@
 #input-clear_page {
-  *[data-ur-set='input-clear'] {
+  [data-ur-set='input-clear'] {
     position: relative;
     input[data-ur-input-clear-component='input'] {
       width: 100%;
@@ -18,4 +18,7 @@
       height: 27px;
       width: 27px;
       top: 4px;
-      right: 2px; } } }
+      right: 2px; 
+    } 
+  } 
+}

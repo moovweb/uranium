@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Documentation | Uranium Declarative Javascript Interaction Library</title>
+<meta name="keywords" content="Uranium Documentation page, declarative javascript interactions, declarative javascript library, declarative javascript, javascript interactions, javascript widgets, javascript library, open source, Uranium Documentation, javascript, interactions, widgets, jquery" />
+<meta name="description" content="The Documentation page for Uranium, a declarative Javascript library that lets web page authors add convenient interactions such as carousels, togglers, tabs, and geolocation to their pages without writing a single line of Javascript." />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26739163-2']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Open Sans:300,300italic,400', 'Crete Round:400italic', 'Ultra', 'Yellowtail']
+    }
+  });
+</script>
+
+  </head>
+  
+  <body id="documentation_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" class="selected">Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
+</nav>
+
+    <div id="textbody">
+  <article class="wrapper">
+    <h1>Overview</h1>
+
+    <section id="uranium_introduction">
+      <h2>Introduction to Uranium</h2>
+      <p>Uranium offers web page authors the ability to add several convenient Javascript interactions to the HTML elements on their pages, without writing a single line of Javascript.</p>
+      <p>For example, you might have a page with a set of sub-sections that each have headers followed by related content, one right after the other. With the Uranium toggler interaction, you could transform that into an accordion just by adding a few data attributes to the existing HTML elements.</p>
+      <p>Uranium interactions are not opinionated about styling and layout. You should be able to add the Uranium script and a few data attributes to practically any working web page that uses jQuery, and take advantage of these useful interactions right where you need them most.</p>
+    </section>
+
+    <section id="basic_requirements">
+      <h2>Basic Requirements</h2>
+      <p>Since Uranium builds on <a href="//jquery.com" target="_blank">jQuery</a>, the minimum you need to do to get Uranium working on your page is to include the jQuery script followed by the Uranium script. A good place to do this is right before the closing tag for the body element on your HTML document.</p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Uranium Sample Page<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;style&gt;</span>
+    <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s2">&quot;button&quot;</span><span class="o">]</span> <span class="p">{</span><span class="k">cursor</span><span class="o">:</span> <span class="k">pointer</span><span class="p">;}</span>
+    <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;enabled&quot;</span><span class="o">]</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">block</span><span class="p">;}</span>
+    <span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s2">&quot;content&quot;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s2">&quot;disabled&quot;</span><span class="o">]</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;}</span>
+  <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>This is your page<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>And this is the content of your page<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;scripts/jquery-1.9.1.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;scripts/jquery.uranium.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+      <p>Just download the minified version of jQuery, and the Uranium script, and save them in your /scripts directory. Then reference them in your HTML document, and you should be good to go.</p>
+    </section>
+
+    <section id="data_attributes">
+      <h2>Data Attributes</h2>
+      <p>Data attributes can be added to any HTML element. We use data attributes instead of modifying the id or class attributes of HTML elements so that Uranium can be injected into existing pages as easily as it can be added to new pages, without affecting existing styles and Javascript.</p>
+      <p>The syntax is simple. Just add the data attributes the same way you would add any other attributes to an HTML element. For example, to tell Uranium that a specific H2 element should be used as a toggle button to show and hide the following paragraph, you might start with something like this:</p>
+      <div class="highlight"><pre><code class="html"><span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>Information<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;p&gt;</span>This is content we want to hide and show<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+      <p>...and end up with something like this.
+      <div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Information<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;p</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>This is content we want to hide and show<span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+      <p>Just adding those data attributes to a page that has jQuery and the Uranium script loaded would enable the desired interaction.
+    </section>
+
+    <section id="interaction_sets">
+      <h2 name="sets">Interaction Sets and Components</h2>
+      <p>Every interaction has at its core a set and a series of components. The set is unique for every interaction: <span class="inline_code">data-ur-set="toggler"</span> for the <a href="/interactions/toggler.html">toggler</a> interaction, etc. The set attribute should be used to wrap the whole interaction.</p>
+      <p>There are usually a few components per interaction. Some may be required to get the interaction to work, but most are usually optional. For example, a toggler has a button and content, and at least one of each is required if you want the interaction to work. Components are designated in the following way: they'll have <span class="inline_code">data-ur-{interaction}-component="thing"</span>.</p>
+      <p>Most of the interactions also have some extra options. For example, <a href="/interactions/carousel.html"> carousel</a> has an optional <span class="inline_code">data-ur-carousel-component="count"</span>, which is used to display the count of the currently selected item in a carousel.</p>
+    </section>
+
+    <section id="recommended_styles">
+      <h2>Recommended Styles</h2>
+      <p>Uranium tries to be as unopinionated as possible when it comes to styling. Uraniun interactions typically perform their magic by adding, removing, or changing the values associated with data attributes on HTML elements. How you choose to style these different states is entirely up to you.</p>
+      <p>That said, there are some basic types of styles that will be needed to see how the Uranium interactions behave. Generally, you are going to want the toggler interaction to toggle whether or not that toggler's content can be seen. One way to do that&mdash;although by no means the only way&mdash;is to have the CSS apply a rule of <span class="inline_code">display:block</span> to toggler content when it is supposed to be seen, and a rule of <span class="inline_code">display:none</span> when it is not supposed to be seen.</p>
+      <p>On the pages describing each of the Uranium interactions, you can see some basic recommended styles that will make that interaction's behavior visible. But those are for demonstration purposes only. Uranium can be used with any CSS you can dream up!</p>
+    </section>
+
+    <section id="additional_resources">
+      <h2>Additional Resources</h2>
+      <h3>Tutorials</h3>
+      <p>To familiarize yourself with how Uranium can be added to a page, we've written up some tutorials demonstrating how to work through a basic and an advanced Uranium use-case. As you'll see, even the advanced example follows the same basic philosophy, allowing you to integration useful Javascript interactions just by adding a few declarative elements to your HTML.</p>
+      <ul>
+        <li><a href="/documentation/getting_started.html">Basic Use</a> &mdash; Creating a simple toggler</li>
+        <li><a href="/documentation/advanced.html">Advanced Use</a> &mdash; Building a custom carousel with optional features</li>
+      </ul>
+      <h3>Additional Documentation</h3>
+      <p>We've written up some more detailed notes on some of the ways in which Uranium is unique. Uranium is not trying to be all things to all people, but for those who need something lightweight, unopinionated, and focused on injecting simple interactions in a declarative manner, Uranium just may be the answer.</p>
+      <ul>
+        <li><a href="philosophy.html">Philosophy</a> &mdash; The guiding philosophy behind Uranium and the interactions we support</li>
+        <li><a href="model.html">Model</a> &mdash; general information about the model on which all the interactions are based</li>
+        <li><a href="styling.html">Styling</a> &mdash; "lazy" and "explicit" styling of interactions</li>
+        <li><a href="grouping.html">Grouping</a> &mdash; when to use sets and when to use ids</li>
+      </ul>
+    </section>
+
+    </div>
+  </article> <!-- wrapper -->
+</div>
+
+    <footer id="footer">
+  <div><span>Brought to you by&hellip;</span></div>
+  <a id="moovweblogo" href="http://www.moovweb.com/" target="_blank"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2013 |
+    <a href="/about.html">About</a> |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+<script src="/src/jquery-1.9.1.min.js"></script>
+<script src="/src/jquery.uranium.js"></script>
+
+  </body>
+</html>

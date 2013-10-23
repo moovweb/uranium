@@ -5,6 +5,9 @@ body#zoom_page {
     overflow: hidden;
     position: relative;
     text-align: center;
+    &[data-ur-state="enabled"] [data-ur-zoom-component="img"] {
+      cursor: move;
+    }
   }
   [data-ur-set="zoom"]::before {
     content: "";
@@ -15,9 +18,7 @@ body#zoom_page {
   
   [data-ur-state="enabled-in"], [data-ur-state="enabled-out"] {
     [data-ur-zoom-component] {
-      @include transition-duration(0.4s);
-      @include transition-property(transform);
-      @include transition-timing-function(ease-in-out);
+      @include transition(transform 0.4s ease-in-out);
     }
   }
   
@@ -32,7 +33,7 @@ body#zoom_page {
     line-height: 30px;
     position: absolute;
     bottom: 5px;
-    right: 5px;
+    left: 5px;
     text-align: center;
     width: 30px;
     height: 30px;

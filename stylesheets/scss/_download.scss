@@ -1,10 +1,14 @@
 body#download_page {
+  #textbody {
+    position: relative;
+    > h1 {
+      margin-bottom: 0;
+    }
+  }
   #version {
-    @include border-radius(5px);
-    background: #FAFAFA url('resources/largeshade.png') no-repeat left bottom;
-    color: #323232;
-    float: right;
-    padding: 0 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
     font: italic 16px "Crete Round", serif;
     text-shadow: none;
     vertical-align: middle;
@@ -18,35 +22,35 @@ body#download_page {
   #links {
     margin: 20px auto;
     width: 90%;
+    overflow: auto;
     a {
       @include background($grad1);
       @include border-radius(5px);
       @include box-align(center);
-      @include display-box;
       color: #323232;
       float: left;
       margin-right: 5%;
       min-height: 38px;
       padding: 2% 0;
       text-align: center;
-      width: 30%;
+      width: 45%;
       &:last-child {
-        float: none;
         margin: 0;
-        overflow: hidden;
-        width: auto;
       }
-    }
-    div {
-      @include box-flex(1);
+      &:hover {
+        background: $color2;
+      }
     }
     h4 {
       font-size: 1.9em;
     }
-    @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      h4 {
-        display: none;
-      }
+  }
+  @media screen and (max-width: 650px), screen and (max-height: 479px) {
+    #version {
+      position: static;
+    }
+    .link-header {
+      display: none;
     }
   }
   #custom_ur {

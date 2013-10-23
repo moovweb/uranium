@@ -1,0 +1,185 @@
+---
+layout: interactions
+title: Tab
+name: tab
+interaction_selected: selected
+description: <p>Tabs are kind of like togglers, but only one tab is active at a time. When you enable the state of one tab, another tab is disabled.</p>
+basic_tab:
+  data-ur-set="tabs": add this attribute to a div that wraps the whole interaction
+  data-ur-tabs-component="button": add this attribute to the button div
+  data-ur-tabs-component="content": add this attribute to the content
+  data-ur-tab-id="NAME": this attribute needs to link the button and the content (i.e. the button and content should have the same id)
+advanced_tab:
+  Required:
+    button:
+      - add this attribute to the button (i.e. the thing to be clicked)
+      - "multiple?: true"
+      - "state: enabled / disabled(default)"
+      - attributes:
+        - "required: <code>data-ur-tab-id</code> is required and must match the attribute on the content element"
+    content:
+      - add this attribute to each content item
+      - "multiple?: true"
+      - "state: enabled / disabled(default)"
+      - attributes:
+        - "required: <code>data-ur-tab-id</code> is required and must match the attribute on the button element"
+---
+<!-- Example -->
+<div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="example" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+  <div id="tabs_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="example" data-ur-state="enabled">
+
+    <div data-ur-set="tabs" id="tabs_examples_page" data-ur-state="enabled">
+      <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="two"> Second </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
+        <p class="tab-item">First tab content</p>
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="two">
+        <p class="tab-item">Second tab content</p>
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="three">
+        <p class="tab-item">Third tab content</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="example_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+{% highlight html %}
+<div data-ur-set="tabs">
+  <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
+  <span data-ur-tabs-component="button" data-ur-tab-id="two"> Second </span>
+  <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
+
+  <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
+    <p class="tab-item">First tab content</p>
+  </div>
+
+  <div data-ur-tabs-component="content" data-ur-tab-id="two">
+    <p class="tab-item">Second tab content</p>
+  </div>
+
+  <div data-ur-tabs-component="content" data-ur-tab-id="three">
+    <p class="tab-item">Third tab content</p>
+  </div>
+</div>
+{% endhighlight %}
+  </div>
+  <hr />
+</div>
+
+<!-- Required CSS -->
+<div class="wrapper">
+  <h2>Recommended Styles</h2>
+  <div class='css'>
+{% highlight scss %}
+/* Recommended SCSS Styling */
+
+[data-ur-set="tabs"] {
+  [data-ur-tabs-component='button'] {
+    opacity: 0.75;
+  }
+  [data-ur-tabs-component='button'][data-ur-state='enabled'] {
+    cursor: pointer;
+    opacity: 1.0;
+  }
+  [data-ur-tabs-component='content'] {
+    display:none;
+  }
+  [data-ur-tabs-component='content'][data-ur-state='enabled'] {
+    display: block;
+  }
+}
+
+/* Recommended CSS Styling */
+
+[data-ur-set="tabs"] [data-ur-tabs-component='button'] {
+  opacity: 0.75;
+}
+[data-ur-set="tabs"] [data-ur-tabs-component='button'][data-ur-state='enabled'] {
+  cursor: pointer;
+  opacity: 1.0;
+}
+[data-ur-set="tabs"] [data-ur-tabs-component='content'] {
+  display:none;
+}
+[data-ur-set="tabs"] [data-ur-tabs-component='content'][data-ur-state='enabled'] {
+  display: block;
+}
+{% endhighlight %}
+  </div>
+  <hr />
+</div>
+
+<!-- More Examples -->
+<div class="wrapper" id="tabs_examples_page">
+  <h1>Tabs Examples</h1>
+  <div class="test" name="Simple">
+    <a name="Simple"></a>
+
+    <h2>Selecting the Second Tab</h2>
+    <div class="description">
+      <p>Here, as proof of principle, we're putting the <span class="inline_code">data-ur-state="enabled"</span> attribute on the
+        second tab to illustrate that a different tab can be selected at the outset.</p>
+    </div>
+    <div data-ur-set="tabs">
+      <span data-ur-tabs-component="button" data-ur-tab-id="first_sanity"> First </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="second_sanity" data-ur-state="enabled"> Second </span>
+      <span data-ur-tabs-component="button" data-ur-tab-id="third_sanity"> Third </span>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="first_sanity">
+        <p class="tab-item">First tab content</p>
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-state="enabled" data-ur-tab-id="second_sanity">
+        <p class="tab-item">Second tab content</p>
+      </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="third_sanity">
+        <p class="tab-item">Third tab content</p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="test" name="accordions">
+    <a name="accordions"></a>
+
+    <h2> Accordions with State </h2>
+
+    <div class="description">
+      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
+        strictly necessary. In the following example, we start out with no states defined.</p>
+        <p>The first one we click on will be the first one to be "enabled".</p>
+    </div>
+
+    <div data-ur-set="tabs" data-ur-closeable="true">
+      <div data-ur-tabs-component="button" data-ur-tab-id="first_accordions"> First </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="first_accordions">
+        Oh Uranium.
+      </div>
+
+      <div data-ur-tabs-component="button" data-ur-tab-id="second_accordions">Second </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="second_accordions">
+        You do nifty interactions.
+      </div>
+
+      <div data-ur-tabs-component="button" data-ur-tab-id="third_accordions"> Third </div>
+
+      <div data-ur-tabs-component="content" data-ur-tab-id="third_accordions">
+        And you're performant.
+      </div>
+
+    </div>
+  </div>
+</div>

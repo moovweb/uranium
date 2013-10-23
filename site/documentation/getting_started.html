@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Documentation | Uranium Declarative Javascript Interaction Library</title>
+<meta name="keywords" content="Uranium Documentation page, declarative javascript interactions, declarative javascript library, declarative javascript, javascript interactions, javascript widgets, javascript library, open source, Uranium Documentation, javascript, interactions, widgets, jquery" />
+<meta name="description" content="The Documentation page for Uranium, a declarative Javascript library that lets web page authors add convenient interactions such as carousels, togglers, tabs, and geolocation to their pages without writing a single line of Javascript." />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26739163-2']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Open Sans:300,300italic,400', 'Crete Round:400italic', 'Ultra', 'Yellowtail']
+    }
+  });
+</script>
+
+  </head>
+  
+  <body id="documentation_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" class="selected">Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
+</nav>
+
+    <div id="textbody">
+  <div class="wrapper">
+    <h1>Getting Started</h1>
+    <div id="tutorial_introduction">
+      <h2>Introduction</h2>
+      <div class="tutorial_para">
+        <p>We've worked hard to make Uranium as streamlined as possible, requiring the least possible effort from the user.</p>
+        <p>Part of this is ensuring that the widgets are easy to use and once you've learnt how to implement one, the same methods are easily applied to other widgets.</p>
+        <p>As such, here we're going to go over an example of how to use widgets. We'll use the <a href="interactions/toggler.html">toggler</a> as a model.</p>
+        <p><em>Prerequisities:</em> make sure you have a simple HTML page set up with a script tag for <a href="https://developers.google.com/speed/libraries/devguide#jquery">jQuery v1.9.1</a> and <a href="/download.html">Uranium</a>.</p>
+      </div>
+    </div>
+  </div> <!-- wrapper -->
+
+  <div class="wrapper">
+    <div class="tutorial" id="toggler_tutorial" data-ur-closeable='true'>
+      <h2>Tutorial: How to Implement a Toggler</h2>
+      <div>
+        <div class="tutorial_para">
+          <p>We're going to start by making a toggler. What's a toggler? Well, it's an interaction that has two components to it: a <em>button</em> and <em>content</em>. When we click on the button, the content should appear. Here is an example of what we're going to build (click on "Clothing"):</p>
+          <div data-ur-set='toggler' id="end_product">
+            <div data-ur-toggler-component='button'>
+              Clothing
+            </div>
+     
+            <ul data-ur-toggler-component='content'>
+              <li> Hat </li>
+              <li> Socks </li>
+              <li> Shoes </li>
+              <li> Gloves </li>
+              <li> Shirts </li>
+            </ul>
+          </div> <!--end of toggler-->
+          <p>
+            We click on the <em>button</em> ("Clothing") and the <em>content</em> (the list of clothes) appears.
+          </p>
+        </div>
+        <h3>First Step: Adding Attributes to the HTML</h3>
+        <div class="tutorial_para">
+          <p>
+            Let's start with the basic, bare-bones HTML: we have a <span class="inline_code">div</span> for "Clothing" and then an unordered list with the items in it.
+          </p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div&gt;</span>
+  Clothing
+<span class="nt">&lt;div&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div>
+          <p>
+            The first thing we need to do is wrap the whole toggler in a <span class="inline_code">div</span> with the <span class="inline_code">data-ur-set</span> attribute set as <span class="inline_code">"toggler"</span>. This is basically telling Uranium that the whole thing in the div is a toggler.
+          </p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div&gt;</span>
+    Clothing
+  <span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+          <p>
+            This may have already caused a problem. What if we can't wrap the whole thing in a <span class="inline_code">div</span>? Well, there's a trick around that - check out the explanation of ids <a href="grouping.html">here</a>.
+          </p>
+          <p>
+            Next, we indicate where the button is. In our case, we want the button to be the Clothing div. So we give the clothing div the attribute <span class="inline_code">"data-ur-toggler-component"</span> and the value <span class="inline_code">"button"</span>. (Want to know why the attributes are named so? Click <a href="model.html#naming">here</a>.)
+          </p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
+    Clothing
+  <span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+          <p>
+            The final thing we need to do to this HTML is specify the content bit of the toggler. The content in this case is the unordered list that we want to appear when the button is clicked. We give it the attribute <span class="inline_code">data-ur-toggler-component</span> (the same as for the button, if you remember) - but this time we use the value <span class="inline_code">"content"</span>.
+          </p>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
+    Clothing
+  <span class="nt">&lt;div&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Hat <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Socks <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Shoes <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Gloves <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span> Shirts <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+          <p>That's all we need to do with regards to HTML.</p>
+        </div><!-- tutorial para-->
+        <h3>Second Step: Don't forget the Javascript</h3>
+        <div class="tutorial_para">
+          <p>We've added all the necessary attributes to the HTML. The next job is to make sure we have Uranium running in the page.</p>
+          <p>The Uranium file can be downloaded <a href="download.html">here</a>.</p> Include it in your project folder, and add an appropriate reference to it in the head of the HTML.</p>
+        </div>
+        <h3>Third Step: Changing the CSS</h3>
+        <div class="tutorial_para">
+          <p>Now we've added the Uranium javascript to the page, go back and refresh the site. The moment of truth is upon us. Click on the button!</p>
+          <p>...</p>
+          <p>
+            Ruh roh. Nothing seems to happen. Why not? Is the javascript broken? Let's check.
+          </p>
+          <p>
+            Right-click on your interaction and "inspect element". You'll see the button and the content divs have an extra attribute - <span class="inline_code">data-ur-state</span>. This is, by default, set to <span class="inline_code">"disabled"</span>.
+          </p>
+          <samp>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;1&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;disabled&quot;</span><span class="nt">&gt;</span>Clothings<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;disabled&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+          </samp>
+          <p>
+            When the button is clicked, it changes to <span class="inline_code">"enabled"</span>.
+          </p>
+          <samp>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&quot;toggler&quot;</span> <span class="na">data-ur-id=</span><span class="s">&quot;1&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;button&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span><span class="nt">&gt;</span>Clothings<span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&quot;content&quot;</span> <span class="na">data-ur-state=</span><span class="s">&quot;enabled&quot;</span><span class="nt">&gt;</span>...<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+          </samp>
+          <p>The javascript is doing its job. The missing piece of the puzzle is the CSS.</p>
+          <p>
+            What we need to do is change the styling of the page. It needs to be set so that the content does not display when <span class="inline_code">data-ur-state="disabled"</span>, but to display when <span class="inline_code">data-ur-state="enabled"</span>.
+          </p>
+<div class="highlight"><pre><code class="css"><span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;disabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">[</span><span class="nt">data-ur-toggler-component</span><span class="o">=</span><span class="s1">&#39;content&#39;</span><span class="o">][</span><span class="nt">data-ur-state</span><span class="o">=</span><span class="s1">&#39;enabled&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+          <p>
+            (This is actually what we call "explicit" CSS styling. What we're doing is  defining what happens when the data-ur-state is "enabled" and what happens when it is "disabled." This is more robust than lazy styling, which only defines the styles that get applied in the "enabled" state. You can learn <a href="styling.html">more about lazy vs explicit styling</a> if you're curious.)
+          </p>
+          <p>
+            By this point, the interaction should be fully functional. Isn't it neat?
+          </p>
+        </div> <!-- tutorial para-->
+        <h3>Fourth Step: Apply These Skills</h3>
+        <div class="tutorial_para""brown">
+          <p>Pretty much all the interactions in Uranium work in a similar way. You add special attributes to the tags in your HTML, import the javascript, and maybe do a little CSS re-styling.
+          </p>
+          <p>
+            Now we've whetted your appetite, you probably want to check out some more interactions. If you want to go through another tutorial, we have <a href="./advanced.html">an advanced tutorial</a> that covers how to implement a carousel with some custom features, all without writing a single line of Javascript.</a>.
+          </p>
+        </div> <!-- tutorial para -->
+      </div>
+    </div><!--tutorial close-->
+  </div> <!-- tutorial 1 wrapper close -->
+</div>
+
+    <footer id="footer">
+  <div><span>Brought to you by&hellip;</span></div>
+  <a id="moovweblogo" href="http://www.moovweb.com/" target="_blank"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2013 |
+    <a href="/about.html">About</a> |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+<script src="/src/jquery-1.9.1.min.js"></script>
+<script src="/src/jquery.uranium.js"></script>
+
+  </body>
+</html>
