@@ -16,7 +16,7 @@
     var setCss = "[data-ur-set='" + type + "']";
     var compAttr = "data-ur-" + type + "-component";
 
-    $(fragment).find("[" +compAttr +"]").each(function() {
+    $(fragment).find("[" +compAttr +"]").addBack("[" +compAttr +"]").each(function() {
       if ($(this).data("urCompInit"))
         return;
       var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
@@ -1395,6 +1395,6 @@
   };
 
   $(document).ready(function() {
-    $("body").Uranium();
+    $(document).Uranium();
   });
 })(jQuery);
