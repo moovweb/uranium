@@ -66,9 +66,15 @@
       $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
 
       $(group["button"]).click(function(event) {
-        event.stopPropagation();
-        var newState = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        var enabled = $(group["button"]).attr("data-ur-state") == "enabled";
+        var newState = enabled ? "disabled" : "enabled";
         $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
+        if (enabled)
+          $(group["drawer"]).attr("data-ur-state", newState);
+      });
+
+      $(group["drawer"]).on("webkitTransitionEnd transitionend", function() {
+        $(this).attr("data-ur-state", $(group["button"]).attr("data-ur-state"));
       });
 
       $(group["set"]).data("urInit", true);
