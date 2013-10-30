@@ -16,7 +16,7 @@
     var setCss = "[data-ur-set='" + type + "']";
     var compAttr = "data-ur-" + type + "-component";
 
-    $(fragment).find("[" +compAttr +"]").each(function() {
+    $(fragment).find("[" +compAttr +"]").addBack("[" +compAttr +"]").each(function() {
       if ($(this).data("urCompInit"))
         return;
       var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
@@ -28,6 +28,7 @@
           set.attr("data-ur-id", setId);
         }
         sets[setId] = sets[setId] || {};
+        sets[setId]._id = setId;
 
         if (set.is(setCss))
           sets[setId].set = set[0];
@@ -57,17 +58,23 @@
 
     $.each(groups, function(id, group) {
       if (!group["button"])
-        $.error("no button found for toggler with id=" + id);
+        $.error("no button found for toggler with id: " + id);
       if (!group["content"])
-        $.error("no content found for toggler with id=" + id);
+        $.error("no content found for toggler with id: " + id);
 
       var togglerState = $(group["button"]).attr("data-ur-state") || "disabled";
       $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
 
       $(group["button"]).click(function(event) {
-        event.stopPropagation();
-        var newState = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        var enabled = $(group["button"]).attr("data-ur-state") == "enabled";
+        var newState = enabled ? "disabled" : "enabled";
         $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
+        if (enabled)
+          $(group["drawer"]).attr("data-ur-state", newState);
+      });
+
+      $(group["drawer"]).on("webkitTransitionEnd transitionend", function() {
+        $(this).attr("data-ur-state", $(group["button"]).attr("data-ur-state"));
       });
 
       $(group["set"]).data("urInit", true);
@@ -677,7 +684,7 @@
       $(group["buttons"]).each(function() {
         var type = $(this).attr("data-ur-carousel-button-type");
         if(!type) {
-          $.error("malformed carousel button type for carousel with id: " + id + ".");
+          $.error("malformed carousel button type for carousel with id: " + id);
         }
         $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
       });
@@ -699,6 +706,7 @@
 
     function Carousel(set) {
       var self = this;
+      self.urId = set["_id"];
       self.container = set["set"];
       self.scroller = set["scroll_container"];
       if (!self.scroller)
@@ -714,7 +722,7 @@
       self.dots = set["dots"];
 
       self.flag = {
-        click: false,           // used for determining if item is clicked on touchscreens
+        click: true,            // used for determining if item is clicked on touchscreens
         snapping: false,        // true if carousel is currently snapping, flag for users' convenience
         lock: null,             // used for determining horizontal/vertical dragging motion on touchscreens
         touched: false          // true when user is currently touching/dragging
@@ -782,8 +790,22 @@
           $(self.scroller)
             .on(downEvent, startSwipe)
             .on(moveEvent, continueSwipe)
-            .on(upEvent, finishSwipe)
-            .click(function(e) {if (!self.flag.click) stifle(e);});
+            .on(upEvent, finishSwipe);
+          $items.each(function(_, item) {
+            if (item.onclick)
+              $(item).data("urClick", item.onclick);
+            item.onclick = function(event) {
+              if (self.flag.click || (!event.clientX && !event.clientY)) {
+                var handler = $(this).data("urClick");
+                if (handler)
+                  handler.call(this, event);
+              }
+              else {
+                stifle(event);
+                event.stopImmediatePropagation();
+              }
+            };
+          });
         }
 
         self.button.prev.click(function() {
@@ -807,6 +829,7 @@
 
         self.autoscrollStart();
 
+        $container.trigger("load.ur.carousel");
       }
 
       function readAttributes() {
@@ -1276,6 +1299,7 @@
           self.itemIndex -= self.count;
         }
         shift = 0;
+        self.flag.click = true;
         self.autoscrollStart();
         $container.trigger("slideend.ur.carousel", {index: self.itemIndex});
       }
@@ -1346,6 +1370,7 @@
       }
       if (zeroWidth) {
         // wait until (late-loaded) images are loaded or other content inserted
+        console.warn("carousel with id: " + self.urId + " will be late loaded");
         var imgs = $items.find("img").addBack("img");
         var numImgs = imgs.length;
         if (numImgs > 0)
@@ -1376,6 +1401,6 @@
   };
 
   $(document).ready(function() {
-    $("body").Uranium();
+    $(document).Uranium();
   });
 })(jQuery);
