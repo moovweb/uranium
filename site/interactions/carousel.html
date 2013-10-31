@@ -237,6 +237,12 @@
                       
                         <li>
                           
+                            to change the count template, add an optional <code>data-ur-template</code> attribute to this element with a value of
+                          
+                        </li>
+                      
+                        <li>
+                          
                             multiple?: false
                           
                         </li>
@@ -244,6 +250,17 @@
                         <li>
                           
                             state: N/A
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            attributes
+                            <ul>
+                              
+                                <li>optional: <code>data-ur-template</code>: '&#123;&#123;index&#125;&#125; out of &#123;&#123;count&#125;&#125;' (defaults to '1 of 8' format if not specified)</li></li>
+                              
+                            </ul>
                           
                         </li>
                       
@@ -383,14 +400,14 @@
       <h3>Infinite Scrolling</h3>
 
       <p>
-        Here we have a carousel that loops from front to back. (Default state for carousel.) The carousel also has indicator dots showing what item is currently selected. The indicator dots have a data-ur-state of "inactive" until the corresponding item is selected, when the data-ur-state changes to "active" – you can use this for styling the dots.
+        Here we have a carousel that loops from front to back. (Default state for carousel.) The carousel also has a custom count template, and indicator dots showing what item is currently selected. The indicator dots have a data-ur-state of "inactive" until the corresponding item is selected, when the data-ur-state changes to "active" – you can use this for styling the dots.
       </p>
       <ul>
         <li><span class="inline_code">data-ur-carousel-component="dots"</span> - should be within the set</li>
       </ul>
       <div data-ur-set="carousel" data-ur-infinite="enabled">
         <div data-ur-carousel-component="dots"></div>
-        <span data-ur-carousel-component="count"> -- count -- </span>
+        <span data-ur-carousel-component="count" data-ur-template="&#123;&#123;index&#125;&#125;/&#123;&#123;count&#125;&#125;"> -- count -- </span>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
         <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
         <div data-ur-carousel-component="scroll_container">
