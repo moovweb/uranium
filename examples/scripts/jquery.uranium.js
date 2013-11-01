@@ -69,7 +69,7 @@
         var enabled = $(group["button"]).attr("data-ur-state") == "enabled";
         var newState = enabled ? "disabled" : "enabled";
         $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
-        if (enabled)
+        if (!enabled)
           $(group["drawer"]).attr("data-ur-state", newState);
       });
 
