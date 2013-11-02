@@ -17,20 +17,13 @@
         if (data == null && fn == null) {
           // ( types, fn )
           fn = selector;
-          data = selector = undefined;
+          selector = null;
         }
-        else if (fn == null) {
-          if (typeof selector == "string") {
-            // ( types, selector, fn )
-            fn = data;
-            data = undefined;
-          }
-          else {
-            // ( types, data, fn )
-            fn = data;
-            data = selector;
-            selector = undefined;
-          }
+        else if (fn == null && typeof selector != "string") {
+          // ( types, data, fn )
+          fn = data;
+          data = selector;
+          selector = null;
         }
         return selector ? this.delegate(selector, types, data, fn) : this.bind(types, data, fn);
       },
@@ -38,7 +31,7 @@
         if (fn == null) {
           // ( types, fn )
           fn = selector;
-          selector = undefined;
+          selector = null;
         }
         return selector ? this.undelegate(selector, types, fn) : this.unbind(types, fn);
       }
