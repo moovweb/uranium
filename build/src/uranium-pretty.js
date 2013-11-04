@@ -846,10 +846,10 @@
           });
         }
 
-        self.button.prev.on("click.ur.zoom", function() {
+        self.button.prev.on("click.ur.carousel", function() {
           moveTo(1);
         });
-        self.button.next.on("click.ur.zoom", function() {
+        self.button.next.on("click.ur.carousel", function() {
           moveTo(-1);
         });
 
