@@ -3,6 +3,46 @@
 
 (function ( $ ) {
 
+  // for compatibility with older versions of jQuery
+  var jqVersion = $.fn.jquery.split(".");
+  if (jqVersion[0] == 1 && jqVersion[1] < 4)
+    // older jquery returns document for null selectors
+    $ = $.extend(function (selector, context) {
+      return new $.fn.init(selector || [], context);
+    }, $);
+
+  if (!$.fn.on)
+    $.fn.extend({
+      on: function(types, selector, data, fn) {
+        if (data == null && fn == null) {
+          // ( types, fn )
+          fn = selector;
+          selector = null;
+        }
+        else if (fn == null && typeof selector != "string") {
+          // ( types, data, fn )
+          fn = data;
+          data = selector;
+          selector = null;
+        }
+        return selector ? this.delegate(selector, types, data, fn) : this.bind(types, data, fn);
+      },
+      off: function(types, selector, fn) {
+        if (fn == null) {
+          // ( types, fn )
+          fn = selector;
+          selector = null;
+        }
+        return selector ? this.undelegate(selector, types, fn) : this.unbind(types, fn);
+      }
+    });
+  if (!$.fn.addBack)
+    $.fn.addBack = $.fn.andSelf;
+  if (!$.error)
+    $.error = function (msg) {
+      throw new Error(msg);
+    };
+
   // Keep a unique value for ID initialization
   var uniqueUraniumId = function() {
     var count = 0;
@@ -48,9 +88,9 @@
   var interactions = {};
 
   var touchscreen = "ontouchstart" in window;
-  var downEvent = touchscreen ? "touchstart" : "mousedown";
-  var moveEvent = touchscreen ? "touchmove" : "mousemove";
-  var upEvent = touchscreen ? "touchend" : "mouseup";
+  var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
+  var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
+  var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
 
   // Toggler
   interactions.toggler = function( fragment ) {
@@ -65,7 +105,7 @@
       var togglerState = $(group["button"]).attr("data-ur-state") || "disabled";
       $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
 
-      $(group["button"]).click(function(event) {
+      $(group["button"]).on("click.ur.toggler", function(event) {
         var enabled = $(group["button"]).attr("data-ur-state") == "enabled";
         var newState = enabled ? "disabled" : "enabled";
         $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
@@ -73,7 +113,7 @@
           $(group["drawer"]).attr("data-ur-state", newState);
       });
 
-      $(group["drawer"]).on("webkitTransitionEnd transitionend", function() {
+      $(group["drawer"]).on("webkitTransitionEnd.ur.toggler transitionend.ur.toggler", function() {
         $(this).attr("data-ur-state", $(group["button"]).attr("data-ur-state"));
       });
 
@@ -103,7 +143,7 @@
 
       // Set up the button call backs
       $.each(group["tabs"], function(_, tab) {
-        $(tab["button"]).click(function() {
+        $(tab["button"]).on("click.ur.tabs", function() {
           // Is the tab open already?
           var open = $(this).attr("data-ur-state") == "enabled";
           $.each(group["tabs"], function() {
@@ -131,27 +171,27 @@
 
       // Touch Events
       ex
-        .bind(touchscreen ? "touchstart" : "click", function() {
+        .on(touchscreen ? "touchstart.ur.inputclear" : "click.ur.inputclear", function() {
           // remove text in the box
           input[0].value='';
           input[0].focus();
         })
-        .bind('touchend', function() {
+        .on("touchend.ur.inputclear", function() {
           // make sure the keyboard doesn't disappear
           input[0].blur();
         });
 
       var input = $(group["set"]).find("input");
       input
-        .bind('focus', function() {
+        .on("focus.ur.inputclear", function() {
           if (input[0].value != '') {
             ex.show();
           }
         })
-        .bind('keydown', function() {
+        .on("keydown.ur.inputclear", function() {
           ex.show();
         })
-        .bind('blur', function() {
+        .on("blur.ur.inputclear", function() {
           // Delay the hide so that the button can be clicked
           setTimeout(function() { ex.hide();}, 150);
         });
@@ -262,8 +302,8 @@
         // Set up call back for button to trigger geocoding
         var btn = $(this["elements"]).filter("[data-ur-reverse-geocode-component='rg-button']")
         if (btn.length > 0) {
-          $(btn).bind(
-            'click',
+          $(btn).on(
+            "click.ur.inputclear",
             function(obj){
               return function() {
                 obj.geocodeInit();
@@ -522,18 +562,18 @@
           self.container.setAttribute("data-ur-state", self.state);
 
           $(self.container)
-            .on(downEvent, panStart)
-            .on(moveEvent, panMove)
-            .on(upEvent, panEnd);
+            .on(downEvent + ".zoom", panStart)
+            .on(moveEvent + ".zoom", panMove)
+            .on(upEvent + ".zoom", panEnd);
         }
         else if (self.state == "enabled-out") {
           self.state = "disabled";
           self.container.setAttribute("data-ur-state", self.state);
 
           $(self.container)
-            .unbind(downEvent, panStart)
-            .unbind(moveEvent, panMove)
-            .unbind(upEvent, panEnd);
+            .off(downEvent + ".zoom", panStart)
+            .off(moveEvent + ".zoom", panMove)
+            .off(upEvent + ".zoom", panEnd);
         }
       }
 
@@ -611,9 +651,9 @@
       };
 
       if (self.container.getAttribute("data-ur-touch") != "disabled")
-        $(self.container).click(self.zoomIn);
+        $(self.container).on("click.ur.zoom", self.zoomIn);
 
-      $img.load(function() {
+      $img.on("load.ur.zoom", function() {
         if ($img.attr("src") == $img.attr("data-ur-src"))
           loadedImgs.push($img.attr("src"));
         $idler.attr("data-ur-state", "disabled");
@@ -656,11 +696,9 @@
       };
 
       // zoom in/out button, zooms in to the center of the image
-      $(self.button).on(touchscreen ? "touchstart" : "click", self.zoom);
+      $(self.button).on(touchscreen ? "touchstart.ur.zoom" : "click.ur.zoom", self.zoom);
 
-      $.each(["webkitTransitionEnd", "transitionend", "oTransitionEnd"], function(index, eventName) {
-        $img.on(eventName, transitionEnd);
-      });
+      $img.on("webkitTransitionEnd.ur.zoom transitionend.ur.zoom", transitionEnd);
 
       this.reset = function() {
         self.prescale = false;
@@ -784,13 +822,13 @@
         updateDots();
         self.update();
 
-        $(self.scroller).on("dragstart", function() { return false; }); // for Firefox
+        $(self.scroller).on("dragstart.ur.carousel", function() { return false; }); // for Firefox
 
         if (self.options.touch) {
           $(self.scroller)
-            .on(downEvent, startSwipe)
-            .on(moveEvent, continueSwipe)
-            .on(upEvent, finishSwipe);
+            .on(downEvent + ".carousel", startSwipe)
+            .on(moveEvent + ".carousel", continueSwipe)
+            .on(upEvent + ".carousel", finishSwipe);
           $items.each(function(_, item) {
             if (item.onclick)
               $(item).data("urClick", item.onclick);
@@ -808,28 +846,28 @@
           });
         }
 
-        self.button.prev.click(function() {
+        self.button.prev.on("click.ur.carousel", function() {
           moveTo(1);
         });
-        self.button.next.click(function() {
+        self.button.next.on("click.ur.carousel", function() {
           moveTo(-1);
         });
 
         if ("onorientationchange" in window)
-          $(window).on("orientationchange", self.update);
+          $(window).on("orientationchange.ur.carousel", self.update);
         else
-          $(window).on("resize", function() {
+          $(window).on("resize.ur.carousel", function() {
             if (viewport != $container.outerWidth()) {
               self.update();
               setTimeout(self.update, 100); // sometimes styles haven't updated yet
             }
           });
 
-        $items.find("img").addBack("img").load(self.update); // after any (late-loaded) images are loaded
+        $items.find("img").addBack("img").on("load.ur.carousel", self.update); // after any (late-loaded) images are loaded
 
         self.autoscrollStart();
 
-        $container.trigger("load.ur.carousel");
+        $container.triggerHandler("load.ur.carousel");
       }
 
       function readAttributes() {
@@ -1253,7 +1291,7 @@
         }
         
         dest = $items[newIndex];
-        $container.trigger("slidestart.ur.carousel", {index: newIndex});
+        $container.triggerHandler("slidestart", {index: newIndex});
 
         // timeout needed for mobile safari
         setTimeout(function() {
@@ -1303,7 +1341,7 @@
         shift = 0;
         self.flag.click = true;
         self.autoscrollStart();
-        $container.trigger("slideend.ur.carousel", {index: self.itemIndex});
+        $container.triggerHandler("slideend", {index: self.itemIndex});
       }
 
       self.jumpToIndex = function(index) {
@@ -1376,12 +1414,12 @@
         var imgs = $items.find("img").addBack("img");
         var numImgs = imgs.length;
         if (numImgs > 0)
-          imgs.load(function() {
+          imgs.on("load.ur.carousel", function() {
             if (--numImgs == 0)
               initialize();
           });
         else
-          $(window).load(initialize);
+          $(window).on("load.ur.carousel", initialize);
       }
       else
         initialize();
@@ -1402,7 +1440,5 @@
     return this;
   };
 
-  $(document).ready(function() {
-    $(document).Uranium();
-  });
+  $(document).ready($(document).Uranium);
 })(jQuery);
