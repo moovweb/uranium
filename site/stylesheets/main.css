@@ -259,7 +259,7 @@ select {
   text-align: center;
   /* Its direct children */ }
   #menu #uraniumlogo {
-    background: url('/images/uraniumlogo.png?1381425622') no-repeat 0% 50%;
+    background: url('/images/uraniumlogo.png?1383603580') no-repeat 0% 50%;
     -webkit-background-size: 100% auto;
     -moz-background-size: 100% auto;
     -o-background-size: 100% auto;
@@ -357,7 +357,7 @@ select {
     #menu {
       margin: 0px 0px 10px 0px; }
       #menu #uraniumlogo {
-        background: gold url('/images/uraniumlogo.png?1381425622') no-repeat 50% 50%;
+        background: gold url('/images/uraniumlogo.png?1383603580') no-repeat 50% 50%;
         -webkit-background-size: 100px 30px;
         -moz-background-size: 100px 30px;
         -o-background-size: 100px 30px;
@@ -1456,3 +1456,11 @@ body#zoom_page [data-ur-zoom-component="loading"][data-ur-state="disabled"] {
     width: 27px;
     top: 4px;
     right: 2px; }
+
+body#validator_page [data-ur-state="error"] {
+  border: 1px solid red; }
+body#validator_page #validator_interaction input {
+  width: 98%; }
+body#validator_page [data-ur-validator-error] {
+  display: block;
+  margin-bottom: 5px; }
