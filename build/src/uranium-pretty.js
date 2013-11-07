@@ -86,7 +86,8 @@
   }
 
   // test for transform3d, technically supported on old Android but very buggy
-  var transform3d = !/Android [12]/.test(navigator.userAgent);
+  var oldAndroid = /Android [12]/.test(navigator.userAgent);
+  var transform3d = !oldAndroid;
   if (transform3d) {
     var css3d = "translate3d(0, 0, 0)";
     var elem3d = $("<a>").css({ webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d });
@@ -108,6 +109,12 @@
     var touches = event.originalEvent.touches;
     event = (touches && touches[0]) || event;
     return {x: event.clientX, y: event.clientY};
+  }
+  
+  // stop event helper
+  function stifle(e) {
+    e.preventDefault();
+    e.stopPropagation();
   }
 
   var interactions = {};
@@ -434,23 +441,11 @@
 
     var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
 
-    var translatePrefix = transform3d ? "translate3d(" : "translate(";
-    var translateSuffix = transform3d ? ",0)" : ")";
-
-    var scalePrefix = transform3d ? " scale3d(" : " scale(";
-    var scaleSuffix = transform3d ? ",1)" : ")";
-
-
     // Private shared methods
 
     // note that this accepts a reversed range
     function bound(num, range) {
       return Math.max(Math.min(range[0], num), range[1]);
-    }
-
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
     }
 
     $.each(groups, function(id, group) {
@@ -468,6 +463,7 @@
       this.canvasWidth = this.canvasHeight = 0;
       this.ratio = 1;
       this.state = "disabled";
+      this.transform3d = transform3d;
 
       // Optionally:
       this.button = set["button"];
@@ -484,11 +480,26 @@
       var mouseDown = false; // only used on non-touch browsers
       var mouseDrag = true;
 
+      var translatePrefix = "translate(", translateSuffix = ")";
+      var scalePrefix = " scale(", scaleSuffix = ")";
+
+
       var startCoords, click, down; // used for determining if zoom element is actually clicked
 
       loadedImgs.push($img.attr("src"));
 
       function initialize() {
+        var custom3d = $(self.container).attr("data-ur-transform3d");
+        if (custom3d)
+          self.transform3d = custom3d != "disabled";
+        if (self.transform3d) {
+          translatePrefix = "translate3d(";
+          translateSuffix = ",0)";
+          scalePrefix = " scale3d(";
+          scaleSuffix = ",1)";
+        }
+        $(self.container).attr("data-ur-transform3d", self.transform3d ? "enabled" : "disabled");
+        
         self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
         self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
         self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
@@ -762,11 +773,6 @@
     function zeroFloor(num) {
       return num >= 0 ? Math.floor(num) : Math.ceil(num);
     }
-    
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
 
     function Carousel(set) {
       var self = this;
@@ -900,7 +906,7 @@
         if (custom3d)
           self.options.transform3d = custom3d != "disabled";
         $container.attr("data-ur-transform3d", self.options.transform3d ? "enabled" : "disabled");
-        if (/Android [12]/.test(navigator.userAgent) && !self.options.transform3d) {
+        if (oldAndroid && !self.options.transform3d) {
           var speed = parseFloat($container.attr("data-ur-speed"));
           self.options.speed = speed > 1 ? speed : 1.3;
         }
