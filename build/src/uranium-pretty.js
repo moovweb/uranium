@@ -89,8 +89,8 @@
   var transform3d = !/Android [12]/.test(navigator.userAgent);
   if (transform3d) {
     var css3d = "translate3d(0, 0, 0)";
-    var elem3d = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
-    var transform3d =
+    var elem3d = $("<a>").css({ webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d });
+    transform3d =
       (elem3d.css("webkitTransform") +
        elem3d.css("MozTransform") +
        elem3d.css("msTransform") +
@@ -484,6 +484,8 @@
       var mouseDown = false; // only used on non-touch browsers
       var mouseDrag = true;
 
+      var startCoords, click, down; // used for determining if zoom element is actually clicked
+
       loadedImgs.push($img.attr("src"));
 
       function initialize() {
@@ -660,13 +662,11 @@
         transform(0, 0, 1);
       };
 
-      var startCoords, click, down;
-
       if (self.container.getAttribute("data-ur-touch") != "disabled") {
         // make sure zoom works when dragged inside carousel
         $(self.container).on(downEvent + ".zoom", function(e) {
           click = down = true;
-          coords = getEventCoords(e);
+          startCoords = getEventCoords(e);
         });
         $(self.container).on(moveEvent + ".zoom", function(e) {
           var coords = getEventCoords(e);
@@ -1134,9 +1134,10 @@
         if (self.options.infinite && self.options.center)
           realIndex = self.itemIndex - self.options.cloneLength;
         realIndex = realIndex % self.count;
-        var template = $(self.counter).attr("data-ur-template") || "{{index}} of {{count}}";
-        template = template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
-        $(self.counter).html(template);
+        $(self.counter).html(function() {
+          var template = $(this).attr("data-ur-template") || "{{index}} of {{count}}";
+          return template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
+        });
 
         $items.attr("data-ur-state", "inactive");
         $items.eq(self.itemIndex).attr("data-ur-state", "active");
