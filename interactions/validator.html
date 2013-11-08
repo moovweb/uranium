@@ -3,10 +3,10 @@ layout: interactions
 title: Validator
 name: validator
 interaction_selected: selected
-description: <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing when the field receives focus.</p>
+description: <p>When a user types incorrect information into the input field, on clicking outside of the input, an error attribute will be assigned to the input. Also, optionally, an error message will appear explaining the error.</p>
 basic_tab:
   data-ur-set="validator": add this attribute to a div that wraps the whole interaction
-  data-ur-validator-component="*": add this attribute to the input in the set; possible values are <b>email</b>, <b>ccnum</b>, <b>notblank</b>
+  data-ur-validator-component="*": add this attribute to the input in the set; possible values are <b>email</b>, <b>ccnum</b>, <b>notblank</b> (note that there can be only one input per set)
   data-ur-validator-component="error": add this optional attribute after the input; it will 
   data-ur-validator-min / data-ur-validator-max: can be used to specify a minimum or maximum number for the input
   data-ur-validator-ccard-type="*": attribute is added to the credit card input, giving the type of credit card entered
@@ -40,6 +40,10 @@ advanced_tab:
       <div data-ur-validator-component="error"></div>
     </div>
 
+    <div data-ur-set='validator'>
+    	<input data-ur-validator-min='3' data-ur-validator-max='16' placeholder="Enter a value between 3 and 16">
+    	<div data-ur-validator-component="error"></div>
+    </div>
   </div>
 
   <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
@@ -55,6 +59,11 @@ advanced_tab:
 
 <div data-ur-set='validator'>
   <input data-ur-validator-component='ccnum' type='text'/>
+  <div data-ur-validator-component="error"></div>
+</div>
+
+<div data-ur-set='validator'>
+  <input data-ur-validator-min='3' data-ur-validator-max='16'>
   <div data-ur-validator-component="error"></div>
 </div>
 
