@@ -1,42 +1,1577 @@
-(function(c){function t(b,f,l){var e={},g="[data-ur-set='"+f+"']",j="data-ur-"+f+"-component";c(b).find("["+j+"]").addBack("["+j+"]").each(function(){if(!c(this).data("urCompInit")){var b=c(this).attr("data-ur-id")?c(this):c(this).closest(g);if(b[0]&&!b.data("urInit")){c(this).data("urCompInit",!0);var f=b.attr("data-ur-id");f||(f=F(),b.attr("data-ur-id",f));e[f]=e[f]||{};e[f]._id=f;if(b.is(g))e[f].set=b[0];l?l(e[f],this):(b=c(this).attr(j),e[f][b]=e[f][b]||[],e[f][b].push(this))}}});return e}var F=
-function(){var c=0;return function(){return++c}}(),m={},B="ontouchstart"in window,G=B?"touchstart":"mousedown",H=B?"touchmove":"mousemove",I=B?"touchend":"mouseup";m.toggler=function(b){b=t(b,"toggler");c.each(b,function(f,b){b.button||c.error("no button found for toggler with id: "+f);b.content||c.error("no content found for toggler with id: "+f);var e=c(b.button).attr("data-ur-state")||"disabled";c(b.button).add(b.content).attr("data-ur-state",e);c(b.button).click(function(){var e=c(b.button).attr("data-ur-state")==
-"enabled",f=e?"disabled":"enabled";c(b.button).add(b.content).attr("data-ur-state",f);e||c(b.drawer).attr("data-ur-state",f)});c(b.drawer).on("webkitTransitionEnd transitionend",function(){c(this).attr("data-ur-state",c(b.button).attr("data-ur-state"))});c(b.set).data("urInit",!0)})};m.tabs=function(b){var f=t(b,"tabs",function(b,e){var f=c(e).attr("data-ur-tab-id");b.tabs=b.tabs||{};b.tabs[f]=b.tabs[f]||{};var j=c(e).attr("data-ur-tabs-component");b.tabs[f][j]=b.tabs[f][j]||[];b.tabs[f][j].push(e)});
-c.each(f,function(b,e){e.closeable=c(e.set).attr("data-ur-closeable")=="true";c.each(e.tabs,function(){var b=c(this.button).attr("data-ur-state")||"disabled";c(this.button).add(this.content).attr("data-ur-state",b)});c.each(e.tabs,function(b,j){c(j.button).click(function(){var b=c(this).attr("data-ur-state")=="enabled";c.each(e.tabs,function(){c(this.button).add(this.content).attr("data-ur-state","disabled")});(!b||!f.closeable)&&c(j.button).add(j.content).attr("data-ur-state","enabled")})});c(e.set).data("urInit",
-!0)})};m.inputClear=function(b){b=t(b,"input-clear");c.each(b,function(b,l){var e=c("<div class='data-ur-input-clear-ex'></div>").hide();c(l.set).append(e);e.bind(B?"touchstart":"click",function(){g[0].value="";g[0].focus()}).bind("touchend",function(){g[0].blur()});var g=c(l.set).find("input");g.bind("focus",function(){g[0].value!=""&&e.show()}).bind("keydown",function(){e.show()}).bind("blur",function(){setTimeout(function(){e.hide()},150)});c(l.set).data("urInit",!0)})};m.geoCode=function(b){b=
-t(b,"reverse-geocode",function(b,l){b.elements=b.elements||{};b.elements[c(l).attr("data-ur-reverse-geocode-component")]=l});c.each(b,function(b,l){function e(b,e,f){var g=0,j=null,q=null,r=null;switch(c(b).attr("data-ur-reverse-geocode-component")){case "rg-city":q="locality";break;case "rg-street":q="street_number";break;case "rg-zip":q="postal_code";break;case "rg-state":q="administrative_area_level_1";break;case "rg-country":q="country"}for(var r=e[0],d=null,a=r.address_components.length,i=0;i<
-a;i++)for(var h=r.address_components[i].types.length,k=0;k<h;k++)if(d=r.address_components[i].types[k],q==d){switch(d){case "street_number":g=i;j=i+1;break;case "locality":g=i;break;case "postal_code":g=i;break;case "administrative_area_level_1":g=i;break;case "country":g=i}break}if(f==="input")b.value=j===null?e[0].address_components[g].long_name:e[0].address_components[g].long_name+" "+e[0].address_components[j].long_name;else if(f==="select"){e=e[0].address_components[g];f=0;for(g=b.length;f<g;f++)if(b[f].value===
-e.long_name||b[f].value.toUpperCase()===e.short_name)b.selectedIndex=f}}var g=this.set;c(g).attr("data-ur-callback");var j=c(g).attr("data-ur-error-callback"),m,E,J;this.setupCallbacks=function(){J=this;var b=c(this.elements).filter("[data-ur-reverse-geocode-component='rg-button']");b.length>0?c(b).bind("click",function(c){return function(){c.geocodeInit()}}(this)):(console.warn("no button for triggering reverse geocoding present"),this.geocodeInit())};this.geoSuccess=function(c){c={lat:c.coords.latitude,
-lng:c.coords.longitude};this.codeLatLng(c.lat,c.lng)};this.geoError=function(c){console.error("Ur geolocation error -- Error Getting Your Coordinates!");switch(c.code){case c.TIMEOUT:console.error("Ur geolocation error -- Timeout");break;case c.POSITION_UNAVAILABLE:console.error("Ur geolocation error -- Position unavailable");break;case c.PERMISSION_DENIED:console.error("Ur geolocation error -- Permission denied");break;case c.UNKNOWN_ERROR:console.error("Ur geolocation error -- Unknown error")}j!==
-void 0&&eval(j)};this.geoDenied=function(){console.error("Ur geolocation error -- User Denied Geolocation")};this.codeLatLng=function(c,b){var f=new google.maps.LatLng(c,b),g=this;m.geocode({latLng:f},function(c,b){if(b==google.maps.GeocoderStatus.OK)if(c[1]){E=c;var f=J.elements;for(elm in f)f[elm].localName==="input"?e(f[elm],E,"input"):f[elm].localName==="select"&&e(f[elm],E,"select");g.callback!==void 0&&eval(g.callback);return c}else console.error("Geocoder failed due to: "+b)})};this.geocodeInit=
-function(){navigator.geolocation&&(m=new google.maps.Geocoder,navigator.geolocation.getCurrentPosition(function(c){return function(b){c.geoSuccess(b)}}(this),function(c){return function(b){c.geoError(b)}}(this),this.geoDenied))};UrGeocode=function(c){return function(){c.setupCallbacks()}}(this);g=document.createElement("script");g.type="text/javascript";g.src="https://maps.googleapis.com/maps/api/js?sensor=true&callback=UrGeocode";c("head").append(g);c(l.set).data("urInit",!0)})};m.zoom=function(b){function f(c,
-b){return Math.max(Math.min(b[0],c),b[1])}function l(b){function g(){d.canvasWidth=d.canvasWidth||d.container.offsetWidth;d.canvasHeight=d.canvasHeight||d.container.offsetHeight;d.width=d.width||parseInt(a.attr("width"))||parseInt(a.css("width"))||d.img.width;d.height=d.height||parseInt(a.attr("height"))||parseInt(a.css("height"))||d.img.height;d.bigWidth=parseInt(a.attr("data-ur-width"))||d.img.naturalWidth;d.bigHeight=parseInt(a.attr("data-ur-height"))||d.img.naturalHeight;if(a.attr("data-ur-width")&&
-a.attr("data-ur-height")||a.attr("src")==a.attr("data-ur-src"))d.prescale=!0;d.ratio=d.bigWidth/d.width;k=(d.canvasWidth-d.bigWidth)/2;w=(d.canvasHeight-d.bigHeight)/2}function l(a){if(a.target==d.img){A=!1;o=a.pageX;n=a.pageY;C=!0;var c=a.originalEvent.touches;if(c)o=c[0].pageX,n=c[0].pageY;c=d.img.style;window.WebKitCSSMatrix?(c=new WebKitCSSMatrix(c.webkitTransform),y=c.m41,z=c.m42):(c=c.MozTransform||c.msTransform||c.transform||"translate(0, 0)",c=c.replace(/.*?\(|\)/,"").split(","),y=parseInt(c[0]),
-z=parseInt(c[1]));a.preventDefault();a.stopPropagation()}}function u(a){if(C&&a.target==d.img){a.preventDefault();a.stopPropagation();var c=a.pageX,b=a.pageY;if(a=a.originalEvent.touches)c=a[0].pageX,b=a[0].pageY;c-=o;b-=n;if(Math.abs(c)>5||Math.abs(b)>5)A=!0;c=f(y+c,[-k,k]);b=f(z+b,[-w,w]);r(c,b,d.ratio)}}function t(a){A||d.zoomOut();a.preventDefault();a.stopPropagation();C=!1;A=!0}function v(){if(d.state=="enabled-in")a.css({webkitTransitionDelay:"",MozTransitionDelay:"",OTransitionDelay:"",transitionDelay:""}),
-d.img.src=a.attr("data-ur-src"),e.indexOf(d.img.getAttribute("data-ur-src"))==-1&&setTimeout(function(){e.indexOf(d.img.getAttribute("data-ur-src"))==-1&&i.attr("data-ur-state","enabled")},16),d.state="enabled",d.container.setAttribute("data-ur-state",d.state),c(d.container).on(G,l).on(H,u).on(I,t);else if(d.state=="enabled-out")d.state="disabled",d.container.setAttribute("data-ur-state",d.state),c(d.container).unbind(G,l).unbind(H,u).unbind(I,t)}function q(a,c){h.attr("data-ur-state","enabled");
-d.state="enabled-in";d.container.setAttribute("data-ur-state",d.state);r(a?a:0,c?c:0,d.ratio)}function r(c,b,d){var e="";c!=void 0&&(e=m+c+"px, "+b+"px"+E);d!=void 0&&(e+=j?" scale("+d+")":" scale3d("+d+", "+d+", 1)");return a.css({webkitTransform:e,MozTransform:e,msTransform:e,transform:e})}var d=this;this.container=b.set;this.img=b.img[0];this.prescale=!1;this.canvasWidth=this.canvasHeight=this.bigWidth=this.bigHeight=this.width=this.height=0;this.ratio=1;this.state="disabled";this.button=b.button;
-this.idler=b.loading;var a=c(this.img),i=c(this.idler),h=c(this.button),k,w,s,p,y=0,z=0,o=0,n=0,C=!1,A=!0;e.push(a.attr("src"));this.zoomIn=function(c){if(d.state=="disabled"){if(!d.width)g(),d.img.style.width=d.width+"px",d.img.style.height=d.height+"px";var b=c.pageX,e=c.pageY;if(c.touches)b=c.touches[0].pageX,e=c.touches[0].pageY;s=c.offsetX;p=c.offsetY;if(s==void 0||p==void 0)c=d.img.getBoundingClientRect(),s=b-c.left,p=e-c.top;d.prescale?(b=f(d.bigWidth/2-d.ratio*s,[-k,k]),e=f(d.bigHeight/2-
-d.ratio*p,[-w,w]),q(b,e)):(d.state="enabled-in",d.img.src=a.attr("data-ur-src"),setTimeout(function(){d.prescale||i.attr("data-ur-state","enabled")},0))}};this.zoomOut=function(){if(d.state=="enabled")h.attr("data-ur-state","disabled"),d.state="enabled-out",d.container.setAttribute("data-ur-state",d.state),r(0,0,1)};d.container.getAttribute("data-ur-touch")!="disabled"&&c(d.container).click(d.zoomIn);a.load(function(){a.attr("src")==a.attr("data-ur-src")&&e.push(a.attr("src"));i.attr("data-ur-state",
-"disabled");if(!d.prescale&&d.state=="enabled-in"){d.prescale=!0;g();var c=f(d.bigWidth/2-d.ratio*s,[-k,k]),b=f(d.bigHeight/2-d.ratio*p,[-w,w]);a.css({webkitTransitionDelay:"0.3s",MozTransitionDelay:"0.3s",OTransitionDelay:"0.3s",transitionDelay:"0.3s"});q(c,b)}});this.zoom=function(){if(d.state=="disabled"){if(!d.width)g(),d.img.style.width=d.width+"px",d.img.style.height=d.height+"px";d.prescale?q(0,0):(d.state="enabled-in",d.img.src=a.attr("data-ur-src"),setTimeout(function(){e.indexOf(d.img.getAttribute("data-ur-src"))==
--1&&i.attr("data-ur-state","enabled")},0))}else d.zoomOut()};c(d.button).on(B?"touchstart":"click",d.zoom);c.each(["webkitTransitionEnd","transitionend","oTransitionEnd"],function(c,b){a.on(b,v)});this.reset=function(){d.prescale=!1;d.width=d.height=0;a.css({width:"",height:""});r();d.state="enabled-out";v();i.attr("data-ur-state","disabled");h.attr("data-ur-state","disabled")}}var b=t(b,"zoom"),e=[],g=/Android [12]|Opera/.test(navigator.userAgent),j=g,m=g?"translate(":"translate3d(",E=g?")":", 0)";
-c.each(b,function(b,e){Uranium.zoom[b]=new l(this);c(e.set).data("urInit",!0)})};m.carousel=function(b){function f(c){c.preventDefault();c.stopPropagation()}function l(b){function g(){a.options.translate3d=a.options.translate3d&&d();a.options.translate3d||(K="translate(",L=")");h.each(function(b,d){if(c(d).attr("data-ur-state")=="active")return a.itemIndex=b,!1});j();m(a.options.center?a.itemIndex+a.options.cloneLength:a.itemIndex);l();a.update();c(a.scroller).on("dragstart",function(){return!1});
-a.options.touch&&(c(a.scroller).on(G,t).on(H,F).on(I,O),h.each(function(b,d){d.onclick&&c(d).data("urClick",d.onclick);d.onclick=function(b){if(a.flag.click||!b.clientX&&!b.clientY){var d=c(this).data("urClick");d&&d.call(this,b)}else f(b),b.stopImmediatePropagation()}}));a.button.prev.click(function(){u(1)});a.button.next.click(function(){u(-1)});if("onorientationchange"in window)c(window).on("orientationchange",a.update);else c(window).on("resize",function(){x!=i.outerWidth()&&(a.update(),setTimeout(a.update,
-100))});h.find("img").addBack("img").load(a.update);a.autoscrollStart();i.trigger("load.ur.carousel")}function j(){if(a.options.infinite){if(a.options.cloneLength==0)if(a.options.fill)a.options.cloneLength=a.options.center?a.options.fill-1:a.options.fill;else if(a.options.center){for(var b=[0,0],d=x/2+h[o].offsetWidth/2,e=o;d>0;e=(e-1+a.count)%a.count)d-=h[e].offsetWidth,b[0]++;d=x/2+h[0].offsetWidth/2;for(e=0;d>0;e=(e+1)%a.count)d-=h[e].offsetWidth,b[1]++;a.options.cloneLength=Math.max(b[0],b[1])}else{d=
-x;for(e=0;d>0;)d-=h[e].offsetWidth,a.options.cloneLength++,e=(e+1)%h.length}i.attr("data-ur-clones",a.options.cloneLength);b=document.createDocumentFragment();for(e=0;e<a.options.cloneLength;e++){var f=e%a.count,f=h.eq(f).clone(!0).attr("data-ur-clone",f).attr("data-ur-state","inactive");b.appendChild(f[0])}h.parent().append(b);if(a.options.center){b=document.createDocumentFragment();for(e=d=a.count-a.options.cloneLength%a.count;e<d+a.options.cloneLength;e++)f=e%a.count,f=h.eq(f).clone(!0).attr("data-ur-clone",
-f).attr("data-ur-state","inactive"),b.appendChild(f[0]);h.parent().prepend(b)}h=c(a.scroller).find("[data-ur-carousel-component='item']");o=h.length-1}else a.options.cloneLength=0,i.attr("data-ur-clones",0)}function l(){if(a.dots){var b=c(a.dots).find("[data-ur-carousel-component='dot']");if(b.length!=a.count){b.remove();for(var b=c("<div data-ur-carousel-component='dot'>"),d=document.createDocumentFragment(),e=0;e<a.count;e++){var f=b.clone().attr("data-ur-state",e==a.itemIndex?"active":"inactive");
-d.appendChild(f[0])}c(a.dots).append(d)}}}function m(b){if(b!==void 0){a.itemIndex=b;if(a.itemIndex<0)a.itemIndex=0;else if(a.itemIndex>o)a.itemIndex=o;b=a.itemIndex;a.options.infinite&&a.options.center&&(b=a.itemIndex-a.options.cloneLength);b%=a.count;var d=c(a.counter).attr("data-ur-template")||"{{index}} of {{count}}",d=d.replace("{{index}}",b+1).replace("{{count}}",a.count);c(a.counter).html(d);h.attr("data-ur-state","inactive");h.eq(a.itemIndex).attr("data-ur-state","active");c(a.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state",
-"inactive").eq(b).attr("data-ur-state","active");a.options.infinite?c([a.button.prev,a.button.next]).attr("data-ur-state","enabled"):(c(a.button.prev).attr("data-ur-state",a.itemIndex==0?"disabled":"enabled"),c(a.button.next).attr("data-ur-state",a.itemIndex==a.count-Math.max(a.options.fill,1)?"disabled":"enabled"))}}function t(c){a.options.verticalScroll||f(c);a.autoscrollStop();a.flag.touched=!0;a.flag.lock=null;a.flag.click=!0;s=w=k=q(c);D=a.translate}function F(c){if(a.flag.touched){w=k;k=q(c);
-if(Math.abs(s.y-k.y)+Math.abs(s.x-k.x)>0)a.flag.click=!1;if(B&&a.options.verticalScroll){var b=Math.abs((s.y-k.y)/(s.x-k.x));if(a.flag.lock){if(a.flag.lock=="y")return}else if(b>1.2){a.flag.lock="y";return}else if(b<=1.2)a.flag.lock="x";else return}f(c);if(k!==null){var c=D+(k.x-s.x),d=-c;a.options.center&&(d+=x/2);h.each(function(c,b){var e=b.offsetLeft;if(e+b.offsetWidth>d)return a.itemIndex=c,p=(d-e)/b.offsetWidth,a.options.center&&(p-=0.5),!1});a.options.infinite&&(a.options.center?a.itemIndex<
-a.options.cloneLength?(D-=n,c-=n,a.itemIndex+=a.count):a.itemIndex>=a.count+a.options.cloneLength&&(D+=n,c+=n,a.itemIndex-=a.count):p<0?(D-=n,c-=n,a.itemIndex+=a.count,b=h[a.itemIndex],p=(-c-b.offsetLeft)/b.offsetWidth):a.itemIndex>=a.count&&(b=h[a.count].offsetLeft-h[0].offsetLeft,D+=b,c+=b,a.itemIndex-=a.count));v(c)}}}function O(c){if(a.flag.touched){if(!a.flag.click||a.flag.lock)f(c);else if(c.target.tagName=="AREA")location.href=c.target.href;a.flag.touched=!1;c=k.x-w.x;a.options.center?c<0&&
-p>0?u(-1):c>0&&p<0?u(1):u(0):u(c<0?-1:0)}}function u(c){a.autoscrollStop();clearTimeout(A);var b=a.itemIndex-c;a.options.infinite||(b=a.options.fill>0?r(b,[0,a.count-a.options.fill]):r(b,[0,o]));if(a.options.infinite){var d=a.translate;if(a.options.center)if(b<a.options.cloneLength)v(d-n),b+=a.count,a.itemIndex=b+c;else{if(b>=a.count+a.options.cloneLength)v(d+n),b-=a.count,a.itemIndex=b+c}else if(b<0)v(d-n),b+=a.count,a.itemIndex=b+c;else if(b>a.count)v(d+n),b-=a.count,a.itemIndex=b+c}y=h[b];i.trigger("slidestart.ur.carousel",
-{index:b});setTimeout(function(){P();m(b)},0)}function P(){function c(){if(!a.flag.touched){var b=a.translate,d=z-b;d-=d/a.options.speed>=0?Math.floor(d/a.options.speed):Math.ceil(d/a.options.speed);Math.abs(d)<0.01&&(d=0);v(b+d);a.flag.snapping=d!=0;a.flag.snapping?A=setTimeout(c,16):(a.options.infinite&&!a.options.center&&a.itemIndex>=a.count&&(v(a.translate+n),a.itemIndex-=a.count),p=0,a.flag.click=!0,a.autoscrollStart(),i.trigger("slideend.ur.carousel",{index:a.itemIndex}))}}z=-y.offsetLeft;a.options.center&&
-(z+=Math.floor((x-y.offsetWidth)/2));c()}function v(b){a.translate=b;b=K+b+"px, 0px"+L;c(a.scroller).css({webkitTransform:b,MozTransform:b,msTransform:b,transform:b})}function q(a){var c=a.originalEvent.touches,a=c&&c[0]||a;return{x:a.clientX,y:a.clientY}}function r(a,c){return Math.min(Math.max(c[0],a),c[1])}function d(){var a=c("<a>").css({webkitTransform:"translate3d(0, 0, 0)",MozTransform:"translate3d(0, 0, 0)",msTransform:"translate3d(0, 0, 0)",transform:"translate3d(0, 0, 0)"}),b=a.css("webkitTransform"),
-d=a.css("MozTransform"),e=a.css("msTransform"),a=a.css("transform");return(b+d+e+a).indexOf("(")!=-1}var a=this;a.urId=b._id;a.container=b.set;a.scroller=b.scroll_container;a.scroller||c.error("carousel missing item components");a.items=b.item||[];a.button={prev:c(b.button).filter("[data-ur-carousel-button-type='prev']"),next:c(b.button).filter("[data-ur-carousel-button-type='next']")};a.counter=b.count;a.dots=b.dots;a.flag={click:!0,snapping:!1,lock:null,touched:!1};a.options={autoscroll:!1,autoscrollDelay:5E3,
-autoscrollForward:!0,center:!1,cloneLength:0,fill:0,infinite:!0,speed:1.1,translate3d:!0,touch:!0,verticalScroll:!0};a.count=a.items.length;a.itemIndex=0;a.translate=0;var i=c(a.container),h=c(a.items),k=null,w,s={x:0,y:0},p=0,y=h[0],z,o=a.count-1,n,C,A,x=i.outerWidth(),D=null,K="translate3d(",L=", 0px)";a.update=function(){var b=h.length;h=c(a.scroller).find("[data-ur-carousel-component='item']");if(b!=h.length){a.items=h.filter(":not([data-ur-clone])").toArray();a.count=a.items.length;o=h.length-
-1;h.each(function(b,d){if(c(d).attr("data-ur-state")=="active")return a.itemIndex=b,!1});if(a.itemIndex>=h.length-a.options.cloneLength)a.itemIndex=o-a.options.cloneLength,h.eq(a.itemIndex).attr("data-ur-state","active");c.contains(a.scroller,y)||(y=h[a.itemIndex]);l();m(a.options.center?a.itemIndex+a.options.cloneLength:a.itemIndex)}x=i.outerWidth();var b=0,d=[];if(a.options.fill>0)for(var e=x,f=a.options.fill;f>0;f--){var g=Math.round(e/f);d.push(g);e-=g}for(f=n=0;f<h.length;f++)if(a.options.fill>
-0?(g=d[f%a.options.fill],h.eq(f).outerWidth(g),b+=g):b+=h[f].offsetWidth,f<=o-a.options.cloneLength&&f>=(a.options.center?a.options.cloneLength:0))n+=h[f].offsetWidth;c(a.scroller).width(b);b=h[a.itemIndex];d=-(b.offsetLeft+p*b.offsetWidth);z=-y.offsetLeft;a.options.center&&(d+=Math.floor((x-b.offsetWidth)/2),z+=Math.floor((x-y.offsetWidth)/2));v(d)};a.autoscrollStart=function(){a.options.autoscroll&&(C=setTimeout(function(){x!=0?!a.options.infinite&&a.itemIndex==o&&a.options.autoscrollForward?a.jumpToIndex(0):
-!a.options.infinite&&a.itemIndex==0&&!a.options.autoscrollForward?a.jumpToIndex(o):u(a.options.autoscrollForward?-1:1):a.autoscrollStart()},a.options.autoscrollDelay))};a.autoscrollStop=function(){clearTimeout(C)};a.jumpToIndex=function(b){u(a.itemIndex-b)};(function(){if(/Android [12]/.test(navigator.userAgent)){if((i.attr("data-ur-android3d")||i.attr("data-ur-translate3d"))!="enabled"){a.options.translate3d=!1;var b=parseFloat(i.attr("data-ur-speed"));a.options.speed=b>1?b:1.3}}else a.options.translate3d=
-i.attr("data-ur-translate3d")!="disabled";i.attr("data-ur-translate3d",a.options.translate3d?"enabled":"disabled");i.attr("data-ur-speed",a.options.speed);b=parseInt(i.attr("data-ur-fill"));if(b>0)a.options.fill=b;i.attr("data-ur-fill",a.options.fill);if(b=i.attr("data-ur-clones"))a.options.cloneLength=parseInt(b);i.attr("data-ur-clones",a.options.cloneLength);b=parseInt(i.attr("data-ur-autoscroll-delay"));if(b>=0)a.options.autoscrollDelay=b;i.attr("data-ur-autoscroll-delay",a.options.autoscrollDelay);
-a.options.autoscrollForward=i.attr("data-ur-autoscroll-dir")!="prev";i.attr("data-ur-autoscroll-dir",a.options.autoscrollForward?"next":"prev");c.each(["autoscroll","center","infinite","touch","verticalScroll"],function(b,c){var d="data-ur-"+c.replace(/[A-Z]/g,function(a){return"-"+a.toLowerCase()}),e=i.attr(d);e=="enabled"?a.options[c]=!0:e=="disabled"&&(a.options[c]=!1);i.attr(d,a.options[c]?"enabled":"disabled")})})();var M=!1;a.options.infinite&&!a.options.fill&&a.options.cloneLength==0&&h.width(function(a,
-b){b==0&&(M=!0)});if(M){console.warn("carousel with id: "+a.urId+" will be late loaded");var b=h.find("img").addBack("img"),N=b.length;N>0?b.load(function(){--N==0&&g()}):c(window).load(g)}else g()}b=t(b,"carousel");c.each(b,function(b,f){c(f.buttons).each(function(){var f=c(this).attr("data-ur-carousel-button-type");f||c.error("malformed carousel button type for carousel with id: "+b);c(this).attr("data-ur-state",f=="prev"?"disabled":"enabled")});Uranium.carousel[b]=new l(f);c(f.set).data("urInit",
-!0);c(f.set).attr("data-ur-state","enabled")})};window.Uranium={};c.each(m,function(b){Uranium[b]={}});c.fn.Uranium=function(){var b=this;c.each(m,function(){this(b)});return this};c(document).ready(function(){c(document).Uranium()})})(jQuery);
+// jQuery.Uranium.js
+// Build out Uranium interactions in jQuery
 
+(function ( $ ) {
+
+  // Keep a unique value for ID initialization
+  var uniqueUraniumId = function() {
+    var count = 0;
+    return function() { return ++count; }
+  }();
+
+  // Find elements for the interactions
+  // optional customFn(set, component) for custom creation of object
+  function findElements( fragment, type, customFn ) {
+    var sets = {};
+    var setCss = "[data-ur-set='" + type + "']";
+    var compAttr = "data-ur-" + type + "-component";
+
+    $(fragment).find("[" +compAttr +"]").each(function() {
+      if ($(this).data("urCompInit"))
+        return;
+      var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
+      if (set[0] && !set.data("urInit")) {
+        $(this).data("urCompInit", true);
+        var setId = set.attr("data-ur-id");
+        if (!setId) {
+          setId = uniqueUraniumId();
+          set.attr("data-ur-id", setId);
+        }
+        sets[setId] = sets[setId] || {};
+
+        if (set.is(setCss))
+          sets[setId].set = set[0];
+
+        if (customFn)
+          customFn(sets[setId], this);
+        else {
+          var compName = $(this).attr(compAttr);
+          sets[setId][compName] = sets[setId][compName] || [];
+          sets[setId][compName].push(this);
+        }
+      }
+    });
+    return sets;
+  }
+
+  var interactions = {};
+
+  var touchscreen = "ontouchstart" in window;
+  var downEvent = touchscreen ? "touchstart" : "mousedown";
+  var moveEvent = touchscreen ? "touchmove" : "mousemove";
+  var upEvent = touchscreen ? "touchend" : "mouseup";
+
+  // Toggler
+  interactions.toggler = function( fragment ) {
+    var groups = findElements(fragment, "toggler");
+
+    $.each(groups, function(id, group) {
+      if (!group["button"])
+        $.error("no button found for toggler with id=" + id);
+      if (!group["content"])
+        $.error("no content found for toggler with id=" + id);
+
+      var togglerState = $(group["button"]).attr("data-ur-state") || "disabled";
+      $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
+
+      $(group["button"]).click(function(event) {
+        event.stopPropagation();
+        var newState = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+        $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
+      });
+
+      $(group["set"]).data("urInit", true);
+    });
+  }
+
+  // Tabs
+  interactions.tabs = function( fragment ) {
+    var groups = findElements(fragment, "tabs", function(set, comp) {
+      var tabId = $(comp).attr("data-ur-tab-id");
+      set.tabs = set.tabs || {};
+      set.tabs[tabId] = set.tabs[tabId] || {};
+      var compName = $(comp).attr("data-ur-tabs-component");
+      set.tabs[tabId][compName] = set.tabs[tabId][compName] || [];
+      set.tabs[tabId][compName].push(comp);
+    });
+
+    $.each(groups, function(id, group) {
+      group["closeable"] = $(group["set"]).attr("data-ur-closeable") == "true";
+
+      // Set the state of the tabs
+      $.each(group["tabs"], function() {
+        var tabState = $(this["button"]).attr("data-ur-state") || "disabled";
+        $(this["button"]).add(this["content"]).attr("data-ur-state", tabState);
+      });
+
+      // Set up the button call backs
+      $.each(group["tabs"], function(_, tab) {
+        $(tab["button"]).click(function() {
+          // Is the tab open already?
+          var open = $(this).attr("data-ur-state") == "enabled";
+          $.each(group["tabs"], function() {
+            $(this["button"]).add(this["content"]).attr("data-ur-state", "disabled");
+          });
+          // If closeable (active tab can be toggled) then make sure it happens.
+          if (!open || !groups["closeable"]) {
+            $(tab["button"]).add(tab["content"]).attr("data-ur-state", "enabled");
+          }
+        });
+      });
+
+      $(group["set"]).data("urInit", true);
+    });
+  }
+
+  // Validation
+
+  interactions.validator = function( fragment ) {
+    var groups = findElements(fragment, "validator");
+    $.each(groups, function(id, group) {
+
+      // Grabbing all the possible validator components into variables
+
+      var email = $(group['set']).find("input[data-ur-validator-component~='email']");
+      var ccnum = $(group['set']).find("input[data-ur-validator-component~='ccnum']");
+      var notblank = $(group['set']).find("input[data-ur-validator-component~='notblank']");
+
+      var min = $(group['set']).find("[data-ur-validator-min]");
+      var max = $(group['set']).find("[data-ur-validator-max]");
+      var minmax = $(group['set']).find("[data-ur-validator-min][data-ur-validator-max]")
+
+      // Functions for removing errors and adding errors
+      // InputError = class of data-ur-state="error" on an input
+      // SpanError = inserting a span with an error class into the (optional) error div
+
+      function removeInputError(target) {
+        $(target).removeAttr("data-ur-state");
+      }
+      function removeSpanError(type) {
+        // The "length" if/else allows you to remove all errors if 
+        // you don't specify a type - perfect for "blank"
+        if (arguments.length == 0) {
+          $(group['set']).find("[data-ur-validator-error]").remove();
+        } else {
+          $(group['set']).find("[data-ur-validator-error='"+type+"']").remove();
+        }
+      };
+      function addInputError(target) {
+        $(target).attr("data-ur-state", "error");
+      }
+      function addSpanError(target, type, message) {
+        $(target).siblings("[data-ur-validator-component='error']").append("<span data-ur-validator-error='"+type+"'>"+message+"</span>");
+      };
+      // E-mail validation
+      email
+        .on("blur", function() {
+          var emailval = email.val();
+          var noat=emailval.split("@").length-1;
+          var atpos=emailval.indexOf("@");
+          var dotpos=emailval.lastIndexOf(".");
+          if ((atpos<1 || dotpos<atpos+2 || dotpos+2>=emailval.length) && (noat < 2)) {
+            // console.log("E-mail is incorrect.")
+            removeSpanError("email");
+            addInputError(this);
+            addSpanError(this, "email", "This e-mail is invalid. ");
+            return false;
+          } else {
+            // console.log("Email is correct");
+            removeInputError(this);
+            removeSpanError("email");
+            return true;
+          }
+        });
+      // Credit card validation
+      ccnum
+        .on("blur", function() {
+          var cc_num = ccnum.val();
+
+          // From http://www.breakingpar.com/bkp/home.nsf/0/87256B280015193F87256CC70060A01B
+          cc_num = cc_num.split("-").join("");
+          var checksum = 0;
+          for (var i=(2-(cc_num.length % 2)); i<=cc_num.length; i+=2) {
+             checksum += parseInt(cc_num.charAt(i-1));
+          }
+          // Analyze odd digits in even length strings or even digits in odd length strings.
+          for (var i=(cc_num.length % 2) + 1; i<cc_num.length; i+=2) {
+             var digit = parseInt(cc_num.charAt(i-1)) * 2;
+             if (digit < 10) { checksum += digit; } else { checksum += (digit-9); }
+          }
+
+          // If the credit card is valid, remove errors
+          if ((checksum % 10) == 0) {
+            // console.log("Credit card is valid");
+            removeInputError(this);
+            removeSpanError("cc");
+
+            // Card type detection, from Ben  Bayard
+            var visa = new RegExp(/^4[0-9]{12}(?:[0-9]{3})?$/);
+            var mc = new RegExp(/^5[1-5][0-9]{14}$/);
+            var amex = new RegExp(/^3[47][0-9]{13}$/);
+            var discover = new RegExp(/^6(?:011|5[0-9]{2})[0-9]{12}$/);
+            var detectedCardType = false;
+            if (visa.test(cc_num)) {
+              detectedCardType = "VISA";        
+            }
+            else if (mc.test(cc_num)){
+              detectedCardType = "MASTERCARD";
+            }
+            else if (amex.test(cc_num)) {
+              detectedCardType = "AMEX";
+            }
+            else if (discover.test(cc_num)) {
+              detectedCardType = "DISCOVER";
+            }
+            // Adding an attribute to the input that has a value of the card type
+            // console.log(detectedCardType);
+            ccnum.attr("data-ur-validator-ccard-type", detectedCardType);
+            return true;
+          } else {
+            // console.log("Credit card is invalid");
+            removeSpanError("cc")
+            addInputError(this);
+            addSpanError(this, "cc", "This credit card number is invalid. ");
+            return false;
+          }
+        });
+      // Must be above minimum validator
+      min
+        .on("blur", function() {
+          var inputVal = parseInt(min.val());
+          var minVal = parseInt(min.attr("data-ur-validator-min"));
+          // Input must be greater than (or equal to) the value assigned to the attribute
+          if (inputVal >= minVal) {
+            // console.log("Value is high enough");
+            removeInputError(this);
+            removeSpanError("min");
+            return true;
+          } else {
+            // console.log("Value is too low input");
+            removeSpanError("min");
+            addInputError(this);
+            addSpanError(this, "min", "This value is too low. Please enter a value of "+minVal+" or above. ");
+            return false;
+          }
+        });
+      // Must be below maximum validator
+      max
+        .on("blur", function() {
+          var inputVal = parseInt(max.val());
+          var maxVal = parseInt(max.attr("data-ur-validator-max"));
+          // Input must be less than (or equal to) the value assigned to the attribute
+          if (inputVal <= maxVal) {
+            // console.log("Value is low enough");
+            removeInputError(this);
+            removeSpanError("max")
+            return true;
+          } else {
+            // console.log("Value is too high");
+            removeSpanError("max");
+            addInputError(this);
+            addSpanError(this, "max", "This value is too high. Please enter a value of "+maxVal+" or below. ");
+            return false;
+          }
+        });
+      // This fixes an error where if you specified a minimum and a 
+      // maximum, the error from a number being too low would be removed
+      // by the 'max' function
+      minmax
+        .on("blur", function() {
+          var inputVal = parseInt(max.val());
+          var minVal = parseInt(min.attr("data-ur-validator-min"));
+          var maxVal = parseInt(max.attr("data-ur-validator-max"));
+          if (inputVal >= minVal && inputVal <= maxVal) {
+            // console.log("Value is high enough");
+            removeInputError(this);
+            removeSpanError("min");
+            return true;
+          } else {
+            // console.log("Value is too high");
+            addInputError(this);
+            return false;
+          }
+        });
+      
+      // Checks to see if the input is not blank
+      notblank
+        .on("blur", function() {
+          var valLength = notblank.val().length;
+          if (valLength === 0) {
+            // console.log("Input is blank.")
+            // Removing all span errors as we don't want type-specific errors to 
+            // appear as well as a "not blank" error.
+            removeSpanError();
+            addInputError(this);
+            addSpanError(this, "notblank", "The input is blank. ");
+            return false;
+          } else {
+            // console.log("Input is not blank.")
+            // If the input has other components, don't want to remove
+            // the input error until they are done.
+            if($(this).attr("data-ur-validator-component") === "notblank") {
+              removeInputError(this);
+            } else {}
+            removeSpanError("notblank");
+            return true;
+          }
+        });
+      $(group["set"]).data("urInit", true);
+    });
+  }
+
+  // Input Clear
+  interactions.inputClear = function( fragment ) {
+    var groups = findElements(fragment, "input-clear");
+    $.each(groups, function(id, group) {
+      // Create the X div and hide it (even though this should be in CSS)
+      var ex = $("<div class='data-ur-input-clear-ex'></div>").hide();
+      // Inject it
+      $(group['set']).append(ex);
+
+      // Touch Events
+      ex
+        .bind(touchscreen ? "touchstart" : "click", function() {
+          // remove text in the box
+          input[0].value='';
+          input[0].focus();
+        })
+        .bind('touchend', function() {
+          // make sure the keyboard doesn't disappear
+          input[0].blur();
+        });
+
+      var input = $(group["set"]).find("input");
+      input
+        .bind('focus', function() {
+          if (input[0].value != '') {
+            ex.show();
+          }
+        })
+        .bind('keydown', function() {
+          ex.show();
+        })
+        .bind('blur', function() {
+          // Delay the hide so that the button can be clicked
+          setTimeout(function() { ex.hide();}, 150);
+        });
+      
+      $(group["set"]).data("urInit", true);
+    });
+  }
+
+  // Geocode
+  interactions.geoCode = function ( fragment ) {
+    var groups = findElements(fragment, "reverse-geocode", function(set, comp) {
+      set["elements"] = set["elements"] || {};
+      set["elements"][$(comp).attr("data-ur-reverse-geocode-component")] = comp;
+    });
+
+    $.each(groups, function(id, group) {
+      var set = this['set'];
+
+      var callback = $(set).attr("data-ur-callback");
+      var errorCallback = $(set).attr("data-ur-error-callback");
+      var geocoder;
+      var geocodeObj;
+      var currentObj;
+
+      function selectHelper(elm, value) {
+        for (var i=0,j=elm.length; i<j; i++) {
+          if (elm[i].value === value.long_name || elm[i].value.toUpperCase() === value.short_name) {
+            elm.selectedIndex = i;
+          }
+        }
+      }
+
+      function fieldHelper(elm, geoInfo, htmlElmType) {
+        var index1 = 0;
+        var index2 = null; // used for street address
+        var need = null;
+        var temp = null;
+        var self = $(elm).attr("data-ur-reverse-geocode-component");
+        switch(self) {
+          case 'rg-city':
+            need = 'locality';
+            break;
+          case 'rg-street':
+            need = 'street_number';
+            break;
+          case 'rg-zip':
+            need = 'postal_code';
+            break;
+          case 'rg-state':
+            need = 'administrative_area_level_1';
+            break;
+          case 'rg-country':
+            need = 'country';
+            break;
+        }
+        temp=geoInfo[0];
+        var myTemp = null;
+        for (var i = temp.address_components.length, j=0; j<i; j++) {
+          for (var k = temp.address_components[j].types.length, m=0; m<k; m++) {
+            myTemp = temp.address_components[j].types[m];
+            if (need == myTemp) {
+              switch(myTemp) {
+                case 'street_number':
+                  index1 = j;
+                  index2 = j+1;
+                  break;
+                case 'locality':
+                  index1 = j;
+                  break;
+                case 'postal_code':
+                  index1 = j;
+                  break;
+                case 'administrative_area_level_1':
+                  index1 = j;
+                  break;
+                case 'country':
+                  index1 = j;
+              }
+              break;
+            }
+          }
+        }
+        if (htmlElmType === "input") {
+          if (index2 === null) {
+            elm.value = geoInfo[0].address_components[index1].long_name;
+          } else {
+            elm.value = geoInfo[0].address_components[index1].long_name + " " + geoInfo[0].address_components[index2].long_name;
+          }
+        } else if (htmlElmType === "select") {
+          selectHelper(elm, geoInfo[0].address_components[index1]);
+        }
+      }
+
+      function populateFields (geoInfo) {
+        var elements = currentObj.elements;
+        for (elm in elements) {
+          if (elements[elm].localName === "input") {
+            fieldHelper(elements[elm], geoInfo, "input")
+          }
+          else if (elements[elm].localName === "select") {
+            fieldHelper(elements[elm], geoInfo, "select")
+          }
+        }
+      }
+
+      this.setupCallbacks = function () {
+        currentObj = this;
+        // Set up call back for button to trigger geocoding
+        var btn = $(this["elements"]).filter("[data-ur-reverse-geocode-component='rg-button']")
+        if (btn.length > 0) {
+          $(btn).bind(
+            'click',
+            function(obj){
+              return function() {
+                obj.geocodeInit();
+              }
+            }(this)
+          );
+        } else {
+          console.warn("no button for triggering reverse geocoding present");
+          this.geocodeInit();
+        }
+      };
+
+      this.geoSuccess = function( position ){
+        var coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+
+        this.codeLatLng(coords.lat, coords.lng);
+      },
+
+      this.geoError = function( error ){
+        console.error("Ur geolocation error -- Error Getting Your Coordinates!");
+        switch(error.code)
+        {
+          case error.TIMEOUT:
+            console.error ('Ur geolocation error -- Timeout');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.error ('Ur geolocation error -- Position unavailable');
+            break;
+          case error.PERMISSION_DENIED:
+            console.error ('Ur geolocation error -- Permission denied');
+            break;
+          case error.UNKNOWN_ERROR:
+            console.error ('Ur geolocation error -- Unknown error');
+            break;
+        }
+        if(errorCallback !== undefined) {
+          eval(errorCallback);
+        }
+      }
+
+      this.geoDenied = function() {
+        console.error("Ur geolocation error -- User Denied Geolocation");
+      }
+
+      this.codeLatLng = function( lat, lng ) {
+        var latlng = new google.maps.LatLng(lat, lng);
+        var self = this;
+
+        geocoder.geocode({'latLng': latlng}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              geocodeObj = results;
+              populateFields(geocodeObj);
+
+              if(self.callback !== undefined) {
+                eval(self.callback);
+              }
+
+              return results;
+            } else {
+              console.error("Geocoder failed due to: " + status);
+            }
+          }
+        });
+      }
+
+      this.geocodeInit = function () {
+        if(navigator.geolocation){ //feature detect
+          geocoder = new google.maps.Geocoder();
+          navigator.geolocation.getCurrentPosition(
+            function(obj){
+              return function(position){
+                obj.geoSuccess(position);
+              };
+            }(this),
+            function(obj) {
+              return function(errors){
+                obj.geoError(errors);
+              };
+            }(this),
+            this.geoDenied
+          );
+        }
+      }
+
+      UrGeocode = function( obj ) {
+        return function() {
+          obj.setupCallbacks();
+        };
+      }(this);
+      var s = document.createElement('script');
+      s.type = "text/javascript";
+      s.src = "https://maps.googleapis.com/maps/api/js?sensor=true&callback=UrGeocode";
+      $('head').append(s);
+      
+      $(group["set"]).data("urInit", true);
+    });
+  }
+
+  // Zoom
+  interactions.zoom = function ( fragment ) {
+    var groups = findElements(fragment, "zoom");
+
+    // Private shared variables
+
+    var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
+
+    var no3d = /Android [12]|Opera/.test(navigator.userAgent);
+
+    var noTranslate3d = no3d;
+    var noScale3d = no3d;
+
+    var translatePrefix = noTranslate3d ? "translate(" : "translate3d(";
+    var translateSuffix = noTranslate3d ? ")" : ", 0)";
+
+    var scalePrefix = noScale3d ? " scale(" : " scale3d(";
+    var scaleSuffix = noScale3d ? ")" : ", 1)";
+
+
+    // Private shared methods
+
+    // note that this accepts a reversed range
+    function bound(num, range) {
+      return Math.max(Math.min(range[0], num), range[1]);
+    }
+
+    function stifle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    $.each(groups, function(id, group) {
+      Uranium.zoom[id] = new Zoom(this);
+      $(group["set"]).data("urInit", true);
+    });
+
+    function Zoom(set) {
+      var self = this;
+      this.container = set["set"];
+      this.img = set["img"][0];
+      this.prescale = false;
+      this.width = this.height = 0;
+      this.bigWidth = this.bigHeight = 0;
+      this.canvasWidth = this.canvasHeight = 0;
+      this.ratio = 1;
+      this.state = "disabled";
+
+      // Optionally:
+      this.button = set["button"];
+      this.idler = set["loading"];
+
+      var $img = $(this.img);
+      var $idler = $(this.idler);
+      var $btn = $(this.button);
+
+      var boundX, boundY;
+      var relX, relY;
+      var offsetX = 0, offsetY = 0;
+      var touchX = 0, touchY = 0;
+      var mouseDown = false; // only used on non-touch browsers
+      var mouseDrag = true;
+
+      loadedImgs.push($img.attr("src"));
+
+      function initialize() {
+        self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
+        self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
+        self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
+        self.height = self.height || parseInt($img.attr("height")) || parseInt($img.css("height")) || self.img.height;
+
+        self.bigWidth = parseInt($img.attr("data-ur-width")) || self.img.naturalWidth;
+        self.bigHeight = parseInt($img.attr("data-ur-height")) || self.img.naturalHeight;
+        if (($img.attr("data-ur-width") && $img.attr("data-ur-height")) || $img.attr("src") == $img.attr("data-ur-src"))
+          self.prescale = true;
+
+        self.ratio = self.bigWidth/self.width;
+
+        boundX = (self.canvasWidth - self.bigWidth)/2;    // horizontal translation to view middle of image
+        boundY = (self.canvasHeight - self.bigHeight)/2;  // vertical translation to view middle of image
+      }
+
+      function panStart(event) {
+        if (event.target != self.img)
+          return;
+        mouseDrag = false;
+        touchX = event.pageX;
+        touchY = event.pageY;
+        mouseDown = true;
+        var touches = event.originalEvent.touches;
+        if (touches) {
+          touchX = touches[0].pageX;
+          touchY = touches[0].pageY;
+        }
+
+        var style = self.img.style;
+        if (window.WebKitCSSMatrix) {
+          var matrix = new WebKitCSSMatrix(style.webkitTransform);
+          offsetX = matrix.m41;
+          offsetY = matrix.m42;
+        }
+        else {
+          var transform = style.MozTransform || style.msTransform || style.transform || "translate(0, 0)";
+          transform = transform.replace(/.*?\(|\)/, "").split(",");
+
+          offsetX = parseInt(transform[0]);
+          offsetY = parseInt(transform[1]);
+        }
+
+        stifle(event);
+      }
+
+      function panMove(event) {
+        if (!mouseDown || event.target != self.img) // NOTE: mouseDown should always be true on touch-enabled devices
+          return;
+
+        stifle(event);
+        var x = event.pageX;
+        var y = event.pageY;
+        var touches = event.originalEvent.touches;
+        if (touches) {
+          x = touches[0].pageX;
+          y = touches[0].pageY;
+        }
+        var dx = x - touchX;
+        var dy = y - touchY;
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5)
+          mouseDrag = true;
+        var newOffsetX = bound(offsetX + dx, [-boundX, boundX]);
+        var newOffsetY = bound(offsetY + dy, [-boundY, boundY]);
+        transform(newOffsetX, newOffsetY, self.ratio);
+      }
+
+      function panEnd(event) {
+        if (!mouseDrag)
+          self.zoomOut();
+        stifle(event);
+        mouseDown = false;
+        mouseDrag = true;
+      }
+
+      function transitionEnd() {
+        if (self.state == "enabled-in") {
+          $img.css({ webkitTransitionDelay: "", MozTransitionDelay: "", OTransitionDelay: "", transitionDelay: "" });
+
+          self.img.src = $img.attr("data-ur-src");
+          if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1) {
+            setTimeout(function() {
+              if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
+                $idler.attr("data-ur-state", "enabled");
+            }, 16);
+          }
+          self.state = "enabled";
+          self.container.setAttribute("data-ur-state", self.state);
+
+          $(self.container)
+            .on(downEvent, panStart)
+            .on(moveEvent, panMove)
+            .on(upEvent, panEnd);
+        }
+        else if (self.state == "enabled-out") {
+          self.state = "disabled";
+          self.container.setAttribute("data-ur-state", self.state);
+
+          $(self.container)
+            .unbind(downEvent, panStart)
+            .unbind(moveEvent, panMove)
+            .unbind(upEvent, panEnd);
+        }
+      }
+
+      function zoomHelper(x, y) {
+        $btn.attr("data-ur-state", "enabled");
+        self.state = "enabled-in";
+        self.container.setAttribute("data-ur-state", self.state);
+
+        x = x ? x : 0;
+        y = y ? y : 0;
+        transform(x, y, self.ratio);
+      }
+
+      function transform(x, y, scale) {
+        var t = "";
+        if (x != undefined)
+          t = translatePrefix + x + "px, " + y + "px" + translateSuffix;
+        if (scale != undefined) {
+          if (noScale3d)
+            t += " scale(" + scale + ")";
+          else
+            t += " scale3d(" + scale + ", " + scale + ", 1)";
+        }
+        return $img.css({ webkitTransform: t, MozTransform: t, msTransform: t, transform: t });
+      }
+
+      // attempts to zoom in centering in on the area that was touched
+      this.zoomIn = function(event) {
+        if (self.state != "disabled")
+          return;
+
+        if (!self.width) {
+          initialize();
+          self.img.style.width = self.width + "px";
+          self.img.style.height = self.height + "px";
+        }
+
+        var x = event.pageX, y = event.pageY;
+        if (event.touches) {
+          x = event.touches[0].pageX;
+          y = event.touches[0].pageY;
+        }
+
+        // find touch location relative to image
+        relX = event.offsetX;
+        relY = event.offsetY;
+        if (relX == undefined || relY == undefined) {
+          var offset = self.img.getBoundingClientRect();
+          relX = x - offset.left;
+          relY = y - offset.top;
+        }
+
+        if (!self.prescale) {
+          self.state = "enabled-in";
+          self.img.src = $img.attr("data-ur-src");
+          setTimeout(function() {
+            if (!self.prescale)
+              $idler.attr("data-ur-state", "enabled");
+          }, 0);
+        }
+        else {
+          var translateX = bound(self.bigWidth/2 - self.ratio * relX, [-boundX, boundX]);
+          var translateY = bound(self.bigHeight/2 - self.ratio * relY, [-boundY, boundY]);
+          zoomHelper(translateX, translateY);
+        }
+      };
+
+      this.zoomOut = function() {
+        if (self.state != "enabled")
+          return;
+        $btn.attr("data-ur-state", "disabled");
+        self.state = "enabled-out";
+        self.container.setAttribute("data-ur-state", self.state);
+        transform(0, 0, 1);
+      };
+
+      if (self.container.getAttribute("data-ur-touch") != "disabled")
+        $(self.container).click(self.zoomIn);
+
+      $img.load(function() {
+        if ($img.attr("src") == $img.attr("data-ur-src"))
+          loadedImgs.push($img.attr("src"));
+        $idler.attr("data-ur-state", "disabled");
+        if (!self.prescale && self.state == "enabled-in") {
+          self.prescale = true;
+          initialize();
+          var translateX = bound(self.bigWidth/2 - self.ratio * relX, [-boundX, boundX]);
+          var translateY = bound(self.bigHeight/2 - self.ratio * relY, [-boundY, boundY]);
+
+          var delay = "0.3s";
+          $img.css({ webkitTransitionDelay: delay, MozTransitionDelay: delay, OTransitionDelay: delay, transitionDelay: delay });
+
+          zoomHelper(translateX, translateY);
+        }
+      });
+
+      // zooms in to the center of the image
+      this.zoom = function() {
+        if (self.state == "disabled") {
+          if (!self.width) {
+            initialize();
+            self.img.style.width = self.width + "px";
+            self.img.style.height = self.height + "px";
+          }
+
+          if (self.prescale)
+            zoomHelper(0, 0);
+          else {
+            self.state = "enabled-in";
+            self.img.src = $img.attr("data-ur-src");
+            setTimeout(function() {
+              // if prescale ?
+              if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
+                $idler.attr("data-ur-state", "enabled");
+            }, 0);
+          }
+        }
+        else
+          self.zoomOut();
+      };
+
+      // zoom in/out button, zooms in to the center of the image
+      $(self.button).on(touchscreen ? "touchstart" : "click", self.zoom);
+
+      $.each(["webkitTransitionEnd", "transitionend", "oTransitionEnd"], function(index, eventName) {
+        $img.on(eventName, transitionEnd);
+      });
+
+      this.reset = function() {
+        self.prescale = false;
+        self.width = self.height = 0;
+        $img.css({width: "", height: ""});
+        transform();
+        self.state = "enabled-out";
+        transitionEnd();
+        $idler.attr("data-ur-state", "disabled");
+        $btn.attr("data-ur-state", "disabled");
+      };
+    }
+  }
+
+  // Carousel
+  interactions.carousel = function ( fragment ) {
+    var groups = findElements(fragment, "carousel");
+
+    // for each carousel
+    $.each(groups, function(id, group) {
+      $(group["buttons"]).each(function() {
+        var type = $(this).attr("data-ur-carousel-button-type");
+        if(!type) {
+          $.error("malformed carousel button type for carousel with id: " + id + ".");
+        }
+        $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
+      });
+      Uranium.carousel[id] = new Carousel(group);
+      $(group["set"]).data("urInit", true);
+      $(group["set"]).attr("data-ur-state", "enabled"); // should be data-ur-init or fire event
+    });
+
+    // private methods
+    
+    function zeroFloor(num) {
+      return num >= 0 ? Math.floor(num) : Math.ceil(num);
+    }
+    
+    function stifle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function Carousel(set) {
+      var self = this;
+      self.container = set["set"];
+      self.scroller = set["scroll_container"];
+      if (!self.scroller)
+        $.error("carousel missing item components");
+      self.items = set["item"] || [];
+
+      // Optionally:
+      self.button = {
+        prev: $(set["button"]).filter("[data-ur-carousel-button-type='prev']"),
+        next: $(set["button"]).filter("[data-ur-carousel-button-type='next']")
+      };
+      self.counter = set["count"];
+      self.dots = set["dots"];
+
+      self.flag = {
+        click: false,           // used for determining if item is clicked on touchscreens
+        snapping: false,        // true if carousel is currently snapping, flag for users' convenience
+        lock: null,             // used for determining horizontal/vertical dragging motion on touchscreens
+        touched: false          // true when user is currently touching/dragging
+      };
+
+      self.options = {
+        autoscroll: false,
+        autoscrollDelay: 5000,
+        autoscrollForward: true,
+        center: false,          // position active item in the middle of the carousel
+        cloneLength: 0,         // number of clones at back of carousel (or front and back for centered carousels)
+        fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
+        infinite: true,         // loops the last item back to first and vice versa
+        speed: 1.1,             // determines how "fast" carousel snaps, should probably be deprecated
+        translate3d: true,      // determines if translate3d() or translate() is used
+        touch: true,            // determines if carousel can be dragged e.g. when user only wants buttons to be used
+        verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
+      };
+
+      self.count = self.items.length;     // number of items (excluding clones)
+      self.itemIndex = 0;                 // index of active item (including clones)
+      self.translate = 0;                 // current numerical css translate value
+      
+      var $container = $(self.container);
+      var $items = $(self.items);         // all carousel items (including clones)
+      var coords = null;
+      var prevCoords;                     // stores previous coords, used for determining swipe direction
+      var startCoords = {x: 0, y: 0};
+      var shift = 0;                      // in range [0, 1) or [-0.5, 0.5) for centered carousels showing translate percentage past top/left side of active item
+      var dest = $items[0];               // snap destination element
+      var destinationOffset;              // translate value of destination
+      var lastIndex = self.count - 1;     // index of last item
+      var allItemsWidth;                  // sum of all items' widths (excluding clones)
+      var autoscrollId;                   // used for autoscrolling timeout
+      var momentumId;                     // used for snapping timeout
+
+      var viewport = $container.outerWidth();
+
+      var startingOffset = null;
+
+      var translatePrefix = "translate3d(", translateSuffix = ", 0px)";
+
+      function initialize() {
+        self.options.translate3d = self.options.translate3d && test3d();
+        if (!self.options.translate3d) {
+          translatePrefix = "translate(";
+          translateSuffix = ")";
+        }
+
+        $items.each(function(i, obj) {
+          if ($(obj).attr("data-ur-state") == "active") {
+            self.itemIndex = i;
+            return false;
+          }
+        });
+        
+        insertClones();
+        updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
+        updateDots();
+        self.update();
+
+        $(self.scroller).on("dragstart", function() { return false; }); // for Firefox
+
+        if (self.options.touch) {
+          $(self.scroller)
+            .on(downEvent, startSwipe)
+            .on(moveEvent, continueSwipe)
+            .on(upEvent, finishSwipe)
+            .click(function(e) {if (!self.flag.click) stifle(e);});
+        }
+
+        self.button.prev.click(function() {
+          moveTo(1);
+        });
+        self.button.next.click(function() {
+          moveTo(-1);
+        });
+
+        if ("onorientationchange" in window)
+          $(window).on("orientationchange", self.update);
+        else
+          $(window).on("resize", function() {
+            if (viewport != $container.outerWidth()) {
+              self.update();
+              setTimeout(self.update, 100); // sometimes styles haven't updated yet
+            }
+          });
+
+        $items.find("img").addBack("img").load(self.update); // after any (late-loaded) images are loaded
+
+        self.autoscrollStart();
+
+      }
+
+      function readAttributes() {
+        var oldAndroid = /Android [12]/.test(navigator.userAgent);
+        if (oldAndroid) {
+          if (($container.attr("data-ur-android3d") || $container.attr("data-ur-translate3d")) != "enabled") {
+            self.options.translate3d = false;
+            var speed = parseFloat($container.attr("data-ur-speed"));
+            self.options.speed = speed > 1 ? speed : 1.3;
+          }
+        }
+        else
+          self.options.translate3d = $container.attr("data-ur-translate3d") != "disabled";
+        $container.attr("data-ur-translate3d", self.options.translate3d ? "enabled" : "disabled");
+
+        $container.attr("data-ur-speed", self.options.speed);
+
+        var fill = parseInt($container.attr("data-ur-fill"));
+        if (fill > 0)
+          self.options.fill = fill;
+        $container.attr("data-ur-fill", self.options.fill);
+
+        var cloneLength = $container.attr("data-ur-clones");
+        if (cloneLength)
+          self.options.cloneLength = parseInt(cloneLength);
+        $container.attr("data-ur-clones", self.options.cloneLength);
+
+        var autoscrollDelay = parseInt($container.attr("data-ur-autoscroll-delay"));
+        if (autoscrollDelay >= 0)
+          self.options.autoscrollDelay = autoscrollDelay;
+        $container.attr("data-ur-autoscroll-delay", self.options.autoscrollDelay);
+
+        self.options.autoscrollForward = $container.attr("data-ur-autoscroll-dir") != "prev";
+        $container.attr("data-ur-autoscroll-dir", self.options.autoscrollForward ? "next" : "prev");
+
+        // read boolean attributes
+        $.each(["autoscroll", "center", "infinite", "touch", "verticalScroll"], function(_, name) {
+          var dashName = "data-ur-" + name.replace(/[A-Z]/g, function(i) { return "-" + i.toLowerCase()});
+          var value = $container.attr(dashName);
+          if (value == "enabled")
+            self.options[name] = true;
+          else if (value == "disabled")
+            self.options[name] = false;
+
+          $container.attr(dashName, self.options[name] ? "enabled" : "disabled");
+        });
+      }
+
+      function insertClones() {
+        if (!self.options.infinite) {
+          self.options.cloneLength = 0;
+          $container.attr("data-ur-clones", 0);
+          return;
+        }
+
+        if (self.options.cloneLength == 0) {
+          if (self.options.fill)
+            self.options.cloneLength = self.options.center ? self.options.fill - 1 : self.options.fill;
+          else if (self.options.center) {
+            // insert enough clones at front and back to never see a blank space
+            var cloneLengths = [0, 0];
+            var space = viewport/2 + width($items[lastIndex])/2;
+            for (var i = lastIndex; space > 0; i = (i - 1 + self.count) % self.count) {
+              space -= width($items[i]);
+              cloneLengths[0]++;
+            }
+
+            space = viewport/2 + width($items[0])/2;
+            for (var i = 0; space > 0; i = (i + 1) % self.count) {
+              space -= width($items[i]);
+              cloneLengths[1]++;
+            }
+
+            self.options.cloneLength = Math.max(cloneLengths[0], cloneLengths[1]);
+          }
+          else {
+            // insert enough clones at the back to never see a blank space
+            var space = viewport;
+            var i = 0;
+            while (space > 0) {
+              space -= width($items[i]);
+              self.options.cloneLength++;
+              i = (i + 1) % $items.length;
+            }
+          }
+        }
+
+        $container.attr("data-ur-clones", self.options.cloneLength);
+
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < self.options.cloneLength; i++) {
+          var srcIndex = i % self.count;
+          var clone = $items.eq(srcIndex).clone(true).attr("data-ur-clone", srcIndex).attr("data-ur-state", "inactive");
+          frag.appendChild(clone[0]);
+        }
+        $items.parent().append(frag);
+        
+        if (self.options.center) {
+          frag = document.createDocumentFragment()
+          var offset =  self.count - (self.options.cloneLength % self.count);
+          for (var i = offset; i < offset + self.options.cloneLength; i++) {
+            var srcIndex = i % self.count;
+            var clone = $items.eq(srcIndex).clone(true).attr("data-ur-clone", srcIndex).attr("data-ur-state", "inactive");
+            frag.appendChild(clone[0]);
+          }
+          $items.parent().prepend(frag);
+        }
+        
+        $items = $(self.scroller).find("[data-ur-carousel-component='item']");
+        lastIndex = $items.length - 1;
+      }
+
+      function updateDots() {
+        if (self.dots) {
+          var existing = $(self.dots).find("[data-ur-carousel-component='dot']");
+          if (existing.length != self.count) {
+            existing.remove();
+            var dot = $("<div data-ur-carousel-component='dot'>");
+            var storage = document.createDocumentFragment();
+            for (var i = 0; i < self.count; i++) {
+              var newdot = dot.clone().attr("data-ur-state", i == self.itemIndex ? "active" : "inactive");
+              storage.appendChild(newdot[0]);
+            }
+            $(self.dots).append(storage);
+          }
+        }
+      }
+
+      self.update = function() {
+        var oldCount = $items.length;
+        $items = $(self.scroller).find("[data-ur-carousel-component='item']");
+        if (oldCount != $items.length) {
+          self.items = $items.filter(":not([data-ur-clone])").toArray();
+          self.count = self.items.length;
+          lastIndex = $items.length - 1;
+
+          $items.each(function(i, obj) {
+            if ($(obj).attr("data-ur-state") == "active") {
+              self.itemIndex = i;
+              return false;
+            }
+          });
+
+          // in case the previous active item was removed
+           if (self.itemIndex >= $items.length - self.options.cloneLength) {
+            self.itemIndex = lastIndex - self.options.cloneLength;
+            $items.eq(self.itemIndex).attr("data-ur-state", "active");
+          }
+
+          // in the rare case the destination element was (re)moved
+          if (!$.contains(self.scroller, dest))
+            dest = $items[self.itemIndex];
+
+          updateDots();
+          updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
+        }
+
+        viewport = $container.outerWidth();
+        // Adjust the container to be the necessary width.
+        var totalWidth = 0;
+
+        // pixel-perfect division, slightly inefficient?
+        var divisions = [];
+        if (self.options.fill > 0) {
+          var remainder = viewport;
+          for (var i = self.options.fill; i > 0; i--) {
+            var length = Math.round(remainder/i);
+            divisions.push(length);
+            remainder -= length;
+          }
+        }
+
+        allItemsWidth = 0;
+        for (var i = 0; i < $items.length; i++) {
+          if (self.options.fill > 0) {
+            var length = divisions[i % self.options.fill];
+            var item = $items.eq(i);
+            item.outerWidth(length); // could add true param if margins allowed
+            totalWidth += length;
+          }
+          else
+            totalWidth += width($items[i]);
+
+          if (i <= lastIndex - self.options.cloneLength && i >= (self.options.center ? self.options.cloneLength : 0))
+            allItemsWidth += width($items[i]);
+        }
+
+        $(self.scroller).width(totalWidth);
+
+        var currentItem = $items[self.itemIndex];
+        var newTranslate = -(offsetFront(currentItem) + shift * width(currentItem));
+        destinationOffset = -offsetFront(dest);
+        if (self.options.center) {
+          newTranslate += centerOffset(currentItem);
+          destinationOffset += centerOffset(dest);
+        }
+        translateX(newTranslate);
+      };
+
+      self.autoscrollStart = function() {
+        if (!self.options.autoscroll)
+          return;
+
+        autoscrollId = setTimeout(function() {
+          if (viewport != 0) {
+            if (!self.options.infinite && self.itemIndex == lastIndex && self.options.autoscrollForward)
+              self.jumpToIndex(0);
+            else if (!self.options.infinite && self.itemIndex == 0 && !self.options.autoscrollForward)
+              self.jumpToIndex(lastIndex);
+            else
+              moveTo(self.options.autoscrollForward ? -1 : 1);
+          }
+          else
+            self.autoscrollStart();
+        }, self.options.autoscrollDelay);
+      };
+
+      self.autoscrollStop = function() {
+        clearTimeout(autoscrollId);
+      };
+
+      function updateButtons() {
+        if (self.options.infinite)
+          $([self.button.prev, self.button.next]).attr("data-ur-state", "enabled");
+        else {
+          $(self.button.prev).attr("data-ur-state", self.itemIndex == 0 ? "disabled" : "enabled");
+          $(self.button.next).attr("data-ur-state", self.itemIndex == self.count - Math.max(self.options.fill, 1) ? "disabled" : "enabled");
+        }
+      }
+
+      // execute side effects of new index
+      function updateIndex(newIndex) {
+        if (newIndex === undefined)
+          return;
+
+        self.itemIndex = newIndex;
+        if (self.itemIndex < 0)
+          self.itemIndex = 0;
+        else if (self.itemIndex > lastIndex)
+          self.itemIndex = lastIndex;
+
+        var realIndex = self.itemIndex;
+        if (self.options.infinite && self.options.center)
+          realIndex = self.itemIndex - self.options.cloneLength;
+        realIndex = realIndex % self.count;
+        $(self.counter).html(realIndex + 1 + " of " + self.count);
+
+        $items.attr("data-ur-state", "inactive");
+        $items.eq(self.itemIndex).attr("data-ur-state", "active");
+
+        $(self.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive").eq(realIndex).attr("data-ur-state", "active");
+
+        updateButtons();
+      }
+
+      function startSwipe(e) {
+        if (!self.options.verticalScroll)
+          stifle(e);
+        self.autoscrollStop();
+
+        self.flag.touched = true;
+        self.flag.lock = null;
+        self.flag.click = true;
+
+        coords = getEventCoords(e);
+        
+        startCoords = prevCoords = coords;
+        startingOffset = getTranslateX();
+      }
+
+      function continueSwipe(e) {
+        if (!self.flag.touched) // for non-touch environments since mousemove fires without mousedown
+          return;
+
+        prevCoords = coords;
+        coords = getEventCoords(e);
+
+        if (Math.abs(startCoords.y - coords.y) + Math.abs(startCoords.x - coords.x) > 0)
+          self.flag.click = false;
+
+        if (touchscreen && self.options.verticalScroll) {
+          var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
+          if (self.flag.lock) {
+            if (self.flag.lock == "y")
+              return;
+          }
+          else if (slope > 1.2) {
+            self.flag.lock = "y";
+            return;
+          }
+          else if (slope <= 1.2)
+            self.flag.lock = "x";
+          else
+            return;
+        }
+        
+        stifle(e);
+
+        if (coords !== null) {
+          var dist = startingOffset + swipeDist(startCoords, coords); // new translate() value, usually negative
+          
+          var threshold = -dist;
+          if (self.options.center)
+            threshold += viewport/2;
+          $items.each(function(i, item) {
+            var boundStart = offsetFront(item);
+            var boundEnd = boundStart + width(item);
+            if (boundEnd > threshold) {
+              self.itemIndex = i;
+              shift = (threshold - boundStart)/width(item);
+              if (self.options.center)
+                shift -= 0.5;
+              return false;
+            }
+          });
+          
+          if (self.options.infinite) {
+            if (self.options.center) {
+              if (self.itemIndex < self.options.cloneLength) { // at the start of carousel so loop to end
+                startingOffset -= allItemsWidth;
+                dist -= allItemsWidth;
+                self.itemIndex += self.count;
+              }
+              else if (self.itemIndex >= self.count + self.options.cloneLength) { // at the end of carousel so loop to start
+                startingOffset += allItemsWidth;
+                dist += allItemsWidth;
+                self.itemIndex -= self.count;
+              }
+            }
+            else {
+              if (shift < 0) { // at the start of carousel so loop to end
+                startingOffset -= allItemsWidth;
+                dist -= allItemsWidth;
+                self.itemIndex += self.count;
+                var item = $items[self.itemIndex];
+                shift = (-dist - offsetFront(item))/width(item);
+              }
+              else if (self.itemIndex >= self.count) { // at the end of carousel so loop to start
+                var offset = offsetFront($items[self.count]) - offsetFront($items[0]); // length of all original items
+                startingOffset += offset;
+                dist += offset;
+                self.itemIndex -= self.count;
+              }
+            }
+          }
+
+          translateX(dist);
+        }
+
+      }
+
+      function finishSwipe(e) {
+        if (!self.flag.touched) // for non-touch environments since mouseup fires without mousedown
+          return;
+
+        if (!self.flag.click || self.flag.lock)
+          stifle(e);
+        else if (e.target.tagName == "AREA")
+          location.href = e.target.href;
+
+        self.flag.touched = false;
+
+        var dir = coords.x - prevCoords.x;
+        if (self.options.center) {
+          if (dir < 0 && shift > 0)
+            moveTo(-1)
+          else if (dir > 0 && shift < 0)
+            moveTo(1);
+          else
+            moveTo(0);
+        }
+        else
+          moveTo(dir < 0 ? -1: 0);
+      }
+
+      function moveTo(direction) {
+        self.autoscrollStop();
+
+        // in case prev/next buttons are being spammed
+        clearTimeout(momentumId);
+
+        var newIndex = self.itemIndex - direction;
+        if (!self.options.infinite) {
+          if (self.options.fill > 0)
+            newIndex = bound(newIndex, [0, self.count - self.options.fill]);
+          else
+            newIndex = bound(newIndex, [0, lastIndex]);
+        }
+
+        // when snapping to clone, prepare to snap back to original element
+        if (self.options.infinite) {
+          var transform = getTranslateX();
+          if (self.options.center) {
+            if (newIndex < self.options.cloneLength) { // clone at start of carousel so loop to back
+              translateX(transform - allItemsWidth);
+              newIndex += self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            else if (newIndex >= self.count + self.options.cloneLength) { // clone at end of carousel so loop to front
+              translateX(transform + allItemsWidth);
+              newIndex -= self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            
+          }
+          else {
+            if (newIndex < 0) { // at start of carousel so loop to back
+              translateX(transform - allItemsWidth);
+              newIndex += self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            else if (newIndex > self.count) { // clone at end of carousel so loop to start
+              translateX(transform + allItemsWidth);
+              newIndex -= self.count;
+              self.itemIndex = newIndex + direction;
+            }
+            
+          }
+        }
+        
+        dest = $items[newIndex];
+        $container.trigger("slidestart.ur.carousel", {index: newIndex});
+
+        // timeout needed for mobile safari
+        setTimeout(function() {
+          snapTo();
+          updateIndex(newIndex);
+        }, 0);
+      }
+
+      function snapTo() {
+        destinationOffset = -offsetFront(dest);
+        if (self.options.center)
+          destinationOffset += centerOffset(dest);
+        
+        function momentum() {
+          // in case user touched in the middle of snapping
+          if (self.flag.touched)
+            return;
+
+          var translate = getTranslateX();
+          var distance = destinationOffset - translate;
+          var delta = distance - zeroFloor(distance / self.options.speed);
+
+          // Hacky -- this is for the desktop browser only -- to fix rounding errors
+          // Ideally, this is removed at compile time
+          if(Math.abs(delta) < 0.01)
+            delta = 0;
+
+          var newTransform = translate + delta;
+          translateX(newTransform);
+
+          self.flag.snapping = delta != 0;
+          if (self.flag.snapping)
+            momentumId = setTimeout(momentum, 16);
+          else
+            endSnap();
+        }
+
+        momentum();
+      }
+
+      function endSnap() {
+        // infinite, non-centered carousels when swiping from last item back to first can't switch early in moveTo() since no clones at front
+        if (self.options.infinite && !self.options.center && self.itemIndex >= self.count) {
+          translateX(getTranslateX() + allItemsWidth);
+          self.itemIndex -= self.count;
+        }
+        shift = 0;
+        self.autoscrollStart();
+        $container.trigger("slideend.ur.carousel", {index: self.itemIndex});
+      }
+
+      self.jumpToIndex = function(index) {
+        moveTo(self.itemIndex - index);
+      };
+
+      // could be end.y - start.y if vertical option implemented
+      function swipeDist(start, end) {
+        return end.x - start.x;
+      }
+
+      function translateX(x) {
+        self.translate = x;
+        var css = translatePrefix + x + "px, 0px" + translateSuffix;
+        $(self.scroller).css({webkitTransform: css, MozTransform: css, msTransform: css, transform: css});
+      }
+
+      function getTranslateX() {
+        return self.translate;
+      }
+
+      function getEventCoords(event) {
+        var touches = event.originalEvent.touches;
+        event = (touches && touches[0]) || event;
+        return {x: event.clientX, y: event.clientY};
+      }
+
+      // could possibly be $(item).outerWidth(true) if margins are allowed
+      function width(item) {
+        return item.offsetWidth;
+      }
+
+      // .offsetLeft/Top, could includ margin as "part" of the element with - parseInt($(item).css("marginLeft"))
+      function offsetFront(item) {
+        return item.offsetLeft;
+      }
+
+      // offset needed to center element, round since subpixel translation makes images blurry
+      function centerOffset(item) {
+        return Math.floor((viewport - width(item))/2);
+      }
+
+      function bound(num, range) {
+        return Math.min(Math.max(range[0], num), range[1]);
+      }
+
+      function test3d() {
+        var css3d = "translate3d(0, 0, 0)";
+        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
+        var wt = test.css("webkitTransform");
+        var mt = test.css("MozTransform");
+        var it = test.css("msTransform");
+        var t = test.css("transform");
+        return (wt + mt + it + t).indexOf("(") != -1;
+      }
+
+      readAttributes();
+
+      // delay initialization until we can figure out number of clones
+      var zeroWidth = false;
+      if (self.options.infinite && !self.options.fill && self.options.cloneLength == 0) {
+        $items.width(function(i, width) {
+          if (width == 0)
+            zeroWidth = true;
+        });
+      }
+      if (zeroWidth) {
+        // wait until (late-loaded) images are loaded or other content inserted
+        var imgs = $items.find("img").addBack("img");
+        var numImgs = imgs.length;
+        if (numImgs > 0)
+          imgs.load(function() {
+            if (--numImgs == 0)
+              initialize();
+          });
+        else
+          $(window).load(initialize);
+      }
+      else
+        initialize();
+
+    }
+  }
+
+  window.Uranium = {};
+  $.each(interactions, function(name) {
+    Uranium[name] = {};
+  });
+
+  $.fn.Uranium = function() {
+    var jqObj = this;
+    $.each(interactions, function() {
+      this(jqObj);
+    });
+    return this;
+  };
+
+  $(document).ready(function() {
+    $("body").Uranium();
+  });
+})(jQuery);

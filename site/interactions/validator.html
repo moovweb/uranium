@@ -32,7 +32,7 @@
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" >Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
+  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li><li><a href="/interactions/validator.html">Validator</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" >Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
     <div id="textbody">
@@ -43,7 +43,7 @@
         <div class="description_wrapper">
           <h2> Description </h2>
           <div class="description">
-            <p>When a user focuses and begins typing on a text input field, a small x appears along the right side of the field that can be clicked to clear it. If there is already text in the input field, the x will appear without any typing when the field receives focus.</p>
+            <p>When a user types incorrect information into the input field, on clicking outside of the input, an error attribute will be assigned to the input. Also, optionally, an error message will appear explaining the error.</p>
           </div>
         </div>
         <div class="wrapper">
@@ -54,13 +54,13 @@
             <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
               <dl>
                 
-                  <dt><code>data-ur-set="validator"</code></dt><dd>add this attribute to a div that wraps the whole interaction</dd>
+                  <dt><code>data-ur-set="validator"</code></dt><dd>add this attribute to a div that wraps a single input</dd>
                 
-                  <dt><code>data-ur-validator-component="*"</code></dt><dd>add this attribute to the input in the set; possible values are <b>email</b>, <b>ccnum</b>, <b>notblank</b></dd>
+                  <dt><code>data-ur-validator-component="*"</code></dt><dd>add this attribute to the input in the set; possible values are <b>email</b>, <b>ccnum</b>, <b>required</b></dd>
                 
                   <dt><code>data-ur-validator-component="error"</code></dt><dd>add this optional attribute after the input; it will</dd>
                 
-                  <dt><code>data-ur-validator-min / data-ur-validator-max</code></dt><dd>can be used to specify a minimum or maximum number for the input</dd>
+                  <dt><code>data-ur-validator-minval / data-ur-validator-maxval</code></dt><dd>can be used to specify a minimum or maximum number for the input</dd>
                 
                   <dt><code>data-ur-validator-ccard-type="*"</code></dt><dd>attribute is added to the credit card input, giving the type of credit card entered</dd>
                 
@@ -77,7 +77,7 @@
                   <h4>Required</h4>
                   <ul>
                     
-                      <code>"email/ccnum/notblank"</code>
+                      <code>"email/ccnum/required"</code>
                       <ul>
                       
                         <li>
@@ -114,7 +114,9 @@
       </div>
 
       <h2 class='wrapper'>Demonstration</h2>
-<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The other two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear.</p>
+<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The other two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear. The final input must have a value between 3 and 16. </p>
+<p>If necessary, multiple components can be added to an input. For example, if an input needs to be filled in <b>and</b> a valid e-mail, the attribute on the input would be <code>data-ur-validator-component="email required"</code>.</p>
+<p> Currently, the validator can only apply to <code>input</code>. We are working on making the numerical interaction options applicable to <code>select</code>, also!</p>
 <div id="input_clear_demonstration" data-ur-set="tabs" class="ur_ex">
   <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
   <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
@@ -134,6 +136,10 @@
       <div data-ur-validator-component="error"></div>
     </div>
 
+    <div data-ur-set='validator'>
+    	<input data-ur-validator-minval='3' data-ur-validator-maxval='16' placeholder="Enter a value between 3 and 16">
+    	<div data-ur-validator-component="error"></div>
+    </div>
   </div>
 
   <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
@@ -143,12 +149,17 @@
 
 <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;validator&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;input</span> <span class="na">data-ur-validator-component=</span><span class="s">&#39;email&#39;</span> <span class="na">type=</span><span class="s">&#39;text&#39;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">data-ur-validator-component=</span><span class="s">&quot;error&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-validator-component=</span><span class="s">&#39;error&#39;</span><span class="nt">&gt;&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 
 <span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;validator&#39;</span><span class="nt">&gt;</span>
   <span class="nt">&lt;input</span> <span class="na">data-ur-validator-component=</span><span class="s">&#39;ccnum&#39;</span> <span class="na">type=</span><span class="s">&#39;text&#39;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">data-ur-validator-component=</span><span class="s">&quot;error&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-validator-component=</span><span class="s">&#39;error&#39;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-ur-set=</span><span class="s">&#39;validator&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">data-ur-validator-minval=</span><span class="s">&#39;3&#39;</span> <span class="na">data-ur-validator-maxval=</span><span class="s">&#39;16&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-ur-validator-component=</span><span class="s">&#39;error&#39;</span><span class="nt">&gt;&lt;/div&gt;</span>
 <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
   </div>
@@ -165,6 +176,17 @@
 <span class="p">}</span>
 </code></pre></div>
   </div>
+  <hr />
+</div>
+
+<div class='wrapper'>
+	<h2> Standards </h2>
+	<p> Uranium uses regular expressions to validate certain information. If you are interested in what in particular is used, they are detailed below.</p>
+	<ul>
+		<li><code>email</code>: must have an @ symbol followed by a period </li>
+		<li><code>ccnum</code>:</li>
+	</ul>
+	<p> We are working on making these options customizable. </p>
 </div>
 
 

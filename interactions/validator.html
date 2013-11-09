@@ -5,14 +5,14 @@ name: validator
 interaction_selected: selected
 description: <p>When a user types incorrect information into the input field, on clicking outside of the input, an error attribute will be assigned to the input. Also, optionally, an error message will appear explaining the error.</p>
 basic_tab:
-  data-ur-set="validator": add this attribute to a div that wraps the whole interaction
-  data-ur-validator-component="*": add this attribute to the input in the set; possible values are <b>email</b>, <b>ccnum</b>, <b>notblank</b> (note that there can be only one input per set)
+  data-ur-set="validator": add this attribute to a div that wraps a single input
+  data-ur-validator-component="*": add this attribute to the input in the set; possible values are <b>email</b>, <b>ccnum</b>, <b>required</b>
   data-ur-validator-component="error": add this optional attribute after the input; it will 
-  data-ur-validator-min / data-ur-validator-max: can be used to specify a minimum or maximum number for the input
+  data-ur-validator-minval / data-ur-validator-maxval: can be used to specify a minimum or maximum number for the input
   data-ur-validator-ccard-type="*": attribute is added to the credit card input, giving the type of credit card entered
 advanced_tab:
   Required:
-    email/ccnum/notblank:
+    email/ccnum/required:
       - add this attribute to the input node
   Optional:
     Error:
@@ -20,7 +20,9 @@ advanced_tab:
   
 ---
 <h2 class='wrapper'>Demonstration</h2>
-<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The other two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear.</p>
+<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The other two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear. The final input must have a value between 3 and 16. </p>
+<p>If necessary, multiple components can be added to an input. For example, if an input needs to be filled in <b>and</b> a valid e-mail, the attribute on the input would be <code>data-ur-validator-component="email required"</code>.</p>
+<p> Currently, the validator can only apply to <code>input</code>. We are working on making the numerical interaction options applicable to <code>select</code>, also!</p>
 <div id="input_clear_demonstration" data-ur-set="tabs" class="ur_ex">
   <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
   <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
@@ -41,7 +43,7 @@ advanced_tab:
     </div>
 
     <div data-ur-set='validator'>
-    	<input data-ur-validator-min='3' data-ur-validator-max='16' placeholder="Enter a value between 3 and 16">
+    	<input data-ur-validator-minval='3' data-ur-validator-maxval='16' placeholder="Enter a value between 3 and 16">
     	<div data-ur-validator-component="error"></div>
     </div>
   </div>
@@ -54,17 +56,17 @@ advanced_tab:
 
 <div data-ur-set='validator'>
   <input data-ur-validator-component='email' type='text'/>
-  <div data-ur-validator-component="error"></div>
+  <div data-ur-validator-component='error'></div>
 </div>
 
 <div data-ur-set='validator'>
   <input data-ur-validator-component='ccnum' type='text'/>
-  <div data-ur-validator-component="error"></div>
+  <div data-ur-validator-component='error'></div>
 </div>
 
 <div data-ur-set='validator'>
-  <input data-ur-validator-min='3' data-ur-validator-max='16'>
-  <div data-ur-validator-component="error"></div>
+  <input data-ur-validator-minval='3' data-ur-validator-maxval='16'>
+  <div data-ur-validator-component='error'></div>
 </div>
 
 {% endhighlight %}
@@ -83,6 +85,17 @@ advanced_tab:
 }
 {% endhighlight %}
   </div>
+  <hr />
+</div>
+
+<div class='wrapper'>
+	<h2> Standards </h2>
+	<p> Uranium uses regular expressions to validate certain information. If you are interested in what in particular is used, they are detailed below.</p>
+	<ul>
+		<li><code>email</code>: must have an @ symbol followed by a period </li>
+		<li><code>ccnum</code>:</li>
+	</ul>
+	<p> We are working on making these options customizable. </p>
 </div>
 
 
