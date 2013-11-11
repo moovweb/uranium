@@ -20,7 +20,7 @@ advanced_tab:
   
 ---
 <h2 class='wrapper'>Demonstration</h2>
-<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The other two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear. The final input must have a value between 3 and 16. </p>
+<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The next two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear. The final input must have a value between 3 and 16. </p>
 <p>If necessary, multiple components can be added to an input. For example, if an input needs to be filled in <b>and</b> a valid e-mail, the attribute on the input would be <code>data-ur-validator-component="email required"</code>.</p>
 <p> Currently, the validator can only apply to <code>input</code>. We are working on making the numerical interaction options applicable to <code>select</code>, also!</p>
 <div id="input_clear_demonstration" data-ur-set="tabs" class="ur_ex">
@@ -93,7 +93,7 @@ advanced_tab:
 	<p> Uranium uses regular expressions to validate certain information. If you are interested in what in particular is used, they are detailed below.</p>
 	<ul>
 		<li><code>email</code>: must have an @ symbol followed by a period </li>
-		<li><code>ccnum</code>:</li>
+		<li><code>ccnum</code>: using the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn algorithm</a>, Uranium determines if a credit card is real or not; then using regular expressions figures out if the credit card is a Visa, MasterCard, American Express, or Discover Card.</li>
 	</ul>
 	<p> We are working on making these options customizable. </p>
 </div>
