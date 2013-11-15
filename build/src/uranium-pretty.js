@@ -85,12 +85,39 @@
     return sets;
   }
 
-  var interactions = {};
+  // test for transform3d, technically supported on old Android but very buggy
+  var oldAndroid = /Android [12]/.test(navigator.userAgent);
+  var transform3d = !oldAndroid;
+  if (transform3d) {
+    var css3d = "translate3d(0, 0, 0)";
+    var elem3d = $("<a>").css({ webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d });
+    transform3d =
+      (elem3d.css("webkitTransform") +
+       elem3d.css("MozTransform") +
+       elem3d.css("msTransform") +
+       elem3d.css("transform")).indexOf("(") != -1;
+  }
 
+  // test for touch screen
   var touchscreen = "ontouchstart" in window;
   var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
   var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
   var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
+
+  // handle touch events
+  function getEventCoords(event) {
+    var touches = event.originalEvent.touches;
+    event = (touches && touches[0]) || event;
+    return {x: event.clientX, y: event.clientY};
+  }
+  
+  // stop event helper
+  function stifle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  var interactions = {};
 
   // Toggler
   interactions.toggler = function( fragment ) {
@@ -414,28 +441,11 @@
 
     var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
 
-    var no3d = /Android [12]|Opera/.test(navigator.userAgent);
-
-    var noTranslate3d = no3d;
-    var noScale3d = no3d;
-
-    var translatePrefix = noTranslate3d ? "translate(" : "translate3d(";
-    var translateSuffix = noTranslate3d ? ")" : ", 0)";
-
-    var scalePrefix = noScale3d ? " scale(" : " scale3d(";
-    var scaleSuffix = noScale3d ? ")" : ", 1)";
-
-
     // Private shared methods
 
     // note that this accepts a reversed range
     function bound(num, range) {
       return Math.max(Math.min(range[0], num), range[1]);
-    }
-
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
     }
 
     $.each(groups, function(id, group) {
@@ -453,6 +463,7 @@
       this.canvasWidth = this.canvasHeight = 0;
       this.ratio = 1;
       this.state = "disabled";
+      this.transform3d = transform3d;
 
       // Optionally:
       this.button = set["button"];
@@ -469,9 +480,26 @@
       var mouseDown = false; // only used on non-touch browsers
       var mouseDrag = true;
 
+      var translatePrefix = "translate(", translateSuffix = ")";
+      var scalePrefix = " scale(", scaleSuffix = ")";
+
+
+      var startCoords, click, down; // used for determining if zoom element is actually clicked
+
       loadedImgs.push($img.attr("src"));
 
       function initialize() {
+        var custom3d = $(self.container).attr("data-ur-transform3d");
+        if (custom3d)
+          self.transform3d = custom3d != "disabled";
+        if (self.transform3d) {
+          translatePrefix = "translate3d(";
+          translateSuffix = ",0)";
+          scalePrefix = " scale3d(";
+          scaleSuffix = ",1)";
+        }
+        $(self.container).attr("data-ur-transform3d", self.transform3d ? "enabled" : "disabled");
+        
         self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
         self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
         self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
@@ -582,21 +610,16 @@
         self.state = "enabled-in";
         self.container.setAttribute("data-ur-state", self.state);
 
-        x = x ? x : 0;
-        y = y ? y : 0;
-        transform(x, y, self.ratio);
+        transform(x || 0, y || 0, self.ratio);
       }
 
       function transform(x, y, scale) {
         var t = "";
-        if (x != undefined)
+        if (x != null)
           t = translatePrefix + x + "px, " + y + "px" + translateSuffix;
-        if (scale != undefined) {
-          if (noScale3d)
-            t += " scale(" + scale + ")";
-          else
-            t += " scale3d(" + scale + ", " + scale + ", 1)";
-        }
+        if (scale != null)
+          t += scalePrefix + scale + ", " + scale + scaleSuffix;
+        
         return $img.css({ webkitTransform: t, MozTransform: t, msTransform: t, transform: t });
       }
 
@@ -650,8 +673,22 @@
         transform(0, 0, 1);
       };
 
-      if (self.container.getAttribute("data-ur-touch") != "disabled")
-        $(self.container).on("click.ur.zoom", self.zoomIn);
+      if (self.container.getAttribute("data-ur-touch") != "disabled") {
+        // make sure zoom works when dragged inside carousel
+        $(self.container).on(downEvent + ".zoom", function(e) {
+          click = down = true;
+          startCoords = getEventCoords(e);
+        });
+        $(self.container).on(moveEvent + ".zoom", function(e) {
+          var coords = getEventCoords(e);
+          if (down && (Math.abs(startCoords.x - coords.x) + Math.abs(startCoords.x - coords.x)) > 0)
+            click = false;
+        });
+        $(self.container).on("click.ur.zoom", function(e) {
+          if (click)
+            self.zoomIn(e);
+        });
+      }
 
       $img.on("load.ur.zoom", function() {
         if ($img.attr("src") == $img.attr("data-ur-src"))
@@ -736,11 +773,6 @@
     function zeroFloor(num) {
       return num >= 0 ? Math.floor(num) : Math.ceil(num);
     }
-    
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
 
     function Carousel(set) {
       var self = this;
@@ -770,14 +802,14 @@
         autoscroll: false,
         autoscrollDelay: 5000,
         autoscrollForward: true,
-        center: false,          // position active item in the middle of the carousel
-        cloneLength: 0,         // number of clones at back of carousel (or front and back for centered carousels)
-        fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
-        infinite: true,         // loops the last item back to first and vice versa
-        speed: 1.1,             // determines how "fast" carousel snaps, should probably be deprecated
-        translate3d: true,      // determines if translate3d() or translate() is used
-        touch: true,            // determines if carousel can be dragged e.g. when user only wants buttons to be used
-        verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
+        center: false,            // position active item in the middle of the carousel
+        cloneLength: 0,           // number of clones at back of carousel (or front and back for centered carousels)
+        fill: 0,                  // exactly how many items forced to fit in the viewport, 0 means disabled
+        infinite: true,           // loops the last item back to first and vice versa
+        speed: 1.1,               // determines how "fast" carousel snaps, should probably be deprecated
+        transform3d: transform3d, // determines if translate3d() or translate() is used
+        touch: true,              // determines if carousel can be dragged e.g. when user only wants buttons to be used
+        verticalScroll: true      // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
       };
 
       self.count = self.items.length;     // number of items (excluding clones)
@@ -801,11 +833,10 @@
 
       var startingOffset = null;
 
-      var translatePrefix = "translate3d(", translateSuffix = ", 0px)";
+      var translatePrefix = "translate3d(", translateSuffix = ", 0)";
 
       function initialize() {
-        self.options.translate3d = self.options.translate3d && test3d();
-        if (!self.options.translate3d) {
+        if (!self.options.transform3d) {
           translatePrefix = "translate(";
           translateSuffix = ")";
         }
@@ -871,18 +902,14 @@
       }
 
       function readAttributes() {
-        var oldAndroid = /Android [12]/.test(navigator.userAgent);
-        if (oldAndroid) {
-          if (($container.attr("data-ur-android3d") || $container.attr("data-ur-translate3d")) != "enabled") {
-            self.options.translate3d = false;
-            var speed = parseFloat($container.attr("data-ur-speed"));
-            self.options.speed = speed > 1 ? speed : 1.3;
-          }
+        var custom3d = $container.attr("data-ur-android3d") || $container.attr("data-ur-transform3d");
+        if (custom3d)
+          self.options.transform3d = custom3d != "disabled";
+        $container.attr("data-ur-transform3d", self.options.transform3d ? "enabled" : "disabled");
+        if (oldAndroid && !self.options.transform3d) {
+          var speed = parseFloat($container.attr("data-ur-speed"));
+          self.options.speed = speed > 1 ? speed : 1.3;
         }
-        else
-          self.options.translate3d = $container.attr("data-ur-translate3d") != "disabled";
-        $container.attr("data-ur-translate3d", self.options.translate3d ? "enabled" : "disabled");
-
         $container.attr("data-ur-speed", self.options.speed);
 
         var fill = parseInt($container.attr("data-ur-fill"));
@@ -1113,9 +1140,10 @@
         if (self.options.infinite && self.options.center)
           realIndex = self.itemIndex - self.options.cloneLength;
         realIndex = realIndex % self.count;
-        var template = $(self.counter).attr("data-ur-template") || "{{index}} of {{count}}";
-        template = template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
-        $(self.counter).html(template);
+        $(self.counter).html(function() {
+          var template = $(this).attr("data-ur-template") || "{{index}} of {{count}}";
+          return template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
+        });
 
         $items.attr("data-ur-state", "inactive");
         $items.eq(self.itemIndex).attr("data-ur-state", "active");
@@ -1363,12 +1391,6 @@
         return self.translate;
       }
 
-      function getEventCoords(event) {
-        var touches = event.originalEvent.touches;
-        event = (touches && touches[0]) || event;
-        return {x: event.clientX, y: event.clientY};
-      }
-
       // could possibly be $(item).outerWidth(true) if margins are allowed
       function width(item) {
         return item.offsetWidth;
@@ -1386,16 +1408,6 @@
 
       function bound(num, range) {
         return Math.min(Math.max(range[0], num), range[1]);
-      }
-
-      function test3d() {
-        var css3d = "translate3d(0, 0, 0)";
-        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
-        var wt = test.css("webkitTransform");
-        var mt = test.css("MozTransform");
-        var it = test.css("msTransform");
-        var t = test.css("transform");
-        return (wt + mt + it + t).indexOf("(") != -1;
       }
 
       readAttributes();
