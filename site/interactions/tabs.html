@@ -145,6 +145,45 @@
                     
                   </ul>
                 
+                  <h4>Optional</h4>
+                  <ul>
+                    
+                      <code>"date-ur-closeable="</code>
+                      <ul>
+                      
+                        <li>
+                          
+                            add this attribute to the tab set container element
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            multiple?: false
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            state: true / false(default)
+                          
+                        </li>
+                      
+                        <li>
+                          
+                            attributes
+                            <ul>
+                              
+                                <li>required: <code>data-ur-set</code> element is required, and this attribute must be set to true on the same element.</li>
+                              
+                            </ul>
+                          
+                        </li>
+                      
+                      </ul>
+                    
+                  </ul>
+                
               </div>
               
             </div>
@@ -282,9 +321,8 @@
     <h2> Accordions with State </h2>
 
     <div class="description">
-      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
-        strictly necessary. In the following example, we start out with no states defined.</p>
-        <p>The first one we click on will be the first one to be "enabled".</p>
+      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't strictly necessary. In the following example, we start out with no states defined, so all tabs start out closed.</p>
+        <p>The first tab we click on will be the first one to be "enabled". And we've set the attribute <code>data-ur-closeable</code> to "true" on this tab set to allow the accordian to be collapsed back to its original state by clicking again on the open tab.</p>
     </div>
 
     <div data-ur-set="tabs" data-ur-closeable="true">

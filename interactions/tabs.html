@@ -23,6 +23,13 @@ advanced_tab:
       - "state: enabled / disabled(default)"
       - attributes:
         - "required: <code>data-ur-tab-id</code> is required and must match the attribute on the button element"
+  Optional:
+    date-ur-closeable=:
+      - add this attribute to the tab set container element
+      - "multiple?: false"
+      - "state: true / false(default)"
+      - attributes:
+        - "required: <code>data-ur-set</code> element is required, and this attribute must be set to true on the same element."
 ---
 <!-- Example -->
 <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
@@ -156,9 +163,8 @@ advanced_tab:
     <h2> Accordions with State </h2>
 
     <div class="description">
-      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't
-        strictly necessary. In the following example, we start out with no states defined.</p>
-        <p>The first one we click on will be the first one to be "enabled".</p>
+      <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't strictly necessary. In the following example, we start out with no states defined, so all tabs start out closed.</p>
+        <p>The first tab we click on will be the first one to be "enabled". And we've set the attribute <code>data-ur-closeable</code> to "true" on this tab set to allow the accordian to be collapsed back to its original state by clicking again on the open tab.</p>
     </div>
 
     <div data-ur-set="tabs" data-ur-closeable="true">
