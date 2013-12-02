@@ -198,7 +198,7 @@
 
       var email = $(group['set']).find("input[data-ur-validator-component~='email']");
       var ccnum = $(group['set']).find("input[data-ur-validator-component~='ccnum']");
-      var notblank = $(group['set']).find("input[data-ur-validator-component~='notblank']");
+      var required = $(group['set']).find("input[data-ur-validator-component~='required']");
 
       var min = $(group['set']).find("[data-ur-validator-minval]");
       var max = $(group['set']).find("[data-ur-validator-maxval]");
@@ -233,7 +233,9 @@
           var noat=emailval.split("@").length-1;
           var atpos=emailval.indexOf("@");
           var dotpos=emailval.lastIndexOf(".");
-          if ((atpos<1 || dotpos<atpos+2 || dotpos+2>=emailval.length) && (noat < 2)) {
+          if (emailval ===  "") {
+            // Ignore blank
+          } else if ((atpos<1 || dotpos<atpos+2 || dotpos+2>=emailval.length) && (noat < 2)) {
             // console.log("E-mail is incorrect.")
             removeSpanError("email");
             addInputError(this);
@@ -310,9 +312,11 @@
       min
         .on("blur", function() {
           var inputVal = parseInt(min.val());
-          var minVal = parseInt(min.attr("data-ur-validator-min"));
+          var minVal = parseInt(min.attr("data-ur-validator-minval"));
           // Input must be greater than (or equal to) the value assigned to the attribute
-          if (inputVal >= minVal) {
+          if (isNaN(inputVal)) {
+            // Do nothing if blank
+          } else if (inputVal >= minVal) {
             // console.log("Value is high enough");
             removeInputError(this);
             removeSpanError("min");
@@ -329,9 +333,11 @@
       max
         .on("blur", function() {
           var inputVal = parseInt(max.val());
-          var maxVal = parseInt(max.attr("data-ur-validator-max"));
+          var maxVal = parseInt(max.attr("data-ur-validator-maxval"));
           // Input must be less than (or equal to) the value assigned to the attribute
-          if (inputVal <= maxVal) {
+          if (isNaN(inputVal)) {
+            // Do nothing if blank
+          } else if (inputVal <= maxVal) {
             // console.log("Value is low enough");
             removeInputError(this);
             removeSpanError("max")
@@ -350,8 +356,8 @@
       minmax
         .on("blur", function() {
           var inputVal = parseInt(max.val());
-          var minVal = parseInt(min.attr("data-ur-validator-min"));
-          var maxVal = parseInt(max.attr("data-ur-validator-max"));
+          var minVal = parseInt(min.attr("data-ur-validator-minval"));
+          var maxVal = parseInt(max.attr("data-ur-validator-maxval"));
           if (inputVal >= minVal && inputVal <= maxVal) {
             // console.log("Value is high enough");
             removeInputError(this);
@@ -365,16 +371,16 @@
         });
       
       // Checks to see if the input is not blank
-      notblank
+      required
         .on("blur", function() {
-          var valLength = notblank.val().length;
+          var valLength = required.val().length;
           if (valLength === 0) {
             // console.log("Input is blank.")
             // Removing all span errors as we don't want type-specific errors to 
             // appear as well as a "not blank" error.
             removeSpanError();
             addInputError(this);
-            addSpanError(this, "notblank", "The input is blank. ");
+            addSpanError(this, "required", "The input is blank. ");
             return false;
           } else {
             // console.log("Input is not blank.")
@@ -383,11 +389,11 @@
             if ($(this).attr("data-ur-validator-maxval") || $(this).attr("data-ur-validator-minval")) {
               // Should not remove the required error if we enter a number
               // and it needs to be checked as min/max
-            } else if($(this).attr("data-ur-validator-component") === "notblank") {
+            } else if($(this).attr("data-ur-validator-component") === "required") {
               // If the only validation is 'required', we can remove the error
               removeInputError(this);
             } else {}
-            removeSpanError("notblank");
+            removeSpanError("required");
             return true;
           }
         });
