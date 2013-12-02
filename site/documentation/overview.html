@@ -32,7 +32,7 @@
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li><li><a href="/interactions/validator.html">Validator</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" class="selected">Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
+  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li><li><a href="/interactions/validator.html">Validator</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" class="selected">Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/ajax.html">Using AJAX</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
     <div id="textbody">
@@ -43,12 +43,12 @@
       <h2>Introduction to Uranium</h2>
       <p>Uranium offers web page authors the ability to add several convenient Javascript interactions to the HTML elements on their pages, without writing a single line of Javascript.</p>
       <p>For example, you might have a page with a set of sub-sections that each have headers followed by related content, one right after the other. With the Uranium toggler interaction, you could transform that into an accordion just by adding a few data attributes to the existing HTML elements.</p>
-      <p>Uranium interactions are not opinionated about styling and layout. You should be able to add the Uranium script and a few data attributes to practically any working web page that uses jQuery, and take advantage of these useful interactions right where you need them most.</p>
+      <p>Uranium interactions are not opinionated about styling and layout. You should be able to add the Uranium script and a few data attributes to practically any working web page that uses jQuery (as far back as version 1.3), and take advantage of these useful interactions right where you need them most.</p>
     </section>
 
     <section id="basic_requirements">
       <h2>Basic Requirements</h2>
-      <p>Since Uranium builds on <a href="//jquery.com" target="_blank">jQuery</a>, the minimum you need to do to get Uranium working on your page is to include the jQuery script followed by the Uranium script. A good place to do this is right before the closing tag for the body element on your HTML document.</p>
+      <p>Since Uranium builds on <a href="//jquery.com" target="_blank">jQuery</a>, the minimum you need to do to get Uranium working on your page is to include the latest jQuery script followed by the Uranium script. A good place to do this is right before the closing tag for the body element on your HTML document.</p>
 <div class="highlight"><pre><code class="html"><span class="nt">&lt;html&gt;</span>
 <span class="nt">&lt;head&gt;</span>
   <span class="nt">&lt;title&gt;</span>Uranium Sample Page<span class="nt">&lt;/title&gt;</span>
@@ -68,7 +68,7 @@
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div>
-      <p>Just download the minified version of jQuery, and the Uranium script, and save them in your /scripts directory. Then reference them in your HTML document, and you should be good to go.</p>
+      <p>Just download the latest minified version of jQuery, and the Uranium script, and save them in your /scripts directory. Then reference them in your HTML document, and you should be good to go.</p>
     </section>
 
     <section id="data_attributes">
@@ -137,7 +137,6 @@
 </footer>
 <script src="/src/jquery-1.9.1.min.js"></script>
 <script src="/src/jquery.uranium.js"></script>
-<script src="/src/cc_valid_ur.js"></script>
 
   </body>
 </html>

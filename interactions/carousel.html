@@ -56,6 +56,16 @@ advanced_tab:
       - "gives a container that changes <code>data-ur-state</code> on the corresponding child"
       - "multiple?: false"
       - "state: N/A"
+  Callbacks:
+    load.ur.carousel:
+      - event triggered on the <code>data-ur-set="carousel"</code> node when all images have loaded
+      - in upcoming versions of Uranium on jQuery, this event may be renamed "load" to match the naming convention of other events.
+    slidestart:
+      - event triggered on the <code>data-ur-set="carousel"</code> node when a transition from one thumbnail to the next starts
+      - in some older versions of Uranium on jQuery, this event was named "slidestart.ur.carousel"
+    slideend:
+      - event triggered on the <code>data-ur-set="carousel"</code> node when a transition from one thumbnail to the next ends
+      - in some older versions of Uranium on jQuery, this event was named "slideend.ur.carousel"
 <!-- instance:
   jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
   onSlideCallbacks(callback): supplies a callback which is called when animation has completed

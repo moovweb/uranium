@@ -32,7 +32,7 @@
     <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
 <nav id="menu">
   
-  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li><li><a href="/interactions/validator.html">Validator</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" >Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
+  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" class="selected">Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li><li><a href="/interactions/validator.html">Validator</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" >Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/ajax.html">Using AJAX</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
 </nav>
 
     <div id="textbody">
@@ -114,7 +114,7 @@
       </div>
 
       <h2 class='wrapper'>Demonstration</h2>
-<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The other two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear. The final input must have a value between 3 and 16. </p>
+<p> In the example below, the first input cannot be blank. It does not have an error component so no message shows up. The next two examples require a valid e-mail and credit card number respectively. They do have the error component, so error messages appear. The final input must have a value between 3 and 16. </p>
 <p>If necessary, multiple components can be added to an input. For example, if an input needs to be filled in <b>and</b> a valid e-mail, the attribute on the input would be <code>data-ur-validator-component="email required"</code>.</p>
 <p> Currently, the validator can only apply to <code>input</code>. We are working on making the numerical interaction options applicable to <code>select</code>, also!</p>
 <div id="input_clear_demonstration" data-ur-set="tabs" class="ur_ex">
@@ -184,7 +184,7 @@
 	<p> Uranium uses regular expressions to validate certain information. If you are interested in what in particular is used, they are detailed below.</p>
 	<ul>
 		<li><code>email</code>: must have an @ symbol followed by a period </li>
-		<li><code>ccnum</code>:</li>
+		<li><code>ccnum</code>: using the <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn algorithm</a>, Uranium determines if a credit card is real or not; then using regular expressions figures out if the credit card is a Visa, MasterCard, American Express, or Discover Card.</li>
 	</ul>
 	<p> We are working on making these options customizable. </p>
 </div>
@@ -206,7 +206,6 @@
 </footer>
 <script src="/src/jquery-1.9.1.min.js"></script>
 <script src="/src/jquery.uranium.js"></script>
-<script src="/src/cc_valid_ur.js"></script>
 
   </body>
 </html>

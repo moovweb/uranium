@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+<title>Documentation | Uranium Declarative Javascript Interaction Library</title>
+<meta name="keywords" content="Uranium Documentation page, declarative javascript interactions, declarative javascript library, declarative javascript, javascript interactions, javascript widgets, javascript library, open source, Uranium Documentation, javascript, interactions, widgets, jquery" />
+<meta name="description" content="The Documentation page for Uranium, a declarative Javascript library that lets web page authors add convenient interactions such as carousels, togglers, tabs, and geolocation to their pages without writing a single line of Javascript." />
+<link href="/stylesheets/main.css" rel="stylesheet" />
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26739163-2']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+<script>
+  WebFont.load({
+    google: {
+      families: ['Open Sans:300,300italic,400', 'Crete Round:400italic', 'Ultra', 'Yellowtail']
+    }
+  });
+</script>
+
+  </head>
+  
+  <body id="documentation_page">
+    <a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<nav id="menu">
+  
+  <a href="/" id="uraniumlogo" ></a><section class='menu_interaction'>	<a href="#" >Interactions</a>	<ul>		<li><a href="/interactions/carousel.html">Carousel</a></li><li><a href="/interactions/geocode.html">Geolocation</a></li>		<li><a href="/interactions/input_clear.html">Input Clear</a></li>		<li><a href="/interactions/tabs.html">Tabs</a></li>		<li><a href="/interactions/toggler.html">Toggler</a></li><li><a href="/interactions/validator.html">Validator</a></li>		<li><a href="/interactions/zoom.html">Zoom</a></li>	</ul></section><section class="menu_interaction"><a href="#" class="selected">Training</a><ul><li><a href="/documentation/overview.html">Overview</a></li><li><a href="/documentation/getting_started.html">Basic Use</a></li><li><a href="/documentation/advanced.html">Advanced Use</a></li><li><a href="/documentation/ajax.html">Using AJAX</a></li><li><a href="/documentation/philosophy.html">Philosophy</a></li><li><a href="/documentation/model.html">Model</a></li><li><a href="/documentation/styling.html">Styling</a></li><li><a href="/documentation/grouping.html">Grouping</a></li></ul></section><a href="/download.html">Download</a>
+</nav>
+
+    <div id="textbody">
+  <div class="wrapper">
+    <h1>Initializing AJAX Elements</h1>
+    <p>One of the advantages of working with jQuery is the convenient availabilty of robust, cross-browser AJAX functionality. In case you're not familiar with the concept of AJAX, it's a way of loading parts of your web page dynamically in response to Javascript events.</p>
+    <p>For example, you mignt want to load a different large image in your gallery preview panel depending on which thumbnail a user clicks. You don't want to load all those images with the rest of the page because you don't know which ones will be needed. So you set them to be loaded using an AJAX call one at a time, depending on which thumbnail a visitor clicks. That way only the images that are actively chosen will be loaded.</p>
+    <p>Using AJAX, a developer can also make sections of a page load separately. If those page sections contain any elements that rely on Uranium data attributes, they can be initialized by issuing a call to the Uranium() function on the jQuery selector for any element wrapping the content being loaded in.</p>
+    <p>For example, if you had a page that loaded a new Uranium toggler into a div, you would just need to invoke a jQuery selector for the div, and call the Uranium() function on it.
+<h3>Original page contains this div:</h3>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;loadHere&quot;</span><span class="nt">&gt;&lt;div&gt;</span>
+</code></pre></div>
+<h3>A separate file with a snippet of HTML (eg: new-fragment.html):</h3>
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;p</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;button&#39;</span> <span class="na">data-ur-id=</span><span class="s">&#39;MyToggler&#39;</span><span class="nt">&gt;</span>
+  This toggler is loaded dynamically
+<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">data-ur-toggler-component=</span><span class="s">&#39;content&#39;</span> <span class="na">data-ur-id=</span><span class="s">&#39;MyToggler&#39;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;li&gt;</span>This<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>Was<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>Loaded<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;</span>Dynamically<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div>
+<h3>Sample jQuery to load the snippet and initialize Uranium on that snippet:</h3>
+<div class="highlight"><pre><code class="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#loadHere&quot;</span><span class="p">).</span><span class="nx">load</span><span class="p">(</span><span class="s2">&quot;./new-fragment.html&quot;</span><span class="p">).</span><span class="nx">Uranium</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div>
+  </div> <!-- wrapper close -->
+</div>
+
+    <footer id="footer">
+  <div><span>Brought to you by&hellip;</span></div>
+  <a id="moovweblogo" href="http://www.moovweb.com/" target="_blank"><img src="/images/moovweblogo.png" alt="Moovweb" /></a>
+  <nav>
+    Uranium &copy; 2013 |
+    <a href="/about.html">About</a> |
+    <a href="https://github.com/moovweb/uranium">GitHub</a> |
+    <a href="mailto:uranium@moovweb.com">Contact</a>
+  </nav>
+</footer>
+<script src="/src/jquery-1.9.1.min.js"></script>
+<script src="/src/jquery.uranium.js"></script>
+
+  </body>
+</html>

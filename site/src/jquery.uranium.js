@@ -3,6 +3,46 @@
 
 (function ( $ ) {
 
+  // for compatibility with older versions of jQuery
+  var jqVersion = $.fn.jquery.split(".");
+  if (jqVersion[0] == 1 && jqVersion[1] < 4)
+    // older jquery returns document for null selectors
+    $ = $.extend(function (selector, context) {
+      return new $.fn.init(selector || [], context);
+    }, $);
+
+  if (!$.fn.on)
+    $.fn.extend({
+      on: function(types, selector, data, fn) {
+        if (data == null && fn == null) {
+          // ( types, fn )
+          fn = selector;
+          selector = null;
+        }
+        else if (fn == null && typeof selector != "string") {
+          // ( types, data, fn )
+          fn = data;
+          data = selector;
+          selector = null;
+        }
+        return selector ? this.delegate(selector, types, data, fn) : this.bind(types, data, fn);
+      },
+      off: function(types, selector, fn) {
+        if (fn == null) {
+          // ( types, fn )
+          fn = selector;
+          selector = null;
+        }
+        return selector ? this.undelegate(selector, types, fn) : this.unbind(types, fn);
+      }
+    });
+  if (!$.fn.addBack)
+    $.fn.addBack = $.fn.andSelf;
+  if (!$.error)
+    $.error = function (msg) {
+      throw new Error(msg);
+    };
+
   // Keep a unique value for ID initialization
   var uniqueUraniumId = function() {
     var count = 0;
@@ -16,7 +56,7 @@
     var setCss = "[data-ur-set='" + type + "']";
     var compAttr = "data-ur-" + type + "-component";
 
-    $(fragment).find("[" +compAttr +"]").each(function() {
+    $(fragment).find("[" +compAttr +"]").addBack("[" +compAttr +"]").each(function() {
       if ($(this).data("urCompInit"))
         return;
       var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
@@ -28,6 +68,7 @@
           set.attr("data-ur-id", setId);
         }
         sets[setId] = sets[setId] || {};
+        sets[setId]._id = setId;
 
         if (set.is(setCss))
           sets[setId].set = set[0];
@@ -44,12 +85,39 @@
     return sets;
   }
 
-  var interactions = {};
+  // test for transform3d, technically supported on old Android but very buggy
+  var oldAndroid = /Android [12]/.test(navigator.userAgent);
+  var transform3d = !oldAndroid;
+  if (transform3d) {
+    var css3d = "translate3d(0, 0, 0)";
+    var elem3d = $("<a>").css({ webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d });
+    transform3d =
+      (elem3d.css("webkitTransform") +
+       elem3d.css("MozTransform") +
+       elem3d.css("msTransform") +
+       elem3d.css("transform")).indexOf("(") != -1;
+  }
 
+  // test for touch screen
   var touchscreen = "ontouchstart" in window;
-  var downEvent = touchscreen ? "touchstart" : "mousedown";
-  var moveEvent = touchscreen ? "touchmove" : "mousemove";
-  var upEvent = touchscreen ? "touchend" : "mouseup";
+  var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
+  var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
+  var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
+
+  // handle touch events
+  function getEventCoords(event) {
+    var touches = event.originalEvent.touches;
+    event = (touches && touches[0]) || event;
+    return {x: event.clientX, y: event.clientY};
+  }
+  
+  // stop event helper
+  function stifle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  var interactions = {};
 
   // Toggler
   interactions.toggler = function( fragment ) {
@@ -57,17 +125,23 @@
 
     $.each(groups, function(id, group) {
       if (!group["button"])
-        $.error("no button found for toggler with id=" + id);
+        $.error("no button found for toggler with id: " + id);
       if (!group["content"])
-        $.error("no content found for toggler with id=" + id);
+        $.error("no content found for toggler with id: " + id);
 
       var togglerState = $(group["button"]).attr("data-ur-state") || "disabled";
       $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
 
-      $(group["button"]).click(function(event) {
-        event.stopPropagation();
-        var newState = $(group["button"]).attr("data-ur-state") == "enabled" ? "disabled" : "enabled";
+      $(group["button"]).on("click.ur.toggler", function(event) {
+        var enabled = $(group["button"]).attr("data-ur-state") == "enabled";
+        var newState = enabled ? "disabled" : "enabled";
         $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
+        if (!enabled)
+          $(group["drawer"]).attr("data-ur-state", newState);
+      });
+
+      $(group["drawer"]).on("webkitTransitionEnd.ur.toggler transitionend.ur.toggler", function() {
+        $(this).attr("data-ur-state", $(group["button"]).attr("data-ur-state"));
       });
 
       $(group["set"]).data("urInit", true);
@@ -96,14 +170,14 @@
 
       // Set up the button call backs
       $.each(group["tabs"], function(_, tab) {
-        $(tab["button"]).click(function() {
+        $(tab["button"]).on("click.ur.tabs", function() {
           // Is the tab open already?
           var open = $(this).attr("data-ur-state") == "enabled";
           $.each(group["tabs"], function() {
             $(this["button"]).add(this["content"]).attr("data-ur-state", "disabled");
           });
           // If closeable (active tab can be toggled) then make sure it happens.
-          if (!open || !groups["closeable"]) {
+          if (!open || !group["closeable"]) {
             $(tab["button"]).add(tab["content"]).attr("data-ur-state", "enabled");
           }
         });
@@ -112,6 +186,7 @@
       $(group["set"]).data("urInit", true);
     });
   }
+
 
   // Validation
 
@@ -125,9 +200,9 @@
       var ccnum = $(group['set']).find("input[data-ur-validator-component~='ccnum']");
       var notblank = $(group['set']).find("input[data-ur-validator-component~='notblank']");
 
-      var min = $(group['set']).find("[data-ur-validator-min]");
-      var max = $(group['set']).find("[data-ur-validator-max]");
-      var minmax = $(group['set']).find("[data-ur-validator-min][data-ur-validator-max]")
+      var min = $(group['set']).find("[data-ur-validator-minval]");
+      var max = $(group['set']).find("[data-ur-validator-maxval]");
+      var minmax = $(group['set']).find("[data-ur-validator-minval][data-ur-validator-maxval]")
 
       // Functions for removing errors and adding errors
       // InputError = class of data-ur-state="error" on an input
@@ -176,20 +251,27 @@
         .on("blur", function() {
           var cc_num = ccnum.val();
 
-          // From http://www.breakingpar.com/bkp/home.nsf/0/87256B280015193F87256CC70060A01B
-          cc_num = cc_num.split("-").join("");
-          var checksum = 0;
-          for (var i=(2-(cc_num.length % 2)); i<=cc_num.length; i+=2) {
-             checksum += parseInt(cc_num.charAt(i-1));
-          }
-          // Analyze odd digits in even length strings or even digits in odd length strings.
-          for (var i=(cc_num.length % 2) + 1; i<cc_num.length; i+=2) {
-             var digit = parseInt(cc_num.charAt(i-1)) * 2;
-             if (digit < 10) { checksum += digit; } else { checksum += (digit-9); }
+           // From https://github.com/kenkeiter/skeuocard/blob/master/javascripts/skeuocard.js
+          var alt, i, num, sum, _i, _ref;
+          sum = 0;
+          alt = false;
+          for (i = _i = _ref = cc_num.length - 1; _i >= 0; i = _i += -1) {
+            num = parseInt(cc_num.charAt(i), 10);
+            if (isNaN(num)) {
+              return false;
+            }
+            if (alt) {
+              num *= 2;
+              if (num > 9) {
+                num = (num % 10) + 1;
+              }
+            }
+            alt = !alt;
+            sum += num;
           }
 
           // If the credit card is valid, remove errors
-          if ((checksum % 10) == 0) {
+          if ((sum % 10) == 0) {
             // console.log("Credit card is valid");
             removeInputError(this);
             removeSpanError("cc");
@@ -298,7 +380,11 @@
             // console.log("Input is not blank.")
             // If the input has other components, don't want to remove
             // the input error until they are done.
-            if($(this).attr("data-ur-validator-component") === "notblank") {
+            if ($(this).attr("data-ur-validator-maxval") || $(this).attr("data-ur-validator-minval")) {
+              // Should not remove the required error if we enter a number
+              // and it needs to be checked as min/max
+            } else if($(this).attr("data-ur-validator-component") === "notblank") {
+              // If the only validation is 'required', we can remove the error
               removeInputError(this);
             } else {}
             removeSpanError("notblank");
@@ -320,27 +406,27 @@
 
       // Touch Events
       ex
-        .bind(touchscreen ? "touchstart" : "click", function() {
+        .on(touchscreen ? "touchstart.ur.inputclear" : "click.ur.inputclear", function() {
           // remove text in the box
           input[0].value='';
           input[0].focus();
         })
-        .bind('touchend', function() {
+        .on("touchend.ur.inputclear", function() {
           // make sure the keyboard doesn't disappear
           input[0].blur();
         });
 
       var input = $(group["set"]).find("input");
       input
-        .bind('focus', function() {
+        .on("focus.ur.inputclear", function() {
           if (input[0].value != '') {
             ex.show();
           }
         })
-        .bind('keydown', function() {
+        .on("keydown.ur.inputclear", function() {
           ex.show();
         })
-        .bind('blur', function() {
+        .on("blur.ur.inputclear", function() {
           // Delay the hide so that the button can be clicked
           setTimeout(function() { ex.hide();}, 150);
         });
@@ -451,8 +537,8 @@
         // Set up call back for button to trigger geocoding
         var btn = $(this["elements"]).filter("[data-ur-reverse-geocode-component='rg-button']")
         if (btn.length > 0) {
-          $(btn).bind(
-            'click',
+          $(btn).on(
+            "click.ur.inputclear",
             function(obj){
               return function() {
                 obj.geocodeInit();
@@ -563,28 +649,11 @@
 
     var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
 
-    var no3d = /Android [12]|Opera/.test(navigator.userAgent);
-
-    var noTranslate3d = no3d;
-    var noScale3d = no3d;
-
-    var translatePrefix = noTranslate3d ? "translate(" : "translate3d(";
-    var translateSuffix = noTranslate3d ? ")" : ", 0)";
-
-    var scalePrefix = noScale3d ? " scale(" : " scale3d(";
-    var scaleSuffix = noScale3d ? ")" : ", 1)";
-
-
     // Private shared methods
 
     // note that this accepts a reversed range
     function bound(num, range) {
       return Math.max(Math.min(range[0], num), range[1]);
-    }
-
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
     }
 
     $.each(groups, function(id, group) {
@@ -602,6 +671,7 @@
       this.canvasWidth = this.canvasHeight = 0;
       this.ratio = 1;
       this.state = "disabled";
+      this.transform3d = transform3d;
 
       // Optionally:
       this.button = set["button"];
@@ -618,9 +688,26 @@
       var mouseDown = false; // only used on non-touch browsers
       var mouseDrag = true;
 
+      var translatePrefix = "translate(", translateSuffix = ")";
+      var scalePrefix = " scale(", scaleSuffix = ")";
+
+
+      var startCoords, click, down; // used for determining if zoom element is actually clicked
+
       loadedImgs.push($img.attr("src"));
 
       function initialize() {
+        var custom3d = $(self.container).attr("data-ur-transform3d");
+        if (custom3d)
+          self.transform3d = custom3d != "disabled";
+        if (self.transform3d) {
+          translatePrefix = "translate3d(";
+          translateSuffix = ",0)";
+          scalePrefix = " scale3d(";
+          scaleSuffix = ",1)";
+        }
+        $(self.container).attr("data-ur-transform3d", self.transform3d ? "enabled" : "disabled");
+        
         self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
         self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
         self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
@@ -711,18 +798,18 @@
           self.container.setAttribute("data-ur-state", self.state);
 
           $(self.container)
-            .on(downEvent, panStart)
-            .on(moveEvent, panMove)
-            .on(upEvent, panEnd);
+            .on(downEvent + ".zoom", panStart)
+            .on(moveEvent + ".zoom", panMove)
+            .on(upEvent + ".zoom", panEnd);
         }
         else if (self.state == "enabled-out") {
           self.state = "disabled";
           self.container.setAttribute("data-ur-state", self.state);
 
           $(self.container)
-            .unbind(downEvent, panStart)
-            .unbind(moveEvent, panMove)
-            .unbind(upEvent, panEnd);
+            .off(downEvent + ".zoom", panStart)
+            .off(moveEvent + ".zoom", panMove)
+            .off(upEvent + ".zoom", panEnd);
         }
       }
 
@@ -731,21 +818,16 @@
         self.state = "enabled-in";
         self.container.setAttribute("data-ur-state", self.state);
 
-        x = x ? x : 0;
-        y = y ? y : 0;
-        transform(x, y, self.ratio);
+        transform(x || 0, y || 0, self.ratio);
       }
 
       function transform(x, y, scale) {
         var t = "";
-        if (x != undefined)
+        if (x != null)
           t = translatePrefix + x + "px, " + y + "px" + translateSuffix;
-        if (scale != undefined) {
-          if (noScale3d)
-            t += " scale(" + scale + ")";
-          else
-            t += " scale3d(" + scale + ", " + scale + ", 1)";
-        }
+        if (scale != null)
+          t += scalePrefix + scale + ", " + scale + scaleSuffix;
+        
         return $img.css({ webkitTransform: t, MozTransform: t, msTransform: t, transform: t });
       }
 
@@ -799,10 +881,24 @@
         transform(0, 0, 1);
       };
 
-      if (self.container.getAttribute("data-ur-touch") != "disabled")
-        $(self.container).click(self.zoomIn);
+      if (self.container.getAttribute("data-ur-touch") != "disabled") {
+        // make sure zoom works when dragged inside carousel
+        $(self.container).on(downEvent + ".zoom", function(e) {
+          click = down = true;
+          startCoords = getEventCoords(e);
+        });
+        $(self.container).on(moveEvent + ".zoom", function(e) {
+          var coords = getEventCoords(e);
+          if (down && (Math.abs(startCoords.x - coords.x) + Math.abs(startCoords.x - coords.x)) > 0)
+            click = false;
+        });
+        $(self.container).on("click.ur.zoom", function(e) {
+          if (click)
+            self.zoomIn(e);
+        });
+      }
 
-      $img.load(function() {
+      $img.on("load.ur.zoom", function() {
         if ($img.attr("src") == $img.attr("data-ur-src"))
           loadedImgs.push($img.attr("src"));
         $idler.attr("data-ur-state", "disabled");
@@ -845,11 +941,9 @@
       };
 
       // zoom in/out button, zooms in to the center of the image
-      $(self.button).on(touchscreen ? "touchstart" : "click", self.zoom);
+      $(self.button).on(touchscreen ? "touchstart.ur.zoom" : "click.ur.zoom", self.zoom);
 
-      $.each(["webkitTransitionEnd", "transitionend", "oTransitionEnd"], function(index, eventName) {
-        $img.on(eventName, transitionEnd);
-      });
+      $img.on("webkitTransitionEnd.ur.zoom transitionend.ur.zoom", transitionEnd);
 
       this.reset = function() {
         self.prescale = false;
@@ -873,7 +967,7 @@
       $(group["buttons"]).each(function() {
         var type = $(this).attr("data-ur-carousel-button-type");
         if(!type) {
-          $.error("malformed carousel button type for carousel with id: " + id + ".");
+          $.error("malformed carousel button type for carousel with id: " + id);
         }
         $(this).attr("data-ur-state", type == "prev" ? "disabled" : "enabled");
       });
@@ -887,14 +981,10 @@
     function zeroFloor(num) {
       return num >= 0 ? Math.floor(num) : Math.ceil(num);
     }
-    
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
 
     function Carousel(set) {
       var self = this;
+      self.urId = set["_id"];
       self.container = set["set"];
       self.scroller = set["scroll_container"];
       if (!self.scroller)
@@ -910,7 +1000,7 @@
       self.dots = set["dots"];
 
       self.flag = {
-        click: false,           // used for determining if item is clicked on touchscreens
+        click: true,            // used for determining if item is clicked on touchscreens
         snapping: false,        // true if carousel is currently snapping, flag for users' convenience
         lock: null,             // used for determining horizontal/vertical dragging motion on touchscreens
         touched: false          // true when user is currently touching/dragging
@@ -920,14 +1010,14 @@
         autoscroll: false,
         autoscrollDelay: 5000,
         autoscrollForward: true,
-        center: false,          // position active item in the middle of the carousel
-        cloneLength: 0,         // number of clones at back of carousel (or front and back for centered carousels)
-        fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
-        infinite: true,         // loops the last item back to first and vice versa
-        speed: 1.1,             // determines how "fast" carousel snaps, should probably be deprecated
-        translate3d: true,      // determines if translate3d() or translate() is used
-        touch: true,            // determines if carousel can be dragged e.g. when user only wants buttons to be used
-        verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
+        center: false,            // position active item in the middle of the carousel
+        cloneLength: 0,           // number of clones at back of carousel (or front and back for centered carousels)
+        fill: 0,                  // exactly how many items forced to fit in the viewport, 0 means disabled
+        infinite: true,           // loops the last item back to first and vice versa
+        speed: 1.1,               // determines how "fast" carousel snaps, should probably be deprecated
+        transform3d: transform3d, // determines if translate3d() or translate() is used
+        touch: true,              // determines if carousel can be dragged e.g. when user only wants buttons to be used
+        verticalScroll: true      // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
       };
 
       self.count = self.items.length;     // number of items (excluding clones)
@@ -951,11 +1041,10 @@
 
       var startingOffset = null;
 
-      var translatePrefix = "translate3d(", translateSuffix = ", 0px)";
+      var translatePrefix = "translate3d(", translateSuffix = ", 0)";
 
       function initialize() {
-        self.options.translate3d = self.options.translate3d && test3d();
-        if (!self.options.translate3d) {
+        if (!self.options.transform3d) {
           translatePrefix = "translate(";
           translateSuffix = ")";
         }
@@ -972,52 +1061,63 @@
         updateDots();
         self.update();
 
-        $(self.scroller).on("dragstart", function() { return false; }); // for Firefox
+        $(self.scroller).on("dragstart.ur.carousel", function() { return false; }); // for Firefox
 
         if (self.options.touch) {
           $(self.scroller)
-            .on(downEvent, startSwipe)
-            .on(moveEvent, continueSwipe)
-            .on(upEvent, finishSwipe)
-            .click(function(e) {if (!self.flag.click) stifle(e);});
+            .on(downEvent + ".carousel", startSwipe)
+            .on(moveEvent + ".carousel", continueSwipe)
+            .on(upEvent + ".carousel", finishSwipe);
+          $items.each(function(_, item) {
+            if (item.onclick)
+              $(item).data("urClick", item.onclick);
+            item.onclick = function(event) {
+              if (self.flag.click || (!event.clientX && !event.clientY)) {
+                var handler = $(this).data("urClick");
+                if (handler)
+                  handler.call(this, event);
+              }
+              else {
+                stifle(event);
+                event.stopImmediatePropagation();
+              }
+            };
+          });
         }
 
-        self.button.prev.click(function() {
+        self.button.prev.on("click.ur.carousel", function() {
           moveTo(1);
         });
-        self.button.next.click(function() {
+        self.button.next.on("click.ur.carousel", function() {
           moveTo(-1);
         });
 
         if ("onorientationchange" in window)
-          $(window).on("orientationchange", self.update);
+          $(window).on("orientationchange.ur.carousel", self.update);
         else
-          $(window).on("resize", function() {
+          $(window).on("resize.ur.carousel", function() {
             if (viewport != $container.outerWidth()) {
               self.update();
               setTimeout(self.update, 100); // sometimes styles haven't updated yet
             }
           });
 
-        $items.find("img").addBack("img").load(self.update); // after any (late-loaded) images are loaded
+        $items.find("img").addBack("img").on("load.ur.carousel", self.update); // after any (late-loaded) images are loaded
 
         self.autoscrollStart();
 
+        $container.triggerHandler("load.ur.carousel");
       }
 
       function readAttributes() {
-        var oldAndroid = /Android [12]/.test(navigator.userAgent);
-        if (oldAndroid) {
-          if (($container.attr("data-ur-android3d") || $container.attr("data-ur-translate3d")) != "enabled") {
-            self.options.translate3d = false;
-            var speed = parseFloat($container.attr("data-ur-speed"));
-            self.options.speed = speed > 1 ? speed : 1.3;
-          }
+        var custom3d = $container.attr("data-ur-android3d") || $container.attr("data-ur-transform3d");
+        if (custom3d)
+          self.options.transform3d = custom3d != "disabled";
+        $container.attr("data-ur-transform3d", self.options.transform3d ? "enabled" : "disabled");
+        if (oldAndroid && !self.options.transform3d) {
+          var speed = parseFloat($container.attr("data-ur-speed"));
+          self.options.speed = speed > 1 ? speed : 1.3;
         }
-        else
-          self.options.translate3d = $container.attr("data-ur-translate3d") != "disabled";
-        $container.attr("data-ur-translate3d", self.options.translate3d ? "enabled" : "disabled");
-
         $container.attr("data-ur-speed", self.options.speed);
 
         var fill = parseInt($container.attr("data-ur-fill"));
@@ -1248,7 +1348,10 @@
         if (self.options.infinite && self.options.center)
           realIndex = self.itemIndex - self.options.cloneLength;
         realIndex = realIndex % self.count;
-        $(self.counter).html(realIndex + 1 + " of " + self.count);
+        $(self.counter).html(function() {
+          var template = $(this).attr("data-ur-template") || "{{index}} of {{count}}";
+          return template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
+        });
 
         $items.attr("data-ur-state", "inactive");
         $items.eq(self.itemIndex).attr("data-ur-state", "active");
@@ -1424,7 +1527,7 @@
         }
         
         dest = $items[newIndex];
-        $container.trigger("slidestart.ur.carousel", {index: newIndex});
+        $container.triggerHandler("slidestart", {index: newIndex});
 
         // timeout needed for mobile safari
         setTimeout(function() {
@@ -1472,8 +1575,9 @@
           self.itemIndex -= self.count;
         }
         shift = 0;
+        self.flag.click = true;
         self.autoscrollStart();
-        $container.trigger("slideend.ur.carousel", {index: self.itemIndex});
+        $container.triggerHandler("slideend", {index: self.itemIndex});
       }
 
       self.jumpToIndex = function(index) {
@@ -1495,12 +1599,6 @@
         return self.translate;
       }
 
-      function getEventCoords(event) {
-        var touches = event.originalEvent.touches;
-        event = (touches && touches[0]) || event;
-        return {x: event.clientX, y: event.clientY};
-      }
-
       // could possibly be $(item).outerWidth(true) if margins are allowed
       function width(item) {
         return item.offsetWidth;
@@ -1520,16 +1618,6 @@
         return Math.min(Math.max(range[0], num), range[1]);
       }
 
-      function test3d() {
-        var css3d = "translate3d(0, 0, 0)";
-        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
-        var wt = test.css("webkitTransform");
-        var mt = test.css("MozTransform");
-        var it = test.css("msTransform");
-        var t = test.css("transform");
-        return (wt + mt + it + t).indexOf("(") != -1;
-      }
-
       readAttributes();
 
       // delay initialization until we can figure out number of clones
@@ -1542,15 +1630,16 @@
       }
       if (zeroWidth) {
         // wait until (late-loaded) images are loaded or other content inserted
+        console.warn("carousel with id: " + self.urId + " will be late loaded");
         var imgs = $items.find("img").addBack("img");
         var numImgs = imgs.length;
         if (numImgs > 0)
-          imgs.load(function() {
+          imgs.on("load.ur.carousel", function() {
             if (--numImgs == 0)
               initialize();
           });
         else
-          $(window).load(initialize);
+          $(window).on("load.ur.carousel", initialize);
       }
       else
         initialize();
@@ -1571,7 +1660,5 @@
     return this;
   };
 
-  $(document).ready(function() {
-    $("body").Uranium();
-  });
+  $(document).ready($(document).Uranium);
 })(jQuery);

@@ -1,0 +1,37 @@
+---
+layout: default
+title: Documentation
+name: documentation
+documentation_selected: selected
+---
+<div id="textbody">
+  <div class="wrapper">
+    <h1>Initializing AJAX Elements</h1>
+    <p>One of the advantages of working with jQuery is the convenient availabilty of robust, cross-browser AJAX functionality. In case you're not familiar with the concept of AJAX, it's a way of loading parts of your web page dynamically in response to Javascript events.</p>
+    <p>For example, you mignt want to load a different large image in your gallery preview panel depending on which thumbnail a user clicks. You don't want to load all those images with the rest of the page because you don't know which ones will be needed. So you set them to be loaded using an AJAX call one at a time, depending on which thumbnail a visitor clicks. That way only the images that are actively chosen will be loaded.</p>
+    <p>Using AJAX, a developer can also make sections of a page load separately. If those page sections contain any elements that rely on Uranium data attributes, they can be initialized by issuing a call to the Uranium() function on the jQuery selector for any element wrapping the content being loaded in.</p>
+    <p>For example, if you had a page that loaded a new Uranium toggler into a div, you would just need to invoke a jQuery selector for the div, and call the Uranium() function on it.
+<h3>Original page contains this div:</h3>
+{% highlight html %}
+<div id="loadHere"><div>
+{% endhighlight %}
+<h3>A separate file with a snippet of HTML (eg: new-fragment.html):</h3>
+{% highlight html %}
+<p data-ur-toggler-component='button' data-ur-id='MyToggler'>
+  This toggler is loaded dynamically
+</p>
+<ul data-ur-toggler-component='content' data-ur-id='MyToggler'>
+  <li>This</li>
+  <li>Was</li>
+  <li>Loaded</li>
+  <li>Dynamically</li>
+</ul>
+{% endhighlight %}
+<h3>Sample jQuery to load the snippet and initialize Uranium on that snippet:</h3>
+{% highlight javascript %}
+$(function() {
+  $("#loadHere").load("./new-fragment.html").Uranium();
+});
+{% endhighlight %}
+  </div> <!-- wrapper close -->
+</div>
