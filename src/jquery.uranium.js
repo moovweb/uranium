@@ -358,7 +358,9 @@
           var inputVal = parseInt(max.val());
           var minVal = parseInt(min.attr("data-ur-validator-minval"));
           var maxVal = parseInt(max.attr("data-ur-validator-maxval"));
-          if (inputVal >= minVal && inputVal <= maxVal) {
+          if (isNaN(inputVal)) {
+            // Do nothing if blank
+          } else if (inputVal >= minVal && inputVal <= maxVal) {
             // console.log("Value is high enough");
             removeInputError(this);
             removeSpanError("min");
