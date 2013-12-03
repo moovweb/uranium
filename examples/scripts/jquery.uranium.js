@@ -252,7 +252,20 @@
         .on("blur", function() {
           var cc_num = ccnum.val();
 
-           // From https://github.com/kenkeiter/skeuocard/blob/master/javascripts/skeuocard.js
+          // Checking if input is a number
+          var isnum = /^\d+$/.test(cc_num);
+          if (isnum) {
+            // CC is a number, continue as normal
+          } else if(cc_num === "") {
+            // Blank, so ignoring for now
+          } else {
+            removeSpanError("cc")
+            addInputError(this);
+            addSpanError(this, "cc", "Please enter a number. ");
+            return false;
+          }
+          
+          // From https://github.com/kenkeiter/skeuocard/blob/master/javascripts/skeuocard.js
           var alt, i, num, sum, _i, _ref;
           sum = 0;
           alt = false;
@@ -270,7 +283,6 @@
             alt = !alt;
             sum += num;
           }
-
           // If the credit card is valid, remove errors
           if ((sum % 10) == 0) {
             // console.log("Credit card is valid");
