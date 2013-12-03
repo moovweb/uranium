@@ -444,7 +444,59 @@
     </div>
 
     <hr>
+    <h1>Uranium Validator</h1>
+    <h4>E-mail</h4>
+    <div data-ur-set="validator">
+      <input data-ur-validator-component="email" placeholder="email" class='email'>
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <div data-ur-set="validator">
+      <input data-ur-validator-component="email required" placeholder="email required" class='email'>
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <h4>Credit Card Number</h4>
+    <div data-ur-set="validator">
+      <input class="cc" type="text" name="cc" data-ur-validator-component="ccnum" placeholder="cc">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <div data-ur-set="validator">
+      <input class="cc" type="text" name="cc" data-ur-validator-component="ccnum required" placeholder="cc required">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <h4>Required</h4>
+    <div data-ur-set="validator">
+      <input class="blank" placeholder="required" data-ur-validator-component="required">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <h4>Min</h4>
+    <div data-ur-set='validator'>
+      <input data-ur-validator-minval="4" placeholder="min val 4">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <div data-ur-set='validator'>
+      <input data-ur-validator-minval="4" data-ur-validator-component="required" placeholder="min val 4 required">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <h4>Max</h4>
+    <div data-ur-set='validator'>
+      <input data-ur-validator-maxval="9" placeholder="max val 9">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <div data-ur-set='validator'>
+      <input data-ur-validator-maxval="9" data-ur-validator-component="required" placeholder="max val 9 required">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <h4>Min-Max</h4>
+    <div data-ur-set="validator" class="wrap">
+      <input data-ur-validator-minval="4" data-ur-validator-maxval="8" placeholder="4-8">
+      <div data-ur-validator-component="error"></div>
+    </div>
+    <div data-ur-set="validator" class="wrap">
+      <input data-ur-validator-minval="3" data-ur-validator-maxval="10" data-ur-validator-component="required" placeholder="3-10 not blank">
+      <div data-ur-validator-component="error"></div>
+    </div>
 
+    <hr>
     <h1>Uranium Zoom</h1>
     <div data-ur-set="zoom" data-ur-zoom-component="view_container">
       <img data-ur-zoom-component="img" width="500" height="287" src="images/pic-normal.jpeg" data-ur-src="images/pic-large.jpeg">
