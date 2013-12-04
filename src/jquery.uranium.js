@@ -85,12 +85,39 @@
     return sets;
   }
 
-  var interactions = {};
+  // test for transform3d, technically supported on old Android but very buggy
+  var oldAndroid = /Android [12]/.test(navigator.userAgent);
+  var transform3d = !oldAndroid;
+  if (transform3d) {
+    var css3d = "translate3d(0, 0, 0)";
+    var elem3d = $("<a>").css({ webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d });
+    transform3d =
+      (elem3d.css("webkitTransform") +
+       elem3d.css("MozTransform") +
+       elem3d.css("msTransform") +
+       elem3d.css("transform")).indexOf("(") != -1;
+  }
 
+  // test for touch screen
   var touchscreen = "ontouchstart" in window;
   var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
   var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
   var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
+
+  // handle touch events
+  function getEventCoords(event) {
+    var touches = event.originalEvent.touches;
+    event = (touches && touches[0]) || event;
+    return {x: event.clientX, y: event.clientY};
+  }
+  
+  // stop event helper
+  function stifle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  var interactions = {};
 
   // Toggler
   interactions.toggler = function( fragment ) {
@@ -156,6 +183,233 @@
         });
       });
 
+      $(group["set"]).data("urInit", true);
+    });
+  }
+
+  // Validation
+
+  interactions.validator = function( fragment ) {
+    var groups = findElements(fragment, "validator");
+    $.each(groups, function(id, group) {
+
+      // Grabbing all the possible validator components into variables
+
+      var email = $(group['set']).find("input[data-ur-validator-component~='email']");
+      var ccnum = $(group['set']).find("input[data-ur-validator-component~='ccnum']");
+      var required = $(group['set']).find("input[data-ur-validator-component~='required']");
+
+      var min = $(group['set']).find("[data-ur-validator-minval]");
+      var max = $(group['set']).find("[data-ur-validator-maxval]");
+      var minmax = $(group['set']).find("[data-ur-validator-minval][data-ur-validator-maxval]")
+
+      // Functions for removing errors and adding errors
+      // InputError = class of data-ur-state="error" on an input
+      // SpanError = inserting a span with an error class into the (optional) error div
+
+      function removeInputError(target) {
+        $(target).removeAttr("data-ur-state");
+      }
+      function removeSpanError(type) {
+        // The "length" if/else allows you to remove all errors if 
+        // you don't specify a type - perfect for "blank"
+        if (arguments.length == 0) {
+          $(group['set']).find("[data-ur-validator-error]").remove();
+        } else {
+          $(group['set']).find("[data-ur-validator-error='"+type+"']").remove();
+        }
+      };
+      function addInputError(target) {
+        $(target).attr("data-ur-state", "error");
+      }
+      function addSpanError(target, type, message) {
+        $(target).siblings("[data-ur-validator-component='error']").append("<span data-ur-validator-error='"+type+"'>"+message+"</span>");
+      };
+      // E-mail validation
+      email
+        .on("blur", function() {
+          var emailval = email.val();
+          var noat=emailval.split("@").length-1;
+          var atpos=emailval.indexOf("@");
+          var dotpos=emailval.lastIndexOf(".");
+          if (emailval ===  "") {
+            // Ignore blank
+          } else if ((atpos<1 || dotpos<atpos+2 || dotpos+2>=emailval.length) && (noat < 2)) {
+            // console.log("E-mail is incorrect.")
+            removeSpanError("email");
+            addInputError(this);
+            addSpanError(this, "email", "This e-mail is invalid. ");
+            return false;
+          } else {
+            // console.log("Email is correct");
+            removeInputError(this);
+            removeSpanError("email");
+            return true;
+          }
+        });
+      // Credit card validation
+      ccnum
+        .on("blur", function() {
+          var cc_num = ccnum.val();
+
+          // Checking if input is a number
+          var isnum = /^\d+$/.test(cc_num);
+          if (isnum) {
+            // CC is a number, continue as normal
+          } else if(cc_num === "") {
+            // Blank, so ignoring for now
+          } else {
+            removeSpanError("cc")
+            addInputError(this);
+            addSpanError(this, "cc", "Please enter a number. ");
+            return false;
+          }
+          
+          // From https://github.com/kenkeiter/skeuocard/blob/master/javascripts/skeuocard.js
+          var alt, i, num, sum, _i, _ref;
+          sum = 0;
+          alt = false;
+          for (i = _i = _ref = cc_num.length - 1; _i >= 0; i = _i += -1) {
+            num = parseInt(cc_num.charAt(i), 10);
+            if (isNaN(num)) {
+              return false;
+            }
+            if (alt) {
+              num *= 2;
+              if (num > 9) {
+                num = (num % 10) + 1;
+              }
+            }
+            alt = !alt;
+            sum += num;
+          }
+          // If the credit card is valid, remove errors
+          if ((sum % 10) == 0) {
+            // console.log("Credit card is valid");
+            removeInputError(this);
+            removeSpanError("cc");
+
+            // Card type detection, from Ben  Bayard
+            var visa = new RegExp(/^4[0-9]{12}(?:[0-9]{3})?$/);
+            var mc = new RegExp(/^5[1-5][0-9]{14}$/);
+            var amex = new RegExp(/^3[47][0-9]{13}$/);
+            var discover = new RegExp(/^6(?:011|5[0-9]{2})[0-9]{12}$/);
+            var detectedCardType = false;
+            if (visa.test(cc_num)) {
+              detectedCardType = "VISA";        
+            }
+            else if (mc.test(cc_num)){
+              detectedCardType = "MASTERCARD";
+            }
+            else if (amex.test(cc_num)) {
+              detectedCardType = "AMEX";
+            }
+            else if (discover.test(cc_num)) {
+              detectedCardType = "DISCOVER";
+            }
+            // Adding an attribute to the input that has a value of the card type
+            // console.log(detectedCardType);
+            ccnum.attr("data-ur-validator-ccard-type", detectedCardType);
+            return true;
+          } else {
+            // console.log("Credit card is invalid");
+            removeSpanError("cc")
+            addInputError(this);
+            addSpanError(this, "cc", "This credit card number is invalid. ");
+            return false;
+          }
+        });
+      // Must be above minimum validator
+      min
+        .on("blur", function() {
+          var inputVal = parseInt(min.val());
+          var minVal = parseInt(min.attr("data-ur-validator-minval"));
+          // Input must be greater than (or equal to) the value assigned to the attribute
+          if (isNaN(inputVal)) {
+            // Do nothing if blank
+          } else if (inputVal >= minVal) {
+            // console.log("Value is high enough");
+            removeInputError(this);
+            removeSpanError("min");
+            return true;
+          } else {
+            // console.log("Value is too low input");
+            removeSpanError("min");
+            addInputError(this);
+            addSpanError(this, "min", "This value is too low. Please enter a value of "+minVal+" or above. ");
+            return false;
+          }
+        });
+      // Must be below maximum validator
+      max
+        .on("blur", function() {
+          var inputVal = parseInt(max.val());
+          var maxVal = parseInt(max.attr("data-ur-validator-maxval"));
+          // Input must be less than (or equal to) the value assigned to the attribute
+          if (isNaN(inputVal)) {
+            // Do nothing if blank
+          } else if (inputVal <= maxVal) {
+            // console.log("Value is low enough");
+            removeInputError(this);
+            removeSpanError("max")
+            return true;
+          } else {
+            // console.log("Value is too high");
+            removeSpanError("max");
+            addInputError(this);
+            addSpanError(this, "max", "This value is too high. Please enter a value of "+maxVal+" or below. ");
+            return false;
+          }
+        });
+      // This fixes an error where if you specified a minimum and a 
+      // maximum, the error from a number being too low would be removed
+      // by the 'max' function
+      minmax
+        .on("blur", function() {
+          var inputVal = parseInt(max.val());
+          var minVal = parseInt(min.attr("data-ur-validator-minval"));
+          var maxVal = parseInt(max.attr("data-ur-validator-maxval"));
+          if (isNaN(inputVal)) {
+            // Do nothing if blank
+          } else if (inputVal >= minVal && inputVal <= maxVal) {
+            // console.log("Value is high enough");
+            removeInputError(this);
+            removeSpanError("min");
+            return true;
+          } else {
+            // console.log("Value is too high");
+            addInputError(this);
+            return false;
+          }
+        });
+      
+      // Checks to see if the input is not blank
+      required
+        .on("blur", function() {
+          var valLength = required.val().length;
+          if (valLength === 0) {
+            // console.log("Input is blank.")
+            // Removing all span errors as we don't want type-specific errors to 
+            // appear as well as a "not blank" error.
+            removeSpanError();
+            addInputError(this);
+            addSpanError(this, "required", "The input is blank. ");
+            return false;
+          } else {
+            // console.log("Input is not blank.")
+            // If the input has other components, don't want to remove
+            // the input error until they are done.
+            if ($(this).attr("data-ur-validator-maxval") || $(this).attr("data-ur-validator-minval")) {
+              // Should not remove the required error if we enter a number
+              // and it needs to be checked as min/max
+            } else if($(this).attr("data-ur-validator-component") === "required") {
+              // If the only validation is 'required', we can remove the error
+              removeInputError(this);
+            } else {}
+            removeSpanError("required");
+            return true;
+          }
+        });
       $(group["set"]).data("urInit", true);
     });
   }
@@ -414,28 +668,11 @@
 
     var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
 
-    var no3d = /Android [12]|Opera/.test(navigator.userAgent);
-
-    var noTranslate3d = no3d;
-    var noScale3d = no3d;
-
-    var translatePrefix = noTranslate3d ? "translate(" : "translate3d(";
-    var translateSuffix = noTranslate3d ? ")" : ", 0)";
-
-    var scalePrefix = noScale3d ? " scale(" : " scale3d(";
-    var scaleSuffix = noScale3d ? ")" : ", 1)";
-
-
     // Private shared methods
 
     // note that this accepts a reversed range
     function bound(num, range) {
       return Math.max(Math.min(range[0], num), range[1]);
-    }
-
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
     }
 
     $.each(groups, function(id, group) {
@@ -453,6 +690,7 @@
       this.canvasWidth = this.canvasHeight = 0;
       this.ratio = 1;
       this.state = "disabled";
+      this.transform3d = transform3d;
 
       // Optionally:
       this.button = set["button"];
@@ -469,9 +707,26 @@
       var mouseDown = false; // only used on non-touch browsers
       var mouseDrag = true;
 
+      var translatePrefix = "translate(", translateSuffix = ")";
+      var scalePrefix = " scale(", scaleSuffix = ")";
+
+
+      var startCoords, click, down; // used for determining if zoom element is actually clicked
+
       loadedImgs.push($img.attr("src"));
 
       function initialize() {
+        var custom3d = $(self.container).attr("data-ur-transform3d");
+        if (custom3d)
+          self.transform3d = custom3d != "disabled";
+        if (self.transform3d) {
+          translatePrefix = "translate3d(";
+          translateSuffix = ",0)";
+          scalePrefix = " scale3d(";
+          scaleSuffix = ",1)";
+        }
+        $(self.container).attr("data-ur-transform3d", self.transform3d ? "enabled" : "disabled");
+        
         self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
         self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
         self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
@@ -582,21 +837,16 @@
         self.state = "enabled-in";
         self.container.setAttribute("data-ur-state", self.state);
 
-        x = x ? x : 0;
-        y = y ? y : 0;
-        transform(x, y, self.ratio);
+        transform(x || 0, y || 0, self.ratio);
       }
 
       function transform(x, y, scale) {
         var t = "";
-        if (x != undefined)
+        if (x != null)
           t = translatePrefix + x + "px, " + y + "px" + translateSuffix;
-        if (scale != undefined) {
-          if (noScale3d)
-            t += " scale(" + scale + ")";
-          else
-            t += " scale3d(" + scale + ", " + scale + ", 1)";
-        }
+        if (scale != null)
+          t += scalePrefix + scale + ", " + scale + scaleSuffix;
+        
         return $img.css({ webkitTransform: t, MozTransform: t, msTransform: t, transform: t });
       }
 
@@ -650,8 +900,22 @@
         transform(0, 0, 1);
       };
 
-      if (self.container.getAttribute("data-ur-touch") != "disabled")
-        $(self.container).on("click.ur.zoom", self.zoomIn);
+      if (self.container.getAttribute("data-ur-touch") != "disabled") {
+        // make sure zoom works when dragged inside carousel
+        $(self.container).on(downEvent + ".zoom", function(e) {
+          click = down = true;
+          startCoords = getEventCoords(e);
+        });
+        $(self.container).on(moveEvent + ".zoom", function(e) {
+          var coords = getEventCoords(e);
+          if (down && (Math.abs(startCoords.x - coords.x) + Math.abs(startCoords.x - coords.x)) > 0)
+            click = false;
+        });
+        $(self.container).on("click.ur.zoom", function(e) {
+          if (click)
+            self.zoomIn(e);
+        });
+      }
 
       $img.on("load.ur.zoom", function() {
         if ($img.attr("src") == $img.attr("data-ur-src"))
@@ -736,11 +1000,6 @@
     function zeroFloor(num) {
       return num >= 0 ? Math.floor(num) : Math.ceil(num);
     }
-    
-    function stifle(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
 
     function Carousel(set) {
       var self = this;
@@ -770,14 +1029,14 @@
         autoscroll: false,
         autoscrollDelay: 5000,
         autoscrollForward: true,
-        center: false,          // position active item in the middle of the carousel
-        cloneLength: 0,         // number of clones at back of carousel (or front and back for centered carousels)
-        fill: 0,                // exactly how many items forced to fit in the viewport, 0 means disabled
-        infinite: true,         // loops the last item back to first and vice versa
-        speed: 1.1,             // determines how "fast" carousel snaps, should probably be deprecated
-        translate3d: true,      // determines if translate3d() or translate() is used
-        touch: true,            // determines if carousel can be dragged e.g. when user only wants buttons to be used
-        verticalScroll: true    // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
+        center: false,            // position active item in the middle of the carousel
+        cloneLength: 0,           // number of clones at back of carousel (or front and back for centered carousels)
+        fill: 0,                  // exactly how many items forced to fit in the viewport, 0 means disabled
+        infinite: true,           // loops the last item back to first and vice versa
+        speed: 1.1,               // determines how "fast" carousel snaps, should probably be deprecated
+        transform3d: transform3d, // determines if translate3d() or translate() is used
+        touch: true,              // determines if carousel can be dragged e.g. when user only wants buttons to be used
+        verticalScroll: true      // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
       };
 
       self.count = self.items.length;     // number of items (excluding clones)
@@ -801,11 +1060,10 @@
 
       var startingOffset = null;
 
-      var translatePrefix = "translate3d(", translateSuffix = ", 0px)";
+      var translatePrefix = "translate3d(", translateSuffix = ", 0)";
 
       function initialize() {
-        self.options.translate3d = self.options.translate3d && test3d();
-        if (!self.options.translate3d) {
+        if (!self.options.transform3d) {
           translatePrefix = "translate(";
           translateSuffix = ")";
         }
@@ -871,18 +1129,14 @@
       }
 
       function readAttributes() {
-        var oldAndroid = /Android [12]/.test(navigator.userAgent);
-        if (oldAndroid) {
-          if (($container.attr("data-ur-android3d") || $container.attr("data-ur-translate3d")) != "enabled") {
-            self.options.translate3d = false;
-            var speed = parseFloat($container.attr("data-ur-speed"));
-            self.options.speed = speed > 1 ? speed : 1.3;
-          }
+        var custom3d = $container.attr("data-ur-android3d") || $container.attr("data-ur-transform3d");
+        if (custom3d)
+          self.options.transform3d = custom3d != "disabled";
+        $container.attr("data-ur-transform3d", self.options.transform3d ? "enabled" : "disabled");
+        if (oldAndroid && !self.options.transform3d) {
+          var speed = parseFloat($container.attr("data-ur-speed"));
+          self.options.speed = speed > 1 ? speed : 1.3;
         }
-        else
-          self.options.translate3d = $container.attr("data-ur-translate3d") != "disabled";
-        $container.attr("data-ur-translate3d", self.options.translate3d ? "enabled" : "disabled");
-
         $container.attr("data-ur-speed", self.options.speed);
 
         var fill = parseInt($container.attr("data-ur-fill"));
@@ -1113,9 +1367,10 @@
         if (self.options.infinite && self.options.center)
           realIndex = self.itemIndex - self.options.cloneLength;
         realIndex = realIndex % self.count;
-        var template = $(self.counter).attr("data-ur-template") || "{{index}} of {{count}}";
-        template = template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
-        $(self.counter).html(template);
+        $(self.counter).html(function() {
+          var template = $(this).attr("data-ur-template") || "{{index}} of {{count}}";
+          return template.replace("{{index}}", realIndex + 1).replace("{{count}}", self.count);
+        });
 
         $items.attr("data-ur-state", "inactive");
         $items.eq(self.itemIndex).attr("data-ur-state", "active");
@@ -1363,12 +1618,6 @@
         return self.translate;
       }
 
-      function getEventCoords(event) {
-        var touches = event.originalEvent.touches;
-        event = (touches && touches[0]) || event;
-        return {x: event.clientX, y: event.clientY};
-      }
-
       // could possibly be $(item).outerWidth(true) if margins are allowed
       function width(item) {
         return item.offsetWidth;
@@ -1386,16 +1635,6 @@
 
       function bound(num, range) {
         return Math.min(Math.max(range[0], num), range[1]);
-      }
-
-      function test3d() {
-        var css3d = "translate3d(0, 0, 0)";
-        var test = $("<a>").css({webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d});
-        var wt = test.css("webkitTransform");
-        var mt = test.css("MozTransform");
-        var it = test.css("msTransform");
-        var t = test.css("transform");
-        return (wt + mt + it + t).indexOf("(") != -1;
       }
 
       readAttributes();

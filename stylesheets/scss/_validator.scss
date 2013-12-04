@@ -1,0 +1,12 @@
+body#validator_page {
+	[data-ur-state="error"] {
+		border: 1px solid red;
+	}
+	#validator_interaction input {
+		width: 98%;
+	}
+	[data-ur-validator-error] {
+		display: block;
+		margin-bottom: 5px;
+	}
+}
