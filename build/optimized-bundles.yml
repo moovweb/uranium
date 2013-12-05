@@ -1,4 +1,4 @@
 ---
 - :output_file: src/uranium.js
   :input_files:
-  - ../lib/jquery.uranium.js
+  - src/uranium-pretty.js
