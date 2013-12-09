@@ -1,7 +1,25 @@
 ---
 - :output_file: src/uranium-pretty.js
   :input_files:
-  - ../lib/jquery.uranium.js
+  - ../lib/before.js
+  - ../lib/helpers.js
+  - ../lib/toggler.js
+  - ../lib/tabs.js
+  - ../lib/inputclear.js
+  - ../lib/geocode.js
+  - ../lib/zoom.js
+  - ../lib/carousel.js
+  - ../lib/setup.js
+  - ../lib/after.js
 - :output_file: ../examples/scripts/jquery.uranium.js
   :input_files:
-  - ../lib/jquery.uranium.js
+  - ../lib/before.js
+  - ../lib/helpers.js
+  - ../lib/toggler.js
+  - ../lib/tabs.js
+  - ../lib/inputclear.js
+  - ../lib/geocode.js
+  - ../lib/zoom.js
+  - ../lib/carousel.js
+  - ../lib/setup.js
+  - ../lib/after.js
