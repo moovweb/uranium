@@ -92,7 +92,7 @@ if (transform3d) {
   var css3d = "translate3d(0, 0, 0)";
   var elem3d = $("<a>").css({ webkitTransform: css3d, MozTransform: css3d, msTransform: css3d, transform: css3d });
   transform3d =
-    (elem3d.css("webkitTransform") +
+    (elem3d.css("WebkitTransform") +
      elem3d.css("MozTransform") +
      elem3d.css("msTransform") +
      elem3d.css("transform")).indexOf("(") != -1;
