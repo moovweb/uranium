@@ -95,7 +95,8 @@ if (transform3d) {
     (elem3d.css("WebkitTransform") +
      elem3d.css("MozTransform") +
      elem3d.css("msTransform") +
-     elem3d.css("transform")).indexOf("(") != -1;
+     elem3d.css("transform") +
+     "").indexOf("(") != -1;
 }
 
 // test for touch screen
@@ -327,8 +328,8 @@ interactions.geoCode = function ( fragment ) {
     this.setupCallbacks = function () {
       currentObj = this;
       // Set up call back for button to trigger geocoding
-      var btn = $(this["elements"]).filter("[data-ur-reverse-geocode-component='rg-button']")
-      if (btn.length > 0) {
+      var btn = this["elements"]["rg-button"];
+      if (btn) {
         $(btn).on(
           "click.ur.inputclear",
           function(obj){
