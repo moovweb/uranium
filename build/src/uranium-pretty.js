@@ -56,10 +56,14 @@ function findElements( fragment, type, customFn ) {
   var setCss = "[data-ur-set='" + type + "']";
   var compAttr = "data-ur-" + type + "-component";
 
-  $(fragment).find("[" +compAttr +"]").addBack("[" +compAttr +"]").each(function() {
+  var all = "[" +compAttr +"]," + setCss + ":empty";
+  $(fragment).find(all).addBack(all).each(function() {
     if ($(this).data("urCompInit"))
       return;
-    var set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
+    
+    var set = [];
+    if (this != document) // for old jQuery compatibility
+      set = $(this).attr("data-ur-id") ? $(this) : $(this).closest(setCss);
     if (set[0] && !set.data("urInit")) {
       $(this).data("urCompInit", true);
       var setId = set.attr("data-ur-id");
@@ -77,11 +81,39 @@ function findElements( fragment, type, customFn ) {
         customFn(sets[setId], this);
       else {
         var compName = $(this).attr(compAttr);
-        sets[setId][compName] = sets[setId][compName] || [];
-        sets[setId][compName].push(this);
+        if (compName) {
+          sets[setId][compName] = sets[setId][compName] || [];
+          sets[setId][compName].push(this);
+        }
       }
     }
   });
+  return sets;
+}
+
+function assignElements( set, type, customFn ) {
+  var sets = {};
+  var setId = uniqueUraniumId();
+  sets[setId] = set = $.extend({_id: setId}, set);
+  if (customFn)
+    customFn(set, this);
+  else {
+    $.each(set, function(key, comps) {
+      if (typeof comps == "string")
+        set[key] = comps = $(comps);
+      $(comps).each(function(i) {
+        if ($(this).data("urCompInit"))
+          comps.splice(i, 1);
+        else
+          $(this).data("urCompInit", true);
+      });
+      $(comps).attr("data-ur-id", setId);
+      if (key == "set")
+        $(comps).attr("data-ur-set", type);
+      else
+        $(comps).attr("data-ur-" + type + "-component", key);
+    });
+  }
   return sets;
 }
 
@@ -122,7 +154,10 @@ var interactions = {};
 
 // Toggler
 interactions.toggler = function( fragment ) {
-  var groups = findElements(fragment, "toggler");
+  if (fragment.constructor == Object)
+    var groups = assignElements(fragment, "toggler");
+  else
+    var groups = findElements(fragment, "toggler");
 
   $.each(groups, function(id, group) {
     if (!group["button"])
@@ -151,14 +186,24 @@ interactions.toggler = function( fragment ) {
 
 // Tabs
 interactions.tabs = function( fragment ) {
-  var groups = findElements(fragment, "tabs", function(set, comp) {
-    var tabId = $(comp).attr("data-ur-tab-id");
-    set.tabs = set.tabs || {};
-    set.tabs[tabId] = set.tabs[tabId] || {};
-    var compName = $(comp).attr("data-ur-tabs-component");
-    set.tabs[tabId][compName] = set.tabs[tabId][compName] || [];
-    set.tabs[tabId][compName].push(comp);
-  });
+  if (fragment.constructor == Object)
+    var groups = assignElements(fragment, "tabs", function(set) {
+      $.each(set.tabs, function(key) {
+        $.each(this, function(compName) {
+          $(this).attr("data-ur-id", key);
+          $(this).attr("data-ur-tabs-component", compName);
+        });
+      });
+    });
+  else
+    var groups = findElements(fragment, "tabs", function(set, comp) {
+      var tabId = $(comp).attr("data-ur-tab-id");
+      set.tabs = set.tabs || {};
+      set.tabs[tabId] = set.tabs[tabId] || {};
+      var compName = $(comp).attr("data-ur-tabs-component");
+      set.tabs[tabId][compName] = set.tabs[tabId][compName] || [];
+      set.tabs[tabId][compName].push(comp);
+    });
 
   $.each(groups, function(id, group) {
     group["closeable"] = $(group["set"]).attr("data-ur-closeable") == "true";
@@ -436,7 +481,10 @@ interactions.geoCode = function ( fragment ) {
 
 // Zoom
 interactions.zoom = function ( fragment ) {
-  var groups = findElements(fragment, "zoom");
+  if (fragment.constructor == Object)
+    var groups = assignElements(fragment, "zoom");
+  else
+    var groups = findElements(fragment, "zoom");
 
   // Private shared variables
 
@@ -457,7 +505,9 @@ interactions.zoom = function ( fragment ) {
   function Zoom(set) {
     var self = this;
     this.container = set["set"];
-    this.img = set["img"][0];
+    this.img = set["img"] && set["img"][0];
+    if (!this.img)
+      this.img = this.container;
     this.prescale = false;
     this.width = this.height = 0;
     this.bigWidth = this.bigHeight = 0;
@@ -470,6 +520,7 @@ interactions.zoom = function ( fragment ) {
     this.button = set["button"];
     this.idler = set["loading"];
 
+    var $container = $(this.container);
     var $img = $(this.img);
     var $idler = $(this.idler);
     var $btn = $(this.button);
@@ -477,6 +528,7 @@ interactions.zoom = function ( fragment ) {
     var boundX, boundY;
     var relX, relY;
     var offsetX = 0, offsetY = 0;
+    var destOffsetX = 0, destOffsetY = 0;
     var touchX = 0, touchY = 0;
     var mouseDown = false; // only used on non-touch browsers
     var mouseDrag = true;
@@ -484,13 +536,20 @@ interactions.zoom = function ( fragment ) {
     var translatePrefix = "translate(", translateSuffix = ")";
     var scalePrefix = " scale(", scaleSuffix = ")";
 
-
     var startCoords, click, down; // used for determining if zoom element is actually clicked
+
+    // momentum sliding
+    var frictionTime, frictionTimer;
+    var dx1 = 0, dy1 = 0;
+    var dx2 = 0, dy2 = 0;
+    var time1 = 0, time2 = 0;
+    var slidex, slidey;
+
 
     loadedImgs.push($img.attr("src"));
 
     function initialize() {
-      var custom3d = $(self.container).attr("data-ur-transform3d");
+      var custom3d = $container.attr("data-ur-transform3d");
       if (custom3d)
         self.transform3d = custom3d != "disabled";
       if (self.transform3d) {
@@ -499,15 +558,19 @@ interactions.zoom = function ( fragment ) {
         scalePrefix = " scale3d(";
         scaleSuffix = ",1)";
       }
-      $(self.container).attr("data-ur-transform3d", self.transform3d ? "enabled" : "disabled");
+      $container.attr("data-ur-transform3d", self.transform3d ? "enabled" : "disabled");
       
-      self.canvasWidth = self.canvasWidth || self.container.offsetWidth;
-      self.canvasHeight = self.canvasHeight || self.container.offsetHeight;
-      self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || self.img.width;
-      self.height = self.height || parseInt($img.attr("height")) || parseInt($img.css("height")) || self.img.height;
+      self.canvasWidth = self.canvasWidth || $container.outerWidth();
+      self.canvasHeight = self.canvasHeight || $container.outerHeight();
+      self.width = self.width || parseInt($img.attr("width")) || parseInt($img.css("width")) || $img[0].width;
+      self.height = self.height || parseInt($img.attr("height")) || parseInt($img.css("height")) || $img[0].height;
 
-      self.bigWidth = parseInt($img.attr("data-ur-width")) || self.img.naturalWidth;
-      self.bigHeight = parseInt($img.attr("data-ur-height")) || self.img.naturalHeight;
+      self.bigWidth = parseInt($img.attr("data-ur-width")) || $img[0].naturalWidth;
+      self.bigHeight = parseInt($img.attr("data-ur-height")) || $img[0].naturalHeight;
+      
+      if (!$img.attr("data-ur-src"))
+        $img.attr("data-ur-src", $img.attr("src"));
+      
       if (($img.attr("data-ur-width") && $img.attr("data-ur-height")) || $img.attr("src") == $img.attr("data-ur-src"))
         self.prescale = true;
 
@@ -518,8 +581,18 @@ interactions.zoom = function ( fragment ) {
     }
 
     function panStart(event) {
-      if (event.target != self.img)
-        return;
+      if (self.state == "enabled-slide") {
+        setState("enabled");
+        var t = (Date.now() - frictionTime) / 300;
+        if (t < 1) {
+          clearTimeout(frictionTimer);
+          var cb = 1 - Math.pow(1 - t, 1.685); // approximate cubic bezier y(x)
+          var currentOffsetX = bound(destOffsetX + cb * slidex, [-boundX, boundX]);
+          var currentOffsetY = bound(destOffsetY + cb * slidey, [-boundY, boundY]);
+          transform(currentOffsetX, currentOffsetY, self.ratio);
+        }
+      }
+      
       mouseDrag = false;
       touchX = event.pageX;
       touchY = event.pageY;
@@ -530,25 +603,25 @@ interactions.zoom = function ( fragment ) {
         touchY = touches[0].pageY;
       }
 
-      var style = self.img.style;
+      var style = $img[0].style;
       if (window.WebKitCSSMatrix) {
         var matrix = new WebKitCSSMatrix(style.webkitTransform);
         offsetX = matrix.m41;
         offsetY = matrix.m42;
       }
       else {
-        var transform = style.MozTransform || style.msTransform || style.transform || "translate(0, 0)";
-        transform = transform.replace(/.*?\(|\)/, "").split(",");
+        var css = style.MozTransform || style.msTransform || style.transform || "translate(0, 0)";
+        css = css.replace(/.*?\(|\)/, "").split(",");
 
-        offsetX = parseInt(transform[0]);
-        offsetY = parseInt(transform[1]);
+        offsetX = parseInt(css[0]);
+        offsetY = parseInt(css[1]);
       }
 
       stifle(event);
     }
 
     function panMove(event) {
-      if (!mouseDown || event.target != self.img) // NOTE: mouseDown should always be true on touch-enabled devices
+      if (!mouseDown) // NOTE: mouseDown should always be true on touch-enabled devices
         return;
 
       stifle(event);
@@ -563,53 +636,78 @@ interactions.zoom = function ( fragment ) {
       var dy = y - touchY;
       if (Math.abs(dx) > 5 || Math.abs(dy) > 5)
         mouseDrag = true;
-      var newOffsetX = bound(offsetX + dx, [-boundX, boundX]);
-      var newOffsetY = bound(offsetY + dy, [-boundY, boundY]);
-      transform(newOffsetX, newOffsetY, self.ratio);
+      destOffsetX = bound(offsetX + dx, [-boundX, boundX]);
+      destOffsetY = bound(offsetY + dy, [-boundY, boundY]);
+      transform(destOffsetX, destOffsetY, self.ratio);
+      dx1 = dx2;
+      dy1 = dy2;
+      dx2 = dx;
+      dy2 = dy;
+      time1 = time2;
+      time2 = Date.now();
     }
 
     function panEnd(event) {
       if (!mouseDrag)
         self.zoomOut();
+      else if (Date.now() < time2 + 50)
+        slide();
       stifle(event);
       mouseDown = false;
       mouseDrag = true;
+    }
+    
+    function slide() {
+      setState("enabled-slide");
+      var ddx = dx2 - dx1, ddy = dy2 - dy1;
+      var scalar = 100 * Math.sqrt((ddx * ddx + ddy * ddy)/(dx2 * dx2 + dy2 * dy2))/(time2 - time1);
+      slidex = scalar * dx2;
+      slidey = scalar * dy2;
+      var newOffsetX = bound(destOffsetX + slidex, [-boundX, boundX]);
+      var newOffsetY = bound(destOffsetY + slidey, [-boundY, boundY]);
+      transform(newOffsetX, newOffsetY, self.ratio);
+      frictionTime = Date.now();
+      frictionTimer = setTimeout(function() {
+        setState("enabled");
+      }, 300);
     }
 
     function transitionEnd() {
       if (self.state == "enabled-in") {
         $img.css({ webkitTransitionDelay: "", MozTransitionDelay: "", OTransitionDelay: "", transitionDelay: "" });
 
-        self.img.src = $img.attr("data-ur-src");
-        if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1) {
+        $img.attr("src", $img.attr("data-ur-src"));
+        if (loadedImgs.indexOf($img.attr("data-ur-src")) == -1) {
           setTimeout(function() {
-            if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
+            if (loadedImgs.indexOf($img.attr("data-ur-src")) == -1)
               $idler.attr("data-ur-state", "enabled");
           }, 16);
         }
-        self.state = "enabled";
-        self.container.setAttribute("data-ur-state", self.state);
+        setState("enabled");
 
-        $(self.container)
+        $img
           .on(downEvent + ".zoom", panStart)
           .on(moveEvent + ".zoom", panMove)
           .on(upEvent + ".zoom", panEnd);
       }
       else if (self.state == "enabled-out") {
-        self.state = "disabled";
-        self.container.setAttribute("data-ur-state", self.state);
+        setState("disabled");
 
-        $(self.container)
+        $img
           .off(downEvent + ".zoom", panStart)
           .off(moveEvent + ".zoom", panMove)
           .off(upEvent + ".zoom", panEnd);
       }
     }
 
+    function setState(state) {
+      self.state = state;
+      $container.attr("data-ur-state", state);
+    }
+
     function zoomHelper(x, y) {
       $btn.attr("data-ur-state", "enabled");
-      self.state = "enabled-in";
-      self.container.setAttribute("data-ur-state", self.state);
+      setState("enabled-in");
 
       transform(x || 0, y || 0, self.ratio);
     }
@@ -631,8 +729,8 @@ interactions.zoom = function ( fragment ) {
 
       if (!self.width) {
         initialize();
-        self.img.style.width = self.width + "px";
-        self.img.style.height = self.height + "px";
+        $img.css("width", self.width + "px");
+        $img.css("height", self.height + "px");
       }
 
       var x = event.pageX, y = event.pageY;
@@ -645,14 +743,14 @@ interactions.zoom = function ( fragment ) {
       relX = event.offsetX;
       relY = event.offsetY;
       if (relX == undefined || relY == undefined) {
-        var offset = self.img.getBoundingClientRect();
+        var offset = $img[0].getBoundingClientRect();
         relX = x - offset.left;
         relY = y - offset.top;
       }
 
       if (!self.prescale) {
         self.state = "enabled-in";
-        self.img.src = $img.attr("data-ur-src");
+        $img.attr("src", $img.attr("data-ur-src"));
         setTimeout(function() {
           if (!self.prescale)
             $idler.attr("data-ur-state", "enabled");
@@ -669,23 +767,22 @@ interactions.zoom = function ( fragment ) {
       if (self.state != "enabled")
         return;
       $btn.attr("data-ur-state", "disabled");
-      self.state = "enabled-out";
-      self.container.setAttribute("data-ur-state", self.state);
+      setState("enabled-out");
       transform(0, 0, 1);
     };
 
-    if (self.container.getAttribute("data-ur-touch") != "disabled") {
+    if ($container.attr("data-ur-touch") != "disabled") {
       // make sure zoom works when dragged inside carousel
-      $(self.container).on(downEvent + ".zoom", function(e) {
+      $container.on(downEvent + ".zoom", function(e) {
         click = down = true;
         startCoords = getEventCoords(e);
       });
-      $(self.container).on(moveEvent + ".zoom", function(e) {
+      $container.on(moveEvent + ".zoom", function(e) {
         var coords = getEventCoords(e);
         if (down && (Math.abs(startCoords.x - coords.x) + Math.abs(startCoords.x - coords.x)) > 0)
           click = false;
       });
-      $(self.container).on("click.ur.zoom", function(e) {
+      $container.on("click.ur.zoom", function(e) {
         if (click)
           self.zoomIn(e);
       });
@@ -713,18 +810,18 @@ interactions.zoom = function ( fragment ) {
       if (self.state == "disabled") {
         if (!self.width) {
           initialize();
-          self.img.style.width = self.width + "px";
-          self.img.style.height = self.height + "px";
+          $img.css("width", self.width + "px");
+          $img.css("height", self.height + "px");
         }
 
         if (self.prescale)
           zoomHelper(0, 0);
         else {
           self.state = "enabled-in";
-          self.img.src = $img.attr("data-ur-src");
+          $img.attr("src", $img.attr("data-ur-src"));
           setTimeout(function() {
             // if prescale ?
-            if (loadedImgs.indexOf(self.img.getAttribute("data-ur-src")) == -1)
+            if (loadedImgs.indexOf($img.attr("data-ur-src")) == -1)
               $idler.attr("data-ur-state", "enabled");
           }, 0);
         }
@@ -753,7 +850,10 @@ interactions.zoom = function ( fragment ) {
 
 // Carousel
 interactions.carousel = function ( fragment ) {
-  var groups = findElements(fragment, "carousel");
+  if (fragment.constructor == Object)
+    var groups = assignElements(fragment, "carousel");
+  else
+    var groups = findElements(fragment, "carousel");
 
   // for each carousel
   $.each(groups, function(id, group) {
@@ -1441,7 +1541,7 @@ interactions.carousel = function ( fragment ) {
   }
 };
 
-window.Uranium = {};
+window.Uranium = {lib: interactions};
 $.each(interactions, function(name) {
   Uranium[name] = {};
 });
