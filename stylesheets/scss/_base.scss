@@ -18,9 +18,10 @@ a {
 
 h1 {
   color: #F5F5F5;
-  font: 30px "Ultra", sans-serif;
+  font: bold 30px "Oswald", sans-serif;
   text-shadow: black 0 2px;
-  letter-spacing: 1px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 h2 {
   color: $color2;

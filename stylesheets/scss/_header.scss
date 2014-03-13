@@ -10,30 +10,39 @@
     width: image-width("uraniumlogo.png")/2;
     height: image-height("uraniumlogo.png")/2;
   }
+  > a {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
   .menu_interaction{
     text-align: center;
     position: relative;
     >a{
       color: inherit;
       display: block;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
     >ul{
       display: none;
-      position: absolute;
       list-style: none;
+      margin: 1px 0 0;
+      padding: 0;
+      position: absolute;
       width: 100%;
-      padding: 0px 3px;
       margin: 0px;
       z-index: 1;
       li {
         background-color:$color2;
-        border: 1px solid #505050;
         color: #fffafa;
-        padding: 3px 0px;
+        &:not(:last-child) {
+          border-bottom: 1px solid #555;
+        }
         a{
           color: $color1;
           display: block;
           font: 300 14px "Open Sans", Arial, sans-serif;
+          padding: 4px 0;
           &:hover {
             color: $color2;
           }
@@ -50,9 +59,9 @@
       }
     }
     &::after {
-      content: "choose";
+      content: "";
       position: absolute;
-      bottom: 2px;
+      bottom: -2px;
       left: 48%;
       width: 0;
       height: 5px;
@@ -72,12 +81,11 @@
     border-left: 1px solid #505050;
     border-right: 1px solid black;
     display: inline-block;
-    font: 13px "Ultra", sans-serif;
+    font: 16px "Oswald", sans-serif;
     text-align: center;
     text-decoration: none;
     width: 140px;
     min-height: 32px;
-    letter-spacing: 1px;
     line-height: 40px;
     &:first-child {
       border: none;
@@ -87,7 +95,6 @@
     }
     &:hover{
       @include background(linear-gradient($color1, darken($color1, 5%)));
-      @include border-radius(5px);
       color: #fffafa;
     }
   }
@@ -135,11 +142,12 @@
   background: gray;
   color: white;
   font-weight: normal;
-  font: 15px sans-serif;
+  font: 12px "Oswald", sans-serif;
   line-height: 27px;
   position: absolute;
   top: 0;
   text-align: center;
+  word-spacing: 1px;
   width: 170px;
   height: 28px;
   &:before {
