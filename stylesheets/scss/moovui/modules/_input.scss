@@ -1,0 +1,64 @@
+@if $moovui-init {
+input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], textarea {
+  @include border-radius(3px);
+  @include box-shadow(rgba(#fff, 0.5) 0 1px, #f0f0f0 0 1px inset);
+  @include transition(0.3s);
+  // ugly but bourbon mixin doesn't convert box-shadow into prefixed
+  -webkit-transition-property: -webkit-box-shadow, box-shadow, border-color;
+  -moz-transition-property: -moz-box-shadow, box-shadow, border-color;
+  transition-property: box-shadow, border-color;
+  border: 1px solid;
+  border-color: #cbcbcb #d5d5d5 #cfcfcf;
+  color: $text-color;
+  display: block;
+  font-family: $font;
+  font-size: 13px;
+  letter-spacing: 0.25px;
+  margin: 0 0 $sp2;
+  padding: 0 $sp 1px;
+  min-height: 30px;
+  &:focus {
+    @include box-shadow(rgba(#000, 0.2) 0 0 3px, rgba(#fff, 0.5) 0 1px);
+    border-color: #c8c8c8;
+    outline: 0;
+  }
+  &::-moz-placeholder {
+    color: #ccc;
+    opacity: 1;
+  }
+  &::-webkit-input-placeholder {
+    color: #ccc;
+  }
+  &:-ms-input-placeholder {
+    color: #ccc;
+  }
+  &.error {
+    @include box-shadow($red 0 0 0 1px);
+    border-color: $red;
+  }
+  label + & {
+    margin-top: 5px;
+  }
+}
+
+// hide 'X' in IE10
+input::-ms-clear {
+  display: none;
+}
+
+input[type="checkbox"] {
+  margin: -2px 5px 0 0;
+  vertical-align: middle;
+}
+
+input[type="radio"] {
+  margin: -3px 5px 0 0;
+  vertical-align: middle;
+}
+
+textarea {
+  display: block;
+  padding: $sp;
+  max-width: 100%;
+}
+}

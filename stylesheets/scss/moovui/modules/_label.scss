@@ -1,0 +1,39 @@
+@if $moovui-init {
+label {
+  display: inline-block;
+}
+}
+
+label {
+  &.#{$moovui-prefix}inline {
+    margin: 0 $sp $sp2 0;
+    min-width: 120px;
+    vertical-align: middle;
+    & + input {
+      display: inline-block;
+      margin-top: 0;
+      vertical-align: middle;
+    }
+    & + textarea {
+      display: inline-block;
+      margin-top: 0;
+    }
+    & + select {
+      display: inline-block;
+      vertical-align: middle;
+      & + .chosen-container {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+    &.#{$moovui-prefix}text-right {
+      min-width: 200px;
+    }
+  }
+  &:not(.#{$moovui-prefix}inline) + select {
+    margin-top: 5px;
+    & + .chosen-container {
+      margin-top: 5px;
+    }
+  }
+}

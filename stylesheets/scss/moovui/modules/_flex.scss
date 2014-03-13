@@ -1,0 +1,300 @@
+// combine 2009, 2011 (and early 2012), latest spec (2013)
+
+@mixin display-flex {
+  // 2009
+  display: -webkit-box;
+  display: -moz-box;
+  // 2011
+  display: -ms-flexbox;
+  // latest
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: flex;
+}
+// alias
+@mixin display-box {
+  @include display-flex;
+}
+
+@mixin flex-direction($orient: row) {
+  $old-syntax: $orient;
+  $old-reverse: false;
+  
+  @if $orient == row {
+    $old-syntax: horizontal;
+  }
+  @else if $orient == column {
+    $old-syntax: vertical;
+  }
+  @else if $orient == row-reverse {
+    $old-syntax: horizontal;
+    $old-reverse: true;
+  }
+  @else if $orient == column-reverse {
+    $old-syntax: vertical;
+    $old-reverse: true;
+  }
+  @else if $orient == horizontal or $orient == inline-axis {
+    $orient: row;
+  }
+  @else if $orient == vertical or $orient == block-axis {
+    $orient: column;
+  }
+  
+  // 2009
+  // horizontal|vertical|inline-axis|block-axis|inherit
+  @include prefixer(box-orient, $old-syntax, webkit);
+  @if $reverse {
+    @include prefixer(box-direction, reverse, webkit);
+  }
+  // 2011, latest
+  // row|row-reverse|column|column-reverse|inherit
+  @include prefixer(flex-direction, $orient, webkit moz ms spec);
+}
+// alias
+@mixin box-orient($orient: row) {
+  @include flex-direction($orient);
+}
+
+@mixin justify-content($pack: flex-start) {
+  $old-syntax: $pack;
+  $ms-syntax: $pack;
+  @if $pack == flex-start {
+    $old-syntax: start;
+    $ms-syntax: start;
+  }
+  @else if $pack == flex-end {
+    $old-syntax: end;
+    $ms-syntax: end;
+  }
+  @else if $pack == space-between {
+    $old-syntax: justify;
+    $ms-syntax: justify;
+  }
+  @else if $pack == space-around {
+    $old-syntax: justify;
+    $ms-syntax: distribute;
+  }
+  @else if $pack == start {
+    $pack: flex-start;
+  }
+  @else if $pack == end {
+    $pack: flex-end;
+  }
+  @else if $pack == justify {
+    $pack: space-between;
+  }
+  @else if $pack == distribute {
+    $old-syntax: justify;
+    $pack: space-around;
+  }
+  
+  // 2009
+  // start|end|center|justify
+  @include prefixer(box-pack, $old-syntax, webkit);
+  // 2011
+  // start|end|center|justify|distribute
+  @include prefixer(flex-pack, $ms-syntax, ms);
+  // latest
+  // flex-start|flex-end|center|space-between|space-around
+  @include prefixer(justify-content, $pack, webkit moz spec)
+}
+// alias
+@mixin box-pack($pack: start) {
+  @include justify-content($pack);
+}
+
+@mixin align-items($align: stretch) {
+  $old-syntax: $align;
+  @if $align == flex-start {
+    $old-syntax: start;
+  }
+  @else if $align == flex-end {
+    $old-syntax: end;
+  }
+  @else if $align == start {
+    $align: flex-start;
+  }
+  @else if $align == end {
+    $align: flex-end;
+  }
+  // 2009
+  // start|end|center|baseline|stretch
+  @include prefixer(box-align, $old-syntax, webkit moz);
+  // 2011
+  // start|end|center|baseline|stretch
+  @include prefixer(flex-align, $old-syntax, ms);
+  // latest
+  // flex-start|flex-end|center|baseline|stretch
+  @include prefixer(align-items, $align, webkit moz spec);
+}
+// alias
+@mixin box-align($align: stretch) {
+  @include align-items($align);
+}
+
+@mixin order($int: 0) {
+  // 2009
+  @include prefixer(box-ordinal-group, $int, webkit);
+  // 2011
+  @include prefixer(flex-order, $int, ms);
+  // latest
+  @include prefixer(order, $int, webkit moz spec);
+}
+// alias
+@mixin box-ordinal-group($int: 1) {
+  @include order($int);
+}
+
+@mixin flex($value) {
+  $old-syntax: nth($value, 1);
+  $ms-syntax: $value;
+  @if $old-syntax == none {
+    $old-syntax: 0;
+  }
+  @else if $value == auto {
+    $old-syntax: 1;
+  }
+  @if length($value) == 3 {
+    $ms-syntax: nth($value, 1) (-1 * abs(nth($value, 1))) nth($value, 3);
+    $value: nth($value, 1) abs(nth($value, 1)) nth($value, 3);
+  }
+  // 2009
+  @include prefixer(box-flex, $old-syntax, webkit moz);
+  @if $value == 1 {
+    width: 0; // make each same size with 2009 spec
+  }
+  // 2011
+  @include prefixer(flex, $ms-syntax, ms);
+  // latest
+  @include prefixer(flex, $value, webkit moz spec);
+}
+// alias
+@mixin box-flex($value: 0) {
+  @include flex($value);
+}
+
+/*** new syntax with no old analogies ***/
+
+@mixin flex-wrap($value: nowrap) {
+  // nowrap|wrap|wrap-reverse
+  @include prefixer(flex-wrap, $value, webkit moz ms spec);
+}
+@mixin flex-flow($value) {
+  // flex-direction flex-wrap
+  @include prefixer(flex-flow, $value, webkit moz ms spec);
+}
+
+@mixin flex-grow($number: 0) {
+  @include prefixer(flex-grow, $number, webkit moz spec);
+}
+
+@mixin flex-shrink($number: 1) {
+  @include prefixer(flex-shrink, $number, webkit moz spec);
+}
+
+@mixin flex-basis($width: auto) {
+  @include prefixer(flex-basis, $width, webkit moz spec);
+}
+
+@mixin align-self($align: auto) {
+  $old-syntax: $align;
+  @if $align == flex-start {
+    $old-syntax: start;
+  }
+  @else if $align == flex-end {
+    $old-syntax: end;
+  }
+  @else if $align == start {
+    $align: flex-start;
+  }
+  @else if $align == end {
+    $align: flex-end;
+  }
+  // 2011
+  // auto|start|end|center|baseline|stretch
+  @include prefixer(flex-item-align, $align, ms);
+  // latest
+  // auto|flex-start|flex-end|center|baseline|stretch
+  @include prefixer(align-self, $align, webkit moz spec);
+}
+
+@mixin align-content($align: stretch) {
+  $ms-syntax: $align;
+  @if $align == flex-start {
+    $ms-syntax: start;
+  }
+  @else if $align == flex-end {
+    $ms-syntax: end;
+  }
+  @else if $align == space-between {
+    $ms-syntax: justify;
+  }
+  @else if $align == space-around {
+    $ms-syntax: distribute;
+  }
+  @else if $align == start {
+    $align: flex-start;
+  }
+  @else if $align == end {
+    $align: flex-end;
+  }
+  @else if $align == justify {
+    $align: space-between;
+  }
+  @else if $align == distribute {
+    $align: space-around;
+  }
+  // 2011
+  // start|end|center|justify|distribute|stretch
+  @include prefixer(flex-item-align, $ms-syntax, ms);
+  // latest
+  // flex-start|flex-end|center|space-between|space-around|stretch
+  @include prefixer(align-content, $align, webkit moz spec)
+}
+
+/* helpful classes */
+
+.#{$moovui-prefix}flex {
+  @include display-flex;
+  &.center {
+    @include align-items(center);
+  }
+  &.gap > :not(:last-child) {
+    margin-right: $sp;
+  }
+  > * {
+    @include flex(1);
+    display: block;
+  }
+  .no-flex {
+    @include flex(none);
+  }
+}
+
+
+.#{$moovui-prefix}flex-justify {
+  @include display-flex;
+  @include justify-content(justify);
+  > *:not(:last-child) {
+    @include prefixer(box-flex, 1, webkit moz);
+  }
+}
+
+.no-flexbox.no-flexboxlegacy .#{$moovui-prefix}flex {
+  display: table;
+  width: 100%;
+  &.center > * {
+    vertical-align: middle;
+  }
+  > * {
+    display: table-cell;
+  }
+}
+
+.no-flexbox.no-flexboxlegacy .#{$moovui-prefix}flex-justify {
+  display: table;
+  > * {
+    display: table-cell;
+  }
+}

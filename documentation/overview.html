@@ -5,7 +5,7 @@ name: documentation
 documentation_selected: selected
 ---
 
-<div id="textbody">
+<div id="page" class="copy">
   <article class="wrapper">
     <h1>Overview</h1>
 
@@ -19,25 +19,29 @@ documentation_selected: selected
     <section id="basic_requirements">
       <h2>Basic Requirements</h2>
       <p>Since Uranium builds on <a href="//jquery.com" target="_blank">jQuery</a>, the minimum you need to do to get Uranium working on your page is to include the latest jQuery script followed by the Uranium script. A good place to do this is right before the closing tag for the body element on your HTML document.</p>
-{% highlight html %}
-<html>
-<head>
-  <title>Uranium Sample Page</title>
-  <style>
-    [data-ur-toggler-component="button"] {cursor: pointer;}
-    [data-ur-toggler-component="content"][data-ur-state="enabled"] {display:block;}
-    [data-ur-toggler-component="content"][data-ur-state="disabled"] {display:none;}
-  </style>
-</head>
-<body>
-  <div data-ur-set="toggler">
-    <h1 data-ur-toggler-component="button">This is your page</h1>
-    <p data-ur-toggler-component="content">And this is the content of your page</p>
-  </div>
-  <script src="scripts/jquery-1.9.1.min.js"></script>
-  <script src="scripts/jquery.uranium.js"></script>
-</body>
-</html>{% endhighlight %}
+      <pre data-lang="html">
+      {% capture tmp %}
+      <html>
+      <head>
+        <title>Uranium Sample Page</title>
+        <style>
+          [data-ur-toggler-component="button"] {cursor: pointer;}
+          [data-ur-toggler-component="content"][data-ur-state="enabled"] {display:block;}
+          [data-ur-toggler-component="content"][data-ur-state="disabled"] {display:none;}
+        </style>
+      </head>
+      <body>
+        <div data-ur-set="toggler">
+          <h1 data-ur-toggler-component="button">This is your page</h1>
+          <p data-ur-toggler-component="content">And this is the content of your page</p>
+        </div>
+        <script src="scripts/jquery-1.9.1.min.js"></script>
+        <script src="scripts/jquery.uranium.js"></script>
+      </body>
+      </html>
+      {% endcapture %}
+      {{ tmp | xml_escape }}
+      </pre>
       <p>Just download the latest minified version of jQuery, and the Uranium script, and save them in your /scripts directory. Then reference them in your HTML document, and you should be good to go.</p>
     </section>
 

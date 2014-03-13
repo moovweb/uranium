@@ -1,0 +1,102 @@
+@if $moovui-init {
+a {
+  color: $link-color;
+  text-decoration: none;
+  code {
+    color: inherit;
+  }
+}
+
+a.copy, .copy a {
+  font-weight: bold;
+}
+
+h1, h2, h3 {
+  line-height: 30px;
+}
+
+h1, h2 {
+  margin: 0 0 $sp2;
+}
+
+h1 {
+  font-size: $h1-size;
+}
+
+h2 {
+  color: $darkblue;
+  font-size: $h2-size;
+}
+
+h3, h4, h5, h6 {
+  margin: 0 0 $sp;
+}
+
+h3 {
+  color: $slategray;
+  font-size: $h3-size;
+}
+
+h4 {
+  font-size: $h4-size;
+}
+
+h5 {
+  font-size: $h5-size;
+  text-transform: uppercase;
+  color: #999
+}
+
+h1.copy, h2.copy, h3.copy, h4.copy, .copy h1, .copy h2, .copy h3, .copy h4 {
+  margin: 0 0 $line-height;
+}
+
+h1.copy, .copy h1 {
+  font-size: $h1-copy-size;
+  font-weight: 300;
+  line-height: 1.5 * $line-height;
+}
+
+h2.copy, .copy h2 {
+  color: #7c8899;
+  font-size: $h2-copy-size;
+  font-weight: 300;
+}
+
+h3.copy, .copy h3 {
+  font-size: $h3-copy-size;
+  font-weight: normal;
+}
+
+h4.copy, .copy h4 {
+  color: #a9b1bd;
+  font-size: $h4-copy-size;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+h5.copy, .copy h5 {
+  color: inherit;
+  font-size: $h5-copy-size;
+  text-transform: inherit;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: $sp2 0;
+}
+
+p {
+  margin: 0 0 $sp2;
+}
+
+p.copy, .copy p {
+  font-weight: 300;
+  margin: 0 0 $line-height;
+}
+
+.win p.copy, .win .copy p {
+  font-weight: normal;
+}
+}

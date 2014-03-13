@@ -1,0 +1,71 @@
+@mixin mobile {
+  @media #{$mobile-query} {
+    @content;
+  }
+}
+
+@mixin not-mobile {
+  @media #{$not-mobile-query} {
+    @content;
+  }
+}
+
+// meant for portrait mode
+@mixin tablet {
+  @media #{$tablet-query} {
+    @content;
+  }
+}
+
+@mixin not-tablet {
+  @media #{$not-tablet-query} {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media #{$desktop-query} {
+    @content;
+  }
+}
+
+@mixin not-desktop {
+  @media #{$not-desktop-query} {
+    @content;
+  }
+}
+
+@if $moovui-init {
+@include mobile {
+  .mobile-omit {
+    display: none;
+  }
+}
+@include not-mobile {
+  .mobile-only {
+    display: none;
+  }
+}
+
+@include tablet {
+  .tablet-omit {
+    display: none;
+  }
+}
+@include not-tablet {
+  .tablet-only {
+    display: none;
+  }
+}
+
+@include desktop {
+  .desktop-omit {
+    display: none;
+  }
+}
+@include not-desktop {
+  .desktop-only {
+    display: none;
+  }
+}
+}

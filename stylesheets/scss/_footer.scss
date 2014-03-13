@@ -1,39 +1,9 @@
 /* Footer */
 #footer {
-  @include box-shadow(rgba(black, 0.3) 0 15px 15px -5px inset);
-  background: $color2;
-  border-top: 1px solid black;
-  color: black;
-  font-size: 12px;
-  font-weight: normal;
-  padding: 20px 0;
-  text-align: center;
   a {
-    color: #323232;
-    text-decoration: none;
+    color: inherit;
     &:hover {
-      text-decoration: underline;
-    }
-  }
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    > br {
-      display: none;
-    }
-  }
-  nav {
-    margin-top: 10px;
-  }
-}
-
-#moovweblogo {
-  display: inline-block;
-  img {
-    width: image-width("moovweblogo.png");
-    height: image-height("moovweblogo.png");
-    @media screen and (max-width: 479px), screen and (max-height: 479px) {
-      vertical-align: bottom;
-      width: image-width("moovweblogo.png")/2;
-      height: image-height("moovweblogo.png")/2;
+      opacity: 0.8;
     }
   }
 }

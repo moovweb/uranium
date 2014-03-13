@@ -1,0 +1,12 @@
+.#{$moovui-prefix}disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.#{$moovui-prefix}idle {
+  opacity: 0.5;
+}
+
+.#{$moovui-prefix}readonly {
+  pointer-events: none;
+}

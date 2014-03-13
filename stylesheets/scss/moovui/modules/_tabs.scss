@@ -1,0 +1,48 @@
+@if $moovui-init {
+[data-section="tabs"] {
+  position: relative;
+  margin-bottom: $sp2;
+  > section {
+    &.active > [data-section-title] {
+      background: #fff;
+      border-bottom: 0;
+    }
+    &:not(.active) {
+      padding: 0 !important;
+      > [data-section-content] {
+        opacity: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        height: 0;
+      }
+    }
+    > [data-section-title] {
+      @include border-radius(3px 3px 0 0);
+      background: #eee;
+      border: 1px solid #bbb;
+      color: inherit;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 0;
+      padding: 3px 20px 1px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: auto;
+      a {
+        width: 100%;
+        display: inline-block;
+        white-space: nowrap;
+      }
+    }
+    > [data-section-content] {
+      @include border-radius(0 0 3px 3px);
+      @include clearfix;
+      background: #fff;
+      border: 1px solid #bbb;
+      padding: $sp4;
+    }
+  }
+}
+}

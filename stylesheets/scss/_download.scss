@@ -1,65 +1,29 @@
-body#download_page {
-  #textbody {
-    position: relative;
-    > h1 {
-      margin-bottom: 0;
-    }
-  }
+#download_page {
   #version {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font: italic 16px "Crete Round", serif;
-    text-shadow: none;
-    vertical-align: middle;
-    &:before {
-      content: "";
-      font: 30px "Oswald", sans-serif;
-      vertical-align: middle;
-    }
+    color: $slategray;
+    font-size: $h3-copy-size;
+    margin: $sp2;
   }
 
   #links {
-    margin: 20px auto;
-    width: 90%;
-    overflow: auto;
+    margin: $sp5;
     a {
-      @include background($grad1);
-      @include border-radius(5px);
-      @include box-align(center);
-      color: #323232;
-      float: left;
-      margin-right: 5%;
-      min-height: 38px;
-      padding: 2% 0;
+      @include box-shadow(rgba(#000, 0.1) 0 1px 1px);
+      @include radius;
+      @include transition(0.2s);
+      background: #eaeaea;
+      border: 1px solid #e0e0e0;
+      color: inherit;
+      display: block;
+      font: inherit;
+      padding: $sp4;
       text-align: center;
-      width: 45%;
-      &:last-child {
-        margin: 0;
-      }
       &:hover {
-        background: $color2;
+        background: #fbfbfb;
       }
     }
-    h4 {
-      font-size: 1.9em;
+    h2 {
+      color: $darkblue;
     }
-  }
-  @media screen and (max-width: 650px), screen and (max-height: 479px) {
-    #version {
-      position: static;
-    }
-    .link-header {
-      display: none;
-    }
-  }
-  #custom_ur {
-    display: none;
-  }
-  #init {
-    margin: 10px 0;
-  }
-  #result span {
-    display: none;
   }
 }
