@@ -1,0 +1,96 @@
+[data-ur-set="carousel"] {
+  overflow: hidden;
+  position: relative;
+  img {
+    padding-right: $sp;
+    width: 110px;
+    height: 100px;
+  }
+}
+[data-ur-carousel-component="item"] {
+  -webkit-user-drag: none;
+  float: left;
+}
+[data-ur-carousel-component="dot"] {
+  @include border-radius(4px);
+  background: #444;
+  display: inline-block;
+  margin: 0 5px;
+  opacity: 0.8;
+  width: 8px;
+  height: 8px;
+  &[data-ur-state="inactive"] {
+    opacity: 0.3;
+  }
+}
+
+[data-ur-toggler-component="content"]:not([data-ur-state="enabled"]) {
+  display: none;
+}
+
+[data-ur-tabs-component="content"]:not([data-ur-state="enabled"]) {
+  display: none;
+}
+
+// moovui tabs
+[data-ur-set="tabs"] {
+  margin: 0 0 $sp2;
+}
+[data-ur-tabs-component="button"] {
+  @include border-radius(3px 3px 0 0);
+  background: #eee;
+  border: 1px solid #bbb;
+  color: inherit;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: -1px;
+  padding: 3px 20px 1px;
+  &[data-ur-state="enabled"] {
+    background: #fff;
+    border-bottom-color: #fff;
+  }
+  & + [data-ur-tabs-component="button"] {
+    margin-left: -1px;
+  }
+}
+[data-ur-tabs-component="content"] {
+  @include border-radius(0 0 3px 3px);
+  @include clearfix;
+  background: #fff;
+  border: 1px solid #bbb;
+  clear: left;
+  padding: $sp4;
+}
+
+// moovui accordion
+.qna {
+  [data-ur-toggler-component="button"] {
+    cursor: pointer;
+    font-weight: bold;
+    padding: $sp $sp $sp 25px;
+    &:before {
+      @include icon-triangle-right;
+      margin: 0 0 0 -13px;
+      position: absolute;
+      width: 13px;
+    }
+    code {
+      background: none;
+      border: 0;
+      padding: 0;
+    }
+    &[data-ur-state="enabled"]:before {
+      content: $icon-triangle-down;
+      margin: 0 0 0 -14px;
+      width: 14px;
+    }
+  }
+  [data-ur-toggler-component="content"] {
+    @include clearfix;
+    padding: 0 $sp 0 25px;
+    &:after {
+      margin: $sp 0 0;
+    }
+  }
+}

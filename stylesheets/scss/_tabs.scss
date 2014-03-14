@@ -1,6 +1,6 @@
 // Tabs Page
 
-body{
+#tab_page {
   [data-ur-tabs-component='button'] {
     background-color: silver;
     border: 1px solid black;
@@ -20,13 +20,13 @@ body{
     margin: 0;
 	}
   #babutton[data-ur-state="disabled"] {
-    background: $color2;
+    //background: $color2;
     color: #323232;
     opacity: 0.2;
 	}
   #babutton[data-ur-state="enabled"] {
     color: #323232;
-    background: $color2;
+    //background: $color2;
 	}
   #babutton[data-ur-tab-id="advancedpage"] {
     margin-right: 100px;
@@ -56,14 +56,14 @@ body{
 	}
   #tab_interaction [data-ur-set="tabs"] {
     [data-ur-tabs-component="button"] {
-      background: $color2;
+      //background: $color2;
     }
     [data-ur-tabs-component="button"][data-ur-state="enabled"] {
-      background: $color2;
-      border-bottom: 1px solid $color2;
+      //background: $color2;
+      //border-bottom: 1px solid $color2;
     }
     [data-ur-tabs-component="content"] {
-      background: $color2;
+      //background: $color2;
     }
 	}
   // Further examples
@@ -71,7 +71,7 @@ body{
     [data-ur-tabs-component='button'] {
       color: black;
       opacity: 0.75;
-      background-color: $color2;
+      //background-color: $color2;
       border: 1px solid black;
       border-top-left-radius: 5px 5px;
       border-top-right-radius: 5px 5px;
@@ -84,16 +84,16 @@ body{
     [data-ur-tabs-component='content'] {
       color: black;
       display: none;
-      background-color: $color2;
+      //background-color: $color2;
       border-radius: 5px;
     }
     [data-ur-tabs-component='button'][data-ur-state='enabled'] {
       opacity: 1;
-      border-bottom: 1px solid $color2;
+      //border-bottom: 1px solid $color2;
     }
     [data-ur-tabs-component='content'][data-ur-state='enabled'] {
       display: block;
-      background-color: $color2;
+      //background-color: $color2;
       border: 1px solid black;
       padding: 20px; 
       margin: 0px;
@@ -107,11 +107,11 @@ body{
       [data-ur-tabs-component='button'] {
         display: block;
         border: 1px solid black;
-        background-color: $color2;
+        //background-color: $color2;
         border-radius: 5px;
       }
       [data-ur-tabs-component='content'] {
-        background-color: $color2;
+        //background-color: $color2;
         margin: 0px 20px;
       }
     }

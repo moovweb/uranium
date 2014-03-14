@@ -10,11 +10,12 @@ documentation_selected: selected
   <p>For example, you might want to load a different large image in your gallery preview panel depending on which thumbnail a user clicks. You don't want to load all those images with the rest of the page because you don't know which ones will be needed. So you set them to be loaded using an AJAX call one at a time, depending on which thumbnail a visitor clicks. That way only the images that are actively chosen will be loaded.</p>
   <p>Using AJAX, a developer can also make sections of a page load separately. If those page sections contain any elements that rely on Uranium data attributes, they can be initialized by issuing a call to the <code>Uranium()</code> function on the jQuery selector for any element wrapping the content being loaded in.</p>
   <p>For example, if you had a page that loaded a new Uranium toggler into a <code>&lt;div&gt;</code>, you would just need to invoke a jQuery selector for the <code>&lt;div&gt;</code>, and call the <code>Uranium()</code> function on it.</p>
-  <h3>Original page contains this div:</h3>
+  <h3>Original page contains this &lt;div&gt;:</h3>
   {% capture tmp %}
-  <div id="loadHere"><div>
+  <div id="loadHere"></div>
   {% endcapture %}
   <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  
   <h3>A separate file with a snippet of HTML (e.g., new-fragment.html):</h3>
   {% capture tmp %}
   <p data-ur-toggler-component="button" data-ur-id="MyToggler">
@@ -28,6 +29,7 @@ documentation_selected: selected
   </ul>
   {% endcapture %}
   <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  
   <h3>Sample jQuery to load the snippet and initialize Uranium on that snippet:</h3>
   <pre data-lang="js">
   $(function() {

@@ -6,54 +6,46 @@ more_selected: selected
 ---
 
 <div id="page" class="copy">
-  <article class="wrapper">
-    <h1>Styling</h1>
-    <div id="lazy_vs_explicit">
-      <h2>Lazy and Explicit Styling</h2>
-      <p>There are two types of styling for Uranium interactions. One we generally refer to as "lazy" styling, the other as "explicit" styling. Lazy styling requires fewer lines of CSS, but explicit styling is really the best way to style your interactions.</p>
-      <div class="styling">
-        <h3>Lazy Styling</h3>
-        <div class="styling_para">
-          <p>As its name implies, lazy styling is simpler and faster to do. You only really need to write out two declaration blocks. The first covers the element in its non-enabled state, and the other when the element is enabled.</p>
-          <p>Say we're styling a toggler button. When <span class="inline_code">"enabled"</span>, we want it to be full opacity. However, when disabled we want it to be at 50% opacity. Pretty simple using the following CSS:</p>
-          <pre data-lang="css">
-          [data-ur-toggler-component="button"] {
-            background: gold;
-            opacity: 0.5;
-          }
-
-          [data-ur-toggler-component="button"][data-ur-state="enabled"] {
-            opacity: 1.0;
-          }
-          </pre>
-          <p>Its default state (the first block) describes its color and that it should be at 50% opacity. The second block says that when the button is enabled, it will be at 100% opacity. Simple.</p>
-          <p>However, lazy styling can cause problems. Let's take a look at a better way to style interactions.</p>
-        </div>
-      </div>
-      <div class="styling">
-        <h3>Explicit Styling</h3>
-        <div class="styling_para">
-          <p>The problem with lazy styling is this: you're only really saying what the element looks like when the <code>data-ur-state</code> is <em>enabled</em>. We're taking it for granted that the non-enabled state is the same as the disabled state. This is an OK assumption to make in most cases.</p>
-          <p>But this isn't actually the case. What actually happens is that the element goes through a brief period without any <span class="inline_code">data-ur-state</span> before Uranium assigns the default (which is usually disabled). (Of course, this doesn't apply if you specify in your HTML that the element has a <span class="inline_code">data-ur-set</span>.)</p>
-          <p>So when we style the non-enabled state in lazy styling, we're actually styling <i>two</i> states - the one before any state has been assigned AND the "disabled" state.</p>
-          <p>We should instead style these states separately, as shown.</p>
-          <pre data-lang="css">
-          [data-ur-toggler-component="button"] {
-            background: gold;
-          }
-
-          [data-ur-toggler-component="button"][data-ur-state="disabled"] {
-            opacity: 0.5;
-          }
-
-          [data-ur-toggler-component="button"][data-ur-state="enabled"] {
-            opacity: 1.0;
-          }
-          </pre>
-          <p>On a modern desktop computer, Uranium works too fast to notice the non-assigned state. However, on mobile devices you can sometimes see a delay. You can sometimes see the delay if you refresh the <a href="/interactions/carousel.html#vertical">carousel examples</a> page.</p>
-          <p>And that's how we style things explicitly, rather than lazily.</p>
-        </div>
-      </div>
-    </div>
-  </article>
+  <h1>Styling</h1>
+  <div id="lazyvsexplicit">
+    <h2>Lazy and Explicit Styling</h2>
+    <p>There are two types of styling for Uranium interactions. One we generally refer to as "lazy" styling, the other as "explicit" styling. Lazy styling requires fewer lines of CSS, but explicit styling is really the best way to style your interactions.</p>
+    
+    <h3>Lazy Styling</h3>
+    <p>As its name implies, lazy styling is simpler and faster to do. You only really need to write out two declaration blocks. The first covers the element in its non-enabled state, and the other when the element is enabled.</p>
+    <p>Say we're styling a toggler button. When "enabled", we want it to be full opacity. However, when disabled we want it to be at 50% opacity. Pretty simple using the following CSS:</p>
+    <pre data-lang="css">
+    [data-ur-toggler-component="button"] {
+      background: gold;
+      opacity: 0.5;
+    }
+    
+    [data-ur-toggler-component="button"][data-ur-state="enabled"] {
+      opacity: 1.0;
+    }
+    </pre>
+    <p>Its default state (the first block) describes its color and that it should be at 50% opacity. The second block says that when the button is enabled, it will be at 100% opacity. Simple.</p>
+    <p>However, lazy styling can cause problems. Let's take a look at a better way to style interactions.</p>
+    
+    <h3>Explicit Styling</h3>
+    <p>The problem with lazy styling is this: you're only really saying what the element looks like when the <code>data-ur-state</code> is <em>enabled</em>. We're taking it for granted that the non-enabled state is the same as the disabled state. This is an OK assumption to make in most cases.</p>
+    <p>But this isn't actually the case. What actually happens is that the element goes through a brief period without any <code>data-ur-state</code> before Uranium assigns the default (which is usually disabled). (Of course, this doesn't apply if you specify in your HTML that the element has a <span class="inline_code">data-ur-set</span>.)</p>
+    <p>So when we style the non-enabled state in lazy styling, we're actually styling <i>two</i> states&#8202;&mdash;&#8202;the one before any state has been assigned AND the "disabled" state.</p>
+    <p>We should instead style these states separately, as shown:</p>
+    <pre data-lang="css">
+    [data-ur-toggler-component="button"] {
+      background: gold;
+    }
+  
+    [data-ur-toggler-component="button"][data-ur-state="disabled"] {
+      opacity: 0.5;
+    }
+  
+    [data-ur-toggler-component="button"][data-ur-state="enabled"] {
+      opacity: 1.0;
+    }
+    </pre>
+    <p>On a modern desktop computer, Uranium works too fast to notice the non-assigned state. However, on mobile devices you can sometimes see a delay. You can sometimes see the delay if you refresh the <a href="/interactions/carousel.html#vertical">carousel examples</a> page.</p>
+    <p>And that's how we style things explicitly, rather than lazily.</p>
+  </div>
 </div>

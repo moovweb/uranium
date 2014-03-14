@@ -32,7 +32,7 @@
 		};
 
 		var keywords =	'ascent azimuth background-attachment background-color background-image background-position ' +
-						'background-repeat background baseline bbox border-collapse border-color border-spacing border-style border-top ' +
+						'background-repeat background baseline bbox border-collapse border-color border-radius border-spacing border-style border-top ' +
 						'border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color ' +
 						'border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width ' +
 						'border-bottom-width border-left-width border-width border bottom cap-height caption-side centerline clear clip color ' +

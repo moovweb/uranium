@@ -30,35 +30,41 @@
               </dl>
             </div><!-- basic -->
             <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-              <h3> data-ur-set= </h3>
-              <code class="set_name">"{{page.name}}"</code>
-              <br />
-              <h3> data-ur-{{page.name}}-component= </h3>
-              
               <div class="components">
                 {% for kv in page.advanced_tab %}
                   <h4>{{kv[0]}}</h4>
-                  <ul>
-                    {% for i in kv[1] %}
-                      <code>"{{i[0]}}"</code>
-                      <ul>
-                      {% for j in i[1] %}
-                        <li>
-                          {% if j.attributes %}
-                            {{j | first | first}}
+                  {% for i in kv[1] %}
+                    <code class="inline">
+                      {% if kv[0] == "Required" or kv[0] == "Optional" %}
+                        {% if i[0] == "set" %}
+                          data-ur-set="{{page.name}}"
+                        {% else %}
+                          data-ur-{{page.name}}-component="{{i[0]}}"
+                        {% endif %}
+                      {% else %}
+                        {{i[0]}}
+                      {% endif %}
+                    </code>
+                    <ul>
+                    {% for j in i[1] %}
+                      <li>
+                        {% assign iscollection = j | first %}
+                        {% if iscollection %}
+                          {% for k in j %}
+                            {{ k[0] }}
                             <ul>
-                              {% for k in j.attributes %}
-                                <li>{{k}}</li>
+                              {% for l in k[1] %}
+                                <li>{{ l }}</li>
                               {% endfor %}
                             </ul>
-                          {% else %}
-                            {{j}}
-                          {% endif %}
-                        </li>
-                      {% endfor %}
-                      </ul>
+                          {% endfor %}
+                        {% else %}
+                          {{j}}
+                        {% endif %}
+                      </li>
                     {% endfor %}
-                  </ul>
+                    </ul>
+                  {% endfor %}
                 {% endfor %}
               </div>
               {% if page.instance %}

@@ -15,11 +15,10 @@ basic_tab:
 advanced_tab:
   Required:
     set:
-      - this div should wrap the whole carousel.
+      - this element should wrap the whole carousel.
       - "multiple?: false"
       - "state: N/A"
-      - the following attributes have default settings in <em>italics</em>.
-      - attributes :
+      - attributes (default settings are in <em>italics</em>):
         - "optional: <code>data-ur-touch</code>: <em>enabled</em>/disabled</li>"
         - "optional: <code>data-ur-vertical-scroll</code>: <em>enabled</em>/disabled (specify vertical scrolling behavior while touching carousel)</li>"
         - "optional: <code>data-ur-infinite</code>: <em>enabled</em>/disabled (specify front to back wrapping behavior)</li>"
@@ -27,31 +26,30 @@ advanced_tab:
         - "optional: <code>data-ur-autoscroll-delay</code>: integer (autoscroll delay in milliseconds, default: <em>5000</em>)</li>"
         - "optional: <code>data-ur-autoscroll-dir</code>: <em>next</em>/prev (specify autoscroll direction)</li>"
         - "optional: <code>data-ur-android3d</code>: enabled/disabled (specify translate3d use on Android 1.6-2.3)</li>"
-        - "optional: <code>data-ur-fill (&beta;)</code>: integer (force n carousel items to fit in container width)</li>"
-        - "optional: <code>data-ur-center (&beta;)</code>: enabled/<em>disabled</em> (horizontally center current item)</li>"
+        - "optional: <code>data-ur-fill</code>: integer (force n carousel items to fit in container width)</li>"
+        - "optional: <code>data-ur-center</code>: enabled/<em>disabled</em> (horizontally center current item)</li>"
     scroll_container:
-      - this div should wrap the scrolling items on the carousel. It needs <code>position:relative</code>.
+      - "this element should wrap the scrolling items on the carousel. This or the set needs <code>position: relative</code>."
       - "multiple?: false"
       - "state: N/A"
     item:
       - this attribute is for each item that needs to be displayed in the carousel</li>
       - "multiple?: true"
       - "state: active / inactive (reflects currently visible item)"
-      - must have <code>float:left</code> style
+      - "must have <code>float: left</code> style"
   Optional:
     button:
       - indicates the previous and next buttons
       - "multiple?: true"
-      - "state: enabled / disabled ('next' defaults to enabled / 'prev' defaults to 'disabled')"
+      - "state: enabled / disabled (\"next\" defaults to enabled / \"prev\" defaults to disabled)"
       - attributes:
-        - "required: <code>data-ur-carousel-button-type:\"next\"/\"prev\"</code> for the next and previous buttons, respectively</li>"
+        - "required: <code>data-ur-carousel-button-type: \"next\"/\"prev\"</code> for the next and previous buttons, respectively</li>"
     count:
       - gives an indicator of the position of the carousel, in the form "1 of 8", etc.
-      - to change the count template, add an optional <code>data-ur-template</code> attribute to this element with a value of 
-      - "multiple?: false"
+      - "multiple?: true"
       - "state: N/A"
       - attributes :
-        - "optional: <code>data-ur-template</code>: '&#123;&#123;index&#125;&#125; out of &#123;&#123;count&#125;&#125;' (defaults to '1 of 8' format if not specified)</li>"
+        - "optional: <code>data-ur-template</code>: moustache template, e.g., <code>\"{{index}}/{{count}}\"</code>"
     dots:
       - "gives a container that changes <code>data-ur-state</code> on the corresponding child"
       - "multiple?: false"
@@ -66,174 +64,132 @@ advanced_tab:
     slideend:
       - event triggered on the <code>data-ur-set="carousel"</code> node when a transition from one thumbnail to the next ends
       - in some older versions of Uranium on jQuery, this event was named "slideend.ur.carousel"
-<!-- instance:
-  jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
-  onSlideCallbacks(callback): supplies a callback which is called when animation has completed
-  '"slidestart"': event is fired on view_container when sliding begins (excluding touch input)
-  '"slideend"': event is fired on view_container when sliding ends -->
+  Instance:
+    jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
+    autoscrollStart(): start autoscroll
+    autoscrollStop(): stop autoscroll
 ---
-
-  <div class="wrapper">
-    <h2> Demonstration </h2>
-    <div>
-      <p> Touch-enabled interaction </p>
-      <div id="carousel_demonstration" data-ur-set="tabs" class="ur_ex">
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
-
-        <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
-
-        <div id="carousel_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
-
-          <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
-            <span data-ur-carousel-component="count"> -- count -- </span>
-            <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
-              Prev
-            </div>
-            <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
-              Next
-            </div>
-            <div data-ur-carousel-component="scroll_container">
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
-              <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
-            </div>
-          </div>
+<div id="carousel">
+  <h2>Demonstration</h2>
+  <p>Touch-enabled interaction</p>
+  <div id="carousel_demonstration" data-ur-set="tabs">
+    <div data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled">Example</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
+      <div data-ur-set="carousel" data-ur-infinite="disabled">
+        <p>
+          <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+          <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+          <span data-ur-carousel-component="count"></span>
+        </p>
+        <div data-ur-carousel-component="scroll_container">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample1.png" alt="1">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample2.png" alt="2">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample3.png" alt="3">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample4.png" alt="4">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample5.png" alt="5">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample6.png" alt="6">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample7.png" alt="7">
+          <img data-ur-carousel-component="item" src="{{site.url}}../images/sample8.png" alt="8">
         </div>
-
-        <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-          {% capture tmp %}
-          <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
-            <span data-ur-carousel-component="count"> -- count -- </span>
-            <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-            <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-            <div data-ur-carousel-component="scroll_container">
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="1" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="2" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="3" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="4" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="5" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="6" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="7" /></span>
-              <span data-ur-carousel-component="item"><img src="http://placekitten.com/g/200/200" alt="8" /></span>
-            </div>
-          </div>
-          {% endcapture %}
-          <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+      </div>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      {% capture tmp %}
+      <div data-ur-set="carousel" data-ur-infinite="disabled">
+        <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+        <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+        <span data-ur-carousel-component="count"></span>
+        <div data-ur-carousel-component="scroll_container">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="1">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="2">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="3">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="4">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="5">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="6">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="7">
+          <img data-ur-carousel-component="item" src="http://placekitten.com/g/200/200" alt="8">
         </div>
-
       </div>
-      <hr />
-      <!-- Styles -->
-      <div class='wrapper'>
-        <h2>Recommended Styles</h2>
-        <pre data-lang="css">
-        [data-ur-set="carousel"] {
-          position: relative;
-        }
-        [data-ur-carousel-component="item"] {
-          float: left;
-        }
-        </pre>
-      </div>
-      <hr />
+      {% endcapture %}
+      <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     </div>
   </div>
-  <div class="wrapper">
-    <h2>Carousel Examples</h2>
-    <div class="test">
-      <a id="vertical"></a>
-      <h3>Vertical Scrolling</h3>
+  <hr />
+  
+  <h2>Recommended Styles</h2>
+  <pre data-lang="css">
+  [data-ur-set="carousel"] {
+    overflow: hidden;
+    position: relative;
+  }
+  [data-ur-carousel-component="item"] {
+    float: left;
+  }
+  </pre>
+  <hr />
+  
+  <h2>Carousel Examples</h2>
+  
+  <div class="test">
+    <a id="infinite"></a>
+    <h3>Infinite Scrolling</h3>
 
-      <p>This carousel doesn't allow vertical scrolling on touch screens.</p>
-      <ul>
-        <li><span class="inline_code">data-ur-vertical-scroll="disabled"</span> - apply this to the set</li>
-      </ul>
-      <div data-ur-set="carousel" data-ur-vertical-scroll="disabled">
-        <span data-ur-carousel-component="count"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-        <div data-ur-carousel-component="scroll_container">
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
-        </div>
+    <p>
+      Here we have a carousel that loops from front to back (default state for carousel). The carousel also has a custom count template, and indicator dots showing what item is currently selected. The indicator dots have a data-ur-state of "inactive" until the corresponding item is selected, when the data-ur-state changes to "active"&#8202;&mdash;&#8202;you can use this for styling the dots.
+    </p>
+    <ul>
+      <li><span class="inline_code">data-ur-carousel-component="dots"</span> - should be within the set</li>
+    </ul>
+    <div data-ur-set="carousel" data-ur-infinite="enabled">
+      <div data-ur-carousel-component="dots"></div>
+      <span data-ur-carousel-component="count" data-ur-template="&#123;&#123;index&#125;&#125;/&#123;&#123;count&#125;&#125;"> -- count -- </span>
+      <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
+      <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
+      <div data-ur-carousel-component="scroll_container">
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
       </div>
     </div>
-    
-    <hr />
-    
-    <div class="test">
-      <a id="infinite"></a>
-      <h3>Infinite Scrolling</h3>
-
-      <p>
-        Here we have a carousel that loops from front to back. (Default state for carousel.) The carousel also has a custom count template, and indicator dots showing what item is currently selected. The indicator dots have a data-ur-state of "inactive" until the corresponding item is selected, when the data-ur-state changes to "active"&#8202;&mdash;&#8202;you can use this for styling the dots.
-      </p>
-      <ul>
-        <li><span class="inline_code">data-ur-carousel-component="dots"</span> - should be within the set</li>
-      </ul>
-      <div data-ur-set="carousel" data-ur-infinite="enabled">
-        <div data-ur-carousel-component="dots"></div>
-        <span data-ur-carousel-component="count" data-ur-template="&#123;&#123;index&#125;&#125;/&#123;&#123;count&#125;&#125;"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-        <div data-ur-carousel-component="scroll_container">
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
-        </div>
-      </div>
-    </div>
-    
-    <hr />
-    
-    <div class="test">
-      <a id="autoscroll"></a>
-      <h3>Autoscroll</h3>
-
-      <p>
-        Here we have a carousel that automatically scrolls to the next item. The default is every 5 seconds, but you can specify the time using the attribute listed below. 
-      </p>
-      <ul>
-        <li><span class="inline_code">data-ur-autoscroll="enabled"</span> - apply this to the set</li>
-        <li><span class="inline_code">data-ur-autoscroll-delay="5000"</span> - apply this to the set (value is in milliseconds)</li>
-      </ul>
-      <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-autoscroll="enabled">
-        
-        <span data-ur-carousel-component="count"> -- count -- </span>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
-          Prev
-        </div>
-        <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
-          Next
-        </div>
-        <div data-ur-carousel-component="scroll_container">
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
-          <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
-        </div>
-      </div>
-    </div>
-
   </div>
-</div>
+  
+  <hr />
+  
+  <div class="test">
+    <a id="autoscroll"></a>
+    <h3>Autoscroll</h3>
+
+    <p>
+      Here we have a carousel that automatically scrolls to the next item. The default is every 5 seconds, but you can specify the time using the attribute listed below. 
+    </p>
+    <ul>
+      <li><span class="inline_code">data-ur-autoscroll="enabled"</span> - apply this to the set</li>
+      <li><span class="inline_code">data-ur-autoscroll-delay="5000"</span> - apply this to the set (value is in milliseconds)</li>
+    </ul>
+    <div data-ur-set="carousel" data-ur-infinite="enabled" data-ur-autoscroll="enabled">
+      
+      <span data-ur-carousel-component="count"> -- count -- </span>
+      <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
+        Prev
+      </div>
+      <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
+        Next
+      </div>
+      <div data-ur-carousel-component="scroll_container">
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
+        <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
+      </div>
+    </div>
+  </div>
