@@ -1,11 +1,27 @@
 ﻿body {
   background: #f5f7f8;
+  @include mobile {
+    min-width: 0;
+    padding-top: 74px;
+  }
+}
+
+@include mobile {
+  .copy h3 {
+    margin-bottom: $sp;
+  }
+  .copy ul, .copy ol, dl {
+    margin-left: 2em;
+  }
+}
+
+.see_more_link {
+  &:after {
+    @include icon-chevron-right;
+    margin-left: 4px;
+  }
 }
 
 .widget {
   margin: auto;
-}
-
-h3 code {
-  font-size: inherit;
 }

@@ -1,9 +1,9 @@
-<a id="github_ribbon" href="https://github.com/moovweb/uranium" target="_blank">Fork me<span class="desktop"> on GitHub</span></a>
+<a id="github-ribbon" class="m-hide" href="https://github.com/moovweb/uranium" target="_blank">Fork me on GitHub</span></a>
 <header id="header">
   <div class="content">
-    <a href="/" id="uraniumlogo" {% if page.home_selected %}class="selected"{% endif %}></a>
-    <ul class="header-links pull-right">
-      <li class="menu_interaction">
+    <a href="/" id="uraniumlogo" class="d-pull-left"></a>
+    <ul class="header-links d-pull-right m-clearfix">
+      <li class="menu_interaction m-col-6">
         <a href="javascript:void(0)" {% if page.interaction_selected %}class="selected"{% endif %}>Interactions</a>
         <ul>
           <li><a href="{{site.baseurl}}interactions/carousel.html">Carousel</a></li>
@@ -14,12 +14,12 @@
           <li><a href="{{site.baseurl}}interactions/zoom.html">Zoom</a></li>
         </ul>
       </li>
-      <li class="menu_interaction">
+      <li class="menu_interaction m-col-6">
         <a href="javascript:void(0)" {% if page.documentation_selected %}class="selected"{% endif %}>Training</a>
         <ul>
           <li><a href="{{site.baseurl}}documentation/overview.html">Overview</a></li>
           <li><a href="{{site.baseurl}}documentation/getting_started.html">Basic Use</a></li>
-          <li><a href="{{site.baseurl}}documentation/advanced.html">Advanced Use</a></li>
+          <li><a href="{{site.baseurl}}documentation/advanced.html">Advanced Use</span></a></li>
           <li><a href="{{site.baseurl}}documentation/ajax.html">Using AJAX</a></li>
           <li><a href="{{site.baseurl}}documentation/philosophy.html">Philosophy</a></li>
           <li><a href="{{site.baseurl}}documentation/model.html">Model</a></li>
@@ -27,7 +27,7 @@
           <li><a href="{{site.baseurl}}documentation/grouping.html">Grouping</a></li>
         </ul>
       </li>
-      <li>
+      <li class="m-hide">
         <a href="{{site.baseurl}}download.html">Download</a>
       </li>
     </ul>

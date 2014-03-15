@@ -35,7 +35,7 @@
 						'background-repeat background baseline bbox border-collapse border-color border-radius border-spacing border-style border-top ' +
 						'border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color ' +
 						'border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width ' +
-						'border-bottom-width border-left-width border-width border bottom cap-height caption-side centerline clear clip color ' +
+						'border-bottom-width border-left-width border-width border bottom box-sizing cap-height caption-side centerline clear clip color ' +
 						'content counter-increment counter-reset cue-after cue-before cue cursor definition-src descent direction display ' +
 						'elevation empty-cells float font-size-adjust font-family font-size font-stretch font-style font-variant font-weight font ' +
 						'height left letter-spacing line-height list-style-image list-style-position list-style-type list-style margin-top ' +

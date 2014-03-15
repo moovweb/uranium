@@ -1,12 +1,23 @@
 $footer-height: 228px;
 @import "moovui/moovui";
 
+@media #{$mobile-query} {
+  $moovui-prefix: "m-";
+  @import "moovui/moovui";
+}
+
+@media #{$not-mobile-query} {
+  $moovui-prefix: "d-";
+  @import "moovui/moovui";
+}
+
 @import "uranium";
 @import "header";
 @import "footer";
 @import "base";
-/*@import "index";
-@import "example";
+
+@import "index";
+/*@import "example";
 
 @import "highlight_code";
 
@@ -21,13 +32,13 @@ $footer-height: 228px;
 // @import "interaction_list";
 @import "interaction";
 */
-@import "carousel";
-@import "geocode";
+//@import "carousel";
+//@import "geocode";
 // @import "map";
 //@import "resizer";
 // @import "select_buttons";
 // @import "select_lists";
-@import "tabs";
+//@import "tabs";
 //@import "toggler";
 //@import "zoom";
 // @import "swipe_toggle";

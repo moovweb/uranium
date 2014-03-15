@@ -1,12 +1,5 @@
-#carousel_page {
+#carousel-page {
   [data-ur-carousel-component="button"][data-ur-state="disabled"] {
     color: inherit;
-  }
-  .test [data-ur-set="carousel"] {
-    width: 100%;
-    max-width: 470px;
-  }
-  [data-ur-carousel-component='view_container'] {
-    height: 125px;
   }
 }

@@ -4,87 +4,74 @@
     {% include head.html %}
   </head>
   
-  <body id="{{page.name}}_page" class="interaction_page">
+  <body id="{{page.name}}-page" class="interaction-page">
     {% include header.html %}
     <div id="page" class="copy">
-      <div data-ur-set="tabs">
-        <div class="wrapper">
-          <h1> {{page.title}} </h1>
-        </div>
-        <div class="description_wrapper">
-          <h2> Description </h2>
-          <div class="description">
-            {{page.description}}
-          </div>
-        </div>
-        <div class="wrapper">
-          <h2 class="attr_title">Attributes</h2>
-          <div class="attributes" data-ur-set="tabs">
-            <div id="basic_btn" data-ur-tabs-component="button" data-ur-tab-id="basicpage" data-ur-state="enabled">Basic</div>
-            <div id="adv_btn" data-ur-tabs-component="button" data-ur-tab-id="advancedpage" data-ur-state="disabled">Advanced</div>
-            <div class="basic_tab" data-ur-tabs-component="content" data-ur-tab-id="basicpage" data-ur-state="enabled">
-              <dl>
-                {% for i in page.basic_tab %}
-                  <dt><code>{{i[0]}}</code></dt><dd>{{i[1]}}</dd>
-                {% endfor %}
-              </dl>
-            </div><!-- basic -->
-            <div class="advanced_tab" data-ur-tabs-component="content" data-ur-tab-id="advancedpage" data-ur-state="disabled">
-              <div class="components">
-                {% for kv in page.advanced_tab %}
-                  <h4>{{kv[0]}}</h4>
-                  {% for i in kv[1] %}
-                    <code class="inline">
-                      {% if kv[0] == "Required" or kv[0] == "Optional" %}
-                        {% if i[0] == "set" %}
-                          data-ur-set="{{page.name}}"
-                        {% else %}
-                          data-ur-{{page.name}}-component="{{i[0]}}"
-                        {% endif %}
-                      {% else %}
-                        {{i[0]}}
-                      {% endif %}
-                    </code>
-                    <ul>
-                    {% for j in i[1] %}
-                      <li>
-                        {% assign iscollection = j | first %}
-                        {% if iscollection %}
-                          {% for k in j %}
-                            {{ k[0] }}
-                            <ul>
-                              {% for l in k[1] %}
-                                <li>{{ l }}</li>
-                              {% endfor %}
-                            </ul>
-                          {% endfor %}
-                        {% else %}
-                          {{j}}
-                        {% endif %}
-                      </li>
-                    {% endfor %}
-                    </ul>
-                  {% endfor %}
-                {% endfor %}
-              </div>
-              {% if page.instance %}
-                <h3>Instance</h3>
-                <div class="instance">Access the widget via: <code>Ur.Widgets.{{page.name}}["ID"]</code>. The following methods are exposed for each widget:
-                  <ul>
-                    {% for i in page.instance %}
-                      <li><code>{{i[0]}}</code>: {{i[1]}}</li>
-                    {% endfor %}
-                  </ul>
-                </div>
+      <h1>{{page.title}}</h1>
+      
+      {% if page.description %}
+      <h2>Description</h2>
+      {% endif %}
+      {{page.description}}
+      
+      {% if page.basic_tab %}
+      <h2>Attributes</h2>
+      <div class="tabs" data-ur-set="tabs">
+        <div data-ur-tabs-component="button" data-ur-tab-id="basic" data-ur-state="enabled">Basic</div>
+        <div data-ur-tabs-component="button" data-ur-tab-id="advanced">Advanced</div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="basic" data-ur-state="enabled">
+          <dl>
+            {% for i in page.basic_tab %}
+              <dt><code>{{i[0]}}</code></dt><dd>{{i[1]}}</dd>
+            {% endfor %}
+          </dl>
+        </div><!-- basic -->
+        <div data-ur-tabs-component="content" data-ur-tab-id="advanced">
+          <div class="components">
+            {% for kv in page.advanced_tab %}
+              <h4>{{kv[0]}}</h4>
+              {% if kv[0] == "Instance" %}
+                <p>Access the widget via <code>Uranium.{{page.name}}["ID"]</code>. The following methods are exposed for each widget:</p>
               {% endif %}
-            </div>
+              {% for i in kv[1] %}
+                <code class="inline">
+                  {% if kv[0] == "Required" or kv[0] == "Optional" %}
+                    {% if i[0] == "set" %}
+                      data-ur-set="{{page.name}}"
+                    {% else %}
+                      data-ur-{{page.name}}-component="{{i[0]}}"
+                    {% endif %}
+                  {% else %}
+                    {{i[0]}}
+                  {% endif %}
+                </code>
+                <ul>
+                {% for j in i[1] %}
+                  <li>
+                    {% assign iscollection = j | first %}
+                    {% if iscollection %}
+                      {% for k in j %}
+                        {{ k[0] }}
+                        <ul>
+                          {% for l in k[1] %}
+                            <li>{{ l }}</li>
+                          {% endfor %}
+                        </ul>
+                      {% endfor %}
+                    {% else %}
+                      {{j}}
+                    {% endif %}
+                  </li>
+                {% endfor %}
+                </ul>
+              {% endfor %}
+            {% endfor %}
           </div>
         </div>
       </div>
-
-      {{content}}
-
+      {% endif %}
       
+      {{content}}
     </div>
     {% include footer.html %}
   </body>

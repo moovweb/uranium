@@ -7,13 +7,13 @@ description: |
     <p>A toggler is an interaction that coordinates two components - a button, and a set of contents.</p>
     <p>When you click the button, the states of both the button and the contents are toggled.</p>
 basic_tab:
-  data-ur-set="toggler": add this attribute to a div that wraps the whole interaction
+  data-ur-set="toggler": add this attribute to an element that wraps the whole interaction
   data-ur-toggler-component="button": add this attribute to the button
   data-ur-toggler-component="content": add this attribute to the content
 advanced_tab:
   Required:
     button:
-      - add this attribute to the button (i.e. the thing to be clicked)
+      - add this attribute to the button (i.e., the thing to be clicked)
       - "multiple?: false"
       - "state: enabled / disabled (default)"
     content:
@@ -27,156 +27,149 @@ advanced_tab:
       - "multiple?: false"
       - "state: enabled / disabled (default)"
 ---
-
-<!-- Demonstration -->
 <h2>Demonstration</h2>
-<div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled">Example</h3>
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
-
-  <div id="toggler_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
+<div class="d-row d-gutters">
+  <div class="d-col-6">
+    <h3>Example</h3>
+    <div class="subpane">
+      <div data-ur-set="toggler">
+        <div class="btn" data-ur-toggler-component="button">Click on the button</div>
+        <div data-ur-toggler-component="content">And content appears</div>
+      </div>
+    </div>
+  </div>
+  <div class="d-col-6">
+    <h3>The Code</h3>
+    {% capture tmp %}
     <div data-ur-set="toggler">
       <div data-ur-toggler-component="button">Click on the button</div>
       <div data-ur-toggler-component="content">And content appears</div>
     </div>
-  </div>
-
-  <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-{% highlight html %}
-<div data-ur-set="toggler">
-  <div data-ur-toggler-component="button">
-    Click on the button
-  </div>
-  <div data-ur-toggler-component="content">
-    And content appears</div>
-</div>
-{% endhighlight %}
-  </div>
-  <hr />
-</div>
-
-<!-- Recommended SCSS -->
-<div class='wrapper'>
-  <h2> Recommended Styles </h2>
-{% highlight scss %}
-/* Recommended SCSS Styling */
-[data-ur-set='toggler'] {
-  /* By Default content is hidden*/
-  [data-ur-toggler-component='content'] {
-    display:none;
-  }
-  [data-ur-toggler-component='content'][data-ur-state='enabled'] {
-    display: block;
-  }
-}
-/* Recommended CSS Styling */
-
-[data-ur-set='toggler'] [data-ur-toggler-component='content'] {
-  display:none;
-}
-[data-ur-set='toggler'] [data-ur-toggler-component='content'][data-ur-state='enabled'] {
-  display: block;
-}
-{% endhighlight %}
-  <hr/>
-</div>
-
-<!-- Further Examples -->
-<div class="wrapper">
-  <h1>Toggler Examples</h1>
-  
-  <div class='test' name='DialogProper'>
-    <a  name='DialogProper'></a>
-    <h2>Enabled</h2>
-  
-    <div class='description'>
-      <p>
-        If we want something to start out visible, and then disappear when we click on the button, we can just add the <code>data-ur-state="enabled"</code> attribute to the button and its content.
-      </p>
-{% highlight html %}
-<div data-ur-set="toggler">
-  <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
-    Toggle This Picture!
-  </div>
-
-  <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
-     <img src='/images/popup.jpeg'>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
   </div>
 </div>
-{% endhighlight %}
-    </div>
+<hr>
+
+<h2>Recommended Styles</h2>
+<div class="tabs code" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="scss" data-ur-state="enabled">SCSS</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="css">CSS</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="scss" data-ur-state="enabled">
+    <pre data-lang="scss">
+    /* Recommended SCSS Styling */
+    
+    [data-ur-toggler-component="content"] {
+      display: none;
+      &amp;[data-ur-state="enabled"] {
+        display: block;
+      }
+    }
+    </pre>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="css">
+    <pre data-lang="scss">
+    /* Recommended CSS Styling */
+    
+    [data-ur-toggler-component="content"] {
+      display: none;
+    }
+    [data-ur-toggler-component="content"][data-ur-state="enabled"] {
+      display: block;
+    }
+    </pre>
+  </div>
+</div>
+<hr/>
+
+<h2>Toggler Examples</h2>
+
+<h3>Enabled</h3>
+<p>
+  If we want something to start out visible, and then disappear when we click on the button, we can just add the <code>data-ur-state="enabled"</code> attribute to the button and its content.
+</p>
+<div class="tabs" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
     <div data-ur-set="toggler">
-      <div data-ur-toggler-component='button' data-ur-state="enabled" class='popup_button'>
+      <div class="btn" data-ur-toggler-component="button" data-ur-state="enabled">
         Toggle This Picture!
       </div>
-
-      <div data-ur-toggler-component='content' data-ur-state="enabled" class='popup_content'>
-         <img src='{{site.url}}../../images/popup.jpeg'>
+      <div data-ur-toggler-component="content" data-ur-state="enabled">
+         <img src="{{site.baseurl}}images/popup.jpeg">
       </div>
     </div>
   </div>
-  <hr />
-  <div class='test' name='Nested' >
-    <a name='Nested'></a>
-    <h2>Nested Togglers</h2>
-    <div class='description'>
-      <p>It's super-easy to nest togglers as well:</p>
-{% highlight html %}
-<div data-ur-toggler-component='button'>
-  Foods
-</div>
-<ul data-ur-toggler-component='content'>
-  <li data-ur-set="toggler">
-    <span data-ur-toggler-component='button'>Veggies</span>
-    <ul data-ur-toggler-component='content'>
-      <li>Beets</li>
-      <li>Carrots</li>
-    </ul>
-  </li>
-  <li data-ur-set="toggler">
-    <span data-ur-toggler-component='button'>Meats</span>
-    <ul data-ur-toggler-component='content'>
-      <li>Beef</li>
-      <li>Fish</li>
-    </ul>
-  </li>
-</ul>
-{% endhighlight %}
-      <p>Click on the button, and then click on the text that shows up below. (Notice how the sub-togglers even remember what state they were in when you toggle the main button.)</a>
-    </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="html">
+    {% capture tmp %}
     <div data-ur-set="toggler">
-      <div data-ur-toggler-component='button'>
-        Foods
+      <div data-ur-toggler-component="button" data-ur-state="enabled">
+        Toggle This Picture!
       </div>
-      <ul data-ur-toggler-component='content'>
+      <div data-ur-toggler-component="content" data-ur-state="enabled">
+         <img src="{{site.baseurl}}images/popup.jpeg">
+      </div>
+    </div>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  </div>
+</div>
+
+<h3>Nested Togglers</h3>
+<p>
+  It's super-easy to nest togglers as well. Click on the button, and then click on the text that shows up below. (Notice how the sub-togglers even remember what state they were in when you toggle the main button.)
+</p>
+<div class="tabs" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+    <div data-ur-set="toggler">
+      <p data-ur-toggler-component="button">Foods</p>
+      <ul data-ur-toggler-component="content">
         <li data-ur-set="toggler">
-          <span data-ur-toggler-component='button'>Veggies</span>
-          <ul data-ur-toggler-component='content'>
+          <div data-ur-toggler-component="button">Veggies</div>
+          <ul data-ur-toggler-component="content">
             <li>Beets</li>
             <li>Carrots</li>
           </ul>
         </li>
         <li data-ur-set="toggler">
-          <span data-ur-toggler-component='button'>Meats</span>
+          <div data-ur-toggler-component="button">Meats</div>
           <ul data-ur-toggler-component='content'>
             <li>Beef</li>
             <li>Fish</li>
           </ul>
         </li>
       </ul>
-
-    </div><!-- end of nesting -->
+    </div>
   </div>
-  <hr>
-
-  <!-- More Examples -->
-  <div class="wrapper">
-    <h2>Toggler Drawer Example</h2>
-    <h3><a href="{{site.url}}drawer.html" target="_blank">Demonstrates styling and formatting for a horizontal sliding menu</a></h3>
-    <p>Note: This example uses Webkit-specific CSS to activate the visual drawer behavior, but the Uranium behavior is the same across all browsers, and you may implement the visual effects any way you prefer.</p>
+  <div data-ur-tabs-component="content" data-ur-tab-id="html">
+    {% capture tmp %}
+    <div data-ur-set="toggler">
+      <p data-ur-toggler-component="button">Foods</p>
+      <ul data-ur-toggler-component="content">
+        <li data-ur-set="toggler">
+          <div data-ur-toggler-component="button">Veggies</div>
+          <ul data-ur-toggler-component="content">
+            <li>Beets</li>
+            <li>Carrots</li>
+          </ul>
+        </li>
+        <li data-ur-set="toggler">
+          <div data-ur-toggler-component="button">Meats</div>
+          <ul data-ur-toggler-component='content'>
+            <li>Beef</li>
+            <li>Fish</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
   </div>
-
-  <hr />
-
 </div>
 
+<h3>Toggler Drawer Example</h3>
+<a href="{{site.url}}drawer.html" target="_blank">Demonstrates styling and formatting for a horizontal sliding menu</a>
+<p>Note: This example uses WebKit-specific CSS to activate the visual drawer behavior, but the Uranium behavior is the same across all browsers, and you may implement the visual effects any way you prefer.</p>

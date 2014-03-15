@@ -159,11 +159,11 @@
   height: 40px;
 }
 
-.#{$moovui-prefix}btn.pill {
+.#{$moovui-prefix}btn.#{$moovui-prefix}pill {
   @include btn-pill;
 }
 
-.#{$moovui-prefix}btn.small {
+.#{$moovui-prefix}btn.#{$moovui-prefix}small {
   @include btn-small;
 }
 
@@ -171,27 +171,27 @@
   @include btn;
 }
 
-.#{$moovui-prefix}btn.big {
+.#{$moovui-prefix}btn.#{$moovui-prefix}big {
   @include btn-big;
 }
 
-.#{$moovui-prefix}btn.action {
+.#{$moovui-prefix}btn.#{$moovui-prefix}action {
   @include btn-action;
 }
 
-.#{$moovui-prefix}btn.confirm {
+.#{$moovui-prefix}btn.#{$moovui-prefix}confirm {
   @include btn-confirm;
 }
 
-.#{$moovui-prefix}btn.warning {
+.#{$moovui-prefix}btn.#{$moovui-prefix}warning {
   @include btn-warning;
 }
 
-.#{$moovui-prefix}btn.pressed {
+.#{$moovui-prefix}btn.#{$moovui-prefix}pressed {
   @include btn-pressed;
 }
 
-.#{$moovui-prefix}btn.active {
+.#{$moovui-prefix}btn.#{$moovui-prefix}active {
   @include btn-active;
 }
 

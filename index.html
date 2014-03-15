@@ -2,240 +2,205 @@
 layout: default
 title: Home
 name: home
-home_selected: selected
 ---
 
 <div id="page" class="copy">
-  <div>
-    <h1>What is Uranium?</h1>
-    <p>
-      Uranium is a set of interactions&#8202;&mdash;&#8202;self-contained bits of code that allow you to do neat, interactive things on your website.
-    </p>
-    <div id="how_to_use">
-      <h3>How to Use:</h3>
-      <ol>
-        <li>Include the Uranium library and jQuery &gt;= 1.3</li>
-        <li>Give your HTML pre-defined data attributes</li>
-        <li>&hellip; that's it!</li>
-      </ol>
-    </div>
-    <p>
-      It's seriously that easy. We've put in all the hard work to make awesome interactions that are
-      really easy to use.
-    </p>
-    <p>
-      Uranium is perfect for mobile development; lots of the interactions were made with that in mind. But, as you can see by the examples below, they're great on a desktop site too.
-    </p>
-  </div>
-  <div>
-    <h2>What is an Interaction?</h2>
-    <div>
-      <p>
-        We define interactions as behaviors that enhance the functionality of a set of HTML elements. Uranium defines several <em>data attributes</em> you can give to your HTML elements, allowing your users to interact with them in a new way.
-      </p>
-      <p>
-        We've created pages to describe each interaction provided by Uranium, accessible from the menu above. While your'e up there, you might also want to check out the Training menu for our <a href="{{site.url}}documentation/overview.html">overview documentation</a>, <a href="{{site.url}}documentation/getting_started.html">getting started tutorial</a>, and <a href="{{site.url}}documentation/advanced.html">advanced tutorial</a>.
-      </p>
-    </div>
-  </div>
+  <h1>What is Uranium?</h1>
+  <p>
+    Uranium is a set of interactions&#8202;&mdash;&#8202;self-contained bits of code that allow you to do neat, interactive things on your website.
+  </p>
+  
+  <h3>How to Use:</h3>
+  <ol>
+    <li>Include the Uranium library and jQuery &gt;= 1.3</li>
+    <li>Give your HTML pre-defined data attributes</li>
+    <li>&hellip; that's it!</li>
+  </ol>
+  <p>
+    It's seriously that easy. We've put in all the hard work to make awesome interactions that are
+    really easy to use.
+  </p>
+  <p>
+    Uranium is perfect for mobile development; lots of the interactions were made with that in mind. But, as you can see by the examples below, they're great on a desktop site too.
+  </p>
+  
+  <h2>What is an Interaction?</h2>
+  <p>
+    We define interactions as behaviors that enhance the functionality of a set of HTML elements. Uranium defines several <em>data attributes</em> you can give to your HTML elements, allowing your users to interact with them in a new way.
+  </p>
+  <p>
+    We've created pages to describe each interaction provided by Uranium, accessible from the menu above. While you're up there, you might also want to check out the Training menu for our <a href="{{site.url}}documentation/overview.html">overview documentation</a>, <a href="{{site.url}}documentation/getting_started.html">getting started tutorial</a>, and <a href="{{site.url}}documentation/advanced.html">advanced tutorial</a>.
+  </p>
   
   <h1>Top Ways to Use Uranium</h1>
-  <!-- Test -->
-  <div class="demonstration">
-    <h2> Carousel </h2>
-    <div id="carousel_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_interaction" data-ur-state="enabled"> Interaction</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_html">HTML</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="carousel_CSS">CSS</h3>
-
-      <div id="carousel_interaction" class="example_interaction"  data-ur-tabs-component="content" data-ur-tab-id="carousel_interaction" data-ur-state="enabled">
-
-        <div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
-          <span data-ur-carousel-component="count"> -- count -- </span>
-          <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev" >
-            Prev
-          </div>
-          <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" >
-            Next
-          </div>
-          <div data-ur-carousel-component="scroll_container">
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample1.png' alt="1" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample2.png' alt="2" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample3.png' alt="3" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample4.png' alt="4" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample5.png' alt="5" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample6.png' alt="6" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample7.png' alt="7" /> </span>
-            <span data-ur-carousel-component="item"> <img src='{{site.url}}../images/sample8.png' alt="8" /> </span>
-          </div>
+  
+  <h2>Carousel</h2>
+  <div id="carousel-demo" class="tabs" data-ur-set="tabs">
+    <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Interaction</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="html">HTML</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="css">CSS</div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div data-ur-set="carousel">
+        <p>
+          <span data-ur-carousel-component="count"></span>
+          <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+          <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+        </p>
+        <div data-ur-carousel-component="scroll_container">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample1.png" alt="1">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample2.png" alt="2">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample3.png" alt="3">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample4.png" alt="4">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample5.png" alt="5">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample6.png" alt="6">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample7.png" alt="7">
+          <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample8.png" alt="8">
         </div>
       </div>
-
-      <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="carousel_html">
-{% highlight html %}
-<div data-ur-set="carousel" data-ur-id="MyFirstCarousel">
-  <span data-ur-carousel-component="count"> -- count -- </span>
-  <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
-  <div data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</div>
-  <div data-ur-carousel-component='scroll_container'>
-    <span data-ur-carousel-component='item'> <img src='images/sample1.png' alt="1" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample2.png' alt="2" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample3.png' alt="3" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample4.png' alt="4" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample5.png' alt="5" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample6.png' alt="6" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample7.png' alt="7" /> </span>
-    <span data-ur-carousel-component='item'> <img src='images/sample8.png' alt="8" /> </span>
-  </div>
-</div>
-{% endhighlight %}
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      {% capture tmp %}
+      <div data-ur-set="carousel">
+        <span data-ur-carousel-component="count"></span>
+        <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+        <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+        <div data-ur-carousel-component="scroll_container">
+          <img data-ur-carousel-component="item" src="images/sample1.png" alt="1">
+          <img data-ur-carousel-component="item" src="images/sample2.png" alt="2">
+          <img data-ur-carousel-component="item" src="images/sample3.png" alt="3">
+          <img data-ur-carousel-component="item" src="images/sample4.png" alt="4">
+          <img data-ur-carousel-component="item" src="images/sample5.png" alt="5">
+          <img data-ur-carousel-component="item" src="images/sample6.png" alt="6">
+          <img data-ur-carousel-component="item" src="images/sample7.png" alt="7">
+          <img data-ur-carousel-component="item" src="images/sample8.png" alt="8">
+        </div>
       </div>
+      {% endcapture %}
+      <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="css">
+      <pre data-lang="css">
+        [data-ur-set="carousel"] {
+          overflow: hidden;
+          position: relative;
+        }
+        [data-ur-carousel-component="item"] {
+          float: left;
+        }
+      </pre>
+    </div>
+  </div>
+  <div class="text-right">
+    <a href="/interactions/carousel.html" class="see_more_link">More about carousel</a>
+  </div>
+  <hr>
 
-      <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="carousel_CSS">
-{% highlight css %}
-div[data-ur-carousel-component="scroll_container"] > * {
-  display: inline-block;
-  float: left;
-}
-{% endhighlight %}
+  <h2>Tabs</h2>
+  <div id="tabs-demo" class="tabs" data-ur-set="tabs">
+    <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Interaction</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="html">HTML</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="css">CSS</div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div data-ur-set="tabs">
+        <div class="btnbar">
+          <span data-ur-tabs-component="button" class="btn" data-ur-tab-id="one" data-ur-state="enabled">First</span>
+          <span data-ur-tabs-component="button" class="btn" data-ur-tab-id="two">Second</span>
+          <span data-ur-tabs-component="button" class="btn" data-ur-tab-id="three">Third</span>
+        </div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
+          First tab content
+        </div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="two">
+          Second tab content
+        </div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="three">
+          Third tab content
+        </div>
       </div>
     </div>
-    <a href="/interactions/carousel.html" class="see_more_link">
-      More about carousel >
-    </a>
-    <hr />
-  </div>
-
-  <!-- Tabs -->
-  <div class="demonstration">
-    <h2> Tabs </h2>
-    <div id="tab_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_interaction" data-ur-state="enabled"> Interaction</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_html"> HTML</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="tabs_CSS">CSS</h3>
-
-      <div id="tab_interaction" class="example_interaction" data-ur-tabs-component="content" data-ur-tab-id="tabs_interaction" data-ur-state="enabled">
-        <div data-ur-set="tabs" data-ur-id="tabs_example">
-          <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled"> First </span>
-          <span data-ur-tabs-component="button" data-ur-tab-id="two"> Second </span>
-          <span data-ur-tabs-component="button" data-ur-tab-id="three"> Third </span>
-
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      {% capture tmp %}
+        <div data-ur-set="tabs">
+          <span data-ur-tabs-component="button" data-ur-tab-id="one" data-ur-state="enabled">First</span>
+          <span data-ur-tabs-component="button" data-ur-tab-id="two">Second</span>
+          <span data-ur-tabs-component="button" data-ur-tab-id="three">Third</span>
           <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
-            <p class="tab_item">First tab content</p>
+            First tab content
           </div>
-
           <div data-ur-tabs-component="content" data-ur-tab-id="two">
-            <p class="tab_item">Second tab content</p>
+            Second tab content
           </div>
-
           <div data-ur-tabs-component="content" data-ur-tab-id="three">
-            <p class="tab_item">Third tab content</p>
+            Third tab content
           </div>
         </div>
-      </div>
-      <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="tabs_html">
-{% highlight html %}
-<div data-ur-set='tabs'>
-  <span data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
-  <span data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
-  <span data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
-
-  <div data-ur-tabs-component="content" data-ur-tab-id="one" data-ur-state="enabled">
-    <p class="tab_item">First tab content</p>
+      {% endcapture %}
+      <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+    </div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="css">
+      <pre data-lang="css">
+        [data-ur-tabs-component="content"][data-ur-state="disabled"] {
+          display: none;
+        }
+      </pre>
+    </div>
   </div>
-
-  <div data-ur-tabs-component="content" data-ur-tab-id="two">
-    <p class="tab_item">Second tab content</p>
+  <div class="text-right">
+    <a href="/interactions/tabs.html" class="see_more_link">More about tabs</a>
   </div>
-
-  <div data-ur-tabs-component="content" data-ur-tab-id="three">
-    <p class="tab_item">Third tab content</p>
-  </div>
-</div>
-{% endhighlight %}
-      </div>
-      <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="tabs_CSS">
-{% highlight css %}
-/* Recommended CSS */
-div[data-ur-tabs-component="content"][data-ur-state="disabled"] {
-  display: none;
-}
-{% endhighlight %}
+  <hr>
+  
+  <h2>Toggler</h2>
+  <div id="toggler-demo" class="tabs" data-ur-set="tabs">
+    <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Interaction</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="html">HTML</div>
+    <div data-ur-tabs-component="button" data-ur-tab-id="css">CSS</div>
+    <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+      <div data-ur-set="toggler">
+        <div class="btn" data-ur-toggler-component="button">Click Here!</div>
+        <ul data-ur-toggler-component="content">
+          <li>Hat</li>
+          <li>Socks</li>
+          <li>Shoes</li>
+          <li>Gloves</li>
+          <li>Shirts</li>
+        </ul>
       </div>
     </div>
-    <a href="/interactions/tabs.html" class="see_more_link">
-      More about tabs >
-    </a>
-    <hr />
-  </div>
-
-  <div class='demonstration' name='Simple'>
-    <h2>Toggler</h2>
-    <div id="accordion_demonstration" data-ur-set="tabs">
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_interaction"data-ur-state='enabled'>Interaction</h3>
-
-      <h3 data-ur-tabs-component='button' data-ur-tab-id="toggler_html"> HTML</h3>
-
-      <h3 data-ur-tabs-component="button" data-ur-tab-id="toggler_CSS">CSS</h3>
-
-      <div id="toggler_interaction" class="example_interaction"  data-ur-tabs-component="content" data-ur-tab-id="toggler_interaction" data-ur-state='enabled'>
-        <div data-ur-set='toggler'>
-          <div data-ur-toggler-component='button'>
-            Click Here!
-          </div>
-
-          <ul data-ur-toggler-component='content'>
-            <li> Hat </li>
-            <li> Socks </li>
-            <li> Shoes </li>
-            <li> Gloves </li>
-            <li> Shirts </li>
-          </ul>
-        </div> 
+    <div data-ur-tabs-component="content" data-ur-tab-id="html">
+      {% capture tmp %}
+      <div data-ur-set="toggler">
+        <div data-ur-toggler-component="button">Click Here!</div>
+        <ul data-ur-toggler-component="content">
+          <li>Hat</li>
+          <li>Socks</li>
+          <li>Shoes</li>
+          <li>Gloves</li>
+          <li>Shirts</li>
+        </ul>
       </div>
-    <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="toggler_html">
-{% highlight html %}
-<div data-ur-set='toggler'>
-  <div data-ur-toggler-component='button'>Click Here!</div>
-  <ul data-ur-toggler-component='content'>
-    <li> Hat </li>
-    <li> Socks </li>
-    <li> Shoes </li>
-    <li> Gloves </li>
-    <li> Shirts </li>
-  </ul>
-</div>
-{% endhighlight %}
-      </div>
-      <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="toggler_CSS">
-{% highlight css %}
-/* Recommended CSS */
-div[data-ur-toggler-component="content"][data-ur-state="disabled"] {
-  display: none;
-}
-{% endhighlight %}
-      </div>
+      {% endcapture %}
+      <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     </div>
-    <a href="/interactions/toggler.html" class="see_more_link">
-      More about toggler >
-    </a>
-    <hr />
-  </div> 
-    
-  <!-- Uranium is used by -->
+    <div class="interaction_css" data-ur-tabs-component="content" data-ur-tab-id="css">
+      <pre data-lang="css">
+        [data-ur-toggler-component="content"][data-ur-state="disabled"] {
+          display: none;
+        }
+      </pre>
+    </div>
+  </div>
+  <div class="text-right">
+    <a href="/interactions/toggler.html" class="see_more_link">More about toggler</a>
+  </div>
+  <hr>
+  
   <h2>Sites using Uranium include &hellip;</h2>
-  <div id="threelogoholder">
-    <a href="http://m.macys.com/"><img src="images/BW_macys.png" alt="Macy's" /></a>
-    <a href="http://m.cancer.org/"><img src="images/BW_AmCancer.png" alt="ACS" /></a>
-    <a href="http://m.belk.com/"><img src="images/BW_belk.png" alt="Belk" /></a>
-  </div><!-- threelogoholder end-->
-  <div id="twologoholder">
-    <a href="http://m.ross-simons.com/"><img src="images/BW_RS.png" alt="Ross-Simons" /></a>
-    <a href="http://m.barenecessities.com/"><img src="images/BW_barenecessities.png" alt="Bare Necessities" /></a>
-  </div><!-- threelogoholder end-->
-
+  <div id="clients">
+    <a href="http://m.macys.com/"><img src="images/BW_macys.png" alt="Macy's"></a>
+    <a href="http://m.cancer.org/"><img src="images/BW_AmCancer.png" alt="ACS"></a>
+    <a href="http://m.belk.com/"><img src="images/BW_belk.png" alt="Belk"></a>
+    <a href="http://m.ross-simons.com/"><img src="images/BW_RS.png" alt="Ross-Simons"></a>
+    <a href="http://m.barenecessities.com/"><img src="images/BW_barenecessities.png" alt="Bare Necessities"></a>
+  </div>
 </div>

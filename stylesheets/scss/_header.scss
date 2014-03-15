@@ -1,23 +1,38 @@
+#header {
+  @include mobile {
+    min-width: 0;
+    height: 64px;
+    > .content {
+      padding: 0;
+    }
+  }
+}
 #uraniumlogo {
-  background: image-url("uraniumlogo.png") no-repeat 0% 50%;
-  @include background-size(100% auto);
+  background: image-url("uraniumlogo.png") no-repeat 50% 50%;
+  @include background-size(100%);
   display: inline-block;
   vertical-align: middle;
   width: image-width("uraniumlogo.png")/3;
   height: $nav-height;
+  @include mobile {
+    @include background-size(auto image-height("uraniumlogo.png")/4);
+    display: block;
+    width: auto;
+    height: 36px;
+  }
 }
 
-#github_ribbon {
+#github-ribbon {
   @include box-shadow(rgba(#000, 0.2) 0 0 6px 2px);
   @include transform(translate(-40px, 30px) rotate(-45deg));
   background: #808080;
   color: #fff;
   font-size: 11px;
+  letter-spacing: 0.5px;
   line-height: 27px;
   position: absolute;
   top: 0;
   text-align: center;
-  letter-spacing: 0.5px;
   width: 170px;
   height: 28px;
   z-index: 102;
@@ -32,13 +47,44 @@
     width: 100%;
     height: 22px;
   }
+  
+  /*
+  @include mobile {
+    font-size: 12px;
+    padding: 0 20px 0 10px;
+    top: 6px;
+    &:before {
+      border: solid 13px transparent;
+      border-right-color: #333;
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }*/
 }
 .menu_interaction a:hover + ul, .header-links ul:hover {
   display: block;
 }
 
-.header-links li {
+.header-links {
+  @include mobile {
+    background: #555;
+  }
+}
+
+.header-links > li {
   float: left;
+  @include mobile {
+    a {
+      display: block;
+      float: none;
+      font-size: 11px;
+      margin: 0 !important;
+      line-height: 28px;
+      height: 28px;
+    }
+  }
 }
 
 .header-links ul {
@@ -47,9 +93,16 @@
   display: none;
   position: absolute;
   top: $nav-height;
+  &:before {
+    border: 6px solid transparent;
+    border-bottom-color: #f9f9f9;
+    content: "";
+    margin: -11px 0 0;
+    position: absolute;
+    left: 10px;
+  }
   li {
     display: block;
-    float: none;
   }
   li:not(:last-child) {
     border-bottom: 1px solid #eee;
@@ -69,6 +122,14 @@
     &:hover {
       background: #f0f0f0;
       color: #555;
+    }
+  }
+  @include mobile {
+    top: 64px;
+    width: 50%;
+    &:before {
+      margin-left: -6px;
+      left: 50%;
     }
   }
 }

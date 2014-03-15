@@ -12,7 +12,7 @@ basic_tab:
   data-ur-zoom-component="loading": loading indicator when loading the larger image
 advanced_tab:
   Required:
-    view_container:
+    set:
       - this div should wrap the whole interaction
       - "multiple?: false"
       - "state: active / inactive (reflects currently visible item)"
@@ -35,76 +35,101 @@ advanced_tab:
       - indicates when big image is loading
       - "multiple?: false"
       - "state: enabled / disabled"
-<!--instance:
-  zoom(): zooms in/out
-  reset(): resets the zoom interaction -->
+  Instance:
+    zoom(): zooms in/out
 ---
-<!-- Zoom Demonstration -->
 <h2>Demonstration</h2>
-<p>Basic zoom interaction </p>
-<div id="zoom_demonstration" data-ur-set="tabs" class="ur_ex">
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
-  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
-
-  <div id="zoom_interaction" class="example_interaction example"  data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
-    <div data-ur-set="zoom" data-ur-zoom-component="view_container">
-      <img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
-      <span data-ur-zoom-component="button">
+<div class="d-row d-gutters">
+  <div class="d-col-6">
+    <h3>Example</h3>
+    <div class="subpane">
+      <div data-ur-set="zoom">
+        <img data-ur-zoom-component="img" src="{{site.baseurl}}images/pic5.jpeg" data-ur-src="{{site.baseurl}}images/pic4.jpeg">
+        <div data-ur-zoom-component="button">
+          <span>+</span>
+          <span>&minus;</span>
+        </div>
+        <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
+      </div>
+    </div>
+  </div>
+  <div class="d-col-6">
+    <h3>The Code</h3>
+    {% capture tmp %}
+    <div data-ur-set="zoom">
+      <img data-ur-zoom-component="img" src="images/pic5.jpeg" data-ur-src="images/pic4.jpeg">
+      <div data-ur-zoom-component="button">
         <span>+</span>
         <span>&minus;</span>
-      </span>
+      </div>
       <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
     </div>
-
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
   </div>
-
-  <div class="interaction_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-
-{% highlight html %}
-<div data-ur-set="zoom" data-ur-zoom-component="view_container">
-  <img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
-  <span data-ur-zoom-component="button">
-    <span>&plus;</span>
-    <span>&minus;</span>
-  </span>
-  <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
 </div>
-{% endhighlight %}
+<hr>
 
-  </div>
-  <hr />
-</div>
+<h2>Recommended Styles</h2>
+<div class="tabs code" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="scss" data-ur-state="enabled">SCSS</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="css">CSS</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="scss" data-ur-state="enabled">
+    <pre data-lang="scss">
+    /* Recommended SCSS Styling (using the Bourbon mixin library) */
 
-<!-- Recommended Style -->
-<div class='wrapper'>
-  <h2> Recommended Styles </h2>
-  <div class='css'>
-{% highlight scss %}
-/* Recommended SCSS Styling (using the Bourbon mixin library) */
-
-[data-ur-zoom-component="view_container"] {
-  overflow: hidden;
-}
-
-[data-ur-set="zoom"] {
-  &[data-ur-state="enabled-in"], &[data-ur-state="enabled-out"] {
-    [data-ur-zoom-component="img"] {
-      @include transition-duration(0.4s);
-      @include transition-property(transform);
-      @include transition-timing-function(ease-in-out);
+    [data-ur-set="zoom"] {
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
     }
-  }
-  &[data-ur-state="enabled"] {
-    [data-ur-zoom-component="img"] {
-      cursor: move;
-    }
-  }
-}
-
-[data-ur-zoom-component="loading"][data-ur-state="disabled"] {
-  display: none;
-}
-{% endhighlight %}
-  </div>
     
-</div><!-- wrapper -->
+    [data-ur-zoom-component="img"] {
+      &amp;[data-ur-state="enabled-in"], &amp;[data-ur-state="enabled-out"] {
+        @include transition(0.4s ease-in-out);
+        @include transition-property(transform);
+      }
+      &amp;[data-ur-state="enabled-slide"] {
+        @include transition(0.3s ease-out);
+        @include transition-property(transform);
+      }
+    }
+
+    [data-ur-zoom-component="loading"][data-ur-state="disabled"] {
+      display: none;
+    }
+    </pre>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="css">
+    <pre data-lang="scss">
+    /* Recommended CSS Styling */
+
+    [data-ur-set="zoom"] {
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    [data-ur-zoom-component="img"][data-ur-state="enabled-in"], [data-ur-zoom-component="img"][data-ur-state="enabled-out"] {
+      -webkit-transition: 0.4s ease-in-out;
+      -moz-transition: 0.4s ease-in-out;
+      transition: 0.4s ease-in-out;
+      -webkit-transition-property: -webkit-transform;
+      -moz-transition-property: -moz-transform;
+      transition-property: transform;
+    }
+    [data-ur-zoom-component="img"][data-ur-state="enabled-slide"] {
+      -webkit-transition: 0.3s ease-out;
+      -moz-transition: 0.3s ease-out;
+      transition: 0.3s ease-out;
+      -webkit-transition-property: -webkit-transform;
+      -moz-transition-property: -moz-transform;
+      transition-property: transform;
+    }
+
+    [data-ur-zoom-component="loading"][data-ur-state="disabled"] {
+      display: none;
+    }
+    </pre>
+  </div>
+</div>
