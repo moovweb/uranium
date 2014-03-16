@@ -100,7 +100,7 @@ documentation_selected: selected
     </div>
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
-    <p>If you want to customize the autoscroll, you can use the extra attribute <code>data-ur-autoscroll-delay</code>, where the value is in milliseconds. For example, if you wanted the carousel to advanced every 3s, you would use <code>data-ur-autoscroll-delay="3000"</code>. We'll keep ours at the default for now.</p>         
+    <p>If you want to customize the autoscroll, you can use the extra attribute <code>data-ur-autoscroll-delay</code>, where the value is in milliseconds. For example, if you wanted the carousel to advanced every 3s, you would use <code>data-ur-autoscroll-delay="3000"</code>. We'll keep ours at the default for now.</p>
     <p>The next item we will set up is a set of "dot" indicators, showing which item of the carousel we are on. These are incredibly easy to set up in Uranium. All we need to do is use the attribute <code>data-ur-carousel-component="dots"</code>.</p>
     {% capture tmp %}
     <div data-ur-set="carousel" data-ur-autoscroll="enabled">
@@ -117,7 +117,7 @@ documentation_selected: selected
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     <p>If you refresh straight away, you'll notice that nothing is obviously there. That's because Uranium allows you to style the dots as you want. Within the "dots" element, Uranium added the following HTML:</p>
     {% capture tmp %}
-    <div data-ur-carousel-component="dots"> 
+    <div data-ur-carousel-component="dots">
       <div data-ur-carousel-component="dot" data-ur-state="inactive"></div>
       <div data-ur-carousel-component="dot" data-ur-state="inactive"></div>
       <div data-ur-carousel-component="dot" data-ur-state="inactive"></div>
