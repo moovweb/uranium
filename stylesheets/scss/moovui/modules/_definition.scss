@@ -24,7 +24,7 @@ dd {
   margin: 0;
   &:not(:empty):before {
     -webkit-font-smoothing: antialiased;
-    content: "  ⎯  ";
+    content: " ⎯ ";
   }
   &:after {
     content: "";

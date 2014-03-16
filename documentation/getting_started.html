@@ -61,7 +61,7 @@ documentation_selected: selected
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     <p>
-      This may have already caused a problem. What if we can't wrap the whole thing in a <code>&lt;div&gt;</code>? Well, there's a trick around that&#8202;&mdash;&#8202;check out the explanation of IDs <a href="{{site.url}}grouping.html">here</a>.
+      This may have already caused a problem. What if we can't wrap the whole thing in a <code>&lt;div&gt;</code>? Well, there's a trick around that &mdash; check out the explanation of IDs <a href="{{site.url}}grouping.html">here</a>.
     </p>
     <p>
       Next, we indicate where the button is. In our case, we want the button to be the Clothing <code>&lt;div&gt;</code>. So we give the clothing <code>&lt;div&gt;</code> the attribute <code>data-ur-toggler-component</code> and the value <code>"button"</code>. (Want to know why the attributes are named so? Click <a href="{{site.url}}model.html#naming">here</a>.)
@@ -80,7 +80,7 @@ documentation_selected: selected
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     <p>
-      The final thing we need to do to this HTML is specify the content bit of the toggler. The content in this case is the unordered list that we want to appear when the button is clicked. We give it the attribute <code>data-ur-toggler-component</code> (the same as for the button, if you remember)&#8202;&mdash;&#8202;but this time we use the value <code>"content"</code>.
+      The final thing we need to do to this HTML is specify the content bit of the toggler. The content in this case is the unordered list that we want to appear when the button is clicked. We give it the attribute <code>data-ur-toggler-component</code> (the same as for the button, if you remember) &mdash; but this time we use the value <code>"content"</code>.
     </p>
     {% capture tmp %}
     <div data-ur-set="toggler">

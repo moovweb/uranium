@@ -45,6 +45,7 @@
     padding: $sp;
   }
   .gutter {
+    @include border-radius($radius 0 0 $radius);
     background: #777;
     color: #fff;
     padding: $sp 6px;

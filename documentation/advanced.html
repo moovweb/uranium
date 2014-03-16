@@ -9,13 +9,13 @@ documentation_selected: selected
   <h1>Advanced Implementation of Uranium</h1>
   <div class="intro">
     <h2>Introduction</h2>
-    <p>In the <a href="getting_started.html">getting started tutorial</a>, we introduced how to implement a basic Uranium interaction: the toggler. We went over the basics&#8202;&mdash;&#8202;adding attributes to our HTML elements to confer interactivity on them.</p>
-    <p>The toggler interaction is pretty simple&#8202;&mdash;&#8202;we only had three elements to add attributes to. The carousel has a few more components, which is why this is a slightly more advanced tutorial. We'll also cover some optional features of carousels, plus introduce the concept of a Uranium ID.</p>
+    <p>In the <a href="getting_started.html">getting started tutorial</a>, we introduced how to implement a basic Uranium interaction: the toggler. We went over the basics &mdash; adding attributes to our HTML elements to confer interactivity on them.</p>
+    <p>The toggler interaction is pretty simple &mdash; we only had three elements to add attributes to. The carousel has a few more components, which is why this is a slightly more advanced tutorial. We'll also cover some optional features of carousels, plus introduce the concept of a Uranium ID.</p>
   </div>
   
   <div id="carousel-tutorial">
     <h2>Tutorial: How to Implement a Carousel</h2>
-    <p>We're going to start by making a carousel. Carousels are very prominent in the web today&#8202;&mdash;&#8202;they allow the user to swipe through a number of images&#8202;&mdash;&#8202;or use buttons if necessary.</p>
+    <p>We're going to start by making a carousel. Carousels are very prominent in the web today &mdash; they allow the user to swipe through a number of images &mdash; or use buttons if necessary.</p>
     <p>Below is the carousel we are going to implement through this tutorial. Some prominent features are the autoscroll feature that advances images, the "dot" indicators showing the index of the image, and the "Previous" and "Next" buttons for navigating through the images.</p>
     <div class="widget col-6">
       <div class="section" data-ur-set="carousel" data-ur-id="first-carousel" data-ur-autoscroll="enabled">
@@ -47,7 +47,7 @@ documentation_selected: selected
     </div>
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
-    <p>Once we have that set up, we can add our next container&#8202;&mdash;&#8202;the scroll container. The scroll container should be nested within the set, and will contain all the images through which you want to scroll.</p>
+    <p>Once we have that set up, we can add our next container &mdash; the scroll container. The scroll container should be nested within the set, and will contain all the images through which you want to scroll.</p>
     {% capture tmp %}
     <div data-ur-set="carousel">
       <div data-ur-carousel-component="scroll_container">
@@ -60,7 +60,7 @@ documentation_selected: selected
     </div>
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
-    <p>In the example above, we have five images. You'll notice that we're using <a href="http://placekitten.com">PlaceKitten</a> for the <code>src</code> attributes&#8202;&mdash;&#8202;this is so you can easily copy the code in our example. Of course, you can use any image <code>src</code> if you want.</p>
+    <p>In the example above, we have five images. You'll notice that we're using <a href="http://placekitten.com">PlaceKitten</a> for the <code>src</code> attributes &mdash; this is so you can easily copy the code in our example. Of course, you can use any image <code>src</code> if you want.</p>
     <p>Each image (or other item that is being scrolled) must have a component of <code>"item"</code> associated with it.</p>
     {% capture tmp %}
     <div data-ur-set="carousel">
@@ -126,7 +126,7 @@ documentation_selected: selected
     </div>
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
-    <p>Within the "dots" <code>&lt;div&gt;</code>, we have a number of <code>&lt;div&gt;</code> children with two attributes&#8202;&mdash;&#8202;one specifying it as a "dot" and one showing the state. The <code>data-ur-state</code> of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. Currently the dots have no style associated with them, so you won't be able to see them. Feel free to style them as you like!</p>
+    <p>Within the "dots" <code>&lt;div&gt;</code>, we have a number of <code>&lt;div&gt;</code> children with two attributes &mdash; one specifying it as a "dot" and one showing the state. The <code>data-ur-state</code> of "active" is applied when the corresponding item is highlighted. So, for the example above, the fourth image will be highlighted. Currently the dots have no style associated with them, so you won't be able to see them. Feel free to style them as you like!</p>
     <div data-ur-set="toggler" class="qna">
       <div data-ur-toggler-component="button">Some sample styles similar to the ones we use in our original example</div>
       <div data-ur-toggler-component="content">
@@ -149,7 +149,7 @@ documentation_selected: selected
     <p>Now we have our dot indicators and auto-scrolling feature enabled, time to move onto implementing our final carousel feature: the previous and next buttons.</p>
     
     <h3>Final Step: Buttons and Items External to Sets</h3>
-    <p>Say we have some buttons that we want to add to our carousel. These buttons would allow people to scroll to the previous and next items in the carousel. That's pretty simple&#8202;&mdash;&#8202;we can just add some attributes to some divs to create buttons. However, in our case we have some HTML constraints that mean the buttons must be <em>outside</em> of the set. This is where we introduce the concept of an ID in Uranium.</p>
+    <p>Say we have some buttons that we want to add to our carousel. These buttons would allow people to scroll to the previous and next items in the carousel. That's pretty simple &mdash; we can just add some attributes to some divs to create buttons. However, in our case we have some HTML constraints that mean the buttons must be <em>outside</em> of the set. This is where we introduce the concept of an ID in Uranium.</p>
     <p>Firstly, let's ignore the IDs and just add our buttons outside of the set. They will be non-functional for now, but if the same code was inside the set, they would work fine (this is how we would normally create buttons for a carousel). Each button needs an attribute of <code id="green">data-ur-carousel-component="button"</code>.</p>
     <p>As well as the button attribute, they each need an attribute to distinguish the "previous" and "next" buttons. The attribute for this is <code id="green">data-ur-carousel-button-type</code>. Check the button syntax out below.</p>
     {% capture tmp %}

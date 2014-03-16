@@ -10,7 +10,7 @@ more_selected: selected
   <h2>Ur-Sets vs. Ur-Ids</h2>
   <p>In Uranium, we can group interactions in two ways: an ur-set (which stands for "Uranium Set") or an ur-id (which stands for "Uranium ID"). An ur-set is defined when the whole interaction is wrapped in a <code>&lt;div&gt;</code> (or other tag) with the attribute <code>data-ur-set="interaction"</code>.</p>
   <p>An ur-id is defined when every component of a single interaction is given a unique ur-id attribute. For example, giving each component of an interaction the attribute <code>data-ur-id="unique_id"</code>. This is an alternative way to group a ur-set of HTML elements that may not be convenient to place together in the structure of your HTML document.</p>
-  <p>It's generally a better practice to use <code>data-ur-set</code> to group interactions structurally as well as functionally. This allows for cleaner, well-structured, and more obviously hierarchical HTML. However, it isn't possible in all cases to wrap every interaction in an element with this attribute. It's in these instances we use <code>data-ur-id</code> attributes. They are functionally the same&#8202;&mdash;&#8202;as seen below.</p>
+  <p>It's generally a better practice to use <code>data-ur-set</code> to group interactions structurally as well as functionally. This allows for cleaner, well-structured, and more obviously hierarchical HTML. However, it isn't possible in all cases to wrap every interaction in an element with this attribute. It's in these instances we use <code>data-ur-id</code> attributes. They are functionally the same &mdash; as seen below.</p>
   {% capture tmp %}
   <div data-ur-toggler-component="button" data-ur-id="MyIDAccordion">
     This toggler uses ur-ids

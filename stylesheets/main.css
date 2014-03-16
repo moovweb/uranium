@@ -2241,7 +2241,7 @@ dd {
   /* line 25, scss/moovui/modules/_definition.scss */
   dd:not(:empty):before {
     -webkit-font-smoothing: antialiased;
-    content: "  ⎯  "; }
+    content: " ⎯ "; }
   /* line 29, scss/moovui/modules/_definition.scss */
   dd:after {
     content: "";
@@ -3241,49 +3241,51 @@ table select, table .chosen-container {
     padding: 10px; }
   /* line 47, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .gutter {
+    -webkit-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
     background: #777;
     color: #fff;
     padding: 10px 6px;
     position: absolute;
     text-align: right;
     width: 35px; }
-  /* line 55, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 56, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .code {
     padding: 0;
     width: 100%; }
-  /* line 59, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 60, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .gutter + .code {
     padding-left: 35px; }
-  /* line 62, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 63, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .comments {
     color: #999;
     font-style: italic; }
-  /* line 66, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 67, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .string {
     color: #99d081; }
-  /* line 69, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 70, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .keyword {
     color: #ccc; }
-  /* line 72, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 73, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .variable {
     color: #fff53f; }
-  /* line 75, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 76, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .regex {
     color: #f68d58; }
-  /* line 78, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 79, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .statements {
     color: #de6864; }
-  /* line 81, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 82, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter .symbol, .syntaxhighlighter .preprocessor {
     color: #6cbae7; }
-  /* line 84, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 85, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter code {
     background: none;
     border: 0;
     color: #eee;
     margin: 0;
     padding: 0; }
-  /* line 92, scss/moovui/modules/_syntax-highlighter.scss */
+  /* line 93, scss/moovui/modules/_syntax-highlighter.scss */
   .syntaxhighlighter [data-tooltip] {
     -webkit-border-radius: 4px;
     border-radius: 4px;
@@ -3291,7 +3293,7 @@ table select, table .chosen-container {
     padding: 1px 2px;
     color: #fff; }
 
-/* line 99, scss/moovui/modules/_syntax-highlighter.scss */
+/* line 100, scss/moovui/modules/_syntax-highlighter.scss */
 pre[data-lang] {
   line-height: 20px;
   padding-left: 46px; }

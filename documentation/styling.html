@@ -30,7 +30,7 @@ more_selected: selected
     <h3>Explicit Styling</h3>
     <p>The problem with lazy styling is this: you're only really saying what the element looks like when the <code>data-ur-state</code> is <em>enabled</em>. We're taking it for granted that the non-enabled state is the same as the disabled state. This is an OK assumption to make in most cases.</p>
     <p>But this isn't actually the case. What actually happens is that the element goes through a brief period without any <code>data-ur-state</code> before Uranium assigns the default (which is usually disabled). (Of course, this doesn't apply if you specify in your HTML that the element has a <span class="inline_code">data-ur-set</span>.)</p>
-    <p>So when we style the non-enabled state in lazy styling, we're actually styling <i>two</i> states&#8202;&mdash;&#8202;the one before any state has been assigned AND the "disabled" state.</p>
+    <p>So when we style the non-enabled state in lazy styling, we're actually styling <i>two</i> states &mdash; the one before any state has been assigned AND the "disabled" state.</p>
     <p>We should instead style these states separately, as shown:</p>
     <pre data-lang="css">
     [data-ur-toggler-component="button"] {
