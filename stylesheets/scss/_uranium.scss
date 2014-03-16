@@ -1,12 +1,10 @@
-[data-ur-toggler-component="content"]:not([data-ur-state="enabled"]) {
-  display: none;
-}
-
-[data-ur-tabs-component="button"] {
+[data-ur-toggler-component="button"], [data-ur-tabs-component="button"], [data-ur-carousel-component="button"], [data-ur-reverse-geocode-component="rg-button"] {
   cursor: pointer;
 }
-[data-ur-tabs-component="content"]:not([data-ur-state="enabled"]) {
-  display: none;
+[data-ur-toggler-component="content"], [data-ur-tabs-component="content"] {
+  &:not([data-ur-state="enabled"]) {
+    display: none;
+  }
 }
 
 .btn[data-ur-tabs-component="button"][data-ur-state="enabled"] {
