@@ -9,7 +9,7 @@ documentation_selected: selected
   <h1>Advanced Implementation of Uranium</h1>
   <div class="intro">
     <h2>Introduction</h2>
-    <p>In the <a href="getting_started.html">getting started tutorial</a>, we introduced how to implement a basic Uranium interaction: the toggler. We went over the basics &mdash; adding attributes to our HTML elements to confer interactivity on them.</p>
+    <p>In the <a href="{{site.baseurl}}documentation/getting_started.html">getting started tutorial</a>, we introduced how to implement a basic Uranium interaction: the toggler. We went over the basics &mdash; adding attributes to our HTML elements to confer interactivity on them.</p>
     <p>The toggler interaction is pretty simple &mdash; we only had three elements to add attributes to. The carousel has a few more components, which is why this is a slightly more advanced tutorial. We'll also cover some optional features of carousels, plus introduce the concept of a Uranium ID.</p>
   </div>
   
@@ -183,7 +183,7 @@ documentation_selected: selected
     <div data-ur-carousel-component="button" data-ur-carousel-button-type="next" data-ur-id="first-carousel">Next</div>
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
-    <p>Uranium IDs can also be used for both tabs and togglers. If the button and the content cannot be placed in the same HTML element set, they can be separated physically and joined via the same Uranium ID. We have a page about <a href="./grouping.html">grouping Uranium enabled HTML elements</a> that goes into more detail about this, if your're curious.</p>
+    <p>Uranium IDs can also be used for both tabs and togglers. If the button and the content cannot be placed in the same HTML element set, they can be separated physically and joined via the same Uranium ID. We have a page about <a href="{{site.baseurl}}documentation/grouping.html">grouping Uranium enabled HTML elements</a> that goes into more detail about this, if your're curious.</p>
     <p>Now that you have gone through the advanced Uranium tutorial, you should feel confident playing around with all the interactions and using their optional and advanced features. For example, with the carousel you can add a counter as a numerical indicator of the index of the item you are on. These options and more are available on the <a href="{{site.baseurl}}interactions/carousel.html">carousel interaction page</a>.</p>
   </div>
 </div> <!-- closing textbody -->

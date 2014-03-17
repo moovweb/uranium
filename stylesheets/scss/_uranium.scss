@@ -39,6 +39,7 @@
   }
 }
 [data-ur-carousel-component="item"] {
+  -webkit-transform: translate(0, 0); // for mobile Google Chrome
   -webkit-user-drag: none;
   float: left;
 }
