@@ -8236,7 +8236,7 @@ body {
     /* line 1, scss/_base.scss */
     body {
       min-width: 0;
-      padding-top: 74px; } }
+      padding-top: 72px; } }
 
 @media (max-width: 480px), (max-height: 480px) {
   /* line 10, scss/_base.scss */
@@ -8267,7 +8267,7 @@ body {
   /* line 1, scss/_header.scss */
   #header {
     min-width: 0;
-    height: 64px; }
+    height: 66px; }
     /* line 5, scss/_header.scss */
     #header > .content {
       padding: 0; } }
@@ -8352,8 +8352,8 @@ body {
       float: none;
       font-size: 11px;
       margin: 0 !important;
-      line-height: 28px;
-      height: 28px; } }
+      line-height: 30px;
+      height: 30px; } }
 
 /* line 90, scss/_header.scss */
 .header-links ul {
@@ -8396,7 +8396,7 @@ body {
   @media (max-width: 480px), (max-height: 480px) {
     /* line 90, scss/_header.scss */
     .header-links ul {
-      top: 64px;
+      top: 68px;
       width: 50%; }
       /* line 130, scss/_header.scss */
       .header-links ul:before {
@@ -8410,25 +8410,38 @@ body {
   #footer a:hover {
     opacity: 0.8; }
 
+/* line 2, scss/_index.scss */
+#home-page #banner {
+  background: #798596;
+  color: #bcc2ca;
+  font-size: 48px;
+  font-weight: 300;
+  margin: -20px 0 30px;
+  padding: 40px 0 30px;
+  text-align: right; }
+  /* line 10, scss/_index.scss */
+  #home-page #banner small {
+    font-size: 20px;
+    font-style: italic; }
 @media (max-width: 480px), (max-height: 480px) {
-  /* line 3, scss/_index.scss */
+  /* line 16, scss/_index.scss */
   #home-page .btnbar .btn {
     min-width: 0; } }
-/* line 7, scss/_index.scss */
+/* line 20, scss/_index.scss */
 #home-page #clients {
   margin: 0 0 20px;
   text-align: center; }
-  /* line 10, scss/_index.scss */
+  /* line 23, scss/_index.scss */
   #home-page #clients a {
     display: inline-block;
     margin: 0 10px 20px; }
-  /* line 14, scss/_index.scss */
+  /* line 27, scss/_index.scss */
   #home-page #clients img {
     -webkit-border-radius: 5px;
     border-radius: 5px;
     vertical-align: top; }
     @media (max-width: 480px), (max-height: 480px) {
-      /* line 14, scss/_index.scss */
+      /* line 27, scss/_index.scss */
       #home-page #clients img {
         width: 75px; } }
 

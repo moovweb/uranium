@@ -1,4 +1,17 @@
 #home-page {
+  #banner {
+    background: $slategray;
+    color: #bcc2ca;
+    font-size: 48px;
+    font-weight: 300;
+    margin: -$sp2 0 $sp3;
+    padding: $sp4 0 $sp3;
+    text-align: right;
+    small {
+      font-size: 20px;
+      font-style: italic;
+    }
+  }
   @include mobile {
     .btnbar .btn {
       min-width: 0;

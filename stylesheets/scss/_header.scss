@@ -1,7 +1,7 @@
 #header {
   @include mobile {
     min-width: 0;
-    height: 64px;
+    height: 66px;
     > .content {
       padding: 0;
     }
@@ -81,8 +81,8 @@
       float: none;
       font-size: 11px;
       margin: 0 !important;
-      line-height: 28px;
-      height: 28px;
+      line-height: 30px;
+      height: 30px;
     }
   }
 }
@@ -125,7 +125,7 @@
     }
   }
   @include mobile {
-    top: 64px;
+    top: 68px;
     width: 50%;
     &:before {
       margin-left: -6px;
