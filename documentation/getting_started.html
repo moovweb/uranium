@@ -10,7 +10,7 @@ documentation_selected: selected
     <h2>Introduction</h2>
     <p>We've worked hard to make Uranium as streamlined as possible, requiring the least possible effort from the user.</p>
     <p>Part of this is ensuring that the widgets are easy to use and once you've learned how to implement one, the same methods are easily applied to other widgets.</p>
-    <p>As such, here we're going to go over an example of how to use widgets. We'll use the <a href="{{site.url}}interactions/toggler.html">toggler</a> as a model.</p>
+    <p>As such, here we're going to go over an example of how to use widgets. We'll use the <a href="{{site.baseurl}}interactions/toggler.html">toggler</a> as a model.</p>
     <p><em>Prerequisities:</em> make sure you have a simple HTML page set up with a script tag for <a href="https://developers.google.com/speed/libraries/devguide#jquery">jQuery v1.9.1</a> and <a href="/download.html">Uranium</a>.</p>
   </div>
 
@@ -61,10 +61,10 @@ documentation_selected: selected
     {% endcapture %}
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     <p>
-      This may have already caused a problem. What if we can't wrap the whole thing in a <code>&lt;div&gt;</code>? Well, there's a trick around that &mdash; check out the explanation of IDs <a href="{{site.url}}grouping.html">here</a>.
+      This may have already caused a problem. What if we can't wrap the whole thing in a <code>&lt;div&gt;</code>? Well, there's a trick around that &mdash; check out the explanation of IDs <a href="{{site.baseurl}}documentation/grouping.html">here</a>.
     </p>
     <p>
-      Next, we indicate where the button is. In our case, we want the button to be the Clothing <code>&lt;div&gt;</code>. So we give the clothing <code>&lt;div&gt;</code> the attribute <code>data-ur-toggler-component</code> and the value <code>"button"</code>. (Want to know why the attributes are named so? Click <a href="{{site.url}}model.html#naming">here</a>.)
+      Next, we indicate where the button is. In our case, we want the button to be the Clothing <code>&lt;div&gt;</code>. So we give the clothing <code>&lt;div&gt;</code> the attribute <code>data-ur-toggler-component</code> and the value <code>"button"</code>. (Want to know why the attributes are named so? Click <a href="{{site.baseurl}}documentation/model.html#naming">here</a>.)
     </p>
     {% capture tmp %}
     <div data-ur-set="toggler">
@@ -137,7 +137,7 @@ documentation_selected: selected
     }
     </pre>
     <p>
-      (This is actually what we call "explicit" CSS styling. What we're doing is  defining what happens when the <code>data-ur-state</code> is "enabled" and what happens when it is "disabled." This is more robust than lazy styling, which only defines the styles that get applied in the "enabled" state. You can learn <a href="{{site.url}}styling.html">more about lazy vs explicit styling</a> if you're curious.)
+      (This is actually what we call "explicit" CSS styling. What we're doing is  defining what happens when the <code>data-ur-state</code> is "enabled" and what happens when it is "disabled." This is more robust than lazy styling, which only defines the styles that get applied in the "enabled" state. You can learn <a href="{{site.baseurl}}documentation/styling.html">more about lazy vs explicit styling</a> if you're curious.)
     </p>
     <p>
       By this point, the interaction should be fully functional. Isn't it neat?
