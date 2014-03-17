@@ -8396,7 +8396,7 @@ body {
   @media (max-width: 480px), (max-height: 480px) {
     /* line 90, scss/_header.scss */
     .header-links ul {
-      top: 68px;
+      top: 66px;
       width: 50%; }
       /* line 130, scss/_header.scss */
       .header-links ul:before {
