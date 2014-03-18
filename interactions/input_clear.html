@@ -11,7 +11,12 @@ advanced_tab:
   Required:
     input:
       - add this attribute to the input node
-  
+js_tab:
+  Init: |
+    Uranium.lib.inputclear({
+      set: "#a",
+      input: "#b"
+    });
 ---
 <h2>Demonstration</h2>
 <div class="d-row d-gutters">

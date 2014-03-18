@@ -54,6 +54,20 @@ advanced_tab:
       - "gives a container that changes <code>data-ur-state</code> on the corresponding child"
       - "multiple?: false"
       - "state: N/A"
+js_tab:
+  Init: |
+    Uranium.lib.carousel({
+      set: "#a",
+      scroll_container: "#b",
+      item: "#b > *"
+    },
+    {
+      infinite: false // data-ur-* options
+    });
+  Instance:
+    jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
+    autoscrollStart(): start autoscroll
+    autoscrollStop(): stop autoscroll
   Callbacks:
     load.ur.carousel:
       - event triggered on the <code>data-ur-set="carousel"</code> node when all images have loaded
@@ -64,10 +78,6 @@ advanced_tab:
     slideend:
       - event triggered on the <code>data-ur-set="carousel"</code> node when a transition from one thumbnail to the next ends
       - in some older versions of Uranium on jQuery, this event was named "slideend.ur.carousel"
-  Instance:
-    jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
-    autoscrollStart(): start autoscroll
-    autoscrollStop(): stop autoscroll
 ---
 <h2 id="demonstration">Demonstration</h2>
 <div class="d-row d-gutters">
@@ -130,56 +140,6 @@ advanced_tab:
 <hr>
 
 <h2>Carousel Examples</h2>
-
-<h3>Autofill</h3>
-<p>
-  Here we have a carousel that forces a set number of items to fill the container with equal widths.
-</p>
-<dl>
-  <dt><code>data-ur-fill="4"</code></dt>
-  <dd>apply this to the set</dd>
-</dl>
-<div class="tabs" data-ur-set="tabs">
-  <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
-  <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
-  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
-    <div data-ur-set="carousel" data-ur-fill="4" class="d-col-8">
-      <div data-ur-carousel-component="dots" class="pull-right"></div>
-      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
-      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
-      <div data-ur-carousel-component="scroll_container">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample1.png" alt="1">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample2.png" alt="2">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample3.png" alt="3">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample4.png" alt="4">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample5.png" alt="5">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample6.png" alt="6">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample7.png" alt="7">
-        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample8.png" alt="8">
-      </div>
-    </div>
-  </div>
-  <div data-ur-tabs-component="content" data-ur-tab-id="html" data-ur-state="enabled">
-    {% capture tmp %}
-    <div data-ur-set="carousel" data-ur-fill="4">
-      <div data-ur-carousel-component="dots"></div>
-      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
-      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
-      <div data-ur-carousel-component="scroll_container">
-        <img data-ur-carousel-component="item" src="images/sample1.png" alt="1">
-        <img data-ur-carousel-component="item" src="images/sample2.png" alt="2">
-        <img data-ur-carousel-component="item" src="images/sample3.png" alt="3">
-        <img data-ur-carousel-component="item" src="images/sample4.png" alt="4">
-        <img data-ur-carousel-component="item" src="images/sample5.png" alt="5">
-        <img data-ur-carousel-component="item" src="images/sample6.png" alt="6">
-        <img data-ur-carousel-component="item" src="images/sample7.png" alt="7">
-        <img data-ur-carousel-component="item" src="images/sample8.png" alt="8">
-      </div>
-    </div>
-    {% endcapture %}
-    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
-  </div>
-</div>
 
 <h3>Infinite Scrolling</h3>
 <p>
@@ -267,6 +227,56 @@ advanced_tab:
     {% capture tmp %}
     <div data-ur-set="carousel" data-ur-autoscroll="enabled">
       <span data-ur-carousel-component="count"></span>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+      <div data-ur-carousel-component="scroll_container">
+        <img data-ur-carousel-component="item" src="images/sample1.png" alt="1">
+        <img data-ur-carousel-component="item" src="images/sample2.png" alt="2">
+        <img data-ur-carousel-component="item" src="images/sample3.png" alt="3">
+        <img data-ur-carousel-component="item" src="images/sample4.png" alt="4">
+        <img data-ur-carousel-component="item" src="images/sample5.png" alt="5">
+        <img data-ur-carousel-component="item" src="images/sample6.png" alt="6">
+        <img data-ur-carousel-component="item" src="images/sample7.png" alt="7">
+        <img data-ur-carousel-component="item" src="images/sample8.png" alt="8">
+      </div>
+    </div>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  </div>
+</div>
+
+<h3>Autofill</h3>
+<p>
+  Here we have a carousel that forces a set number of items to fill the container with equal widths.
+</p>
+<dl>
+  <dt><code>data-ur-fill="5"</code></dt>
+  <dd>apply this to the set</dd>
+</dl>
+<div class="tabs" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+    <div data-ur-set="carousel" data-ur-fill="5" class="d-col-8">
+      <div data-ur-carousel-component="dots" class="pull-right"></div>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+      <div data-ur-carousel-component="scroll_container">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample1.png" alt="1">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample2.png" alt="2">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample3.png" alt="3">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample4.png" alt="4">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample5.png" alt="5">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample6.png" alt="6">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample7.png" alt="7">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample8.png" alt="8">
+      </div>
+    </div>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="html" data-ur-state="enabled">
+    {% capture tmp %}
+    <div data-ur-set="carousel" data-ur-fill="5">
+      <div data-ur-carousel-component="dots"></div>
       <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
       <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
       <div data-ur-carousel-component="scroll_container">

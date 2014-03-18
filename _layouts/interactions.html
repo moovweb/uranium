@@ -19,6 +19,7 @@
       <div class="tabs" data-ur-set="tabs">
         <div data-ur-tabs-component="button" data-ur-tab-id="basic" data-ur-state="enabled">Basic</div>
         <div data-ur-tabs-component="button" data-ur-tab-id="advanced">Advanced</div>
+        <div data-ur-tabs-component="button" data-ur-tab-id="js">JavaScript</div>
         <div data-ur-tabs-component="content" data-ur-tab-id="basic" data-ur-state="enabled">
           <dl>
             {% for i in page.basic_tab %}
@@ -30,9 +31,6 @@
           <div class="components">
             {% for kv in page.advanced_tab %}
               <h4>{{kv[0]}}</h4>
-              {% if kv[0] == "Instance" %}
-                <p>Access the widget via <code>Uranium.{{page.name}}["ID"]</code>. The following methods are exposed for each widget:</p>
-              {% endif %}
               {% for i in kv[1] %}
                 <code class="inline">
                   {% if kv[0] == "Required" or kv[0] == "Optional" %}
@@ -67,6 +65,28 @@
               {% endfor %}
             {% endfor %}
           </div>
+        </div>
+        <div data-ur-tabs-component="content" data-ur-tab-id="js">
+          {% for kv in page.js_tab %}
+            {% if kv[0] == "Init" %}
+              <p>You can also directly initialize the widget in JavaScript (components can be passed in as strings/elements/arrays):</p>
+              <pre data-lang="js">{{kv[1]}}</pre>
+              {% if forloop.length > 1 %}<hr>{% endif %}
+            {% else %}
+              <h4>{{kv[0]}}</h4>
+              {% if kv[0] == "Instance" %}
+                <p>Access the widget via <code>Uranium.{{page.name}}["DATA-UR-ID"]</code>. The following methods are exposed for each widget:</p>
+              {% endif %}
+              {% for i in kv[1] %}
+                <code class="inline">{{i[0]}}</code>
+                <ul>
+                  {% for j in i[1] %}
+                    <li>{{j}}</li>
+                  {% endfor %}
+                </ul>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
       {% endif %}

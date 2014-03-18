@@ -13,7 +13,7 @@ basic_tab:
 advanced_tab:
   Required:
     set:
-      - this div should wrap the whole interaction
+      - this element should wrap the whole interaction
       - "multiple?: false"
       - "state: active / inactive (reflects currently visible item)"
       - attributes:
@@ -35,6 +35,15 @@ advanced_tab:
       - indicates when big image is loading
       - "multiple?: false"
       - "state: enabled / disabled"
+js_tab:
+  Init: |
+    Uranium.lib.zoom({
+      set: "#a",
+      loading: "#b",
+      imgs: [
+        { img: "#c", width: 1024, height: 768 }
+      ]
+    });
 ---
 <h2>Demonstration</h2>
 <div class="d-row d-gutters">

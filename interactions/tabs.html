@@ -28,6 +28,18 @@ advanced_tab:
       - "state: enabled / disabled(default)"
       - attributes:
         - "required: <code>data-ur-tab-id</code> is required and must match the attribute on the button element"
+js_tab:
+  Init: |
+    Uranium.lib.tabs({
+      set: "#a",
+      tabs: {
+        tab1: { button: "#b", content: "#c" },
+        tab2: { button: "#d", content: "#e" }
+      }
+    },
+    {
+      closeable: true // data-ur-* options
+    });
 ---
 <div class="d-row d-gutters">
   <div class="d-col-6">

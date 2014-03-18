@@ -26,6 +26,12 @@ advanced_tab:
       - sample implementation uses custom Webkit-specific flexbox CSS for recommended functionality
       - "multiple?: false"
       - "state: enabled / disabled (default)"
+js_tab:
+  Init: |
+    Uranium.lib.toggler({
+      button: "#a",
+      content: "#b"
+    });
 ---
 <h2>Demonstration</h2>
 <div class="d-row d-gutters">

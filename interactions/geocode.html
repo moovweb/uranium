@@ -50,6 +50,13 @@ advanced_tab:
       - "multiple?: false"
       - "state: N/A"
       - can use a select tag or a text-input field
+js_tab:
+  Init: |
+    Uranium.lib.geocode({
+      set: "#a",
+      "rg-city": "#b",
+      "rg-zip": "#c"
+    });
 ---
 <h2>Demonstration</h2>
 <p>The demonstration here activates on page load as long as location services are enabled.</p>
