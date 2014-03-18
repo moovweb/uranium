@@ -32,16 +32,15 @@
 [data-ur-set="carousel"] {
   overflow: hidden;
   position: relative;
-  img {
+  img[src$=".png"] {
     padding-right: $sp;
-    width: 110px;
-    height: 100px;
   }
 }
 [data-ur-carousel-component="item"] {
   -webkit-transform: translate(0, 0); // for mobile Google Chrome
   -webkit-user-drag: none;
   float: left;
+  overflow: hidden;
 }
 [data-ur-carousel-component="dot"] {
   @include border-radius(4px);

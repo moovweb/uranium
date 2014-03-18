@@ -15,7 +15,7 @@ advanced_tab:
       - "multiple?: false"
       - "state: N/A"
       - attributes (default settings are in <em>italics</em>):
-        - "optional: <code>date-ur-closeable</code>: true/<em>false</em> (allow all tabs to be closed at the same time)"
+        - "optional: <code>data-ur-closeable</code>: enabled/<em>disabled</em> (allow all tabs to be closed at the same time)"
     button:
       - add this attribute to the button (i.e. the thing to be clicked)
       - "multiple?: true"
@@ -155,12 +155,12 @@ advanced_tab:
 
 <h3>Accordions with State</h3>
 <p>So far, we've set one of the tabs to be enabled at the start. However, this isn't strictly necessary. In the following example, we start out with no states defined, so all tabs start out closed.</p>
-<p>The first tab we click on will be the first one to be "enabled". And we've set the attribute <code>data-ur-closeable</code> to <code>"true"</code> on this tab set to allow the accordian to be collapsed back to its original state by clicking again on the open tab.</p>
+<p>The first tab we click on will be the first one to be "enabled". And we've set the attribute <code>data-ur-closeable</code> to <code>"enabled"</code> on this tab set to allow the accordian to be collapsed back to its original state by clicking again on the open tab.</p>
 <div class="tabs" data-ur-set="tabs">
   <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
   <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
   <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
-    <div data-ur-set="tabs" data-ur-closeable="true">
+    <div data-ur-set="tabs" data-ur-closeable="enabled">
       <div class="btn" data-ur-tabs-component="button" data-ur-tab-id="first">First</div>
       <div data-ur-tabs-component="content" data-ur-tab-id="first">Oh Uranium.</div>
       <br>
@@ -173,7 +173,7 @@ advanced_tab:
   </div>
   <div data-ur-tabs-component="content" data-ur-tab-id="html">
     {% capture tmp %}
-    <div data-ur-set="tabs" data-ur-closeable="true">
+    <div data-ur-set="tabs" data-ur-closeable="enable">
       <div data-ur-tabs-component="button" data-ur-tab-id="first">First</div>
       <div data-ur-tabs-component="content" data-ur-tab-id="first">Oh Uranium.</div>
       <div data-ur-tabs-component="button" data-ur-tab-id="second">Second</div>

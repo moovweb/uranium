@@ -35,8 +35,6 @@ advanced_tab:
       - indicates when big image is loading
       - "multiple?: false"
       - "state: enabled / disabled"
-  Instance:
-    zoom(): zooms in/out
 ---
 <h2>Demonstration</h2>
 <div class="d-row d-gutters">
@@ -85,6 +83,7 @@ advanced_tab:
     }
     
     [data-ur-zoom-component="img"] {
+      vertical-align: top;
       &amp;[data-ur-state="enabled-in"], &amp;[data-ur-state="enabled-out"] {
         @include transition(0.4s ease-in-out);
         @include transition-property(transform);
@@ -110,6 +109,9 @@ advanced_tab:
       position: relative;
     }
     
+    [data-ur-zoom-component="img"] {
+      vertical-align: top;
+    }
     [data-ur-zoom-component="img"][data-ur-state="enabled-in"], [data-ur-zoom-component="img"][data-ur-state="enabled-out"] {
       -webkit-transition: 0.4s ease-in-out;
       -moz-transition: 0.4s ease-in-out;
@@ -133,3 +135,65 @@ advanced_tab:
     </pre>
   </div>
 </div>
+
+<hr>
+
+<h2>Zoom Examples</h2>
+
+<h3>Carousel combo</h3>
+<p>Here we place zoom interactions inside a carousel</p>
+<div class="tabs" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+    <div data-ur-set="carousel" data-ur-fill="1" style="max-width: 500px">
+      <div data-ur-carousel-component="dots" class="pull-right"></div>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+      <div data-ur-set="zoom">
+        <div data-ur-zoom-component="button" style="top: 10px; left: 10px">
+          <span>+</span>
+          <span>&minus;</span>
+        </div>
+        <div data-ur-carousel-component="scroll_container">
+          <div data-ur-carousel-component="item">
+            <img data-ur-zoom-component="img" src="{{site.baseurl}}images/pic1.jpg" data-ur-src="{{site.baseurl}}images/pic2.jpg" alt="1">
+          </div>
+          <div data-ur-carousel-component="item">
+            <img data-ur-zoom-component="img" src="{{site.baseurl}}images/pic3.jpg" data-ur-src="{{site.baseurl}}images/pic3.jpg" alt="2">
+          </div>
+          <div data-ur-carousel-component="item">
+            <img data-ur-zoom-component="img" src="{{site.baseurl}}images/pic4.jpg" data-ur-src="{{site.baseurl}}images/pic4.jpg" alt="3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="html">
+    {% capture tmp %}
+    <div data-ur-set="carousel" data-ur-fill="1">
+      <div data-ur-carousel-component="dots"></div>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+      <div data-ur-set="zoom">
+        <div data-ur-zoom-component="button">
+          <span>+</span>
+          <span>&minus;</span>
+        </div>
+        <div data-ur-carousel-component="scroll_container">
+          <div data-ur-carousel-component="item">
+            <img data-ur-zoom-component="img" src="images/pic1.jpg" data-ur-src="images/pic2.jpg">
+          </div>
+          <div data-ur-carousel-component="item">
+            <img data-ur-zoom-component="img" src="images/pic3.jpg" data-ur-src="images/pic3.jpg">
+          </div>
+          <div data-ur-carousel-component="item">
+            <img data-ur-zoom-component="img" src="images/pic4.jpg" data-ur-src="images/pic4.jpg">
+          </div>
+      </div>
+    </div>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  </div>
+</div>
+

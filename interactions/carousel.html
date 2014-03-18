@@ -131,6 +131,56 @@ advanced_tab:
 
 <h2>Carousel Examples</h2>
 
+<h3>Autofill</h3>
+<p>
+  Here we have a carousel that forces a set number of items to fill the container with equal widths.
+</p>
+<dl>
+  <dt><code>data-ur-fill="4"</code></dt>
+  <dd>apply this to the set</dd>
+</dl>
+<div class="tabs" data-ur-set="tabs">
+  <div data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</div>
+  <div data-ur-tabs-component="button" data-ur-tab-id="html">The Code</div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+    <div data-ur-set="carousel" data-ur-fill="4" class="d-col-8">
+      <div data-ur-carousel-component="dots" class="pull-right"></div>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+      <div data-ur-carousel-component="scroll_container">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample1.png" alt="1">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample2.png" alt="2">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample3.png" alt="3">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample4.png" alt="4">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample5.png" alt="5">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample6.png" alt="6">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample7.png" alt="7">
+        <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample8.png" alt="8">
+      </div>
+    </div>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="html" data-ur-state="enabled">
+    {% capture tmp %}
+    <div data-ur-set="carousel" data-ur-fill="4">
+      <div data-ur-carousel-component="dots"></div>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</a>
+      <a data-ur-carousel-component="button" data-ur-carousel-button-type="next">Next</a>
+      <div data-ur-carousel-component="scroll_container">
+        <img data-ur-carousel-component="item" src="images/sample1.png" alt="1">
+        <img data-ur-carousel-component="item" src="images/sample2.png" alt="2">
+        <img data-ur-carousel-component="item" src="images/sample3.png" alt="3">
+        <img data-ur-carousel-component="item" src="images/sample4.png" alt="4">
+        <img data-ur-carousel-component="item" src="images/sample5.png" alt="5">
+        <img data-ur-carousel-component="item" src="images/sample6.png" alt="6">
+        <img data-ur-carousel-component="item" src="images/sample7.png" alt="7">
+        <img data-ur-carousel-component="item" src="images/sample8.png" alt="8">
+      </div>
+    </div>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  </div>
+</div>
+
 <h3>Infinite Scrolling</h3>
 <p>
   Here we have a carousel that loops from front to back (default state for carousel). The carousel also has a custom count template, and indicator dots showing what item is currently selected. The indicator dots have a <code>data-ur-state</code> of "inactive" until the corresponding item is selected, when the <code>data-ur-state</code> changes to "active" &mdash; you can use this for styling the dots.
