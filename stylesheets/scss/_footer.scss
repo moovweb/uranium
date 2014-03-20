@@ -6,3 +6,15 @@
     }
   }
 }
+
+@include mobile {
+  #footer {
+    padding: $sp2 0;
+    position: static;
+    height: auto;
+  }
+  #moovweblogo img {
+    width: 129px;
+    height: 16px;
+  }
+}

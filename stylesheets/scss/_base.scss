@@ -2,7 +2,7 @@
   background: #f5f7f8;
   @include mobile {
     min-width: 0;
-    padding-top: 72px;
+    padding: 72px 0 0;
   }
 }
 

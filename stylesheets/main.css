@@ -8237,7 +8237,7 @@ body {
     /* line 1, scss/_base.scss */
     body {
       min-width: 0;
-      padding-top: 72px; } }
+      padding: 72px 0 0; } }
 
 @media (max-width: 480px), (max-height: 480px) {
   /* line 10, scss/_base.scss */
@@ -8411,6 +8411,17 @@ body {
   #footer a:hover {
     opacity: 0.8; }
 
+@media (max-width: 480px), (max-height: 480px) {
+  /* line 11, scss/_footer.scss */
+  #footer {
+    padding: 20px 0;
+    position: static;
+    height: auto; }
+
+  /* line 16, scss/_footer.scss */
+  #moovweblogo img {
+    width: 129px;
+    height: 16px; } }
 /* line 2, scss/_index.scss */
 #home-page #banner {
   background: #798596;
