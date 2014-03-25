@@ -1,5 +1,6 @@
 GEM
-  remote: http://gems.moovweb.org/
+  remote: http://gems.moovweb.net/
+  remote: http://rubygems.org/
   specs:
     domain_name (0.5.2)
       unf (~> 0.0.3)
