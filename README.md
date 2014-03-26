@@ -55,7 +55,7 @@ Input Clear
 
 ## Uranium Overview
 
-Uranium is a simple Javascript interaction library written in jQuery. It's meant to be...
+Uranium is a simple JavaScript interaction library written in jQuery. It's meant to be...
 
 -  Lightweight
 -  Declarative
@@ -74,11 +74,11 @@ View the [website](http://uranium.io/) for more details and demos.
 
 **Uranium requires ZERO programming on your part.**
 
-Uranium adopts the 'declarative' Javascript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of Javascript.
+Uranium adopts the 'declarative' JavaScript style. Because of this, you can use the interactions just by editing your HTML and CSS, without touching a single line of JavaScript.
 
-**What is declarative Javascript?**
+**What is declarative JavaScript?**
 
-Declarative Javascript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
+Declarative JavaScript is a model that looks for how html elements are formatted to construct all the necessary js magic to make those elements come to life. 
 
 ---
 
@@ -87,27 +87,27 @@ Declarative Javascript is a model that looks for how html elements are formatted
 
 **...designed for executing logic or site functions**
 
-The declarative Javascript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some Javascript logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, that's what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
+The declarative JavaScript in Uranium is not designed for performing functions, but for enabling interactions. It's a bad idea to add attributes to an element to perform some JavaScript logic. This is exactly why onclicks should be avoided. If you want to execute site logic or perform functions, that's what events / listeners / callbacks are for. The declarative approach promoted by Uranium makes the view (your UI/UX) rely on the model (your HTML). 
 
 **But I need to do x/y/z functions that Uranium doesn't handle !**
 
-You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient Javascript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
+You're in luck! Uranium is designed to work with [jQuery](http://www.jquery.com) -- which (we think) provides a great set of convenient JavaScript functions along with some very useful cross-browser compatibility features. With this in mind, using Uranium gives you the best of both worlds -- its primary purpose is to make it easy to add great interaction -- but if you need to do something fancy, it makes sure the tools you need to do so concisely are also available.
 
 
 ---
 
 ## Building Uranium
 
-If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled JavaScript.
 
 **Bundling**
 
-Bundling uses the Google Closure Compiler to bundle the Javascript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
+Bundling uses the Google Closure Compiler to bundle the JavaScript. Don't worry -- part of the rake task is to install it for you! To perform the default build from inside your local copy of the Uranium repository, just do:
 
     cd build
     rake
 
-This will read in the full Javascript source in the lib/jquery.uranium.js file, and place both full-source and minified copies of Uranium in build/src/.
+This will read in the full JavaScript source in the lib/jquery.uranium.js file, and place both full-source and minified copies of Uranium in build/src/.
 
 **Testing**
 
@@ -119,7 +119,7 @@ You need to go through all of the test cases under /examples and make sure that 
 
 Fork Uranium. Build your interaction. Issue a Pull Request. Revel in glory.
 
-If you're contributing to the code base, you need to test your changes and update the bundled Javascript.
+If you're contributing to the code base, you need to test your changes and update the bundled JavaScript.
 
 **Technical**
 

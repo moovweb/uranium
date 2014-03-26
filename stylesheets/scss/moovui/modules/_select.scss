@@ -1,0 +1,127 @@
+@if $moovui-init {
+select {
+  @include appearance(none);
+  font: 12px/18px $font;
+  display: block;
+  margin: 0 0 $sp2;
+  padding: 5px 45px 5px 10px;
+  // hide dropdown arrow in Firefox
+  text-indent: 0.1px;
+  text-overflow: "";
+  max-width: 100%;
+  min-height: 30px;
+  @media (-moz-device-pixel-ratio) {
+    padding-right: 26px;
+    padding-left: 6px;
+  }
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+option {
+  text-shadow: none; // for Firefox
+}
+
+select, .chosen-single {
+  $img: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAmCAYAAACh1knUAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjYzM3MzM1Ni1lMzJlLTQ1MWEtOGUyOS1lN2ZjY2U5NzAzNGMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QThCRkY1N0U1QkE5MTFFMzhGQUNDODdBRkQxQkRBNzMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QThCRkY1N0Q1QkE5MTFFMzhGQUNDODdBRkQxQkRBNzMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MWRlZTVhMTMtZjQwMC00OWU1LTgxNGYtMWVkODNlZmUyOTEzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOmNjMzczMzU2LWUzMmUtNDUxYS04ZTI5LWU3ZmNjZTk3MDM0YyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PhIuXMcAAADtSURBVHjaYrh06dJ/IPgAxAwDiZkYBgkYdcioQ0YdMuqQUYeMOmTUIfQGLORocnFy6WFhYZFiYMQi+Z+B4c+fP8/27NtTQnOH9PT1sE2eNJmBkQnTJf///WfIzctlo0vUGBgYTAsJDfnPw8PDwMfHB8cgPkgcJE+vNHLDw8NjpbqaOriZBw4JIA3ig8RB8nRLrIyMjJujY6IvgkIC5AgQHRkVeREkTu9c8x9o+eS4uLh37OzsDLGxse8FBASmQJIrGYAKrXhFIJ4GpcluxbNQoQi4D8RZoyXrqENGHTLqkFGHjDpk1CFDzSEAAQYAvBID8mlySUQAAAAASUVORK5CYII=);
+  background: #f1f1f1 $img no-repeat 100% 50%;
+  @include background($img no-repeat 100% 50%, linear-gradient(#fff 1px, #f9f9f9 1px, #eaeaea));
+  @include border-radius(2px);
+  @include box-shadow(rgba(#000, 0.1) 0 1px 1px);
+  border: 1px solid #ccc;
+  color: #777;
+  letter-spacing: 0.5px;
+  text-shadow: #fff 0 1px;
+}
+
+.chosen-container {
+  font-size: 12px;
+  margin: 0 0 $sp2;
+  position: relative;
+  text-align: left;
+  vertical-align: middle;
+}
+.chosen-container-active .chosen-single {
+  border-color: #b5b5b5;
+}
+.chosen-container-single-nosearch .chosen-search {
+  position: absolute;
+  left: -9999px;
+}
+
+table select, table .chosen-container {
+  margin-bottom: 0;
+}
+
+.text-center {
+  select, .chosen-container {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.chosen-single {
+  cursor: default;
+  display: block;
+  font-weight: normal;
+  line-height: $line-height;
+  padding: 2px 10px;
+  position: relative;
+  div {
+    display: none;
+  }
+}
+
+.chosen-drop {
+  @include box-shadow(rgba(#000, 0.1) 0 0 2px 1px);
+  @include border-radius(2px);
+  background: #fff;
+  border: 1px solid #d6d6d6;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: -9999px;
+  white-space: nowrap;
+  width: 100%;
+  z-index: 100;
+}
+
+.chosen-with-drop .chosen-drop {
+  left: 0;
+}
+
+.chosen-search {
+  border-bottom: 1px solid #ddd;
+  input[type="text"] {
+    @include box-shadow(none !important);
+    border: 0;
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.chosen-results {
+  @include background(linear-gradient(#fafafa, #f8f8f8));
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  padding: 7px 0;
+  max-height: 144px;
+  li {
+    color: #666;
+    display: none;
+    letter-spacing: 0.5px;
+    padding: 1px 21px 1px 16px;
+    white-space: nowrap;
+  }
+  .active-result {
+    cursor: pointer;
+    display: list-item;
+  }
+  .highlighted {
+    background: #aaa;
+    color: #fff;
+  }
+}
+}

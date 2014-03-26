@@ -1,0 +1,60 @@
+@mixin btnbar {
+  @include clearfix;
+  font-size: 0;
+  input[type="submit"], input[type="button"], button, .#{$moovui-prefix}btn {
+    @include border-radius(0);
+    border-right-width: 0;
+    &:first-of-type {
+      @include border-radius($radius 0 0 $radius);
+    }
+    &:last-of-type {
+      @include border-radius(0 $radius $radius 0);
+      border-right-width: 1px;
+    }
+    &:pressed + *, &.pressed + * {
+      border-left-color: shade(#ccc, 10%);
+    }
+  }
+  input[type="radio"] {
+    @include appearance(none);
+    margin: 0 -100px 0 0;
+    opacity: 0;
+    outline: none;
+    position: relative;
+    min-width: 100px;
+    height: 30px;
+    z-index: 1;
+    &:active + *, &:checked + * {
+      @include btn-pressed;
+      & + * + * {
+        border-left-color: shade(#ccc, 10%);
+      }
+    }
+  }
+}
+
+.#{$moovui-prefix}btnbar {
+  @include btnbar;
+}
+
+@mixin btngroup {
+  @include clearfix;
+  font-size: 0; // instead of floating so that we can still center
+  li {
+    display: inline;
+  }
+  li + li {
+    input[type="submit"], input[type="button"], button, .#{$moovui-prefix}btn {
+      margin-left: $sp;
+    }
+  }
+  input[type="submit"], input[type="button"], button, .#{$moovui-prefix}btn {
+    & + input[type="submit"], & + input[type="button"], & + button, & + .#{$moovui-prefix}btn {
+      margin-left: $sp;
+    }
+  }
+}
+
+.#{$moovui-prefix}btngroup {
+  @include btngroup;
+}

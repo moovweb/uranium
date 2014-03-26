@@ -1,0 +1,32 @@
+@if $moovui-init {
+[data-dropdown-content] {
+  @include box-shadow(rgba(#000, 0.2) 0 1px 4px);
+  background: #f9f9f9;
+  position: absolute;
+  top: -9999px;
+  width: 160px;
+  z-index: 99;
+  &:before {
+    border: 6px solid transparent;
+    border-bottom-color: #f9f9f9;
+    content: "";
+    margin: -11px 0 0;
+    position: absolute;
+    left: 10px;
+  }
+  li:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+  a {
+    color: #555;
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    padding: 5px 10px;
+    white-space: nowrap;
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+}
+}

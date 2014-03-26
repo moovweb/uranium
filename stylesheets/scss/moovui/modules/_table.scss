@@ -1,0 +1,71 @@
+@if $moovui-init {
+table {
+  background: #fff;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0 0 $sp2;
+  width: 100%;
+}
+
+thead {
+  @include box-shadow(rgba(#000, 0.3) 0 1px 2px);
+  border-top: 1px solid #c9c9c9;
+  color: #666;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  tr {
+    @include background(linear-gradient(#fbfbfb, #eaeaea));
+  }
+  th, td {
+    border-top: 1px solid $lightgray;
+    border-bottom: 1px solid #b8b8b8;
+    font-weight: 300;
+    padding: 3px 10px;
+    text-align: left;
+  }
+}
+
+thead + tbody tr:first-child td {
+  @include box-shadow(rgba(#000, 0.1) 0 2px 1px -1px inset);
+}
+
+tr {
+  background: #fafafa;
+  &:nth-child(even) {
+    background: #fff;
+  }
+}
+
+td {
+  border-bottom: 1px solid $lightgray;
+  padding: 12px $sp;
+}
+}
+
+table.#{$moovui-prefix}no-borders {
+ background: none;
+ margin: 0;
+ tr {
+   background: none;
+ }
+ th, td {
+   border: 0;
+   padding: 0;
+ }
+}
+
+thead + tbody tr:first-child {
+  &.#{$moovui-prefix}disabled td, td.#{$moovui-prefix}disabled,
+  &.#{$moovui-prefix}idle td, td.#{$moovui-prefix}idle {
+    @include box-shadow(rgba(#000, 0.2) 0 2px 1px -1px inset);
+  }
+}
+
+tr.#{$moovui-prefix}disabled td, tr.#{$moovui-prefix}idle td {
+  border-color: #a0a4a6;
+}
+
+td.#{$moovui-prefix}disabled, td.#{$moovui-prefix}idle {
+  border-color: #a0a4a6;
+}

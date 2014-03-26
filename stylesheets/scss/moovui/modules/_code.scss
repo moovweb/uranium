@@ -1,0 +1,69 @@
+@if $moovui-init {
+code {
+  @include radius;
+  background: #eee;
+  border: 1px solid #ccc;
+  color: #555;
+  margin: 0 1px;
+  padding: 0 3px;
+}
+
+code, pre, samp {
+  font-family: $code-font;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+pre {
+  @include radius;
+  margin: 0;
+  code {
+    @include border-radius(0);
+    background: none;
+    border: 0;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], textarea {
+  &.code {
+    font-family: $code-font;
+    font-size: 12px;
+  }
+}
+
+.cmd, pre {
+  background: #444;
+  border: 0;
+  color: #eee;
+  display: block;
+  margin: 5px 0 $sp2;
+  padding: $sp;
+}
+
+.cmd {
+  &:before {
+    color: #999;
+    content: "$> ";
+  }
+  + .#{$moovui-prefix}cmd {
+    margin: -$sp4 0 $sp2;
+  }
+}
+}
+
+code.#{$moovui-prefix}inline {
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+pre.#{$moovui-prefix}inline {
+  background: none;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}

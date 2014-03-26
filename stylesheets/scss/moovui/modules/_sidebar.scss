@@ -1,0 +1,108 @@
+@if $moovui-init {
+[data-section="vertical-tabs"] {
+  display: block;
+  position: relative;
+  > section {
+    padding-left: 20%;
+    &:not(.active) [data-section-content] {
+      overflow: hidden;
+      position: absolute;
+      visibility: hidden;
+      height: 0;
+    }
+  }
+  .active [data-section-title] {
+    color: inherit;
+    font-weight: bold;
+  }
+  [data-section-title] {
+    background: #fff;
+    border: 1px solid #c7c7c7;
+    font-size: 13px;
+    padding: 5px $sp;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 20%;
+    &:hover {
+      background: #f8f8f8;
+    }
+  }
+  [data-section-content] {
+    padding-left: $sp2;
+  }
+}
+}
+
+@mixin doc-sidebar {
+  @include radius;
+  color: #7c8899;
+  font-size: 12px;
+  overflow: hidden;
+  width: 20%;
+  [data-section-title], a {
+    margin: 0 0 1px;
+    padding: 5px $sp;
+  }
+  [data-section-title]:after {
+    @include icon-plus;
+    float: right;
+    font-size: 12px;
+    opacity: 0.5;
+    font-weight: normal;
+  }
+  .active > [data-section-title]:after {
+    content: $icon-minus;
+  }
+  > section {
+    > [data-section-title] {
+      background: #bdc4cb;
+      font-weight: bold;
+    }
+    &.active > [data-section-title] {
+      background: #7c8899;
+      color: #fff;
+    }
+  }
+  > section > ul > li > a, ul [data-section-title] {
+    background: #eff0f0;
+    font-weight: bold;
+    padding: 5px $sp 5px 28px;
+    position: relative;
+    &:before {
+      content: "\2022";
+      font-size: 16px;
+      margin: -1px 0 0 0;
+      opacity: 0.1;
+      position: absolute;
+      left: 10px;
+    }
+  }
+  a {
+    background: #fff;
+    display: block;
+    padding-left: 38px;
+    position: relative;
+    &:before {
+      content: "\2022\2022";
+      font-size: 16px;
+      margin: -1px 0 0 0;
+      opacity: 0.1;
+      position: absolute;
+      left: 10px;
+    }
+    &.active:before {
+      opacity: 0.8;
+    }
+    &[target="_blank"]:after {
+      @include icon-popup;
+      float: right;
+      opacity: 0.5;
+    }
+  }
+}
+
+.#{$moovui-prefix}doc-sidebar {
+  @include doc-sidebar;
+}

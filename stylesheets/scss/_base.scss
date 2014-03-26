@@ -1,224 +1,27 @@
-﻿html {
-  margin: 0;
-  padding: 0;
-}
-body {
-  -webkit-text-size-adjust: none;
-  -webkit-font-smoothing: antialiased;
-  background: $color1;
-  color: $color3;
-  font: 300 $text_size "Open Sans", Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-a {
-  color: #aaa;
-  text-decoration: none;
-}
-
-h1 {
-  color: #F5F5F5;
-  font: 30px "Ultra", sans-serif;
-  text-shadow: black 0 2px;
-  letter-spacing: 1px;
-}
-h2 {
-  color: $color2;
-  font: italic 24px "Crete Round", serif;
-  text-shadow: black 0px 1px;
-  margin: 0 auto 10px;
-  a{
-    color: inherit;
-  }
-}
-h3 {
-  color: $color4;
-  font-size: 20px;
-  font-weight: 300;
-  text-shadow: black 0px 1px;
-}
-
-hr {
-  border-top: solid #464646;
-  border-bottom: solid #1e1e1e;
-  border-width: 1px 0;
-  margin: 15px auto;
-}
-select{
-  max-width: 95%;
-}
-
-.see_more_link{
-  color: white;
-  display: block;
-  text-align: right;
-  margin-top: 10px;
-}
-
-/* Body Text */
-#textbody {
-  margin: 10px 10%;
-  @media screen and (max-width: 479px), screen and (max-height: 479px) {
-    margin: 10px;
+﻿body {
+  background: #f5f7f8;
+  @include mobile {
+    min-width: 0;
+    padding: 72px 0 0;
   }
 }
 
-
-.description_wrapper {
-  margin-bottom: 20px;
+@include mobile {
+  .copy h3 {
+    margin-bottom: $sp;
+  }
+  .copy ul, .copy ol, dl {
+    margin-left: 2em;
+  }
 }
 
-.code {
-  background-color: rgb(40,40,40);
-  border: 3px dashed rgb(60,60,60);
-  padding: 10px;
-  color: #C0C0C0; font-family: Courier New; font-size: 14px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-}
-.inline_code {
-  background-color: rgb(40,40,40);
-  color: #C0C0C0; font-family: Courier New; font-size: 18px;
-  margin: 5px;
+.see_more_link {
+  &:after {
+    @include icon-chevron-right;
+    margin-left: 4px;
+  }
 }
 
-#carouselcode {
-height: 250px;
-font-size: 12px;
-}
-#select_list_code {
-font-size: 12px;
-}
-#brown { color: #FA8072; }
-#green { color: #8FBC8F; }
-
-/* Example styles. Non-functioning */
-#extoggler {
-width: 200px;
-background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
-padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
-border-radius: 5px;
-}
-#extitle {
-  width: 100px; height: 20px;
-  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell;
-}
-#exbutton {
-  width: 190px; height: 30px;
-  margin: auto; margin-top: 15px;  padding-top: 10px;
-  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
-  background: $color2;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-#exbutton:hover {
-  cursor: hand;
-  cursor: pointer;
-}
-#extoggler_content[data-ur-toggler-component="content"][data-ur-state="disabled"] {
-  display: none;
-}
-#extoggler_content[data-ur-toggler-component="content"][data-ur-state="enabled"] {
-  display: block;
-  background: #C0C0C0;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  padding: 10px;
-  margin-left: 5px;
-  margin-top: 10px;
-  width: 170px;
-}
-#excarousel {
-width: 230px; height: 180px;
-background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
-padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
--webkit-border-radius: 5px;
--moz-border-radius: 5px;
-border-radius: 5px;
-}
-#exback {
-  width: 30px; height: 30px;
-  float: left;
-  margin: auto; padding-top: 10px;
-  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
-  background: $color2;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  display: inline;
-}
-#exback[data-ur-state="disabled"]{
-  opacity: 0.5;
-}
-#exnext {
-  width: 30px; height: 30px;
-  float: right;
-  margin: auto; padding-top: 10px;
-  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center;
-  background: $color2;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  display: inline;
-}
-.cbutton:hover {
-  cursor: hand;
-  cursor: pointer;
-}
-#eximage {
-  width: 70px; height: 70px;
+.widget {
   margin: auto;
-  background: url('resources/photo1.png') no-repeat center center;
 }
-#exbottomtext {
-  margin: auto; margin-top: 5px;
-  text-align: center; color: rgb(50,50,50); font-family: Rockwell;
-}
-
-
-#exselectlist {
-  width: 230px; height: 150px;
-  background: rgb(250,250,250) url('resources/largeshade.png') no-repeat left bottom;
-  padding: 6px; padding-left: 10px; padding-right: 10px; margin: auto; margin-top: 30px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-#exselectlist select{
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  margin-top: 10px;
-}
-
-*[data-ur-select-list-component="content"] {
-  color: rgb(50,50,50); font-size: 18px; font-family: Rockwell; text-align: center; }
-
-*[data-ur-select-list-component="content"] [data-ur-state="enabled"] {
-  background: $color2;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  }
-  
-.example#select_list {
-  height: 225px;
-}
-
-[data-ur-toggler-component="button"],
-[data-ur-zoom-component="button"],
-[data-ur-tabs-component="button"]:not([data-ur-state="enabled"]),
-[data-ur-carousel-component="button"]:not([data-ur-state="disabled"]) {
-  cursor: pointer;
-}
-
-/* Overrides disabled button pointer for closeable tabs */
-[data-ur-closeable="true"] [data-ur-tabs-component="button"][data-ur-state="enabled"] {
-  cursor: pointer;
-}
-

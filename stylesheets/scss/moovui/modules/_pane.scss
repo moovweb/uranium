@@ -1,0 +1,66 @@
+@mixin pane {
+  @include border-radius(5px);
+  @include box-shadow(rgba(#000, 0.1) 0 1px 1px);
+  @include clearfix;
+  background: #fafbfb;
+  border: 1px solid #eaeaea;
+  margin: 0 0 $sp2;
+  padding: $sp2;
+}
+
+@mixin subpane {
+  @include clearfix;
+  @include radius;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 0 0 $sp2;
+  padding: $sp2 - 1px;
+}
+
+.#{$moovui-prefix}pane {
+  @include pane;
+}
+
+.#{$moovui-prefix}subpane {
+  @include subpane;
+}
+
+@mixin panel {
+  @include border-radius(6px);
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 0 0 $sp2;
+  padding: $sp2;
+  .title {
+    @include border-radius(5px 5px 0 0);
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    margin: (-$sp2) (-$sp2) $sp2;
+    padding: 5px $sp2;
+  }
+}
+
+.#{$moovui-prefix}panel {
+  @include panel;
+}
+
+ol > .#{$moovui-prefix}panel {
+  &:before {
+    @include border-radius(9px);
+    background: #999;
+    color: #fff;
+    content: counter(panel);
+    counter-increment: panel;
+    float: left;
+    font-size: 11px;
+    line-height: 17px;
+    margin: -12px 8px 0 -10px;
+    text-align: center;
+    width: 18px;
+    height: 18px;
+  }
+  &:first-child {
+    counter-reset: panel;
+  }
+}

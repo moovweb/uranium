@@ -1,0 +1,110 @@
+@mixin alert {
+  @include radius;
+  background: #98c17b;
+  color: #fff;
+  margin: 0 auto $sp;
+  padding: $sp 40px $sp 68px;
+  position: relative;
+  max-width: $page-width - $sp2;
+  min-height: 60px;
+  &:before {
+    @include icon-circled-info;
+    color: #fff;
+    font-size: 40px;
+    margin: -12px 0 0;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+  }
+  &.success:before {
+    content: $icon-thumbs-up;
+  }
+  &.error {
+    background: #e46c67;
+    &:before {
+      content: $icon-warning;
+    }
+  }
+  &.warning {
+    background: #e4cb5d;
+    &:before {
+      content: $icon-warning;
+    }
+  }
+  .close {
+    color: #000;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 22px;
+    margin: 0 -26px 0 0;
+    opacity: 0.2;
+    text-decoration: none;
+    &:hover, &:focus {
+      color: #000;
+      cursor: pointer;
+      opacity: 0.4;
+      text-decoration: none;
+    }
+    &:before {
+      content: "\00d7";
+    }
+  }
+  a {
+    color: #fff;
+    font-weight: normal;
+    text-decoration: underline;
+  }
+}
+
+@mixin callout {
+  @include radius;
+  background: #eff2f3;
+  border: 1px solid #bdc4cb;
+  border-left-width: 50px;
+  font-weight: normal;
+  margin: 0 0 $sp2;
+  padding: $sp;
+  position: relative;
+  &:before {
+    @include icon-info;
+    color: #fff;
+    font-size: 20px;
+    margin: -13px 0 0 -60px;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 50px;
+  }
+  &.warning:before {
+    content: $icon-warning;
+  }
+  p, ol {
+    font: inherit !important;
+  }
+  > p:last-child {
+    margin: 0;
+  }
+}
+
+@if $moovui-init {
+[data-alert] {
+  @include alert;
+}
+}
+
+.#{$moovui-prefix}callout {
+  @include callout;
+}
+
+.#{$moovui-prefix}text-success {
+  color: $green;
+}
+
+.#{$moovui-prefix}text-error {
+  color: $red;
+}
+
+.#{$moovui-prefix}text-warning {
+  color: mix($orange, $yellow);
+}

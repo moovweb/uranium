@@ -1,0 +1,67 @@
+$font: Lato, Helvetica, Arial, sans-serif !default;
+$code-font: "Source Code Pro", Consolas, Monaco, Courier, monospace !default;
+
+$text-color: #444;
+
+// colors for new branding
+$orange: #f36721;
+$blue:   #3ca3e0;
+$green:  #78c158;
+$yellow: #fff200;
+$red:    #d43631;
+
+// colors for redesign
+$navyblue: #0071bc;
+$darkblue: #536278;
+
+$palegreen: #e7f4df;
+$lightgreen: #b1d7a3;
+
+$slategray: tint($darkblue, 22.5%); // #798596
+$gray: tint($slategray, 28%); // #9ea7b3
+$darkgray: tint($slategray, 15%); // #8d97a5
+$palegray: #f5f7f8;
+$lightgray: #d0d2d3;
+
+$link-color: $navyblue;
+$label-color: $darkblue;
+
+$line-height: 24px;
+$sp: 10px;
+$sp2: 2 * $sp;
+$sp3: 3 * $sp;
+$sp4: 4 * $sp;
+$sp5: 5 * $sp;
+$sp6: 6 * $sp;
+$sp7: 7 * $sp;
+$sp8: 8 * $sp;
+
+$radius: 4px;
+
+$font-size: 14px;
+$h1-size: 24px;
+$h2-size: 18px;
+$h3-size: 16px;
+$h4-size: 14px;
+$h5-size: 12px;
+
+$h1-copy-size: 36px;
+$h2-copy-size: 26px;
+$h3-copy-size: 20px;
+$h4-copy-size: 16px;
+$h5-copy-size: 16px;
+
+
+$page-margin: 10px; // shown when window is at $page-width
+$page-width: 960px !default;
+$min-page-width: 768px !default;
+
+$nav-height: 48px !default;
+$footer-height: 298px !default;
+
+$mobile-query: "(max-width: 480px), (max-height: 480px)";
+$not-mobile-query: "(min-width: 481px) and (min-height: 481px)";
+$tablet-query: "(min-width: 768px) and (max-width: 800px) and (min-height: 481px)";
+$not-tablet-query: "(max-width: 767px), (min-width: 801px), (max-height: 480px)";
+$desktop-query: "(min-width: 801px) and (min-height: 481px)";
+$not-desktop-query: "(max-width: 800px), (max-height: 480px)";

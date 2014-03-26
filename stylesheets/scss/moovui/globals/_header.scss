@@ -1,0 +1,63 @@
+@if $moovui-init {
+#header {
+  @include box-shadow(rgba(#000, 0.2) 0 1px 3px);
+  background: #333;
+  position: absolute;
+  top: 0;
+  min-width: $min-page-width;
+  width: 100%;
+  height: $nav-height;
+  z-index: 101;
+  &.affix {
+    position: fixed;
+  }
+  > .content {
+    position: relative;
+  }
+
+  input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"] {
+    @include border-radius(2px);
+    @include box-shadow(none);
+    font-size: 13px;
+    margin: ($nav-height - 28px)/2 $sp2 0;
+    min-height: 28px;
+    opacity: 0.8;
+    &:hover, &:focus {
+      opacity: 1;
+    }
+  }
+  [data-dropdown]:before {
+    @include icon-triangle-down;
+    color: #fff;
+    margin: 13px 0 0 36px;
+    position: absolute;
+  }
+  [data-dropdown-content].right {
+    margin: 0 0 0 $sp;
+    &:before {
+      left: auto;
+      right: 19px;
+    }
+  }
+}
+
+.header-links li {
+  display: inline;
+  a {
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: $nav-height + 2px;
+    text-align: center;
+    text-transform: uppercase;
+    height: $nav-height;
+    &:hover {
+      color: #ddd;
+    }
+  }
+  &:not(:Last-child) a {
+    margin: 0 24px 0 0;
+  }
+}
+}

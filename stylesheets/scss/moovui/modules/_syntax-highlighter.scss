@@ -1,0 +1,105 @@
+@if $moovui-init {
+.syntaxhighlighter-wrapper {
+  @include radius;
+  background: #555;
+  color: #f0f0f0;
+  font: 13px/20px $code-font;
+  margin: 5px 0 $sp2;
+  overflow: hidden;
+  position: relative;
+  white-space: pre;
+}
+.syntaxhighlighter {
+  background: none;
+  display: block;
+  margin: 0;
+  overflow: auto;
+  &:before {
+    color: #fff;
+    content: attr(data-lang);
+    font-family: $font;
+    font-size: 9px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 18px;
+    position: absolute;
+    right: 3px;
+    top: 0;
+    text-transform: uppercase;
+  }
+  table {
+    background: none;
+    margin: 0;
+  }
+  tr {
+    background: none;
+  }
+  td {
+    border: 0;
+  }
+  a {
+    color: inherit;
+    font: inherit;
+  }
+  .container {
+    @include border-radius(0 0 $radius 0);
+    padding: $sp;
+  }
+  .gutter {
+    @include border-radius($radius 0 0 $radius);
+    background: #777;
+    color: #fff;
+    padding: $sp 6px;
+    position: absolute;
+    text-align: right;
+    width: 35px;
+  }
+  .code {
+    padding: 0;
+    width: 100%;
+  }
+  .gutter + .code {
+    padding-left: 35px;
+  }
+  .comments {
+    color: #999;
+    font-style: italic;
+  }
+  .string {
+    color: tint($green, 25%);
+  }
+  .keyword {
+    color: #ccc;
+  }
+  .variable {
+    color: tint($yellow, 25%);
+  }
+  .regex {
+    color: tint($orange, 25%);
+  }
+  .statements {
+    color: tint($red, 25%);
+  }
+  .symbol, .preprocessor {
+    color: tint($blue, 25%);
+  }
+  code {
+    background: none;
+    border: 0;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+  }
+
+  [data-tooltip] {
+    @include radius;
+    background: tint($gray, 10%);
+    padding: 1px 2px;
+    color: #fff;
+  }
+}
+pre[data-lang] {
+  line-height: 20px;
+  padding-left: 46px;
+}
+}
