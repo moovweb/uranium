@@ -44,7 +44,7 @@
   // 2009
   // horizontal|vertical|inline-axis|block-axis|inherit
   @include prefixer(box-orient, $old-syntax, webkit);
-  @if $reverse {
+  @if $old-reverse {
     @include prefixer(box-direction, reverse, webkit);
   }
   // 2011, latest

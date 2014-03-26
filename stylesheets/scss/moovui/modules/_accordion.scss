@@ -1,5 +1,5 @@
 @if $moovui-init {
-[data-section="accordion"] > :not(.active) [data-section-content] {
+[data-section="accordion"] > :not(.active) > [data-section-content] {
   display: none;
 }
 }
@@ -11,7 +11,8 @@
   font-weight: 300;
   margin: 0 0 $sp2;
   [data-section-title] {
-    cursor: pointer;
+    color: inherit;
+    display: block;
     font-weight: bold;
     padding: $sp $sp $sp 25px;
     &:before {

@@ -167,7 +167,8 @@
 // moovui accordion
 .qna {
   [data-ur-toggler-component="button"] {
-    cursor: pointer;
+    color: inherit;
+    display: block;
     font-weight: bold;
     padding: $sp $sp $sp 25px;
     &:before {

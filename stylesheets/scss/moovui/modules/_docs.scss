@@ -7,15 +7,6 @@
   padding: $sp2 $sp3;
 }
 
-@mixin doc-panes {
-  :first-child .doc-pane {
-    margin-right: $sp;
-  }
-  :last-child .doc-pane {
-    margin-left: $sp;
-  }
-}
-
 @mixin doc-pane {
   @include clearfix;
   @include radius;
@@ -38,6 +29,9 @@
     margin: 5px $sp2 0 0;
     width: 87px;
     height: 87px;
+  }
+  p:first-of-type {
+    overflow: hidden;
   }
   a {
     float: right;
@@ -102,10 +96,6 @@
 
 .#{$moovui-prefix}doc-section {
   @include doc-section;
-}
-
-.#{$moovui-prefix}doc-panes {
-  @include doc-panes;
 }
 
 .#{$moovui-prefix}doc-pane {

@@ -60,23 +60,34 @@
 @mixin callout {
   @include radius;
   background: #eff2f3;
-  border: 1px solid #bdc4cb;
-  border-left-width: 50px;
+  border: solid #bdc4cb;
+  border-width: 1px 1px 1px 0;
   font-weight: normal;
   margin: 0 0 $sp2;
-  padding: $sp;
+  padding: $sp $sp $sp $sp6;
   position: relative;
   &:before {
-    @include icon-info;
+    @include border-radius(4px 0 0 4px);
+    background: #bdc4cb;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+  }
+  &:after {
+    @include icon-circled-info;
     color: #fff;
     font-size: 20px;
-    margin: -13px 0 0 -60px;
+    margin: -13px 0 0;
     position: absolute;
     top: 50%;
+    left: 0;
     text-align: center;
     width: 50px;
   }
-  &.warning:before {
+  &.warning:after {
     content: $icon-warning;
   }
   p, ol {

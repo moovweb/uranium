@@ -37,13 +37,16 @@
 
 @mixin doc-sidebar {
   @include radius;
-  color: #7c8899;
   font-size: 12px;
   overflow: hidden;
   width: 20%;
+  z-index: 1;
   [data-section-title], a {
     margin: 0 0 1px;
     padding: 5px $sp;
+  }
+  [data-section-title] {
+    color: #7c8899;
   }
   [data-section-title]:after {
     @include icon-plus;

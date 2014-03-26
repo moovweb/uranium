@@ -1,11 +1,12 @@
 @if $moovui-init {
 input[type="text"], input[type="email"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], textarea {
+  @include appearance(none); // override border-radius on iOS
   @include border-radius(3px);
   @include box-shadow(rgba(#fff, 0.5) 0 1px, #f0f0f0 0 1px inset);
   @include transition(0.3s);
   // ugly but bourbon mixin doesn't convert box-shadow into prefixed
   -webkit-transition-property: -webkit-box-shadow, box-shadow, border-color;
-  -moz-transition-property: -moz-box-shadow, box-shadow, border-color;
+  -moz-transition-property: box-shadow, border-color;
   transition-property: box-shadow, border-color;
   border: 1px solid;
   border-color: #cbcbcb #d5d5d5 #cfcfcf;

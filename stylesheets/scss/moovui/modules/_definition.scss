@@ -9,8 +9,9 @@ dl {
 }
 
 dt {
-  display: inline;
+  float: left;
   font-weight: 400;
+  margin: 0 0 -1px;
   &:before {
   content: "•";
   font-weight: 300;
@@ -20,15 +21,14 @@ dt {
 }
 
 dd {
-  display: inline;
   margin: 0;
   &:not(:empty):before {
     -webkit-font-smoothing: antialiased;
-    content: " ⎯ ";
-  }
-  &:after {
-    content: "";
-    display: block;
+    content: "—";
+    display: inline-block;
+    font-size: 19px;
+    margin: -1px 2px 0;
+    vertical-align: top;
   }
 }
 }

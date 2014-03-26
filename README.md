@@ -131,7 +131,7 @@ To get the examples running locally, start the jekyll server with:
 
 In a separate terminal process, run  
 
-`sass --watch examples/scss:_examples/css --line-comments --compass`
+`sass --watch stylesheets/scss:stylesheets --compass --style compact`
 
 on the stylesheets folder to compile your Sass files.
 

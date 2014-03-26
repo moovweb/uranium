@@ -35,7 +35,8 @@ img {
   padding: $sp $page-margin;
 }
 
-.section + .section {
-  margin: $sp2 0 0;
 }
+
+.#{$moovui-prefix}section + .#{$moovui-prefix}section {
+  margin: $sp2 0 0;
 }

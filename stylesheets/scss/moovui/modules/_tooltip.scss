@@ -52,11 +52,24 @@
     right: auto;
     left: -10px;
   }
+  .tap-to-close {
+    @include hide-text;
+    position: absolute;
+    top: -3px;
+    right: 5px;
+    &:before {
+      @include icon-cross;
+      font-size: 12px;
+    }
+  }
   a {
     color: tint($link-color, 25%);
   }
   pre, code {
     font-size: 12px;
   }
+}
+html.touch .tooltip {
+  padding-right: 18px;
 }
 }
