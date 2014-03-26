@@ -1,147 +1,41 @@
-#menu {
-  margin: 10px 0;
-  text-align: center;
-  #uraniumlogo {
-    background: image-url("uraniumlogo.png") no-repeat 0% 50%;
-    @include background-size(100% auto);
-    display: inline-block;
-    margin-right: 20px;
-    vertical-align: middle;
-    width: image-width("uraniumlogo.png")/2;
-    height: image-height("uraniumlogo.png")/2;
-  }
-  .menu_interaction{
-    text-align: center;
-    position: relative;
-    >a{
-      color: inherit;
-      display: block;
-    }
-    >ul{
-      display: none;
-      position: absolute;
-      list-style: none;
-      width: 100%;
-      padding: 0px 3px;
-      margin: 0px;
-      z-index: 1;
-      li {
-        background-color:$color2;
-        border: 1px solid #505050;
-        color: #fffafa;
-        padding: 3px 0px;
-        a{
-          color: $color1;
-          display: block;
-          font: 300 14px "Open Sans", Arial, sans-serif;
-          &:hover {
-            color: $color2;
-          }
-        }
-      }
-      li:hover {
-        @include background(linear-gradient($color1, darken($color1, 5%)));
-      }
-    }
-    &:hover{
-      @include background(linear-gradient($color1, darken($color1, 5%)));
-      >ul{
-        display:block;
-      }
-    }
-    &::after {
-      content: "choose";
-      position: absolute;
-      bottom: 2px;
-      left: 48%;
-      width: 0;
-      height: 5px;
-      display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-indent: 100%;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid #fff;
-    }
-  }
-  /* Its direct children */
-  > * {
-    @include box-sizing(border-box);
-    color: #fffafa;
-    border-left: 1px solid #505050;
-    border-right: 1px solid black;
-    display: inline-block;
-    font: 13px "Ultra", sans-serif;
-    text-align: center;
-    text-decoration: none;
-    width: 140px;
-    min-height: 32px;
-    letter-spacing: 1px;
-    line-height: 40px;
-    &:first-child {
-      border: none;
-    }
-    &:last-child {
-      border-right: none;
-    }
-    &:hover{
-      @include background(linear-gradient($color1, darken($color1, 5%)));
-      @include border-radius(5px);
-      color: #fffafa;
-    }
-  }
-  @media screen and (max-width: 640px), screen and (max-height: 479px) {
-    margin: 0px 0px 10px 0px;
-    #uraniumlogo{
-      background: $color2 image-url("uraniumlogo.png") no-repeat 50% 50%;
-      @include background-size(image-width("uraniumlogo.png")/4 image-height("uraniumlogo.png")/4);
-      border-top: none;
-      color: transparent;
-      display: block;
-      float: none;
-      width: auto;
-      min-height: 22px;
-      height: 22px;
-      margin: 5px 0px 0px 0px;
-    }
-    > * {
-      border-left: none;
-    }
-    .menu_interaction, > a {
-      width: 33%;
-      font-size: 10px;
-      border-top: 1px solid #505050;
-      line-height: 40px;
-      border-right: none;
-    }
-    .menu_interaction {
-      >ul{
-        padding: 0px;
-      }
-    }
-    .selected {
-      @include border-radius(0);
-    }
-    span {
-      display: none;
+#header {
+  @include mobile {
+    min-width: 0;
+    height: 66px;
+    > .content {
+      padding: 0;
     }
   }
 }
+#uraniumlogo {
+  background: url("../images/uraniumlogo.png") no-repeat 50% 50%;
+  @include background-size(100%);
+  display: inline-block;
+  vertical-align: middle;
+  width: image-width("uraniumlogo.png")/3;
+  height: $nav-height;
+  @include mobile {
+    @include background-size(auto image-height("uraniumlogo.png")/4);
+    display: block;
+    width: auto;
+    height: 36px;
+  }
+}
 
-#github_ribbon {
-  @include box-shadow(rgba(black, 0.2) 0 0 6px 2px);
-  @include transform(translate(-35px, 37px) rotate(-45deg));
-  background: gray;
-  color: white;
-  font-weight: normal;
-  font: 15px sans-serif;
+#github-ribbon {
+  @include box-shadow(rgba(#000, 0.2) 0 0 6px 2px);
+  @include transform(translate(-40px, 30px) rotate(-45deg));
+  background: #808080;
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.5px;
   line-height: 27px;
   position: absolute;
   top: 0;
   text-align: center;
   width: 170px;
   height: 28px;
+  z-index: 102;
   &:before {
     border: 1px solid #ccc;
     border-width: 1px 0;
@@ -153,24 +47,89 @@
     width: 100%;
     height: 22px;
   }
-  @media screen and (max-width: 640px), screen and (max-height: 479px) {
-    @include box-shadow(none);
-    @include background(linear-gradient(left, #aaa, gray));
-    @include transform(none);
-    line-height: 22px;
-    padding-right: 8px;
-    top: 5px;
-    width: 60px;
-    height: 22px;
+  
+  /*
+  @include mobile {
+    font-size: 12px;
+    padding: 0 20px 0 10px;
+    top: 6px;
     &:before {
-      border: 10px solid;
-      border-color: transparent $color2 transparent transparent;
-      top: 1px;
+      border: solid 13px transparent;
+      border-right-color: #333;
+      content: "";
+      position: absolute;
+      top: 0;
       right: 0;
-      height: 0;
     }
-    .desktop{
-      display: none;
+  }*/
+}
+.menu_interaction a:hover + ul, .header-links ul:hover {
+  display: block;
+}
+
+.header-links {
+  @include mobile {
+    background: #555;
+  }
+}
+
+.header-links > li {
+  float: left;
+  @include mobile {
+    a {
+      display: block;
+      float: none;
+      font-size: 11px;
+      margin: 0 !important;
+      line-height: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.header-links ul {
+  @include box-shadow(rgba(#000, 0.2) 0 1px 4px);
+  background: #f9f9f9;
+  display: none;
+  position: absolute;
+  top: $nav-height;
+  &:before {
+    border: 6px solid transparent;
+    border-bottom-color: #f9f9f9;
+    content: "";
+    margin: -11px 0 0;
+    position: absolute;
+    left: 10px;
+  }
+  li {
+    display: block;
+  }
+  li:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+  a {
+    color: #555;
+    display: block;
+    float: none;
+    font-size: 13px;
+    margin: 0 !important;
+    line-height: inherit;
+    padding: 5px 10px;
+    min-width: 120px;
+    height: auto;
+    text-align: left;
+    text-transform: none;
+    &:hover {
+      background: #f0f0f0;
+      color: #555;
+    }
+  }
+  @include mobile {
+    top: 66px;
+    width: 50%;
+    &:before {
+      margin-left: -6px;
+      left: 50%;
     }
   }
 }

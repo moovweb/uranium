@@ -1,0 +1,29 @@
+@if $moovui-init {
+#footer {
+  background: #333;
+  color: #767579;
+  font-size: 13px;
+  padding: $sp5 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $footer-height;
+  h2 {
+    color: #eee;
+    margin: 0 0 $sp;
+  }
+
+  ul a {
+    color: #7e8899;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 0 0 0.1em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+}

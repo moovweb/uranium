@@ -50,20 +50,25 @@ advanced_tab:
       - "multiple?: false"
       - "state: N/A"
       - can use a select tag or a text-input field
+js_tab:
+  Init: |
+    Uranium.lib.geocode({
+      set: "#a",
+      "rg-city": "#b",
+      "rg-zip": "#c"
+    });
 ---
-  <!-- Geocode example -->
-  <h2>Demonstration</h2>
-  <p>The demonstration here activates on load – as long as location services are enabled.</p>
-  <div id="tabs_demonstration" data-ur-set="tabs" class="ur_ex">
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="interaction" data-ur-state="enabled"> Example</h3>
-    <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
-
-    <div id="toggler_widget" class="example_interaction example" data-ur-tabs-component="content" data-ur-tab-id="interaction" data-ur-state="enabled">
-      <form data-ur-set="reverse-geocode" action="geocode_submit" method="get" accept-charset="utf-8" >
-        <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
-        <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
-        <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
-        <select name="state" id="state" data-ur-reverse-geocode-component="rg-state">
+<h2>Demonstration</h2>
+<p>The demonstration here activates on page load as long as location services are enabled.</p>
+<div class="d-row d-gutters">
+  <div class="d-col-6">
+    <h3>Example</h3>
+    <div class="subpane">
+      <form data-ur-set="reverse-geocode">
+        <input type="text" placeholder="Street Address" data-ur-reverse-geocode-component="rg-street">
+        <input type="text" placeholder="City" data-ur-reverse-geocode-component="rg-city">
+        <input type="text" placeholder="Zip" data-ur-reverse-geocode-component="rg-zip">
+        <select data-ur-reverse-geocode-component="rg-state">
           <option value="">None</option>
           <option value="AL">Alabama</option>
           <option value="AK">Alaska</option>
@@ -118,8 +123,8 @@ advanced_tab:
           <option value="WI">Wisconsin</option>
           <option value="WY">Wyoming</option>
         </select>
-        <select name="country" id="country" data-ur-reverse-geocode-component="rg-country">
-          <option value="" selected="selected">Select Country</option>
+        <select data-ur-reverse-geocode-component="rg-country">
+          <option value="" selected>Select Country</option>
           <option value="United States">United States</option>
           <option value="United Kingdom">United Kingdom</option>
           <option value="Afghanistan">Afghanistan</option>
@@ -364,53 +369,38 @@ advanced_tab:
         </select>
       </form>
     </div>
-
-    <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
-{% highlight html %}
-<form data-ur-set="reverse-geocode" action="geocode_submit" method="get" accept-charset="utf-8" >
-  <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
-  <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
-  <input type="text" name="zip" value="" id="zip" placeholder="zip" data-ur-reverse-geocode-component="rg-zip">
-  <select name="state" id="state" data-ur-reverse-geocode-component="rg-state">
-    <option value="">None</option>
-    <option value="AL">Alabama</option>
-    <option value="AK">Alaska</option>
-    ...
-  </select>
-  <select name="country" id="country" data-ur-reverse-geocode-component="rg-country">
-    <option value="" selected="selected">Select Country</option>
-    <option value="United States">United States</option>
-    <option value="United Kingdom">United Kingdom</option>
-    ...
-  </select>
-</form>
-{% endhighlight %}
-    </div>
-    <hr />
   </div>
-
-  <!-- Style Requirements -->
-  <div class='wrapper'>
-    <h2> Recommended Styles </h2>
-    <p>
-      Not dependent on styling.
-    </p>
-    <hr/>
+  <div class="d-col-6">
+    <h3>The Code</h3>
+    {% capture tmp %}
+    <form data-ur-set="reverse-geocode">
+      <input type="text" data-ur-reverse-geocode-component="rg-street">
+      <input type="text" data-ur-reverse-geocode-component="rg-city">
+      <input type="text" data-ur-reverse-geocode-component="rg-zip">
+      <select data-ur-reverse-geocode-component="rg-state">
+        <option value="">None</option>
+        <option value="AL">Alabama</option>
+        <option value="AK">Alaska</option>
+        ...
+      </select>
+      <select data-ur-reverse-geocode-component="rg-country">
+        <option value="" selected>Select Country</option>
+        <option value="United States">United States</option>
+        <option value="United Kingdom">United Kingdom</option>
+        ...
+      </select>
+    </form>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
   </div>
-
-  <!-- More Examples -->
-  <div class="wrapper">
-    <h2>Geocode Examples</h2>
-    <h3><a href="{{site.url}}geocode/button.html">Activating the geolocator with a button > </a></h3>
-    <h3><a href="{{site.url}}geocode/text_inputs.html">Populate text inputs rather than select elements > </a></h3>
-  </div>
-
-  <hr />
-  <div class="wrapper">
-    <h2>FAQs</h2>
-
-    <p><i>Does the browser always have to ask for a user to share their location?</i></p>
-    <p>Yes. It's a security feature of all browsers.</p>
-  </div>
-
 </div>
+<hr>
+
+<h2>Geocode Examples</h2>
+<p><a class="see_more_link" href="{{site.baseurl}}interactions/geocode/button.html">Activating the geolocator with a button</a></p>
+<p><a class="see_more_link" href="{{site.baseurl}}interactions/geocode/text_inputs.html">Populate text inputs rather than select elements</a></p>
+<hr>
+
+<h2>FAQs</h2>
+<p><i>Does the browser always have to ask for a user to share their location?</i></p>
+<p>Yes. It's a security feature of all browsers.</p>

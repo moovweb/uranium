@@ -1,0 +1,66 @@
+@mixin border-radius($radius) {
+  @include prefixer(border-radius, $radius, webkit spec);
+}
+
+@mixin radius {
+  @include border-radius($radius);
+}
+
+@mixin clearfix {
+  &:before, &:after {
+    content: "";
+    display: table;
+    line-height: 0;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.#{$moovui-prefix}clearfix {
+  @include clearfix;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.#{$moovui-prefix}pull-left {
+  float: left;
+}
+.#{$moovui-prefix}pull-right {
+  float: right;
+}
+
+.#{$moovui-prefix}text-left {
+  text-align: left;
+}
+.#{$moovui-prefix}text-center {
+  text-align: center;
+}
+.#{$moovui-prefix}text-right {
+  text-align: right;
+}
+
+.#{$moovui-prefix}stretch {
+  width: 100%;
+}
+
+@mixin hide-text {
+  // trying out Bootstrap's method over older HTML5 Boilerplate { text-indent: 100%; white-space: nowrap; overflow: hidden; }
+  background-color: transparent;
+  border: 0;
+  //color: transparent;
+  font: 0/0 a;
+  text-shadow: none;
+}
+
+.#{$moovui-prefix}hide-text {
+  @include hide-text;
+}
+
+.#{$moovui-prefix}hide {
+  display: none !important;
+}

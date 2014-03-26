@@ -1,0 +1,35 @@
+@mixin notice {
+  @include box-shadow(rgba(#000, 0.1) 0 1px 2px 1px);
+  @include radius;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin: 0 0 $sp2;
+  padding: $sp $sp2;
+  &.pull-left {
+    margin-right: $sp3;
+    width: 30%;
+  }
+  &.pull-right {
+    margin-left: $sp3;
+    width: 30%;
+  }
+  .title {
+    border-bottom: 1px solid #ccc;
+    margin: -5px (-$sp2) $sp;
+    letter-spacing: 0.5px;
+    padding: 0 $sp 5px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .foot {
+    border-top: 1px solid #ccc;
+    color: #999;
+    display: block;
+    margin: $sp (-$sp2) -5px;
+    padding: 5px $sp 0;
+  }
+}
+
+.#{$moovui-prefix}notice {
+  @include notice;
+}

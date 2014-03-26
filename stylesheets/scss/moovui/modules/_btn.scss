@@ -1,0 +1,220 @@
+@mixin btn-pressed {
+  @include box-shadow(rgba(#000, 0.2) 0 0 4px inset);
+  @include background-image(linear-gradient(tint(#f9f9f9, 20%) 1px, tint(#eaeaea, 20%)));
+  border-color: shade(#ccc, 10%) shade(#ccc, 10%) shade(#ccc, 5%);
+}
+
+@mixin btn {
+  @include appearance(none);
+  @include background(linear-gradient(#f9f9f9, #eaeaea));
+  @include border-radius(2px);
+  @include box-shadow(rgba(#000, 0.1) 0 1px 1px, #fff 0 1px inset);
+  -webkit-tap-highlight-color: rgba(#000, 0);
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  color: #777;
+  display: inline-block;
+  font: 12px/#{$line-height} $font;
+  font-weight: normal !important;
+  letter-spacing: 0.5px;
+  margin: 0 0 $sp2;
+  padding: 2px 10px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: #fff 0 1px;
+  vertical-align: top;
+  min-width: 40px;
+  height: 30px;
+  &:not(:empty) {
+    min-width: 100px;
+  }
+  &:active {
+    @include btn-pressed;
+    outline: 0;
+  }
+  &:disabled, &.disabled {
+    @include background-image(linear-gradient(#fcfcfc, #f4f4f4));
+    @include box-shadow(rgba(#000, 0.1) 0 1px 1px, #fff 0 1px inset);
+    border-color: #e0e0e0;
+    color: #b9b9b9;
+  }
+  &.disabled {
+    opacity: 1;
+  }
+  &[class*="icon-"]:before {
+    font-size: 17px;
+    margin-top: 1px;
+    vertical-align: top;
+  }
+  &[class*="icon-"]:not(:empty):before {
+    margin-right: 7px;
+  }
+}
+
+@mixin btn-action {
+  @include background(linear-gradient(tint($green, 30%), $green));
+  @include box-shadow(rgba(#000, 0.1) 0 1px 1px, rgba(#fff, 0.4) 0 1px inset);
+  background-color: tint($green, 10%);
+  border: 1px solid shade($green, 5%);
+  color: #fff;
+  text-shadow: none;
+  &:hover {
+    background: $green;
+  }
+  &:active {
+    @include box-shadow(rgba(#000, 0.2) 0 0 4px inset);
+    background: shade($green, 5%);
+    border-color: shade($green, 30%) shade($green, 30%) shade($green, 20%);
+  }
+}
+
+@if $moovui-init {
+@include keyframes(confirm) {
+  from {
+    background: #f1f1f1;
+    border-color: #f1f1f1;
+  }
+  to {
+    background: $green;
+    border-color: $green;
+  }
+}
+@include keyframes(warn) {
+  from {
+    background: #f1f1f1;
+    border-color: #f1f1f1;
+  }
+  to {
+    background: shade($red, 10%);
+    border-color: shade($red, 10%);
+  }
+}
+}
+
+@mixin btn-confirm {
+  &:hover, &:active {
+    color: #fff;
+    text-shadow: none;
+  }
+  &:hover {
+    @include animation(confirm 0.3s);
+    @include box-shadow(none);
+    background: $green;
+    border-color: $green;
+  }
+  &:active {
+    @include box-shadow(none);
+    background: shade($green, 10%);
+    border-color: shade($green, 10%);
+  }
+}
+
+@mixin btn-warning {
+  &:hover, &:active {
+    color: #fff;
+    text-shadow: none;
+  }
+  &:hover {
+    @include animation(warn 0.3s);
+    @include box-shadow(none);
+    background: shade($red, 10%);
+    border-color: shade($red, 10%);
+  }
+  &:active {
+    @include box-shadow(none);
+    background: shade($red, 20%);
+    border-color: shade($red, 20%);
+  }
+}
+
+@mixin btn-active {
+  color: $green;
+}
+
+@mixin btn-pill {
+  @include background-image(linear-gradient(#f9f9f9, #eaeaea));
+  @include box-shadow(none);
+  border: 0;
+  padding: 0 10px;
+  min-width: 0 !important;
+  height: 24px;
+}
+
+@mixin btn-small {
+  padding: 0 10px;
+  min-width: 0 !important;
+  height: 26px;
+ &[class*="icon-"]:before {
+    font-size: 15px;
+  }
+  &[class*="icon-"]:not(:empty):before {
+    margin: 0 5px 0 0;
+  }
+}
+
+@mixin btn-big {
+  padding: 7px 16px;
+  min-width: 130px;
+  height: 40px;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}pill {
+  @include btn-pill;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}small {
+  @include btn-small;
+}
+
+.#{$moovui-prefix}btn {
+  @include btn;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}big {
+  @include btn-big;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}action {
+  @include btn-action;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}confirm {
+  @include btn-confirm;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}warning {
+  @include btn-warning;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}pressed {
+  @include btn-pressed;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}active {
+  @include btn-active;
+}
+
+.#{$moovui-prefix}btn.#{$moovui-prefix}hide-text {
+  font: 0/0 a;
+  min-width: 0;
+  &:before {
+    line-height: $line-height;
+    margin-right: 0 !important;
+  }
+}
+
+table .#{$moovui-prefix}btn {
+  margin-bottom: 0;
+}
+
+@if $moovui-init {
+input[type="submit"], input[type="button"], button {
+  @include btn;
+}
+table {
+  input[type="submit"], input[type="button"], button {
+    margin-bottom: 0;
+  }
+}
+}

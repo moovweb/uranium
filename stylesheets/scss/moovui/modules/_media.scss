@@ -1,0 +1,14 @@
+@mixin media-block {
+  display: block;
+  margin: 0 auto $sp2;
+  max-width: 100%;
+}
+
+.#{$moovui-prefix}media-block {
+  @include media-block;
+}
+
+img.#{$moovui-prefix}media-block {
+  @include border-radius(3px);
+  border: 3px solid #ddd;
+}

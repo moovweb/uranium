@@ -1,0 +1,121 @@
+@mixin toggle {
+  @include border-radius(3px);
+  background: #fff;
+  border: 1px solid #d4d4d4;
+  display: inline-block;
+  font-size: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  width: 100px;
+  height: 30px;
+  input[type="checkbox"] {
+    @include appearance(none);
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    &:checked + span, &:not(:checked) ~ span:last-child {
+      @include box-shadow(rgba(#000, 0.1) 0 1px 1px inset);
+      @include box-sizing(content-box);
+      padding: 0 1px;
+    }
+    &:checked + span {
+      background: #d9f2ce;
+      margin-right: -1px;
+    }
+    &:not(:checked) ~ span:last-child {
+      background: #ddd;
+      margin-left: -1px;
+    }
+    &:checked ~ span:last-child, &:not(:checked) + span {
+      @include btn;
+      @include border-radius(3px);
+      @include box-shadow(rgba(#fff, 0.8) 0 1px 1px 1px inset);
+      border-color: #d4d4d4 #d4d4d4 #b6b6b6;
+      color: transparent;
+      font-size: 0;
+      min-width: 0 !important;
+    }
+    &:checked ~ span:last-child {
+      @include box-shadow(rgba(#fff, 0.8) 0 1px 1px 1px inset, rgba(#000, 0.1) -1px 0 2px);
+      margin: -1px -1px -1px 0;
+    }
+    &:not(:checked) + span {
+      @include box-shadow(rgba(#fff, 0.8) 0 1px 1px 1px inset, rgba(#000, 0.1) 1px 0 2px);
+      margin: -1px 0 -1px -1px;
+    }
+    &:disabled ~ span {
+      color: #999;
+      opacity: 0.5;
+    }
+  }
+  
+  input[type="radio"] {
+    @include appearance(none);
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    &:checked {
+      z-index: 0;
+    }
+    &:checked + span {
+      @include box-shadow(rgba(#000, 0.1) 0 1px 1px inset);
+      @include box-sizing(content-box);
+      padding: 0 1px;
+    }
+    &:first-of-type:checked + span {
+      background: #d9f2ce;
+      margin-right: -1px;
+    }
+    &:last-of-type:checked + span {
+      background: #ddd;
+      margin-left: -1px;
+    }
+    &:not(:checked) + span {
+      @include btn;
+      @include border-radius(3px);
+      @include box-shadow(rgba(#000, 0.05) 0 1px, rgba(#fff, 0.8) 0 1px 1px 1px inset);
+      border-color: #d4d4d4 #d4d4d4 #b6b6b6;
+      color: transparent;
+      font-size: 0;
+      min-width: 0 !important;
+    }
+    &:first-of-type:not(:checked) + span {
+      @include box-shadow(rgba(#fff, 0.8) 0 1px 1px 1px inset, rgba(#000, 0.1) 1px 0 2px);
+      margin: -1px 0 -1px -1px;
+    }
+    &:last-of-type:not(:checked) + span {
+      @include box-shadow(rgba(#fff, 0.8) 0 1px 1px 1px inset, rgba(#000, 0.1) -1px 0 2px);
+      margin: -1px -1px -1px 0;
+    }
+    &:disabled + span {
+      color: #999;
+      opacity: 0.5;
+    }
+  }
+  
+  span {
+    color: #666;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 29px;
+    pointer-events: none;
+    text-shadow: rgba(#fff, 0.4) 0 1px;
+    text-transform: uppercase;
+    width: 50%;
+  }
+}
+
+.#{$moovui-prefix}toggle {
+  @include toggle;
+}

@@ -1,0 +1,49 @@
+@if $moovui-init {
+[data-section="accordion"] > :not(.active) [data-section-content] {
+  display: none;
+}
+}
+
+@mixin qna {
+  @include radius;
+  background: #dadde2;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 0 0 $sp2;
+  [data-section-title] {
+    cursor: pointer;
+    font-weight: bold;
+    padding: $sp $sp $sp 25px;
+    &:before {
+      @include icon-triangle-right;
+      margin: 0 0 0 -13px;
+      position: absolute;
+      width: 13px;
+    }
+    code {
+      background: none;
+      border: 0;
+      padding: 0;
+    }
+  }
+  .active [data-section-title]:before {
+    content: $icon-triangle-down;
+    margin: 0 0 0 -14px;
+    width: 14px;
+  }
+  [data-section-content] {
+    @include clearfix;
+    padding: 0 $sp 0 25px;
+    &:after {
+      margin: $sp 0 0;
+    }
+  }
+}
+
+.#{$moovui-prefix}qna {
+  @include qna;
+}
+
+.win .#{$moovui-prefix}qna {
+  font-weight: normal;
+}

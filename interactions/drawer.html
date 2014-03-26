@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
 <head>
-  <meta charset="us-ascii">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <style>
   [data-ur-toggler-component="content"]:not([data-ur-state="enabled"]) {
@@ -12,15 +11,17 @@
     cursor: pointer;
   }
   body {
-    margin: 0;
     -webkit-text-size-adjust: 100%;
+    background: #f5f7f8;
+    color: #444;
+    font: 300 14px/24px Lato, Helvetica, Arial, sans-serif;
+    margin: 0;
   }
   header {
     background: #777;
     color: #fff;
-    font-family: sans-serif;
     font-size: 13px;
-    padding: 10px;
+    padding: 5px 10px;
     position: relative;
     z-index: 1;
   }
@@ -30,19 +31,26 @@
   #menu {
     background: #333;
     color: #fff;
-    font-family: sans-serif;
+  }
+  h2, p, ul {
+    margin-left: 10px;
+    margin-right: 10px;
   }
   p {
-    font-size: 15px;
-    margin: 0 0 20px;
+    margin: 0 10px 20px;
   }
   p:last-of-type {
-    margin: 0;
+    margin-bottom: 0;
   }
   #menu [data-ur-toggler-component="button"] {
-    color: red;
+    background: #111;
+    border-bottom: 1px solid #333;
+    color: #ccc;
+    padding: 3px 10px;
   }
-  
+  #menu [data-ur-toggler-component="content"] {
+    padding: 10px;
+  }
   #wrapper {
     display: -webkit-box !important;
     display: -webkit-flex !important;
@@ -52,7 +60,9 @@
   
   #menu, #page {
     -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
     -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
     width: 0;
   }
   
@@ -67,17 +77,19 @@
   }
   
   #page {
-    background: #fff;
+    background: #f5f7f8;
     -webkit-box-flex: 2;
     -webkit-flex: 2;
     flex: 2;
   }
   
   #wrapper[data-ur-state="enabled"] #menu {
-    -webkit-transform: translate3d(100%, 0, 0);
+    -webkit-transform: translate3d(100%, 0, 0) scale(1); /* add on scale(1) to trigger transitionend event */
+    -moz-transform: translate3d(100%, 0, 0) scale(1);
   }
   #wrapper[data-ur-state="enabled"] #page {
     -webkit-transform: translate3d(50%, 0, 0);
+    -moz-transform: translate3d(50%, 0, 0);
   }
   
   #mask {
@@ -95,23 +107,25 @@
   
   .static #menu {
     -webkit-transform: translate3d(100%, 0, 0);
+    -moz-transform: translate3d(100%, 0, 0);
   }
   .static #page {
     position: relative;
   }
   
-  .width #menu {
+  .wide #menu {
     -webkit-box-flex: none;
     -webkit-flex: none;
     flex: none;
     width: 200px;
     margin-left: -200px;
   }
-  .width #page {
+  .wide #page {
     width: auto;
   }
-  .width #wrapper[data-ur-state="enabled"] #page {
+  .wide #wrapper[data-ur-state="enabled"] #page {
     -webkit-transform: translate3d(200px, 0, 0);
+    -moz-transform: translate3d(200px, 0, 0);
   }
   
   .scroll #wrapper[data-ur-state="enabled"] {
@@ -125,6 +139,7 @@
   /* translate3d here gets all weird on android */
   .scroll #wrapper[data-ur-state="enabled"] #menu {
     -webkit-transform: translateX(100%);
+    -moz-transform: translate3d(100%, 0, 0);
   }
   
   .right #wrapper {
@@ -137,25 +152,30 @@
     margin-right: -50%;
   }
   .right #wrapper[data-ur-state="enabled"] #menu {
-    -webkit-transform: translate3d(-100%, 0, 0);
+    -webkit-transform: translate3d(-100%, 0, 0) scale(1); /* add on scale(1) to trigger transitionend event */
+    -moz-transform: translate3d(-100%, 0, 0) scale(1);
   }
   .right #wrapper[data-ur-state="enabled"] #page {
     -webkit-transform: translate3d(-50%, 0, 0);
+    -moz-transform: translate3d(-50%, 0, 0);
   }
   
   .right.static #menu {
     -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0);
   }
   
-  .right.width #menu {
+  .right.wide #menu {
     margin-right: -200px;
   }
-  .right.width #wrapper[data-ur-state="enabled"] #page {
+  .right.wide #wrapper[data-ur-state="enabled"] #page {
     -webkit-transform: translate3d(-200px, 0, 0);
+    -moz-transform: translate3d(-200px, 0, 0);
   }
   /* translate3d here gets all weird on android */
   .right.scroll #wrapper[data-ur-state="enabled"] #menu {
     -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
   }
   
   /* if page is shorter than viewport */
@@ -167,31 +187,32 @@
   }
   
   </style>
+  <link href="http://fonts.googleapis.com/css?family=Lato:300,300italic,400,700%7CSource+Code+Pro" rel="stylesheet" type="text/css">
 </head>
 <body data-ur-set="toggler">
   <div id="wrapper" data-ur-toggler-component="content">
   <div id="menu" data-ur-toggler-component="drawer">
     <div data-ur-set="toggler">
-      <div data-ur-toggler-component="button">
-        Proin ac eros
+      <div data-ur-toggler-component="button" data-ur-state="enabled">
+        Accordion #1
       </div>
-      <div data-ur-toggler-component="content">
+      <div data-ur-toggler-component="content" data-ur-state="enabled">
         elit. Proin vitae velit dignissim, volutpat risus vel, blandit dui.
       </div>
     </div>
     <div data-ur-set="toggler">
-      <div data-ur-toggler-component="button">
-        Fusce tristique,
+      <div data-ur-toggler-component="button" data-ur-state="enabled">
+        Accordion #2
       </div>
-      <div data-ur-toggler-component="content">
+      <div data-ur-toggler-component="content" data-ur-state="enabled">
         lorem aliquet posuere consequat, mauris tellus fringilla mi, nec
       </div>
     </div>
     <div data-ur-set="toggler">
-      <div data-ur-toggler-component="button">
-        vestibulum purus nulla quis diam.
+      <div data-ur-toggler-component="button" data-ur-state="enabled">
+        Accordion #3
       </div>
-      <div data-ur-toggler-component="content">
+      <div data-ur-toggler-component="content" data-ur-state="enabled">
         Fusce sodales vel dolor at vestibulum. Duis dapibus elit et purus sollicitudin venenatis. Etiam porttitor nunc enim, quis dictum nibh laoreet eu. Nulla quam ante, molestie eu vestibulum vulputate, sagittis in mauris. Sed accumsan malesuada sodales. Suspendisse potenti. Pellentesque ac sem tellus. Phasellus ut nisl nisl. Etiam gravida porttitor arcu, eu condimentum enim volutpat sed. Cras eu porttitor neque, ornare molestie quam. Pellentesque ultricies vitae orci id viverra. Nulla sed congue ipsum.
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et gravida orci, id tincidunt leo. Maecenas eu eros mattis, mattis nisi id, dictum diam. Duis feugiat vestibulum sodales. Suspendisse fermentum molestie ligula, at eleifend felis rutrum ut. Vestibulum gravida justo id lectus dignissim, sed malesuada ipsum suscipit. Etiam a dictum purus, at venenatis odio. Ut pellentesque pellentesque mauris in blandit. Cras mollis, quam et rhoncus tincidunt, magna nisi luctus neque, et pharetra massa libero et metus. Donec vitae lacinia massa.
         
@@ -199,47 +220,33 @@
     </div>
   </div>
   <div id="page">
-    <header id="menuElement" data-ur-toggler-component="button">Menu</header>
+    <header data-ur-toggler-component="button">Menu</header>
     <h2>Click the Menu above to try the drawer toggle</h2>
-    <p>The CSS that this page uses as a demonstration is specific to Webkit browsers such as Chrome and Safari, but you may implement your drawer using any styling you choose.</p>
+    <p>This page uses CSS3 transforms and transitions.</p>
     <p>The options below demonstrate ways that you might want to change the behavior of the drawer toggle by adding classes to the body element of the page, which are targeted by the custom CSS.</p>
     <ul id="menuStateTogglers">
-      <li><a id="makeStatic" href="javascript:void(0)">Toggle static drawer</a></li>
-      <li><a id="makeWide" href="javascript:void(0)">Toggle fixed drawer width</a></li>
-      <li><a id="makeScroll" href="javascript:void(0)">Toggle scrollable drawer, fixed page</a></li>
-      <li><a id="makeRight" href="javascript:void(0)">Toggle Drawer on right</a></li>
+      <li><a id="static" href="#">Toggle static drawer (no translation)</a></li>
+      <li><a id="wide" href="#">Toggle fixed drawer width (200px)</a></li>
+      <li><a id="scroll" href="#">Toggle scrollable drawer, fixed page</a></li>
+      <li><a id="right" href="#">Toggle drawer on right</a></li>
     </ul>
-    <p>The particular classes being applied to the body element are just being used as an example, as is the ability to turn them on and off with Javascript. You may write your drawer page using any classes or attributes you choose, and target them with any CSS that suits your needs.</p>
+    <p>The particular classes being applied to the body element are just being used as an example, as is the ability to turn them on and off with JavaScript. You may write your drawer page using any classes or attributes you choose, and target them with any CSS that suits your needs.</p>
     <div id="mask" data-ur-toggler-component="button"></div>
   </div>
   </div>
-  <script src="/src/jquery-1.9.1.min.js"></script>
-  <script src="/src/jquery.uranium.js"></script>
+  <script src="../src/jquery-1.9.1.min.js"></script>
+  <script src="../src/jquery.uranium.js"></script>
   <script>
     $(function() {
-      var $menuElement = $("#menuElement");
+      var $menuElement = $("header");
       var $bodyElement = $("body");
-      var selectedState = "";
-      var menuState = "";
 
       $("#menuStateTogglers").on("click", "a", function(e) {
         e.preventDefault();
-        selectedState = $(e.target).attr("id");
-        switch(selectedState) {
-          case 'makeStatic':
-            $bodyElement.toggleClass("static");
-            break;
-          case 'makeWide':
-            $bodyElement.toggleClass("width");
-            break;
-          case 'makeScroll':
-            $bodyElement.toggleClass("scroll");
-            break;
-          case 'makeRight':
-            $bodyElement.toggleClass("right");
-            break;
-        }
-        menuState = ($bodyElement.attr('class').length != 0) ? " (" + $bodyElement.attr('class') + ")" : "";
+        $bodyElement.toggleClass(this.id);
+        var menuState = "";
+        if ($bodyElement.attr("class") != "")
+          menuState = " (" + $bodyElement.attr("class") + ")";
         $menuElement.text("Menu" + menuState);
       });
     });
