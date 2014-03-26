@@ -1,0 +1,164 @@
+---
+layout: widgets
+title: Map
+name: map
+widget_selected: selected
+description: |
+    <p>The maps widget allows easy embedding of a Google Map into a site. We specify the addresses we want to show on the map, and these are indicated by pins. The map is fully functional (i.e. you can zoom and do street-view).</p>
+    <p>You can only use one map per page.</p>
+    <p>Note: If you're testing this locally (off of a file in your browser) - then geolocation may not work. Put it in your public dropbox folder to play with these features.</p>
+    <p>This is a singleton widget. This means only a single geocoder can exist per page.</p>
+basic_tab:
+  data-ur-set="maps": add this attribute to an element that wraps the whole widget
+  data-ur-map-component="canvas": sets the map canvas
+  data-ur-map-component="address": defines the address for a map point
+  data-ur-map-component="description": defines a description for the address
+advanced_tab:
+  Required:
+    address:
+      - wraps an address for a point on a map
+      - "multiple?: true"
+    description:
+      - describes the point on a map
+      - "multiple?: true"
+    canvas:
+      - where the map is placed
+      - "multiple?: false"
+  Optional:
+    icon:
+      - allows you to change the pin icon
+      - "multiple?: false"
+      - attributes:
+        - "required: <code>data-ur-width</code>"
+        - "required: <code>data-ur-height</code>"
+        - "required: <code>data-ur-url</code>"
+    user_location:
+      - should wrap a "use my location" button
+      - "state: enabled / disabled(default)"
+---
+
+<div class="wrapper">
+    <h2>Optional CSS</h2>
+    <div class='css'>
+{% highlight scss %}
+/* CSS Styling */
+/* To constrain the map canvas */
+
+*[data-ur-map-component='canvas'] {
+  width: 300px;
+  height: 300px;
+}
+{% endhighlight %}
+    </div>
+</div><!-- wrapper -->
+
+
+<div class="wrapper">
+  <h2>Demonstration</h2>
+
+  <div class="demonstration">
+    <div data-ur-set="tabs">
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled">Widget</h3>
+      <h3 data-ur-tabs-component="button" data-ur-tab-id="html">HTML</h3>
+      <div data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled" class="example_widget">
+        <div data-ur-set='map'>
+
+          <div data-ur-map-component='canvas' id="map_canvas"></div>
+
+          <div data-ur-map-component='address'>
+            333 11th Street, San Francisco, CA
+          </div>
+          <div data-ur-map-component='description'>
+            <a href='http://slims-sf.com'> Slims </a>
+            <span> (415) 255-0333 </span>
+          </div>
+
+          <div data-ur-map-component='address'>
+            1805 Geary Blvd, San Francisco, California 94115
+          </div>
+          <div data-ur-map-component='description'>
+            <a href='http://thefillmore.com/index'> The Fillmore </a>
+            <span> 415.346.6000 </span>
+          </div>
+
+          <div data-ur-map-component='address'>
+            500 4th Street, San Francisco, CA
+          </div>
+          <div data-ur-map-component='description'>
+            <a href='http://hotelutah.com'> Hotel Utah </a>
+            <span> (415) 546-6300 </span>
+          </div>
+
+          <div data-ur-map-component='address'>
+            859 O'Farrell Street, San Francisco, CA
+          </div>
+          <div data-ur-map-component='description'>
+            <a href='http://gamh.com'> Great American Music Hall</a>
+            <span> (415) 885-0750 </span>
+          </div>
+
+          <div data-ur-map-component='address'>
+            1233 17th Street, San Francisco, CA
+          </div>
+          <div data-ur-map-component='description'>
+            <a href='http://bottomofthehill.com'> Bottom of the Hill </a>
+            <span> (415) 621-4455 </span>
+          </div>
+        </div>
+      </div>
+      <div data-ur-tabs-component="content" data-ur-tab-id="html">
+{% highlight html %}
+<div data-ur-set='map'>
+<div data-ur-map-component='canvas' id="map_canvas"></div>
+<div data-ur-map-component='address'>
+  333 11th Street, San Francisco, CA
+</div>
+<div data-ur-map-component='description'>
+  <a href='http://slims-sf.com'> Slims </a>
+  <span> (415) 255-0333 </span>
+</div>
+<div data-ur-map-component='address'>
+  1805 Geary Blvd, San Francisco, California 94115
+</div>
+<div data-ur-map-component='description'>
+  <a href='http://thefillmore.com/index'> The Fillmore </a>
+  <span> 415.346.6000 </span>
+</div>
+<div data-ur-map-component='address'>
+  500 4th Street, San Francisco, CA
+</div>
+<div data-ur-map-component='description'>
+  <a href='http://hotelutah.com'> Hotel Utah </a>
+  <span> (415) 546-6300 </span>
+</div>
+<div data-ur-map-component='address'>
+  859 O'Farrell Street, San Francisco, CA
+</div>
+<div data-ur-map-component='description'>
+  <a href='http://gamh.com'> Great American Music Hall</a>
+  <span> (415) 885-0750 </span>
+</div>
+<div data-ur-map-component='address'>
+  1233 17th Street, San Francisco, CA
+</div>
+<div data-ur-map-component='description'>
+  <a href='http://bottomofthehill.com'> Bottom of the Hill </a>
+  <span> (415) 621-4455 </span>
+</div>
+</div>
+{% endhighlight %}
+      </div>
+    </div>
+  </div>
+</div> <!-- wrapper -->
+
+<hr />
+
+<div class="wrapper">
+<h2>Further Examples</h2>
+  
+  <h3><a href="{{site.url}}maps/advanced.html">Customizable Icons and Use-my-Location</a></h3>
+  <h3><a href="{{site.url}}maps/late_load.html">Map That Doesn't Load Until Instructed</a></h3>
+  <h3><a href="{{site.url}}maps/hidden.html">Hidden Map Revealed on a Click</a></h3>
+  
+</div>

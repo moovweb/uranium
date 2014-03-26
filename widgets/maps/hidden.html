@@ -1,0 +1,80 @@
+---
+layout: map-widget-sub
+title: Hidden Map
+name: hidden_map
+widget_selected: selected
+---
+<div class="wrapper">
+  <h1> {{page.title}} </h1>
+
+  <h2> Description </h2>
+  <div class='description'>
+    <p>
+    This is a simple map that's hidden initially (but is still loaded automatically). All we do is wrap
+    the map in a <a href="toggler.html">toggler</a>.
+    </p>
+    <p> Note: If you're testing this locally (off of a file in your
+    browser) - then geolocation may not work. Put it in your dropbox
+    to play with these features </p>
+  </div>
+
+  <h2>Demonstration</h2>
+  <div class='test' name='Simple' data-ur-set='toggler'>
+
+    <span data-ur-toggler-component='button'> Click me to show map </span>
+
+  <div data-ur-toggler-component='content' >
+    <div data-ur-set='map'>
+      <div data-ur-map-component='user_location'
+      data-ur-state='disabled'> Use My Location!</br></div>
+
+      <div data-ur-map-component='icon'
+      data-ur-url='{{site.url}}stylesheets/resources/uraniumicon.png'><img
+      src='{{site.url}}stylesheets/resources/uraniumicon.png'/></div>
+      
+      <div data-ur-map-component='canvas'></div>
+
+      <div data-ur-map-component='address'>
+        333 11th Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://slims-sf.com'> Slims </a>
+        <span> (415) 255-0333 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        1805 Geary Blvd, San Francisco, California 94115
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://thefillmore.com/index'> The Fillmore </a>
+        <span> 415.346.6000 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        500 4th Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://hotelutah.com'> Hotel Utah </a>
+        <span> (415) 546-6300 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        859 O'Farrell Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://gamh.com'> Great American Music Hall</a>
+        <span> (415) 885-0750 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        1233 17th Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://bottomofthehill.com'> Bottom of the Hill </a>
+        <span> (415) 621-4455 </span>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</div> <!-- wrapper -->

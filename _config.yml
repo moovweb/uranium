@@ -1,4 +1,3 @@
-baseurl: "/uranium/"
 source: "."
 destination: "./site"
 pygments: true

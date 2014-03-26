@@ -1,0 +1,127 @@
+---
+layout: widgets
+title: Zoom
+name: zoom
+widget_selected: selected
+description: <p>A widget that zooms into an image and displays a higher resolution image that can be panned.</p>
+basic_tab:
+  data-ur-set="zoom": add this attribute to the element that wraps the whole widget
+  data-ur-zoom-component="view_container": for wrapping the whole view container
+  data-ur-zoom-component="img": the img element
+  data-ur-zoom-component="button": zoom in/out button
+  data-ur-zoom-component="loading": loading indicator when loading the larger image
+advanced_tab:
+  Required:
+    view_container:
+      - this div should wrap the whole widget
+      - "multiple?: false"
+      - "state: active / inactive (reflects currently visible item)"
+      - attributes:
+        - "optional: <code>data-ur-touch</code>: enabled/disabled (allow clicking image to zoom)"
+    img:
+      - this attribute is for the image to be zoomed
+      - "multiple?: false"
+      - "state: N/A"
+      - attributes:
+        - "required: <code>data-ur-src</code>: source of the larger image"
+        - "optional: <code>data-ur-width</code>: integer (width of larger image), use this to start the zoom animation before loading the larger image"
+        - "optional: <code>data-ur-height</code>: integer (height of larger image), used with data-ur-width"
+  Optional:
+    button:
+      - zoom in/out the image
+      - "multiple?: false"
+      - "state: enabled / disabled"
+    loading:
+      - indicates when big image is loading
+      - "multiple?: false"
+      - "state: enabled / disabled"
+instance:
+  zoom(): zooms in/out
+  reset(): resets the zoom widget
+---
+<!-- Zoom Demonstration -->
+<h2>Demonstration</h2>
+<p>Basic zoom widget </p>
+<div id="zoom_demonstration" data-ur-set="tabs" class="ur_ex">
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="widget" data-ur-state="enabled"> Example</h3>
+  <h3 data-ur-tabs-component="button" data-ur-tab-id="html">The Code</h3>
+
+  <div id="zoom_widget" class="example_widget example"  data-ur-tabs-component="content" data-ur-tab-id="widget" data-ur-state="enabled">
+    <div data-ur-set="zoom" data-ur-zoom-component="view_container">
+      <img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
+      <span data-ur-zoom-component="button">
+        <span>+</span>
+        <span>&minus;</span>
+      </span>
+      <div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
+      <script>
+        // I use display: inline-block to center the img but this leaves whitespace so
+        // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
+        // You can also use display: box or table-cell to get vertical alignment instead.
+        var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
+        for (var i in nodes) {
+          if (nodes[i].nodeType == Node.TEXT_NODE)
+            nodes[i].textContent = nodes[i].textContent.trim();
+        }
+      </script>
+    </div>
+
+  </div>
+
+  <div class="widget_html" data-ur-tabs-component="content" data-ur-tab-id="html">
+
+{% highlight html %}
+<div data-ur-set="zoom" data-ur-zoom-component="view_container">
+<img data-ur-zoom-component="img" width="500" height="287" src="{{site.url}}../images/pic5.jpeg" data-ur-src="{{site.url}}../images/pic4.jpeg">
+<span data-ur-zoom-component="button">
+  <span>+</span>
+  <span>&minus;</span>
+</span>
+<div data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
+<script>
+  // I use display: inline-block to center the img but this leaves whitespace so
+  // remove the whitespace with JS (font-size: 0px trick doesn't work on Android)
+  // You can also use display: box or table-cell to get vertical alignment instead.
+  var nodes = x$("[data-ur-set='zoom']")[0].childNodes;
+  for (var i in nodes) {
+    if (nodes[i].nodeType == Node.TEXT_NODE)
+      nodes[i].textContent = nodes[i].textContent.trim();
+  }
+</script>
+</div>
+{% endhighlight %}
+
+  </div>
+  <hr />
+</div>
+
+<!-- Required Style -->
+<div class='wrapper'>
+  <h2> Required Styles </h2>
+  <div class='css'>
+{% highlight scss %}
+/* Required SCSS Styling */
+
+[data-ur-zoom-component="view_container"] {
+  overflow: hidden;
+}
+
+[data-ur-set="zoom"] {
+  &[data-ur-state="enabled-in"], &[data-ur-state="enabled-out"] {
+    [data-ur-zoom-component="img"] {
+      @include transition-duration(0.4s);
+      @include transition-timing-function(ease-in-out);
+      -webkit-transition-property: -webkit-transform;
+      -moz-transition-property: -moz-transform;
+      -o-transition-property: -o-transform;
+    }
+  }
+}
+
+[data-ur-zoom-component="loading"][data-ur-state="disabled"] {
+  display: none;
+}
+{% endhighlight %}
+  </div>
+    
+</div><!-- wrapper -->

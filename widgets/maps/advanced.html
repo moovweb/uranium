@@ -1,0 +1,96 @@
+---
+layout: map-widget-sub
+title: Advanced Map
+name: advanced_map
+widget_selected: selected
+---
+<div class="wrapper">
+  <h1> {{page.title}} </h1>
+
+  <h2> Description </h2>
+  <div class='description'>
+    <p>
+    This map has custom icons and a geolocation button to enable the user's location
+    </p>
+    <p> Note: If you're testing this locally (off of a file in your
+    browser) - then geolocation may not work. Put it in your dropbox
+    to play with these features </p>
+  </div>
+  <h2> Attributes </h2>
+    <div>
+      <p>To use these features, you will need the following attributes.</p>
+      <h3> Geolocation Button </h3>
+      <p>Apply these to the geolocation button</p>
+      <div class='attributes'>
+        <ul>
+          <li><span class="inline_code">data-ur-map-component="user_location"</span>Text</li>
+          <li><span class="inline_code">data-ur-state="enabled"</span></li>
+        </ul>
+      </div>
+      <h3> Custom Icon </h3>
+      <p>Apply these to a div anywhere in the widget</p>
+      <div class='attributes'>
+        <ul>
+          <li><span class="inline_code">data-ur-map-component="icon"</span></li>
+          <li><span class="inline_code">data-ur-url="image.png"</span></li>
+        </ul>
+      </div>
+    </div>
+  <h2>Demonstration</h2>
+  <div class='test' name='Simple'>
+
+    <div data-ur-set='map'>
+      <div data-ur-map-component='user_location'
+      data-ur-state='disabled'>Use My Location!</div>
+
+      <div data-ur-map-component='icon' data-ur-url='{{site.url}}stylesheets/resources/uraniumicon.png'>
+
+        <img src='{{site.url}}stylesheets/resources/uraniumicon.png'/>
+        <!-- for preloading the image! -->
+      </div>
+      
+      <div data-ur-map-component='canvas'></div>
+
+      <div data-ur-map-component='address'>
+        333 11th Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://slims-sf.com'> Slims </a>
+        <span> (415) 255-0333 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        1805 Geary Blvd, San Francisco, California 94115
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://thefillmore.com/index'> The Fillmore </a>
+        <span> 415.346.6000 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        500 4th Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://hotelutah.com'> Hotel Utah </a>
+        <span> (415) 546-6300 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        859 O'Farrell Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://gamh.com'> Great American Music Hall</a>
+        <span> (415) 885-0750 </span>
+      </div>
+
+      <div data-ur-map-component='address'>
+        1233 17th Street, San Francisco, CA
+      </div>
+      <div data-ur-map-component='description'>
+        <a href='http://bottomofthehill.com'> Bottom of the Hill </a>
+        <span> (415) 621-4455 </span>
+      </div>
+      
+    </div>
+  </div>
+</div><!-- wrapper -->
