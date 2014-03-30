@@ -10,7 +10,7 @@ Start with installing [Jekyll](http://jekyllrb.com/)
 
 Update the CSS:
 		
-		sass --watch stylesheets/scss:stylesheets --line-comments --compass 
+		sass --watch stylesheets/scss:stylesheets --style compact --compass
 
 on the stylesheets folder to compile your Sass files and keep them updated.
 			

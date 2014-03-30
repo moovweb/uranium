@@ -44,14 +44,13 @@
 }
 [data-ur-carousel-component="dot"] {
   @include border-radius(4px);
-  background: #444;
+  background: #c7c7c7;
   display: inline-block;
   margin: 0 5px;
-  opacity: 0.8;
   width: 8px;
   height: 8px;
-  &[data-ur-state="inactive"] {
-    opacity: 0.3;
+  &[data-ur-state="active"] {
+    background: #444;
   }
 }
 [data-ur-carousel-component="button"][data-ur-state="disabled"]:not(.btn) {
