@@ -61,6 +61,7 @@
   display: inline-block;
   overflow: hidden;
   position: relative;
+  max-width: 100%;
 }
 [data-ur-zoom-component="img"] {
   -webkit-user-drag: none;

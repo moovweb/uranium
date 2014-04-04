@@ -2041,7 +2041,7 @@ html.touch .tooltip { padding-right: 18px; }
 
 [data-ur-carousel-component="button"][data-ur-state="disabled"]:not(.btn) { color: inherit; }
 
-[data-ur-set="zoom"] { display: inline-block; overflow: hidden; position: relative; }
+[data-ur-set="zoom"] { display: inline-block; overflow: hidden; position: relative; max-width: 100%; }
 
 [data-ur-zoom-component="img"] { -webkit-user-drag: none; vertical-align: top; }
 [data-ur-zoom-component="img"][data-ur-state="enabled-in"], [data-ur-zoom-component="img"][data-ur-state="enabled-out"] { -webkit-transition: 0.4s ease-in-out; -moz-transition: 0.4s ease-in-out; transition: 0.4s ease-in-out; -webkit-transition-property: -webkit-transform; -moz-transition-property: -moz-transform; transition-property: transform; }
