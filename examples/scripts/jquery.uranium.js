@@ -180,12 +180,13 @@ interactions.toggler = function( fragment ) {
     var groups = assignElements(fragment, "toggler");
   else
     var groups = findElements(fragment, "toggler");
+
   $.each(groups, function(id, group) {
     if (!group["button"])
       $.error("no button found for toggler with id: " + id);
     if (!group["content"])
       $.error("no content found for toggler with id: " + id);
-    
+
     var togglerState = $(group["button"]).attr("data-ur-state") || "disabled";
     $(group["button"]).add(group["content"]).attr("data-ur-state", togglerState);
 
@@ -194,10 +195,8 @@ interactions.toggler = function( fragment ) {
       var newState = enabled ? "disabled" : "enabled";
       var collapsible = $(group["content"]).attr("data-ur-collapsible") && $(group["content"]).attr("data-ur-collapsible") == "enabled";
       $(group["button"]).add(group["content"]).attr("data-ur-state", newState);
-      // $(group["content"])
       if (collapsible) {
         var height = enabled ? "0" : getRealHeight($(group["content"]));
-        // var height = enabled ? "0" : $(group["content"])[0].scrollHeight;
         $(group["content"]).css("height", height);
       }
       if (!enabled)
@@ -1596,7 +1595,9 @@ interactions.carousel = function ( fragment, options ) {
     if (zeroWidth) {
       // wait until (late-loaded) images are loaded or other content inserted
       console.warn("carousel with id: " + self.urId + " will be late loaded");
-      var imgs = $items.find("img").addBack("img");
+      var imgs = $items.find("img").addBack("img").filter(function() {
+        return this.naturalWidth == 0 || this.width == 0;
+      });
       var numImgs = imgs.length;
       if (numImgs > 0)
         imgs.on("load.ur.carousel", function() {
