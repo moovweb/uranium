@@ -1,3 +1,4 @@
+@import "compass";
 /* Structure */
 
   /* Togglers */
@@ -5,11 +6,26 @@
     cursor: pointer ;
   }
   [data-ur-set="toggler"] [data-ur-toggler-component="content"]{
+    &[data-ur-collapsible='enabled'] {
+      height: 0;
+      display: none;
+      opacity: 1;
+      @include transition(height 0.3s linear, opacity 0.1s ease, margin 0.1s linear);
+    }
     &[data-ur-state="enabled"] {
       display: block;
+      &[data-ur-collapsible='enabled'] {
+        @include transition(height 0.3s linear, opacity 0.1s 0.2s ease, margin 0.1s 0.2s linear);
+      }
     }
     &[data-ur-state="disabled"] {
       display: none;
+      &[data-ur-collapsible='enabled'] {
+        opacity: 0;
+        display: block;
+        margin: 0;
+        overflow: hidden;
+      }
     }
   }
 
