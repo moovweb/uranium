@@ -653,21 +653,6 @@ interactions.zoom = function ( fragment, options ) {
             var cb = 1 - Math.pow(1 - t, 1.685); // approximate cubic bezier y(x)
             var currentOffsetX = bound(destOffsetX + cb * slidex, [-boundX, boundX]);
             var currentOffsetY = bound(destOffsetY + cb * slidey, [-boundY, boundY]);
-            /*var currentOffsetX, currentOffsetY;
-          
-            var style = $img[0].style;
-            if (window.WebKitCSSMatrix) {
-              var matrix = new WebKitCSSMatrix(style.webkitTransform);
-              currentOffsetX = matrix.m41;
-              currentOffsetY = matrix.m42;
-            }
-            else {
-              var css = style.MozTransform || style.msTransform || style.transform;
-              css = css.replace(/.*?\(|\)/, "").split(",");
-              currentOffsetX = parseInt(css[0]);
-              currentOffsetY = parseInt(css[1]);
-            }*/
-          
             transform(currentOffsetX, currentOffsetY, ratio);
           }
         }
@@ -1598,7 +1583,9 @@ interactions.carousel = function ( fragment, options ) {
     if (zeroWidth) {
       // wait until (late-loaded) images are loaded or other content inserted
       console.warn("carousel with id: " + self.urId + " will be late loaded");
-      var imgs = $items.find("img").addBack("img");
+      var imgs = $items.find("img").addBack("img").filter(function() {
+        return this.naturalWidth == 0 || this.width == 0;
+      });
       var numImgs = imgs.length;
       if (numImgs > 0)
         imgs.on("load.ur.carousel", function() {
