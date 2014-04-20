@@ -107,7 +107,6 @@ Additional features to current interactions:
   - *Carousel*: "Stop autoscroll" button 
   - *Carousel*: Auto-populate clones on infinite scroll when container is larger than actual items
   - *Geocode*: Entering zipcode should find address
-  - *Toggler*: Pass height for CSS animation tie-ins
 
 New interactions:
 
