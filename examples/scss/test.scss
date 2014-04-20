@@ -1,30 +1,51 @@
-@import "compass";
 /* Structure */
 
   /* Togglers */
   [data-ur-set="toggler"] [data-ur-toggler-component="button"] {
     cursor: pointer ;
   }
-  [data-ur-set="toggler"] [data-ur-toggler-component="content"]{
-    &[data-ur-collapsible='enabled'] {
-      height: 0;
-      display: none;
-      opacity: 1;
-      @include transition(height 0.3s linear, opacity 0.1s ease, margin 0.1s linear);
-    }
+  [data-ur-set="toggler"] [data-ur-toggler-component="content"] {
     &[data-ur-state="enabled"] {
       display: block;
-      &[data-ur-collapsible='enabled'] {
-        @include transition(height 0.3s linear, opacity 0.1s 0.2s ease, margin 0.1s 0.2s linear);
-      }
     }
     &[data-ur-state="disabled"] {
       display: none;
-      &[data-ur-collapsible='enabled'] {
-        opacity: 0;
+    }
+  }
+  [data-ur-set="toggler"] {
+    &[data-ur-collapsible='enabled'] {
+      [data-ur-toggler-component="content"] {
         display: block;
-        margin: 0;
         overflow: hidden;
+        margin-top: 0;
+        margin-bottom: 0;
+        &[data-ur-state="enabled"] {
+          height: auto;
+        }
+        &[data-ur-state="disabled"] {
+          opacity: 0;
+          height: 0;
+          display: none;
+        }
+      }
+      &.mw-collapsing [data-ur-toggler-component="content"] {
+        display: block !important;
+        &[data-ur-state="disabled"] {
+          margin-top: inherit;
+          margin-bottom: inherit;
+          -webkit-transition: height 0.3s ease-out, opacity 0.2s 0.1s ease-in;
+          -moz-transition: height 0.3s ease-out, opacity 0.2s 0.1s ease-in;
+          -o-transition: height 0.3s ease-out, opacity 0.2s 0.1s ease-in;
+          transition: height 0.3s ease-out, opacity 0.2s 0.1s ease-in;
+        }
+        &[data-ur-state="enabled"] {
+          margin-top: 0;
+          margin-bottom: 0;
+          -webkit-transition: height 0.3s ease-out, opacity 0.2s ease-in, margin 0.3s ease-in;
+          -moz-transition: height 0.3s ease-out, opacity 0.2s ease-in, margin 0.3s ease-in;
+          -o-transition: height 0.3s ease-out, opacity 0.2s ease-in, margin 0.3s ease-in;
+          transition: height 0.3s ease-out, opacity 0.2s ease-in, margin 0.3s ease-in;
+        }
       }
     }
   }
