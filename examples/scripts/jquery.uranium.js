@@ -1170,19 +1170,31 @@ interactions.carousel = function ( fragment, options ) {
       lastIndex = $items.length - 1;
     }
 
+    function dotClick(dot, idx) {
+      dot.on("click.ur.carousel", function(e) {
+        stifle(e);
+        self.jumpToIndex(idx + self.options.cloneLength);
+      });
+    }
+
     function updateDots() {
       if (self.dots) {
         var existing = $(self.dots).find("[data-ur-carousel-component='dot']");
         if (existing.length != self.count) {
           existing.remove();
-          var dot = $("<div data-ur-carousel-component='dot'>");
+          var dot = $("<a data-ur-carousel-component='dot' href='javascript:void(0)'>");
           var storage = document.createDocumentFragment();
           for (var i = 0; i < self.count; i++) {
             var newdot = dot.clone().attr("data-ur-state", i == self.itemIndex ? "active" : "inactive");
+            dotClick(newdot, i);
             storage.appendChild(newdot[0]);
           }
           $(self.dots).append(storage);
         }
+        else
+          existing.each(function(i) {
+            dotClick(this, i);
+          });
       }
     }
 
@@ -1310,7 +1322,7 @@ interactions.carousel = function ( fragment, options ) {
       });
 
       $items.attr("data-ur-state", "inactive");
-      $items.eq(self.itemIndex % self.count).attr("data-ur-state", "active");
+      $items.eq(self.itemIndex).attr("data-ur-state", "active");
 
       $(self.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive").eq(realIndex).attr("data-ur-state", "active");
 
