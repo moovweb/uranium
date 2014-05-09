@@ -1,7 +1,8 @@
 ---
 layout: interactions
 title: Geolocation
-name: reverse-geocode
+attrname: reverse-geocode
+widgetname: geocode
 interaction_selected: selected
 description: |
     <p>
@@ -29,6 +30,10 @@ basic_tab:
   data-ur-reverse-geocode-component="rg-button": to wrap a "use my location" button
 advanced_tab:
   Required:
+    set:
+      - this element should wrap the whole interaction
+      - attributes:
+        - "optional: <code>data-ur-error-callback</code>: inline JavaScript that will be called if geolocation doesn't fully succeed"
     rg-button:
       - "multiple?: false"
       - "state: N/A"
@@ -64,7 +69,7 @@ js_tab:
   <div class="d-col-6">
     <h3>Example</h3>
     <div class="subpane">
-      <form data-ur-set="reverse-geocode">
+      <form data-ur-set="reverse-geocode" data-ur-error-callback="alert('Geolocation failed or was not allowed.')">
         <input type="text" placeholder="Street Address" data-ur-reverse-geocode-component="rg-street">
         <input type="text" placeholder="City" data-ur-reverse-geocode-component="rg-city">
         <input type="text" placeholder="Zip" data-ur-reverse-geocode-component="rg-zip">
@@ -373,7 +378,7 @@ js_tab:
   <div class="d-col-6">
     <h3>The Code</h3>
     {% capture tmp %}
-    <form data-ur-set="reverse-geocode">
+    <form data-ur-set="reverse-geocode" data-ur-error-callback="alert('Geolocation failed or was not allowed.')">
       <input type="text" data-ur-reverse-geocode-component="rg-street">
       <input type="text" data-ur-reverse-geocode-component="rg-city">
       <input type="text" data-ur-reverse-geocode-component="rg-zip">

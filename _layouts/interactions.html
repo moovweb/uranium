@@ -4,7 +4,7 @@
     {% include head.html %}
   </head>
   
-  <body id="{{page.name}}-page" class="interaction-page">
+  <body id="{{page.widgetname}}-page" class="interaction-page">
     {% include header.html %}
     <div id="page" class="copy">
       <h1>{{page.title}}</h1>
@@ -35,9 +35,9 @@
                 <code class="inline">
                   {% if kv[0] == "Required" or kv[0] == "Optional" %}
                     {% if i[0] == "set" %}
-                      data-ur-set="{{page.name}}"
+                      data-ur-set="{{page.widgetname}}"
                     {% else %}
-                      data-ur-{{page.name}}-component="{{i[0]}}"
+                      data-ur-{{page.attrname}}-component="{{i[0]}}"
                     {% endif %}
                   {% else %}
                     {{i[0]}}
@@ -75,7 +75,7 @@
             {% else %}
               <h4>{{kv[0]}}</h4>
               {% if kv[0] == "Instance" %}
-                <p>Access the widget via <code>Uranium.{{page.name}}["DATA-UR-ID"]</code>. The following methods are exposed for each widget:</p>
+                <p>Access the widget via <code>Uranium.{{page.widgetname}}["DATA-UR-ID"]</code>. The following methods are exposed for each widget:</p>
               {% endif %}
               {% for i in kv[1] %}
                 <code class="inline">{{i[0]}}</code>

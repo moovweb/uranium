@@ -1,7 +1,8 @@
 ---
 layout: interactions
 title: Carousel
-name: carousel
+attrname: carousel
+widgetname: carousel
 interaction_selected: selected
 description: |
     <p>The carousel is an interaction that allows horizontal scrolling (with touch or buttons) between a set of items.</p>
@@ -19,21 +20,20 @@ advanced_tab:
       - "multiple?: false"
       - "state: N/A"
       - attributes (default settings are in <em>italics</em>):
-        - "optional: <code>data-ur-touch</code>: <em>enabled</em>/disabled</li>"
-        - "optional: <code>data-ur-vertical-scroll</code>: <em>enabled</em>/disabled (specify vertical scrolling behavior while touching carousel)</li>"
-        - "optional: <code>data-ur-infinite</code>: <em>enabled</em>/disabled (specify front to back wrapping behavior)</li>"
-        - "optional: <code>data-ur-autoscroll</code>: enabled/<em>disabled</em> (automatically scroll with interval)</li>"
-        - "optional: <code>data-ur-autoscroll-delay</code>: integer (autoscroll delay in milliseconds, default: <em>5000</em>)</li>"
-        - "optional: <code>data-ur-autoscroll-dir</code>: <em>next</em>/prev (specify autoscroll direction)</li>"
-        - "optional: <code>data-ur-android3d</code>: enabled/disabled (specify translate3d use on Android 1.6-2.3)</li>"
-        - "optional: <code>data-ur-fill</code>: integer (force n carousel items to fit in container width)</li>"
-        - "optional: <code>data-ur-center</code>: enabled/<em>disabled</em> (horizontally center current item)</li>"
+        - "optional: <code>data-ur-touch</code>: <em>enabled</em>/disabled"
+        - "optional: <code>data-ur-infinite</code>: <em>enabled</em>/disabled (specify front to back wrapping behavior)"
+        - "optional: <code>data-ur-autoscroll</code>: enabled/<em>disabled</em> (automatically scroll with interval)"
+        - "optional: <code>data-ur-autoscroll-delay</code>: integer (autoscroll delay in milliseconds, default: <em>5000</em>)"
+        - "optional: <code>data-ur-autoscroll-dir</code>: <em>next</em>/prev (specify autoscroll direction)"
+        - "optional: <code>data-ur-android3d</code>: enabled/disabled (specify translate3d use on Android 1.6-2.3)"
+        - "optional: <code>data-ur-fill</code>: integer (force n carousel items to fit in container width)"
+        - "optional: <code>data-ur-center</code>: enabled/<em>disabled</em> (horizontally center current item)"
     scroll_container:
       - "this element should wrap the scrolling items on the carousel. This or the set needs <code>position: relative</code>."
       - "multiple?: false"
       - "state: N/A"
     item:
-      - this attribute is for each item that needs to be displayed in the carousel</li>
+      - this attribute is for each item that needs to be displayed in the carousel
       - "multiple?: true"
       - "state: active / inactive (reflects currently visible item)"
       - "must have <code>float: left</code> style"
@@ -43,7 +43,7 @@ advanced_tab:
       - "multiple?: true"
       - "state: enabled / disabled (\"next\" defaults to enabled / \"prev\" defaults to disabled)"
       - attributes:
-        - "required: <code>data-ur-carousel-button-type: \"next\"/\"prev\"</code> for the next and previous buttons, respectively</li>"
+        - "required: <code>data-ur-carousel-button-type: \"next\"/\"prev\"</code> for the next and previous buttons, respectively"
     count:
       - gives an indicator of the position of the carousel, in the form "1 of 8", etc.
       - "multiple?: true"
