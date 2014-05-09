@@ -1310,7 +1310,7 @@ interactions.carousel = function ( fragment, options ) {
       });
 
       $items.attr("data-ur-state", "inactive");
-      $items.eq(self.itemIndex % self.count).attr("data-ur-state", "active");
+      $items.eq(self.itemIndex).attr("data-ur-state", "active");
 
       $(self.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive").eq(realIndex).attr("data-ur-state", "active");
 
