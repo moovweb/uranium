@@ -1010,8 +1010,8 @@ interactions.carousel = function ( fragment, options ) {
       });
       
       insertClones();
-      updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
       updateDots();
+      updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
       self.update();
 
       $(self.scroller).on("dragstart.ur.carousel", function() { return false; }); // for Firefox
@@ -1178,7 +1178,7 @@ interactions.carousel = function ( fragment, options ) {
           var dot = $("<div data-ur-carousel-component='dot'>");
           var storage = document.createDocumentFragment();
           for (var i = 0; i < self.count; i++) {
-            var newdot = dot.clone().attr("data-ur-state", i == self.itemIndex ? "active" : "inactive");
+            var newdot = dot.clone();
             storage.appendChild(newdot[0]);
           }
           $(self.dots).append(storage);
