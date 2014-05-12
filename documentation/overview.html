@@ -39,6 +39,12 @@ documentation_selected: selected
       {% endcapture %}
       <pre data-lang="html">{{ tmp | xml_escape }}</pre>
       <p>Just download the latest minified version of jQuery, and the Uranium script, and save them in your /scripts directory. Then reference them in your HTML document, and you should be good to go.</p>
+      <p>If there's a conflict with another jQuery version, you can either remove one of them or separate one from the global namespace:</p>
+      {% capture tmp %}
+      <script src="scripts/jquery.uranium.js"></script>
+      <script>Uranium.$ = $.noConflict(true);</script>
+      {% endcapture %}
+      <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     </section>
 
     <section id="data_attributes">
