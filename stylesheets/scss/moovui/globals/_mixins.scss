@@ -2,6 +2,10 @@
   @include prefixer(border-radius, $radius, webkit spec);
 }
 
+@mixin border-top-left-radius($radius) {
+  @include prefixer(border-top-left-radius, $radius, webkit spec);
+}
+
 @mixin radius {
   @include border-radius($radius);
 }

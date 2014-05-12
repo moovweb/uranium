@@ -2063,7 +2063,7 @@ html.touch .tooltip { padding-right: 18px; }
 .tabs { margin: 0 0 20px; }
 .tabs.code [data-ur-tabs-component="button"][data-ur-state="enabled"] { border-bottom-color: #bbb; }
 .tabs.code [data-ur-tabs-component="content"] { border: 0; padding: 0; }
-.tabs.code .syntaxhighlighter-wrapper { -webkit-border-radius: 0 0 3px 3px; border-radius: 0 0 3px 3px; margin: 0; }
+.tabs.code .syntaxhighlighter-wrapper { -webkit-border-top-left-radius: 0; border-top-left-radius: 0; margin: 0; }
 .tabs > [data-ur-tabs-component="button"] { -webkit-border-radius: 3px 3px 0 0; border-radius: 3px 3px 0 0; background: #eee; border: 1px solid #bbb; color: inherit; float: left; font-size: 12px; font-weight: bold; margin-bottom: -1px; padding: 3px 20px 1px; }
 .tabs > [data-ur-tabs-component="button"][data-ur-state="enabled"] { background: #fff; border-bottom-color: #fff; }
 .tabs > [data-ur-tabs-component="button"] + [data-ur-tabs-component="button"] { margin-left: -1px; }
@@ -2086,14 +2086,14 @@ body { background: #f5f7f8; }
 
 @media (max-width: 480px), (max-height: 480px) { .copy h3 { margin-bottom: 10px; }
   .copy ul, .copy ol, dl { margin-left: 2em; } }
-.see_more_link:after { -webkit-font-smoothing: antialiased; display: inline-block; font-family: "Entypo"; font-size: 15px; font-style: normal; font-weight: normal; line-height: 24px; vertical-align: bottom; content: ""; margin-left: 4px; }
+.see-more-link:after { -webkit-font-smoothing: antialiased; display: inline-block; font-family: "Entypo"; font-size: 15px; font-style: normal; font-weight: normal; line-height: 24px; vertical-align: bottom; content: ""; display: inline; margin-left: 4px; }
 
 .widget { margin: auto; }
 
 @media (max-width: 480px), (max-height: 480px) { #header { min-width: 0; height: 66px; }
   #header > .content { padding: 0; } }
 
-#uraniumlogo { background: url("../images/uraniumlogo.png") no-repeat 50% 50%; background-size: 100%; display: inline-block; vertical-align: middle; width: 133.33333px; height: 48px; }
+#uraniumlogo { background: url('/images/uraniumlogo.png?1397165266') no-repeat 50% 50%; background-size: 100%; display: inline-block; vertical-align: middle; width: 133.33333px; height: 48px; }
 @media (max-width: 480px), (max-height: 480px) { #uraniumlogo { background-size: auto 30px; display: block; width: auto; height: 36px; } }
 
 #github-ribbon { box-shadow: rgba(0, 0, 0, 0.2) 0 0 6px 2px; -webkit-transform: translate(-40px, 30px) rotate(-45deg); -moz-transform: translate(-40px, 30px) rotate(-45deg); -ms-transform: translate(-40px, 30px) rotate(-45deg); -o-transform: translate(-40px, 30px) rotate(-45deg); transform: translate(-40px, 30px) rotate(-45deg); background: #808080; color: #fff; font-size: 11px; letter-spacing: 0.5px; line-height: 27px; position: absolute; top: 0; text-align: center; width: 170px; height: 28px; z-index: 102; /*

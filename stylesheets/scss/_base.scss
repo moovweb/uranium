@@ -15,9 +15,10 @@
   }
 }
 
-.see_more_link {
+.see-more-link {
   &:after {
     @include icon-chevron-right;
+    display: inline;
     margin-left: 4px;
   }
 }

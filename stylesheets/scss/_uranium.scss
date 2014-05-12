@@ -129,7 +129,7 @@
       padding: 0;
     }
     .syntaxhighlighter-wrapper {
-      @include border-radius(0 0 3px 3px);
+      @include border-top-left-radius(0);
       margin: 0;
     }
   }
