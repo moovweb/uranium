@@ -1170,19 +1170,34 @@ interactions.carousel = function ( fragment, options ) {
       lastIndex = $items.length - 1;
     }
 
+    function dotClick(dot, idx) {
+      if (self.options.infinite && self.options.center)
+        idx += self.options.cloneLength;
+      dot.on("click.ur.carousel", function(e) {
+        stifle(e);
+        self.jumpToIndex(idx);
+      });
+    }
+
     function updateDots() {
       if (self.dots) {
         var existing = $(self.dots).find("[data-ur-carousel-component='dot']");
         if (existing.length != self.count) {
           existing.remove();
-          var dot = $("<div data-ur-carousel-component='dot'>");
+          var dot = $("<a data-ur-carousel-component='dot' href='javascript:void(0)'>");
           var storage = document.createDocumentFragment();
           for (var i = 0; i < self.count; i++) {
             var newdot = dot.clone();
+            dotClick(newdot, i);
             storage.appendChild(newdot[0]);
           }
           $(self.dots).append(storage);
         }
+        else if (!$(self.dots).data("urCarouselInit"))
+          existing.each(function(i) {
+            dotClick(this, i);
+          });
+        $(self.dots).data("urCarouselInit", true);
       }
     }
 
