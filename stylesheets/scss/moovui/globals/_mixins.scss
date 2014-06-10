@@ -10,6 +10,10 @@
   @include border-radius($radius);
 }
 
+@mixin box-shadow ($shadows...) {
+  @include prefixer(box-shadow, $shadows, webkit spec);
+}
+
 @mixin clearfix {
   &:before, &:after {
     content: "";

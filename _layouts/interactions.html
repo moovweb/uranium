@@ -35,7 +35,7 @@
                 <code class="inline">
                   {% if kv[0] == "Required" or kv[0] == "Optional" %}
                     {% if i[0] == "set" %}
-                      data-ur-set="{{page.widgetname}}"
+                      data-ur-set="{{page.attrname}}"
                     {% else %}
                       data-ur-{{page.attrname}}-component="{{i[0]}}"
                     {% endif %}
