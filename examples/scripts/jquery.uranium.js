@@ -160,8 +160,8 @@ else {
 
 // handle touch events
 function getEventCoords(event) {
-  var touches = event.originalEvent.touches;
-  event = (touches && touches[0]) || event;
+  event = event.originalEvent;
+  event = event.touches ? event.touches[0] : event;
   return {x: event.clientX, y: event.clientY};
 }
 
@@ -588,9 +588,9 @@ interactions.zoom = function ( fragment, options ) {
     var slidex, slidey;
 
     // namespace events
-    var downEvent = downEvent + ".zoom";
-    var moveEvent = moveEvent + ".zoom";
-    var upEvent = upEvent.replace(/(?= )|$/g, ".zoom");
+    var _downEvent = downEvent + ".zoom";
+    var _moveEvent = moveEvent + ".zoom";
+    var _upEvent = upEvent.replace(/(?= )|$/g, ".zoom");
 
     this.transform3d = transform3d;
     var custom3d = $container.attr("data-ur-transform3d");
@@ -769,17 +769,17 @@ interactions.zoom = function ( fragment, options ) {
           setState("enabled");
 
           $img
-            .on(downEvent, panStart)
-            .on(moveEvent, panMove)
-            .on(upEvent, panEnd);
+            .on(_downEvent, panStart)
+            .on(_moveEvent, panMove)
+            .on(_upEvent, panEnd);
         }
         else if (zoomer.state == "enabled-out") {
           setState("disabled");
 
           $img
-            .off(downEvent, panStart)
-            .off(moveEvent, panMove)
-            .off(upEvent, panEnd);
+            .off(_downEvent, panStart)
+            .off(_moveEvent, panMove)
+            .off(_upEvent, panEnd);
         }
       }
 
@@ -1039,20 +1039,11 @@ interactions.carousel = function ( fragment, options ) {
           .on(downEvent + ".carousel", startSwipe)
           .on(moveEvent + ".carousel", continueSwipe)
           .on(upEvent.replace(/(?= )|$/g, ".carousel"), finishSwipe);
-        $items.each(function(_, item) {
-          if (item.onclick)
-            $(item).data("urClick", item.onclick);
-          item.onclick = function(event) {
-            if (self.flag.click || (!event.clientX && !event.clientY)) {
-              var handler = $(this).data("urClick");
-              if (handler)
-                handler.call(this, event);
-            }
-            else {
-              stifle(event);
-              event.stopImmediatePropagation();
-            }
-          };
+        $(self.scroller).each(function() {
+          this.addEventListener("click", function(e) {
+            if (!self.flag.click)
+            	stifle(e);
+          }, true);
         });
       }
 
