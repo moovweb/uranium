@@ -139,10 +139,24 @@ if (transform3d) {
 }
 
 // test for touch screen
-var touchscreen = "ontouchstart" in window;
-var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
-var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
-var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
+if (window.PointerEvent) { // IE 11+
+  var touchscreen = true;
+  var downEvent = "pointerdown.ur";
+  var moveEvent = "pointermove.ur";
+  var upEvent = "pointerup.ur pointerout.ur";
+}
+else if (window.MSPointerEvent) { // IE 10
+  var touchscreen = true;
+  var downEvent = "MSPointerDown.ur";
+  var moveEvent = "MSPointerMove.ur";
+  var upEvent = "MSPointerUp.ur MSPointerOut.ur";
+}
+else {
+  var touchscreen = "ontouchstart" in window;
+  var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
+  var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
+  var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
+}
 
 // handle touch events
 function getEventCoords(event) {
@@ -262,12 +276,12 @@ interactions.inputclear = function( fragment ) {
 
     // Touch Events
     ex
-      .on(touchscreen ? "touchstart.ur.inputclear" : "click.ur.inputclear", function() {
+      .on(touchscreen ? downEvent + ".inputclear" : "click.ur.inputclear", function() {
         // remove text in the box
         input[0].value='';
         input[0].focus();
       })
-      .on("touchend.ur.inputclear", function() {
+      .on(upEvent.replace(/(?= )|$/g, ".inputclear"), function() {
         // make sure the keyboard doesn't disappear
         input[0].blur();
       });
@@ -573,6 +587,11 @@ interactions.zoom = function ( fragment, options ) {
     var time1 = 0, time2 = 0;
     var slidex, slidey;
 
+    // namespace events
+    var downEvent = downEvent + ".zoom";
+    var moveEvent = moveEvent + ".zoom";
+    var upEvent = upEvent.replace(/(?= )|$/g, ".zoom");
+
     this.transform3d = transform3d;
     var custom3d = $container.attr("data-ur-transform3d");
     if (custom3d)
@@ -603,7 +622,7 @@ interactions.zoom = function ( fragment, options ) {
     }
 
     // zoom in/out button, zooms in to the center of the image
-    $(self.button).on(touchscreen ? "touchstart.ur.zoom" : "click.ur.zoom", function() {
+    $(self.button).on(touchscreen ? downEvent : "click.ur.zoom", function() {
       if (self.img.length > 1)
         setActive($(self.img).filter($container.find("[data-ur-state='active'] *"))[0]);
       else
@@ -750,17 +769,17 @@ interactions.zoom = function ( fragment, options ) {
           setState("enabled");
 
           $img
-            .on(downEvent + ".zoom", panStart)
-            .on(moveEvent + ".zoom", panMove)
-            .on(upEvent + ".zoom", panEnd);
+            .on(downEvent, panStart)
+            .on(moveEvent, panMove)
+            .on(upEvent, panEnd);
         }
         else if (zoomer.state == "enabled-out") {
           setState("disabled");
 
           $img
-            .off(downEvent + ".zoom", panStart)
-            .off(moveEvent + ".zoom", panMove)
-            .off(upEvent + ".zoom", panEnd);
+            .off(downEvent, panStart)
+            .off(moveEvent, panMove)
+            .off(upEvent, panEnd);
         }
       }
 
@@ -967,8 +986,7 @@ interactions.carousel = function ( fragment, options ) {
       infinite: true,           // loops the last item back to first and vice versa
       speed: 1.1,               // determines how "fast" carousel snaps, should probably be deprecated
       transform3d: transform3d, // determines if translate3d() or translate() is used
-      touch: true,              // determines if carousel can be dragged e.g. when user only wants buttons to be used
-      verticalScroll: true      // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
+      touch: true               // determines if carousel can be dragged e.g. when user only wants buttons to be used
     };
 
     $.extend(self.options, options);
@@ -1020,7 +1038,7 @@ interactions.carousel = function ( fragment, options ) {
         $(self.scroller)
           .on(downEvent + ".carousel", startSwipe)
           .on(moveEvent + ".carousel", continueSwipe)
-          .on(upEvent + ".carousel", finishSwipe);
+          .on(upEvent.replace(/(?= )|$/g, ".carousel"), finishSwipe);
         $items.each(function(_, item) {
           if (item.onclick)
             $(item).data("urClick", item.onclick);
@@ -1094,7 +1112,7 @@ interactions.carousel = function ( fragment, options ) {
       $container.attr("data-ur-autoscroll-dir", self.options.autoscrollForward ? "next" : "prev");
 
       // read boolean attributes
-      $.each(["autoscroll", "center", "infinite", "touch", "verticalScroll"], function(_, name) {
+      $.each(["autoscroll", "center", "infinite", "touch"], function(_, name) {
         var dashName = "data-ur-" + name.replace(/[A-Z]/g, function(i) { return "-" + i.toLowerCase()});
         var value = $container.attr(dashName);
         if (value == "enabled")
@@ -1318,8 +1336,6 @@ interactions.carousel = function ( fragment, options ) {
     }
 
     function startSwipe(e) {
-      if (!self.options.verticalScroll)
-        stifle(e);
       self.autoscrollStop();
 
       self.flag.touched = true;
@@ -1342,7 +1358,7 @@ interactions.carousel = function ( fragment, options ) {
       if (Math.abs(startCoords.y - coords.y) + Math.abs(startCoords.x - coords.x) > 0)
         self.flag.click = false;
 
-      if (touchscreen && self.options.verticalScroll) {
+      if (touchscreen) {
         var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
         if (self.flag.lock) {
           if (self.flag.lock == "y")
