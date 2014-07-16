@@ -967,8 +967,7 @@ interactions.carousel = function ( fragment, options ) {
       infinite: true,           // loops the last item back to first and vice versa
       speed: 1.1,               // determines how "fast" carousel snaps, should probably be deprecated
       transform3d: transform3d, // determines if translate3d() or translate() is used
-      touch: true,              // determines if carousel can be dragged e.g. when user only wants buttons to be used
-      verticalScroll: true      // determines if dragging carousel vertically scrolls the page on touchscreens, this is almost always true
+      touch: true               // determines if carousel can be dragged e.g. when user only wants buttons to be used
     };
 
     $.extend(self.options, options);
@@ -1046,7 +1045,7 @@ interactions.carousel = function ( fragment, options ) {
       });
 
       if ("onorientationchange" in window)
-        $(window).on("orientationchange.ur.carousel", self.update);
+        $(window).on("orientationchange.ur.carousel", function() { self.update(); });
       else
         $(window).on("resize.ur.carousel", function() {
           if (viewport != $container.outerWidth()) {
@@ -1055,7 +1054,7 @@ interactions.carousel = function ( fragment, options ) {
           }
         });
 
-      $items.find("img").addBack("img").on("load.ur.carousel", self.update); // after any (late-loaded) images are loaded
+      $items.find("img").addBack("img").on("load.ur.carousel", function() { self.update(); }); // after any (late-loaded) images are loaded
 
       self.autoscrollStart();
 
@@ -1094,7 +1093,7 @@ interactions.carousel = function ( fragment, options ) {
       $container.attr("data-ur-autoscroll-dir", self.options.autoscrollForward ? "next" : "prev");
 
       // read boolean attributes
-      $.each(["autoscroll", "center", "infinite", "touch", "verticalScroll"], function(_, name) {
+      $.each(["autoscroll", "center", "infinite", "touch"], function(_, name) {
         var dashName = "data-ur-" + name.replace(/[A-Z]/g, function(i) { return "-" + i.toLowerCase()});
         var value = $container.attr(dashName);
         if (value == "enabled")
@@ -1186,7 +1185,9 @@ interactions.carousel = function ( fragment, options ) {
       }
     }
 
-    self.update = function() {
+    self.update = function(options) {
+      if (options)
+        $.extend(self.options, options);
       var oldCount = $items.length;
       $items = $(self.scroller).find("[data-ur-carousel-component='item']");
       if (oldCount != $items.length) {
@@ -1318,8 +1319,6 @@ interactions.carousel = function ( fragment, options ) {
     }
 
     function startSwipe(e) {
-      if (!self.options.verticalScroll)
-        stifle(e);
       self.autoscrollStop();
 
       self.flag.touched = true;
@@ -1342,7 +1341,7 @@ interactions.carousel = function ( fragment, options ) {
       if (Math.abs(startCoords.y - coords.y) + Math.abs(startCoords.x - coords.x) > 0)
         self.flag.click = false;
 
-      if (touchscreen && self.options.verticalScroll) {
+      if (touchscreen) {
         var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
         if (self.flag.lock) {
           if (self.flag.lock == "y")
@@ -1445,7 +1444,7 @@ interactions.carousel = function ( fragment, options ) {
 
       var newIndex = self.itemIndex - direction;
       if (!self.options.infinite) {
-        if (self.options.fill > 0)
+        if (self.options.fill > 0  && !self.options.center)
           newIndex = bound(newIndex, [0, self.count - self.options.fill]);
         else
           newIndex = bound(newIndex, [0, lastIndex]);
