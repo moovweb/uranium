@@ -1186,7 +1186,9 @@ interactions.carousel = function ( fragment, options ) {
       }
     }
 
-    self.update = function() {
+    self.update = function(options) {
+      if (options)
+        $.extend(self.options, options);
       var oldCount = $items.length;
       $items = $(self.scroller).find("[data-ur-carousel-component='item']");
       if (oldCount != $items.length) {
