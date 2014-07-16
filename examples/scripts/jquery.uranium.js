@@ -1047,7 +1047,7 @@ interactions.carousel = function ( fragment, options ) {
       });
 
       if ("onorientationchange" in window)
-        $(window).on("orientationchange.ur.carousel", self.update);
+        $(window).on("orientationchange.ur.carousel", function() { self.update(); });
       else
         $(window).on("resize.ur.carousel", function() {
           if (viewport != $container.outerWidth()) {
@@ -1056,7 +1056,7 @@ interactions.carousel = function ( fragment, options ) {
           }
         });
 
-      $items.find("img").addBack("img").on("load.ur.carousel", self.update); // after any (late-loaded) images are loaded
+      $items.find("img").addBack("img").on("load.ur.carousel", function() { self.update(); }); // after any (late-loaded) images are loaded
 
       self.autoscrollStart();
 
@@ -1187,7 +1187,9 @@ interactions.carousel = function ( fragment, options ) {
       }
     }
 
-    self.update = function() {
+    self.update = function(options) {
+      if (options)
+        $.extend(self.options, options);
       var oldCount = $items.length;
       $items = $(self.scroller).find("[data-ur-carousel-component='item']");
       if (oldCount != $items.length) {
@@ -1444,7 +1446,7 @@ interactions.carousel = function ( fragment, options ) {
 
       var newIndex = self.itemIndex - direction;
       if (!self.options.infinite) {
-        if (self.options.fill > 0)
+        if (self.options.fill > 0  && !self.options.center)
           newIndex = bound(newIndex, [0, self.count - self.options.fill]);
         else
           newIndex = bound(newIndex, [0, lastIndex]);
