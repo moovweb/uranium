@@ -1017,9 +1017,8 @@ interactions.carousel = function ( fragment, options ) {
 
       if (self.options.touch) {
         $(self.scroller)
-          .on(downEvent + ".carousel", startSwipe)
-          .on(moveEvent + ".carousel", continueSwipe)
-          .on(upEvent + ".carousel", finishSwipe);
+          .on(downEvent + ".carousel", startSwipe);
+          
         $items.each(function(_, item) {
           if (item.onclick)
             $(item).data("urClick", item.onclick);
@@ -1317,6 +1316,10 @@ interactions.carousel = function ( fragment, options ) {
     }
 
     function startSwipe(e) {
+
+      $(document)
+        .bind(moveEvent + ".carousel", continueSwipe)
+        .bind(upEvent + ".carousel", finishSwipe);
       self.autoscrollStop();
 
       self.flag.touched = true;
@@ -1413,6 +1416,10 @@ interactions.carousel = function ( fragment, options ) {
     function finishSwipe(e) {
       if (!self.flag.touched) // for non-touch environments since mouseup fires without mousedown
         return;
+
+      $(document)
+        .unbind(moveEvent + ".carousel")
+        .unbind(upEvent + ".carousel");
 
       if (!self.flag.click || self.flag.lock)
         stifle(e);
@@ -1597,7 +1604,6 @@ interactions.carousel = function ( fragment, options ) {
 
   }
 };
-
 window.Uranium = {lib: interactions};
 $.each(interactions, function(name) {
   Uranium[name] = {};
