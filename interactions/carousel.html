@@ -25,8 +25,8 @@ advanced_tab:
         - "optional: <code>data-ur-autoscroll</code>: enabled/<em>disabled</em> (automatically scroll with interval)"
         - "optional: <code>data-ur-autoscroll-delay</code>: integer (autoscroll delay in milliseconds, default: <em>5000</em>)"
         - "optional: <code>data-ur-autoscroll-dir</code>: <em>next</em>/prev (specify autoscroll direction)"
-        - "optional: <code>data-ur-android3d</code>: enabled/disabled (specify translate3d use on Android 1.6-2.3)"
-        - "optional: <code>data-ur-fill</code>: integer (force n carousel items to fit in container width)"
+        - "optional: <code>data-ur-transform3d</code>: enabled/disabled (force use of translate3d on all devices)"
+        - "optional: <code>data-ur-fill</code>: integer (force n carousel items to fit in container width, default: <em>0</em>)"
         - "optional: <code>data-ur-center</code>: enabled/<em>disabled</em> (horizontally center current item)"
     scroll_container:
       - "this element should wrap the scrolling items on the carousel. This or the set needs <code>position: relative</code>."
@@ -65,6 +65,9 @@ js_tab:
       infinite: false // data-ur-* options
     });
   Instance:
+    update(options):
+      - "force the carousel to recalculate positioning"
+      - "optional argument for updating certain options, e.g., <code>{center: true, fill: 2}</code>"
     jumpToIndex(index): forces the carousel to jump to the specified (zero based) index
     autoscrollStart(): start autoscroll
     autoscrollStop(): stop autoscroll
@@ -141,6 +144,66 @@ js_tab:
 
 <h2>Carousel Examples</h2>
 
+<h3>Carousel inside Toggler</h3>
+<p>
+  Carousels inside disabled content (<code>display: none</code>) aren't able to calculate their widths so alternate CSS is used here.
+</p>
+<div class="tabs" data-ur-set="tabs">
+  <a data-ur-tabs-component="button" data-ur-tab-id="ex" data-ur-state="enabled">Example</a>
+  <a data-ur-tabs-component="button" data-ur-tab-id="html">The Code</a>
+  <a data-ur-tabs-component="button" data-ur-tab-id="css">CSS</a>
+  <div data-ur-tabs-component="content" data-ur-tab-id="ex" data-ur-state="enabled">
+    <style>
+    .carousel-toggler:not([data-ur-state="enabled"]) {
+      display: block;
+      overflow: hidden;
+      height: 0;
+    }
+    </style>
+    <div data-ur-set="toggler">
+      <div data-ur-toggler-component="button" class="btn">Show/Hide Carousel</div>
+      <div data-ur-toggler-component="content" class="carousel-toggler">
+        <div data-ur-set="carousel" data-ur-infinite="disabled" class="d-col-8">
+          <div data-ur-carousel-component="scroll_container">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample1.png" alt="1">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample2.png" alt="2">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample3.png" alt="3">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample4.png" alt="4">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="html">
+    {% capture tmp %}
+    <div data-ur-set="toggler">
+      <div data-ur-toggler-component="button">Show/Hide Carousel</div>
+      <div data-ur-toggler-component="content" class="carousel-toggler">
+        <div data-ur-set="carousel">
+          <div data-ur-carousel-component="scroll_container">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample1.png" alt="1">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample2.png" alt="2">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample3.png" alt="3">
+            <img data-ur-carousel-component="item" src="{{site.baseurl}}images/sample4.png" alt="4">
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endcapture %}
+    <pre data-lang="html">{{ tmp | xml_escape }}</pre>
+  </div>
+  <div data-ur-tabs-component="content" data-ur-tab-id="css">
+    {% capture tmp %}
+    .carousel-toggler:not([data-ur-state="enabled"]) {
+      display: block;
+      overflow: hidden;
+      height: 0;
+    }
+    {% endcapture %}
+    <pre data-lang="css">{{ tmp }}</pre>
+  </div>
+</div>
+
 <h3>Infinite Scrolling</h3>
 <p>
   Here we have a carousel that loops from front to back (default state for carousel). The carousel also has a custom count template, and indicator dots showing what item is currently selected. The indicator dots have a <code>data-ur-state</code> of "inactive" until the corresponding item is selected, when the <code>data-ur-state</code> changes to "active" &mdash; you can use this for styling the dots.
@@ -170,7 +233,7 @@ js_tab:
       </div>
     </div>
   </div>
-  <div data-ur-tabs-component="content" data-ur-tab-id="html" data-ur-state="enabled">
+  <div data-ur-tabs-component="content" data-ur-tab-id="html">
     {% capture tmp %}
     <div data-ur-set="carousel" data-ur-infinite="enabled">
       <div data-ur-carousel-component="dots"></div>
@@ -273,7 +336,7 @@ js_tab:
       </div>
     </div>
   </div>
-  <div data-ur-tabs-component="content" data-ur-tab-id="html" data-ur-state="enabled">
+  <div data-ur-tabs-component="content" data-ur-tab-id="html">
     {% capture tmp %}
     <div data-ur-set="carousel" data-ur-fill="5">
       <div data-ur-carousel-component="dots"></div>
