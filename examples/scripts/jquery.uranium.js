@@ -155,7 +155,7 @@ else {
   var touchscreen = "ontouchstart" in window;
   var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
   var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
-  var upEvent = touchscreen ? "touchend.ur" : "mouseup.ur mouseout.ur";
+  var upEvent = touchscreen ? "touchend.ur" : "mouseup.ur mouseleave.ur";
 }
 
 // handle touch events
