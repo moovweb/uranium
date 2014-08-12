@@ -139,15 +139,29 @@ if (transform3d) {
 }
 
 // test for touch screen
-var touchscreen = "ontouchstart" in window;
-var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
-var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
-var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
+if (window.PointerEvent) { // IE 11+
+  var touchscreen = true;
+  var downEvent = "pointerdown.ur";
+  var moveEvent = "pointermove.ur";
+  var upEvent = "pointerup.ur pointerout.ur";
+}
+else if (window.MSPointerEvent) { // IE 10
+  var touchscreen = true;
+  var downEvent = "MSPointerDown.ur";
+  var moveEvent = "MSPointerMove.ur";
+  var upEvent = "MSPointerUp.ur MSPointerOut.ur";
+}
+else {
+  var touchscreen = "ontouchstart" in window;
+  var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
+  var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
+  var upEvent = touchscreen ? "touchend.ur" : "mouseup.ur mouseleave.ur";
+}
 
 // handle touch events
 function getEventCoords(event) {
-  var touches = event.originalEvent.touches;
-  event = (touches && touches[0]) || event;
+  event = event.originalEvent;
+  event = event.touches ? event.touches[0] : event;
   return {x: event.clientX, y: event.clientY};
 }
 
@@ -262,12 +276,12 @@ interactions.inputclear = function( fragment ) {
 
     // Touch Events
     ex
-      .on(touchscreen ? "touchstart.ur.inputclear" : "click.ur.inputclear", function() {
+      .on(touchscreen ? downEvent + ".inputclear" : "click.ur.inputclear", function() {
         // remove text in the box
         input[0].value='';
         input[0].focus();
       })
-      .on("touchend.ur.inputclear", function() {
+      .on(upEvent.replace(/(?= )|$/g, ".inputclear"), function() {
         // make sure the keyboard doesn't disappear
         input[0].blur();
       });
@@ -573,6 +587,11 @@ interactions.zoom = function ( fragment, options ) {
     var time1 = 0, time2 = 0;
     var slidex, slidey;
 
+    // namespace events
+    var _downEvent = downEvent + ".zoom";
+    var _moveEvent = moveEvent + ".zoom";
+    var _upEvent = upEvent.replace(/(?= )|$/g, ".zoom");
+
     this.transform3d = transform3d;
     var custom3d = $container.attr("data-ur-transform3d");
     if (custom3d)
@@ -603,7 +622,7 @@ interactions.zoom = function ( fragment, options ) {
     }
 
     // zoom in/out button, zooms in to the center of the image
-    $(self.button).on(touchscreen ? "touchstart.ur.zoom" : "click.ur.zoom", function() {
+    $(self.button).on(touchscreen ? _downEvent : "click.ur.zoom", function() {
       if (self.img.length > 1)
         setActive($(self.img).filter($container.find("[data-ur-state='active'] *"))[0]);
       else
@@ -658,14 +677,10 @@ interactions.zoom = function ( fragment, options ) {
         }
       
         mouseDrag = false;
-        touchX = event.pageX;
-        touchY = event.pageY;
         mouseDown = true;
-        var touches = event.originalEvent.touches;
-        if (touches) {
-          touchX = touches[0].pageX;
-          touchY = touches[0].pageY;
-        }
+        var coords = getEventCoords(event);
+        touchX = coords.x;
+        touchY = coords.y;
 
         var style = $img[0].style;
         if (window.WebKitCSSMatrix) {
@@ -689,13 +704,9 @@ interactions.zoom = function ( fragment, options ) {
           return;
 
         stifle(event);
-        var x = event.pageX;
-        var y = event.pageY;
-        var touches = event.originalEvent.touches;
-        if (touches) {
-          x = touches[0].pageX;
-          y = touches[0].pageY;
-        }
+        var coords = getEventCoords(event);
+        var x = coords.x;
+        var y = coords.y;
         var dx = x - touchX;
         var dy = y - touchY;
         if (Math.abs(dx) > 5 || Math.abs(dy) > 5)
@@ -750,17 +761,17 @@ interactions.zoom = function ( fragment, options ) {
           setState("enabled");
 
           $img
-            .on(downEvent + ".zoom", panStart)
-            .on(moveEvent + ".zoom", panMove)
-            .on(upEvent + ".zoom", panEnd);
+            .on(_downEvent, panStart)
+            .on(_moveEvent, panMove)
+            .on(_upEvent, panEnd);
         }
         else if (zoomer.state == "enabled-out") {
           setState("disabled");
 
           $img
-            .off(downEvent + ".zoom", panStart)
-            .off(moveEvent + ".zoom", panMove)
-            .off(upEvent + ".zoom", panEnd);
+            .off(_downEvent, panStart)
+            .off(_moveEvent, panMove)
+            .off(_upEvent, panEnd);
         }
       }
 
@@ -1007,21 +1018,12 @@ interactions.carousel = function ( fragment, options ) {
         $(self.scroller)
           .on(downEvent + ".carousel", startSwipe)
           .on(moveEvent + ".carousel", continueSwipe)
-          .on(upEvent + ".carousel", finishSwipe);
-        $items.each(function(_, item) {
-          if (item.onclick)
-            $(item).data("urClick", item.onclick);
-          item.onclick = function(event) {
-            if (self.flag.click || (!event.clientX && !event.clientY)) {
-              var handler = $(this).data("urClick");
-              if (handler)
-                handler.call(this, event);
-            }
-            else {
-              stifle(event);
-              event.stopImmediatePropagation();
-            }
-          };
+          .on(upEvent.replace(/(?= )|$/g, ".carousel"), finishSwipe);
+        $(self.scroller).each(function() {
+          this.addEventListener("click", function(e) {
+            if (!self.flag.click)
+            	stifle(e);
+          }, true);
         });
       }
 
