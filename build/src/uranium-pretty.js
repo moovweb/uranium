@@ -46,7 +46,7 @@ if (!$.error)
 // Keep a unique value for ID initialization
 var uniqueUraniumId = function() {
   var count = 0;
-  return function() { return ++count + ""; }
+  return function() { return "ur" + ++count; }
 }();
 
 // Find elements for the interactions
