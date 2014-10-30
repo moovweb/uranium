@@ -110,7 +110,7 @@ documentation_selected: selected
       Right-click on your interaction and "inspect element". You'll see the button and the content <code>&lt;div&gt;</code>s have an extra attribute <code>data-ur-state</code>. This is, by default, set to <code>"disabled"</code>.
     </p>
     {% capture tmp %}
-    <div data-ur-set="toggler" data-ur-id="1" data-ur-state="enabled">
+    <div data-ur-set="toggler" data-ur-id="ur1" data-ur-state="enabled">
       <div data-ur-toggler-component="button" data-ur-state="disabled">Clothing</div>
       <ul data-ur-toggler-component="content" data-ur-state="disabled">...</ul>
     </div>
@@ -118,7 +118,7 @@ documentation_selected: selected
     <pre data-lang="html">{{ tmp | xml_escape }}</pre>
     <p>When the button is clicked, it changes to <code>"enabled"</code>.</p>
     {% capture tmp %}
-    <div data-ur-set="toggler" data-ur-id="1" data-ur-state="enabled">
+    <div data-ur-set="toggler" data-ur-id="ur1" data-ur-state="enabled">
       <div data-ur-toggler-component="button" data-ur-state="enabled">Clothing</div>
       <ul data-ur-toggler-component="content" data-ur-state="enabled">...</ul>
     </div>

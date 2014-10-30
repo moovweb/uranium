@@ -46,7 +46,7 @@ if (!$.error)
 // Keep a unique value for ID initialization
 var uniqueUraniumId = function() {
   var count = 0;
-  return function() { return ++count + ""; }
+  return function() { return "ur" + ++count; }
 }();
 
 // Find elements for the interactions
@@ -800,21 +800,9 @@ interactions.zoom = function ( fragment, options ) {
           $img.css("height", height + "px");
         }
 
-        var x = event.pageX, y = event.pageY;
-        if (event.touches) {
-          x = event.touches[0].pageX;
-          y = event.touches[0].pageY;
-        }
-
         // find touch location relative to image
-        relX = event.offsetX;
-        relY = event.offsetY;
-        if (relX == undefined || relY == undefined) {
-          var offset = $img[0].getBoundingClientRect();
-          relX = x - offset.left;
-          relY = y - offset.top;
-        }
-
+        relX = event.originalEvent.layerX || event.offsetX;
+        relY = event.originalEvent.layerY || event.offsetY;
 
         if (!prescale) {
           zoomer.state = "enabled-in";
