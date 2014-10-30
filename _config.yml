@@ -1,3 +1,4 @@
 source: "."
 destination: ".site"
 pygments: true
+baseurl: "/"

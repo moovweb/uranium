@@ -4,7 +4,7 @@
     {% include head.html %}
   </head>
   
-  <body id="{{page.name}}-page">
+  <body id="{{page.title | downcase}}-page">
     {% include header.html %}
     {{content}}
     {% include footer.html %}

@@ -16,7 +16,7 @@ on the stylesheets folder to compile your Sass files and keep them updated.
 			
 In a separate terminal process, run the server (This will also listen for changes)
 
-			jekyll serve --watch --baseurl=/
+			jekyll serve --watch
 
 Check it [out](http://localhost:4000/) after launching.
 
@@ -127,7 +127,7 @@ TODO: Information on how the code base should be structured, conventions, etc...
 
 To get the examples running locally, start the jekyll server with:
 
-`jekyll serve --watch --baseurl=/`
+`jekyll serve --watch`
 
 In a separate terminal process, run  
 
