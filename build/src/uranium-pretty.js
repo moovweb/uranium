@@ -165,11 +165,15 @@ function isenabled(val) {
   return typeof val == "string" ? val != "disabled" && val != "false" : val;
 }
 
+function isPlainObj(obj) {
+  return typeof obj == "object" && Object.getPrototypeOf(obj) == Object.prototype;
+}
+
 var interactions = {};
 
 // Toggler
 interactions.toggler = function( fragment ) {
-  if (fragment.constructor == Object)
+  if (isPlainObj(fragment))
     var groups = assignElements(fragment, "toggler");
   else
     var groups = findElements(fragment, "toggler");
@@ -202,7 +206,7 @@ interactions.toggler = function( fragment ) {
 // Tabs
 interactions.tabs = function( fragment, options ) {
   options = options || {};
-  if (fragment.constructor == Object)
+  if (isPlainObj(fragment))
     var groups = assignElements(fragment, "tabs", function(set) {
       $.each(set.tabs, function(key) {
         $.each(this, function(compName) {
@@ -250,7 +254,7 @@ interactions.tabs = function( fragment, options ) {
 
 // Input Clear
 interactions.inputclear = function( fragment ) {
-  if (fragment.constructor == Object)
+  if (isPlainObj(fragment))
     var groups = assignElements(fragment, "input-clear");
   else
     var groups = findElements(fragment, "input-clear");
@@ -294,7 +298,7 @@ interactions.inputclear = function( fragment ) {
 // Geocode
 interactions.geocode = function ( fragment, options ) {
   options = options || {};
-  if (fragment.constructor == Object)
+  if (isPlainObj(fragment))
     var groups = assignElements(fragment, "reverse-geocode", function(set) {
       set["elements"] = set["elements"] || {};
       $.each(set, function(key, value) {
@@ -512,7 +516,7 @@ interactions.geocode = function ( fragment, options ) {
 // Zoom
 interactions.zoom = function ( fragment, options ) {
   options = $.extend({touch: true}, options);
-  if (fragment.constructor == Object) {
+  if (isPlainObj(fragment)) {
     var groups = assignElements(fragment, "zoom", function(set) {
       set.img = [];
       $.each(set.imgs, function() {
@@ -896,7 +900,7 @@ interactions.zoom = function ( fragment, options ) {
 
 // Carousel
 interactions.carousel = function ( fragment, options ) {
-  if (fragment.constructor == Object)
+  if (isPlainObj(fragment))
     var groups = assignElements(fragment, "carousel");
   else
     var groups = findElements(fragment, "carousel");
