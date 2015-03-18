@@ -5,11 +5,14 @@
 
 // for compatibility with older versions of jQuery
 var jqVersion = $.fn.jquery.split(".");
-if (jqVersion[0] == 1 && jqVersion[1] < 4)
+if (jqVersion[0] == 1 && jqVersion[1] < 4) {
   // older jquery returns document for null selectors
+  var _$ = $;
   $ = $.extend(function (selector, context) {
     return new $.fn.init(selector || [], context);
   }, $);
+  $.prototype = _$.prototype;
+}
 
 if (!$.fn.on)
   $.fn.extend({
@@ -42,11 +45,23 @@ if (!$.error)
   $.error = function (msg) {
     throw new Error(msg);
   };
+if ($.fn.closest.length == 1) {
+  $.fn._closest = $.fn.closest;
+  $.fn.closest = function(selector, context) {
+    var closest = this._closest(selector);
+    if (context) {
+      closest = closest.filter(function(_, elem) {
+        return context.contains(elem);
+      });
+    }
+    return closest;
+  }
+}
 
 // Keep a unique value for ID initialization
 var uniqueUraniumId = function() {
   var count = 0;
-  return function() { return "ur" + ++count; }
+  return function() { return "ur" + (++count); };
 }();
 
 // Find elements for the interactions
@@ -91,6 +106,7 @@ function findElements( fragment, type, customFn ) {
   return sets;
 }
 
+// used for JavaScript initialization e.g. Uranium.lib.widgetname({...})
 function assignElements( set, type, customFn ) {
   var setId = uniqueUraniumId();
   
@@ -144,11 +160,16 @@ var downEvent = (touchscreen ? "touchstart" : "mousedown") + ".ur";
 var moveEvent = (touchscreen ? "touchmove" : "mousemove") + ".ur";
 var upEvent = (touchscreen ? "touchend" : "mouseup") + ".ur";
 
-// handle touch events
 function getEventCoords(event) {
-  var touches = event.originalEvent.touches;
-  event = (touches && touches[0]) || event;
-  return {x: event.clientX, y: event.clientY};
+  var touches = event.originalEvent.touches || [];
+  var changedTouches = event.originalEvent.changedTouches || [];
+  event = touches[0] || changedTouches[0] || event;
+  var coords = {x: event.clientX, y: event.clientY};
+  if (touches[1]) {
+     coords.x2 = touches[1].clientX;
+     coords.y2 = touches[1].clientY;
+  }
+  return coords;
 }
 
 // stop event helper
@@ -665,11 +686,9 @@ interactions.zoom = function ( fragment, options ) {
         touchX = event.pageX;
         touchY = event.pageY;
         mouseDown = true;
-        var touches = event.originalEvent.touches;
-        if (touches) {
-          touchX = touches[0].pageX;
-          touchY = touches[0].pageY;
-        }
+        var coords = getEventCoords(event);
+        touchX = coords.x;
+        touchY = coords.y;
 
         var style = $img[0].style;
         if (window.WebKitCSSMatrix) {
@@ -693,13 +712,9 @@ interactions.zoom = function ( fragment, options ) {
           return;
 
         stifle(event);
-        var x = event.pageX;
-        var y = event.pageY;
-        var touches = event.originalEvent.touches;
-        if (touches) {
-          x = touches[0].pageX;
-          y = touches[0].pageY;
-        }
+        var coords = getEventCoords(event);
+        var x = coords.x;
+        var y = coords.y;
         var dx = x - touchX;
         var dy = y - touchY;
         if (Math.abs(dx) > 5 || Math.abs(dy) > 5)
@@ -782,6 +797,17 @@ interactions.zoom = function ( fragment, options ) {
         transform(x || 0, y || 0, ratio);
       }
 
+      function relativeCoords(event) {
+        var coords = getEventCoords(event);
+        var rect = event.target.getBoundingClientRect();
+        return {
+          x: coords.x - rect.left,
+          y: coords.y - rect.top,
+          x2: coords.x2 - rect.left,
+          y2: coords.y2 - rect.top
+        };
+      }
+
       this.transform = transform;
       function transform(x, y, scale) {
         var t = "";
@@ -805,8 +831,9 @@ interactions.zoom = function ( fragment, options ) {
         }
 
         // find touch location relative to image
-        relX = event.originalEvent.layerX || event.offsetX;
-        relY = event.originalEvent.layerY || event.offsetY;
+        var relCoords = relativeCoords(event);
+        relX = relCoords.x;
+        relY = relCoords.y;
 
         if (!prescale) {
           zoomer.state = "enabled-in";
@@ -1012,20 +1039,11 @@ interactions.carousel = function ( fragment, options ) {
           .on(downEvent + ".carousel", startSwipe)
           .on(moveEvent + ".carousel", continueSwipe)
           .on(upEvent + ".carousel", finishSwipe);
-        $items.each(function(_, item) {
-          if (item.onclick)
-            $(item).data("urClick", item.onclick);
-          item.onclick = function(event) {
-            if (self.flag.click || (!event.clientX && !event.clientY)) {
-              var handler = $(this).data("urClick");
-              if (handler)
-                handler.call(this, event);
-            }
-            else {
-              stifle(event);
-              event.stopImmediatePropagation();
-            }
-          };
+        $(self.scroller).each(function() {
+          this.addEventListener("click", function(e) {
+            if (!self.flag.click)
+              stifle(e);
+          }, true);
         });
       }
 
@@ -1199,7 +1217,7 @@ interactions.carousel = function ( fragment, options ) {
         }
 
         // in the rare case the destination element was (re)moved
-        if (!$.contains(self.scroller, dest))
+        if (!self.scroller.contains(dest))
           dest = $items[self.itemIndex];
 
         updateDots();
@@ -1590,9 +1608,10 @@ interactions.carousel = function ( fragment, options ) {
   }
 };
 
-window.Uranium = {lib: interactions};
+var Ur = {lib: interactions, options: {}};
+window.Uranium = Ur;
 $.each(interactions, function(name) {
-  Uranium[name] = {};
+  Ur[name] = {};
 });
 
 $.fn.Uranium = function() {
@@ -1603,6 +1622,10 @@ $.fn.Uranium = function() {
   return this;
 };
 
-$(document).ready($(document).Uranium);
+Ur.options.setup = function() {
+  $(document).Uranium();
+};
+
+$(function() { Ur.options.setup(); });
 
 })(jQuery);
