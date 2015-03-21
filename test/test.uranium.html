@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="mocha.css" />
+  <style>
+  iframe {
+    border: 0;
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
+  </style>
+</head>
+<body>
+  <div id="mocha">
+    <h1>Uranium</h1>
+  </div>
+  <script src="chai.js"></script>
+  <script src="mocha.js"></script>
+  <script>mocha.setup({ ui: "bdd", noHighlighting: true })</script>
+  <script>
+  var VERSIONS = [
+    "1.3.0",
+    "1.3.2",
+    "1.4.0",
+    "1.4.4",
+    "1.5.0",
+    "1.5.2",
+    "1.6.0",
+    "1.6.4",
+    "1.7.0",
+    "1.7.2",
+    "1.8.0",
+    "1.8.3",
+    "1.9.0",
+    "1.9.1",
+    "1.10.2",
+    "1.11.2",
+    "2.1.3"
+  ];
+
+  var counter = 0;
+  function loadNext() {
+    var v = VERSIONS[counter++];
+    if (!v)
+      return;
+    var jq = "jquery/jquery-" + v + ".min.js";
+    
+    var iframe = document.createElement("iframe");
+    iframe.name = v;
+    document.body.appendChild(iframe);
+
+    iframe.contentWindow.expect = chai.expect;
+    /*var mochaBDD = ["afterEach", "after", "beforeEach", "before", "describe", "it"];
+    for (var j = 0; j < mochaBDD.length; j++) {
+      var fn = mochaBDD[j];
+      iframe.contentWindow[fn] = window[fn];
+    }*/
+    mocha.suite.emit("pre-require", iframe.contentWindow, null, mocha);
+
+    var srcdoc = "";
+
+    var scripts = [
+      jq,
+      "../lib/helpers.js",
+      "../lib/toggler.js",
+      "../lib/tabs.js",
+      "../lib/inputclear.js",
+      "../lib/geocode.js",
+      "../lib/zoom.js",
+      "../lib/carousel.js",
+      "../lib/setup.js",
+      "test.uranium.js"
+    ];
+
+    for (var i = 0; i < scripts.length; i++) {
+      srcdoc += "<script src=" + scripts[i] + "><" + "/script>";
+    }
+    srcdoc += "<script>parent.loadNext()<" + "/script>";
+
+    iframe.contentDocument.write("<body>" + srcdoc + "</body>");
+    iframe.contentDocument.close();
+  }
+  loadNext();
+
+  window.onload = function() {
+    mocha.run();
+  };
+  </script>
+</body>
+</html>
