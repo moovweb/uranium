@@ -11,7 +11,7 @@
 
     <h1>Uranium Carousel</h1>
 
-    <div data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel" data-ur-clones="2">
+    <div id = 'car' data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel" data-ur-clones="2">
       <div data-ur-carousel-component="dots"></div>
       <span data-ur-carousel-component="count"> -- count -- </span>
       <div data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</div>
@@ -462,5 +462,7 @@
     <!-- Dev Links to Javascript Files (reference the version being tested) -->
     <script src="scripts/jquery-1.9.1.js"></script>
     <script src='scripts/jquery.uranium.js'></script>
+    <!-- Test event for itermChange -->
+    <script> $('#car').on('itemChange', function(){console.log("changed")});</script>
   </body>
 </html>
