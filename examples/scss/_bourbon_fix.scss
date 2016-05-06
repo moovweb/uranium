@@ -1,0 +1,181 @@
+// make background and background-image @mixin compatible with Compass
+
+@mixin background(
+  $background-1       , $background-2: false,
+  $background-3: false, $background-4: false,
+  $background-5: false, $background-6: false,
+  $background-7: false, $background-8: false,
+  $background-9: false, $background-10: false,
+  $fallback: false
+) {
+  $backgrounds: compact($background-1, $background-2,
+                $background-3, $background-4,
+                $background-5, $background-6,
+                $background-7, $background-8,
+                $background-9, $background-10);
+
+  $fallback-color: false;
+  @if (type-of($fallback) == color) or ($fallback == "transparent") {
+    $fallback-color: $fallback;
+  }
+  @else {
+    $fallback-color: extract-background-color($backgrounds);
+  }
+
+  @if $fallback-color {
+    background-color: $fallback-color;
+  }
+  // insert this line
+  background: background-owg($backgrounds);
+  background: background-add-prefix($backgrounds, webkit);
+  background: background-add-prefix($backgrounds, moz);
+  background: background-add-prefix($backgrounds, ms);
+  background: background-add-prefix($backgrounds, o);
+  background: background-add-prefix($backgrounds);
+}
+
+@function slice($list, $start, $end: length($list)) {
+  $new_list: ();
+  @for $i from $start through $end {
+    $new_list: append($new_list, nth($list, $i));
+  }
+  @return $new_list;
+}
+
+@function deprecated-pos($pos) {
+  $deprecated-pos1: left top;
+  $deprecated-pos2: left bottom;
+
+  @if $pos == left {
+    $deprecated-pos1: left top;
+    $deprecated-pos2: right top;
+  }
+
+  @else if $pos == right {
+    $deprecated-pos1: right top;
+    $deprecated-pos2: left top;
+  }
+
+  @else if $pos == (left top) {
+    $deprecated-pos1: left top;
+    $deprecated-pos2: right bottom;
+  }
+
+  @else if $pos == (left bottom) {
+    $deprecated-pos1: left bottom;
+    $deprecated-pos2: right top;
+  }
+
+  @else if $pos == (right top) {
+    $deprecated-pos1: right top;
+    $deprecated-pos2: left bottom;
+  }
+
+  @else if $pos == (right bottom) {
+    $deprecated-pos1: right bottom;
+    $deprecated-pos2: left top;
+  }
+
+  @return $deprecated-pos1, $deprecated-pos2;
+}
+
+// modified version of background-add-prefix
+@function background-owg($backgrounds) {
+  $backgrounds-prefixed: ();
+
+  @for $i from 1 through length($backgrounds) {
+    $shorthand: nth($backgrounds, $i); // Get member for current index
+    $type: type-of($shorthand); // Get type of variable - List or String
+
+    // If shorthand is a list
+    @if $type == list {
+      $first-member: nth($shorthand, 1); // Get first member of shorthand
+
+      // Linear Gradient
+      @if index(linear radial, nth($first-member, 1)) {
+        $gradient-type: nth($first-member, 1); // linear || radial
+
+        // Get actual gradient (red, blue)
+        $gradient-args: false;
+        $shorthand-start: false;
+        // Linear gradient and positioning, repeat, etc. values
+        @if type-of($first-member) == list {
+          $gradient-args: nth($first-member, 2);
+          $shorthand-start: 2;
+        }
+        // Linear gradient only
+        @else {
+          $gradient-args: nth($shorthand, 2); // Get actual gradient (red, blue)
+          $shorthand-start: 3;
+        }
+
+        $deprecated-pos: deprecated-pos(nth($gradient-args, 1));
+
+        $gradient: deprecated-webkit-gradient($gradient-type, nth($deprecated-pos, 1), nth($deprecated-pos, 2), slice($gradient-args, 2)); //render-gradients($gradient-args, $gradient-type, webkit);
+        @for $j from $shorthand-start through length($shorthand) {
+          $gradient: join($gradient, nth($shorthand, $j), space);
+        }
+        $backgrounds-prefixed: append($backgrounds-prefixed, $gradient, comma);
+      }
+
+      // Image with additional properties
+      @else {
+        $backgrounds-prefixed: append($backgrounds-prefixed, $shorthand, comma);
+      }
+
+    }
+
+    // If shorthand is a simple string, color or image
+    @else if $type == string {
+      $backgrounds-prefixed: join($backgrounds-prefixed, $shorthand, comma);
+    }
+  }
+  @return $backgrounds-prefixed;
+}
+
+@mixin background-image(
+  $image-1       , $image-2: false,
+  $image-3: false, $image-4: false,
+  $image-5: false, $image-6: false,
+  $image-7: false, $image-8: false,
+  $image-9: false, $image-10: false
+) {
+  $images: compact($image-1, $image-2,
+           $image-3, $image-4,
+           $image-5, $image-6,
+           $image-7, $image-8,
+           $image-9, $image-10);
+
+  background-image: owg($images);
+  background-image: add-prefix($images, webkit);
+  background-image: add-prefix($images, moz);
+  background-image: add-prefix($images, ms);
+  background-image: add-prefix($images, o);
+  background-image: add-prefix($images);
+}
+
+// modified version of add-prefix
+@function owg($images, $vendor: false) {
+  $images-prefixed: ();
+
+  @for $i from 1 through length($images) {
+    $type: type-of(nth($images, $i)); // Get type of variable - List or String
+
+    // If variable is a list - Gradient
+    @if $type == list {
+      $gradient-type: nth(nth($images, $i), 1); // Get type of gradient (linear || radial)
+      $gradient-args: nth(nth($images, $i), 2); // Get actual gradient (red, blue)
+
+      $deprecated-pos: deprecated-pos(nth($gradient-args, 1));
+
+      $gradient: deprecated-webkit-gradient($gradient-type, nth($deprecated-pos, 1), nth($deprecated-pos, 2), slice($gradient-args, 2)); //render-gradients($gradient-args, $gradient-type, webkit);
+      $images-prefixed: append($images-prefixed, $gradient, comma);
+    }
+
+    // If variable is a string - Image
+    @else if $type == string {
+      $images-prefixed: join($images-prefixed, nth($images, $i), comma);
+    }
+  }
+  @return $images-prefixed;
+}

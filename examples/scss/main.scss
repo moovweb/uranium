@@ -1,0 +1,176 @@
+@import "_reset";
+$spacing-para: 15px;
+$spacing-box: 10px;
+$bg-color-main: #feb;
+$border-color-main: #dc9;
+$bg-color-btn: #ccc;
+$border-color-btn: #aaa;
+$tap-height: 44px;
+$font-size: 14px;
+
+// element overrides
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  padding: $spacing-box;
+}
+img {
+  max-width: 100%;
+}
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: $spacing-para;
+}
+h2 {
+  font-size: 24px;
+  margin-bottom: $spacing-para;
+}
+button {
+  background: $bg-color-btn;
+  border: 1px solid $border-color-btn;
+  font-size: $font-size;
+  margin-bottom: $spacing-para;
+  padding: $spacing-box;
+}
+input[type="text"] {
+  border: 1px solid $border-color-main;
+  height: $tap-height;
+  margin-bottom: $spacing-para;
+  padding: 0 $spacing-box;
+  &:focus {
+    outline: 2px solid #f90;
+  }
+}
+select {
+  border: 1px solid $border-color-main;
+  border-radius: 0;
+  display: block;
+  font-size: $font-size;
+  height: $tap-height;
+  margin-bottom: $spacing-para;
+  padding: 0 $spacing-box;
+}
+// end element overrides
+
+.ur-section {
+  border-bottom: 1px solid $border-color-btn;
+  margin-bottom: $spacing-para;
+  padding-bottom: $spacing-para;
+}
+
+// uranium example styling
+.ur-toggler {
+  border: 1px solid $border-color-main;
+  margin-bottom: $spacing-para;
+  .ur-button {
+    background: $bg-color-main;
+    padding: $spacing-box;
+  }
+  .ur-content {
+    border-top: 1px solid $border-color-main;
+    padding: $spacing-box;
+  }
+  &.inner {
+    border: 0;
+    margin: 0;
+    .ur-button {
+      background: transparent;
+      padding: 0;
+    }
+    .ur-content {
+      border: 0;
+      padding: 0 $spacing-box;
+    }
+  }
+}
+
+.ur-carousel {
+  background-color: $bg-color-main;
+  border: 1px solid $border-color-main;
+  max-width: 500px;
+  padding: $spacing-box;
+  .ur-button-container {
+    margin-bottom: $spacing-para;
+    text-align: center;
+  }
+  .ur-count, .ur-button {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
+
+.ur-zoom {
+  .ur-button {
+    background: gray;
+    border-radius: 50%;
+    bottom: 5px;
+    font-size: 30px;
+    height: 30px;
+    left: 5px;
+    line-height: 1;
+    opacity: .6;
+    text-align: center;
+    width: 30px;
+    &:before {
+      content: "+";
+    }
+    &:after {
+      content: "\2212";
+      display: none;
+    }
+    &[data-ur-state="enabled"] {
+      &:before {
+        display: none;
+      }
+      &:after {
+        display: inline;
+      }
+    }
+  }
+  .ur-loading {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, .6);
+    border: 1px solid $border-color-btn; 
+    border-radius: 3px;
+    left: 50%;
+    padding: $spacing-box;
+    position: absolute;
+    top: 50%;
+  }
+}
+
+.ur-tabs {
+  margin-bottom: $spacing-para;
+  .ur-button {
+    border: 1px solid $border-color-main;
+    display: inline-block;
+    padding: $spacing-box;
+    &[data-ur-state="enabled"] {
+      border-bottom-color: white;
+    }
+  }
+  .ur-content {
+    border: 1px solid $border-color-main;
+    margin-top: -1px;
+    padding: $spacing-box;
+  }
+  &.tabs-closeable {
+    border-bottom: 1px solid $border-color-main;
+    .ur-button, .ur-content {
+      border-bottom: 0;
+    }
+    .ur-button {
+      background: $bg-color-main;
+      display: block;
+    }
+  }
+}
+
+.ur-input-clear {
+  margin-bottom: $spacing-para;
+}
+// end uranium example styling

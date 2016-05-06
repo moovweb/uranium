@@ -1,4 +1,4 @@
 url: "http://moovweb.github.com/uranium/"
 source: "examples/"
 destination: "_examples"
-pygments: true
+highlighter: "pygments"
