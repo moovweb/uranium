@@ -1,5 +1,9 @@
-@import "bourbon/_bourbon";
-@import "_bourbon_fix";
+@import "_reset";
+
+$spacing-para: 15px;
+$spacing-box: 10px;
+
+// required for drawer
 #wrapper {
   display: -webkit-box !important;
   display: -webkit-flex !important;
@@ -7,19 +11,22 @@
   overflow-x: hidden;
   &[data-ur-state="enabled"] {
     #menu {
-      @include transform(translate3d(100%, 0, 0));
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
     }
     #page {
-      @include transform(translate3d(50%, 0, 0));
+      -webkit-transform: translate3d(50%, 0, 0);
+      transform: translate3d(50%, 0, 0);
     }
   }
 }
 #menu, #page {
-  @include transform(translate3d(0, 0, 0));
-  @include transition(0.3s);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   width: 0;
 }
-
 #menu {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
@@ -34,7 +41,6 @@
   -webkit-flex: 2;
   flex: 2;
 }
-
 #mask {
   background: rgba(0, 0, 0, 0.3);
   content: "";
@@ -47,4 +53,63 @@
     display: none;
   }
 }
+// end required for drawer
 
+// appearance
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  line-height: 1.2;
+}
+header {
+  background: #69c;
+  overflow: hidden;
+  padding: $spacing-box;
+  text-align: center;
+}
+h1 {
+  font-size: 32px;
+  margin-bottom: $spacing-para;
+}
+p {
+  margin-bottom: $spacing-para;
+}
+img {
+  display: block;
+  margin-bottom: $spacing-para;
+}
+.logo img {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.pull-left {
+  float: left;
+  margin-right: $spacing-para;
+}
+.pull-right {
+  float: right;
+  margin-left: $spacing-para;
+}
+.ur-button {
+  background: #feb;
+  float: left;
+  font-size: 10px;
+  height: 40px;
+  margin-right: -40px;
+  text-align: center;
+  width: 40px;
+}
+.content {
+  padding: $spacing-box;
+}
+#menu {
+  background: #9be;
+  color: white;
+  li {
+    border-bottom: 1px solid white;
+    padding: $spacing-box;
+  }
+}
+// end appearance
