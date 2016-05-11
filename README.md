@@ -10,7 +10,7 @@ Start with installing [Jekyll](http://jekyllrb.com/)
 
 Update the CSS:
 		
-		sass --watch stylesheets/scss:stylesheets --style compact --compass
+		sass --watch stylesheets/scss:stylesheets --style compact
 
 on the stylesheets folder to compile your Sass files and keep them updated.
 			
@@ -131,7 +131,7 @@ To get the examples running locally, start the jekyll server with:
 
 In a separate terminal process, run  
 
-`sass --watch stylesheets/scss:stylesheets --compass --style compact`
+`sass --watch stylesheets/scss:stylesheets --style compact`
 
 on the stylesheets folder to compile your Sass files.
 

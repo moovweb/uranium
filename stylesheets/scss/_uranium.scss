@@ -36,11 +36,21 @@
     padding-right: $sp;
   }
 }
+[data-ur-carousel-component="scroll_container"] {
+  clear: both;
+  display: block;
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  img {
+    -webkit-user-drag: none;
+  }
+}
 [data-ur-carousel-component="item"] {
-  -webkit-transform: translate(0, 0); // for mobile Google Chrome
-  -webkit-user-drag: none;
+  display: inline-block;
   float: left;
-  overflow: hidden;
 }
 [data-ur-carousel-component="dot"] {
   @include border-radius(4px);
