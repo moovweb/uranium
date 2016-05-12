@@ -1,8 +1,11 @@
-// URANIUM WIDGET STRUCTURE STYLING
-// Uranium is a mobile javascript widget library
-// learn more => http://uraniumjs.com/
+// Uranium: mobile JS widget library
+// Learn more => http://uraniumjs.com/
 
-// Togglers (accordions)
+[data-ur-state="hide"] {
+  display: none !important;
+}
+
+// Toggler/Accordion
 [data-ur-toggler-component="content"] {
   display: none;
   &:not([data-ur-state]) {
@@ -11,22 +14,6 @@
   &[data-ur-state="enabled"] {
     display: block;
   }
-}
-
-// Tabs
-[data-ur-tabs-component="content"] {
-  display: none;
-  &:not([data-ur-state]) {
-    display: none;
-  }
-  &[data-ur-state="enabled"] {
-    display: block;
-  }
-}
-
-// Simple Carousel
-[data-ur-state="hide"] {
-  display: none !important;
 }
 
 // Carousel
@@ -46,18 +33,18 @@
     }
   }
 }
-[data-ur-carousel-component='view_container'] {
-  width: 100%;
-  overflow-x: hidden;
+[data-ur-set="carousel"] {
   @include hero-load-helper();
+  overflow-x: hidden;
+  width: 100%;
 }
 [data-ur-carousel-component="scroll_container"] {
   clear: both;
   display: block;
   &:after {
+    clear: both;
     content: "";
     display: table;
-    clear: both;
   }
   [data-ur-carousel-component="item"] {
     display: inline-block;
@@ -85,6 +72,39 @@
   }
 }
 
+// Zoom
+[data-ur-set="zoom"] {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+[data-ur-state="enabled-in"] [data-ur-zoom-component], [data-ur-state="enabled-out"] [data-ur-zoom-component] {
+  -webkit-transition: 0.4s -webkit-transform ease-in-out;
+  transition: 0.4s transform ease-in-out;
+}
+[data-ur-zoom-component="img"] {
+  display: block;
+}
+[data-ur-zoom-component="loading"][data-ur-state="disabled"] {
+  display: none;
+}
+[data-ur-zoom-component="button"] {
+  position: absolute;
+  z-index: 1000;
+}
+
+// Tabs
+[data-ur-tabs-component="content"] {
+  display: none;
+  &:not([data-ur-state]) {
+    display: none;
+  }
+  &[data-ur-state="enabled"] {
+    display: block;
+  }
+}
+
+// Input Clear
 [data-ur-set='input-clear'] {
   position: relative;
 }
@@ -103,24 +123,4 @@
   right: 10px;
   top: 50%;
   width: 27px;
-}
-
-[data-ur-zoom-component="view_container"] {
-  display: inline-block;
-  overflow: hidden;
-  position: relative;
-}
-[data-ur-state="enabled-in"] [data-ur-zoom-component], [data-ur-state="enabled-out"] [data-ur-zoom-component] {
-  -webkit-transition: 0.4s -webkit-transform ease-in-out;
-  transition: 0.4s transform ease-in-out;
-}
-[data-ur-zoom-component="img"] {
-  display: block;
-}
-[data-ur-zoom-component="loading"][data-ur-state="disabled"] {
-  display: none;
-}
-[data-ur-zoom-component="button"] {
-  position: absolute;
-  z-index: 1000;
 }

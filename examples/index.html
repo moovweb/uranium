@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" type='text/css' href='css/uranium.css' />
-    <link rel="stylesheet" type='text/css' href='css/main.css' />
+    <link rel="stylesheet" type="text/css" href="css/uranium.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
   </head>
   <body>
 
@@ -15,9 +15,9 @@
 
       <div class="ur-section" id="ur-toggler">
         <h2>Toggler</h2>
-        <div class="ur-toggler" data-ur-set='toggler'>
-          <div class="ur-button" data-ur-toggler-component='button'>Click Here 1!</div>
-          <ul class="ur-content" data-ur-toggler-component='content'>
+        <div class="ur-toggler" data-ur-set="toggler">
+          <div class="ur-button" data-ur-toggler-component="button">Click Here 1!</div>
+          <ul class="ur-content" data-ur-toggler-component="content">
             <li> Hat </li>
             <li> Socks </li>
             <li> Shoes </li>
@@ -25,13 +25,13 @@
             <li> Shirts </li>
           </ul>
         </div>
-        <div class="ur-toggler" data-ur-set='toggler'>
-          <div class="ur-button" data-ur-toggler-component='button' data-ur-state="enabled">Click Here 2!</div>
-          <ul class="ur-content" data-ur-toggler-component='content' data-ur-state="enabled">
+        <div class="ur-toggler" data-ur-set="toggler">
+          <div class="ur-button" data-ur-toggler-component="button" data-ur-state="enabled">Click Here 2!</div>
+          <ul class="ur-content" data-ur-toggler-component="content" data-ur-state="enabled">
             <li>Hat</li>
-            <li class="ur-toggler inner" data-ur-set='toggler'>
-              <div class="ur-button" data-ur-toggler-component='button' data-ur-state="enabled">Click Here 3!</div>
-              <ul class="ur-content" data-ur-toggler-component='content' data-ur-state="enabled">
+            <li class="ur-toggler inner" data-ur-set="toggler">
+              <div class="ur-button" data-ur-toggler-component="button" data-ur-state="enabled">Click Here 3!</div>
+              <ul class="ur-content" data-ur-toggler-component="content" data-ur-state="enabled">
                 <li>Hat</li>
                 <li>Socks</li>
                 <li>Shoes</li>
@@ -49,16 +49,16 @@
       <div class="ur-section" id="ur-carousel">
         <h2>Carousel</h2>
 
-        <div class="ur-carousel" data-ur-set="carousel" data-ur-carousel-component="view_container" data-ur-id="MyFirstCarousel" data-ur-clones="2">
-          <div data-ur-carousel-component='scroll_container'>
-            <img data-ur-carousel-component='item' src='images/sample1.png' alt="1" />
-            <img data-ur-carousel-component='item' src='images/sample2.png' alt="2" />
-            <img data-ur-carousel-component='item' src='images/sample3.png' alt="3" />
-            <img data-ur-carousel-component='item' src='images/sample4.png' alt="4" />
-            <img data-ur-carousel-component='item' src='images/sample5.png' alt="5" />
-            <img data-ur-carousel-component='item' src='images/sample6.png' alt="6" />
-            <img data-ur-carousel-component='item' src='images/sample7.png' alt="7" />
-            <img data-ur-carousel-component='item' src='images/sample8.png' alt="8" />
+        <div class="ur-carousel" data-ur-set="carousel" data-ur-id="MyFirstCarousel" data-ur-clones="2">
+          <div data-ur-carousel-component="scroll_container">
+            <img data-ur-carousel-component="item" src="images/sample1.png" alt="1" />
+            <img data-ur-carousel-component="item" src="images/sample2.png" alt="2" />
+            <img data-ur-carousel-component="item" src="images/sample3.png" alt="3" />
+            <img data-ur-carousel-component="item" src="images/sample4.png" alt="4" />
+            <img data-ur-carousel-component="item" src="images/sample5.png" alt="5" />
+            <img data-ur-carousel-component="item" src="images/sample6.png" alt="6" />
+            <img data-ur-carousel-component="item" src="images/sample7.png" alt="7" />
+            <img data-ur-carousel-component="item" src="images/sample8.png" alt="8" />
           </div>
           <div class="ur-button-container">
             <button class="ur-button" data-ur-carousel-component="button" data-ur-carousel-button-type="prev">Prev</button>
@@ -71,7 +71,7 @@
 
       <div class="ur-section" id="ur-zoom">
         <h2>Zoom</h2>
-        <div class="ur-zoom" data-ur-set="zoom" data-ur-zoom-component="view_container">
+        <div class="ur-zoom" data-ur-set="zoom">
           <img alt="" data-ur-zoom-component="img" src="images/pic-normal.jpeg" data-ur-src="images/pic-large.jpeg">
           <div class="ur-button" data-ur-zoom-component="button"></div>
           <div class="ur-loading" data-ur-zoom-component="loading" data-ur-state="disabled">Loading&hellip;</div>
@@ -80,29 +80,29 @@
 
       <div class="ur-section" id="ur-tabs">
         <h2>Tabs</h2>
-        <div data-ur-set='tabs' class="ur-tabs tabs-standard">
-          <span class="ur-button" data-ur-tabs-component='button' data-ur-tab-id='first' data-ur-state='enabled'> First </span>
-          <span class="ur-button" data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
-          <span class="ur-button" data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
-          <div class="ur-content" data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
-          <div class="ur-content" data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
-          <div class="ur-content" data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
+        <div data-ur-set="tabs" class="ur-tabs tabs-standard">
+          <span class="ur-button" data-ur-tabs-component="button" data-ur-tab-id="first" data-ur-state="enabled"> First </span>
+          <span class="ur-button" data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
+          <span class="ur-button" data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
+          <div class="ur-content" data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">First Content</div>
+          <div class="ur-content" data-ur-tabs-component="content" data-ur-tab-id="second">Second Content</div>
+          <div class="ur-content" data-ur-tabs-component="content" data-ur-tab-id="third">Third Content</div>
         </div>
 
-        <div data-ur-set='tabs' data-ur-closeable="true" class="ur-tabs tabs-closeable">
-          <span class="ur-button" data-ur-tabs-component='button' data-ur-tab-id='first'> First </span>
-          <div class="ur-content" data-ur-tabs-component='content' data-ur-tab-id='first' data-ur-state='enabled'>First Content</div>
-          <span class="ur-button" data-ur-tabs-component='button' data-ur-tab-id='second'> Second </span>
-          <div class="ur-content" data-ur-tabs-component='content' data-ur-tab-id='second'>Second Content</div>
-          <span class="ur-button" data-ur-tabs-component='button' data-ur-tab-id='third'> Third </span>
-          <div class="ur-content" data-ur-tabs-component='content' data-ur-tab-id='third'>Third Content</div>
+        <div data-ur-set="tabs" data-ur-closeable="true" class="ur-tabs tabs-closeable">
+          <span class="ur-button" data-ur-tabs-component="button" data-ur-tab-id="first"> First </span>
+          <div class="ur-content" data-ur-tabs-component="content" data-ur-tab-id="first" data-ur-state="enabled">First Content</div>
+          <span class="ur-button" data-ur-tabs-component="button" data-ur-tab-id="second"> Second </span>
+          <div class="ur-content" data-ur-tabs-component="content" data-ur-tab-id="second">Second Content</div>
+          <span class="ur-button" data-ur-tabs-component="button" data-ur-tab-id="third"> Third </span>
+          <div class="ur-content" data-ur-tabs-component="content" data-ur-tab-id="third">Third Content</div>
         </div>
       </div>
 
       <div class="ur-section" id="ur-geocode">
         <h2>Geocode</h2>
-        <div class='test' data-ur-set="reverse-geocode" data-ur-callback="foo()" data-ur-error-callback="bar()">
-          <button  value="clickMe" type='button' data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
+        <div class="test" data-ur-set="reverse-geocode" data-ur-callback="foo()" data-ur-error-callback="bar()">
+          <button  value="clickMe" type="button" data-ur-reverse-geocode-component="rg-button">Click here to find your location</button>
           <form action="geocode_submit" method="get" accept-charset="utf-8" >
             <input type="text" name="addr_1" value="" id="street_address" placeholder="street address" data-ur-reverse-geocode-component="rg-street">
             <input type="text" name="city" value="" id="city" placeholder="city" data-ur-reverse-geocode-component="rg-city">
@@ -413,19 +413,16 @@
       <div class="ur-section" id="ur-input-clear">
         <h2>Input Clear</h2>
         <div class="ur-input-clear" data-ur-set="input-clear">
-          <input data-ur-input-clear-component='input' type='text'/>
+          <input data-ur-input-clear-component="input" type="text"/>
         </div>
 
         <div class="ur-input-clear" data-ur-set="input-clear">
-          <input data-ur-input-clear-component='input' type='text' value="Sample Content"/>
+          <input data-ur-input-clear-component="input" type="text" value="Sample Content"/>
         </div>
       </div>
     </div>
 
-    <!-- Dev Links to Javascript Files (reference the version being tested) -->
     <script src="scripts/jquery-1.9.1.js"></script>
-    <script src='scripts/jquery.uranium.js'></script>
-    <!-- Test event for itermChange -->
-    <script> $('#car').on('itemChange', function(){console.log("changed")});</script>
+    <script src="scripts/jquery.uranium.js"></script>
   </body>
 </html>
