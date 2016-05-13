@@ -6,5 +6,6 @@ doc/*.html
 .rvmrc
 examples/site/_site/*
 .sass-cache/
-
+_examples/
+build/_site
 build/.remote/
