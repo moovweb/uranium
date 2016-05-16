@@ -130,13 +130,26 @@ js_tab:
 </div>
 <hr>
 
-<h2>Recommended Styles</h2>
+<h2>Required Styles</h2>
 <pre data-lang="css">
 [data-ur-set="carousel"] {
   overflow: hidden;
   position: relative;
 }
+[data-ur-carousel-component="scroll_container"] {
+  clear: both;
+  display: block;
+}
+[data-ur-carousel-component="scroll_container"]:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+[data-ur-carousel-component="scroll_container"] img {
+  -webkit-user-drag: none;
+}
 [data-ur-carousel-component="item"] {
+  display: inline-block;
   float: left;
 }
 </pre>
