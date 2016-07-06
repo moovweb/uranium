@@ -1,10 +1,13 @@
 .DS_Store
 *.swp
+*~
 BUILD_VERSION
 JENKINS
 doc/*.html
 .rvmrc
-examples/site/_site/*
 .sass-cache/
-
+_examples/
+examples/css
+examples/site/_site/*
+build/_site
 build/.remote/

@@ -583,7 +583,7 @@ interactions.zoom = function ( fragment, options ) {
       this.transform3d = custom3d != "disabled";
     else if ("transform3d" in options)
       this.transform3d = options.transform3d;
-      
+
     if (zoomer.transform3d) {
       translatePrefix = "translate3d(";
       translateSuffix = ",0)";
@@ -665,23 +665,23 @@ interactions.zoom = function ( fragment, options ) {
 
       function initialize() {
         $container.attr("data-ur-transform3d", zoomer.transform3d ? "enabled" : "disabled");
-        
+
         canvasWidth = canvasWidth || $img.parent().outerWidth();
         canvasHeight = canvasHeight || $img.parent().outerHeight();
         width = width || parseInt($img.attr("width")) || parseInt($img.css("width")) || $img[0].width;
         height = height || parseInt($img.attr("height")) || parseInt($img.css("height")) || $img[0].height;
-        
+
         bigWidth = parseInt($img.attr("data-ur-width")) || $img[0].naturalWidth;
         bigHeight = parseInt($img.attr("data-ur-height")) || $img[0].naturalHeight;
-        
+
         if (!$img.attr("data-ur-src"))
           $img.attr("data-ur-src", $img.attr("src"));
-        
+
         if (($img.attr("data-ur-width") && $img.attr("data-ur-height")) || $img.attr("src") == $img.attr("data-ur-src"))
           prescale = true;
-        
+
         imgRatio = bigWidth/width;
-        
+
         var xb = (bigWidth - canvasWidth)/2; // horizonal translation to show left side of image
         var yb = (bigHeight - canvasHeight)/2; // vertical translation to show left top side of image
         currentBounds = bigBounds = { x: [-xb, xb], y: [-yb, yb] };
@@ -722,7 +722,7 @@ interactions.zoom = function ( fragment, options ) {
         if (event.timeStamp < time2 + 50)
           slide();
       }
-    
+
       function slide() {
         setState("enabled-slide");
         var ddx = dx2 - dx1, ddy = dy2 - dy1;
@@ -780,7 +780,7 @@ interactions.zoom = function ( fragment, options ) {
           t = translatePrefix + x + "px, " + y + "px" + translateSuffix;
         if (scale != null)
           t += scalePrefix + scale + ", " + scale + scaleSuffix;
-      
+
         return $img.css({ webkitTransform: t, msTransform: t, transform: t });
       }
 
@@ -816,7 +816,7 @@ interactions.zoom = function ( fragment, options ) {
 
         if (!width)
           initialize();
-        
+
         if (prescale) {
           currentBounds = bigBounds;
           var trX = 0, trY = 0; // relative to center of image
@@ -868,6 +868,7 @@ interactions.zoom = function ( fragment, options ) {
               x: ((rel.x + rel.x2)/2 + transXY.x)/initScale,
               y: ((rel.y + rel.y2)/2 + transXY.y)/initScale
             };
+            initAbsCoords = absCoords;
           }
           else {
             clickFlag = true;
@@ -987,7 +988,7 @@ interactions.carousel = function ( fragment, options ) {
   });
 
   // private methods
-  
+
   function zeroFloor(num) {
     return num >= 0 ? Math.floor(num) : Math.ceil(num);
   }
@@ -1034,7 +1035,7 @@ interactions.carousel = function ( fragment, options ) {
     self.count = self.items.length;     // number of items (excluding clones)
     self.itemIndex = 0;                 // index of active item (including clones)
     self.translate = 0;                 // current numerical css translate value
-    
+
     var $container = $(self.container);
     var $items = $(self.items);         // all carousel items (including clones)
     var coords = null;
@@ -1047,6 +1048,8 @@ interactions.carousel = function ( fragment, options ) {
     var allItemsWidth;                  // sum of all items' widths (excluding clones)
     var autoscrollId;                   // used for autoscrolling timeout
     var momentumId;                     // used for snapping timeout
+
+    var isThisInit = true;              // check if we are initalizeing
 
     var viewport = $container.outerWidth();
 
@@ -1066,7 +1069,7 @@ interactions.carousel = function ( fragment, options ) {
           return false;
         }
       });
-      
+
       insertClones();
       updateDots();
       updateIndex(self.options.center ? self.itemIndex + self.options.cloneLength : self.itemIndex);
@@ -1107,6 +1110,7 @@ interactions.carousel = function ( fragment, options ) {
       self.autoscrollStart();
 
       $container.triggerHandler("load.ur.carousel");
+      isThisInit = false;
     }
 
     function readAttributes() {
@@ -1201,7 +1205,7 @@ interactions.carousel = function ( fragment, options ) {
         frag.appendChild(clone[0]);
       }
       $items.parent().append(frag);
-      
+
       if (self.options.center) {
         frag = document.createDocumentFragment()
         var offset =  self.count - (self.options.cloneLength % self.count);
@@ -1212,7 +1216,7 @@ interactions.carousel = function ( fragment, options ) {
         }
         $items.parent().prepend(frag);
       }
-      
+
       $items = $(self.scroller).find("[data-ur-carousel-component='item']");
       lastIndex = $items.length - 1;
     }
@@ -1364,6 +1368,8 @@ interactions.carousel = function ( fragment, options ) {
       $(self.dots).find("[data-ur-carousel-component='dot']").attr("data-ur-state", "inactive").eq(realIndex).attr("data-ur-state", "active");
 
       updateButtons();
+      if (!isThisInit)
+        $container.triggerHandler("itemChange", {index: newIndex});
     }
 
     function startSwipe(e) {
@@ -1374,7 +1380,7 @@ interactions.carousel = function ( fragment, options ) {
       self.flag.click = true;
 
       coords = getEventCoords(e);
-      
+
       startCoords = prevCoords = coords;
       startingOffset = getTranslateX();
     }
@@ -1406,9 +1412,11 @@ interactions.carousel = function ( fragment, options ) {
         stifle(e);
       }
 
+      stifle(e);
+
       if (coords !== null) {
         var dist = startingOffset + swipeDist(startCoords, coords); // new translate() value, usually negative
-        
+
         var threshold = -dist;
         if (self.options.center)
           threshold += viewport/2;
@@ -1423,7 +1431,7 @@ interactions.carousel = function ( fragment, options ) {
             return false;
           }
         });
-        
+
         if (self.options.infinite) {
           if (self.options.center) {
             if (self.itemIndex < self.options.cloneLength) { // at the start of carousel so loop to end
@@ -1453,7 +1461,6 @@ interactions.carousel = function ( fragment, options ) {
             }
           }
         }
-
         translateX(dist);
       }
 
@@ -1513,7 +1520,7 @@ interactions.carousel = function ( fragment, options ) {
             newIndex -= self.count;
             self.itemIndex = newIndex + direction;
           }
-          
+
         }
         else {
           if (newIndex < 0) { // at start of carousel so loop to back
@@ -1526,10 +1533,10 @@ interactions.carousel = function ( fragment, options ) {
             newIndex -= self.count;
             self.itemIndex = newIndex + direction;
           }
-          
+
         }
       }
-      
+
       dest = $items[newIndex];
       $container.attr("data-ur-state", "enabled-slide");
       $container.triggerHandler("slidestart", {index: newIndex});
@@ -1545,7 +1552,7 @@ interactions.carousel = function ( fragment, options ) {
       destinationOffset = -offsetFront(dest);
       if (self.options.center)
         destinationOffset += centerOffset(dest);
-      
+
       function momentum() {
         // in case user touched in the middle of snapping
         if (self.flag.touched)
