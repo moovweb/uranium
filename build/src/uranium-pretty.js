@@ -178,7 +178,7 @@ function stifle(e) {
   e.stopPropagation();
 }
 
-function bound(num, range) {
+function clamp(num, range) {
   return Math.max(range[0], Math.min(num, range[1]));
 }
 
@@ -554,49 +554,28 @@ interactions.zoom = function ( fragment, options ) {
   else
     var groups = findElements(fragment, "zoom");
 
-  // Private shared variables
-
-  var loadedImgs = []; // sometimes the load event doesn't fire when the image src has been previously loaded
-
   $.each(groups, function(id, group) {
     Uranium.zoom[id] = new Zoom(this);
     $(group["set"]).data("urInit", true);
   });
 
   function Zoom(set) {
-    var self = this;
     var zoomer = this;
     this.container = set["set"];
     this.img = set["img"];
-    this.state = "disabled";
 
     // Optionally:
     this.button = set["button"];
     this.idler = set["loading"];
 
     var $container = $(this.container);
-    var $img;
     var $idler = $(this.idler);
     var $btn = $(this.button);
+    var activeImg; // needed for carousel zoom combination
 
-    var relX, relY;
-    var offsetX = 0, offsetY = 0;
-    var destOffsetX = 0, destOffsetY = 0;
-    var touchX = 0, touchY = 0;
-    var mouseDown = false; // only used on non-touch browsers
-    var mouseDrag = true;
-
+    var gesturesEnabled = $container.attr("data-ur-touch") != "disabled" || options.touch;
     var translatePrefix = "translate(", translateSuffix = ")";
     var scalePrefix = " scale(", scaleSuffix = ")";
-
-    var startCoords, click, down; // used for determining if zoom element is actually clicked
-
-    // momentum sliding
-    var frictionTime, frictionTimer;
-    var dx1 = 0, dy1 = 0;
-    var dx2 = 0, dy2 = 0;
-    var time1 = 0, time2 = 0;
-    var slidex, slidey;
 
     this.transform3d = transform3d;
     var custom3d = $container.attr("data-ur-transform3d");
@@ -604,323 +583,385 @@ interactions.zoom = function ( fragment, options ) {
       this.transform3d = custom3d != "disabled";
     else if ("transform3d" in options)
       this.transform3d = options.transform3d;
-      
-    if (self.transform3d) {
+
+    if (zoomer.transform3d) {
       translatePrefix = "translate3d(";
       translateSuffix = ",0)";
       scalePrefix = " scale3d(";
       scaleSuffix = ",1)";
     }
 
-    $(self.img).each(function() {
-      loadedImgs.push($(this).attr("src"));
-      $(this).data("urZoomImg", new Img(this));
+    var imgs = $(zoomer.img).map(function() {
+      return new Img(this);
     });
 
     function setActive(img) {
-      if ($img && img != $img[0]) {
-        self.state = "enabled-out";
-        var zoomImg = $img.data("urZoomImg");
-        zoomImg.transform(0, 0, 1);
-        zoomImg.transitionEnd();
+      if (activeImg && activeImg != img) {
+        activeImg.zoomOut(true);
       }
-      $img = $(img);
+      activeImg = img;
+    }
+
+    function closeEnough(coords1, coords2) {
+      return Math.abs(coords1.x - coords2.x) < 8 && Math.abs(coords1.y - coords2.y) < 8;
+    }
+
+    function multiTouch(event) {
+      var touches = event.originalEvent.touches;
+      if (touches)
+        return touches.length > (event.type == "touchend" ? 0 : 1);
+    }
+
+    function relativeCoords(event) {
+      var coords = getEventCoords(event);
+      var rect = event.target.getBoundingClientRect();
+      return {
+        x: coords.x - rect.left,
+        y: coords.y - rect.top,
+        x2: coords.x2 - rect.left,
+        y2: coords.y2 - rect.top
+      };
     }
 
     // zoom in/out button, zooms in to the center of the image
-    $(self.button).on(touchscreen ? "touchstart.ur.zoom" : "click.ur.zoom", function() {
-      if (self.img.length > 1)
-        setActive($(self.img).filter($container.find("[data-ur-state='active'] *"))[0]);
-      else
-        setActive(self.img[0]);
-      $img.data("urZoomImg").zoom();
+    $(zoomer.button).on("click.ur.zoom", function() {
+      var active = imgs[0];
+      // handle carousel zoom combination
+      if (imgs.length > 1)
+        active = imgs.filter(function() { return $(this.img).closest("[data-ur-state='active']", zoomer.container)[0]; })[0];
+      setActive(active);
+      active.zoom();
     });
 
     function Img(img) {
       var self = this;
+      var state = "disabled";
       var $img = $(img);
       var canvasWidth, canvasHeight;
       var width, height;
       var bigWidth, bigHeight;
-      var boundX, boundY;
-      var ratio;
-      var prescale;
-      
+      var bigBounds; // translation bounds
+      var currentBounds; // translation bounds
+      var imgRatio;
+      var prescale; // bigWidth and bigHeight are known
+      var initAbsCoords, absCoords;
+      var clickFlag, downFlag;
+      var timeStamp;
+      var transXY;
+
+      // momentum sliding
+      var frictionTime, frictionTimer;
+      var dx1 = 0, dy1 = 0;
+      var dx2 = 0, dy2 = 0;
+      var time1 = 0, time2 = 0;
+      var slidex, slidey;
+
+      // pinch to zoom
+      var initScale = 1, currentScale = 1;
+      var initDist;
+      var midpointCoords;
+
+      this.img = img;
+
       function initialize() {
         $container.attr("data-ur-transform3d", zoomer.transform3d ? "enabled" : "disabled");
-        
+
         canvasWidth = canvasWidth || $img.parent().outerWidth();
         canvasHeight = canvasHeight || $img.parent().outerHeight();
         width = width || parseInt($img.attr("width")) || parseInt($img.css("width")) || $img[0].width;
         height = height || parseInt($img.attr("height")) || parseInt($img.css("height")) || $img[0].height;
-        
+
         bigWidth = parseInt($img.attr("data-ur-width")) || $img[0].naturalWidth;
         bigHeight = parseInt($img.attr("data-ur-height")) || $img[0].naturalHeight;
-        
+
         if (!$img.attr("data-ur-src"))
           $img.attr("data-ur-src", $img.attr("src"));
-        
+
         if (($img.attr("data-ur-width") && $img.attr("data-ur-height")) || $img.attr("src") == $img.attr("data-ur-src"))
           prescale = true;
-        
-        ratio = bigWidth/width;
-        
-        boundX = (bigWidth - canvasWidth)/2;    // horizontal translation to view middle of image
-        boundY = (bigHeight - canvasHeight)/2;  // vertical translation to view middle of image
+
+        imgRatio = bigWidth/width;
+
+        var xb = (bigWidth - canvasWidth)/2; // horizonal translation to show left side of image
+        var yb = (bigHeight - canvasHeight)/2; // vertical translation to show left top side of image
+        currentBounds = bigBounds = { x: [-xb, xb], y: [-yb, yb] };
+
+        $img.css("width", width + "px");
+        $img.css("height", height + "px");
       }
 
-      function panStart(event) {
-        if (zoomer.state == "enabled-slide") {
-          setState("enabled");
-          var t = (Date.now() - frictionTime) / 300;
-          if (t < 1) {
-            clearTimeout(frictionTimer);
-            var cb = 1 - Math.pow(1 - t, 1.685); // approximate cubic bezier y(x)
-            var currentOffsetX = bound(destOffsetX + cb * slidex, [-boundX, boundX]);
-            var currentOffsetY = bound(destOffsetY + cb * slidey, [-boundY, boundY]);
-            transform(currentOffsetX, currentOffsetY, ratio);
-          }
-        }
-      
-        mouseDrag = false;
-        touchX = event.pageX;
-        touchY = event.pageY;
-        mouseDown = true;
-        var coords = getEventCoords(event);
-        touchX = coords.x;
-        touchY = coords.y;
-
+      function getTranslate() {
         var style = $img[0].style;
         if (window.WebKitCSSMatrix) {
           var matrix = new WebKitCSSMatrix(style.webkitTransform);
-          offsetX = matrix.m41;
-          offsetY = matrix.m42;
+          return { x: matrix.m41, y: matrix.m42 };
         }
-        else {
-          var css = style.MozTransform || style.msTransform || style.transform || "translate(0, 0)";
-          css = css.replace(/.*?\(|\)/, "").split(",");
-
-          offsetX = parseInt(css[0]);
-          offsetY = parseInt(css[1]);
-        }
-
-        stifle(event);
+        var css = style.msTransform || style.transform || "translate(0, 0)";
+        css = css.substring(css.indexOf("(") + 1).split(",");
+        return { x: parseFloat(css[0]), y: parseFloat(css[1]) };
       }
 
       function panMove(event) {
-        if (!mouseDown) // NOTE: mouseDown should always be true on touch-enabled devices
-          return;
-
         stifle(event);
         var coords = getEventCoords(event);
-        var x = coords.x;
-        var y = coords.y;
-        var dx = x - touchX;
-        var dy = y - touchY;
-        if (Math.abs(dx) > 5 || Math.abs(dy) > 5)
-          mouseDrag = true;
-        destOffsetX = bound(offsetX + dx, [-boundX, boundX]);
-        destOffsetY = bound(offsetY + dy, [-boundY, boundY]);
-        transform(destOffsetX, destOffsetY, ratio);
+        var dx = coords.x - absCoords.x;
+        var dy = coords.y - absCoords.y;
+        destOffsetX = clamp(transXY.x + dx, currentBounds.x);
+        destOffsetY = clamp(transXY.y + dy, currentBounds.y);
+        transform(destOffsetX, destOffsetY, currentScale);
         dx1 = dx2;
         dy1 = dy2;
         dx2 = dx;
         dy2 = dy;
         time1 = time2;
-        time2 = Date.now();
+        time2 = event.timeStamp;
       }
 
       function panEnd(event) {
-        if (!mouseDrag)
-          self.zoomOut();
-        else if (Date.now() < time2 + 50)
-          slide();
         stifle(event);
-        mouseDown = false;
-        mouseDrag = true;
+        if (event.timeStamp < time2 + 50)
+          slide();
       }
-    
+
       function slide() {
         setState("enabled-slide");
         var ddx = dx2 - dx1, ddy = dy2 - dy1;
         var scalar = 100 * Math.sqrt((ddx * ddx + ddy * ddy)/(dx2 * dx2 + dy2 * dy2))/(time2 - time1);
         slidex = scalar * dx2;
         slidey = scalar * dy2;
-        var newOffsetX = bound(destOffsetX + slidex, [-boundX, boundX]);
-        var newOffsetY = bound(destOffsetY + slidey, [-boundY, boundY]);
-        transform(newOffsetX, newOffsetY, ratio);
+        var newOffsetX = clamp(destOffsetX + slidex, currentBounds.x);
+        var newOffsetY = clamp(destOffsetY + slidey, currentBounds.y);
+        transform(newOffsetX, newOffsetY, currentScale);
         frictionTime = Date.now();
         frictionTimer = setTimeout(function() {
           setState("enabled");
         }, 300);
       }
 
-      this.transitionEnd = function() {
-        if (zoomer.state == "enabled-in") {
-          $img.css({ webkitTransitionDelay: "", MozTransitionDelay: "", OTransitionDelay: "", transitionDelay: "" });
-
-          $img.attr("src", $img.attr("data-ur-src"));
-          if (loadedImgs.indexOf($img.attr("data-ur-src")) == -1) {
-            setTimeout(function() {
-              if (loadedImgs.indexOf($img.attr("data-ur-src")) == -1)
-                $idler.attr("data-ur-state", "enabled");
-            }, 16);
-          }
-          setState("enabled");
-
-          $img
-            .on(downEvent + ".zoom", panStart)
-            .on(moveEvent + ".zoom", panMove)
-            .on(upEvent + ".zoom", panEnd);
-        }
-        else if (zoomer.state == "enabled-out") {
-          setState("disabled");
-
-          $img
-            .off(downEvent + ".zoom", panStart)
-            .off(moveEvent + ".zoom", panMove)
-            .off(upEvent + ".zoom", panEnd);
-        }
+      function stopSlide() {
+        setState("enabled");
+        var t = (Date.now() - frictionTime) / 300;
+        clearTimeout(frictionTimer);
+        var cb = 1 - Math.pow(1 - t, 1.685); // approximate cubic bezier y(x)
+        var currentOffsetX = clamp(destOffsetX + cb * slidex, currentBounds.x);
+        var currentOffsetY = clamp(destOffsetY + cb * slidey, currentBounds.y);
+        transform(currentOffsetX, currentOffsetY, currentScale);
       }
 
-      function setState(state) {
-        zoomer.state = state;
+      // should this be separated into pinchIn/Out?
+      // zoom in/out with midpoint as the "tranform origin"
+      function pinchZoom(event) {
+        var coords = getEventCoords(event);
+        var dx = coords.x2 - coords.x;
+        var dy = coords.y2 - coords.y;
+        var dist = dx * dx + dy * dy;
+        var diagonal = width * width + height * height;
+        var deltaDist = dist - initDist;
+        currentScale = clamp(initScale + 4 * imgRatio * deltaDist/diagonal, [1, imgRatio]);
+        var dScale = currentScale/initScale;
+        var xb = (currentScale * width - canvasWidth)/2, yb = (currentScale * height - canvasHeight)/2;
+        currentBounds = { x: [-xb, xb], y: [-yb, yb] };
+        var newX = clamp(transXY.x * dScale + (dScale - 1) * (canvasWidth/2 - midpointCoords.x), currentBounds.x);
+        var newY = clamp(transXY.y * dScale + (dScale - 1) * (canvasHeight/2 - midpointCoords.y), currentBounds.y);
+        transform(newX, newY, currentScale);
+      }
+
+      function setState(s) {
+        state = s;
         $img.attr("data-ur-state", state);
         if (zoomer.img.length == 1)
           $container.attr("data-ur-state", state); // backwards compatibility
       }
 
-      function zoomHelper(x, y) {
-        $btn.attr("data-ur-state", "enabled");
-        setState("enabled-in");
-
-        transform(x || 0, y || 0, ratio);
-      }
-
-      function relativeCoords(event) {
-        var coords = getEventCoords(event);
-        var rect = event.target.getBoundingClientRect();
-        return {
-          x: coords.x - rect.left,
-          y: coords.y - rect.top,
-          x2: coords.x2 - rect.left,
-          y2: coords.y2 - rect.top
-        };
-      }
-
-      this.transform = transform;
       function transform(x, y, scale) {
+        currentScale = scale;
         var t = "";
         if (x != null)
           t = translatePrefix + x + "px, " + y + "px" + translateSuffix;
         if (scale != null)
           t += scalePrefix + scale + ", " + scale + scaleSuffix;
-      
-        return $img.css({ webkitTransform: t, MozTransform: t, msTransform: t, transform: t });
+
+        return $img.css({ webkitTransform: t, msTransform: t, transform: t });
+      }
+
+      function loadImg() {
+        if ($img.attr("src") == $img.attr("data-ur-src"))
+          return;
+        $img.attr("src", $img.attr("data-ur-src"));
+        setTimeout(function() {
+          if (!prescale)
+            $idler.attr("data-ur-state", "enabled");
+        }, 13);
+      }
+
+      function zoomload(coords) {
+        state = "enabled-in";
+        $img.one("load.ur.zoom", function() {
+          initialize();
+          state = "disabled";
+          self.zoomIn(coords);
+        });
+
+        loadImg();
+      }
+
+      function carouselSnapping() {
+        return $container.parent().closest("[data-ur-state='enabled-slide']")[0];
       }
 
       // attempts to zoom in centering in on the area that was touched
-      this.zoomIn = function(event) {
-        if (zoomer.state != "disabled")
+      this.zoomIn = function(coords) {
+        if (state != "disabled")
           return;
 
-        if (!width) {
+        if (!width)
           initialize();
-          $img.css("width", width + "px");
-          $img.css("height", height + "px");
-        }
 
-        // find touch location relative to image
-        var relCoords = relativeCoords(event);
-        relX = relCoords.x;
-        relY = relCoords.y;
-
-        if (!prescale) {
-          zoomer.state = "enabled-in";
-          $img.attr("src", $img.attr("data-ur-src"));
-          setTimeout(function() {
-            if (!prescale)
-              $idler.attr("data-ur-state", "enabled");
-          }, 0);
+        if (prescale) {
+          currentBounds = bigBounds;
+          var trX = 0, trY = 0; // relative to center of image
+          if (coords) {
+            trX = clamp(bigWidth/2 - imgRatio * coords.x, bigBounds.x);
+            trY = clamp(bigHeight/2 - imgRatio * coords.y, bigBounds.y);
+          }
+          $btn.attr("data-ur-state", "enabled");
+          setState("enabled-in");
+          transform(trX, trY, imgRatio);
         }
-        else {
-          var translateX = bound(bigWidth/2 - ratio * relX, [-boundX, boundX]);
-          var translateY = bound(bigHeight/2 - ratio * relY, [-boundY, boundY]);
-          zoomHelper(translateX, translateY);
-        }
+        else
+          zoomload(coords);
       };
 
-      this.zoomOut = function() {
-        if (zoomer.state != "enabled")
-          return;
+      this.zoomOut = function(now) {
         $btn.attr("data-ur-state", "disabled");
-        setState("enabled-out");
+        setState(now ? "disabled" : "enabled-out");
         transform(0, 0, 1);
       };
 
-      if ($container.attr("data-ur-touch") != "disabled" || options.touch) {
-        // make sure zoom works when dragged inside carousel
-        $img.on(downEvent + ".zoom", function(e) {
-          click = down = true;
-          startCoords = getEventCoords(e);
-        });
-        $img.on(moveEvent + ".zoom", function(e) {
-          var coords = getEventCoords(e);
-          if (down && (Math.abs(startCoords.x - coords.x) + Math.abs(startCoords.x - coords.x)) > 0)
-            click = false;
-        });
-        $img.on("click.ur.zoom", function(e) {
-          if (click) {
-            setActive(this);
-            if (this == $img[0])
-              self.zoomIn(e);
-          }
-        });
-      }
-
-      $img.on("load.ur.zoom", function() {
-        if ($img.attr("src") == $img.attr("data-ur-src"))
-          loadedImgs.push($img.attr("src"));
-        $idler.attr("data-ur-state", "disabled");
-        if (!prescale && zoomer.state == "enabled-in") {
-          prescale = true;
-          initialize();
-          var translateX = bound(bigWidth/2 - ratio * relX, [-boundX, boundX]);
-          var translateY = bound(bigHeight/2 - ratio * relY, [-boundY, boundY]);
-
-          var delay = "0.3s";
-          $img.css({ webkitTransitionDelay: delay, MozTransitionDelay: delay, OTransitionDelay: delay, transitionDelay: delay });
-
-          zoomHelper(translateX, translateY);
-        }
-      });
-
-      // zooms in to the center of the image
+      // zoom in/out center of image
       this.zoom = function() {
-        if (zoomer.state == "disabled") {
-          if (!width) {
-            initialize();
-            $img.css("width", width + "px");
-            $img.css("height", height + "px");
-          }
-
-          if (prescale)
-            zoomHelper(0, 0);
-          else {
-            zoomer.state = "enabled-in";
-            $img.attr("src", $img.attr("data-ur-src"));
-            setTimeout(function() {
-              // if prescale ?
-              if (loadedImgs.indexOf($img.attr("data-ur-src")) == -1)
-                $idler.attr("data-ur-state", "enabled");
-            }, 0);
-          }
-        }
-        else
+        if (state == "disabled")
+          self.zoomIn();
+        else if (state == "enabled")
           self.zoomOut();
       };
 
-      $img.on("webkitTransitionEnd.ur.zoom transitionend.ur.zoom", this.transitionEnd);
+      $img.on(downEvent + ".zoom", function(event) {
+        if (carouselSnapping())
+          return;
+        downFlag = true;
+        if (state == "enabled-slide")
+          stopSlide();
+        if (state != "enabled-in" && state != "enabled-out") {
+          absCoords = getEventCoords(event);
+          initScale = currentScale;
+          transXY = getTranslate();
+          if (multiTouch(event)) {
+            clickFlag = false;
+            var dx = absCoords.x2 - absCoords.x;
+            var dy = absCoords.y2 - absCoords.y;
+            initDist = dx * dx + dy * dy;
+            initialize();
+
+            var rel = relativeCoords(event);
+            midpointCoords = {
+              x: ((rel.x + rel.x2)/2 + transXY.x)/initScale,
+              y: ((rel.y + rel.y2)/2 + transXY.y)/initScale
+            };
+            initAbsCoords = absCoords;
+          }
+          else {
+            clickFlag = true;
+            initAbsCoords = absCoords;
+            timeStamp = event.timeStamp;
+            // panStart
+            if (state == "enabled")
+              stifle(event);
+          }
+        }
+      });
+
+      $img.on(moveEvent + ".zoom", function(event) {
+        var mt = multiTouch(event);
+        if (mt) {
+          stifle(event); // prevent native browser pinch zoom
+        }
+        if (carouselSnapping())
+          return;
+        if (!downFlag)
+          return;
+        var close = closeEnough(getEventCoords(event), initAbsCoords)
+        if (mt || !close)
+          clickFlag = false;
+        if (mt) {
+          if (state == "disabled" && close) { // make sure not currently dragging carousel
+            $btn.attr("data-ur-state", "enabled");
+            setState("enabled");
+          }
+        }
+        if (gesturesEnabled && state == "enabled") {
+          if (mt) {
+            if (prescale)
+              pinchZoom(event);
+            else
+              zoomload();
+          }
+          else
+            panMove(event);
+        }
+      });
+
+      $img.on(upEvent + ".zoom", function(event) {
+        if (carouselSnapping())
+          return;
+        var mt = multiTouch(event);
+        if (mt) {
+          // desired behavior?
+          // allow panning right after pinch zoom
+          transXY = getTranslate();
+          absCoords = getEventCoords(event);
+        }
+        else
+          downFlag = false;
+        if (clickFlag) {
+          if (event.timeStamp - timeStamp < 400) {
+            if (state == "enabled") {
+              self.zoomOut();
+            }
+            else if (state == "disabled") {
+              setActive(self);
+              self.zoomIn(relativeCoords(event));
+            }
+          }
+        }
+        else if (state == "enabled") {
+          loadImg(); // after initial pinch zoom
+          if (currentScale == 1) {
+            // fully pinch zoomed out
+            $btn.attr("data-ur-state", "disabled");
+            setState("disabled");
+          }
+          else if (!mt)
+            panEnd(event);
+        }
+      });
+
+      $img.on("webkitTransitionEnd.ur.zoom transitionend.ur.zoom", function() {
+        // done zooming in
+        if (state == "enabled-in") {
+          loadImg();
+          setState("enabled");
+          initScale = imgRatio;
+        }
+        // done zooming out
+        else if (state == "enabled-out") {
+          setState("disabled");
+        }
+      });
+
+      $img.on("load.ur.zoom", function() {
+        $idler.attr("data-ur-state", "disabled");
+      });
     }
   }
 };
@@ -1354,8 +1395,9 @@ interactions.carousel = function ( fragment, options ) {
       if (Math.abs(startCoords.y - coords.y) + Math.abs(startCoords.x - coords.x) > 0)
         self.flag.click = false;
 
-      if (touchscreen) {
-        var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
+      var slope = Math.abs((startCoords.y - coords.y)/(startCoords.x - coords.x));
+
+      if (!self.flag.snapping) {
         if (self.flag.lock) {
           if (self.flag.lock == "y")
             return;
@@ -1364,10 +1406,10 @@ interactions.carousel = function ( fragment, options ) {
           self.flag.lock = "y";
           return;
         }
-        else if (slope <= 1.2)
-          self.flag.lock = "x";
         else
-          return;
+          self.flag.lock = "x";
+
+        stifle(e);
       }
 
       stifle(e);
@@ -1435,17 +1477,19 @@ interactions.carousel = function ( fragment, options ) {
 
       self.flag.touched = false;
 
-      var dir = coords.x - prevCoords.x;
-      if (self.options.center) {
-        if (dir < 0 && shift > 0)
-          moveTo(-1)
-        else if (dir > 0 && shift < 0)
-          moveTo(1);
+      if (self.flag.lock != "y") {
+        var dir = coords.x - prevCoords.x;
+        if (self.options.center) {
+          if (dir < 0 && shift > 0)
+            moveTo(-1);
+          else if (dir > 0 && shift < 0)
+            moveTo(1);
+          else
+            moveTo(0);
+        }
         else
-          moveTo(0);
+          moveTo(dir < 0 ? -1: 0);
       }
-      else
-        moveTo(dir < 0 ? -1: 0);
     }
 
     function moveTo(direction) {
@@ -1494,6 +1538,7 @@ interactions.carousel = function ( fragment, options ) {
       }
 
       dest = $items[newIndex];
+      $container.attr("data-ur-state", "enabled-slide");
       $container.triggerHandler("slidestart", {index: newIndex});
 
       // timeout needed for mobile safari
@@ -1544,6 +1589,7 @@ interactions.carousel = function ( fragment, options ) {
       shift = 0;
       self.flag.click = true;
       self.autoscrollStart();
+      $container.attr("data-ur-state", "enabled");
       $container.triggerHandler("slideend", {index: self.itemIndex});
     }
 
